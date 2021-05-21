@@ -47,7 +47,7 @@ struct submit_receiver_wrapper
 
   template <typename... Args>
   typename enable_if<is_receiver_of<Receiver, Args...>::value>::type
-  set_value(ASIO_MOVE_ARG(Args)... args) ASIO_RVALUE_REF_QUAL
+  set_value(ASIO_MOVE_ARG(Args)... args) &&
     noexcept((is_nothrow_receiver_of<Receiver, Args...>::value))
   {
     execution::set_value(
@@ -59,7 +59,7 @@ struct submit_receiver_wrapper
 
   template <typename E>
   void set_error(ASIO_MOVE_ARG(E) e)
-    ASIO_RVALUE_REF_QUAL noexcept(true)
+    && noexcept(true)
   {
     execution::set_error(
         ASIO_MOVE_OR_LVALUE(
@@ -68,7 +68,7 @@ struct submit_receiver_wrapper
     delete p_;
   }
 
-  void set_done() ASIO_RVALUE_REF_QUAL noexcept(true)
+  void set_done() && noexcept(true)
   {
     execution::set_done(
         ASIO_MOVE_OR_LVALUE(
