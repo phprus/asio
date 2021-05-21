@@ -42,16 +42,7 @@ class any_io_executor;
 
 namespace execution {
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
 template <typename...> class any_executor;
-
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-template <typename, typename, typename, typename, typename,
-    typename, typename, typename, typename> class any_executor;
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 } // namespace execution
 namespace detail {
@@ -286,28 +277,15 @@ private:
 };
 
 template <
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
     typename... SupportableProperties,
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-    typename T1, typename T2, typename T3, typename T4, typename T5,
-    typename T6, typename T7, typename T8, typename T9,
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
     typename IoContext, typename PolymorphicExecutor>
 class handler_work_base<
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
     execution::any_executor<SupportableProperties...>,
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-    execution::any_executor<T1, T2, T3, T4, T5, T6, T7, T8, T9>,
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
     void, IoContext, PolymorphicExecutor>
 {
 public:
   typedef
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
     execution::any_executor<SupportableProperties...>
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-    execution::any_executor<T1, T2, T3, T4, T5, T6, T7, T8, T9>
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
     executor_type;
 
   explicit handler_work_base(int, int,

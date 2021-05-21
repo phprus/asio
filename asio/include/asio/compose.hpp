@@ -22,9 +22,6 @@
 
 namespace asio {
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES) \
-  || defined(GENERATING_DOCUMENTATION)
-
 /// Launch an asynchronous operation with a stateful implementation.
 /**
  * The async_compose function simplifies the implementation of composed
@@ -104,28 +101,6 @@ ASIO_INITFN_AUTO_RESULT_TYPE(CompletionToken, Signature)
 async_compose(ASIO_MOVE_ARG(Implementation) implementation,
     ASIO_NONDEDUCED_MOVE_ARG(CompletionToken) token,
     ASIO_MOVE_ARG(IoObjectsOrExecutors)... io_objects_or_executors);
-
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-      //   || defined(GENERATING_DOCUMENTATION)
-
-template <typename CompletionToken, typename Signature, typename Implementation>
-ASIO_INITFN_AUTO_RESULT_TYPE(CompletionToken, Signature)
-async_compose(ASIO_MOVE_ARG(Implementation) implementation,
-    ASIO_NONDEDUCED_MOVE_ARG(CompletionToken) token);
-
-#define ASIO_PRIVATE_ASYNC_COMPOSE_DEF(n) \
-  template <typename CompletionToken, typename Signature, \
-      typename Implementation, ASIO_VARIADIC_TPARAMS(n)> \
-  ASIO_INITFN_AUTO_RESULT_TYPE(CompletionToken, Signature) \
-  async_compose(ASIO_MOVE_ARG(Implementation) implementation, \
-      ASIO_NONDEDUCED_MOVE_ARG(CompletionToken) token, \
-      ASIO_VARIADIC_MOVE_PARAMS(n));
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_ASYNC_COMPOSE_DEF)
-#undef ASIO_PRIVATE_ASYNC_COMPOSE_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-       //   || defined(GENERATING_DOCUMENTATION)
 
 } // namespace asio
 

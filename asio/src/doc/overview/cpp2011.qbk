@@ -150,21 +150,6 @@ of [link asio.overview.cpp2011.move_objects movable I/O objects].
 
 [endsect]
 
-[section:variadic Variadic Templates]
-
-When supported by a compiler, Asio can use variadic templates to implement the
-[link asio.reference.basic_socket_streambuf.connect
-basic_socket_streambuf::connect()] and [link
-asio.reference.basic_socket_iostream.connect basic_socket_iostream::connect()]
-functions.
-
-Support for variadic templates is automatically enabled for [^g++] 4.3 and
-later, when the [^-std=c++0x] or [^-std=gnu++0x] compiler options are used. It
-may be disabled by defining `ASIO_DISABLE_VARIADIC_TEMPLATES`, or explicitly
-enabled for other compilers by defining `ASIO_HAS_VARIADIC_TEMPLATES`.
-
-[endsect]
-
 [section:array Array Container]
 
 Where the standard library provides `std::array<>`, Asio:
