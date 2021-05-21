@@ -60,7 +60,7 @@ public:
 
 #if defined(ASIO_HAS_MOVE)
   // Move construct from another engine.
-  ASIO_DECL engine(engine&& other) ASIO_NOEXCEPT;
+  ASIO_DECL engine(engine&& other) noexcept(true);
 #endif // defined(ASIO_HAS_MOVE)
 
   // Destructor.

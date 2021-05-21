@@ -37,12 +37,12 @@ struct as_invocable
 {
   Receiver* receiver_;
 
-  explicit as_invocable(Receiver& r) ASIO_NOEXCEPT
+  explicit as_invocable(Receiver& r) noexcept(true)
     : receiver_(asio::detail::addressof(r))
   {
   }
 
-  as_invocable(as_invocable&& other) ASIO_NOEXCEPT
+  as_invocable(as_invocable&& other) noexcept(true)
     : receiver_(other.receiver_)
   {
     other.receiver_ = 0;
@@ -54,7 +54,7 @@ struct as_invocable
       execution::set_done(ASIO_MOVE_OR_LVALUE(Receiver)(*receiver_));
   }
 
-  void operator()() ASIO_LVALUE_REF_QUAL ASIO_NOEXCEPT
+  void operator()() ASIO_LVALUE_REF_QUAL noexcept(true)
   {
 #if !defined(ASIO_NO_EXCEPTIONS)
     try
@@ -88,13 +88,13 @@ struct as_invocable
 
   explicit as_invocable(Receiver& r,
       const asio::detail::shared_ptr<
-        asio::detail::atomic_count>& c) ASIO_NOEXCEPT
+        asio::detail::atomic_count>& c) noexcept(true)
     : receiver_(asio::detail::addressof(r)),
       ref_count_(c)
   {
   }
 
-  as_invocable(const as_invocable& other) ASIO_NOEXCEPT
+  as_invocable(const as_invocable& other) noexcept(true)
     : receiver_(other.receiver_),
       ref_count_(other.ref_count_)
   {
@@ -107,7 +107,7 @@ struct as_invocable
       execution::set_done(*receiver_);
   }
 
-  void operator()() ASIO_LVALUE_REF_QUAL ASIO_NOEXCEPT
+  void operator()() ASIO_LVALUE_REF_QUAL noexcept(true)
   {
 #if !defined(ASIO_NO_EXCEPTIONS)
     try

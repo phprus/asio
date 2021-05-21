@@ -123,7 +123,7 @@ struct impl
     typename call_traits<R, void(E)>::result_type
   >::type
   operator()(R&& r, E&& e) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R, void(E)>::is_noexcept))
   {
     return ASIO_MOVE_CAST(R)(r).set_error(ASIO_MOVE_CAST(E)(e));
@@ -135,7 +135,7 @@ struct impl
     typename call_traits<R, void(E)>::result_type
   >::type
   operator()(R&& r, E&& e) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R, void(E)>::is_noexcept))
   {
     return set_error(ASIO_MOVE_CAST(R)(r), ASIO_MOVE_CAST(E)(e));
@@ -147,7 +147,7 @@ struct impl
     typename call_traits<R&, void(const E&)>::result_type
   >::type
   operator()(R& r, const E& e) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R&, void(const E&)>::is_noexcept))
   {
     return r.set_error(e);
@@ -159,7 +159,7 @@ struct impl
     typename call_traits<const R&, void(const E&)>::result_type
   >::type
   operator()(const R& r, const E& e) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<const R&, void(const E&)>::is_noexcept))
   {
     return r.set_error(e);
@@ -171,7 +171,7 @@ struct impl
     typename call_traits<R&, void(const E&)>::result_type
   >::type
   operator()(R& r, const E& e) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R&, void(const E&)>::is_noexcept))
   {
     return set_error(r, e);
@@ -183,7 +183,7 @@ struct impl
     typename call_traits<const R&, void(const E&)>::result_type
   >::type
   operator()(const R& r, const E& e) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<const R&, void(const E&)>::is_noexcept))
   {
     return set_error(r, e);

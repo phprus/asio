@@ -51,7 +51,7 @@ struct submit_receiver_wrapper
   template <typename... Args>
   typename enable_if<is_receiver_of<Receiver, Args...>::value>::type
   set_value(ASIO_MOVE_ARG(Args)... args) ASIO_RVALUE_REF_QUAL
-    ASIO_NOEXCEPT_IF((is_nothrow_receiver_of<Receiver, Args...>::value))
+    noexcept((is_nothrow_receiver_of<Receiver, Args...>::value))
   {
     execution::set_value(
         ASIO_MOVE_OR_LVALUE(
@@ -63,7 +63,7 @@ struct submit_receiver_wrapper
 #else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
   void set_value() ASIO_RVALUE_REF_QUAL
-    ASIO_NOEXCEPT_IF((is_nothrow_receiver_of<Receiver>::value))
+    noexcept((is_nothrow_receiver_of<Receiver>::value))
   {
     execution::set_value(
         ASIO_MOVE_OR_LVALUE(
@@ -76,7 +76,7 @@ struct submit_receiver_wrapper
   typename enable_if<is_receiver_of<Receiver, \
     ASIO_VARIADIC_TARGS(n)>::value>::type \
   set_value(ASIO_VARIADIC_MOVE_PARAMS(n)) ASIO_RVALUE_REF_QUAL \
-    ASIO_NOEXCEPT_IF((is_nothrow_receiver_of< \
+    noexcept((is_nothrow_receiver_of< \
       Receiver, ASIO_VARIADIC_TARGS(n)>::value)) \
   { \
     execution::set_value( \
@@ -93,7 +93,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SUBMIT_RECEIVER_SET_VALUE_DEF)
 
   template <typename E>
   void set_error(ASIO_MOVE_ARG(E) e)
-    ASIO_RVALUE_REF_QUAL ASIO_NOEXCEPT
+    ASIO_RVALUE_REF_QUAL noexcept(true)
   {
     execution::set_error(
         ASIO_MOVE_OR_LVALUE(
@@ -102,7 +102,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SUBMIT_RECEIVER_SET_VALUE_DEF)
     delete p_;
   }
 
-  void set_done() ASIO_RVALUE_REF_QUAL ASIO_NOEXCEPT
+  void set_done() ASIO_RVALUE_REF_QUAL noexcept(true)
   {
     execution::set_done(
         ASIO_MOVE_OR_LVALUE(

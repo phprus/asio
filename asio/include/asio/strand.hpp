@@ -61,7 +61,7 @@ public:
   }
 
   /// Copy constructor.
-  strand(const strand& other) ASIO_NOEXCEPT
+  strand(const strand& other) noexcept(true)
     : executor_(other.executor_),
       impl_(other.impl_)
   {
@@ -74,14 +74,14 @@ public:
    */
   template <class OtherExecutor>
   strand(
-      const strand<OtherExecutor>& other) ASIO_NOEXCEPT
+      const strand<OtherExecutor>& other) noexcept(true)
     : executor_(other.executor_),
       impl_(other.impl_)
   {
   }
 
   /// Assignment operator.
-  strand& operator=(const strand& other) ASIO_NOEXCEPT
+  strand& operator=(const strand& other) noexcept(true)
   {
     executor_ = other.executor_;
     impl_ = other.impl_;
@@ -95,7 +95,7 @@ public:
    */
   template <class OtherExecutor>
   strand& operator=(
-      const strand<OtherExecutor>& other) ASIO_NOEXCEPT
+      const strand<OtherExecutor>& other) noexcept(true)
   {
     executor_ = other.executor_;
     impl_ = other.impl_;
@@ -104,7 +104,7 @@ public:
 
 #if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move constructor.
-  strand(strand&& other) ASIO_NOEXCEPT
+  strand(strand&& other) noexcept(true)
     : executor_(ASIO_MOVE_CAST(Executor)(other.executor_)),
       impl_(ASIO_MOVE_CAST(implementation_type)(other.impl_))
   {
@@ -116,14 +116,14 @@ public:
    * to @c Executor.
    */
   template <class OtherExecutor>
-  strand(strand<OtherExecutor>&& other) ASIO_NOEXCEPT
+  strand(strand<OtherExecutor>&& other) noexcept(true)
     : executor_(ASIO_MOVE_CAST(OtherExecutor)(other.executor_)),
       impl_(ASIO_MOVE_CAST(implementation_type)(other.impl_))
   {
   }
 
   /// Move assignment operator.
-  strand& operator=(strand&& other) ASIO_NOEXCEPT
+  strand& operator=(strand&& other) noexcept(true)
   {
     executor_ = ASIO_MOVE_CAST(Executor)(other.executor_);
     impl_ = ASIO_MOVE_CAST(implementation_type)(other.impl_);
@@ -136,7 +136,7 @@ public:
    * convertible to @c Executor.
    */
   template <class OtherExecutor>
-  strand& operator=(strand<OtherExecutor>&& other) ASIO_NOEXCEPT
+  strand& operator=(strand<OtherExecutor>&& other) noexcept(true)
   {
     executor_ = ASIO_MOVE_CAST(OtherExecutor)(other.executor_);
     impl_ = ASIO_MOVE_CAST(implementation_type)(other.impl_);
@@ -145,12 +145,12 @@ public:
 #endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destructor.
-  ~strand() ASIO_NOEXCEPT
+  ~strand() noexcept(true)
   {
   }
 
   /// Obtain the underlying executor.
-  inner_executor_type get_inner_executor() const ASIO_NOEXCEPT
+  inner_executor_type get_inner_executor() const noexcept(true)
   {
     return executor_;
   }
@@ -175,7 +175,7 @@ public:
       typename query_result<const Executor&, Property>::type
     >::type
   >::type query(const Property& p) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&, Property>::value))
   {
     return this->query_helper(
@@ -200,7 +200,7 @@ public:
       typename require_result<const Executor&, Property>::type
     >::type>
   >::type require(const Property& p) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_require<const Executor&, Property>::value))
   {
     return strand<typename decay<
@@ -226,7 +226,7 @@ public:
       typename prefer_result<const Executor&, Property>::type
     >::type>
   >::type prefer(const Property& p) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_prefer<const Executor&, Property>::value))
   {
     return strand<typename decay<
@@ -236,7 +236,7 @@ public:
 
 #if !defined(ASIO_NO_TS_EXECUTORS)
   /// Obtain the underlying execution context.
-  execution_context& context() const ASIO_NOEXCEPT
+  execution_context& context() const noexcept(true)
   {
     return executor_.context();
   }
@@ -245,7 +245,7 @@ public:
   /**
    * The strand delegates this call to its underlying executor.
    */
-  void on_work_started() const ASIO_NOEXCEPT
+  void on_work_started() const noexcept(true)
   {
     executor_.on_work_started();
   }
@@ -254,7 +254,7 @@ public:
   /**
    * The strand delegates this call to its underlying executor.
    */
-  void on_work_finished() const ASIO_NOEXCEPT
+  void on_work_finished() const noexcept(true)
   {
     executor_.on_work_finished();
   }
@@ -357,7 +357,7 @@ public:
    * submitted to the strand using post(), dispatch() or defer(). Otherwise
    * returns @c false.
    */
-  bool running_in_this_thread() const ASIO_NOEXCEPT
+  bool running_in_this_thread() const noexcept(true)
   {
     return detail::strand_executor_service::running_in_this_thread(impl_);
   }
@@ -367,7 +367,7 @@ public:
    * Two strands are equal if they refer to the same ordered, non-concurrent
    * state.
    */
-  friend bool operator==(const strand& a, const strand& b) ASIO_NOEXCEPT
+  friend bool operator==(const strand& a, const strand& b) noexcept(true)
   {
     return a.impl_ == b.impl_;
   }
@@ -377,7 +377,7 @@ public:
    * Two strands are equal if they refer to the same ordered, non-concurrent
    * state.
    */
-  friend bool operator!=(const strand& a, const strand& b) ASIO_NOEXCEPT
+  friend bool operator!=(const strand& a, const strand& b) noexcept(true)
   {
     return a.impl_ != b.impl_;
   }

@@ -237,13 +237,13 @@ public:
   }
 
 #if !defined(ASIO_NO_TS_EXECUTORS)
-  execution_context& context() const ASIO_NOEXCEPT
+  execution_context& context() const noexcept(true)
   {
     return system_executor().context();
   }
 
-  void on_work_started() const ASIO_NOEXCEPT {}
-  void on_work_finished() const ASIO_NOEXCEPT {}
+  void on_work_started() const noexcept(true) {}
+  void on_work_finished() const noexcept(true) {}
 
   template <typename F, typename A>
   void dispatch(ASIO_MOVE_ARG(F) f, const A&) const
@@ -267,13 +267,13 @@ public:
 #endif // !defined(ASIO_NO_TS_EXECUTORS)
 
   friend bool operator==(const promise_executor& a,
-      const promise_executor& b) ASIO_NOEXCEPT
+      const promise_executor& b) noexcept(true)
   {
     return a.p_ == b.p_;
   }
 
   friend bool operator!=(const promise_executor& a,
-      const promise_executor& b) ASIO_NOEXCEPT
+      const promise_executor& b) noexcept(true)
   {
     return a.p_ != b.p_;
   }
@@ -289,7 +289,7 @@ class promise_creator
 public:
   typedef promise_executor<T> executor_type;
 
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return executor_type(p_);
   }
@@ -627,7 +627,7 @@ public:
     this->create_promise(allocator_);
   }
 
-  allocator_type get_allocator() const ASIO_NOEXCEPT
+  allocator_type get_allocator() const noexcept(true)
   {
     return allocator_;
   }
@@ -734,7 +734,7 @@ public:
     this->create_promise(allocator_);
   }
 
-  allocator_type get_allocator() const ASIO_NOEXCEPT
+  allocator_type get_allocator() const noexcept(true)
   {
     return allocator_;
   }
@@ -981,7 +981,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef Blocking result_type;
 
-  static ASIO_CONSTEXPR result_type value() ASIO_NOEXCEPT
+  static ASIO_CONSTEXPR result_type value() noexcept(true)
   {
     return Blocking();
   }

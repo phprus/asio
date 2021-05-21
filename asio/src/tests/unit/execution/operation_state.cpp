@@ -51,7 +51,7 @@ struct start_member<not_an_operation_state_2>
 
 struct operation_state
 {
-  void start() ASIO_NOEXCEPT
+  void start() noexcept(true)
   {
   }
 };

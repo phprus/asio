@@ -1009,7 +1009,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -1050,7 +1050,7 @@ struct associated_allocator<
   static type get(
       const detail::read_until_delim_op_v1<AsyncReadStream,
         DynamicBuffer_v1, ReadHandler>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<ReadHandler, Allocator>::get(h.handler_, a);
   }
@@ -1069,7 +1069,7 @@ struct associated_executor<
   static type get(
       const detail::read_until_delim_op_v1<AsyncReadStream,
         DynamicBuffer_v1, ReadHandler>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<ReadHandler, Executor>::get(h.handler_, ex);
   }
@@ -1318,7 +1318,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -1359,7 +1359,7 @@ struct associated_allocator<
   static type get(
       const detail::read_until_delim_string_op_v1<AsyncReadStream,
         DynamicBuffer_v1, ReadHandler>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<ReadHandler, Allocator>::get(h.handler_, a);
   }
@@ -1378,7 +1378,7 @@ struct associated_executor<
   static type get(
       const detail::read_until_delim_string_op_v1<AsyncReadStream,
         DynamicBuffer_v1, ReadHandler>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<ReadHandler, Executor>::get(h.handler_, ex);
   }
@@ -1635,7 +1635,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -1675,7 +1675,7 @@ struct associated_allocator<
   static type get(
       const detail::read_until_expr_op_v1<AsyncReadStream,
         DynamicBuffer_v1, RegEx, ReadHandler>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<ReadHandler, Allocator>::get(h.handler_, a);
   }
@@ -1694,7 +1694,7 @@ struct associated_executor<
   static type get(
       const detail::read_until_expr_op_v1<AsyncReadStream,
         DynamicBuffer_v1, RegEx, ReadHandler>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<ReadHandler, Executor>::get(h.handler_, ex);
   }
@@ -1947,7 +1947,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -1989,7 +1989,7 @@ struct associated_allocator<
   static type get(
       const detail::read_until_match_op_v1<AsyncReadStream,
         DynamicBuffer_v1, MatchCondition, ReadHandler>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<ReadHandler, Allocator>::get(h.handler_, a);
   }
@@ -2008,7 +2008,7 @@ struct associated_executor<
   static type get(
       const detail::read_until_match_op_v1<AsyncReadStream,
         DynamicBuffer_v1, MatchCondition, ReadHandler>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<ReadHandler, Executor>::get(h.handler_, ex);
   }
@@ -2322,7 +2322,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -2362,7 +2362,7 @@ struct associated_allocator<
   static type get(
       const detail::read_until_delim_op_v2<AsyncReadStream,
         DynamicBuffer_v2, ReadHandler>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<ReadHandler, Allocator>::get(h.handler_, a);
   }
@@ -2381,7 +2381,7 @@ struct associated_executor<
   static type get(
       const detail::read_until_delim_op_v2<AsyncReadStream,
         DynamicBuffer_v2, ReadHandler>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<ReadHandler, Executor>::get(h.handler_, ex);
   }
@@ -2634,7 +2634,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -2675,7 +2675,7 @@ struct associated_allocator<
   static type get(
       const detail::read_until_delim_string_op_v2<AsyncReadStream,
         DynamicBuffer_v2, ReadHandler>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<ReadHandler, Allocator>::get(h.handler_, a);
   }
@@ -2694,7 +2694,7 @@ struct associated_executor<
   static type get(
       const detail::read_until_delim_string_op_v2<AsyncReadStream,
         DynamicBuffer_v2, ReadHandler>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<ReadHandler, Executor>::get(h.handler_, ex);
   }
@@ -2956,7 +2956,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -2997,7 +2997,7 @@ struct associated_allocator<
   static type get(
       const detail::read_until_expr_op_v2<AsyncReadStream,
         DynamicBuffer_v2, RegEx, ReadHandler>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<ReadHandler, Allocator>::get(h.handler_, a);
   }
@@ -3016,7 +3016,7 @@ struct associated_executor<
   static type get(
       const detail::read_until_expr_op_v2<AsyncReadStream,
         DynamicBuffer_v2, RegEx, ReadHandler>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<ReadHandler, Executor>::get(h.handler_, ex);
   }
@@ -3272,7 +3272,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -3314,7 +3314,7 @@ struct associated_allocator<
   static type get(
       const detail::read_until_match_op_v2<AsyncReadStream,
         DynamicBuffer_v2, MatchCondition, ReadHandler>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<ReadHandler, Allocator>::get(h.handler_, a);
   }
@@ -3333,7 +3333,7 @@ struct associated_executor<
   static type get(
       const detail::read_until_match_op_v2<AsyncReadStream,
         DynamicBuffer_v2, MatchCondition, ReadHandler>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<ReadHandler, Executor>::get(h.handler_, ex);
   }

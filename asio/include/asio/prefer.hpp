@@ -443,7 +443,7 @@ struct impl
   operator()(
       ASIO_MOVE_ARG(T) t,
       ASIO_MOVE_ARG(Property)) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<impl, T, void(Property)>::is_noexcept))
   {
     return ASIO_MOVE_CAST(T)(t);
@@ -457,7 +457,7 @@ struct impl
   operator()(
       ASIO_MOVE_ARG(T) t,
       ASIO_MOVE_ARG(Property) p) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<impl, T, void(Property)>::is_noexcept))
   {
     return ASIO_MOVE_CAST(T)(t).require(
@@ -472,7 +472,7 @@ struct impl
   operator()(
       ASIO_MOVE_ARG(T) t,
       ASIO_MOVE_ARG(Property) p) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<impl, T, void(Property)>::is_noexcept))
   {
     return require(
@@ -488,7 +488,7 @@ struct impl
   operator()(
       ASIO_MOVE_ARG(T) t,
       ASIO_MOVE_ARG(Property) p) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<impl, T, void(Property)>::is_noexcept))
   {
     return ASIO_MOVE_CAST(T)(t).prefer(
@@ -503,7 +503,7 @@ struct impl
   operator()(
       ASIO_MOVE_ARG(T) t,
       ASIO_MOVE_ARG(Property) p) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<impl, T, void(Property)>::is_noexcept))
   {
     return prefer(
@@ -520,7 +520,7 @@ struct impl
       ASIO_MOVE_ARG(T) t,
       ASIO_MOVE_ARG(P0) p0,
       ASIO_MOVE_ARG(P1) p1) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<impl, T, void(P0, P1)>::is_noexcept))
   {
     return (*this)(
@@ -543,7 +543,7 @@ struct impl
       ASIO_MOVE_ARG(P0) p0,
       ASIO_MOVE_ARG(P1) p1,
       ASIO_MOVE_ARG(PN) ASIO_ELLIPSIS pn) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<impl, T, void(P0, P1, PN ASIO_ELLIPSIS)>::is_noexcept))
   {
     return (*this)(

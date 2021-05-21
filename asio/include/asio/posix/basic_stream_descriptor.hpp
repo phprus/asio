@@ -153,7 +153,7 @@ public:
    * constructed using the @c basic_stream_descriptor(const executor_type&)
    * constructor.
    */
-  basic_stream_descriptor(basic_stream_descriptor&& other) ASIO_NOEXCEPT
+  basic_stream_descriptor(basic_stream_descriptor&& other) noexcept(true)
     : descriptor(std::move(other))
   {
   }
@@ -413,7 +413,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }
@@ -446,7 +446,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }

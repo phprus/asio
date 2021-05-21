@@ -48,7 +48,7 @@ struct as_operation
   {
   }
 
-  void start() ASIO_NOEXCEPT
+  void start() noexcept(true)
   {
 #if !defined(ASIO_NO_EXCEPTIONS)
     try

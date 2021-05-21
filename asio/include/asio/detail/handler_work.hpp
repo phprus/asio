@@ -62,31 +62,31 @@ template <typename Executor, typename CandidateExecutor = void,
 class handler_work_base
 {
 public:
-  explicit handler_work_base(int, int, const Executor& ex) ASIO_NOEXCEPT
+  explicit handler_work_base(int, int, const Executor& ex) noexcept(true)
     : executor_(asio::prefer(ex, execution::outstanding_work.tracked))
   {
   }
 
   template <typename OtherExecutor>
   handler_work_base(const Executor& ex,
-      const OtherExecutor&) ASIO_NOEXCEPT
+      const OtherExecutor&) noexcept(true)
     : executor_(asio::prefer(ex, execution::outstanding_work.tracked))
   {
   }
 
-  handler_work_base(const handler_work_base& other) ASIO_NOEXCEPT
+  handler_work_base(const handler_work_base& other) noexcept(true)
     : executor_(other.executor_)
   {
   }
 
 #if defined(ASIO_HAS_MOVE)
-  handler_work_base(handler_work_base&& other) ASIO_NOEXCEPT
+  handler_work_base(handler_work_base&& other) noexcept(true)
     : executor_(ASIO_MOVE_CAST(executor_type)(other.executor_))
   {
   }
 #endif // defined(ASIO_HAS_MOVE)
 
-  bool owns_work() const ASIO_NOEXCEPT
+  bool owns_work() const noexcept(true)
   {
     return true;
   }
@@ -122,7 +122,7 @@ class handler_work_base<Executor, CandidateExecutor,
     >::type>
 {
 public:
-  explicit handler_work_base(int, int, const Executor& ex) ASIO_NOEXCEPT
+  explicit handler_work_base(int, int, const Executor& ex) noexcept(true)
     : executor_(ex),
       owns_work_(true)
   {
@@ -130,7 +130,7 @@ public:
   }
 
   handler_work_base(const Executor& ex,
-      const Executor& candidate) ASIO_NOEXCEPT
+      const Executor& candidate) noexcept(true)
     : executor_(ex),
       owns_work_(ex != candidate)
   {
@@ -140,14 +140,14 @@ public:
 
   template <typename OtherExecutor>
   handler_work_base(const Executor& ex,
-      const OtherExecutor&) ASIO_NOEXCEPT
+      const OtherExecutor&) noexcept(true)
     : executor_(ex),
       owns_work_(true)
   {
     executor_.on_work_started();
   }
 
-  handler_work_base(const handler_work_base& other) ASIO_NOEXCEPT
+  handler_work_base(const handler_work_base& other) noexcept(true)
     : executor_(other.executor_),
       owns_work_(other.owns_work_)
   {
@@ -156,7 +156,7 @@ public:
   }
 
 #if defined(ASIO_HAS_MOVE)
-  handler_work_base(handler_work_base&& other) ASIO_NOEXCEPT
+  handler_work_base(handler_work_base&& other) noexcept(true)
     : executor_(ASIO_MOVE_CAST(Executor)(other.executor_)),
       owns_work_(other.owns_work_)
   {
@@ -170,7 +170,7 @@ public:
       executor_.on_work_finished();
   }
 
-  bool owns_work() const ASIO_NOEXCEPT
+  bool owns_work() const noexcept(true)
   {
     return owns_work_;
   }
@@ -201,7 +201,7 @@ public:
   {
   }
 
-  bool owns_work() const ASIO_NOEXCEPT
+  bool owns_work() const noexcept(true)
   {
     return false;
   }
@@ -220,7 +220,7 @@ template <typename Executor, typename IoContext>
 class handler_work_base<Executor, void, IoContext, Executor>
 {
 public:
-  explicit handler_work_base(int, int, const Executor& ex) ASIO_NOEXCEPT
+  explicit handler_work_base(int, int, const Executor& ex) noexcept(true)
 #if !defined(ASIO_NO_TYPEID)
     : executor_(
         ex.target_type() == typeid(typename IoContext::executor_type)
@@ -234,7 +234,7 @@ public:
   }
 
   handler_work_base(const Executor& ex,
-      const Executor& candidate) ASIO_NOEXCEPT
+      const Executor& candidate) noexcept(true)
     : executor_(ex != candidate ? ex : Executor())
   {
     if (executor_)
@@ -243,13 +243,13 @@ public:
 
   template <typename OtherExecutor>
   handler_work_base(const Executor& ex,
-      const OtherExecutor&) ASIO_NOEXCEPT
+      const OtherExecutor&) noexcept(true)
     : executor_(ex)
   {
     executor_.on_work_started();
   }
 
-  handler_work_base(const handler_work_base& other) ASIO_NOEXCEPT
+  handler_work_base(const handler_work_base& other) noexcept(true)
     : executor_(other.executor_)
   {
     if (executor_)
@@ -257,7 +257,7 @@ public:
   }
 
 #if defined(ASIO_HAS_MOVE)
-  handler_work_base(handler_work_base&& other) ASIO_NOEXCEPT
+  handler_work_base(handler_work_base&& other) noexcept(true)
     : executor_(ASIO_MOVE_CAST(Executor)(other.executor_))
   {
   }
@@ -269,7 +269,7 @@ public:
       executor_.on_work_finished();
   }
 
-  bool owns_work() const ASIO_NOEXCEPT
+  bool owns_work() const noexcept(true)
   {
     return !!executor_;
   }
@@ -311,7 +311,7 @@ public:
     executor_type;
 
   explicit handler_work_base(int, int,
-      const executor_type& ex) ASIO_NOEXCEPT
+      const executor_type& ex) noexcept(true)
 #if !defined(ASIO_NO_TYPEID)
     : executor_(
         ex.target_type() == typeid(typename IoContext::executor_type)
@@ -324,31 +324,31 @@ public:
   }
 
   handler_work_base(const executor_type& ex,
-      const executor_type& candidate) ASIO_NOEXCEPT
+      const executor_type& candidate) noexcept(true)
     : executor_(ex != candidate ? ex : executor_type())
   {
   }
 
   template <typename OtherExecutor>
   handler_work_base(const executor_type& ex,
-      const OtherExecutor&) ASIO_NOEXCEPT
+      const OtherExecutor&) noexcept(true)
     : executor_(asio::prefer(ex, execution::outstanding_work.tracked))
   {
   }
 
-  handler_work_base(const handler_work_base& other) ASIO_NOEXCEPT
+  handler_work_base(const handler_work_base& other) noexcept(true)
     : executor_(other.executor_)
   {
   }
 
 #if defined(ASIO_HAS_MOVE)
-  handler_work_base(handler_work_base&& other) ASIO_NOEXCEPT
+  handler_work_base(handler_work_base&& other) noexcept(true)
     : executor_(ASIO_MOVE_CAST(executor_type)(other.executor_))
   {
   }
 #endif // defined(ASIO_HAS_MOVE)
 
-  bool owns_work() const ASIO_NOEXCEPT
+  bool owns_work() const noexcept(true)
   {
     return !!executor_;
   }
@@ -380,7 +380,7 @@ public:
   typedef Executor executor_type;
 
   explicit handler_work_base(int, int,
-      const executor_type& ex) ASIO_NOEXCEPT
+      const executor_type& ex) noexcept(true)
 #if !defined(ASIO_NO_TYPEID)
     : executor_(
         ex.target_type() == typeid(typename IoContext::executor_type)
@@ -393,31 +393,31 @@ public:
   }
 
   handler_work_base(const executor_type& ex,
-      const executor_type& candidate) ASIO_NOEXCEPT
+      const executor_type& candidate) noexcept(true)
     : executor_(ex != candidate ? ex : executor_type())
   {
   }
 
   template <typename OtherExecutor>
   handler_work_base(const executor_type& ex,
-      const OtherExecutor&) ASIO_NOEXCEPT
+      const OtherExecutor&) noexcept(true)
     : executor_(asio::prefer(ex, execution::outstanding_work.tracked))
   {
   }
 
-  handler_work_base(const handler_work_base& other) ASIO_NOEXCEPT
+  handler_work_base(const handler_work_base& other) noexcept(true)
     : executor_(other.executor_)
   {
   }
 
 #if defined(ASIO_HAS_MOVE)
-  handler_work_base(handler_work_base&& other) ASIO_NOEXCEPT
+  handler_work_base(handler_work_base&& other) noexcept(true)
     : executor_(ASIO_MOVE_CAST(executor_type)(other.executor_))
   {
   }
 #endif // defined(ASIO_HAS_MOVE)
 
-  bool owns_work() const ASIO_NOEXCEPT
+  bool owns_work() const noexcept(true)
   {
     return !!executor_;
   }
@@ -447,7 +447,7 @@ public:
   typedef handler_work_base<typename associated_executor<
     Handler, IoExecutor>::type, IoExecutor> base2_type;
 
-  handler_work(Handler& handler, const IoExecutor& io_ex) ASIO_NOEXCEPT
+  handler_work(Handler& handler, const IoExecutor& io_ex) noexcept(true)
     : base1_type(0, 0, io_ex),
       base2_type(asio::get_associated_executor(handler, io_ex), io_ex)
   {
@@ -484,7 +484,7 @@ class handler_work<
 public:
   typedef handler_work_base<IoExecutor> base1_type;
 
-  handler_work(Handler&, const IoExecutor& io_ex) ASIO_NOEXCEPT
+  handler_work(Handler&, const IoExecutor& io_ex) noexcept(true)
     : base1_type(0, 0, io_ex)
   {
   }

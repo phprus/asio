@@ -28,16 +28,16 @@ namespace detail {
 
 struct void_receiver
 {
-  void set_value() ASIO_NOEXCEPT
+  void set_value() noexcept(true)
   {
   }
 
   template <typename E>
-  void set_error(ASIO_MOVE_ARG(E)) ASIO_NOEXCEPT
+  void set_error(ASIO_MOVE_ARG(E)) noexcept(true)
   {
   }
 
-  void set_done() ASIO_NOEXCEPT
+  void set_done() noexcept(true)
   {
   }
 };

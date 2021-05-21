@@ -52,7 +52,7 @@ public:
     memset(data_, 0, max_length);
   }
 
-  executor_type get_executor() ASIO_NOEXCEPT
+  executor_type get_executor() noexcept(true)
   {
     return io_context_.get_executor();
   }

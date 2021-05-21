@@ -268,18 +268,18 @@ struct custom_allocation_timer_handler
       typedef allocator<U> other;
     };
 
-    explicit allocator(int* count) ASIO_NOEXCEPT
+    explicit allocator(int* count) noexcept(true)
       : count_(count)
     {
     }
 
-    allocator(const allocator& other) ASIO_NOEXCEPT
+    allocator(const allocator& other) noexcept(true)
       : count_(other.count_)
     {
     }
 
     template <typename U>
-    allocator(const allocator<U>& other) ASIO_NOEXCEPT
+    allocator(const allocator<U>& other) noexcept(true)
       : count_(other.count_)
     {
     }
@@ -316,7 +316,7 @@ struct custom_allocation_timer_handler
 
   typedef allocator<int> allocator_type;
 
-  allocator_type get_allocator() const ASIO_NOEXCEPT
+  allocator_type get_allocator() const noexcept(true)
   {
     return allocator_type(count_);
   }

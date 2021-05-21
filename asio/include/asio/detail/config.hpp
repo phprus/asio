@@ -272,57 +272,8 @@
 #endif // !defined(ASIO_STATIC_CONSTEXPR_DEFAULT_INIT)
 
 // Support noexcept on compilers known to allow it.
-#if !defined(ASIO_HAS_NOEXCEPT)
-# if !defined(ASIO_DISABLE_NOEXCEPT)
-#  if defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 105300)
-#   if !defined(BOOST_NO_NOEXCEPT)
-#    define ASIO_HAS_NOEXCEPT 1
-#   endif // !defined(BOOST_NO_NOEXCEPT)
-#   define ASIO_NOEXCEPT BOOST_NOEXCEPT
-#   define ASIO_NOEXCEPT_OR_NOTHROW BOOST_NOEXCEPT_OR_NOTHROW
-#   define ASIO_NOEXCEPT_IF(c) BOOST_NOEXCEPT_IF(c)
-#  elif defined(__clang__)
-#   if __has_feature(__cxx_noexcept__)
-#    define ASIO_HAS_NOEXCEPT 1
-#   endif // __has_feature(__cxx_noexcept__)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#      define ASIO_HAS_NOEXCEPT 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-#  elif defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1900)
-#    define ASIO_HAS_NOEXCEPT 1
-#   endif // (_MSC_VER >= 1900)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_NOEXCEPT)
-# if !defined(ASIO_NOEXCEPT)
-# endif // !defined(ASIO_NOEXCEPT)
-# if !defined(ASIO_NOEXCEPT_OR_NOTHROW)
-# endif // !defined(ASIO_NOEXCEPT_OR_NOTHROW)
-#endif // !defined(ASIO_HAS_NOEXCEPT)
-#if !defined(ASIO_NOEXCEPT)
-# if defined(ASIO_HAS_NOEXCEPT)
-#  define ASIO_NOEXCEPT noexcept(true)
-# else // defined(ASIO_HAS_NOEXCEPT)
-#  define ASIO_NOEXCEPT
-# endif // defined(ASIO_HAS_NOEXCEPT)
-#endif // !defined(ASIO_NOEXCEPT)
-#if !defined(ASIO_NOEXCEPT_OR_NOTHROW)
-# if defined(ASIO_HAS_NOEXCEPT)
-#  define ASIO_NOEXCEPT_OR_NOTHROW noexcept(true)
-# else // defined(ASIO_HAS_NOEXCEPT)
-#  define ASIO_NOEXCEPT_OR_NOTHROW throw()
-# endif // defined(ASIO_HAS_NOEXCEPT)
-#endif // !defined(ASIO_NOEXCEPT_OR_NOTHROW)
-#if !defined(ASIO_NOEXCEPT_IF)
-# if defined(ASIO_HAS_NOEXCEPT)
-#  define ASIO_NOEXCEPT_IF(c) noexcept(c)
-# else // defined(ASIO_HAS_NOEXCEPT)
-#  define ASIO_NOEXCEPT_IF(c)
-# endif // defined(ASIO_HAS_NOEXCEPT)
-#endif // !defined(ASIO_NOEXCEPT_IF)
+// C++11
+#define ASIO_HAS_NOEXCEPT 1
 
 // Support automatic type deduction on compilers known to support it.
 #if !defined(ASIO_HAS_DECLTYPE)

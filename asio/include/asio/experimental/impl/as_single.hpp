@@ -214,7 +214,7 @@ struct associated_executor<
 
   static type get(
       const experimental::detail::as_single_handler<Handler>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<Handler, Executor>::get(h.handler_, ex);
   }
@@ -228,7 +228,7 @@ struct associated_allocator<
 
   static type get(
       const experimental::detail::as_single_handler<Handler>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<Handler, Allocator>::get(h.handler_, a);
   }

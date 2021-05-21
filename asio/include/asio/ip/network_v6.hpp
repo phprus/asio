@@ -40,7 +40,7 @@ class network_v6
 {
 public:
   /// Default constructor.
-  network_v6() ASIO_NOEXCEPT
+  network_v6() noexcept(true)
     : address_(),
       prefix_length_(0)
   {
@@ -51,7 +51,7 @@ public:
       unsigned short prefix_len);
 
   /// Copy constructor.
-  network_v6(const network_v6& other) ASIO_NOEXCEPT
+  network_v6(const network_v6& other) noexcept(true)
     : address_(other.address_),
       prefix_length_(other.prefix_length_)
   {
@@ -59,7 +59,7 @@ public:
 
 #if defined(ASIO_HAS_MOVE)
   /// Move constructor.
-  network_v6(network_v6&& other) ASIO_NOEXCEPT
+  network_v6(network_v6&& other) noexcept(true)
     : address_(ASIO_MOVE_CAST(address_v6)(other.address_)),
       prefix_length_(other.prefix_length_)
   {
@@ -67,7 +67,7 @@ public:
 #endif // defined(ASIO_HAS_MOVE)
 
   /// Assign from another network.
-  network_v6& operator=(const network_v6& other) ASIO_NOEXCEPT
+  network_v6& operator=(const network_v6& other) noexcept(true)
   {
     address_ = other.address_;
     prefix_length_ = other.prefix_length_;
@@ -76,7 +76,7 @@ public:
 
 #if defined(ASIO_HAS_MOVE)
   /// Move-assign from another network.
-  network_v6& operator=(network_v6&& other) ASIO_NOEXCEPT
+  network_v6& operator=(network_v6&& other) noexcept(true)
   {
     address_ = ASIO_MOVE_CAST(address_v6)(other.address_);
     prefix_length_ = other.prefix_length_;
@@ -85,32 +85,32 @@ public:
 #endif // defined(ASIO_HAS_MOVE)
 
   /// Obtain the address object specified when the network object was created.
-  address_v6 address() const ASIO_NOEXCEPT
+  address_v6 address() const noexcept(true)
   {
     return address_;
   }
 
   /// Obtain the prefix length that was specified when the network object was
   /// created.
-  unsigned short prefix_length() const ASIO_NOEXCEPT
+  unsigned short prefix_length() const noexcept(true)
   {
     return prefix_length_;
   }
 
   /// Obtain an address object that represents the network address.
-  ASIO_DECL address_v6 network() const ASIO_NOEXCEPT;
+  ASIO_DECL address_v6 network() const noexcept(true);
 
   /// Obtain an address range corresponding to the hosts in the network.
-  ASIO_DECL address_v6_range hosts() const ASIO_NOEXCEPT;
+  ASIO_DECL address_v6_range hosts() const noexcept(true);
 
   /// Obtain the true network address, omitting any host bits.
-  network_v6 canonical() const ASIO_NOEXCEPT
+  network_v6 canonical() const noexcept(true)
   {
     return network_v6(network(), prefix_length());
   }
 
   /// Test if network is a valid host address.
-  bool is_host() const ASIO_NOEXCEPT
+  bool is_host() const noexcept(true)
   {
     return prefix_length_ == 128;
   }

@@ -25,7 +25,7 @@ static int call_count = 0;
 
 struct operation_state
 {
-  void start() ASIO_NOEXCEPT
+  void start() noexcept(true)
   {
   }
 };
@@ -225,18 +225,18 @@ struct receiver
   }
 
 #if defined(ASIO_HAS_MOVE)
-  receiver(receiver&&) ASIO_NOEXCEPT
+  receiver(receiver&&) noexcept(true)
   {
   }
 #endif // defined(ASIO_HAS_MOVE)
 
   template <typename E>
-  void set_error(ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT
+  void set_error(ASIO_MOVE_ARG(E) e) noexcept(true)
   {
     (void)e;
   }
 
-  void set_done() ASIO_NOEXCEPT
+  void set_done() noexcept(true)
   {
   }
 };
@@ -276,28 +276,28 @@ struct executor
   {
   }
 
-  executor(const executor&) ASIO_NOEXCEPT
+  executor(const executor&) noexcept(true)
   {
   }
 
 #if defined(ASIO_HAS_MOVE)
-  executor(executor&&) ASIO_NOEXCEPT
+  executor(executor&&) noexcept(true)
   {
   }
 #endif // defined(ASIO_HAS_MOVE)
 
   template <typename F>
-  void execute(ASIO_MOVE_ARG(F) f) const ASIO_NOEXCEPT
+  void execute(ASIO_MOVE_ARG(F) f) const noexcept(true)
   {
     (void)f;
   }
 
-  bool operator==(const executor&) const ASIO_NOEXCEPT
+  bool operator==(const executor&) const noexcept(true)
   {
     return true;
   }
 
-  bool operator!=(const executor&) const ASIO_NOEXCEPT
+  bool operator!=(const executor&) const noexcept(true)
   {
     return false;
   }

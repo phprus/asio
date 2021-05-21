@@ -47,7 +47,7 @@ public:
     return p;
   }
 
-  impl(const Executor& e, const Allocator& a) ASIO_NOEXCEPT
+  impl(const Executor& e, const Allocator& a) noexcept(true)
     : impl_base(false),
       ref_count_(1),
       executor_(e),
@@ -55,13 +55,13 @@ public:
   {
   }
 
-  impl_base* clone() const ASIO_NOEXCEPT
+  impl_base* clone() const noexcept(true)
   {
     detail::ref_count_up(ref_count_);
     return const_cast<impl_base*>(static_cast<const impl_base*>(this));
   }
 
-  void destroy() ASIO_NOEXCEPT
+  void destroy() noexcept(true)
   {
     if (detail::ref_count_down(ref_count_))
     {
@@ -72,17 +72,17 @@ public:
     }
   }
 
-  void on_work_started() ASIO_NOEXCEPT
+  void on_work_started() noexcept(true)
   {
     executor_.on_work_started();
   }
 
-  void on_work_finished() ASIO_NOEXCEPT
+  void on_work_finished() noexcept(true)
   {
     executor_.on_work_finished();
   }
 
-  execution_context& context() ASIO_NOEXCEPT
+  execution_context& context() noexcept(true)
   {
     return executor_.context();
   }
@@ -102,22 +102,22 @@ public:
     executor_.defer(ASIO_MOVE_CAST(function)(f), allocator_);
   }
 
-  type_id_result_type target_type() const ASIO_NOEXCEPT
+  type_id_result_type target_type() const noexcept(true)
   {
     return type_id<Executor>();
   }
 
-  void* target() ASIO_NOEXCEPT
+  void* target() noexcept(true)
   {
     return &executor_;
   }
 
-  const void* target() const ASIO_NOEXCEPT
+  const void* target() const noexcept(true)
   {
     return &executor_;
   }
 
-  bool equals(const impl_base* e) const ASIO_NOEXCEPT
+  bool equals(const impl_base* e) const noexcept(true)
   {
     if (this == e)
       return true;
@@ -172,26 +172,26 @@ public:
   {
   }
 
-  impl_base* clone() const ASIO_NOEXCEPT
+  impl_base* clone() const noexcept(true)
   {
     return const_cast<impl_base*>(static_cast<const impl_base*>(this));
   }
 
-  void destroy() ASIO_NOEXCEPT
+  void destroy() noexcept(true)
   {
   }
 
-  void on_work_started() ASIO_NOEXCEPT
+  void on_work_started() noexcept(true)
   {
     executor_.on_work_started();
   }
 
-  void on_work_finished() ASIO_NOEXCEPT
+  void on_work_finished() noexcept(true)
   {
     executor_.on_work_finished();
   }
 
-  execution_context& context() ASIO_NOEXCEPT
+  execution_context& context() noexcept(true)
   {
     return executor_.context();
   }
@@ -214,22 +214,22 @@ public:
         std::allocator<void>());
   }
 
-  type_id_result_type target_type() const ASIO_NOEXCEPT
+  type_id_result_type target_type() const noexcept(true)
   {
     return type_id<system_executor>();
   }
 
-  void* target() ASIO_NOEXCEPT
+  void* target() noexcept(true)
   {
     return &executor_;
   }
 
-  const void* target() const ASIO_NOEXCEPT
+  const void* target() const noexcept(true)
   {
     return &executor_;
   }
 
-  bool equals(const impl_base* e) const ASIO_NOEXCEPT
+  bool equals(const impl_base* e) const noexcept(true)
   {
     return this == e;
   }
@@ -276,14 +276,14 @@ void executor::defer(ASIO_MOVE_ARG(Function) f,
 }
 
 template <typename Executor>
-Executor* executor::target() ASIO_NOEXCEPT
+Executor* executor::target() noexcept(true)
 {
   return impl_ && impl_->target_type() == type_id<Executor>()
     ? static_cast<Executor*>(impl_->target()) : 0;
 }
 
 template <typename Executor>
-const Executor* executor::target() const ASIO_NOEXCEPT
+const Executor* executor::target() const noexcept(true)
 {
   return impl_ && impl_->target_type() == type_id<Executor>()
     ? static_cast<Executor*>(impl_->target()) : 0;

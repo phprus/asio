@@ -64,7 +64,7 @@ public:
 #endif
 
   /// Default constructor.
-  address_v4() ASIO_NOEXCEPT
+  address_v4() noexcept(true)
   {
     addr_.s_addr = 0;
   }
@@ -76,21 +76,21 @@ public:
   ASIO_DECL explicit address_v4(uint_type addr);
 
   /// Copy constructor.
-  address_v4(const address_v4& other) ASIO_NOEXCEPT
+  address_v4(const address_v4& other) noexcept(true)
     : addr_(other.addr_)
   {
   }
 
 #if defined(ASIO_HAS_MOVE)
   /// Move constructor.
-  address_v4(address_v4&& other) ASIO_NOEXCEPT
+  address_v4(address_v4&& other) noexcept(true)
     : addr_(other.addr_)
   {
   }
 #endif // defined(ASIO_HAS_MOVE)
 
   /// Assign from another address.
-  address_v4& operator=(const address_v4& other) ASIO_NOEXCEPT
+  address_v4& operator=(const address_v4& other) noexcept(true)
   {
     addr_ = other.addr_;
     return *this;
@@ -98,7 +98,7 @@ public:
 
 #if defined(ASIO_HAS_MOVE)
   /// Move-assign from another address.
-  address_v4& operator=(address_v4&& other) ASIO_NOEXCEPT
+  address_v4& operator=(address_v4&& other) noexcept(true)
   {
     addr_ = other.addr_;
     return *this;
@@ -106,10 +106,10 @@ public:
 #endif // defined(ASIO_HAS_MOVE)
 
   /// Get the address in bytes, in network byte order.
-  ASIO_DECL bytes_type to_bytes() const ASIO_NOEXCEPT;
+  ASIO_DECL bytes_type to_bytes() const noexcept(true);
 
   /// Get the address as an unsigned integer in host byte order
-  ASIO_DECL uint_type to_uint() const ASIO_NOEXCEPT;
+  ASIO_DECL uint_type to_uint() const noexcept(true);
 
 #if !defined(ASIO_NO_DEPRECATED)
   /// Get the address as an unsigned long in host byte order
@@ -144,10 +144,10 @@ public:
 #endif // !defined(ASIO_NO_DEPRECATED)
 
   /// Determine whether the address is a loopback address.
-  ASIO_DECL bool is_loopback() const ASIO_NOEXCEPT;
+  ASIO_DECL bool is_loopback() const noexcept(true);
 
   /// Determine whether the address is unspecified.
-  ASIO_DECL bool is_unspecified() const ASIO_NOEXCEPT;
+  ASIO_DECL bool is_unspecified() const noexcept(true);
 
 #if !defined(ASIO_NO_DEPRECATED)
   /// (Deprecated: Use network_v4 class.) Determine whether the address is a
@@ -164,64 +164,64 @@ public:
 #endif // !defined(ASIO_NO_DEPRECATED)
 
   /// Determine whether the address is a multicast address.
-  ASIO_DECL bool is_multicast() const ASIO_NOEXCEPT;
+  ASIO_DECL bool is_multicast() const noexcept(true);
 
   /// Compare two addresses for equality.
   friend bool operator==(const address_v4& a1,
-      const address_v4& a2) ASIO_NOEXCEPT
+      const address_v4& a2) noexcept(true)
   {
     return a1.addr_.s_addr == a2.addr_.s_addr;
   }
 
   /// Compare two addresses for inequality.
   friend bool operator!=(const address_v4& a1,
-      const address_v4& a2) ASIO_NOEXCEPT
+      const address_v4& a2) noexcept(true)
   {
     return a1.addr_.s_addr != a2.addr_.s_addr;
   }
 
   /// Compare addresses for ordering.
   friend bool operator<(const address_v4& a1,
-      const address_v4& a2) ASIO_NOEXCEPT
+      const address_v4& a2) noexcept(true)
   {
     return a1.to_uint() < a2.to_uint();
   }
 
   /// Compare addresses for ordering.
   friend bool operator>(const address_v4& a1,
-      const address_v4& a2) ASIO_NOEXCEPT
+      const address_v4& a2) noexcept(true)
   {
     return a1.to_uint() > a2.to_uint();
   }
 
   /// Compare addresses for ordering.
   friend bool operator<=(const address_v4& a1,
-      const address_v4& a2) ASIO_NOEXCEPT
+      const address_v4& a2) noexcept(true)
   {
     return a1.to_uint() <= a2.to_uint();
   }
 
   /// Compare addresses for ordering.
   friend bool operator>=(const address_v4& a1,
-      const address_v4& a2) ASIO_NOEXCEPT
+      const address_v4& a2) noexcept(true)
   {
     return a1.to_uint() >= a2.to_uint();
   }
 
   /// Obtain an address object that represents any address.
-  static address_v4 any() ASIO_NOEXCEPT
+  static address_v4 any() noexcept(true)
   {
     return address_v4();
   }
 
   /// Obtain an address object that represents the loopback address.
-  static address_v4 loopback() ASIO_NOEXCEPT
+  static address_v4 loopback() noexcept(true)
   {
     return address_v4(0x7F000001);
   }
 
   /// Obtain an address object that represents the broadcast address.
-  static address_v4 broadcast() ASIO_NOEXCEPT
+  static address_v4 broadcast() noexcept(true)
   {
     return address_v4(0xFFFFFFFF);
   }
@@ -272,7 +272,7 @@ ASIO_DECL address_v4 make_address_v4(const char* str);
  * @relates address_v4
  */
 ASIO_DECL address_v4 make_address_v4(const char* str,
-    asio::error_code& ec) ASIO_NOEXCEPT;
+    asio::error_code& ec) noexcept(true);
 
 /// Create an IPv4 address from an IP address string in dotted decimal form.
 /**
@@ -285,7 +285,7 @@ ASIO_DECL address_v4 make_address_v4(const std::string& str);
  * @relates address_v4
  */
 ASIO_DECL address_v4 make_address_v4(const std::string& str,
-    asio::error_code& ec) ASIO_NOEXCEPT;
+    asio::error_code& ec) noexcept(true);
 
 #if defined(ASIO_HAS_STRING_VIEW) \
   || defined(GENERATING_DOCUMENTATION)
@@ -301,7 +301,7 @@ ASIO_DECL address_v4 make_address_v4(string_view str);
  * @relates address_v4
  */
 ASIO_DECL address_v4 make_address_v4(string_view str,
-    asio::error_code& ec) ASIO_NOEXCEPT;
+    asio::error_code& ec) noexcept(true);
 
 #endif // defined(ASIO_HAS_STRING_VIEW)
        //  || defined(GENERATING_DOCUMENTATION)
@@ -336,7 +336,7 @@ template <>
 struct hash<asio::ip::address_v4>
 {
   std::size_t operator()(const asio::ip::address_v4& addr)
-    const ASIO_NOEXCEPT
+    const noexcept(true)
   {
     return std::hash<unsigned int>()(addr.to_uint());
   }

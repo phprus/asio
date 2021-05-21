@@ -28,19 +28,19 @@
 namespace asio {
 
 inline thread_pool::executor_type
-thread_pool::get_executor() ASIO_NOEXCEPT
+thread_pool::get_executor() noexcept(true)
 {
   return executor_type(*this);
 }
 
 inline thread_pool::executor_type
-thread_pool::executor() ASIO_NOEXCEPT
+thread_pool::executor() noexcept(true)
 {
   return executor_type(*this);
 }
 
 inline thread_pool::scheduler_type
-thread_pool::scheduler() ASIO_NOEXCEPT
+thread_pool::scheduler() noexcept(true)
 {
   return scheduler_type(*this);
 }
@@ -48,7 +48,7 @@ thread_pool::scheduler() ASIO_NOEXCEPT
 template <typename Allocator, unsigned int Bits>
 thread_pool::basic_executor_type<Allocator, Bits>&
 thread_pool::basic_executor_type<Allocator, Bits>::operator=(
-    const basic_executor_type& other) ASIO_NOEXCEPT
+    const basic_executor_type& other) noexcept(true)
 {
   if (this != &other)
   {
@@ -71,7 +71,7 @@ thread_pool::basic_executor_type<Allocator, Bits>::operator=(
 template <typename Allocator, unsigned int Bits>
 thread_pool::basic_executor_type<Allocator, Bits>&
 thread_pool::basic_executor_type<Allocator, Bits>::operator=(
-    basic_executor_type&& other) ASIO_NOEXCEPT
+    basic_executor_type&& other) noexcept(true)
 {
   if (this != &other)
   {
@@ -92,7 +92,7 @@ thread_pool::basic_executor_type<Allocator, Bits>::operator=(
 
 template <typename Allocator, unsigned int Bits>
 inline bool thread_pool::basic_executor_type<Allocator,
-    Bits>::running_in_this_thread() const ASIO_NOEXCEPT
+    Bits>::running_in_this_thread() const noexcept(true)
 {
   return pool_->scheduler_.can_dispatch();
 }
@@ -259,21 +259,21 @@ void thread_pool::basic_executor_type<Allocator, Bits>::do_bulk_execute(
 #if !defined(ASIO_NO_TS_EXECUTORS)
 template <typename Allocator, unsigned int Bits>
 inline thread_pool& thread_pool::basic_executor_type<
-    Allocator, Bits>::context() const ASIO_NOEXCEPT
+    Allocator, Bits>::context() const noexcept(true)
 {
   return *pool_;
 }
 
 template <typename Allocator, unsigned int Bits>
 inline void thread_pool::basic_executor_type<Allocator,
-    Bits>::on_work_started() const ASIO_NOEXCEPT
+    Bits>::on_work_started() const noexcept(true)
 {
   pool_->scheduler_.work_started();
 }
 
 template <typename Allocator, unsigned int Bits>
 inline void thread_pool::basic_executor_type<Allocator,
-    Bits>::on_work_finished() const ASIO_NOEXCEPT
+    Bits>::on_work_finished() const noexcept(true)
 {
   pool_->scheduler_.work_finished();
 }

@@ -832,7 +832,7 @@ struct associated_allocator<detail::binder1<Handler, Arg1>, Allocator>
   typedef typename associated_allocator<Handler, Allocator>::type type;
 
   static type get(const detail::binder1<Handler, Arg1>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<Handler, Allocator>::get(h.handler_, a);
   }
@@ -844,7 +844,7 @@ struct associated_allocator<detail::binder2<Handler, Arg1, Arg2>, Allocator>
   typedef typename associated_allocator<Handler, Allocator>::type type;
 
   static type get(const detail::binder2<Handler, Arg1, Arg2>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<Handler, Allocator>::get(h.handler_, a);
   }
@@ -857,7 +857,7 @@ struct associated_executor<detail::binder1<Handler, Arg1>, Executor>
   typedef typename associated_executor<Handler, Executor>::type type;
 
   static type get(const detail::binder1<Handler, Arg1>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<Handler, Executor>::get(h.handler_, ex);
   }
@@ -870,7 +870,7 @@ struct associated_executor<detail::binder2<Handler, Arg1, Arg2>, Executor>
   typedef typename associated_executor<Handler, Executor>::type type;
 
   static type get(const detail::binder2<Handler, Arg1, Arg2>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<Handler, Executor>::get(h.handler_, ex);
   }
@@ -884,7 +884,7 @@ struct associated_allocator<detail::move_binder1<Handler, Arg1>, Allocator>
   typedef typename associated_allocator<Handler, Allocator>::type type;
 
   static type get(const detail::move_binder1<Handler, Arg1>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<Handler, Allocator>::get(h.handler_, a);
   }
@@ -897,7 +897,7 @@ struct associated_allocator<
   typedef typename associated_allocator<Handler, Allocator>::type type;
 
   static type get(const detail::move_binder2<Handler, Arg1, Arg2>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<Handler, Allocator>::get(h.handler_, a);
   }
@@ -910,7 +910,7 @@ struct associated_executor<detail::move_binder1<Handler, Arg1>, Executor>
   typedef typename associated_executor<Handler, Executor>::type type;
 
   static type get(const detail::move_binder1<Handler, Arg1>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<Handler, Executor>::get(h.handler_, ex);
   }
@@ -923,7 +923,7 @@ struct associated_executor<detail::move_binder2<Handler, Arg1, Arg2>, Executor>
   typedef typename associated_executor<Handler, Executor>::type type;
 
   static type get(const detail::move_binder2<Handler, Arg1, Arg2>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<Handler, Executor>::get(h.handler_, ex);
   }

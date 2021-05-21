@@ -56,7 +56,7 @@ engine::engine(SSL_CTX* context)
 }
 
 #if defined(ASIO_HAS_MOVE)
-engine::engine(engine&& other) ASIO_NOEXCEPT
+engine::engine(engine&& other) noexcept(true)
   : ssl_(other.ssl_),
     ext_bio_(other.ext_bio_)
 {

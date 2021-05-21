@@ -30,7 +30,7 @@ struct associated_allocator_impl
 {
   typedef E type;
 
-  static type get(const T&, const E& e) ASIO_NOEXCEPT
+  static type get(const T&, const E& e) noexcept(true)
   {
     return e;
   }
@@ -42,7 +42,7 @@ struct associated_allocator_impl<T, E,
 {
   typedef typename T::allocator_type type;
 
-  static type get(const T& t, const E&) ASIO_NOEXCEPT
+  static type get(const T& t, const E&) noexcept(true)
   {
     return t.get_allocator();
   }
@@ -83,7 +83,7 @@ struct associated_allocator
   /// If @c T has a nested type @c allocator_type, returns
   /// <tt>t.get_allocator()</tt>. Otherwise returns @c a.
   static type get(const T& t,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return detail::associated_allocator_impl<T, Allocator>::get(t, a);
   }
@@ -95,7 +95,7 @@ struct associated_allocator
  */
 template <typename T>
 inline typename associated_allocator<T>::type
-get_associated_allocator(const T& t) ASIO_NOEXCEPT
+get_associated_allocator(const T& t) noexcept(true)
 {
   return associated_allocator<T>::get(t);
 }
@@ -106,7 +106,7 @@ get_associated_allocator(const T& t) ASIO_NOEXCEPT
  */
 template <typename T, typename Allocator>
 inline typename associated_allocator<T, Allocator>::type
-get_associated_allocator(const T& t, const Allocator& a) ASIO_NOEXCEPT
+get_associated_allocator(const T& t, const Allocator& a) noexcept(true)
 {
   return associated_allocator<T, Allocator>::get(t, a);
 }
@@ -133,7 +133,7 @@ struct associated_allocator<reference_wrapper<T>, Allocator>
   /// Forwards the request to get the allocator to the associator specialisation
   /// for the unwrapped type @c T.
   static type get(reference_wrapper<T> t,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<T, Allocator>::get(t.get(), a);
   }

@@ -87,26 +87,26 @@ public:
 #endif // !defined(GENERATING_DOCUMENTATION)
 
   /// Default constructor.
-  any_io_executor() ASIO_NOEXCEPT
+  any_io_executor() noexcept(true)
     : base_type()
   {
   }
 
   /// Construct in an empty state. Equivalent effects to default constructor.
-  any_io_executor(nullptr_t) ASIO_NOEXCEPT
+  any_io_executor(nullptr_t) noexcept(true)
     : base_type(nullptr_t())
   {
   }
 
   /// Copy constructor.
-  any_io_executor(const any_io_executor& e) ASIO_NOEXCEPT
+  any_io_executor(const any_io_executor& e) noexcept(true)
     : base_type(static_cast<const base_type&>(e))
   {
   }
 
 #if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move constructor.
-  any_io_executor(any_io_executor&& e) ASIO_NOEXCEPT
+  any_io_executor(any_io_executor&& e) noexcept(true)
     : base_type(static_cast<base_type&&>(e))
   {
   }
@@ -158,7 +158,7 @@ public:
 #endif // defined(GENERATING_DOCUMENTATION)
 
   /// Assignment operator.
-  any_io_executor& operator=(const any_io_executor& e) ASIO_NOEXCEPT
+  any_io_executor& operator=(const any_io_executor& e) noexcept(true)
   {
     base_type::operator=(static_cast<const base_type&>(e));
     return *this;
@@ -166,7 +166,7 @@ public:
 
 #if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move assignment operator.
-  any_io_executor& operator=(any_io_executor&& e) ASIO_NOEXCEPT
+  any_io_executor& operator=(any_io_executor&& e) noexcept(true)
   {
     base_type::operator=(static_cast<base_type&&>(e));
     return *this;
@@ -186,7 +186,7 @@ public:
   }
 
   /// Swap targets with another polymorphic wrapper.
-  void swap(any_io_executor& other) ASIO_NOEXCEPT
+  void swap(any_io_executor& other) noexcept(true)
   {
     static_cast<base_type&>(*this).swap(static_cast<base_type&>(other));
   }

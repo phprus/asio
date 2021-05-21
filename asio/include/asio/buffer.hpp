@@ -93,14 +93,14 @@ class mutable_buffer
 {
 public:
   /// Construct an empty buffer.
-  mutable_buffer() ASIO_NOEXCEPT
+  mutable_buffer() noexcept(true)
     : data_(0),
       size_(0)
   {
   }
 
   /// Construct a buffer to represent a given memory range.
-  mutable_buffer(void* data, std::size_t size) ASIO_NOEXCEPT
+  mutable_buffer(void* data, std::size_t size) noexcept(true)
     : data_(data),
       size_(size)
   {
@@ -122,7 +122,7 @@ public:
 #endif // ASIO_ENABLE_BUFFER_DEBUGGING
 
   /// Get a pointer to the beginning of the memory range.
-  void* data() const ASIO_NOEXCEPT
+  void* data() const noexcept(true)
   {
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
     if (size_ && debug_check_)
@@ -132,13 +132,13 @@ public:
   }
 
   /// Get the size of the memory range.
-  std::size_t size() const ASIO_NOEXCEPT
+  std::size_t size() const noexcept(true)
   {
     return size_;
   }
 
   /// Move the start of the buffer by the specified number of bytes.
-  mutable_buffer& operator+=(std::size_t n) ASIO_NOEXCEPT
+  mutable_buffer& operator+=(std::size_t n) noexcept(true)
   {
     std::size_t offset = n < size_ ? n : size_;
     data_ = static_cast<char*>(data_) + offset;
@@ -170,7 +170,7 @@ public:
   typedef const mutable_buffer* const_iterator;
 
   /// Construct to represent a given memory range.
-  mutable_buffers_1(void* data, std::size_t size) ASIO_NOEXCEPT
+  mutable_buffers_1(void* data, std::size_t size) noexcept(true)
     : mutable_buffer(data, size)
   {
   }
@@ -184,19 +184,19 @@ public:
 #endif // ASIO_ENABLE_BUFFER_DEBUGGING
 
   /// Construct to represent a single modifiable buffer.
-  explicit mutable_buffers_1(const mutable_buffer& b) ASIO_NOEXCEPT
+  explicit mutable_buffers_1(const mutable_buffer& b) noexcept(true)
     : mutable_buffer(b)
   {
   }
 
   /// Get a random-access iterator to the first element.
-  const_iterator begin() const ASIO_NOEXCEPT
+  const_iterator begin() const noexcept(true)
   {
     return this;
   }
 
   /// Get a random-access iterator for one past the last element.
-  const_iterator end() const ASIO_NOEXCEPT
+  const_iterator end() const noexcept(true)
   {
     return begin() + 1;
   }
@@ -227,21 +227,21 @@ class const_buffer
 {
 public:
   /// Construct an empty buffer.
-  const_buffer() ASIO_NOEXCEPT
+  const_buffer() noexcept(true)
     : data_(0),
       size_(0)
   {
   }
 
   /// Construct a buffer to represent a given memory range.
-  const_buffer(const void* data, std::size_t size) ASIO_NOEXCEPT
+  const_buffer(const void* data, std::size_t size) noexcept(true)
     : data_(data),
       size_(size)
   {
   }
 
   /// Construct a non-modifiable buffer from a modifiable one.
-  const_buffer(const mutable_buffer& b) ASIO_NOEXCEPT
+  const_buffer(const mutable_buffer& b) noexcept(true)
     : data_(b.data()),
       size_(b.size())
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
@@ -266,7 +266,7 @@ public:
 #endif // ASIO_ENABLE_BUFFER_DEBUGGING
 
   /// Get a pointer to the beginning of the memory range.
-  const void* data() const ASIO_NOEXCEPT
+  const void* data() const noexcept(true)
   {
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
     if (size_ && debug_check_)
@@ -276,13 +276,13 @@ public:
   }
 
   /// Get the size of the memory range.
-  std::size_t size() const ASIO_NOEXCEPT
+  std::size_t size() const noexcept(true)
   {
     return size_;
   }
 
   /// Move the start of the buffer by the specified number of bytes.
-  const_buffer& operator+=(std::size_t n) ASIO_NOEXCEPT
+  const_buffer& operator+=(std::size_t n) noexcept(true)
   {
     std::size_t offset = n < size_ ? n : size_;
     data_ = static_cast<const char*>(data_) + offset;
@@ -314,7 +314,7 @@ public:
   typedef const const_buffer* const_iterator;
 
   /// Construct to represent a given memory range.
-  const_buffers_1(const void* data, std::size_t size) ASIO_NOEXCEPT
+  const_buffers_1(const void* data, std::size_t size) noexcept(true)
     : const_buffer(data, size)
   {
   }
@@ -328,19 +328,19 @@ public:
 #endif // ASIO_ENABLE_BUFFER_DEBUGGING
 
   /// Construct to represent a single non-modifiable buffer.
-  explicit const_buffers_1(const const_buffer& b) ASIO_NOEXCEPT
+  explicit const_buffers_1(const const_buffer& b) noexcept(true)
     : const_buffer(b)
   {
   }
 
   /// Get a random-access iterator to the first element.
-  const_iterator begin() const ASIO_NOEXCEPT
+  const_iterator begin() const noexcept(true)
   {
     return this;
   }
 
   /// Get a random-access iterator for one past the last element.
-  const_iterator end() const ASIO_NOEXCEPT
+  const_iterator end() const noexcept(true)
   {
     return begin() + 1;
   }
@@ -361,13 +361,13 @@ public:
   typedef const mutable_buffer* const_iterator;
 
   /// Get a random-access iterator to the first element.
-  const_iterator begin() const ASIO_NOEXCEPT
+  const_iterator begin() const noexcept(true)
   {
     return &buf_;
   }
 
   /// Get a random-access iterator for one past the last element.
-  const_iterator end() const ASIO_NOEXCEPT
+  const_iterator end() const noexcept(true)
   {
     return &buf_;
   }
@@ -388,7 +388,7 @@ template <typename MutableBuffer>
 inline const mutable_buffer* buffer_sequence_begin(const MutableBuffer& b,
     typename constraint<
       is_convertible<const MutableBuffer*, const mutable_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT
+    >::type = 0) noexcept(true)
 {
   return static_cast<const mutable_buffer*>(detail::addressof(b));
 }
@@ -398,7 +398,7 @@ template <typename ConstBuffer>
 inline const const_buffer* buffer_sequence_begin(const ConstBuffer& b,
     typename constraint<
       is_convertible<const ConstBuffer*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT
+    >::type = 0) noexcept(true)
 {
   return static_cast<const const_buffer*>(detail::addressof(b));
 }
@@ -411,7 +411,7 @@ inline auto buffer_sequence_begin(C& c,
     typename constraint<
       !is_convertible<const C*, const mutable_buffer*>::value
         && !is_convertible<const C*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT -> decltype(c.begin())
+    >::type = 0) noexcept(true) -> decltype(c.begin())
 {
   return c.begin();
 }
@@ -422,7 +422,7 @@ inline auto buffer_sequence_begin(const C& c,
     typename constraint<
       !is_convertible<const C*, const mutable_buffer*>::value
         && !is_convertible<const C*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT -> decltype(c.begin())
+    >::type = 0) noexcept(true) -> decltype(c.begin())
 {
   return c.begin();
 }
@@ -434,7 +434,7 @@ inline typename C::iterator buffer_sequence_begin(C& c,
     typename constraint<
       !is_convertible<const C*, const mutable_buffer*>::value
         && !is_convertible<const C*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT
+    >::type = 0) noexcept(true)
 {
   return c.begin();
 }
@@ -444,7 +444,7 @@ inline typename C::const_iterator buffer_sequence_begin(const C& c,
     typename constraint<
       !is_convertible<const C*, const mutable_buffer*>::value
         && !is_convertible<const C*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT
+    >::type = 0) noexcept(true)
 {
   return c.begin();
 }
@@ -465,7 +465,7 @@ template <typename MutableBuffer>
 inline const mutable_buffer* buffer_sequence_end(const MutableBuffer& b,
     typename constraint<
       is_convertible<const MutableBuffer*, const mutable_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT
+    >::type = 0) noexcept(true)
 {
   return static_cast<const mutable_buffer*>(detail::addressof(b)) + 1;
 }
@@ -475,7 +475,7 @@ template <typename ConstBuffer>
 inline const const_buffer* buffer_sequence_end(const ConstBuffer& b,
     typename constraint<
       is_convertible<const ConstBuffer*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT
+    >::type = 0) noexcept(true)
 {
   return static_cast<const const_buffer*>(detail::addressof(b)) + 1;
 }
@@ -488,7 +488,7 @@ inline auto buffer_sequence_end(C& c,
     typename constraint<
       !is_convertible<const C*, const mutable_buffer*>::value
         && !is_convertible<const C*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT -> decltype(c.end())
+    >::type = 0) noexcept(true) -> decltype(c.end())
 {
   return c.end();
 }
@@ -499,7 +499,7 @@ inline auto buffer_sequence_end(const C& c,
     typename constraint<
       !is_convertible<const C*, const mutable_buffer*>::value
         && !is_convertible<const C*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT -> decltype(c.end())
+    >::type = 0) noexcept(true) -> decltype(c.end())
 {
   return c.end();
 }
@@ -511,7 +511,7 @@ inline typename C::iterator buffer_sequence_end(C& c,
     typename constraint<
       !is_convertible<const C*, const mutable_buffer*>::value
         && !is_convertible<const C*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT
+    >::type = 0) noexcept(true)
 {
   return c.end();
 }
@@ -521,7 +521,7 @@ inline typename C::const_iterator buffer_sequence_end(const C& c,
     typename constraint<
       !is_convertible<const C*, const mutable_buffer*>::value
         && !is_convertible<const C*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT
+    >::type = 0) noexcept(true)
 {
   return c.end();
 }
@@ -550,14 +550,14 @@ struct buffer_sequence_cardinality :
 
 template <typename Iterator>
 inline std::size_t buffer_size(one_buffer,
-    Iterator begin, Iterator) ASIO_NOEXCEPT
+    Iterator begin, Iterator) noexcept(true)
 {
   return const_buffer(*begin).size();
 }
 
 template <typename Iterator>
 inline std::size_t buffer_size(multiple_buffers,
-    Iterator begin, Iterator end) ASIO_NOEXCEPT
+    Iterator begin, Iterator end) noexcept(true)
 {
   std::size_t total_buffer_size = 0;
 
@@ -592,7 +592,7 @@ inline std::size_t buffer_size(multiple_buffers,
  * ConstBufferSequence or @c MutableBufferSequence type requirements.
  */
 template <typename BufferSequence>
-inline std::size_t buffer_size(const BufferSequence& b) ASIO_NOEXCEPT
+inline std::size_t buffer_size(const BufferSequence& b) noexcept(true)
 {
   return detail::buffer_size(
       detail::buffer_sequence_cardinality<BufferSequence>(),
@@ -627,14 +627,14 @@ inline std::size_t buffer_size(const BufferSequence& b) ASIO_NOEXCEPT
 
 /// Cast a non-modifiable buffer to a specified pointer to POD type.
 template <typename PointerToPodType>
-inline PointerToPodType buffer_cast(const mutable_buffer& b) ASIO_NOEXCEPT
+inline PointerToPodType buffer_cast(const mutable_buffer& b) noexcept(true)
 {
   return static_cast<PointerToPodType>(b.data());
 }
 
 /// Cast a non-modifiable buffer to a specified pointer to POD type.
 template <typename PointerToPodType>
-inline PointerToPodType buffer_cast(const const_buffer& b) ASIO_NOEXCEPT
+inline PointerToPodType buffer_cast(const const_buffer& b) noexcept(true)
 {
   return static_cast<PointerToPodType>(b.data());
 }
@@ -648,7 +648,7 @@ inline PointerToPodType buffer_cast(const const_buffer& b) ASIO_NOEXCEPT
  * @relates mutable_buffer
  */
 inline mutable_buffer operator+(const mutable_buffer& b,
-    std::size_t n) ASIO_NOEXCEPT
+    std::size_t n) noexcept(true)
 {
   std::size_t offset = n < b.size() ? n : b.size();
   char* new_data = static_cast<char*>(b.data()) + offset;
@@ -665,7 +665,7 @@ inline mutable_buffer operator+(const mutable_buffer& b,
  * @relates mutable_buffer
  */
 inline mutable_buffer operator+(std::size_t n,
-    const mutable_buffer& b) ASIO_NOEXCEPT
+    const mutable_buffer& b) noexcept(true)
 {
   return b + n;
 }
@@ -675,7 +675,7 @@ inline mutable_buffer operator+(std::size_t n,
  * @relates const_buffer
  */
 inline const_buffer operator+(const const_buffer& b,
-    std::size_t n) ASIO_NOEXCEPT
+    std::size_t n) noexcept(true)
 {
   std::size_t offset = n < b.size() ? n : b.size();
   const char* new_data = static_cast<const char*>(b.data()) + offset;
@@ -692,7 +692,7 @@ inline const_buffer operator+(const const_buffer& b,
  * @relates const_buffer
  */
 inline const_buffer operator+(std::size_t n,
-    const const_buffer& b) ASIO_NOEXCEPT
+    const const_buffer& b) noexcept(true)
 {
   return b + n;
 }
@@ -907,7 +907,7 @@ private:
  * @returns <tt>mutable_buffer(b)</tt>.
  */
 inline ASIO_MUTABLE_BUFFER buffer(
-    const mutable_buffer& b) ASIO_NOEXCEPT
+    const mutable_buffer& b) noexcept(true)
 {
   return ASIO_MUTABLE_BUFFER(b);
 }
@@ -920,7 +920,7 @@ inline ASIO_MUTABLE_BUFFER buffer(
  *     min(b.size(), max_size_in_bytes)); @endcode
  */
 inline ASIO_MUTABLE_BUFFER buffer(const mutable_buffer& b,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_MUTABLE_BUFFER(
       mutable_buffer(b.data(),
@@ -937,7 +937,7 @@ inline ASIO_MUTABLE_BUFFER buffer(const mutable_buffer& b,
  * @returns <tt>const_buffer(b)</tt>.
  */
 inline ASIO_CONST_BUFFER buffer(
-    const const_buffer& b) ASIO_NOEXCEPT
+    const const_buffer& b) noexcept(true)
 {
   return ASIO_CONST_BUFFER(b);
 }
@@ -950,7 +950,7 @@ inline ASIO_CONST_BUFFER buffer(
  *     min(b.size(), max_size_in_bytes)); @endcode
  */
 inline ASIO_CONST_BUFFER buffer(const const_buffer& b,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_CONST_BUFFER(b.data(),
       b.size() < max_size_in_bytes
@@ -966,7 +966,7 @@ inline ASIO_CONST_BUFFER buffer(const const_buffer& b,
  * @returns <tt>mutable_buffer(data, size_in_bytes)</tt>.
  */
 inline ASIO_MUTABLE_BUFFER buffer(void* data,
-    std::size_t size_in_bytes) ASIO_NOEXCEPT
+    std::size_t size_in_bytes) noexcept(true)
 {
   return ASIO_MUTABLE_BUFFER(data, size_in_bytes);
 }
@@ -976,7 +976,7 @@ inline ASIO_MUTABLE_BUFFER buffer(void* data,
  * @returns <tt>const_buffer(data, size_in_bytes)</tt>.
  */
 inline ASIO_CONST_BUFFER buffer(const void* data,
-    std::size_t size_in_bytes) ASIO_NOEXCEPT
+    std::size_t size_in_bytes) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data, size_in_bytes);
 }
@@ -989,7 +989,7 @@ inline ASIO_CONST_BUFFER buffer(const void* data,
  *     N * sizeof(PodType)); @endcode
  */
 template <typename PodType, std::size_t N>
-inline ASIO_MUTABLE_BUFFER buffer(PodType (&data)[N]) ASIO_NOEXCEPT
+inline ASIO_MUTABLE_BUFFER buffer(PodType (&data)[N]) noexcept(true)
 {
   return ASIO_MUTABLE_BUFFER(data, N * sizeof(PodType));
 }
@@ -1003,7 +1003,7 @@ inline ASIO_MUTABLE_BUFFER buffer(PodType (&data)[N]) ASIO_NOEXCEPT
  */
 template <typename PodType, std::size_t N>
 inline ASIO_MUTABLE_BUFFER buffer(PodType (&data)[N],
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_MUTABLE_BUFFER(data,
       N * sizeof(PodType) < max_size_in_bytes
@@ -1019,7 +1019,7 @@ inline ASIO_MUTABLE_BUFFER buffer(PodType (&data)[N],
  */
 template <typename PodType, std::size_t N>
 inline ASIO_CONST_BUFFER buffer(
-    const PodType (&data)[N]) ASIO_NOEXCEPT
+    const PodType (&data)[N]) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data, N * sizeof(PodType));
 }
@@ -1033,7 +1033,7 @@ inline ASIO_CONST_BUFFER buffer(
  */
 template <typename PodType, std::size_t N>
 inline ASIO_CONST_BUFFER buffer(const PodType (&data)[N],
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data,
       N * sizeof(PodType) < max_size_in_bytes
@@ -1083,7 +1083,7 @@ struct buffer_types
 
 template <typename PodType, std::size_t N>
 inline typename detail::buffer_types<PodType>::container_type
-buffer(boost::array<PodType, N>& data) ASIO_NOEXCEPT
+buffer(boost::array<PodType, N>& data) noexcept(true)
 {
   typedef typename asio::detail::buffer_types<PodType>::buffer_type
     buffer_type;
@@ -1096,7 +1096,7 @@ buffer(boost::array<PodType, N>& data) ASIO_NOEXCEPT
 template <typename PodType, std::size_t N>
 inline typename detail::buffer_types<PodType>::container_type
 buffer(boost::array<PodType, N>& data,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   typedef typename asio::detail::buffer_types<PodType>::buffer_type
     buffer_type;
@@ -1119,7 +1119,7 @@ buffer(boost::array<PodType, N>& data,
  */
 template <typename PodType, std::size_t N>
 inline ASIO_MUTABLE_BUFFER buffer(
-    boost::array<PodType, N>& data) ASIO_NOEXCEPT
+    boost::array<PodType, N>& data) noexcept(true)
 {
   return ASIO_MUTABLE_BUFFER(
       data.c_array(), data.size() * sizeof(PodType));
@@ -1134,7 +1134,7 @@ inline ASIO_MUTABLE_BUFFER buffer(
  */
 template <typename PodType, std::size_t N>
 inline ASIO_MUTABLE_BUFFER buffer(boost::array<PodType, N>& data,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_MUTABLE_BUFFER(data.c_array(),
       data.size() * sizeof(PodType) < max_size_in_bytes
@@ -1150,7 +1150,7 @@ inline ASIO_MUTABLE_BUFFER buffer(boost::array<PodType, N>& data,
  */
 template <typename PodType, std::size_t N>
 inline ASIO_CONST_BUFFER buffer(
-    boost::array<const PodType, N>& data) ASIO_NOEXCEPT
+    boost::array<const PodType, N>& data) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.data(), data.size() * sizeof(PodType));
 }
@@ -1164,7 +1164,7 @@ inline ASIO_CONST_BUFFER buffer(
  */
 template <typename PodType, std::size_t N>
 inline ASIO_CONST_BUFFER buffer(boost::array<const PodType, N>& data,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.data(),
       data.size() * sizeof(PodType) < max_size_in_bytes
@@ -1182,7 +1182,7 @@ inline ASIO_CONST_BUFFER buffer(boost::array<const PodType, N>& data,
  */
 template <typename PodType, std::size_t N>
 inline ASIO_CONST_BUFFER buffer(
-    const boost::array<PodType, N>& data) ASIO_NOEXCEPT
+    const boost::array<PodType, N>& data) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.data(), data.size() * sizeof(PodType));
 }
@@ -1196,7 +1196,7 @@ inline ASIO_CONST_BUFFER buffer(
  */
 template <typename PodType, std::size_t N>
 inline ASIO_CONST_BUFFER buffer(const boost::array<PodType, N>& data,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.data(),
       data.size() * sizeof(PodType) < max_size_in_bytes
@@ -1214,7 +1214,7 @@ inline ASIO_CONST_BUFFER buffer(const boost::array<PodType, N>& data,
  */
 template <typename PodType, std::size_t N>
 inline ASIO_MUTABLE_BUFFER buffer(
-    std::array<PodType, N>& data) ASIO_NOEXCEPT
+    std::array<PodType, N>& data) noexcept(true)
 {
   return ASIO_MUTABLE_BUFFER(data.data(), data.size() * sizeof(PodType));
 }
@@ -1228,7 +1228,7 @@ inline ASIO_MUTABLE_BUFFER buffer(
  */
 template <typename PodType, std::size_t N>
 inline ASIO_MUTABLE_BUFFER buffer(std::array<PodType, N>& data,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_MUTABLE_BUFFER(data.data(),
       data.size() * sizeof(PodType) < max_size_in_bytes
@@ -1244,7 +1244,7 @@ inline ASIO_MUTABLE_BUFFER buffer(std::array<PodType, N>& data,
  */
 template <typename PodType, std::size_t N>
 inline ASIO_CONST_BUFFER buffer(
-    std::array<const PodType, N>& data) ASIO_NOEXCEPT
+    std::array<const PodType, N>& data) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.data(), data.size() * sizeof(PodType));
 }
@@ -1258,7 +1258,7 @@ inline ASIO_CONST_BUFFER buffer(
  */
 template <typename PodType, std::size_t N>
 inline ASIO_CONST_BUFFER buffer(std::array<const PodType, N>& data,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.data(),
       data.size() * sizeof(PodType) < max_size_in_bytes
@@ -1274,7 +1274,7 @@ inline ASIO_CONST_BUFFER buffer(std::array<const PodType, N>& data,
  */
 template <typename PodType, std::size_t N>
 inline ASIO_CONST_BUFFER buffer(
-    const std::array<PodType, N>& data) ASIO_NOEXCEPT
+    const std::array<PodType, N>& data) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.data(), data.size() * sizeof(PodType));
 }
@@ -1288,7 +1288,7 @@ inline ASIO_CONST_BUFFER buffer(
  */
 template <typename PodType, std::size_t N>
 inline ASIO_CONST_BUFFER buffer(const std::array<PodType, N>& data,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.data(),
       data.size() * sizeof(PodType) < max_size_in_bytes
@@ -1309,7 +1309,7 @@ inline ASIO_CONST_BUFFER buffer(const std::array<PodType, N>& data,
  */
 template <typename PodType, typename Allocator>
 inline ASIO_MUTABLE_BUFFER buffer(
-    std::vector<PodType, Allocator>& data) ASIO_NOEXCEPT
+    std::vector<PodType, Allocator>& data) noexcept(true)
 {
   return ASIO_MUTABLE_BUFFER(
       data.size() ? &data[0] : 0, data.size() * sizeof(PodType)
@@ -1333,7 +1333,7 @@ inline ASIO_MUTABLE_BUFFER buffer(
  */
 template <typename PodType, typename Allocator>
 inline ASIO_MUTABLE_BUFFER buffer(std::vector<PodType, Allocator>& data,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_MUTABLE_BUFFER(data.size() ? &data[0] : 0,
       data.size() * sizeof(PodType) < max_size_in_bytes
@@ -1358,7 +1358,7 @@ inline ASIO_MUTABLE_BUFFER buffer(std::vector<PodType, Allocator>& data,
  */
 template <typename PodType, typename Allocator>
 inline ASIO_CONST_BUFFER buffer(
-    const std::vector<PodType, Allocator>& data) ASIO_NOEXCEPT
+    const std::vector<PodType, Allocator>& data) noexcept(true)
 {
   return ASIO_CONST_BUFFER(
       data.size() ? &data[0] : 0, data.size() * sizeof(PodType)
@@ -1383,7 +1383,7 @@ inline ASIO_CONST_BUFFER buffer(
 template <typename PodType, typename Allocator>
 inline ASIO_CONST_BUFFER buffer(
     const std::vector<PodType, Allocator>& data,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.size() ? &data[0] : 0,
       data.size() * sizeof(PodType) < max_size_in_bytes
@@ -1406,7 +1406,7 @@ inline ASIO_CONST_BUFFER buffer(
  */
 template <typename Elem, typename Traits, typename Allocator>
 inline ASIO_MUTABLE_BUFFER buffer(
-    std::basic_string<Elem, Traits, Allocator>& data) ASIO_NOEXCEPT
+    std::basic_string<Elem, Traits, Allocator>& data) noexcept(true)
 {
   return ASIO_MUTABLE_BUFFER(data.size() ? &data[0] : 0,
       data.size() * sizeof(Elem)
@@ -1431,7 +1431,7 @@ inline ASIO_MUTABLE_BUFFER buffer(
 template <typename Elem, typename Traits, typename Allocator>
 inline ASIO_MUTABLE_BUFFER buffer(
     std::basic_string<Elem, Traits, Allocator>& data,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_MUTABLE_BUFFER(data.size() ? &data[0] : 0,
       data.size() * sizeof(Elem) < max_size_in_bytes
@@ -1453,7 +1453,7 @@ inline ASIO_MUTABLE_BUFFER buffer(
  */
 template <typename Elem, typename Traits, typename Allocator>
 inline ASIO_CONST_BUFFER buffer(
-    const std::basic_string<Elem, Traits, Allocator>& data) ASIO_NOEXCEPT
+    const std::basic_string<Elem, Traits, Allocator>& data) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.data(), data.size() * sizeof(Elem)
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
@@ -1477,7 +1477,7 @@ inline ASIO_CONST_BUFFER buffer(
 template <typename Elem, typename Traits, typename Allocator>
 inline ASIO_CONST_BUFFER buffer(
     const std::basic_string<Elem, Traits, Allocator>& data,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.data(),
       data.size() * sizeof(Elem) < max_size_in_bytes
@@ -1500,7 +1500,7 @@ inline ASIO_CONST_BUFFER buffer(
  */
 template <typename Elem, typename Traits>
 inline ASIO_CONST_BUFFER buffer(
-    basic_string_view<Elem, Traits> data) ASIO_NOEXCEPT
+    basic_string_view<Elem, Traits> data) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.size() ? &data[0] : 0,
       data.size() * sizeof(Elem)
@@ -1522,7 +1522,7 @@ inline ASIO_CONST_BUFFER buffer(
 template <typename Elem, typename Traits>
 inline ASIO_CONST_BUFFER buffer(
     basic_string_view<Elem, Traits> data,
-    std::size_t max_size_in_bytes) ASIO_NOEXCEPT
+    std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.size() ? &data[0] : 0,
       data.size() * sizeof(Elem) < max_size_in_bytes
@@ -1570,7 +1570,7 @@ public:
    */
   explicit dynamic_string_buffer(std::basic_string<Elem, Traits, Allocator>& s,
       std::size_t maximum_size =
-        (std::numeric_limits<std::size_t>::max)()) ASIO_NOEXCEPT
+        (std::numeric_limits<std::size_t>::max)()) noexcept(true)
     : string_(s),
 #if !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
       size_((std::numeric_limits<std::size_t>::max)()),
@@ -1580,7 +1580,7 @@ public:
   }
 
   /// @b DynamicBuffer_v2: Copy construct a dynamic buffer.
-  dynamic_string_buffer(const dynamic_string_buffer& other) ASIO_NOEXCEPT
+  dynamic_string_buffer(const dynamic_string_buffer& other) noexcept(true)
     : string_(other.string_),
 #if !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
       size_(other.size_),
@@ -1591,7 +1591,7 @@ public:
 
 #if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move construct a dynamic buffer.
-  dynamic_string_buffer(dynamic_string_buffer&& other) ASIO_NOEXCEPT
+  dynamic_string_buffer(dynamic_string_buffer&& other) noexcept(true)
     : string_(other.string_),
 #if !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
       size_(other.size_),
@@ -1608,7 +1608,7 @@ public:
    * @b DynamicBuffer_v2: The current size of the underlying string if less than
    * max_size(). Otherwise returns max_size().
    */
-  std::size_t size() const ASIO_NOEXCEPT
+  std::size_t size() const noexcept(true)
   {
 #if !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
     if (size_ != (std::numeric_limits<std::size_t>::max)())
@@ -1621,7 +1621,7 @@ public:
   /**
    * @returns The allowed maximum size of the underlying memory.
    */
-  std::size_t max_size() const ASIO_NOEXCEPT
+  std::size_t max_size() const noexcept(true)
   {
     return max_size_;
   }
@@ -1632,7 +1632,7 @@ public:
    * @returns The current capacity of the underlying string if less than
    * max_size(). Otherwise returns max_size().
    */
-  std::size_t capacity() const ASIO_NOEXCEPT
+  std::size_t capacity() const noexcept(true)
   {
     return (std::min)(string_.capacity(), max_size());
   }
@@ -1648,7 +1648,7 @@ public:
    * @note The returned object is invalidated by any @c dynamic_string_buffer
    * or @c basic_string member function that resizes or erases the string.
    */
-  const_buffers_type data() const ASIO_NOEXCEPT
+  const_buffers_type data() const noexcept(true)
   {
     return const_buffers_type(asio::buffer(string_, size_));
   }
@@ -1669,7 +1669,7 @@ public:
    * @note The returned object is invalidated by any @c dynamic_string_buffer
    * or @c basic_string member function that resizes or erases the string.
    */
-  mutable_buffers_type data(std::size_t pos, std::size_t n) ASIO_NOEXCEPT
+  mutable_buffers_type data(std::size_t pos, std::size_t n) noexcept(true)
   {
     return mutable_buffers_type(asio::buffer(
           asio::buffer(string_, max_size_) + pos, n));
@@ -1688,7 +1688,7 @@ public:
    * or @c basic_string member function that resizes or erases the string.
    */
   const_buffers_type data(std::size_t pos,
-      std::size_t n) const ASIO_NOEXCEPT
+      std::size_t n) const noexcept(true)
   {
     return const_buffers_type(asio::buffer(
           asio::buffer(string_, max_size_) + pos, n));
@@ -1838,7 +1838,7 @@ public:
    */
   explicit dynamic_vector_buffer(std::vector<Elem, Allocator>& v,
       std::size_t maximum_size =
-        (std::numeric_limits<std::size_t>::max)()) ASIO_NOEXCEPT
+        (std::numeric_limits<std::size_t>::max)()) noexcept(true)
     : vector_(v),
 #if !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
       size_((std::numeric_limits<std::size_t>::max)()),
@@ -1848,7 +1848,7 @@ public:
   }
 
   /// @b DynamicBuffer_v2: Copy construct a dynamic buffer.
-  dynamic_vector_buffer(const dynamic_vector_buffer& other) ASIO_NOEXCEPT
+  dynamic_vector_buffer(const dynamic_vector_buffer& other) noexcept(true)
     : vector_(other.vector_),
 #if !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
       size_(other.size_),
@@ -1859,7 +1859,7 @@ public:
 
 #if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move construct a dynamic buffer.
-  dynamic_vector_buffer(dynamic_vector_buffer&& other) ASIO_NOEXCEPT
+  dynamic_vector_buffer(dynamic_vector_buffer&& other) noexcept(true)
     : vector_(other.vector_),
 #if !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
       size_(other.size_),
@@ -1876,7 +1876,7 @@ public:
    * @b DynamicBuffer_v2: The current size of the underlying vector if less than
    * max_size(). Otherwise returns max_size().
    */
-  std::size_t size() const ASIO_NOEXCEPT
+  std::size_t size() const noexcept(true)
   {
 #if !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
     if (size_ != (std::numeric_limits<std::size_t>::max)())
@@ -1891,7 +1891,7 @@ public:
    * of the input sequence and output sequence. @b DynamicBuffer_v2: The allowed
    * maximum size of the underlying memory.
    */
-  std::size_t max_size() const ASIO_NOEXCEPT
+  std::size_t max_size() const noexcept(true)
   {
     return max_size_;
   }
@@ -1904,7 +1904,7 @@ public:
    * The current capacity of the underlying vector if less than max_size().
    * Otherwise returns max_size().
    */
-  std::size_t capacity() const ASIO_NOEXCEPT
+  std::size_t capacity() const noexcept(true)
   {
     return (std::min)(vector_.capacity(), max_size());
   }
@@ -1921,7 +1921,7 @@ public:
    * or @c vector member function that modifies the input sequence or output
    * sequence.
    */
-  const_buffers_type data() const ASIO_NOEXCEPT
+  const_buffers_type data() const noexcept(true)
   {
     return const_buffers_type(asio::buffer(vector_, size_));
   }
@@ -1942,7 +1942,7 @@ public:
    * @note The returned object is invalidated by any @c dynamic_vector_buffer
    * or @c vector member function that resizes or erases the vector.
    */
-  mutable_buffers_type data(std::size_t pos, std::size_t n) ASIO_NOEXCEPT
+  mutable_buffers_type data(std::size_t pos, std::size_t n) noexcept(true)
   {
     return mutable_buffers_type(asio::buffer(
           asio::buffer(vector_, max_size_) + pos, n));
@@ -1961,7 +1961,7 @@ public:
    * or @c vector member function that resizes or erases the vector.
    */
   const_buffers_type data(std::size_t pos,
-      std::size_t n) const ASIO_NOEXCEPT
+      std::size_t n) const noexcept(true)
   {
     return const_buffers_type(asio::buffer(
           asio::buffer(vector_, max_size_) + pos, n));
@@ -2097,7 +2097,7 @@ private:
  */
 template <typename Elem, typename Traits, typename Allocator>
 inline dynamic_string_buffer<Elem, Traits, Allocator> dynamic_buffer(
-    std::basic_string<Elem, Traits, Allocator>& data) ASIO_NOEXCEPT
+    std::basic_string<Elem, Traits, Allocator>& data) noexcept(true)
 {
   return dynamic_string_buffer<Elem, Traits, Allocator>(data);
 }
@@ -2110,7 +2110,7 @@ inline dynamic_string_buffer<Elem, Traits, Allocator> dynamic_buffer(
 template <typename Elem, typename Traits, typename Allocator>
 inline dynamic_string_buffer<Elem, Traits, Allocator> dynamic_buffer(
     std::basic_string<Elem, Traits, Allocator>& data,
-    std::size_t max_size) ASIO_NOEXCEPT
+    std::size_t max_size) noexcept(true)
 {
   return dynamic_string_buffer<Elem, Traits, Allocator>(data, max_size);
 }
@@ -2121,7 +2121,7 @@ inline dynamic_string_buffer<Elem, Traits, Allocator> dynamic_buffer(
  */
 template <typename Elem, typename Allocator>
 inline dynamic_vector_buffer<Elem, Allocator> dynamic_buffer(
-    std::vector<Elem, Allocator>& data) ASIO_NOEXCEPT
+    std::vector<Elem, Allocator>& data) noexcept(true)
 {
   return dynamic_vector_buffer<Elem, Allocator>(data);
 }
@@ -2133,7 +2133,7 @@ inline dynamic_vector_buffer<Elem, Allocator> dynamic_buffer(
 template <typename Elem, typename Allocator>
 inline dynamic_vector_buffer<Elem, Allocator> dynamic_buffer(
     std::vector<Elem, Allocator>& data,
-    std::size_t max_size) ASIO_NOEXCEPT
+    std::size_t max_size) noexcept(true)
 {
   return dynamic_vector_buffer<Elem, Allocator>(data, max_size);
 }
@@ -2185,7 +2185,7 @@ inline std::size_t buffer_copy_1(const mutable_buffer& target,
 template <typename TargetIterator, typename SourceIterator>
 inline std::size_t buffer_copy(one_buffer, one_buffer,
     TargetIterator target_begin, TargetIterator,
-    SourceIterator source_begin, SourceIterator) ASIO_NOEXCEPT
+    SourceIterator source_begin, SourceIterator) noexcept(true)
 {
   return (buffer_copy_1)(*target_begin, *source_begin);
 }
@@ -2194,7 +2194,7 @@ template <typename TargetIterator, typename SourceIterator>
 inline std::size_t buffer_copy(one_buffer, one_buffer,
     TargetIterator target_begin, TargetIterator,
     SourceIterator source_begin, SourceIterator,
-    std::size_t max_bytes_to_copy) ASIO_NOEXCEPT
+    std::size_t max_bytes_to_copy) noexcept(true)
 {
   return (buffer_copy_1)(*target_begin,
       asio::buffer(*source_begin, max_bytes_to_copy));
@@ -2205,7 +2205,7 @@ std::size_t buffer_copy(one_buffer, multiple_buffers,
     TargetIterator target_begin, TargetIterator,
     SourceIterator source_begin, SourceIterator source_end,
     std::size_t max_bytes_to_copy
-      = (std::numeric_limits<std::size_t>::max)()) ASIO_NOEXCEPT
+      = (std::numeric_limits<std::size_t>::max)()) noexcept(true)
 {
   std::size_t total_bytes_copied = 0;
   SourceIterator source_iter = source_begin;
@@ -2228,7 +2228,7 @@ std::size_t buffer_copy(multiple_buffers, one_buffer,
     TargetIterator target_begin, TargetIterator target_end,
     SourceIterator source_begin, SourceIterator,
     std::size_t max_bytes_to_copy
-      = (std::numeric_limits<std::size_t>::max)()) ASIO_NOEXCEPT
+      = (std::numeric_limits<std::size_t>::max)()) noexcept(true)
 {
   std::size_t total_bytes_copied = 0;
   TargetIterator target_iter = target_begin;
@@ -2249,7 +2249,7 @@ std::size_t buffer_copy(multiple_buffers, one_buffer,
 template <typename TargetIterator, typename SourceIterator>
 std::size_t buffer_copy(multiple_buffers, multiple_buffers,
     TargetIterator target_begin, TargetIterator target_end,
-    SourceIterator source_begin, SourceIterator source_end) ASIO_NOEXCEPT
+    SourceIterator source_begin, SourceIterator source_end) noexcept(true)
 {
   std::size_t total_bytes_copied = 0;
 
@@ -2294,7 +2294,7 @@ template <typename TargetIterator, typename SourceIterator>
 std::size_t buffer_copy(multiple_buffers, multiple_buffers,
     TargetIterator target_begin, TargetIterator target_end,
     SourceIterator source_begin, SourceIterator source_end,
-    std::size_t max_bytes_to_copy) ASIO_NOEXCEPT
+    std::size_t max_bytes_to_copy) noexcept(true)
 {
   std::size_t total_bytes_copied = 0;
 
@@ -2361,7 +2361,7 @@ std::size_t buffer_copy(multiple_buffers, multiple_buffers,
  */
 template <typename MutableBufferSequence, typename ConstBufferSequence>
 inline std::size_t buffer_copy(const MutableBufferSequence& target,
-    const ConstBufferSequence& source) ASIO_NOEXCEPT
+    const ConstBufferSequence& source) noexcept(true)
 {
   return detail::buffer_copy(
       detail::buffer_sequence_cardinality<MutableBufferSequence>(),
@@ -2399,7 +2399,7 @@ inline std::size_t buffer_copy(const MutableBufferSequence& target,
 template <typename MutableBufferSequence, typename ConstBufferSequence>
 inline std::size_t buffer_copy(const MutableBufferSequence& target,
     const ConstBufferSequence& source,
-    std::size_t max_bytes_to_copy) ASIO_NOEXCEPT
+    std::size_t max_bytes_to_copy) noexcept(true)
 {
   return detail::buffer_copy(
       detail::buffer_sequence_cardinality<MutableBufferSequence>(),

@@ -201,7 +201,6 @@ PREDEFINED             = GENERATING_DOCUMENTATION \
                          ASIO_NONDEDUCED_MOVE_ARG(a)=a& \
                          ASIO_DECL= \
                          ASIO_CONSTEXPR=constexpr \
-                         ASIO_NOEXCEPT=noexcept \
                          ASIO_COMPLETION_SIGNATURE=typename \
                          ASIO_COMPLETION_HANDLER_FOR(s)=typename \
                          ASIO_COMPLETION_TOKEN_FOR(s)=typename \
@@ -227,7 +226,6 @@ PREDEFINED             = GENERATING_DOCUMENTATION \
                          ASIO_UNSPECIFIED(e)=unspecified \
                          ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT==std::exception_ptr \
                          ASIO_EXECUTION_RECEIVER_OF_0=typename \
-                         ASIO_NOEXCEPT_IF(c)=
 EXPAND_AS_DEFINED      = 
 SKIP_FUNCTION_MACROS   = YES
 #---------------------------------------------------------------------------

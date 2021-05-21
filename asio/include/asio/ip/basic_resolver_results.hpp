@@ -230,19 +230,19 @@ public:
 #endif // !defined(GENERATING_DOCUMENTATION)
 
   /// Get the number of entries in the results range.
-  size_type size() const ASIO_NOEXCEPT
+  size_type size() const noexcept(true)
   {
     return this->values_ ? this->values_->size() : 0;
   }
 
   /// Get the maximum number of entries permitted in a results range.
-  size_type max_size() const ASIO_NOEXCEPT
+  size_type max_size() const noexcept(true)
   {
     return this->values_ ? this->values_->max_size() : values_type().max_size();
   }
 
   /// Determine whether the results range is empty.
-  bool empty() const ASIO_NOEXCEPT
+  bool empty() const noexcept(true)
   {
     return this->values_ ? this->values_->empty() : true;
   }
@@ -274,7 +274,7 @@ public:
   }
 
   /// Swap the results range with another.
-  void swap(basic_resolver_results& that) ASIO_NOEXCEPT
+  void swap(basic_resolver_results& that) noexcept(true)
   {
     if (this != &that)
     {

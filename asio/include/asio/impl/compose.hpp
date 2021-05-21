@@ -53,7 +53,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return executor_;
     }
@@ -84,7 +84,7 @@ namespace detail
   template <>
   struct composed_io_executors<void()>
   {
-    composed_io_executors() ASIO_NOEXCEPT
+    composed_io_executors() noexcept(true)
       : head_(system_executor())
     {
     }
@@ -101,7 +101,7 @@ namespace detail
   template <typename Head>
   struct composed_io_executors<void(Head)>
   {
-    explicit composed_io_executors(const Head& ex) ASIO_NOEXCEPT
+    explicit composed_io_executors(const Head& ex) noexcept(true)
       : head_(ex)
     {
     }
@@ -123,7 +123,7 @@ namespace detail
   struct composed_io_executors<void(Head, Tail...)>
   {
     explicit composed_io_executors(const Head& head,
-        const Tail&... tail) ASIO_NOEXCEPT
+        const Tail&... tail) noexcept(true)
       : head_(head),
         tail_(tail...)
     {
@@ -154,7 +154,7 @@ namespace detail
   struct composed_io_executors<void(Head, ASIO_VARIADIC_TARGS(n))> \
   { \
     explicit composed_io_executors(const Head& head, \
-        ASIO_VARIADIC_CONSTREF_PARAMS(n)) ASIO_NOEXCEPT \
+        ASIO_VARIADIC_CONSTREF_PARAMS(n)) noexcept(true) \
       : head_(head), \
         tail_(ASIO_VARIADIC_BYVAL_ARGS(n)) \
     { \
@@ -194,7 +194,7 @@ namespace detail
   {
     typedef composed_io_executors<void()> executors_type;
 
-    composed_work(const executors_type&) ASIO_NOEXCEPT
+    composed_work(const executors_type&) noexcept(true)
       : head_(system_executor())
     {
     }
@@ -213,7 +213,7 @@ namespace detail
   {
     typedef composed_io_executors<void(Head)> executors_type;
 
-    explicit composed_work(const executors_type& ex) ASIO_NOEXCEPT
+    explicit composed_work(const executors_type& ex) noexcept(true)
       : head_(ex.head_)
     {
     }
@@ -234,7 +234,7 @@ namespace detail
   {
     typedef composed_io_executors<void(Head, Tail...)> executors_type;
 
-    explicit composed_work(const executors_type& ex) ASIO_NOEXCEPT
+    explicit composed_work(const executors_type& ex) noexcept(true)
       : head_(ex.head_),
         tail_(ex.tail_)
     {
@@ -260,7 +260,7 @@ namespace detail
     typedef composed_io_executors<void(Head, \
       ASIO_VARIADIC_TARGS(n))> executors_type; \
   \
-    explicit composed_work(const executors_type& ex) ASIO_NOEXCEPT \
+    explicit composed_work(const executors_type& ex) noexcept(true) \
       : head_(ex.head_), \
         tail_(ex.tail_) \
     { \
@@ -322,7 +322,7 @@ namespace detail
         >::executor_type
       >::type executor_type;
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return (get_associated_executor)(handler_, work_.head_.get_executor());
     }
@@ -330,7 +330,7 @@ namespace detail
     typedef typename associated_allocator<Handler,
       std::allocator<void> >::type allocator_type;
 
-    allocator_type get_allocator() const ASIO_NOEXCEPT
+    allocator_type get_allocator() const noexcept(true)
     {
       return (get_associated_allocator)(handler_, std::allocator<void>());
     }
@@ -467,7 +467,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return executors_.head_;
     }

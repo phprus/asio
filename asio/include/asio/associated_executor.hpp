@@ -34,7 +34,7 @@ struct associated_executor_impl
 
   typedef E type;
 
-  static type get(const T&, const E& e = E()) ASIO_NOEXCEPT
+  static type get(const T&, const E& e = E()) noexcept(true)
   {
     return e;
   }
@@ -46,7 +46,7 @@ struct associated_executor_impl<T, E,
 {
   typedef typename T::executor_type type;
 
-  static type get(const T& t, const E& = E()) ASIO_NOEXCEPT
+  static type get(const T& t, const E& = E()) noexcept(true)
   {
     return t.get_executor();
   }
@@ -87,7 +87,7 @@ struct associated_executor
   /// If @c T has a nested type @c executor_type, returns
   /// <tt>t.get_executor()</tt>. Otherwise returns @c ex.
   static type get(const T& t,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT;
+      const Executor& ex = Executor()) noexcept(true);
 #endif // defined(GENERATING_DOCUMENTATION)
 };
 
@@ -97,7 +97,7 @@ struct associated_executor
  */
 template <typename T>
 inline typename associated_executor<T>::type
-get_associated_executor(const T& t) ASIO_NOEXCEPT
+get_associated_executor(const T& t) noexcept(true)
 {
   return associated_executor<T>::get(t);
 }
@@ -111,7 +111,7 @@ inline typename associated_executor<T, Executor>::type
 get_associated_executor(const T& t, const Executor& ex,
     typename constraint<
       is_executor<Executor>::value || execution::is_executor<Executor>::value
-    >::type = 0) ASIO_NOEXCEPT
+    >::type = 0) noexcept(true)
 {
   return associated_executor<T, Executor>::get(t, ex);
 }
@@ -126,7 +126,7 @@ inline typename associated_executor<T,
   typename ExecutionContext::executor_type>::type
 get_associated_executor(const T& t, ExecutionContext& ctx,
     typename constraint<is_convertible<ExecutionContext&,
-      execution_context&>::value>::type = 0) ASIO_NOEXCEPT
+      execution_context&>::value>::type = 0) noexcept(true)
 {
   return associated_executor<T,
     typename ExecutionContext::executor_type>::get(t, ctx.get_executor());
@@ -178,7 +178,7 @@ struct associated_executor<reference_wrapper<T>, Executor>
   /// Forwards the request to get the executor to the associator specialisation
   /// for the unwrapped type @c T.
   static type get(reference_wrapper<T> t,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<T, Executor>::get(t.get(), ex);
   }

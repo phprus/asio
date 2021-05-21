@@ -20,11 +20,9 @@
 #include "asio/detail/variadic_templates.hpp"
 
 #if defined(ASIO_HAS_DECLTYPE) \
-  && defined(ASIO_HAS_NOEXCEPT) \
   && defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 # define ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT 1
 #endif // defined(ASIO_HAS_DECLTYPE)
-       //   && defined(ASIO_HAS_NOEXCEPT)
        //   && defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 
 #include "asio/detail/push_options.hpp"

@@ -363,7 +363,7 @@ struct associated_executor<detail::redirect_error_handler<Handler>, Executor>
 
   static type get(
       const detail::redirect_error_handler<Handler>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<Handler, Executor>::get(h.handler_, ex);
   }
@@ -376,7 +376,7 @@ struct associated_allocator<detail::redirect_error_handler<Handler>, Allocator>
 
   static type get(
       const detail::redirect_error_handler<Handler>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<Handler, Allocator>::get(h.handler_, a);
   }

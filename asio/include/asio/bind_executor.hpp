@@ -374,19 +374,19 @@ public:
   }
 
   /// Obtain a reference to the target object.
-  target_type& get() ASIO_NOEXCEPT
+  target_type& get() noexcept(true)
   {
     return this->target_;
   }
 
   /// Obtain a reference to the target object.
-  const target_type& get() const ASIO_NOEXCEPT
+  const target_type& get() const noexcept(true)
   {
     return this->target_;
   }
 
   /// Obtain the associated executor.
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return this->executor_;
   }
@@ -548,7 +548,7 @@ struct associated_allocator<executor_binder<T, Executor>, Allocator>
   typedef typename associated_allocator<T, Allocator>::type type;
 
   static type get(const executor_binder<T, Executor>& b,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<T, Allocator>::get(b.get(), a);
   }
@@ -560,7 +560,7 @@ struct associated_executor<executor_binder<T, Executor>, Executor1>
   typedef Executor type;
 
   static type get(const executor_binder<T, Executor>& b,
-      const Executor1& = Executor1()) ASIO_NOEXCEPT
+      const Executor1& = Executor1()) noexcept(true)
   {
     return b.get_executor();
   }

@@ -486,7 +486,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return socket_.get_executor();
     }
@@ -693,7 +693,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return socket_.get_executor();
     }
@@ -735,7 +735,7 @@ struct associated_allocator<
   static type get(
       const detail::range_connect_op<Protocol, Executor, EndpointSequence,
         ConnectCondition, RangeConnectHandler>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<RangeConnectHandler,
         Allocator>::get(h.handler_, a);
@@ -755,7 +755,7 @@ struct associated_executor<
   static type get(
       const detail::range_connect_op<Protocol, Executor, EndpointSequence,
       ConnectCondition, RangeConnectHandler>& h,
-      const Executor1& ex = Executor1()) ASIO_NOEXCEPT
+      const Executor1& ex = Executor1()) noexcept(true)
   {
     return associated_executor<RangeConnectHandler,
         Executor1>::get(h.handler_, ex);
@@ -776,7 +776,7 @@ struct associated_allocator<
   static type get(
       const detail::iterator_connect_op<Protocol, Executor,
         Iterator, ConnectCondition, IteratorConnectHandler>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<IteratorConnectHandler,
         Allocator>::get(h.handler_, a);
@@ -799,7 +799,7 @@ struct associated_executor<
   static type get(
       const detail::iterator_connect_op<Protocol, Executor,
         Iterator, ConnectCondition, IteratorConnectHandler>& h,
-      const Executor1& ex = Executor1()) ASIO_NOEXCEPT
+      const Executor1& ex = Executor1()) noexcept(true)
   {
     return associated_executor<IteratorConnectHandler,
         Executor1>::get(h.handler_, ex);

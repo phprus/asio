@@ -339,7 +339,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return device_.get_executor();
     }
@@ -382,7 +382,7 @@ struct associated_allocator<
       const detail::write_at_op<AsyncRandomAccessWriteDevice,
         ConstBufferSequence, ConstBufferIterator,
         CompletionCondition, WriteHandler>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<WriteHandler, Allocator>::get(h.handler_, a);
   }
@@ -403,7 +403,7 @@ struct associated_executor<
       const detail::write_at_op<AsyncRandomAccessWriteDevice,
         ConstBufferSequence, ConstBufferIterator,
         CompletionCondition, WriteHandler>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<WriteHandler, Executor>::get(h.handler_, ex);
   }
@@ -559,7 +559,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return device_.get_executor();
     }
@@ -597,7 +597,7 @@ struct associated_allocator<
 
   static type get(
       const detail::write_at_streambuf_op<Allocator, WriteHandler>& h,
-      const Allocator1& a = Allocator1()) ASIO_NOEXCEPT
+      const Allocator1& a = Allocator1()) noexcept(true)
   {
     return associated_allocator<WriteHandler, Allocator1>::get(h.handler_, a);
   }
@@ -613,7 +613,7 @@ struct associated_executor<
 
   static type get(
       const detail::write_at_streambuf_op<Executor, WriteHandler>& h,
-      const Executor1& ex = Executor1()) ASIO_NOEXCEPT
+      const Executor1& ex = Executor1()) noexcept(true)
   {
     return associated_executor<WriteHandler, Executor1>::get(h.handler_, ex);
   }

@@ -45,13 +45,13 @@ struct possibly_blocking_executor
   }
 
   friend bool operator==(const possibly_blocking_executor&,
-      const possibly_blocking_executor&) ASIO_NOEXCEPT
+      const possibly_blocking_executor&) noexcept(true)
   {
     return true;
   }
 
   friend bool operator!=(const possibly_blocking_executor&,
-      const possibly_blocking_executor&) ASIO_NOEXCEPT
+      const possibly_blocking_executor&) noexcept(true)
   {
     return false;
   }
@@ -89,7 +89,7 @@ struct equality_comparable<possibly_blocking_executor>
 struct never_blocking_executor
 {
   static ASIO_CONSTEXPR execution::blocking_t::never_t
-    query(execution::blocking_t) ASIO_NOEXCEPT
+    query(execution::blocking_t) noexcept(true)
   {
     return execution::blocking_t::never_t();
   }
@@ -101,13 +101,13 @@ struct never_blocking_executor
   }
 
   friend bool operator==(const never_blocking_executor&,
-      const never_blocking_executor&) ASIO_NOEXCEPT
+      const never_blocking_executor&) noexcept(true)
   {
     return true;
   }
 
   friend bool operator!=(const never_blocking_executor&,
-      const never_blocking_executor&) ASIO_NOEXCEPT
+      const never_blocking_executor&) noexcept(true)
   {
     return false;
   }
@@ -173,7 +173,7 @@ struct either_blocking_executor
   {
   }
 
-  execution::blocking_t query(execution::blocking_t) const ASIO_NOEXCEPT
+  execution::blocking_t query(execution::blocking_t) const noexcept(true)
   {
     return blocking_;
   }
@@ -198,13 +198,13 @@ struct either_blocking_executor
   }
 
   friend bool operator==(const either_blocking_executor& a,
-      const either_blocking_executor& b) ASIO_NOEXCEPT
+      const either_blocking_executor& b) noexcept(true)
   {
     return a.blocking_ == b.blocking_;
   }
 
   friend bool operator!=(const either_blocking_executor& a,
-      const either_blocking_executor& b) ASIO_NOEXCEPT
+      const either_blocking_executor& b) noexcept(true)
   {
     return a.blocking_ != b.blocking_;
   }

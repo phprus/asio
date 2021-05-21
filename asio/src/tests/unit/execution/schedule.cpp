@@ -28,7 +28,7 @@ namespace exec = asio::execution;
 
 struct operation_state
 {
-  void start() ASIO_NOEXCEPT
+  void start() noexcept(true)
   {
   }
 };
@@ -108,7 +108,7 @@ struct no_schedule
 
 struct const_member_schedule
 {
-  sender schedule() const ASIO_NOEXCEPT
+  sender schedule() const noexcept(true)
   {
     return sender();
   }
@@ -135,7 +135,7 @@ struct schedule_member<const const_member_schedule>
 struct free_schedule_const_receiver
 {
   friend sender schedule(
-      const free_schedule_const_receiver&) ASIO_NOEXCEPT
+      const free_schedule_const_receiver&) noexcept(true)
   {
     return sender();
   }
@@ -161,7 +161,7 @@ struct schedule_free<const free_schedule_const_receiver>
 
 struct non_const_member_schedule
 {
-  sender schedule() ASIO_NOEXCEPT
+  sender schedule() noexcept(true)
   {
     return sender();
   }
@@ -188,7 +188,7 @@ struct schedule_member<non_const_member_schedule>
 struct free_schedule_non_const_receiver
 {
   friend sender schedule(
-      free_schedule_non_const_receiver&) ASIO_NOEXCEPT
+      free_schedule_non_const_receiver&) noexcept(true)
   {
     return sender();
   }
@@ -218,29 +218,29 @@ struct executor
   {
   }
 
-  executor(const executor&) ASIO_NOEXCEPT
+  executor(const executor&) noexcept(true)
   {
   }
 
 #if defined(ASIO_HAS_MOVE)
-  executor(executor&&) ASIO_NOEXCEPT
+  executor(executor&&) noexcept(true)
   {
   }
 #endif // defined(ASIO_HAS_MOVE)
 
   template <typename F>
-  void execute(ASIO_MOVE_ARG(F) f) const ASIO_NOEXCEPT
+  void execute(ASIO_MOVE_ARG(F) f) const noexcept(true)
   {
     typename asio::decay<F>::type tmp(ASIO_MOVE_CAST(F)(f));
     tmp();
   }
 
-  bool operator==(const executor&) const ASIO_NOEXCEPT
+  bool operator==(const executor&) const noexcept(true)
   {
     return true;
   }
 
-  bool operator!=(const executor&) const ASIO_NOEXCEPT
+  bool operator!=(const executor&) const noexcept(true)
   {
     return false;
   }
@@ -334,31 +334,31 @@ struct receiver
   {
   }
 
-  receiver(const receiver& other) ASIO_NOEXCEPT
+  receiver(const receiver& other) noexcept(true)
     : count_(other.count_)
   {
   }
 
 #if defined(ASIO_HAS_MOVE)
-  receiver(receiver&& other) ASIO_NOEXCEPT
+  receiver(receiver&& other) noexcept(true)
     : count_(other.count_)
   {
     other.count_ = 0;
   }
 #endif // defined(ASIO_HAS_MOVE)
 
-  void set_value() ASIO_NOEXCEPT
+  void set_value() noexcept(true)
   {
     ++(*count_);
   }
 
   template <typename E>
-  void set_error(ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT
+  void set_error(ASIO_MOVE_ARG(E) e) noexcept(true)
   {
     (void)e;
   }
 
-  void set_done() ASIO_NOEXCEPT
+  void set_done() noexcept(true)
   {
   }
 };

@@ -54,7 +54,7 @@ public:
   }
 #endif // defined(ASIO_HAS_MOVE)
 
-  allocator_type get_allocator() const ASIO_NOEXCEPT
+  allocator_type get_allocator() const noexcept(true)
   {
     return allocator_;
   }

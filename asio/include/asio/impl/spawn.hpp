@@ -301,7 +301,7 @@ struct associated_allocator<detail::coro_handler<Handler, T>, Allocator>
   typedef typename associated_allocator<Handler, Allocator>::type type;
 
   static type get(const detail::coro_handler<Handler, T>& h,
-      const Allocator& a = Allocator()) ASIO_NOEXCEPT
+      const Allocator& a = Allocator()) noexcept(true)
   {
     return associated_allocator<Handler, Allocator>::get(h.handler_, a);
   }
@@ -314,7 +314,7 @@ struct associated_executor<detail::coro_handler<Handler, T>, Executor>
   typedef typename associated_executor<Handler, Executor>::type type;
 
   static type get(const detail::coro_handler<Handler, T>& h,
-      const Executor& ex = Executor()) ASIO_NOEXCEPT
+      const Executor& ex = Executor()) noexcept(true)
   {
     return associated_executor<Handler, Executor>::get(h.handler_, ex);
   }
@@ -365,14 +365,14 @@ namespace detail {
   {
     typedef typename associated_allocator<Handler>::type allocator_type;
 
-    allocator_type get_allocator() const ASIO_NOEXCEPT
+    allocator_type get_allocator() const noexcept(true)
     {
       return (get_associated_allocator)(data_->handler_);
     }
 
     typedef typename associated_executor<Handler>::type executor_type;
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return (get_associated_executor)(data_->handler_);
     }

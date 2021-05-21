@@ -129,7 +129,7 @@ struct impl
     typename call_traits<R, void(Vs...)>::result_type
   >::type
   operator()(R&& r, Vs&&... v) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R, void(Vs...)>::is_noexcept))
   {
     return ASIO_MOVE_CAST(R)(r).set_value(ASIO_MOVE_CAST(Vs)(v)...);
@@ -141,7 +141,7 @@ struct impl
     typename call_traits<R, void(Vs...)>::result_type
   >::type
   operator()(R&& r, Vs&&... v) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R, void(Vs...)>::is_noexcept))
   {
     return set_value(ASIO_MOVE_CAST(R)(r),
@@ -156,7 +156,7 @@ struct impl
     typename call_traits<R, void()>::result_type
   >::type
   operator()(R&& r) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R, void()>::is_noexcept))
   {
     return ASIO_MOVE_CAST(R)(r).set_value();
@@ -168,7 +168,7 @@ struct impl
     typename call_traits<R, void()>::result_type
   >::type
   operator()(R&& r) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R, void()>::is_noexcept))
   {
     return set_value(ASIO_MOVE_CAST(R)(r));
@@ -182,7 +182,7 @@ struct impl
     typename call_traits<R, void(ASIO_VARIADIC_TARGS(n))>::result_type \
   >::type \
   operator()(R&& r, ASIO_VARIADIC_MOVE_PARAMS(n)) const \
-    ASIO_NOEXCEPT_IF(( \
+    noexcept(( \
       call_traits<R, void(ASIO_VARIADIC_TARGS(n))>::is_noexcept)) \
   { \
     return ASIO_MOVE_CAST(R)(r).set_value( \
@@ -195,7 +195,7 @@ struct impl
     typename call_traits<R, void(ASIO_VARIADIC_TARGS(n))>::result_type \
   >::type \
   operator()(R&& r, ASIO_VARIADIC_MOVE_PARAMS(n)) const \
-    ASIO_NOEXCEPT_IF(( \
+    noexcept(( \
       call_traits<R, void(ASIO_VARIADIC_TARGS(n))>::is_noexcept)) \
   { \
     return set_value(ASIO_MOVE_CAST(R)(r), \
@@ -217,7 +217,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SET_VALUE_CALL_DEF)
     typename call_traits<R&, void(const Vs&...)>::result_type
   >::type
   operator()(R& r, const Vs&... v) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R&, void(const Vs&...)>::is_noexcept))
   {
     return r.set_value(v...);
@@ -229,7 +229,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SET_VALUE_CALL_DEF)
     typename call_traits<const R&, void(const Vs&...)>::result_type
   >::type
   operator()(const R& r, const Vs&... v) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<const R&, void(const Vs&...)>::is_noexcept))
   {
     return r.set_value(v...);
@@ -241,7 +241,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SET_VALUE_CALL_DEF)
     typename call_traits<R&, void(const Vs&...)>::result_type
   >::type
   operator()(R& r, const Vs&... v) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R&, void(const Vs&...)>::is_noexcept))
   {
     return set_value(r, v...);
@@ -253,7 +253,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SET_VALUE_CALL_DEF)
     typename call_traits<const R&, void(const Vs&...)>::result_type
   >::type
   operator()(const R& r, const Vs&... v) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<const R&, void(const Vs&...)>::is_noexcept))
   {
     return set_value(r, v...);
@@ -267,7 +267,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SET_VALUE_CALL_DEF)
     typename call_traits<R&, void()>::result_type
   >::type
   operator()(R& r) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R&, void()>::is_noexcept))
   {
     return r.set_value();
@@ -279,7 +279,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SET_VALUE_CALL_DEF)
     typename call_traits<const R&, void()>::result_type
   >::type
   operator()(const R& r) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<const R&, void()>::is_noexcept))
   {
     return r.set_value();
@@ -291,7 +291,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SET_VALUE_CALL_DEF)
     typename call_traits<R&, void()>::result_type
   >::type
   operator()(R& r) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R&, void()>::is_noexcept))
   {
     return set_value(r);
@@ -303,7 +303,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SET_VALUE_CALL_DEF)
     typename call_traits<const R&, void()>::result_type
   >::type
   operator()(const R& r) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<const R&, void()>::is_noexcept))
   {
     return set_value(r);
@@ -317,7 +317,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SET_VALUE_CALL_DEF)
     typename call_traits<R&, void(ASIO_VARIADIC_TARGS(n))>::result_type \
   >::type \
   operator()(R& r, ASIO_VARIADIC_MOVE_PARAMS(n)) const \
-    ASIO_NOEXCEPT_IF(( \
+    noexcept(( \
       call_traits<R&, void(ASIO_VARIADIC_TARGS(n))>::is_noexcept)) \
   { \
     return r.set_value(ASIO_VARIADIC_MOVE_ARGS(n)); \
@@ -331,7 +331,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SET_VALUE_CALL_DEF)
       void(ASIO_VARIADIC_TARGS(n))>::result_type \
   >::type \
   operator()(const R& r, ASIO_VARIADIC_MOVE_PARAMS(n)) const \
-    ASIO_NOEXCEPT_IF(( \
+    noexcept(( \
       call_traits<const R&, void(ASIO_VARIADIC_TARGS(n))>::is_noexcept)) \
   { \
     return r.set_value(ASIO_VARIADIC_MOVE_ARGS(n)); \
@@ -344,7 +344,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SET_VALUE_CALL_DEF)
     typename call_traits<R&, void(ASIO_VARIADIC_TARGS(n))>::result_type \
   >::type \
   operator()(R& r, ASIO_VARIADIC_MOVE_PARAMS(n)) const \
-    ASIO_NOEXCEPT_IF(( \
+    noexcept(( \
       call_traits<R&, void(ASIO_VARIADIC_TARGS(n))>::is_noexcept)) \
   { \
     return set_value(r, ASIO_VARIADIC_MOVE_ARGS(n)); \
@@ -358,7 +358,7 @@ ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_SET_VALUE_CALL_DEF)
       void(ASIO_VARIADIC_TARGS(n))>::result_type \
   >::type \
   operator()(const R& r, ASIO_VARIADIC_MOVE_PARAMS(n)) const \
-    ASIO_NOEXCEPT_IF(( \
+    noexcept(( \
       call_traits<const R&, void(ASIO_VARIADIC_TARGS(n))>::is_noexcept)) \
   { \
     return set_value(r, ASIO_VARIADIC_MOVE_ARGS(n)); \
