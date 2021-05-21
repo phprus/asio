@@ -210,30 +210,6 @@
 # endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 #endif // !defined(ASIO_ELLIPSIS)
 
-// Support deleted functions on compilers known to allow it.
-#if !defined(ASIO_DELETED)
-# if defined(__GNUC__)
-#  if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-#   if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#    define ASIO_DELETED = delete
-#   endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#  endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-# endif // defined(__GNUC__)
-# if defined(__clang__)
-#  if __has_feature(__cxx_deleted_functions__)
-#   define ASIO_DELETED = delete
-#  endif // __has_feature(__cxx_deleted_functions__)
-# endif // defined(__clang__)
-# if defined(ASIO_MSVC)
-#  if (_MSC_VER >= 1900)
-#   define ASIO_DELETED = delete
-#  endif // (_MSC_VER >= 1900)
-# endif // defined(ASIO_MSVC)
-# if !defined(ASIO_DELETED)
-#  define ASIO_DELETED
-# endif // !defined(ASIO_DELETED)
-#endif // !defined(ASIO_DELETED)
-
 // Support constexpr on compilers known to allow it.
 #if !defined(ASIO_HAS_CONSTEXPR)
 # if !defined(ASIO_DISABLE_CONSTEXPR)

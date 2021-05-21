@@ -643,9 +643,9 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_deadline_timer(const basic_deadline_timer&) ASIO_DELETED;
+  basic_deadline_timer(const basic_deadline_timer&) = delete;
   basic_deadline_timer& operator=(
-      const basic_deadline_timer&) ASIO_DELETED;
+      const basic_deadline_timer&) = delete;
 
   class initiate_async_wait
   {

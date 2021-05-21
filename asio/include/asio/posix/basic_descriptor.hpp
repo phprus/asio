@@ -651,8 +651,8 @@ protected:
 
 private:
   // Disallow copying and assignment.
-  basic_descriptor(const basic_descriptor&) ASIO_DELETED;
-  basic_descriptor& operator=(const basic_descriptor&) ASIO_DELETED;
+  basic_descriptor(const basic_descriptor&) = delete;
+  basic_descriptor& operator=(const basic_descriptor&) = delete;
 
   class initiate_async_wait
   {

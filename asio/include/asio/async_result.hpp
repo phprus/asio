@@ -185,8 +185,8 @@ public:
 #endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 private:
-  async_result(const async_result&) ASIO_DELETED;
-  async_result& operator=(const async_result&) ASIO_DELETED;
+  async_result(const async_result&) = delete;
+  async_result& operator=(const async_result&) = delete;
 };
 
 #if !defined(GENERATING_DOCUMENTATION)

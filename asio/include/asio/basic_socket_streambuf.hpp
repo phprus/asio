@@ -559,9 +559,9 @@ protected:
 
 private:
   // Disallow copying and assignment.
-  basic_socket_streambuf(const basic_socket_streambuf&) ASIO_DELETED;
+  basic_socket_streambuf(const basic_socket_streambuf&) = delete;
   basic_socket_streambuf& operator=(
-      const basic_socket_streambuf&) ASIO_DELETED;
+      const basic_socket_streambuf&) = delete;
 
   void init_buffers()
   {
