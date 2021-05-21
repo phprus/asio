@@ -19,9 +19,7 @@
 #include "asio/detail/type_traits.hpp"
 #include "asio/traits/static_query.hpp"
 
-#if defined(ASIO_HAS_DECLTYPE)
-# define ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT 1
-#endif // defined(ASIO_HAS_DECLTYPE)
+#define ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT 1
 
 #include "asio/detail/push_options.hpp"
 
@@ -54,8 +52,6 @@ struct static_require_trait :
   >::type
 {
 };
-
-#if defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT)
 
 #if defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 
@@ -97,8 +93,6 @@ struct static_require_trait<T, Property,
 };
 
 #endif // defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
-
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT)
 
 } // namespace detail
 namespace traits {

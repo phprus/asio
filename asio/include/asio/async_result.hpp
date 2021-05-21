@@ -22,8 +22,7 @@
 
 namespace asio {
 
-#if defined(ASIO_HAS_CONCEPTS) \
-  && defined(ASIO_HAS_DECLTYPE)
+#if defined(ASIO_HAS_CONCEPTS)
 
 namespace detail {
 
@@ -72,13 +71,11 @@ ASIO_CONCEPT completion_handler_for =
   ::asio::completion_handler_for<s>
 
 #else // defined(ASIO_HAS_CONCEPTS)
-      //   && defined(ASIO_HAS_DECLTYPE)
 
 #define ASIO_COMPLETION_SIGNATURE typename
 #define ASIO_COMPLETION_HANDLER_FOR(s) typename
 
 #endif // defined(ASIO_HAS_CONCEPTS)
-       //   && defined(ASIO_HAS_DECLTYPE)
 
 /// An interface for customising the behaviour of an initiating function.
 /**
@@ -293,12 +290,9 @@ struct async_result_has_initiate_memfn
 #if defined(GENERATING_DOCUMENTATION)
 # define ASIO_INITFN_DEDUCED_RESULT_TYPE(ct, sig, expr) \
   void_or_deduced
-#elif defined(ASIO_HAS_DECLTYPE)
-# define ASIO_INITFN_DEDUCED_RESULT_TYPE(ct, sig, expr) \
-  decltype expr
 #else
 # define ASIO_INITFN_DEDUCED_RESULT_TYPE(ct, sig, expr) \
-  ASIO_INITFN_RESULT_TYPE(ct, sig)
+  decltype expr
 #endif
 
 #if defined(GENERATING_DOCUMENTATION)
@@ -355,8 +349,7 @@ async_initiate(ASIO_MOVE_ARG(Initiation) initiation,
 
 #endif // defined(GENERATING_DOCUMENTATION)
 
-#if defined(ASIO_HAS_CONCEPTS) \
-  && defined(ASIO_HAS_DECLTYPE)
+#if defined(ASIO_HAS_CONCEPTS)
 
 namespace detail {
 
@@ -384,12 +377,10 @@ ASIO_CONCEPT completion_token_for =
   ::asio::completion_token_for<s>
 
 #else // defined(ASIO_HAS_CONCEPTS)
-      //   && defined(ASIO_HAS_DECLTYPE)
 
 #define ASIO_COMPLETION_TOKEN_FOR(s) typename
 
 #endif // defined(ASIO_HAS_CONCEPTS)
-       //   && defined(ASIO_HAS_DECLTYPE)
 
 namespace detail {
 

@@ -18,12 +18,10 @@
 #include "asio/detail/config.hpp"
 #include "asio/detail/type_traits.hpp"
 
-#if defined(ASIO_HAS_DECLTYPE) \
-  && defined(ASIO_HAS_VARIABLE_TEMPLATES) \
+#if defined(ASIO_HAS_VARIABLE_TEMPLATES) \
   && defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 # define ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT 1
-#endif // defined(ASIO_HAS_DECLTYPE)
-       //   && defined(ASIO_HAS_VARIABLE_TEMPLATES)
+#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
        //   && defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 
 #include "asio/detail/push_options.hpp"
