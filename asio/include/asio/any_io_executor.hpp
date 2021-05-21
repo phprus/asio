@@ -16,6 +16,7 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include "asio/detail/config.hpp"
+#include <cstddef>
 #if defined(ASIO_USE_TS_EXECUTOR_AS_DEFAULT)
 # include "asio/executor.hpp"
 #else // defined(ASIO_USE_TS_EXECUTOR_AS_DEFAULT)
@@ -93,8 +94,8 @@ public:
   }
 
   /// Construct in an empty state. Equivalent effects to default constructor.
-  any_io_executor(nullptr_t) noexcept(true)
-    : base_type(nullptr_t())
+  any_io_executor(std::nullptr_t) noexcept(true)
+    : base_type(std::nullptr_t())
   {
   }
 
@@ -174,9 +175,9 @@ public:
 #endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Assignment operator that sets the polymorphic wrapper to the empty state.
-  any_io_executor& operator=(nullptr_t)
+  any_io_executor& operator=(std::nullptr_t)
   {
-    base_type::operator=(nullptr_t());
+    base_type::operator=(std::nullptr_t());
     return *this;
   }
 

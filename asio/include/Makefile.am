@@ -57,7 +57,6 @@ nobase_include_HEADERS = \
 	asio/detail/conditionally_enabled_mutex.hpp \
 	asio/detail/config.hpp \
 	asio/detail/consuming_buffers.hpp \
-	asio/detail/cstddef.hpp \
 	asio/detail/cstdint.hpp \
 	asio/detail/date_time_fwd.hpp \
 	asio/detail/deadline_timer_service.hpp \
