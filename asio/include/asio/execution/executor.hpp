@@ -201,12 +201,8 @@ struct executor_shape
 #endif // defined(GENERATING_DOCUMENTATION)
 };
 
-#if defined(ASIO_HAS_ALIAS_TEMPLATES)
-
 template <typename T>
 using executor_shape_t = typename executor_shape<T>::type;
-
-#endif // defined(ASIO_HAS_ALIAS_TEMPLATES)
 
 /// The executor_index trait detects the type used by an executor to represent
 /// an index within a bulk operation.
@@ -228,12 +224,8 @@ struct executor_index
 #endif // defined(GENERATING_DOCUMENTATION)
 };
 
-#if defined(ASIO_HAS_ALIAS_TEMPLATES)
-
 template <typename T>
 using executor_index_t = typename executor_index<T>::type;
-
-#endif // defined(ASIO_HAS_ALIAS_TEMPLATES)
 
 } // namespace execution
 } // namespace asio

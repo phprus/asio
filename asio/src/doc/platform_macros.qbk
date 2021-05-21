@@ -24,13 +24,6 @@ needs.
 [table
   [[Macro][Description][Macro to disable feature]]
   [
-    [`ASIO_HAS_ALIAS_TEMPLATES`]
-    [
-      Support alias templates on compilers known to allow it.
-    ]
-    [`ASIO_DISABLE_ALIAS_TEMPLATES`]
-  ]
-  [
     [`ASIO_HAS_ALIGNED_NEW`]
     [
       Support for operator new with alignment argument.
