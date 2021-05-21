@@ -264,53 +264,53 @@ struct submit_member<const sender, R>
 
 void test_can_execute()
 {
-  ASIO_CONSTEXPR bool b1 = exec::can_execute<
+  constexpr bool b1 = exec::can_execute<
       no_execute&, exec::invocable_archetype>::value;
   ASIO_CHECK(b1 == false);
 
-  ASIO_CONSTEXPR bool b2 = exec::can_execute<
+  constexpr bool b2 = exec::can_execute<
       const no_execute&, exec::invocable_archetype>::value;
   ASIO_CHECK(b2 == false);
 
-  ASIO_CONSTEXPR bool b3 = exec::can_execute<
+  constexpr bool b3 = exec::can_execute<
       const_member_execute&, exec::invocable_archetype>::value;
   ASIO_CHECK(b3 == true);
 
-  ASIO_CONSTEXPR bool b4 = exec::can_execute<
+  constexpr bool b4 = exec::can_execute<
       const const_member_execute&, exec::invocable_archetype>::value;
   ASIO_CHECK(b4 == true);
 
-  ASIO_CONSTEXPR bool b5 = exec::can_execute<
+  constexpr bool b5 = exec::can_execute<
       free_execute_const_executor&, exec::invocable_archetype>::value;
   ASIO_CHECK(b5 == true);
 
-  ASIO_CONSTEXPR bool b6 = exec::can_execute<
+  constexpr bool b6 = exec::can_execute<
       const free_execute_const_executor&, exec::invocable_archetype>::value;
   ASIO_CHECK(b6 == true);
 
 #if defined(ASIO_HAS_MOVE)
-  ASIO_CONSTEXPR bool b7 = exec::can_execute<
+  constexpr bool b7 = exec::can_execute<
       non_const_member_execute&, exec::invocable_archetype>::value;
   ASIO_CHECK(b7 == true);
 
-  ASIO_CONSTEXPR bool b8 = exec::can_execute<
+  constexpr bool b8 = exec::can_execute<
       const non_const_member_execute&, exec::invocable_archetype>::value;
   ASIO_CHECK(b8 == false);
 
-  ASIO_CONSTEXPR bool b9 = exec::can_execute<
+  constexpr bool b9 = exec::can_execute<
       free_execute_non_const_executor&, exec::invocable_archetype>::value;
   ASIO_CHECK(b9 == true);
 
-  ASIO_CONSTEXPR bool b10 = exec::can_execute<
+  constexpr bool b10 = exec::can_execute<
       const free_execute_non_const_executor&, exec::invocable_archetype>::value;
   ASIO_CHECK(b10 == false);
 #endif // defined(ASIO_HAS_MOVE)
 
-  ASIO_CONSTEXPR bool b11 = exec::can_execute<
+  constexpr bool b11 = exec::can_execute<
       sender&, exec::invocable_archetype>::value;
   ASIO_CHECK(b11 == true);
 
-  ASIO_CONSTEXPR bool b12 = exec::can_execute<
+  constexpr bool b12 = exec::can_execute<
       const sender&, exec::invocable_archetype>::value;
   ASIO_CHECK(b12 == true);
 }

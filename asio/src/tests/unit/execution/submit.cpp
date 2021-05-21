@@ -411,67 +411,67 @@ struct equality_comparable<executor>
 
 void test_can_submit()
 {
-  ASIO_CONSTEXPR bool b1 = exec::can_submit<
+  constexpr bool b1 = exec::can_submit<
       no_submit_1&, receiver>::value;
   ASIO_CHECK(b1 == false);
 
-  ASIO_CONSTEXPR bool b2 = exec::can_submit<
+  constexpr bool b2 = exec::can_submit<
       const no_submit_1&, receiver>::value;
   ASIO_CHECK(b2 == false);
 
-  ASIO_CONSTEXPR bool b3 = exec::can_submit<
+  constexpr bool b3 = exec::can_submit<
       no_submit_2&, receiver>::value;
   ASIO_CHECK(b3 == false);
 
-  ASIO_CONSTEXPR bool b4 = exec::can_submit<
+  constexpr bool b4 = exec::can_submit<
       const no_submit_2&, receiver>::value;
   ASIO_CHECK(b4 == false);
 
-  ASIO_CONSTEXPR bool b5 = exec::can_submit<
+  constexpr bool b5 = exec::can_submit<
       no_submit_3&, receiver>::value;
   ASIO_CHECK(b5 == false);
 
-  ASIO_CONSTEXPR bool b6 = exec::can_submit<
+  constexpr bool b6 = exec::can_submit<
       const no_submit_3&, receiver>::value;
   ASIO_CHECK(b6 == false);
 
-  ASIO_CONSTEXPR bool b7 = exec::can_submit<
+  constexpr bool b7 = exec::can_submit<
       const_member_submit&, receiver>::value;
   ASIO_CHECK(b7 == true);
 
-  ASIO_CONSTEXPR bool b8 = exec::can_submit<
+  constexpr bool b8 = exec::can_submit<
       const const_member_submit&, receiver>::value;
   ASIO_CHECK(b8 == true);
 
-  ASIO_CONSTEXPR bool b9 = exec::can_submit<
+  constexpr bool b9 = exec::can_submit<
       free_submit_const_receiver&, receiver>::value;
   ASIO_CHECK(b9 == true);
 
-  ASIO_CONSTEXPR bool b10 = exec::can_submit<
+  constexpr bool b10 = exec::can_submit<
       const free_submit_const_receiver&, receiver>::value;
   ASIO_CHECK(b10 == true);
 
-  ASIO_CONSTEXPR bool b11 = exec::can_submit<
+  constexpr bool b11 = exec::can_submit<
       non_const_member_submit&, receiver>::value;
   ASIO_CHECK(b11 == true);
 
-  ASIO_CONSTEXPR bool b12 = exec::can_submit<
+  constexpr bool b12 = exec::can_submit<
       const non_const_member_submit&, receiver>::value;
   ASIO_CHECK(b12 == false);
 
-  ASIO_CONSTEXPR bool b13 = exec::can_submit<
+  constexpr bool b13 = exec::can_submit<
       free_submit_non_const_receiver&, receiver>::value;
   ASIO_CHECK(b13 == true);
 
-  ASIO_CONSTEXPR bool b14 = exec::can_submit<
+  constexpr bool b14 = exec::can_submit<
       const free_submit_non_const_receiver&, receiver>::value;
   ASIO_CHECK(b14 == false);
 
-  ASIO_CONSTEXPR bool b15 = exec::can_submit<
+  constexpr bool b15 = exec::can_submit<
       executor&, receiver>::value;
   ASIO_CHECK(b15 == true);
 
-  ASIO_CONSTEXPR bool b16 = exec::can_submit<
+  constexpr bool b16 = exec::can_submit<
       const executor&, receiver>::value;
   ASIO_CHECK(b16 == true);
 }

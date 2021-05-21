@@ -25,17 +25,13 @@ namespace this_coro {
 /// Awaitable type that returns the executor of the current coroutine.
 struct executor_t
 {
-  ASIO_CONSTEXPR executor_t()
+  constexpr executor_t()
   {
   }
 };
 
 /// Awaitable object that returns the executor of the current coroutine.
-#if defined(ASIO_HAS_CONSTEXPR) || defined(GENERATING_DOCUMENTATION)
 constexpr executor_t executor;
-#elif defined(ASIO_MSVC)
-__declspec(selectany) executor_t executor;
-#endif
 
 } // namespace this_coro
 } // namespace asio

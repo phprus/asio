@@ -19,12 +19,10 @@
 #include "asio/detail/type_traits.hpp"
 
 #if defined(ASIO_HAS_DECLTYPE) \
-  && defined(ASIO_HAS_CONSTEXPR) \
   && defined(ASIO_HAS_VARIABLE_TEMPLATES) \
   && defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 # define ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT 1
 #endif // defined(ASIO_HAS_DECLTYPE)
-       //   && defined(ASIO_HAS_CONSTEXPR)
        //   && defined(ASIO_HAS_VARIABLE_TEMPLATES)
        //   && defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 
@@ -77,7 +75,7 @@ struct static_query_trait<T, Property,
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept =
     noexcept(decay<Property>::type::template static_query_v<T>));
 
-  static ASIO_CONSTEXPR result_type value() noexcept(is_noexcept)
+  static constexpr result_type value() noexcept(is_noexcept)
   {
     return decay<Property>::type::template static_query_v<T>;
   }

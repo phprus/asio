@@ -150,13 +150,6 @@ needs.
     [`ASIO_DISABLE_CONSTANT_EXPRESSION_SFINAE`]
   ]
   [
-    [`ASIO_HAS_CONSTEXPR`]
-    [
-      Support constexpr on compilers known to allow it.
-    ]
-    [`ASIO_DISABLE_CONSTEXPR`]
-  ]
-  [
     [`ASIO_HAS_CO_AWAIT`]
     [
       Support the co_await keyword on compilers known to allow it.

@@ -61,7 +61,7 @@ public:
   typedef Allocator allocator_type;
 
   /// Construct using default-constructed allocator.
-  ASIO_CONSTEXPR use_future_t()
+  constexpr use_future_t()
   {
   }
 
@@ -123,7 +123,7 @@ private:
   // even when std::allocator<void> can't be.
   struct std_allocator_void
   {
-    ASIO_CONSTEXPR std_allocator_void()
+    constexpr std_allocator_void()
     {
     }
 
@@ -142,11 +142,7 @@ private:
 /**
  * See the documentation for asio::use_future_t for a usage example.
  */
-#if defined(ASIO_HAS_CONSTEXPR) || defined(GENERATING_DOCUMENTATION)
 constexpr use_future_t<> use_future;
-#elif defined(ASIO_MSVC)
-__declspec(selectany) use_future_t<> use_future;
-#endif
 
 } // namespace asio
 

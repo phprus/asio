@@ -232,22 +232,22 @@ struct blocking_t
   typedef detail::blocking::always_t<I> always_t;
   typedef detail::blocking::never_t<I> never_t;
 
-  ASIO_CONSTEXPR blocking_t()
+  constexpr blocking_t()
     : value_(-1)
   {
   }
 
-  ASIO_CONSTEXPR blocking_t(possibly_t)
+  constexpr blocking_t(possibly_t)
     : value_(0)
   {
   }
 
-  ASIO_CONSTEXPR blocking_t(always_t)
+  constexpr blocking_t(always_t)
     : value_(1)
   {
   }
 
-  ASIO_CONSTEXPR blocking_t(never_t)
+  constexpr blocking_t(never_t)
     : value_(2)
   {
   }
@@ -313,7 +313,7 @@ struct blocking_t
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename query_static_constexpr_member<T>::result_type
   static_query()
     noexcept((
@@ -323,7 +323,7 @@ struct blocking_t
   }
 
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename traits::static_query<T, possibly_t>::result_type
   static_query(
       typename enable_if<
@@ -340,7 +340,7 @@ struct blocking_t
   }
 
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename traits::static_query<T, always_t>::result_type
   static_query(
       typename enable_if<
@@ -360,7 +360,7 @@ struct blocking_t
   }
 
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename traits::static_query<T, never_t>::result_type
   static_query(
       typename enable_if<
@@ -383,18 +383,18 @@ struct blocking_t
   }
 
   template <typename E, typename T = decltype(blocking_t::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = blocking_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const blocking_t& a, const blocking_t& b)
   {
     return a.value_ == b.value_;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const blocking_t& a, const blocking_t& b)
   {
     return a.value_ != b.value_;
@@ -402,11 +402,11 @@ struct blocking_t
 
   struct convertible_from_blocking_t
   {
-    ASIO_CONSTEXPR convertible_from_blocking_t(blocking_t) {}
+    constexpr convertible_from_blocking_t(blocking_t) {}
   };
 
   template <typename Executor>
-  friend ASIO_CONSTEXPR blocking_t query(
+  friend constexpr blocking_t query(
       const Executor& ex, convertible_from_blocking_t,
       typename enable_if<
         can_query<const Executor&, possibly_t>::value
@@ -425,7 +425,7 @@ struct blocking_t
   }
 
   template <typename Executor>
-  friend ASIO_CONSTEXPR blocking_t query(
+  friend constexpr blocking_t query(
       const Executor& ex, convertible_from_blocking_t,
       typename enable_if<
         !can_query<const Executor&, possibly_t>::value
@@ -447,7 +447,7 @@ struct blocking_t
   }
 
   template <typename Executor>
-  friend ASIO_CONSTEXPR blocking_t query(
+  friend constexpr blocking_t query(
       const Executor& ex, convertible_from_blocking_t,
       typename enable_if<
         !can_query<const Executor&, possibly_t>::value
@@ -475,10 +475,6 @@ struct blocking_t
   ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(always_t, always);
   ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(never_t, never);
 
-#if !defined(ASIO_HAS_CONSTEXPR)
-  static const blocking_t instance;
-#endif // !defined(ASIO_HAS_CONSTEXPR)
-
 private:
   int value_;
 };
@@ -489,11 +485,6 @@ template <int I> template <typename E, typename T>
 const T blocking_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
-
-#if !defined(ASIO_HAS_CONSTEXPR)
-template <int I>
-const blocking_t<I> blocking_t<I>::instance;
-#endif
 
 template <int I>
 const typename blocking_t<I>::possibly_t blocking_t<I>::possibly;
@@ -530,7 +521,7 @@ struct possibly_t
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = true);
   typedef blocking_t<I> polymorphic_query_result_type;
 
-  ASIO_CONSTEXPR possibly_t()
+  constexpr possibly_t()
   {
   }
 
@@ -547,7 +538,7 @@ struct possibly_t
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename query_static_constexpr_member<T>::result_type
   static_query()
     noexcept((
@@ -557,7 +548,7 @@ struct possibly_t
   }
 
   template <typename T>
-  static ASIO_CONSTEXPR possibly_t static_query(
+  static constexpr possibly_t static_query(
       typename enable_if<
         !query_static_constexpr_member<T>::is_valid
       >::type* = 0,
@@ -578,47 +569,47 @@ struct possibly_t
   }
 
   template <typename E, typename T = decltype(possibly_t::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = possibly_t::static_query<E>();
 #endif // defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-  static ASIO_CONSTEXPR blocking_t<I> value()
+  static constexpr blocking_t<I> value()
   {
     return possibly_t();
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const possibly_t&, const possibly_t&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const possibly_t&, const possibly_t&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const possibly_t&, const always_t<I>&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const possibly_t&, const always_t<I>&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const possibly_t&, const never_t<I>&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const possibly_t&, const never_t<I>&)
   {
     return true;
@@ -654,28 +645,28 @@ public:
 #endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   template <int I>
-  static ASIO_CONSTEXPR always_t<I> query(
+  static constexpr always_t<I> query(
       blocking_t<I>) noexcept(true)
   {
     return always_t<I>();
   }
 
   template <int I>
-  static ASIO_CONSTEXPR always_t<I> query(
+  static constexpr always_t<I> query(
       possibly_t<I>) noexcept(true)
   {
     return always_t<I>();
   }
 
   template <int I>
-  static ASIO_CONSTEXPR always_t<I> query(
+  static constexpr always_t<I> query(
       always_t<I>) noexcept(true)
   {
     return always_t<I>();
   }
 
   template <int I>
-  static ASIO_CONSTEXPR always_t<I> query(
+  static constexpr always_t<I> query(
       never_t<I>) noexcept(true)
   {
     return always_t<I>();
@@ -787,7 +778,7 @@ struct always_t
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = false);
   typedef blocking_t<I> polymorphic_query_result_type;
 
-  ASIO_CONSTEXPR always_t()
+  constexpr always_t()
   {
   }
 
@@ -804,7 +795,7 @@ struct always_t
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename query_static_constexpr_member<T>::result_type
   static_query()
     noexcept((
@@ -814,47 +805,47 @@ struct always_t
   }
 
   template <typename E, typename T = decltype(always_t::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = always_t::static_query<E>();
 #endif // defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-  static ASIO_CONSTEXPR blocking_t<I> value()
+  static constexpr blocking_t<I> value()
   {
     return always_t();
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const always_t&, const always_t&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const always_t&, const always_t&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const always_t&, const possibly_t<I>&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const always_t&, const possibly_t<I>&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const always_t&, const never_t<I>&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const always_t&, const never_t<I>&)
   {
     return true;
@@ -908,7 +899,7 @@ struct never_t
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = true);
   typedef blocking_t<I> polymorphic_query_result_type;
 
-  ASIO_CONSTEXPR never_t()
+  constexpr never_t()
   {
   }
 
@@ -925,7 +916,7 @@ struct never_t
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename query_static_constexpr_member<T>::result_type
   static_query()
     noexcept((
@@ -935,47 +926,47 @@ struct never_t
   }
 
   template <typename E, typename T = decltype(never_t::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = never_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-  static ASIO_CONSTEXPR blocking_t<I> value()
+  static constexpr blocking_t<I> value()
   {
     return never_t();
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const never_t&, const never_t&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const never_t&, const never_t&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const never_t&, const possibly_t<I>&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const never_t&, const possibly_t<I>&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const never_t&, const always_t<I>&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const never_t&, const always_t<I>&)
   {
     return true;
@@ -993,11 +984,7 @@ const T never_t<I>::static_query_v;
 
 typedef detail::blocking_t<> blocking_t;
 
-#if defined(ASIO_HAS_CONSTEXPR) || defined(GENERATING_DOCUMENTATION)
 constexpr blocking_t blocking;
-#else // defined(ASIO_HAS_CONSTEXPR) || defined(GENERATING_DOCUMENTATION)
-namespace { static const blocking_t& blocking = blocking_t::instance; }
-#endif
 
 } // namespace execution
 
@@ -1137,7 +1124,7 @@ struct static_query<T, execution::blocking_t,
   typedef typename execution::detail::blocking_t<0>::
     query_static_constexpr_member<T>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return execution::blocking_t::query_static_constexpr_member<T>::value();
   }
@@ -1159,7 +1146,7 @@ struct static_query<T, execution::blocking_t,
   typedef typename traits::static_query<T,
     execution::blocking_t::possibly_t>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return traits::static_query<T, execution::blocking_t::possibly_t>::value();
   }
@@ -1182,7 +1169,7 @@ struct static_query<T, execution::blocking_t,
   typedef typename traits::static_query<T,
     execution::blocking_t::always_t>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return traits::static_query<T, execution::blocking_t::always_t>::value();
   }
@@ -1206,7 +1193,7 @@ struct static_query<T, execution::blocking_t,
   typedef typename traits::static_query<T,
     execution::blocking_t::never_t>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return traits::static_query<T, execution::blocking_t::never_t>::value();
   }
@@ -1225,7 +1212,7 @@ struct static_query<T, execution::blocking_t::possibly_t,
   typedef typename execution::detail::blocking::possibly_t<0>::
     query_static_constexpr_member<T>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return execution::detail::blocking::possibly_t<0>::
       query_static_constexpr_member<T>::value();
@@ -1249,7 +1236,7 @@ struct static_query<T, execution::blocking_t::possibly_t,
 
   typedef execution::blocking_t::possibly_t result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return result_type();
   }
@@ -1268,7 +1255,7 @@ struct static_query<T, execution::blocking_t::always_t,
   typedef typename execution::detail::blocking::always_t<0>::
     query_static_constexpr_member<T>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return execution::detail::blocking::always_t<0>::
       query_static_constexpr_member<T>::value();
@@ -1288,7 +1275,7 @@ struct static_query<T, execution::blocking_t::never_t,
   typedef typename execution::detail::blocking::never_t<0>::
     query_static_constexpr_member<T>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return execution::detail::blocking::never_t<0>::
       query_static_constexpr_member<T>::value();
@@ -1394,7 +1381,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef execution::blocking_t::always_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() noexcept(true)
+  static constexpr result_type value() noexcept(true)
   {
     return result_type();
   }
@@ -1409,7 +1396,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef execution::blocking_t::always_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() noexcept(true)
+  static constexpr result_type value() noexcept(true)
   {
     return result_type();
   }
@@ -1424,7 +1411,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef execution::blocking_t::always_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() noexcept(true)
+  static constexpr result_type value() noexcept(true)
   {
     return result_type();
   }
@@ -1439,7 +1426,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef execution::blocking_t::always_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() noexcept(true)
+  static constexpr result_type value() noexcept(true)
   {
     return result_type();
   }

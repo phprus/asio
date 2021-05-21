@@ -209,7 +209,7 @@ struct impl
 {
 #if defined(ASIO_HAS_MOVE)
   template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<S, void(F, N)>::overload == call_member,
     typename call_traits<S, void(F, N)>::result_type
   >::type
@@ -222,7 +222,7 @@ struct impl
   }
 
   template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<S, void(F, N)>::overload == call_free,
     typename call_traits<S, void(F, N)>::result_type
   >::type
@@ -235,7 +235,7 @@ struct impl
   }
 
   template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<S, void(F, N)>::overload == adapter,
     typename call_traits<S, void(F, N)>::result_type
   >::type
@@ -249,7 +249,7 @@ struct impl
   }
 #else // defined(ASIO_HAS_MOVE)
   template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<S, void(const F&, const N&)>::overload == call_member,
     typename call_traits<S, void(const F&, const N&)>::result_type
   >::type
@@ -262,7 +262,7 @@ struct impl
   }
 
   template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<S, void(const F&, const N&)>::overload == call_member,
     typename call_traits<S, void(const F&, const N&)>::result_type
   >::type
@@ -275,7 +275,7 @@ struct impl
   }
 
   template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<S, void(const F&, const N&)>::overload == call_free,
     typename call_traits<S, void(const F&, const N&)>::result_type
   >::type
@@ -288,7 +288,7 @@ struct impl
   }
 
   template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<S, void(const F&, const N&)>::overload == call_free,
     typename call_traits<S, void(const F&, const N&)>::result_type
   >::type
@@ -301,7 +301,7 @@ struct impl
   }
 
   template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<S, void(const F&, const N&)>::overload == adapter,
     typename call_traits<S, void(const F&, const N&)>::result_type
   >::type
@@ -314,7 +314,7 @@ struct impl
   }
 
   template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<S, void(const F&, const N&)>::overload == adapter,
     typename call_traits<S, void(const F&, const N&)>::result_type
   >::type
@@ -342,7 +342,7 @@ namespace asio {
 namespace execution {
 namespace {
 
-static ASIO_CONSTEXPR
+static constexpr
   const asio_execution_bulk_execute_fn::impl& bulk_execute =
     asio_execution_bulk_execute_fn::static_instance<>::instance;
 

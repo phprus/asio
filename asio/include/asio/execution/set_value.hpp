@@ -121,7 +121,7 @@ struct impl
 #if defined(ASIO_HAS_MOVE)
 
   template <typename R, typename... Vs>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<R, void(Vs...)>::overload == call_member,
     typename call_traits<R, void(Vs...)>::result_type
   >::type
@@ -133,7 +133,7 @@ struct impl
   }
 
   template <typename R, typename... Vs>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<R, void(Vs...)>::overload == call_free,
     typename call_traits<R, void(Vs...)>::result_type
   >::type
@@ -148,7 +148,7 @@ struct impl
 #else // defined(ASIO_HAS_MOVE)
 
   template <typename R, typename... Vs>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<R&, void(const Vs&...)>::overload == call_member,
     typename call_traits<R&, void(const Vs&...)>::result_type
   >::type
@@ -160,7 +160,7 @@ struct impl
   }
 
   template <typename R, typename... Vs>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<const R&, void(const Vs&...)>::overload == call_member,
     typename call_traits<const R&, void(const Vs&...)>::result_type
   >::type
@@ -172,7 +172,7 @@ struct impl
   }
 
   template <typename R, typename... Vs>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<R&, void(const Vs&...)>::overload == call_free,
     typename call_traits<R&, void(const Vs&...)>::result_type
   >::type
@@ -184,7 +184,7 @@ struct impl
   }
 
   template <typename R, typename... Vs>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<const R&, void(const Vs&...)>::overload == call_free,
     typename call_traits<const R&, void(const Vs&...)>::result_type
   >::type
@@ -212,7 +212,7 @@ namespace asio {
 namespace execution {
 namespace {
 
-static ASIO_CONSTEXPR const asio_execution_set_value_fn::impl&
+static constexpr const asio_execution_set_value_fn::impl&
   set_value = asio_execution_set_value_fn::static_instance<>::instance;
 
 } // namespace

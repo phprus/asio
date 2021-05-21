@@ -119,7 +119,7 @@ struct prefer_only_property<InnerProperty,
   {
   }
 
-  ASIO_CONSTEXPR auto value() const
+  constexpr auto value() const
     noexcept((
       noexcept(asio::declval<const InnerProperty>().value())))
     -> decltype(asio::declval<const InnerProperty>().value())
@@ -171,7 +171,7 @@ struct prefer_only_property<InnerProperty,
   {
   }
 
-  ASIO_CONSTEXPR typename InnerProperty::polymorphic_query_result_type
+  constexpr typename InnerProperty::polymorphic_query_result_type
   value() const
   {
     return property.value();
@@ -191,7 +191,7 @@ struct prefer_only :
 {
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = false);
 
-  ASIO_CONSTEXPR prefer_only(const InnerProperty& p)
+  constexpr prefer_only(const InnerProperty& p)
     : detail::prefer_only_property<InnerProperty>(p)
   {
   }
@@ -199,7 +199,7 @@ struct prefer_only :
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename traits::static_query<T, InnerProperty>::result_type
   static_query()
     noexcept((
@@ -209,13 +209,13 @@ struct prefer_only :
   }
 
   template <typename E, typename T = decltype(prefer_only::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = prefer_only::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   template <typename Executor, typename Property>
-  friend ASIO_CONSTEXPR
+  friend constexpr
   typename prefer_result<const Executor&, const InnerProperty&>::type
   prefer(const Executor& ex, const prefer_only<Property>& p,
       typename enable_if<
@@ -235,7 +235,7 @@ struct prefer_only :
   }
 
   template <typename Executor, typename Property>
-  friend ASIO_CONSTEXPR
+  friend constexpr
   typename query_result<const Executor&, const InnerProperty&>::type
   query(const Executor& ex, const prefer_only<Property>& p,
       typename enable_if<
