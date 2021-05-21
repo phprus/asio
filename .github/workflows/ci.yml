@@ -2,7 +2,7 @@ name: asio CI
 
 on:
   push:
-    branches: [ master, citest-* ]
+    branches: [ master, citest-*, release-asio-* ]
 
 jobs:
   build:
@@ -11,15 +11,13 @@ jobs:
       matrix:
         build-type: ['sanity']
         runs-on: [ubuntu-18.04, ubuntu-20.04, macos-latest]
-        compiler: [g++-4.8, g++-5, g++-6, g++-7, g++-8, g++-9, g++-10, clang++-10, g++]
-        cxx-std: ['c++03', 'c++11', 'c++14', 'c++17', 'c++2a']
+        compiler: [g++-5, g++-6, g++-7, g++-8, g++-9, g++-10, clang++-10, g++]
+        cxx-std: ['c++11', 'c++14', 'c++17', 'c++2a']
         separate-compilation: ['', '--enable-separate-compilation']
         optim-level: ['-O0']
         no-deprecated: ['']
         select-reactor: ['', '-DASIO_DISABLE_EPOLL', '-DASIO_DISABLE_KQUEUE']
         handler-tracking: ['']
-        boost: ['']
-        boost-url: ['']
         exclude:
           # Newer compilers don't run on ubuntu 18.04
           - runs-on: ubuntu-18.04
@@ -38,18 +36,10 @@ jobs:
           - runs-on: ubuntu-20.04
             compiler: g++
           - runs-on: ubuntu-20.04
-            compiler: g++-4.8
-          - runs-on: ubuntu-20.04
-            compiler: g++-4.9
-          - runs-on: ubuntu-20.04
             compiler: g++-5
           - runs-on: ubuntu-20.04
             compiler: g++-6
           # Versioned g++ and clang++ don't run on macOS
-          - runs-on: macos-latest
-            compiler: g++-4.8
-          - runs-on: macos-latest
-            compiler: g++-4.9
           - runs-on: macos-latest
             compiler: g++-5
           - runs-on: macos-latest
@@ -65,12 +55,6 @@ jobs:
           - runs-on: macos-latest
             compiler: clang++-10
           # Older compilers don't support newer std variants
-          - compiler: g++-4.8
-            cxx-std: c++14
-          - compiler: g++-4.8
-            cxx-std: c++17
-          - compiler: g++-4.8
-            cxx-std: c++2a
           - compiler: g++-5
             cxx-std: c++2a
           - compiler: g++-6
@@ -112,8 +96,8 @@ jobs:
             select-reactor: -DASIO_DISABLE_EPOLL
           - compiler: g++-9
             select-reactor: -DASIO_DISABLE_EPOLL
-          # C++03 builds are always explicitly included
-          - cxx-std: c++03
+          # C++11 builds are always explicitly included
+          - cxx-std: c++11
         include:
           #
           # Linux / g++-10 -std=c++2a / -O2 / standalone
@@ -123,16 +107,6 @@ jobs:
             compiler: g++-10
             cxx-std: c++2a
             optim-level: -O2
-          #
-          # Linux / g++-10 -std=c++17 / -O2 / boost 1.73
-          #
-          - build-type: full
-            runs-on: ubuntu-20.04
-            compiler: g++-10
-            cxx-std: c++17
-            optim-level: -O2
-            with-boost: --with-boost=$GITHUB_WORKSPACE/boost_1_73_0
-            boost-url: https://sourceforge.net/projects/boost/files/boost/1.73.0/boost_1_73_0.tar.bz2/download
           #
           # Linux / g++-9 -std=c++14 / -O0 / standalone / separate compilation
           #
@@ -189,77 +163,6 @@ jobs:
             optim-level: -O0
             select-reactor: -DASIO_DISABLE_EPOLL
           #
-          # Linux / g++-6 / -O2 / boost 1.64
-          #
-          - build-type: full
-            runs-on: ubuntu-18.04
-            compiler: g++-10
-            cxx-std: c++14
-            optim-level: -O2
-            with-boost: --with-boost=$GITHUB_WORKSPACE/boost_1_64_0
-            boost-url: https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.bz2/download
-          #
-          # Linux / g++-6 / -O0 / boost 1.64 / epoll disabled
-          #
-          - build-type: full
-            runs-on: ubuntu-18.04
-            compiler: g++-10
-            cxx-std: c++14
-            optim-level: -O0
-            with-boost: --with-boost=$GITHUB_WORKSPACE/boost_1_64_0
-            boost-url: https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.bz2/download
-            select-reactor: -DASIO_DISABLE_EPOLL
-          #
-          # Linux / g++-6 / -O0 / boost 1.64 / separate compilation
-          #
-          - build-type: full
-            runs-on: ubuntu-18.04
-            compiler: g++-10
-            cxx-std: c++14
-            separate-compilation: --enable-separate-compilation
-            optim-level: -O0
-            with-boost: --with-boost=$GITHUB_WORKSPACE/boost_1_64_0
-            boost-url: https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.bz2/download
-          #
-          # Linux / g++-4.8 / -O2 / standalone
-          #
-          - build-type: full
-            runs-on: ubuntu-18.04
-            compiler: g++-4.8
-            cxx-std: c++11
-            optim-level: -O2
-          #
-          # Linux / g++-4.8 / -O0 / standalone / separate compilation
-          #
-          - build-type: full
-            runs-on: ubuntu-18.04
-            compiler: g++-4.8
-            cxx-std: c++11
-            separate-compilation: --enable-separate-compilation
-            optim-level: -O0
-          #
-          # Linux / g++-4.8 / -O2 / boost 1.64
-          #
-          - build-type: full
-            runs-on: ubuntu-18.04
-            compiler: g++-4.8
-            cxx-std: c++03
-            separate-compilation: --enable-separate-compilation
-            optim-level: -O2
-            with-boost: --with-boost=$GITHUB_WORKSPACE/boost_1_64_0
-            boost-url: https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.bz2/download
-          #
-          # Linux / g++-4.8 -std=c++11 / -O2 / boost 1.64
-          #
-          - build-type: full
-            runs-on: ubuntu-18.04
-            compiler: g++-4.8
-            cxx-std: c++11
-            separate-compilation: --enable-separate-compilation
-            optim-level: -O2
-            with-boost: --with-boost=$GITHUB_WORKSPACE/boost_1_64_0
-            boost-url: https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.bz2/download
-          #
           # Linux / clang++-10 -std=c++2a / -O2 / standalone
           #
           - build-type: full
@@ -284,17 +187,6 @@ jobs:
             compiler: clang++-3.8
             cxx-std: c++11
             optim-level: -O2
-          #
-          # Linux / clang++-3.8 -std=c++11 / -O0 / boost 1.64 / separate compilation
-          #
-          - build-type: full
-            runs-on: ubuntu-16.04
-            compiler: clang++-3.8
-            cxx-std: c++03
-            separate-compilation: --enable-separate-compilation
-            optim-level: -O0
-            with-boost: --with-boost=$GITHUB_WORKSPACE/boost_1_64_0
-            boost-url: https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.bz2/download
           #
           # macOS / c++2a -fcoroutines-ts / -O2 / standalone
           #
@@ -329,27 +221,6 @@ jobs:
             cxx-std: c++11
             separate-compilation: --enable-separate-compilation
             optim-level: -O0
-          #
-          # macOS / c++03 / -O2 / boost 1.64
-          #
-          - build-type: full
-            runs-on: macos-latest
-            compiler: g++
-            cxx-std: c++03
-            optim-level: -O2
-            with-boost: --with-boost=$GITHUB_WORKSPACE/boost_1_64_0
-            boost-url: https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.bz2/download
-          #
-          # macOS / c++03 / -O2 / boost 1.64 / separate compilation
-          #
-          - build-type: full
-            runs-on: macos-latest
-            compiler: g++
-            cxx-std: c++03
-            separate-compilation: --enable-separate-compilation
-            optim-level: -O0
-            with-boost: --with-boost=$GITHUB_WORKSPACE/boost_1_64_0
-            boost-url: https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.bz2/download
     runs-on: ${{ matrix.runs-on }}
     env:
       CXX: ${{ matrix.compiler }}
@@ -362,15 +233,11 @@ jobs:
     - name: Install compiler
       if: startsWith(matrix.runs-on, 'ubuntu')
       run: sudo apt-get install -y ${{ matrix.compiler }}
-    - name: Install boost
-      if: startsWith(matrix.with-boost, '--with-boost=$GITHUB_WORKSPACE')
-      run: |
-        wget --quiet -O - ${{ matrix.boost-url }} | tar -xj
     - name: Configure
       working-directory: asio
       run: |
         ./autogen.sh
-        ./configure ${{ matrix.separate-compilation }} ${{ matrix.with-boost }}
+        ./configure ${{ matrix.separate-compilation }}
     - name: Sanity check
       if: startsWith(matrix.build-type, 'sanity')
       working-directory: asio/src/tests
