@@ -59,14 +59,12 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   /// Move constructor.
   basic_address_range(basic_address_range&& other) noexcept(true)
     : begin_(ASIO_MOVE_CAST(iterator)(other.begin_)),
       end_(ASIO_MOVE_CAST(iterator)(other.end_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   /// Assignment operator.
   basic_address_range& operator=(
@@ -77,7 +75,6 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE)
   /// Move assignment operator.
   basic_address_range& operator=(
       basic_address_range&& other) noexcept(true)
@@ -86,7 +83,6 @@ public:
     end_ = ASIO_MOVE_CAST(iterator)(other.end_);
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   /// Obtain an iterator that points to the start of the range.
   iterator begin() const noexcept(true)

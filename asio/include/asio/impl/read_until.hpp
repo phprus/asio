@@ -820,7 +820,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     read_until_delim_op_v1(const read_until_delim_op_v1& other)
       : stream_(other.stream_),
         buffers_(other.buffers_),
@@ -840,7 +839,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(ReadHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         std::size_t bytes_transferred, int start = 0)
@@ -1118,7 +1116,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     read_until_delim_string_op_v1(const read_until_delim_string_op_v1& other)
       : stream_(other.stream_),
         buffers_(other.buffers_),
@@ -1138,7 +1135,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(ReadHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         std::size_t bytes_transferred, int start = 0)
@@ -1432,7 +1428,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     read_until_expr_op_v1(const read_until_expr_op_v1& other)
       : stream_(other.stream_),
         buffers_(other.buffers_),
@@ -1452,7 +1447,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(ReadHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         std::size_t bytes_transferred, int start = 0)
@@ -1746,7 +1740,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     read_until_match_op_v1(const read_until_match_op_v1& other)
       : stream_(other.stream_),
         buffers_(other.buffers_),
@@ -1766,7 +1759,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(ReadHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         std::size_t bytes_transferred, int start = 0)
@@ -2126,7 +2118,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     read_until_delim_op_v2(const read_until_delim_op_v2& other)
       : stream_(other.stream_),
         buffers_(other.buffers_),
@@ -2148,7 +2139,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(ReadHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         std::size_t bytes_transferred, int start = 0)
@@ -2427,7 +2417,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     read_until_delim_string_op_v2(const read_until_delim_string_op_v2& other)
       : stream_(other.stream_),
         buffers_(other.buffers_),
@@ -2449,7 +2438,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(ReadHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         std::size_t bytes_transferred, int start = 0)
@@ -2746,7 +2734,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     read_until_expr_op_v2(const read_until_expr_op_v2& other)
       : stream_(other.stream_),
         buffers_(other.buffers_),
@@ -2768,7 +2755,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(ReadHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         std::size_t bytes_transferred, int start = 0)
@@ -3064,7 +3050,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     read_until_match_op_v2(const read_until_match_op_v2& other)
       : stream_(other.stream_),
         buffers_(other.buffers_),
@@ -3086,7 +3071,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(ReadHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         std::size_t bytes_transferred, int start = 0)

@@ -396,7 +396,6 @@ void deadline_timer_async_result_test()
   ioc.run();
 }
 
-#if defined(ASIO_HAS_MOVE)
 asio::deadline_timer make_timer(asio::io_context& ioc, int* count)
 {
   asio::deadline_timer t(ioc);
@@ -404,11 +403,9 @@ asio::deadline_timer make_timer(asio::io_context& ioc, int* count)
   t.async_wait(boost::bind(increment, count));
   return t;
 }
-#endif // defined(ASIO_HAS_MOVE)
 
 void deadline_timer_move_test()
 {
-#if defined(ASIO_HAS_MOVE)
   asio::io_context io_context1;
   asio::io_context io_context2;
   int count = 0;
@@ -426,7 +423,6 @@ void deadline_timer_move_test()
   io_context1.run();
 
   ASIO_CHECK(count == 2);
-#endif // defined(ASIO_HAS_MOVE)
 }
 
 ASIO_TEST_SUITE

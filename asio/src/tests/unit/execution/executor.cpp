@@ -32,11 +32,9 @@ struct executor
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   executor(executor&&) noexcept(true)
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   template <typename F>
   void execute(ASIO_MOVE_ARG(F) f) const noexcept(true)

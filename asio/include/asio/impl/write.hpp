@@ -302,7 +302,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     write_op(const write_op& other)
       : detail::base_from_completion_cond<CompletionCondition>(other),
         stream_(other.stream_),
@@ -322,7 +321,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(WriteHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         std::size_t bytes_transferred, int start = 0)
@@ -586,7 +584,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     write_dynbuf_v1_op(const write_dynbuf_v1_op& other)
       : stream_(other.stream_),
         buffers_(other.buffers_),
@@ -604,7 +601,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(WriteHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         std::size_t bytes_transferred, int start = 0)
@@ -879,7 +875,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     write_dynbuf_v2_op(const write_dynbuf_v2_op& other)
       : stream_(other.stream_),
         buffers_(other.buffers_),
@@ -897,7 +892,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(WriteHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         std::size_t bytes_transferred, int start = 0)

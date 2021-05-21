@@ -90,8 +90,6 @@ struct execute_free<free_execute_const_executor, F>
 
 #endif // !defined(ASIO_HAS_DEDUCED_EXECUTE_FREE_TRAIT)
 
-#if defined(ASIO_HAS_MOVE)
-
 // Support for rvalue references is required in order to use the execute
 // customisation point with non-const member functions and free functions
 // taking non-const arguments.
@@ -184,8 +182,6 @@ struct execute_free<const free_execute_non_const_executor&, F>
 } // namespace asio
 
 #endif // !defined(ASIO_HAS_DEDUCED_EXECUTE_FREE_TRAIT)
-
-#endif // defined(ASIO_HAS_MOVE)
 
 struct operation_state
 {
@@ -288,7 +284,6 @@ void test_can_execute()
       const free_execute_const_executor&, exec::invocable_archetype>::value;
   ASIO_CHECK(b6 == true);
 
-#if defined(ASIO_HAS_MOVE)
   constexpr bool b7 = exec::can_execute<
       non_const_member_execute&, exec::invocable_archetype>::value;
   ASIO_CHECK(b7 == true);
@@ -304,7 +299,6 @@ void test_can_execute()
   constexpr bool b10 = exec::can_execute<
       const free_execute_non_const_executor&, exec::invocable_archetype>::value;
   ASIO_CHECK(b10 == false);
-#endif // defined(ASIO_HAS_MOVE)
 
   constexpr bool b11 = exec::can_execute<
       sender&, exec::invocable_archetype>::value;
@@ -357,7 +351,6 @@ void test_execute()
       bindns::bind(&increment, &count));
   ASIO_CHECK(count == 1);
 
-#if defined(ASIO_HAS_MOVE)
   count = 0;
   non_const_member_execute ex5 = {};
   exec::execute(ex5, bindns::bind(&increment, &count));
@@ -367,7 +360,6 @@ void test_execute()
   free_execute_non_const_executor ex6 = {};
   exec::execute(ex6, bindns::bind(&increment, &count));
   ASIO_CHECK(count == 1);
-#endif // defined(ASIO_HAS_MOVE)
 
   count = 0;
   sender ex7;

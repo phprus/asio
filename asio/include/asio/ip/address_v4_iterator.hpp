@@ -65,13 +65,11 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   /// Move constructor.
   basic_address_iterator(basic_address_iterator&& other) noexcept(true)
     : address_(ASIO_MOVE_CAST(address_v4)(other.address_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   /// Assignment operator.
   basic_address_iterator& operator=(
@@ -81,7 +79,6 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE)
   /// Move assignment operator.
   basic_address_iterator& operator=(
       basic_address_iterator&& other) noexcept(true)
@@ -89,7 +86,6 @@ public:
     address_ = ASIO_MOVE_CAST(address_v4)(other.address_);
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   /// Dereference the iterator.
   const address_v4& operator*() const noexcept(true)

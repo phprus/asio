@@ -1537,7 +1537,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move construct a dynamic buffer.
   dynamic_string_buffer(dynamic_string_buffer&& other) noexcept(true)
     : string_(other.string_),
@@ -1547,7 +1546,6 @@ public:
       max_size_(other.max_size_)
   {
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// @b DynamicBuffer_v1: Get the size of the input sequence.
   /// @b DynamicBuffer_v2: Get the current size of the underlying memory.
@@ -1805,7 +1803,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move construct a dynamic buffer.
   dynamic_vector_buffer(dynamic_vector_buffer&& other) noexcept(true)
     : vector_(other.vector_),
@@ -1815,7 +1812,6 @@ public:
       max_size_(other.max_size_)
   {
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// @b DynamicBuffer_v1: Get the size of the input sequence.
   /// @b DynamicBuffer_v2: Get the current size of the underlying memory.

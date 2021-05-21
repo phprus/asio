@@ -637,12 +637,10 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   adapter(adapter&& other) noexcept(true)
     : executor_(ASIO_MOVE_CAST(Executor)(other.executor_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   template <int I>
   static constexpr always_t<I> query(

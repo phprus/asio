@@ -55,7 +55,6 @@ engine::engine(SSL_CTX* context)
   ::SSL_set_bio(ssl_, int_bio, int_bio);
 }
 
-#if defined(ASIO_HAS_MOVE)
 engine::engine(engine&& other) noexcept(true)
   : ssl_(other.ssl_),
     ext_bio_(other.ext_bio_)
@@ -63,7 +62,6 @@ engine::engine(engine&& other) noexcept(true)
   other.ssl_ = 0;
   other.ext_bio_ = 0;
 }
-#endif // defined(ASIO_HAS_MOVE)
 
 engine::~engine()
 {

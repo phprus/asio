@@ -102,7 +102,6 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move constructor.
   strand(strand&& other) noexcept(true)
     : executor_(ASIO_MOVE_CAST(Executor)(other.executor_)),
@@ -142,7 +141,6 @@ public:
     impl_ = ASIO_MOVE_CAST(implementation_type)(other.impl_);
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destructor.
   ~strand() noexcept(true)

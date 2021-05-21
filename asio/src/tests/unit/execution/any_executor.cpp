@@ -189,7 +189,6 @@ void any_executor_construction_test()
   ASIO_CHECK(ex_two_props_9 == ex_two_props_7);
   ASIO_CHECK(ex_two_props_9 != ex_two_props_8);
 
-#if defined(ASIO_HAS_MOVE)
   ex_two_props_t ex_two_props_10(std::move(ex_two_props_1));
 
   ASIO_CHECK(ex_two_props_10.target<void>() == 0);
@@ -213,7 +212,6 @@ void any_executor_construction_test()
   ASIO_CHECK(ex_two_props_7 == null_ptr);
   ASIO_CHECK(ex_two_props_12 == ex_two_props_6);
   ASIO_CHECK(ex_two_props_12 != ex_two_props_8);
-#endif // defined(ASIO_HAS_MOVE)
 
   ex_one_prop_t ex_one_prop_1;
 
@@ -274,7 +272,6 @@ void any_executor_construction_test()
   ASIO_CHECK(ex_one_prop_9 == ex_one_prop_7);
   ASIO_CHECK(ex_one_prop_9 != ex_one_prop_8);
 
-#if defined(ASIO_HAS_MOVE)
   ex_one_prop_t ex_one_prop_10(std::move(ex_one_prop_1));
 
   ASIO_CHECK(ex_one_prop_10.target<void>() == 0);
@@ -298,7 +295,6 @@ void any_executor_construction_test()
   ASIO_CHECK(ex_one_prop_7 == null_ptr);
   ASIO_CHECK(ex_one_prop_12 == ex_one_prop_6);
   ASIO_CHECK(ex_one_prop_12 != ex_one_prop_8);
-#endif // defined(ASIO_HAS_MOVE)
 
   ex_one_prop_t ex_one_prop_13(ex_two_props_1);
 
@@ -374,7 +370,6 @@ void any_executor_construction_test()
   ASIO_CHECK(ex_no_props_9 == ex_no_props_7);
   ASIO_CHECK(ex_no_props_9 != ex_no_props_8);
 
-#if defined(ASIO_HAS_MOVE)
   ex_no_props_t ex_no_props_10(std::move(ex_no_props_1));
 
   ASIO_CHECK(ex_no_props_10.target<void>() == 0);
@@ -398,7 +393,6 @@ void any_executor_construction_test()
   ASIO_CHECK(ex_no_props_7 == null_ptr);
   ASIO_CHECK(ex_no_props_12 == ex_no_props_6);
   ASIO_CHECK(ex_no_props_12 != ex_no_props_8);
-#endif // defined(ASIO_HAS_MOVE)
 
   ex_no_props_t ex_no_props_13(ex_two_props_1);
 
@@ -501,7 +495,6 @@ void any_executor_assignment_test()
   ASIO_CHECK(ex_two_props_7 == ex_two_props_5);
   ASIO_CHECK(ex_two_props_7 != ex_two_props_6);
 
-#if defined(ASIO_HAS_MOVE)
   ex_two_props_t ex_two_props_8;
   ex_two_props_8 = std::move(ex_two_props_1);
 
@@ -519,7 +512,6 @@ void any_executor_assignment_test()
   ASIO_CHECK(ex_two_props_8.target<void>() != 0);
   ASIO_CHECK(ex_two_props_5.target<void>() == 0);
   ASIO_CHECK(ex_two_props_8 == ex_two_props_7);
-#endif // defined(ASIO_HAS_MOVE)
 
   ex_one_prop_t ex_one_prop_1;
 
@@ -575,7 +567,6 @@ void any_executor_assignment_test()
   ASIO_CHECK(ex_one_prop_7 == ex_one_prop_5);
   ASIO_CHECK(ex_one_prop_7 != ex_one_prop_6);
 
-#if defined(ASIO_HAS_MOVE)
   ex_one_prop_t ex_one_prop_8;
   ex_one_prop_8 = std::move(ex_one_prop_1);
 
@@ -593,7 +584,6 @@ void any_executor_assignment_test()
   ASIO_CHECK(ex_one_prop_8.target<void>() != 0);
   ASIO_CHECK(ex_one_prop_5.target<void>() == 0);
   ASIO_CHECK(ex_one_prop_8 == ex_one_prop_7);
-#endif // defined(ASIO_HAS_MOVE)
 
   ex_one_prop_t ex_one_prop_9;
   ex_one_prop_9 = ex_two_props_1;
@@ -662,7 +652,6 @@ void any_executor_assignment_test()
   ASIO_CHECK(ex_no_props_7 == ex_no_props_5);
   ASIO_CHECK(ex_no_props_7 != ex_no_props_6);
 
-#if defined(ASIO_HAS_MOVE)
   ex_no_props_t ex_no_props_8;
   ex_no_props_8 = std::move(ex_no_props_1);
 
@@ -680,7 +669,6 @@ void any_executor_assignment_test()
   ASIO_CHECK(ex_no_props_8.target<void>() != 0);
   ASIO_CHECK(ex_no_props_5.target<void>() == 0);
   ASIO_CHECK(ex_no_props_8 == ex_no_props_7);
-#endif // defined(ASIO_HAS_MOVE)
 
   ex_no_props_t ex_no_props_9;
   ex_no_props_9 = ex_two_props_1;

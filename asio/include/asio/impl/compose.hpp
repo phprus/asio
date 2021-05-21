@@ -226,7 +226,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     composed_op(composed_op&& other)
       : impl_(ASIO_MOVE_CAST(Impl)(other.impl_)),
         work_(ASIO_MOVE_CAST(Work)(other.work_)),
@@ -234,7 +233,6 @@ namespace detail
         invocations_(other.invocations_)
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     typedef typename associated_executor<Handler,
         typename composed_work_guard<

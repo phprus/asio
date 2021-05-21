@@ -25,8 +25,6 @@
 namespace asio {
 namespace detail {
 
-#if defined(ASIO_HAS_MOVE)
-
 // Lightweight, move-only function object wrapper.
 class executor_function
 {
@@ -118,55 +116,6 @@ private:
 
   impl_base* impl_;
 };
-
-#else // defined(ASIO_HAS_MOVE)
-
-// Not so lightweight, copyable function object wrapper.
-class executor_function
-{
-public:
-  template <typename F, typename Alloc>
-  explicit executor_function(const F& f, const Alloc&)
-    : impl_(new impl<typename decay<F>::type>(f))
-  {
-  }
-
-  void operator()()
-  {
-    impl_->complete_(impl_.get());
-  }
-
-private:
-  // Base class for polymorphic function implementations.
-  struct impl_base
-  {
-    void (*complete_)(impl_base*);
-  };
-
-  // Polymorphic function implementation.
-  template <typename F>
-  struct impl : impl_base
-  {
-    impl(const F& f)
-      : function_(f)
-    {
-      complete_ = &executor_function::complete<F>;
-    }
-
-    F function_;
-  };
-
-  // Helper to complete function invocation.
-  template <typename F>
-  static void complete(impl_base* i)
-  {
-    static_cast<impl<F>*>(i)->function_();
-  }
-
-  shared_ptr<impl_base> impl_;
-};
-
-#endif // defined(ASIO_HAS_MOVE)
 
 // Lightweight, non-owning, copyable function object wrapper.
 class executor_function_view

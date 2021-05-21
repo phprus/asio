@@ -61,7 +61,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   work_dispatcher(const work_dispatcher& other)
     : handler_(other.handler_),
       executor_(other.executor_)
@@ -73,7 +72,6 @@ public:
       executor_(ASIO_MOVE_CAST(work_executor_type)(other.executor_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   void operator()()
   {
@@ -110,7 +108,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   work_dispatcher(const work_dispatcher& other)
     : work_(other.work_),
       handler_(other.handler_)
@@ -122,7 +119,6 @@ public:
       handler_(ASIO_MOVE_CAST(Handler)(other.handler_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   void operator()()
   {

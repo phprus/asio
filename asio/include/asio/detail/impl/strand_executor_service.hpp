@@ -46,13 +46,11 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   allocator_binder(allocator_binder&& other)
     : f_(ASIO_MOVE_CAST(F)(other.f_)),
       allocator_(ASIO_MOVE_CAST(allocator_type)(other.allocator_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   allocator_type get_allocator() const noexcept(true)
   {
@@ -88,13 +86,11 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   invoker(invoker&& other)
     : impl_(ASIO_MOVE_CAST(implementation_type)(other.impl_)),
       executor_(ASIO_MOVE_CAST(executor_type)(other.executor_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   struct on_invoker_exit
   {
@@ -157,13 +153,11 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   invoker(invoker&& other)
     : impl_(ASIO_MOVE_CAST(implementation_type)(other.impl_)),
       work_(ASIO_MOVE_CAST(executor_work_guard<Executor>)(other.work_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   struct on_invoker_exit
   {

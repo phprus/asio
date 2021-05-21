@@ -58,10 +58,8 @@ public:
   // Construct a new engine for the specified context.
   ASIO_DECL explicit engine(SSL_CTX* context);
 
-#if defined(ASIO_HAS_MOVE)
   // Move construct from another engine.
   ASIO_DECL engine(engine&& other) noexcept(true);
-#endif // defined(ASIO_HAS_MOVE)
 
   // Destructor.
   ASIO_DECL ~engine();

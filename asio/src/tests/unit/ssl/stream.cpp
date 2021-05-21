@@ -75,11 +75,9 @@ void test()
     ip::tcp::socket socket1(ioc, ip::tcp::v4());
     ssl::stream<ip::tcp::socket&> stream2(socket1, context);
 
-#if defined(ASIO_HAS_MOVE)
     ssl::stream<ip::tcp::socket> stream3
       = ssl::stream<ip::tcp::socket>(ioc, context);
     ssl::stream<ip::tcp::socket> stream4(std::move(stream3));
-#endif // defined(ASIO_HAS_MOVE)
 
     // basic_io_object functions.
 

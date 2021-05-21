@@ -30,8 +30,6 @@ namespace asio {
 namespace execution {
 namespace detail {
 
-#if defined(ASIO_HAS_MOVE)
-
 template <typename Receiver, typename>
 struct as_invocable
 {
@@ -77,61 +75,6 @@ struct as_invocable
 #endif // !defined(ASIO_NO_EXCEPTIONS)
   }
 };
-
-#else // defined(ASIO_HAS_MOVE)
-
-template <typename Receiver, typename>
-struct as_invocable
-{
-  Receiver* receiver_;
-  asio::detail::shared_ptr<asio::detail::atomic_count> ref_count_;
-
-  explicit as_invocable(Receiver& r,
-      const asio::detail::shared_ptr<
-        asio::detail::atomic_count>& c) noexcept(true)
-    : receiver_(asio::detail::addressof(r)),
-      ref_count_(c)
-  {
-  }
-
-  as_invocable(const as_invocable& other) noexcept(true)
-    : receiver_(other.receiver_),
-      ref_count_(other.ref_count_)
-  {
-    ++(*ref_count_);
-  }
-
-  ~as_invocable()
-  {
-    if (--(*ref_count_) == 0)
-      execution::set_done(*receiver_);
-  }
-
-  void operator()() & noexcept(true)
-  {
-#if !defined(ASIO_NO_EXCEPTIONS)
-    try
-    {
-#endif // !defined(ASIO_NO_EXCEPTIONS)
-      execution::set_value(*receiver_);
-      ++(*ref_count_);
-    }
-#if !defined(ASIO_NO_EXCEPTIONS)
-    catch (...)
-    {
-#if defined(ASIO_HAS_STD_EXCEPTION_PTR)
-      execution::set_error(*receiver_,
-          std::make_exception_ptr(receiver_invocation_error()));
-      ++(*ref_count_);
-#else // defined(ASIO_HAS_STD_EXCEPTION_PTR)
-      std::terminate();
-#endif // defined(ASIO_HAS_STD_EXCEPTION_PTR)
-    }
-#endif // !defined(ASIO_NO_EXCEPTIONS)
-  }
-};
-
-#endif // defined(ASIO_HAS_MOVE)
 
 template <typename T>
 struct is_as_invocable : false_type

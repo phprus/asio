@@ -511,7 +511,6 @@ public:
     p.v = p.p = 0;
   }
 
-#if defined(ASIO_HAS_MOVE)
   // Start an asynchronous accept. The peer and peer_endpoint objects
   // must be valid until the accept's handler is invoked.
   template <typename PeerIoExecutor, typename Handler, typename IoExecutor>
@@ -539,7 +538,6 @@ public:
         p.p->address_length(), p.p);
     p.v = p.p = 0;
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   // Connect the socket to the specified endpoint.
   asio::error_code connect(implementation_type& impl,

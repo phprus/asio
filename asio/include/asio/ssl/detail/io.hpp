@@ -108,7 +108,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   io_op(const io_op& other)
     : next_layer_(other.next_layer_),
       core_(other.core_),
@@ -132,7 +131,6 @@ public:
       handler_(ASIO_MOVE_CAST(Handler)(other.handler_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   void operator()(asio::error_code ec,
       std::size_t bytes_transferred = ~std::size_t(0), int start = 0)

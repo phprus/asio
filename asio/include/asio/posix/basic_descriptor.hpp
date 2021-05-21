@@ -31,9 +31,7 @@
 #include "asio/execution_context.hpp"
 #include "asio/posix/descriptor_base.hpp"
 
-#if defined(ASIO_HAS_MOVE)
-# include <utility>
-#endif // defined(ASIO_HAS_MOVE)
+#include <utility>
 
 #include "asio/detail/push_options.hpp"
 
@@ -157,7 +155,6 @@ public:
     asio::detail::throw_error(ec, "assign");
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-construct a descriptor from another.
   /**
    * This constructor moves a descriptor from one object to another.
@@ -190,7 +187,6 @@ public:
     impl_ = std::move(other.impl_);
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Get the executor associated with the object.
   executor_type get_executor() noexcept(true)

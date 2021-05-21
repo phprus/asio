@@ -60,7 +60,6 @@ public:
     service_->construct(implementation_);
   }
 
-#if defined(ASIO_HAS_MOVE)
   // Move-construct an I/O object.
   io_object_impl(io_object_impl&& other)
     : service_(&other.get_service()),
@@ -79,7 +78,6 @@ public:
     service_->converting_move_construct(implementation_,
         other.get_service(), other.get_implementation());
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   // Destructor.
   ~io_object_impl()
@@ -87,7 +85,6 @@ public:
     service_->destroy(implementation_);
   }
 
-#if defined(ASIO_HAS_MOVE)
   // Move-assign an I/O object.
   io_object_impl& operator=(io_object_impl&& other)
   {
@@ -101,7 +98,6 @@ public:
     }
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   // Get the executor associated with the object.
   const executor_type& get_executor() noexcept(true)

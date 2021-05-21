@@ -312,13 +312,11 @@ struct receiver
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   receiver(receiver&& other) noexcept(true)
     : count_(other.count_)
   {
     other.count_ = 0;
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   void set_value() noexcept(true)
   {

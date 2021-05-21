@@ -76,19 +76,15 @@ public:
   /// Copy constructor.
   ASIO_DECL address_v6(const address_v6& other) noexcept(true);
 
-#if defined(ASIO_HAS_MOVE)
   /// Move constructor.
   ASIO_DECL address_v6(address_v6&& other) noexcept(true);
-#endif // defined(ASIO_HAS_MOVE)
 
   /// Assign from another address.
   ASIO_DECL address_v6& operator=(
       const address_v6& other) noexcept(true);
 
-#if defined(ASIO_HAS_MOVE)
   /// Move-assign from another address.
   ASIO_DECL address_v6& operator=(address_v6&& other) noexcept(true);
-#endif // defined(ASIO_HAS_MOVE)
 
   /// The scope ID of the address.
   /**

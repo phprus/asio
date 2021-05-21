@@ -34,22 +34,18 @@ struct write_some_handler
 {
   write_some_handler() {}
   void operator()(const asio::error_code&, std::size_t) {}
-#if defined(ASIO_HAS_MOVE)
   write_some_handler(write_some_handler&&) {}
 private:
   write_some_handler(const write_some_handler&);
-#endif // defined(ASIO_HAS_MOVE)
 };
 
 struct read_some_handler
 {
   read_some_handler() {}
   void operator()(const asio::error_code&, std::size_t) {}
-#if defined(ASIO_HAS_MOVE)
   read_some_handler(read_some_handler&&) {}
 private:
   read_some_handler(const read_some_handler&);
-#endif // defined(ASIO_HAS_MOVE)
 };
 
 void test()
@@ -83,16 +79,12 @@ void test()
     serial_port::native_handle_type native_port2 = port1.native_handle();
     serial_port port6(ioc_ex, native_port2);
 
-#if defined(ASIO_HAS_MOVE)
     serial_port port7(std::move(port6));
-#endif // defined(ASIO_HAS_MOVE)
 
     // basic_serial_port operators.
 
-#if defined(ASIO_HAS_MOVE)
     port1 = serial_port(ioc);
     port1 = std::move(port2);
-#endif // defined(ASIO_HAS_MOVE)
 
     // basic_io_object functions.
 

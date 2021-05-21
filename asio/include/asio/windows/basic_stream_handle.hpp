@@ -135,7 +135,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-construct a stream handle from another.
   /**
    * This constructor moves a stream handle from one object to another.
@@ -168,7 +167,6 @@ public:
     basic_overlapped_handle<Executor>::operator=(std::move(other));
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Write some data to the handle.
   /**

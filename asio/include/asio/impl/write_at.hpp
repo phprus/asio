@@ -177,7 +177,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     write_at_op(const write_at_op& other)
       : detail::base_from_completion_cond<CompletionCondition>(other),
         device_(other.device_),
@@ -199,7 +198,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(WriteHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         std::size_t bytes_transferred, int start = 0)
@@ -463,7 +461,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     write_at_streambuf_op(const write_at_streambuf_op& other)
       : streambuf_(other.streambuf_),
         handler_(other.handler_)
@@ -475,7 +472,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(WriteHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         const std::size_t bytes_transferred)

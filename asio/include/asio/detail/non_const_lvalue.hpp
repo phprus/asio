@@ -26,7 +26,6 @@ namespace detail {
 template <typename T>
 struct non_const_lvalue
 {
-#if defined(ASIO_HAS_MOVE)
   explicit non_const_lvalue(T& t)
     : value(static_cast<typename conditional<
         is_same<T, typename decay<T>::type>::value,
@@ -36,14 +35,6 @@ struct non_const_lvalue
 
   typename conditional<is_same<T, typename decay<T>::type>::value,
       typename decay<T>::type&, typename decay<T>::type>::type value;
-#else // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
-  explicit non_const_lvalue(const typename decay<T>::type& t)
-    : value(t)
-  {
-  }
-
-  typename decay<T>::type value;
-#endif // defined(ASIO_HAS_MOVE)
 };
 
 } // namespace detail
