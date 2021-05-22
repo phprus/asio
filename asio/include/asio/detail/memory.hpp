@@ -26,10 +26,6 @@
 # include <boost/weak_ptr.hpp>
 #endif // !defined(ASIO_HAS_STD_SHARED_PTR)
 
-#if !defined(ASIO_HAS_STD_ADDRESSOF)
-# include <boost/utility/addressof.hpp>
-#endif // !defined(ASIO_HAS_STD_ADDRESSOF)
-
 #if !defined(ASIO_HAS_ALIGNED_NEW) \
   && defined(ASIO_HAS_BOOST_ALIGN) \
   && defined(ASIO_HAS_ALIGNOF)
@@ -52,11 +48,7 @@ using boost::shared_ptr;
 using boost::weak_ptr;
 #endif // defined(ASIO_HAS_STD_SHARED_PTR)
 
-#if defined(ASIO_HAS_STD_ADDRESSOF)
 using std::addressof;
-#else // defined(ASIO_HAS_STD_ADDRESSOF)
-using boost::addressof;
-#endif // defined(ASIO_HAS_STD_ADDRESSOF)
 
 } // namespace detail
 

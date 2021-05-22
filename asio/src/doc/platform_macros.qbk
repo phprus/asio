@@ -297,13 +297,6 @@ needs.
     [`ASIO_DISABLE_SSIZE_T`]
   ]
   [
-    [`ASIO_HAS_STD_ADDRESSOF`]
-    [
-      Standard library support for addressof.
-    ]
-    [`ASIO_DISABLE_STD_ADDRESSOF`]
-  ]
-  [
     [`ASIO_HAS_STD_ALLOCATOR_ARG`]
     [
       Standard library support for allocator_arg_t.
