@@ -350,13 +350,6 @@ needs.
     [`ASIO_DISABLE_STD_EXPERIMENTAL_STRING_VIEW`]
   ]
   [
-    [`ASIO_HAS_STD_FUNCTION`]
-    [
-      Standard library support for the function class.
-    ]
-    [`ASIO_DISABLE_STD_FUNCTION`]
-  ]
-  [
     [`ASIO_HAS_STD_INVOKE_RESULT`]
     [
       Standard library has invoke_result (which supersedes result_of).

@@ -522,29 +522,8 @@
 #define ASIO_HAS_STD_ADDRESSOF 1
 
 // Standard library support for the function class.
-#if !defined(ASIO_HAS_STD_FUNCTION)
-# if !defined(ASIO_DISABLE_STD_FUNCTION)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_FUNCTION 1
-#   elif (__cplusplus >= 201103)
-#    define ASIO_HAS_STD_FUNCTION 1
-#   endif // (__cplusplus >= 201103)
-#  endif // defined(__clang__)
-#  if defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_FUNCTION 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1700)
-#    define ASIO_HAS_STD_FUNCTION 1
-#   endif // (_MSC_VER >= 1700)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_FUNCTION)
-#endif // !defined(ASIO_HAS_STD_FUNCTION)
+// C++11
+#define ASIO_HAS_STD_FUNCTION 1
 
 // Standard library support for the reference_wrapper class.
 // C++11
