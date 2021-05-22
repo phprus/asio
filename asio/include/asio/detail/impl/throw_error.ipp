@@ -33,7 +33,7 @@ void do_throw_error(const std::error_code& err)
 
 void do_throw_error(const std::error_code& err, const char* location)
 {
-#if defined(ASIO_MSVC)
+#if defined(ASIO_MSVC) && (_MSC_VER < 1928)
   // Microsoft's implementation of std::system_error is non-conformant in that
   // it ignores the error code's message when a "what" string is supplied. We'll
   // work around this by explicitly formatting the "what" string.
