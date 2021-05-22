@@ -24,7 +24,7 @@
 #include <sys/types.h>
 #include <sys/event.h>
 #include <sys/time.h>
-#include "asio/detail/limits.hpp"
+#include <limits>
 #include "asio/detail/mutex.hpp"
 #include "asio/detail/object_pool.hpp"
 #include "asio/detail/op_queue.hpp"

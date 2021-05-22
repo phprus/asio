@@ -21,7 +21,7 @@
 
 #include <cstddef>
 #include "asio/detail/event.hpp"
-#include "asio/detail/limits.hpp"
+#include <limits>
 #include "asio/detail/mutex.hpp"
 #include "asio/detail/op_queue.hpp"
 #include "asio/detail/thread.hpp"

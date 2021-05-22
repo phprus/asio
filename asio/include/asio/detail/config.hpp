@@ -1150,13 +1150,6 @@
 # endif // !defined(ASIO_DISABLE_BOOST_ASSERT)
 #endif // !defined(ASIO_HAS_BOOST_ASSERT)
 
-// Boost limits header.
-#if !defined(ASIO_HAS_BOOST_LIMITS)
-# if !defined(ASIO_DISABLE_BOOST_LIMITS)
-#  define ASIO_HAS_BOOST_LIMITS 1
-# endif // !defined(ASIO_DISABLE_BOOST_LIMITS)
-#endif // !defined(ASIO_HAS_BOOST_LIMITS)
-
 // Boost throw_exception function.
 #if !defined(ASIO_HAS_BOOST_THROW_EXCEPTION)
 # if !defined(ASIO_DISABLE_BOOST_THROW_EXCEPTION)
