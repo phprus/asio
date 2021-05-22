@@ -52,7 +52,6 @@ using std::addressof;
 
 } // namespace detail
 
-#if defined(ASIO_HAS_CXX11_ALLOCATORS)
 using std::allocator_arg_t;
 # define ASIO_USES_ALLOCATOR(t) \
   namespace std { \
@@ -63,13 +62,6 @@ using std::allocator_arg_t;
 # define ASIO_REBIND_ALLOC(alloc, t) \
   typename std::allocator_traits<alloc>::template rebind_alloc<t>
   /**/
-#else // defined(ASIO_HAS_CXX11_ALLOCATORS)
-struct allocator_arg_t {};
-# define ASIO_USES_ALLOCATOR(t)
-# define ASIO_REBIND_ALLOC(alloc, t) \
-  typename alloc::template rebind<t>::other
-  /**/
-#endif // defined(ASIO_HAS_CXX11_ALLOCATORS)
 
 inline void* aligned_new(std::size_t align, std::size_t size)
 {
