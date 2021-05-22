@@ -378,13 +378,6 @@ needs.
     [`ASIO_DISABLE_STD_IOSTREAM_MOVE`]
   ]
   [
-    [`ASIO_HAS_STD_NESTED_EXCEPTION`]
-    [
-      Standard library support for std::nested_exception.
-    ]
-    [`ASIO_DISABLE_STD_NESTED_EXCEPTION`]
-  ]
-  [
     [`ASIO_HAS_STD_SHARED_PTR`]
     [
       Standard library support for shared_ptr and weak_ptr.
