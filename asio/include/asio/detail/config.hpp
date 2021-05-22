@@ -350,30 +350,6 @@
 # endif // !defined(ASIO_DISABLE_STD_SYSTEM_ERROR)
 #endif // !defined(ASIO_HAS_STD_SYSTEM_ERROR)
 
-// Compliant C++11 compilers put noexcept specifiers on error_category members.
-#if !defined(ASIO_ERROR_CATEGORY_NOEXCEPT)
-# if defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 105300)
-#  define ASIO_ERROR_CATEGORY_NOEXCEPT BOOST_NOEXCEPT
-# elif defined(__clang__)
-#  if __has_feature(__cxx_noexcept__)
-#   define ASIO_ERROR_CATEGORY_NOEXCEPT noexcept(true)
-#  endif // __has_feature(__cxx_noexcept__)
-# elif defined(__GNUC__)
-#  if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-#   if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_ERROR_CATEGORY_NOEXCEPT noexcept(true)
-#   endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#  endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-# elif defined(ASIO_MSVC)
-#  if (_MSC_VER >= 1900)
-#   define ASIO_ERROR_CATEGORY_NOEXCEPT noexcept(true)
-#  endif // (_MSC_VER >= 1900)
-# endif // defined(ASIO_MSVC)
-# if !defined(ASIO_ERROR_CATEGORY_NOEXCEPT)
-#  define ASIO_ERROR_CATEGORY_NOEXCEPT
-# endif // !defined(ASIO_ERROR_CATEGORY_NOEXCEPT)
-#endif // !defined(ASIO_ERROR_CATEGORY_NOEXCEPT)
-
 // Standard library support for arrays.
 #if !defined(ASIO_HAS_STD_ARRAY)
 # if !defined(ASIO_DISABLE_STD_ARRAY)
