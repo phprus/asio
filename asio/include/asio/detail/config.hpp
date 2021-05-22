@@ -25,7 +25,8 @@
 # error "Compiler too old. This file requires compiler and library support for the ISO C++ 2011 standard."
 #endif
 
-#if defined(ASIO_STANDALONE)
+// Use ASIO_ENABLE_BOOST_REGEX to enable boost::regex reads.
+#if !defined(ASIO_ENABLE_BOOST_REGEX) && !defined(ASIO_DISABLE_BOOST_REGEX)
 # define ASIO_DISABLE_BOOST_REGEX 1
 #endif // defined(ASIO_STANDALONE)
 
