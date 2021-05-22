@@ -26,11 +26,7 @@
 
 #include <array>
 
-#if defined(ASIO_HAS_BOOST_BIND)
-# include <boost/bind/bind.hpp>
-#else // defined(ASIO_HAS_BOOST_BIND)
-# include <functional>
-#endif // defined(ASIO_HAS_BOOST_BIND)
+#include <functional>
 
 typedef asio::buffered_write_stream<
     asio::ip::tcp::socket> stream_type;
@@ -245,11 +241,7 @@ void test_async_operations()
 {
   using namespace std; // For memcmp.
 
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 

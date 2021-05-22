@@ -279,7 +279,7 @@ public:
    * then the return value is a function object with the signature
    * @code void g(A1 a1, ... An an); @endcode
    * that, when invoked, executes code equivalent to:
-   * @code strand.dispatch(boost::bind(f, a1, ... an)); @endcode
+   * @code strand.dispatch(std::bind(f, a1, ... an)); @endcode
    */
   template <typename Handler>
 #if defined(GENERATING_DOCUMENTATION)

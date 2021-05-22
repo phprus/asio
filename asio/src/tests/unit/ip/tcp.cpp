@@ -31,11 +31,7 @@
 
 #include <array>
 
-#if defined(ASIO_HAS_BOOST_BIND)
-# include <boost/bind/bind.hpp>
-#else // defined(ASIO_HAS_BOOST_BIND)
-# include <functional>
-#endif // defined(ASIO_HAS_BOOST_BIND)
+#include <functional>
 
 //------------------------------------------------------------------------------
 
@@ -567,11 +563,7 @@ void test()
   using namespace asio;
   namespace ip = asio::ip;
 
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 

@@ -24,11 +24,7 @@
 #include "asio/streambuf.hpp"
 #include "unit_test.hpp"
 
-#if defined(ASIO_HAS_BOOST_BIND)
-# include <boost/bind/bind.hpp>
-#else // defined(ASIO_HAS_BOOST_BIND)
-# include <functional>
-#endif // defined(ASIO_HAS_BOOST_BIND)
+#include <functional>
 
 #include <array>
 
@@ -2465,11 +2461,7 @@ void async_read_handler(const std::error_code& e,
 
 void test_3_arg_mutable_buffer_async_read()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -2525,11 +2517,7 @@ void test_3_arg_mutable_buffer_async_read()
 
 void test_3_arg_std_array_buffers_async_read()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -2586,11 +2574,7 @@ void test_3_arg_std_array_buffers_async_read()
 
 void test_3_arg_vector_buffers_async_read()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -2648,11 +2632,7 @@ void test_3_arg_vector_buffers_async_read()
 
 void test_3_arg_dynamic_string_async_read()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -2714,11 +2694,7 @@ void test_3_arg_dynamic_string_async_read()
 void test_3_arg_streambuf_async_read()
 {
 #if !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -2777,11 +2753,7 @@ void test_3_arg_streambuf_async_read()
 
 void test_4_arg_mutable_buffer_async_read()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -3118,11 +3090,7 @@ void test_4_arg_mutable_buffer_async_read()
 
 void test_4_arg_std_array_buffers_async_read()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -3460,11 +3428,7 @@ void test_4_arg_std_array_buffers_async_read()
 
 void test_4_arg_vector_buffers_async_read()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -3803,11 +3767,7 @@ void test_4_arg_vector_buffers_async_read()
 
 void test_4_arg_dynamic_string_async_read()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -4174,11 +4134,7 @@ void test_4_arg_dynamic_string_async_read()
 void test_4_arg_streambuf_async_read()
 {
 #if !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 

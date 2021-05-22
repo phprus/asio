@@ -38,13 +38,6 @@ needs.
     [`ASIO_DISABLE_ALIGNOF`]
   ]
   [
-    [`ASIO_HAS_BOOST_BIND`]
-    [
-      Boost bind function.
-    ]
-    [`ASIO_DISABLE_BOOST_BIND`]
-  ]
-  [
     [`ASIO_HAS_BOOST_REGEX`]
     [
       Boost regex library.

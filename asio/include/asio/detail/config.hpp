@@ -22,7 +22,6 @@
 #endif // !defined(ASIO_STANDALONE)
 
 #if defined(ASIO_STANDALONE)
-# define ASIO_DISABLE_BOOST_BIND 1
 # define ASIO_DISABLE_BOOST_REGEX 1
 #endif // defined(ASIO_STANDALONE)
 
@@ -881,13 +880,6 @@
 #  define ASIO_HAS_BOOST_REGEX 1
 # endif // !defined(ASIO_DISABLE_BOOST_REGEX)
 #endif // !defined(ASIO_HAS_BOOST_REGEX)
-
-// Boost bind function.
-#if !defined(ASIO_HAS_BOOST_BIND)
-# if !defined(ASIO_DISABLE_BOOST_BIND)
-#  define ASIO_HAS_BOOST_BIND 1
-# endif // !defined(ASIO_DISABLE_BOOST_BIND)
-#endif // !defined(ASIO_HAS_BOOST_BIND)
 
 // Microsoft Visual C++'s secure C runtime library.
 #if !defined(ASIO_HAS_SECURE_RTL)
