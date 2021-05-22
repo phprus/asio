@@ -37,7 +37,7 @@ public:
           asio::placeholders::error));
   }
 
-  void handle_send_to(const asio::error_code& error)
+  void handle_send_to(const std::error_code& error)
   {
     if (!error && message_count_ < max_message_count)
     {
@@ -48,7 +48,7 @@ public:
     }
   }
 
-  void handle_timeout(const asio::error_code& error)
+  void handle_timeout(const std::error_code& error)
   {
     if (!error)
     {

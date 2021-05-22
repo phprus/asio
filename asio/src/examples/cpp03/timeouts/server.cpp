@@ -179,7 +179,7 @@ private:
   {
     channel_.leave(shared_from_this());
 
-    asio::error_code ignored_ec;
+    std::error_code ignored_ec;
     socket_.close(ignored_ec);
     input_deadline_.cancel();
     non_empty_output_queue_.cancel();
@@ -212,7 +212,7 @@ private:
           boost::placeholders::_1, boost::placeholders::_2));
   }
 
-  void handle_read(const asio::error_code& ec, std::size_t n)
+  void handle_read(const std::error_code& ec, std::size_t n)
   {
     if (stopped())
       return;
@@ -281,7 +281,7 @@ private:
           shared_from_this(), boost::placeholders::_1));
   }
 
-  void handle_write(const asio::error_code& ec)
+  void handle_write(const std::error_code& ec)
   {
     if (stopped())
       return;
@@ -349,7 +349,7 @@ public:
 private:
   void deliver(const std::string& msg)
   {
-    asio::error_code ignored_ec;
+    std::error_code ignored_ec;
     socket_.send(asio::buffer(msg), 0, ignored_ec);
   }
 
@@ -383,7 +383,7 @@ public:
   }
 
   void handle_accept(tcp_session_ptr session,
-      const asio::error_code& ec)
+      const std::error_code& ec)
   {
     if (!ec)
     {

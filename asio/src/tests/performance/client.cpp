@@ -88,11 +88,11 @@ public:
   }
 
 private:
-  void handle_connect(const asio::error_code& err)
+  void handle_connect(const std::error_code& err)
   {
     if (!err)
     {
-      asio::error_code set_option_err;
+      std::error_code set_option_err;
       asio::ip::tcp::no_delay no_delay(true);
       socket_.set_option(no_delay, set_option_err);
       if (!set_option_err)
@@ -114,7 +114,7 @@ private:
     }
   }
 
-  void handle_read(const asio::error_code& err, size_t length)
+  void handle_read(const std::error_code& err, size_t length)
   {
     if (!err)
     {
@@ -141,7 +141,7 @@ private:
     }
   }
 
-  void handle_write(const asio::error_code& err, size_t length)
+  void handle_write(const std::error_code& err, size_t length)
   {
     if (!err && length > 0)
     {

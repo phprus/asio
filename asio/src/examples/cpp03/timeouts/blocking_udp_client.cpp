@@ -52,7 +52,7 @@ public:
 
   std::size_t receive(const asio::mutable_buffer& buffer,
       asio::chrono::steady_clock::duration timeout,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     // Start the asynchronous operation. The handle_receive function used as a
     // callback will update the ec and length variables.
@@ -94,8 +94,8 @@ private:
   }
 
   static void handle_receive(
-      const asio::error_code& ec, std::size_t length,
-      asio::error_code* out_ec, std::size_t* out_length)
+      const std::error_code& ec, std::size_t length,
+      std::error_code* out_ec, std::size_t* out_length)
   {
     *out_ec = ec;
     *out_length = length;
@@ -129,7 +129,7 @@ int main(int argc, char* argv[])
     for (;;)
     {
       char data[1024];
-      asio::error_code ec;
+      std::error_code ec;
       std::size_t n = c.receive(asio::buffer(data),
           asio::chrono::seconds(10), ec);
 

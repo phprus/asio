@@ -90,12 +90,12 @@ int main(int argc, char* argv[])
       std::cout << &response;
 
     // Read until EOF, writing data to output as we go.
-    asio::error_code error;
+    std::error_code error;
     while (asio::read(socket, response,
           asio::transfer_at_least(1), error))
       std::cout << &response;
     if (error != asio::error::eof)
-      throw asio::system_error(error);
+      throw std::system_error(error);
   }
   catch (std::exception& e)
   {

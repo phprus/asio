@@ -13,7 +13,7 @@
 #include "asio/ip/tcp.hpp"
 #include "asio/read_until.hpp"
 #include "asio/streambuf.hpp"
-#include "asio/system_error.hpp"
+#include <system_error>
 #include "asio/write.hpp"
 #include <cstdlib>
 #include <iostream>
@@ -51,7 +51,7 @@ namespace asio {
 // void(error_code, T). Generalising this for all completion signature forms is
 // left as an exercise for the reader.
 template <typename T>
-class async_result<close_after, void(asio::error_code, T)>
+class async_result<close_after, void(std::error_code, T)>
 {
 public:
   // An asynchronous operation's initiating function automatically creates an
@@ -65,7 +65,7 @@ public:
     {
     }
 
-    void operator()(asio::error_code ec, T t)
+    void operator()(std::error_code ec, T t)
     {
       *ec_ = ec;
       *t_ = t;
@@ -74,7 +74,7 @@ public:
   private:
     friend class async_result;
     close_after token_;
-    asio::error_code* ec_;
+    std::error_code* ec_;
     T* t_;
   };
 
@@ -124,13 +124,13 @@ public:
     }
 
     // If the operation failed, throw an exception. Otherwise return the result.
-    return ec_ ? throw asio::system_error(ec_) : t_;
+    return ec_ ? throw std::system_error(ec_) : t_;
   }
 
 private:
   asio::chrono::steady_clock::duration timeout_;
   tcp_socket& socket_;
-  asio::error_code ec_;
+  std::error_code ec_;
   T t_;
 };
 

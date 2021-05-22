@@ -134,7 +134,7 @@ void epoll_reactor::notify_fork(
       int result = epoll_ctl(epoll_fd_, EPOLL_CTL_ADD, state->descriptor_, &ev);
       if (result != 0)
       {
-        asio::error_code ec(errno,
+        std::error_code ec(errno,
             asio::error::get_system_category());
         asio::detail::throw_error(ec, "epoll re-registration");
       }
@@ -286,7 +286,7 @@ void epoll_reactor::start_op(int op_type, socket_type descriptor,
           }
           else
           {
-            op->ec_ = asio::error_code(errno,
+            op->ec_ = std::error_code(errno,
                 asio::error::get_system_category());
             scheduler_.post_immediate_completion(op, is_continuation);
             return;
@@ -590,7 +590,7 @@ int epoll_reactor::do_epoll_create()
 
   if (fd == -1)
   {
-    asio::error_code ec(errno,
+    std::error_code ec(errno,
         asio::error::get_system_category());
     asio::detail::throw_error(ec, "epoll");
   }
@@ -764,7 +764,7 @@ operation* epoll_reactor::descriptor_state::perform_io(uint32_t events)
 
 void epoll_reactor::descriptor_state::do_complete(
     void* owner, operation* base,
-    const asio::error_code& ec, std::size_t bytes_transferred)
+    const std::error_code& ec, std::size_t bytes_transferred)
 {
   if (owner)
   {

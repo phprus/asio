@@ -34,13 +34,10 @@
 [section:system_error System Errors and Error Codes]
 
 When available, Asio can use the `std::error_code` and `std::system_error`
-classes for reporting errors. In this case, the names `asio::error_code` and
-`asio::system_error` will be typedefs for these standard classes.
+classes for reporting errors. In this case, the names `std::error_code` and
+`std::system_error` will be typedefs for these standard classes.
 
-System error support is automatically enabled for [^g++] 4.6 and later, when
-the [^-std=c++0x] or [^-std=gnu++0x] compiler options are used. It may be
-disabled by defining `ASIO_DISABLE_STD_SYSTEM_ERROR`, or explicitly enabled for
-other compilers by defining `ASIO_HAS_STD_SYSTEM_ERROR`.
+System error support is automatically enabled.
 
 [endsect]
 
@@ -208,7 +205,7 @@ a normal completion handler. For example:
 
 Where a handler signature has the form:
 
-  void handler(asio::error_code ec, result_type result);
+  void handler(std::error_code ec, result_type result);
 
 the initiating function returns a `std::future` templated on `result_type`.
 In the above example, this is `std::size_t`. If the asynchronous operation
@@ -217,7 +214,7 @@ passed back to the caller through the future.
 
 Where a handler signature has the form:
 
-  void handler(asio::error_code ec);
+  void handler(std::error_code ec);
 
 the initiating function returns `std::future<void>`. As above, an error
 is passed back in the future as a `system_error` exception.

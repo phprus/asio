@@ -148,43 +148,43 @@ struct set_error_free<free_set_error_non_const_receiver, E>
 void test_can_set_error()
 {
   constexpr bool b1 = exec::can_set_error<
-      no_set_error&, asio::error_code>::value;
+      no_set_error&, std::error_code>::value;
   ASIO_CHECK(b1 == false);
 
   constexpr bool b2 = exec::can_set_error<
-      const no_set_error&, asio::error_code>::value;
+      const no_set_error&, std::error_code>::value;
   ASIO_CHECK(b2 == false);
 
   constexpr bool b3 = exec::can_set_error<
-      const_member_set_error&, asio::error_code>::value;
+      const_member_set_error&, std::error_code>::value;
   ASIO_CHECK(b3 == true);
 
   constexpr bool b4 = exec::can_set_error<
-      const const_member_set_error&, asio::error_code>::value;
+      const const_member_set_error&, std::error_code>::value;
   ASIO_CHECK(b4 == true);
 
   constexpr bool b5 = exec::can_set_error<
-      free_set_error_const_receiver&, asio::error_code>::value;
+      free_set_error_const_receiver&, std::error_code>::value;
   ASIO_CHECK(b5 == true);
 
   constexpr bool b6 = exec::can_set_error<
-      const free_set_error_const_receiver&, asio::error_code>::value;
+      const free_set_error_const_receiver&, std::error_code>::value;
   ASIO_CHECK(b6 == true);
 
   constexpr bool b7 = exec::can_set_error<
-      non_const_member_set_error&, asio::error_code>::value;
+      non_const_member_set_error&, std::error_code>::value;
   ASIO_CHECK(b7 == true);
 
   constexpr bool b8 = exec::can_set_error<
-      const non_const_member_set_error&, asio::error_code>::value;
+      const non_const_member_set_error&, std::error_code>::value;
   ASIO_CHECK(b8 == false);
 
   constexpr bool b9 = exec::can_set_error<
-      free_set_error_non_const_receiver&, asio::error_code>::value;
+      free_set_error_non_const_receiver&, std::error_code>::value;
   ASIO_CHECK(b9 == true);
 
   constexpr bool b10 = exec::can_set_error<
-      const free_set_error_non_const_receiver&, asio::error_code>::value;
+      const free_set_error_non_const_receiver&, std::error_code>::value;
   ASIO_CHECK(b10 == false);
 }
 
@@ -195,7 +195,7 @@ void increment(int* count)
 
 void test_set_error()
 {
-  asio::error_code ec;
+  std::error_code ec;
 
   call_count = 0;
   const_member_set_error ex1 = {};

@@ -69,7 +69,7 @@ private:
   {
     while (socket_.is_open())
     {
-      asio::error_code ignored_ec;
+      std::error_code ignored_ec;
       timer_.async_wait(yield[ignored_ec]);
       if (timer_.expiry() <= asio::steady_timer::clock_type::now())
         socket_.close();
@@ -88,7 +88,7 @@ void do_accept(asio::io_context& io_context,
 
   for (;;)
   {
-    asio::error_code ec;
+    std::error_code ec;
     boost::shared_ptr<session> new_session(new session(io_context));
     acceptor.async_accept(new_session->socket(), yield[ec]);
     if (!ec) new_session->go();

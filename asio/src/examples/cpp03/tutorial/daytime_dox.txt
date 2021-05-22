@@ -382,7 +382,7 @@ The function asio::ip::udp::socket::async_receive_from() will cause the
 application to listen in the background for a new request. When such a request
 is received, the asio::io_context object will invoke the
 <tt>handle_receive()</tt> function with two arguments: a value of type
-asio::error_code indicating whether the operation succeeded or failed, and a
+std::error_code indicating whether the operation succeeded or failed, and a
 <tt>size_t</tt> value <tt>bytes_transferred</tt> specifying the number of bytes
 received.
 

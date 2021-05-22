@@ -92,7 +92,7 @@ public:
   // Destroy a timer implementation.
   void destroy(implementation_type& impl)
   {
-    asio::error_code ec;
+    std::error_code ec;
     cancel(impl, ec);
   }
 
@@ -144,11 +144,11 @@ public:
   }
 
   // Cancel any asynchronous wait operations associated with the timer.
-  std::size_t cancel(implementation_type& impl, asio::error_code& ec)
+  std::size_t cancel(implementation_type& impl, std::error_code& ec)
   {
     if (!impl.might_have_pending_waits)
     {
-      ec = asio::error_code();
+      ec = std::error_code();
       return 0;
     }
 
@@ -157,17 +157,17 @@ public:
 
     std::size_t count = scheduler_.cancel_timer(timer_queue_, impl.timer_data);
     impl.might_have_pending_waits = false;
-    ec = asio::error_code();
+    ec = std::error_code();
     return count;
   }
 
   // Cancels one asynchronous wait operation associated with the timer.
   std::size_t cancel_one(implementation_type& impl,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     if (!impl.might_have_pending_waits)
     {
-      ec = asio::error_code();
+      ec = std::error_code();
       return 0;
     }
 
@@ -178,7 +178,7 @@ public:
         timer_queue_, impl.timer_data, 1);
     if (count == 0)
       impl.might_have_pending_waits = false;
-    ec = asio::error_code();
+    ec = std::error_code();
     return count;
   }
 
@@ -202,17 +202,17 @@ public:
 
   // Set the expiry time for the timer as an absolute time.
   std::size_t expires_at(implementation_type& impl,
-      const time_type& expiry_time, asio::error_code& ec)
+      const time_type& expiry_time, std::error_code& ec)
   {
     std::size_t count = cancel(impl, ec);
     impl.expiry = expiry_time;
-    ec = asio::error_code();
+    ec = std::error_code();
     return count;
   }
 
   // Set the expiry time for the timer relative to now.
   std::size_t expires_after(implementation_type& impl,
-      const duration_type& expiry_time, asio::error_code& ec)
+      const duration_type& expiry_time, std::error_code& ec)
   {
     return expires_at(impl,
         Time_Traits::add(Time_Traits::now(), expiry_time), ec);
@@ -220,17 +220,17 @@ public:
 
   // Set the expiry time for the timer relative to now.
   std::size_t expires_from_now(implementation_type& impl,
-      const duration_type& expiry_time, asio::error_code& ec)
+      const duration_type& expiry_time, std::error_code& ec)
   {
     return expires_at(impl,
         Time_Traits::add(Time_Traits::now(), expiry_time), ec);
   }
 
   // Perform a blocking wait on the timer.
-  void wait(implementation_type& impl, asio::error_code& ec)
+  void wait(implementation_type& impl, std::error_code& ec)
   {
     time_type now = Time_Traits::now();
-    ec = asio::error_code();
+    ec = std::error_code();
     while (Time_Traits::less_than(now, impl.expiry) && !ec)
     {
       this->do_wait(Time_Traits::to_posix_duration(
@@ -264,13 +264,13 @@ private:
   // either be of type boost::posix_time::time_duration, or implement the
   // required subset of its interface.
   template <typename Duration>
-  void do_wait(const Duration& timeout, asio::error_code& ec)
+  void do_wait(const Duration& timeout, std::error_code& ec)
   {
 #if defined(ASIO_WINDOWS_RUNTIME)
     std::this_thread::sleep_for(
         std::chrono::seconds(timeout.total_seconds())
         + std::chrono::microseconds(timeout.total_microseconds()));
-    ec = asio::error_code();
+    ec = std::error_code();
 #else // defined(ASIO_WINDOWS_RUNTIME)
     ::timeval tv;
     tv.tv_sec = timeout.total_seconds();

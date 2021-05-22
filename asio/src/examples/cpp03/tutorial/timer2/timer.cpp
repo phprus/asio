@@ -11,7 +11,7 @@
 #include <iostream>
 #include <asio.hpp>
 
-void print(const asio::error_code& /*e*/)
+void print(const std::error_code& /*e*/)
 {
   std::cout << "Hello, world!" << std::endl;
 }

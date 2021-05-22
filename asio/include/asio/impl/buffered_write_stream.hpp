@@ -37,7 +37,7 @@ std::size_t buffered_write_stream<Stream>::flush()
 }
 
 template <typename Stream>
-std::size_t buffered_write_stream<Stream>::flush(asio::error_code& ec)
+std::size_t buffered_write_stream<Stream>::flush(std::error_code& ec)
 {
   std::size_t bytes_written = write(next_layer_,
       buffer(storage_.data(), storage_.size()),
@@ -71,7 +71,7 @@ namespace detail
     {
     }
 
-    void operator()(const asio::error_code& ec,
+    void operator()(const std::error_code& ec,
         const std::size_t bytes_written)
     {
       storage_.consume(bytes_written);
@@ -211,15 +211,15 @@ struct associated_executor<
 
 template <typename Stream>
 template <
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) WriteHandler>
 ASIO_INITFN_AUTO_RESULT_TYPE(WriteHandler,
-    void (asio::error_code, std::size_t))
+    void (std::error_code, std::size_t))
 buffered_write_stream<Stream>::async_flush(
     ASIO_MOVE_ARG(WriteHandler) handler)
 {
   return async_initiate<WriteHandler,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_buffered_flush<Stream>(next_layer_),
       handler, &storage_);
 }
@@ -242,9 +242,9 @@ std::size_t buffered_write_stream<Stream>::write_some(
 template <typename Stream>
 template <typename ConstBufferSequence>
 std::size_t buffered_write_stream<Stream>::write_some(
-    const ConstBufferSequence& buffers, asio::error_code& ec)
+    const ConstBufferSequence& buffers, std::error_code& ec)
 {
-  ec = asio::error_code();
+  ec = std::error_code();
 
   using asio::buffer_size;
   if (buffer_size(buffers) == 0)
@@ -284,7 +284,7 @@ namespace detail
       {
       }
 
-    void operator()(const asio::error_code& ec, std::size_t)
+    void operator()(const std::error_code& ec, std::size_t)
     {
       if (ec)
       {
@@ -469,16 +469,16 @@ struct associated_executor<
 
 template <typename Stream>
 template <typename ConstBufferSequence,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) WriteHandler>
 ASIO_INITFN_AUTO_RESULT_TYPE(WriteHandler,
-    void (asio::error_code, std::size_t))
+    void (std::error_code, std::size_t))
 buffered_write_stream<Stream>::async_write_some(
     const ConstBufferSequence& buffers,
     ASIO_MOVE_ARG(WriteHandler) handler)
 {
   return async_initiate<WriteHandler,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_buffered_write_some<Stream>(next_layer_),
       handler, &storage_, buffers);
 }

@@ -64,7 +64,7 @@ asynchronous operation, the operation's initiating function returns an
 
 Where an asynchronous operation's handler signature has the form:
 
-  void handler(asio::error_code ec, result_type result);
+  void handler(std::error_code ec, result_type result);
 
 the resulting type of the `co_await` expression is `result_type`. In the
 `async_read_some` example above, this is `size_t`. If the asynchronous
@@ -73,7 +73,7 @@ and thrown.
 
 Where a handler signature has the form:
 
-  void handler(asio::error_code ec);
+  void handler(std::error_code ec);
 
 the `co_await` expression produces a `void` result. As above, an error is
 passed back to the coroutine as a `system_error` exception.

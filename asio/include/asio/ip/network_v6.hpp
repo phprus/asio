@@ -118,7 +118,7 @@ public:
   ASIO_DECL std::string to_string() const;
 
   /// Get the network as an address in dotted decimal format.
-  ASIO_DECL std::string to_string(asio::error_code& ec) const;
+  ASIO_DECL std::string to_string(std::error_code& ec) const;
 
   /// Compare two networks for equality.
   friend bool operator==(const network_v6& a, const network_v6& b)
@@ -160,7 +160,7 @@ ASIO_DECL network_v6 make_network_v6(const char* str);
  * @relates network_v6
  */
 ASIO_DECL network_v6 make_network_v6(
-    const char* str, asio::error_code& ec);
+    const char* str, std::error_code& ec);
 
 /// Create an IPv6 network from a string containing IP address and prefix
 /// length.
@@ -175,7 +175,7 @@ ASIO_DECL network_v6 make_network_v6(const std::string& str);
  * @relates network_v6
  */
 ASIO_DECL network_v6 make_network_v6(
-    const std::string& str, asio::error_code& ec);
+    const std::string& str, std::error_code& ec);
 
 #if defined(ASIO_HAS_STRING_VIEW) \
   || defined(GENERATING_DOCUMENTATION)
@@ -193,7 +193,7 @@ ASIO_DECL network_v6 make_network_v6(string_view str);
  * @relates network_v6
  */
 ASIO_DECL network_v6 make_network_v6(
-    string_view str, asio::error_code& ec);
+    string_view str, std::error_code& ec);
 
 #endif // defined(ASIO_HAS_STRING_VIEW)
        //  || defined(GENERATING_DOCUMENTATION)

@@ -20,7 +20,7 @@ initiate the asynchronous operation.
 A free function as a resolve handler:
 
   void resolve_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       asio::ip::tcp::resolver::results_type results)
   {
     ...
@@ -32,7 +32,7 @@ A resolve handler function object:
   {
     ...
     void operator()(
-        const asio::error_code& ec,
+        const std::error_code& ec,
         asio::ip::tcp::resolver::results_type results)
     {
       ...
@@ -43,7 +43,7 @@ A resolve handler function object:
 A lambda as a resolve handler:
 
   resolver.async_resolve(...,
-      [](const asio::error_code& ec,
+      [](const std::error_code& ec,
         asio::ip::tcp::resolver::results_type results)
       {
         ...
@@ -53,7 +53,7 @@ A non-static class member function adapted to a resolve handler using
 `std::bind()`:
 
   void my_class::resolve_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       asio::ip::tcp::resolver::results_type results)
   {
     ...
@@ -68,7 +68,7 @@ A non-static class member function adapted to a resolve handler using
 `boost::bind()`:
 
   void my_class::resolve_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       asio::ip::tcp::resolver::results_type results)
   {
     ...

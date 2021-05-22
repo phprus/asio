@@ -170,7 +170,7 @@ Then we start a new asynchronous wait on the timer. As you can
 see, the \ref boost_bind function is used to associate the extra parameters
 with your callback handler. The asio::steady_timer::async_wait() function
 expects a handler function (or function object) with the signature
-<tt>void(const asio::error_code&)</tt>. Binding the additional parameters
+<tt>void(const std::error_code&)</tt>. Binding the additional parameters
 converts your <tt>print</tt> function into a function object that matches the
 signature correctly.
 
@@ -246,7 +246,7 @@ functions have an implicit <tt>this</tt> parameter, we need to bind
 <tt>this</tt> to the function. As in tutorial Timer.3, \ref boost_bind
 converts our callback handler (now a member function) into a function object
 that can be invoked as though it has the signature <tt>void(const
-asio::error_code&)</tt>.
+std::error_code&)</tt>.
 
 You will note that the asio::placeholders::error placeholder is not specified
 here, as the <tt>print</tt> member function does not accept an error object as

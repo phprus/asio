@@ -92,7 +92,7 @@ void test()
 
   io_context ioc;
   ip::tcp::socket sock(ioc, ip::tcp::v4());
-  asio::error_code ec;
+  std::error_code ec;
 
   // no_delay class.
 
@@ -139,7 +139,7 @@ namespace ip_tcp_socket_compile {
 struct connect_handler
 {
   connect_handler() {}
-  void operator()(const asio::error_code&) {}
+  void operator()(const std::error_code&) {}
   connect_handler(connect_handler&&) {}
 private:
   connect_handler(const connect_handler&);
@@ -148,7 +148,7 @@ private:
 struct wait_handler
 {
   wait_handler() {}
-  void operator()(const asio::error_code&) {}
+  void operator()(const std::error_code&) {}
   wait_handler(wait_handler&&) {}
 private:
   wait_handler(const wait_handler&);
@@ -157,7 +157,7 @@ private:
 struct send_handler
 {
   send_handler() {}
-  void operator()(const asio::error_code&, std::size_t) {}
+  void operator()(const std::error_code&, std::size_t) {}
   send_handler(send_handler&&) {}
 private:
   send_handler(const send_handler&);
@@ -166,7 +166,7 @@ private:
 struct receive_handler
 {
   receive_handler() {}
-  void operator()(const asio::error_code&, std::size_t) {}
+  void operator()(const std::error_code&, std::size_t) {}
   receive_handler(receive_handler&&) {}
 private:
   receive_handler(const receive_handler&);
@@ -175,7 +175,7 @@ private:
 struct write_some_handler
 {
   write_some_handler() {}
-  void operator()(const asio::error_code&, std::size_t) {}
+  void operator()(const std::error_code&, std::size_t) {}
   write_some_handler(write_some_handler&&) {}
 private:
   write_some_handler(const write_some_handler&);
@@ -184,7 +184,7 @@ private:
 struct read_some_handler
 {
   read_some_handler() {}
-  void operator()(const asio::error_code&, std::size_t) {}
+  void operator()(const std::error_code&, std::size_t) {}
   read_some_handler(read_some_handler&&) {}
 private:
   read_some_handler(const read_some_handler&);
@@ -217,7 +217,7 @@ void test()
     archetypes::gettable_socket_option<double> gettable_socket_option3;
     archetypes::io_control_command io_control_command;
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
 
     // basic_stream_socket constructors.
 
@@ -513,7 +513,7 @@ namespace ip_tcp_socket_runtime {
 static const char write_data[]
   = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-void handle_read_noop(const asio::error_code& err,
+void handle_read_noop(const std::error_code& err,
     size_t bytes_transferred, bool* called)
 {
   *called = true;
@@ -521,7 +521,7 @@ void handle_read_noop(const asio::error_code& err,
   ASIO_CHECK(bytes_transferred == 0);
 }
 
-void handle_write_noop(const asio::error_code& err,
+void handle_write_noop(const std::error_code& err,
     size_t bytes_transferred, bool* called)
 {
   *called = true;
@@ -529,7 +529,7 @@ void handle_write_noop(const asio::error_code& err,
   ASIO_CHECK(bytes_transferred == 0);
 }
 
-void handle_read(const asio::error_code& err,
+void handle_read(const std::error_code& err,
     size_t bytes_transferred, bool* called)
 {
   *called = true;
@@ -537,7 +537,7 @@ void handle_read(const asio::error_code& err,
   ASIO_CHECK(bytes_transferred == sizeof(write_data));
 }
 
-void handle_write(const asio::error_code& err,
+void handle_write(const std::error_code& err,
     size_t bytes_transferred, bool* called)
 {
   *called = true;
@@ -545,7 +545,7 @@ void handle_write(const asio::error_code& err,
   ASIO_CHECK(bytes_transferred == sizeof(write_data));
 }
 
-void handle_read_cancel(const asio::error_code& err,
+void handle_read_cancel(const std::error_code& err,
     size_t bytes_transferred, bool* called)
 {
   *called = true;
@@ -553,7 +553,7 @@ void handle_read_cancel(const asio::error_code& err,
   ASIO_CHECK(bytes_transferred == 0);
 }
 
-void handle_read_eof(const asio::error_code& err,
+void handle_read_eof(const std::error_code& err,
     size_t bytes_transferred, bool* called)
 {
   *called = true;
@@ -678,7 +678,7 @@ namespace ip_tcp_acceptor_compile {
 struct wait_handler
 {
   wait_handler() {}
-  void operator()(const asio::error_code&) {}
+  void operator()(const std::error_code&) {}
   wait_handler(wait_handler&&) {}
 private:
   wait_handler(const wait_handler&);
@@ -687,7 +687,7 @@ private:
 struct accept_handler
 {
   accept_handler() {}
-  void operator()(const asio::error_code&) {}
+  void operator()(const std::error_code&) {}
   accept_handler(accept_handler&&) {}
 private:
   accept_handler(const accept_handler&);
@@ -697,7 +697,7 @@ struct move_accept_handler
 {
   move_accept_handler() {}
   void operator()(
-      const asio::error_code&, asio::ip::tcp::socket) {}
+      const std::error_code&, asio::ip::tcp::socket) {}
   move_accept_handler(move_accept_handler&&) {}
 private:
   move_accept_handler(const move_accept_handler&) {}
@@ -706,7 +706,7 @@ private:
 struct move_accept_ioc_handler
 {
   move_accept_ioc_handler() {}
-  void operator()(const asio::error_code&,
+  void operator()(const std::error_code&,
       asio::basic_stream_socket<asio::ip::tcp,
         asio::io_context::executor_type>) {}
   move_accept_ioc_handler(move_accept_handler&&) {}
@@ -735,7 +735,7 @@ void test()
     archetypes::gettable_socket_option<double> gettable_socket_option3;
     archetypes::io_control_command io_control_command;
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
 
     // basic_socket_acceptor constructors.
 
@@ -912,12 +912,12 @@ void test()
 
 namespace ip_tcp_acceptor_runtime {
 
-void handle_accept(const asio::error_code& err)
+void handle_accept(const std::error_code& err)
 {
   ASIO_CHECK(!err);
 }
 
-void handle_connect(const asio::error_code& err)
+void handle_connect(const std::error_code& err)
 {
   ASIO_CHECK(!err);
 }
@@ -994,7 +994,7 @@ namespace ip_tcp_resolver_compile {
 struct resolve_handler
 {
   resolve_handler() {}
-  void operator()(const asio::error_code&,
+  void operator()(const std::error_code&,
       asio::ip::tcp::resolver::results_type) {}
   resolve_handler(resolve_handler&&) {}
 private:
@@ -1005,7 +1005,7 @@ private:
 struct legacy_resolve_handler
 {
   legacy_resolve_handler() {}
-  void operator()(const asio::error_code&,
+  void operator()(const std::error_code&,
       asio::ip::tcp::resolver::iterator) {}
   legacy_resolve_handler(legacy_resolve_handler&&) {}
 private:
@@ -1023,7 +1023,7 @@ void test()
     io_context ioc;
     const io_context::executor_type ioc_ex = ioc.get_executor();
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
 #if !defined(ASIO_NO_DEPRECATED)
     ip::tcp::resolver::query q(ip::tcp::v4(), "localhost", "0");
 #endif // !defined(ASIO_NO_DEPRECATED)
@@ -1261,7 +1261,7 @@ void test()
   basic_socket<ip::tcp>& sref = ios1.socket();
   (void)sref;
 
-  asio::error_code ec = ios1.error();
+  std::error_code ec = ios1.error();
   (void)ec;
 
   ip::tcp::iostream::time_point tp = ios1.expiry();

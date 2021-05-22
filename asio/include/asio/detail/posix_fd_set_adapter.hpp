@@ -68,7 +68,7 @@ public:
       reactor_op_queue<socket_type>::iterator op_iter = i++;
       if (!set(op_iter->first))
       {
-        asio::error_code ec(error::fd_set_failure);
+        std::error_code ec(error::fd_set_failure);
         operations.cancel_operations(op_iter, ops, ec);
       }
     }

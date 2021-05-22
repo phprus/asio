@@ -27,7 +27,7 @@
 #include "asio/detail/memory.hpp"
 #include "asio/detail/noncopyable.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/system_error.hpp"
+#include <system_error>
 
 #include "asio/detail/push_options.hpp"
 
@@ -50,13 +50,13 @@ namespace detail {
 
     void operator()(T value)
     {
-      *ec_ = asio::error_code();
+      *ec_ = std::error_code();
       *value_ = ASIO_MOVE_CAST(T)(value);
       if (--*ready_ == 0)
         (*coro_)();
     }
 
-    void operator()(asio::error_code ec, T value)
+    void operator()(std::error_code ec, T value)
     {
       *ec_ = ec;
       *value_ = ASIO_MOVE_CAST(T)(value);
@@ -69,7 +69,7 @@ namespace detail {
     typename basic_yield_context<Handler>::caller_type& ca_;
     Handler handler_;
     atomic_count* ready_;
-    asio::error_code* ec_;
+    std::error_code* ec_;
     T* value_;
   };
 
@@ -88,12 +88,12 @@ namespace detail {
 
     void operator()()
     {
-      *ec_ = asio::error_code();
+      *ec_ = std::error_code();
       if (--*ready_ == 0)
         (*coro_)();
     }
 
-    void operator()(asio::error_code ec)
+    void operator()(std::error_code ec)
     {
       *ec_ = ec;
       if (--*ready_ == 0)
@@ -105,7 +105,7 @@ namespace detail {
     typename basic_yield_context<Handler>::caller_type& ca_;
     Handler handler_;
     atomic_count* ready_;
-    asio::error_code* ec_;
+    std::error_code* ec_;
   };
 
   template <typename Handler, typename T>
@@ -189,7 +189,7 @@ namespace detail {
 
       if (--ready_ != 0)
         ca_();
-      if (!out_ec_ && ec_) throw asio::system_error(ec_);
+      if (!out_ec_ && ec_) throw std::system_error(ec_);
       return ASIO_MOVE_CAST(return_type)(value_);
     }
 
@@ -197,8 +197,8 @@ namespace detail {
     completion_handler_type& handler_;
     typename basic_yield_context<Handler>::caller_type& ca_;
     atomic_count ready_;
-    asio::error_code* out_ec_;
-    asio::error_code ec_;
+    std::error_code* out_ec_;
+    std::error_code ec_;
     return_type value_;
   };
 
@@ -226,15 +226,15 @@ namespace detail {
 
       if (--ready_ != 0)
         ca_();
-      if (!out_ec_ && ec_) throw asio::system_error(ec_);
+      if (!out_ec_ && ec_) throw std::system_error(ec_);
     }
 
   private:
     completion_handler_type& handler_;
     typename basic_yield_context<Handler>::caller_type& ca_;
     atomic_count ready_;
-    asio::error_code* out_ec_;
-    asio::error_code ec_;
+    std::error_code* out_ec_;
+    std::error_code ec_;
   };
 
 } // namespace detail
@@ -269,7 +269,7 @@ public:
 
 template <typename Handler, typename ReturnType>
 class async_result<basic_yield_context<Handler>,
-    ReturnType(asio::error_code)>
+    ReturnType(std::error_code)>
   : public detail::coro_async_result<Handler, void>
 {
 public:
@@ -283,7 +283,7 @@ public:
 
 template <typename Handler, typename ReturnType, typename Arg2>
 class async_result<basic_yield_context<Handler>,
-    ReturnType(asio::error_code, Arg2)>
+    ReturnType(std::error_code, Arg2)>
   : public detail::coro_async_result<Handler, typename decay<Arg2>::type>
 {
 public:

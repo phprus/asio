@@ -29,7 +29,7 @@ server::server(asio::io_context& io_context,
 // Enable the pseudo-keywords reenter, yield and fork.
 #include <asio/yield.hpp>
 
-void server::operator()(asio::error_code ec, std::size_t length)
+void server::operator()(std::error_code ec, std::size_t length)
 {
   // In this example we keep the error handling code in one place by
   // hoisting it outside the coroutine. An alternative approach would be to

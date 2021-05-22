@@ -36,7 +36,7 @@ public:
 
   /// Perform work associated with the server.
   void operator()(
-      asio::error_code ec = asio::error_code(),
+      std::error_code ec = std::error_code(),
       std::size_t length = 0);
 
 private:

@@ -61,7 +61,7 @@ private:
         boost::bind(&server::handle_accept, this, boost::placeholders::_1));
   }
 
-  void handle_accept(const asio::error_code& ec)
+  void handle_accept(const std::error_code& ec)
   {
     if (!ec)
     {
@@ -112,7 +112,7 @@ private:
           boost::placeholders::_1, boost::placeholders::_2));
   }
 
-  void handle_read(const asio::error_code& ec, std::size_t length)
+  void handle_read(const std::error_code& ec, std::size_t length)
   {
     if (!ec)
       start_write(length);
@@ -124,7 +124,7 @@ private:
         boost::bind(&server::handle_write, this, boost::placeholders::_1));
   }
 
-  void handle_write(const asio::error_code& ec)
+  void handle_write(const std::error_code& ec)
   {
     if (!ec)
       start_read();

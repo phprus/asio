@@ -234,7 +234,7 @@ public:
    *   std::cout << "Error: " << s.error().message() << std::endl;
    * } @endcode
    */
-  const asio::error_code& error() const
+  const std::error_code& error() const
   {
     return rdbuf()->error();
   }

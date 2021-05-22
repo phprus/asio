@@ -40,7 +40,7 @@ public:
   }
 
   // Notify that third party library that it should perform its read operation.
-  void do_read(asio::error_code& ec)
+  void do_read(std::error_code& ec)
   {
     if (std::size_t len = socket_.read_some(asio::buffer(data_), ec))
     {
@@ -57,7 +57,7 @@ public:
   }
 
   // Notify that third party library that it should perform its write operation.
-  void do_write(asio::error_code& ec)
+  void do_write(std::error_code& ec)
   {
     if (std::size_t len = socket_.write_some(
           asio::buffer(write_buffer_), ec))
@@ -133,7 +133,7 @@ private:
     }
   }
 
-  void handle_read(asio::error_code ec)
+  void handle_read(std::error_code ec)
   {
     read_in_progress_ = false;
 
@@ -153,7 +153,7 @@ private:
       socket_.close();
   }
 
-  void handle_write(asio::error_code ec)
+  void handle_write(std::error_code ec)
   {
     write_in_progress_ = false;
 
@@ -201,7 +201,7 @@ private:
   }
 
   void handle_accept(connection::pointer new_connection,
-      const asio::error_code& error)
+      const std::error_code& error)
   {
     if (!error)
     {

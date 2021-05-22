@@ -12,7 +12,7 @@
 #include <asio.hpp>
 #include <boost/bind/bind.hpp>
 
-void print(const asio::error_code& /*e*/,
+void print(const std::error_code& /*e*/,
     asio::steady_timer* t, int* count)
 {
   if (*count < 5)

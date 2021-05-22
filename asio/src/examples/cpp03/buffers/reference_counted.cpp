@@ -87,7 +87,7 @@ public:
   }
 
   void handle_accept(session_ptr new_session,
-      const asio::error_code& error)
+      const std::error_code& error)
   {
     if (!error)
     {

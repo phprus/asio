@@ -38,7 +38,7 @@ private:
           this, boost::placeholders::_1));
   }
 
-  void handle_receive(const asio::error_code& ec)
+  void handle_receive(const std::error_code& ec)
   {
     if (!ec)
     {
@@ -46,7 +46,7 @@ private:
       time_t now = time(0);
       std::string message = ctime(&now);
 
-      asio::error_code ignored_ec;
+      std::error_code ignored_ec;
       socket_.send_to(asio::buffer(message),
           remote_endpoint_, 0, ignored_ec);
     }

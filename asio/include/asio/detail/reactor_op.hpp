@@ -28,7 +28,7 @@ class reactor_op
 {
 public:
   // The error code to be passed to the completion handler.
-  asio::error_code ec_;
+  std::error_code ec_;
 
   // The number of bytes transferred, to be passed to the completion handler.
   std::size_t bytes_transferred_;
@@ -46,7 +46,7 @@ public:
 protected:
   typedef status (*perform_func_type)(reactor_op*);
 
-  reactor_op(const asio::error_code& success_ec,
+  reactor_op(const std::error_code& success_ec,
       perform_func_type perform_func, func_type complete_func)
     : operation(complete_func),
       ec_(success_ec),

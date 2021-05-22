@@ -41,7 +41,7 @@ public:
           asio::placeholders::bytes_transferred));
   }
 
-  void handle_receive_from(const asio::error_code& error,
+  void handle_receive_from(const std::error_code& error,
       size_t bytes_recvd)
   {
     if (!error)

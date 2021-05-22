@@ -46,7 +46,7 @@ public:
 
 private:
 
-  void handle_connect(const asio::error_code& error)
+  void handle_connect(const std::error_code& error)
   {
     if (!error)
     {
@@ -57,7 +57,7 @@ private:
     }
   }
 
-  void handle_read_header(const asio::error_code& error)
+  void handle_read_header(const std::error_code& error)
   {
     if (!error && read_msg_.decode_header())
     {
@@ -72,7 +72,7 @@ private:
     }
   }
 
-  void handle_read_body(const asio::error_code& error)
+  void handle_read_body(const std::error_code& error)
   {
     if (!error)
     {
@@ -103,7 +103,7 @@ private:
     }
   }
 
-  void handle_write(const asio::error_code& error)
+  void handle_write(const std::error_code& error)
   {
     if (!error)
     {

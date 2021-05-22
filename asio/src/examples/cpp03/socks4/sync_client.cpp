@@ -78,12 +78,12 @@ int main(int argc, char* argv[])
 
     // Read until EOF, writing data to output as we go.
     boost::array<char, 512> response;
-    asio::error_code error;
+    std::error_code error;
     while (std::size_t s = socket.read_some(
           asio::buffer(response), error))
       std::cout.write(response.data(), s);
     if (error != asio::error::eof)
-      throw asio::system_error(error);
+      throw std::system_error(error);
   }
   catch (std::exception& e)
   {

@@ -116,7 +116,7 @@ public:
 #if !defined(ASIO_NO_DEPRECATED)
   /// (Deprecated: Use other overload.) Get the address as a string in dotted
   /// decimal format.
-  ASIO_DECL std::string to_string(asio::error_code& ec) const;
+  ASIO_DECL std::string to_string(std::error_code& ec) const;
 
   /// (Deprecated: Use make_address_v4().) Create an address from an IP address
   /// string in dotted decimal form.
@@ -125,7 +125,7 @@ public:
   /// (Deprecated: Use make_address_v4().) Create an address from an IP address
   /// string in dotted decimal form.
   static address_v4 from_string(
-      const char* str, asio::error_code& ec);
+      const char* str, std::error_code& ec);
 
   /// (Deprecated: Use make_address_v4().) Create an address from an IP address
   /// string in dotted decimal form.
@@ -134,7 +134,7 @@ public:
   /// (Deprecated: Use make_address_v4().) Create an address from an IP address
   /// string in dotted decimal form.
   static address_v4 from_string(
-      const std::string& str, asio::error_code& ec);
+      const std::string& str, std::error_code& ec);
 #endif // !defined(ASIO_NO_DEPRECATED)
 
   /// Determine whether the address is a loopback address.
@@ -266,7 +266,7 @@ ASIO_DECL address_v4 make_address_v4(const char* str);
  * @relates address_v4
  */
 ASIO_DECL address_v4 make_address_v4(const char* str,
-    asio::error_code& ec) noexcept(true);
+    std::error_code& ec) noexcept(true);
 
 /// Create an IPv4 address from an IP address string in dotted decimal form.
 /**
@@ -279,7 +279,7 @@ ASIO_DECL address_v4 make_address_v4(const std::string& str);
  * @relates address_v4
  */
 ASIO_DECL address_v4 make_address_v4(const std::string& str,
-    asio::error_code& ec) noexcept(true);
+    std::error_code& ec) noexcept(true);
 
 #if defined(ASIO_HAS_STRING_VIEW) \
   || defined(GENERATING_DOCUMENTATION)
@@ -295,7 +295,7 @@ ASIO_DECL address_v4 make_address_v4(string_view str);
  * @relates address_v4
  */
 ASIO_DECL address_v4 make_address_v4(string_view str,
-    asio::error_code& ec) noexcept(true);
+    std::error_code& ec) noexcept(true);
 
 #endif // defined(ASIO_HAS_STRING_VIEW)
        //  || defined(GENERATING_DOCUMENTATION)

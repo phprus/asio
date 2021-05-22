@@ -57,7 +57,7 @@ private:
   {
   }
 
-  void handle_write(const asio::error_code& /*error*/,
+  void handle_write(const std::error_code& /*error*/,
       size_t /*bytes_transferred*/)
   {
   }
@@ -88,7 +88,7 @@ private:
   }
 
   void handle_accept(tcp_connection::pointer new_connection,
-      const asio::error_code& error)
+      const std::error_code& error)
   {
     if (!error)
     {

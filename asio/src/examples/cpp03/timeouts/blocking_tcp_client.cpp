@@ -13,7 +13,7 @@
 #include "asio/io_context.hpp"
 #include "asio/ip/tcp.hpp"
 #include "asio/read_until.hpp"
-#include "asio/system_error.hpp"
+#include <system_error>
 #include "asio/write.hpp"
 #include <cstdlib>
 #include <iostream>
@@ -58,7 +58,7 @@ public:
     // object is used as a callback and will update the ec variable when the
     // operation completes. The blocking_udp_client.cpp example shows how you
     // can use boost::bind rather than boost::lambda.
-    asio::error_code ec;
+    std::error_code ec;
     asio::async_connect(socket_, endpoints, var(ec) = _1);
 
     // Run the operation until it completes, or until the timeout.
@@ -66,7 +66,7 @@ public:
 
     // Determine whether a connection was successfully established.
     if (ec)
-      throw asio::system_error(ec);
+      throw std::system_error(ec);
   }
 
   std::string read_line(asio::chrono::steady_clock::duration timeout)
@@ -75,7 +75,7 @@ public:
     // used as a callback and will update the ec variable when the operation
     // completes. The blocking_udp_client.cpp example shows how you can use
     // boost::bind rather than boost::lambda.
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t n = 0;
     asio::async_read_until(socket_,
         asio::dynamic_buffer(input_buffer_),
@@ -86,7 +86,7 @@ public:
 
     // Determine whether the read completed successfully.
     if (ec)
-      throw asio::system_error(ec);
+      throw std::system_error(ec);
 
     std::string line(input_buffer_.substr(0, n - 1));
     input_buffer_.erase(0, n);
@@ -102,7 +102,7 @@ public:
     // used as a callback and will update the ec variable when the operation
     // completes. The blocking_udp_client.cpp example shows how you can use
     // boost::bind rather than boost::lambda.
-    asio::error_code ec;
+    std::error_code ec;
     asio::async_write(socket_, asio::buffer(data), var(ec) = _1);
 
     // Run the operation until it completes, or until the timeout.
@@ -110,7 +110,7 @@ public:
 
     // Determine whether the read completed successfully.
     if (ec)
-      throw asio::system_error(ec);
+      throw std::system_error(ec);
   }
 
 private:

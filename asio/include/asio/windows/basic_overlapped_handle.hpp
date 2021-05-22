@@ -116,13 +116,13 @@ public:
    *
    * @param native_handle The new underlying handle implementation.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   basic_overlapped_handle(const executor_type& ex,
       const native_handle_type& native_handle)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(impl_.get_implementation(), native_handle, ec);
     asio::detail::throw_error(ec, "assign");
   }
@@ -138,7 +138,7 @@ public:
    *
    * @param native_handle The new underlying handle implementation.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ExecutionContext>
   basic_overlapped_handle(ExecutionContext& context,
@@ -148,7 +148,7 @@ public:
       >::type = 0)
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(impl_.get_implementation(), native_handle, ec);
     asio::detail::throw_error(ec, "assign");
   }
@@ -226,11 +226,11 @@ public:
    *
    * @param handle A native handle.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void assign(const native_handle_type& handle)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(impl_.get_implementation(), handle, ec);
     asio::detail::throw_error(ec, "assign");
   }
@@ -244,7 +244,7 @@ public:
    * @param ec Set to indicate what error occurred, if any.
    */
   ASIO_SYNC_OP_VOID assign(const native_handle_type& handle,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     impl_.get_service().assign(impl_.get_implementation(), handle, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -262,11 +262,11 @@ public:
    * operations will be cancelled immediately, and will complete with the
    * asio::error::operation_aborted error.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void close()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().close(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "close");
   }
@@ -279,7 +279,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID close(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID close(std::error_code& ec)
   {
     impl_.get_service().close(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -302,11 +302,11 @@ public:
    * to finish immediately, and the handlers for cancelled operations will be
    * passed the asio::error::operation_aborted error.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void cancel()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().cancel(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "cancel");
   }
@@ -319,7 +319,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID cancel(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID cancel(std::error_code& ec)
   {
     impl_.get_service().cancel(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);

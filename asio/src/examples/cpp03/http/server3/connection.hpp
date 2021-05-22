@@ -42,11 +42,11 @@ public:
 
 private:
   /// Handle completion of a read operation.
-  void handle_read(const asio::error_code& e,
+  void handle_read(const std::error_code& e,
       std::size_t bytes_transferred);
 
   /// Handle completion of a write operation.
-  void handle_write(const asio::error_code& e);
+  void handle_write(const std::error_code& e);
 
   /// Strand to ensure the connection's handlers are not called concurrently.
   asio::strand<asio::io_context::executor_type> strand_;

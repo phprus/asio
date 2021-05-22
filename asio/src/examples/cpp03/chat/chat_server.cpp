@@ -114,7 +114,7 @@ public:
     }
   }
 
-  void handle_read_header(const asio::error_code& error)
+  void handle_read_header(const std::error_code& error)
   {
     if (!error && read_msg_.decode_header())
     {
@@ -129,7 +129,7 @@ public:
     }
   }
 
-  void handle_read_body(const asio::error_code& error)
+  void handle_read_body(const std::error_code& error)
   {
     if (!error)
     {
@@ -145,7 +145,7 @@ public:
     }
   }
 
-  void handle_write(const asio::error_code& error)
+  void handle_write(const std::error_code& error)
   {
     if (!error)
     {
@@ -196,7 +196,7 @@ public:
   }
 
   void handle_accept(chat_session_ptr session,
-      const asio::error_code& error)
+      const std::error_code& error)
   {
     if (!error)
     {

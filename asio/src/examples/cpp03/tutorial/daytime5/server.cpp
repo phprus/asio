@@ -39,7 +39,7 @@ int main()
 
       std::string message = make_daytime_string();
 
-      asio::error_code ignored_error;
+      std::error_code ignored_error;
       socket.send_to(asio::buffer(message),
           remote_endpoint, 0, ignored_error);
     }

@@ -37,7 +37,7 @@ public:
           asio::placeholders::error));
   }
 
-  void handle_handshake(const asio::error_code& error)
+  void handle_handshake(const std::error_code& error)
   {
     if (!error)
     {
@@ -52,7 +52,7 @@ public:
     }
   }
 
-  void handle_read(const asio::error_code& error,
+  void handle_read(const std::error_code& error,
       size_t bytes_transferred)
   {
     if (!error)
@@ -68,7 +68,7 @@ public:
     }
   }
 
-  void handle_write(const asio::error_code& error)
+  void handle_write(const std::error_code& error)
   {
     if (!error)
     {
@@ -124,7 +124,7 @@ public:
   }
 
   void handle_accept(session* new_session,
-      const asio::error_code& error)
+      const std::error_code& error)
   {
     if (!error)
     {

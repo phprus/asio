@@ -47,7 +47,7 @@ public:
   }
 
   // Handle a new control connection.
-  void handle_accept(const asio::error_code& ec, tcp_socket_ptr socket)
+  void handle_accept(const std::error_code& ec, tcp_socket_ptr socket)
   {
     if (!ec)
     {
@@ -66,7 +66,7 @@ public:
   }
 
   // Handle a new control request.
-  void handle_control_request(const asio::error_code& ec,
+  void handle_control_request(const std::error_code& ec,
       tcp_socket_ptr socket, control_request_ptr request)
   {
     if (!ec)
@@ -88,7 +88,7 @@ public:
     // subscriptions must be stored on the server as a complete endpoint, not
     // just a port. We use the non-throwing overload of remote_endpoint() since
     // it may fail if the socket is no longer connected.
-    asio::error_code ec;
+    std::error_code ec;
     tcp::endpoint remote_endpoint = socket->remote_endpoint(ec);
     if (!ec)
     {
@@ -135,7 +135,7 @@ public:
     std::set<udp::endpoint>::iterator j;
     for (j = subscribers_.begin(); j != subscribers_.end(); ++j)
     {
-      asio::error_code ec;
+      std::error_code ec;
       udp_socket_.send_to(f.to_buffers(), *j, 0, ec);
     }
 

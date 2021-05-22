@@ -39,7 +39,7 @@ public:
   }
 
   engine::want operator()(engine& eng,
-      asio::error_code& ec,
+      std::error_code& ec,
       std::size_t& bytes_transferred) const
   {
     bytes_transferred = 0;
@@ -48,7 +48,7 @@ public:
 
   template <typename Handler>
   void call_handler(Handler& handler,
-      const asio::error_code& ec,
+      const std::error_code& ec,
       const std::size_t&) const
   {
     handler(ec);

@@ -53,7 +53,7 @@ public:
     return preverified;
   }
 
-  void handle_connect(const asio::error_code& error)
+  void handle_connect(const std::error_code& error)
   {
     if (!error)
     {
@@ -67,7 +67,7 @@ public:
     }
   }
 
-  void handle_handshake(const asio::error_code& error)
+  void handle_handshake(const std::error_code& error)
   {
     if (!error)
     {
@@ -87,7 +87,7 @@ public:
     }
   }
 
-  void handle_write(const asio::error_code& error,
+  void handle_write(const std::error_code& error,
       size_t bytes_transferred)
   {
     if (!error)
@@ -104,7 +104,7 @@ public:
     }
   }
 
-  void handle_read(const asio::error_code& error,
+  void handle_read(const std::error_code& error,
       size_t bytes_transferred)
   {
     if (!error)

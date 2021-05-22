@@ -28,7 +28,7 @@ public:
           asio::placeholders::bytes_transferred));
   }
 
-  void handle_receive_from(const asio::error_code& error,
+  void handle_receive_from(const std::error_code& error,
       size_t bytes_recvd)
   {
     if (!error && bytes_recvd > 0)
@@ -49,7 +49,7 @@ public:
     }
   }
 
-  void handle_send_to(const asio::error_code& /*error*/,
+  void handle_send_to(const std::error_code& /*error*/,
       size_t /*bytes_sent*/)
   {
     socket_.async_receive_from(

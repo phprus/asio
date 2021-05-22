@@ -73,7 +73,7 @@ struct time_t_wait_traits
 typedef asio::basic_waitable_timer<
   time_t_clock, time_t_wait_traits> time_t_timer;
 
-void handle_timeout(const asio::error_code&)
+void handle_timeout(const std::error_code&)
 {
   std::cout << "handle_timeout\n";
 }

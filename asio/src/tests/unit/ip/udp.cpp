@@ -42,7 +42,7 @@ namespace ip_udp_socket_compile {
 struct connect_handler
 {
   connect_handler() {}
-  void operator()(const asio::error_code&) {}
+  void operator()(const std::error_code&) {}
   connect_handler(connect_handler&&) {}
 private:
   connect_handler(const connect_handler&);
@@ -51,7 +51,7 @@ private:
 struct wait_handler
 {
   wait_handler() {}
-  void operator()(const asio::error_code&) {}
+  void operator()(const std::error_code&) {}
   wait_handler(wait_handler&&) {}
 private:
   wait_handler(const wait_handler&);
@@ -60,7 +60,7 @@ private:
 struct send_handler
 {
   send_handler() {}
-  void operator()(const asio::error_code&, std::size_t) {}
+  void operator()(const std::error_code&, std::size_t) {}
   send_handler(send_handler&&) {}
 private:
   send_handler(const send_handler&);
@@ -69,7 +69,7 @@ private:
 struct receive_handler
 {
   receive_handler() {}
-  void operator()(const asio::error_code&, std::size_t) {}
+  void operator()(const std::error_code&, std::size_t) {}
   receive_handler(receive_handler&&) {}
 private:
   receive_handler(const receive_handler&);
@@ -95,7 +95,7 @@ void test()
     archetypes::gettable_socket_option<double> gettable_socket_option3;
     archetypes::io_control_command io_control_command;
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
 
     // basic_datagram_socket constructors.
 
@@ -445,14 +445,14 @@ void test()
 namespace ip_udp_socket_runtime {
 
 void handle_send(size_t expected_bytes_sent,
-    const asio::error_code& err, size_t bytes_sent)
+    const std::error_code& err, size_t bytes_sent)
 {
   ASIO_CHECK(!err);
   ASIO_CHECK(expected_bytes_sent == bytes_sent);
 }
 
 void handle_recv(size_t expected_bytes_recvd,
-    const asio::error_code& err, size_t bytes_recvd)
+    const std::error_code& err, size_t bytes_recvd)
 {
   ASIO_CHECK(!err);
   ASIO_CHECK(expected_bytes_recvd == bytes_recvd);
@@ -519,7 +519,7 @@ namespace ip_udp_resolver_compile {
 struct resolve_handler
 {
   resolve_handler() {}
-  void operator()(const asio::error_code&,
+  void operator()(const std::error_code&,
       asio::ip::udp::resolver::results_type) {}
   resolve_handler(resolve_handler&&) {}
 private:
@@ -536,7 +536,7 @@ void test()
     io_context ioc;
     const io_context::executor_type ioc_ex = ioc.get_executor();
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
 #if !defined(ASIO_NO_DEPRECATED)
     ip::udp::resolver::query q(ip::udp::v4(), "localhost", "0");
 #endif // !defined(ASIO_NO_DEPRECATED)

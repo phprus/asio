@@ -124,7 +124,7 @@ public:
    *
    * @param protocol An object specifying protocol parameters to be used.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   basic_seq_packet_socket(const executor_type& ex,
       const protocol_type& protocol)
@@ -144,7 +144,7 @@ public:
    *
    * @param protocol An object specifying protocol parameters to be used.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ExecutionContext>
   basic_seq_packet_socket(ExecutionContext& context,
@@ -170,7 +170,7 @@ public:
    * @param endpoint An endpoint on the local machine to which the sequenced
    * packet socket will be bound.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   basic_seq_packet_socket(const executor_type& ex,
       const endpoint_type& endpoint)
@@ -192,7 +192,7 @@ public:
    * @param endpoint An endpoint on the local machine to which the sequenced
    * packet socket will be bound.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ExecutionContext>
   basic_seq_packet_socket(ExecutionContext& context,
@@ -216,7 +216,7 @@ public:
    *
    * @param native_socket The new underlying socket implementation.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   basic_seq_packet_socket(const executor_type& ex,
       const protocol_type& protocol, const native_handle_type& native_socket)
@@ -237,7 +237,7 @@ public:
    *
    * @param native_socket The new underlying socket implementation.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ExecutionContext>
   basic_seq_packet_socket(ExecutionContext& context,
@@ -352,7 +352,7 @@ public:
    *
    * @returns The number of bytes sent.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * To send a single data buffer use the @ref buffer function as follows:
@@ -367,7 +367,7 @@ public:
   std::size_t send(const ConstBufferSequence& buffers,
       socket_base::message_flags flags)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = this->impl_.get_service().send(
         this->impl_.get_implementation(), buffers, flags, ec);
     asio::detail::throw_error(ec, "send");
@@ -394,7 +394,7 @@ public:
    */
   template <typename ConstBufferSequence>
   std::size_t send(const ConstBufferSequence& buffers,
-      socket_base::message_flags flags, asio::error_code& ec)
+      socket_base::message_flags flags, std::error_code& ec)
   {
     return this->impl_.get_service().send(
         this->impl_.get_implementation(), buffers, flags, ec);
@@ -416,7 +416,7 @@ public:
    * Copies will be made of the handler as required. The function signature of
    * the handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   std::size_t bytes_transferred           // Number of bytes sent.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -434,18 +434,18 @@ public:
    * std::vector.
    */
   template <typename ConstBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) WriteHandler
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(WriteHandler,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_send(const ConstBufferSequence& buffers,
       socket_base::message_flags flags,
       ASIO_MOVE_ARG(WriteHandler) handler
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<WriteHandler,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         initiate_async_send(this), handler, buffers, flags);
   }
 
@@ -464,7 +464,7 @@ public:
    *
    * @returns The number of bytes received.
    *
-   * @throws asio::system_error Thrown on failure. An error code of
+   * @throws std::system_error Thrown on failure. An error code of
    * asio::error::eof indicates that the connection was closed by the
    * peer.
    *
@@ -482,7 +482,7 @@ public:
   std::size_t receive(const MutableBufferSequence& buffers,
       socket_base::message_flags& out_flags)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = this->impl_.get_service().receive_with_flags(
         this->impl_.get_implementation(), buffers, 0, out_flags, ec);
     asio::detail::throw_error(ec, "receive");
@@ -506,7 +506,7 @@ public:
    *
    * @returns The number of bytes received.
    *
-   * @throws asio::system_error Thrown on failure. An error code of
+   * @throws std::system_error Thrown on failure. An error code of
    * asio::error::eof indicates that the connection was closed by the
    * peer.
    *
@@ -529,7 +529,7 @@ public:
       socket_base::message_flags in_flags,
       socket_base::message_flags& out_flags)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = this->impl_.get_service().receive_with_flags(
         this->impl_.get_implementation(), buffers, in_flags, out_flags, ec);
     asio::detail::throw_error(ec, "receive");
@@ -562,7 +562,7 @@ public:
   template <typename MutableBufferSequence>
   std::size_t receive(const MutableBufferSequence& buffers,
       socket_base::message_flags in_flags,
-      socket_base::message_flags& out_flags, asio::error_code& ec)
+      socket_base::message_flags& out_flags, std::error_code& ec)
   {
     return this->impl_.get_service().receive_with_flags(
         this->impl_.get_implementation(), buffers, in_flags, out_flags, ec);
@@ -588,7 +588,7 @@ public:
    * completes. Copies will be made of the handler as required. The function
    * signature of the handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   std::size_t bytes_transferred           // Number of bytes received.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -607,18 +607,18 @@ public:
    * std::vector.
    */
   template <typename MutableBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) ReadHandler
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ReadHandler,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_receive(const MutableBufferSequence& buffers,
       socket_base::message_flags& out_flags,
       ASIO_MOVE_ARG(ReadHandler) handler
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<ReadHandler,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         initiate_async_receive_with_flags(this), handler,
         buffers, socket_base::message_flags(0), &out_flags);
   }
@@ -645,7 +645,7 @@ public:
    * completes. Copies will be made of the handler as required. The function
    * signature of the handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   std::size_t bytes_transferred           // Number of bytes received.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -666,11 +666,11 @@ public:
    * std::vector.
    */
   template <typename MutableBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) ReadHandler
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ReadHandler,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_receive(const MutableBufferSequence& buffers,
       socket_base::message_flags in_flags,
       socket_base::message_flags& out_flags,
@@ -678,7 +678,7 @@ public:
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<ReadHandler,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         initiate_async_receive_with_flags(this),
         handler, buffers, in_flags, &out_flags);
   }

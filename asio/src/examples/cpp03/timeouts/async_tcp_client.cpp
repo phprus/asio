@@ -112,7 +112,7 @@ public:
   void stop()
   {
     stopped_ = true;
-    asio::error_code ignored_ec;
+    std::error_code ignored_ec;
     socket_.close(ignored_ec);
     deadline_.cancel();
     heartbeat_timer_.cancel();
@@ -140,7 +140,7 @@ private:
     }
   }
 
-  void handle_connect(const asio::error_code& ec,
+  void handle_connect(const std::error_code& ec,
       tcp::resolver::results_type::iterator endpoint_iter)
   {
     if (stopped_)
@@ -195,7 +195,7 @@ private:
           boost::placeholders::_1, boost::placeholders::_2));
   }
 
-  void handle_read(const asio::error_code& ec, std::size_t n)
+  void handle_read(const std::error_code& ec, std::size_t n)
   {
     if (stopped_)
       return;
@@ -232,7 +232,7 @@ private:
         boost::bind(&client::handle_write, this, boost::placeholders::_1));
   }
 
-  void handle_write(const asio::error_code& ec)
+  void handle_write(const std::error_code& ec)
   {
     if (stopped_)
       return;

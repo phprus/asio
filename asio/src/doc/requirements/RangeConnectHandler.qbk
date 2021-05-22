@@ -19,7 +19,7 @@ function.
 A free function as a range connect handler:
 
   void connect_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       const asio::ip::tcp::endpoint& endpoint)
   {
     ...
@@ -32,7 +32,7 @@ A range connect handler function object:
     ...
     template <typename Range>
     void operator()(
-        const asio::error_code& ec,
+        const std::error_code& ec,
         const asio::ip::tcp::endpoint& endpoint)
     {
       ...
@@ -43,7 +43,7 @@ A range connect handler function object:
 A lambda as a range connect handler:
 
   asio::async_connect(...,
-      [](const asio::error_code& ec,
+      [](const std::error_code& ec,
         const asio::ip::tcp::endpoint& endpoint)
       {
         ...
@@ -53,7 +53,7 @@ A non-static class member function adapted to a range connect handler using
 `std::bind()`:
 
   void my_class::connect_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       const asio::ip::tcp::endpoint& endpoint)
   {
     ...
@@ -68,7 +68,7 @@ A non-static class member function adapted to a range connect handler using
 `boost::bind()`:
 
   void my_class::connect_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       const asio::ip::tcp::endpoint& endpoint)
   {
     ...

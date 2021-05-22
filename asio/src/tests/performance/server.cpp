@@ -44,7 +44,7 @@ public:
 
   void start()
   {
-    asio::error_code set_option_err;
+    std::error_code set_option_err;
     asio::ip::tcp::no_delay no_delay(true);
     socket_.set_option(no_delay, set_option_err);
     if (!set_option_err)
@@ -63,7 +63,7 @@ public:
     }
   }
 
-  void handle_read(const asio::error_code& err, size_t length)
+  void handle_read(const std::error_code& err, size_t length)
   {
     --op_count_;
 
@@ -93,7 +93,7 @@ public:
       asio::post(io_context_, boost::bind(&session::destroy, this));
   }
 
-  void handle_write(const asio::error_code& err)
+  void handle_write(const std::error_code& err)
   {
     --op_count_;
 
@@ -166,7 +166,7 @@ public:
           asio::placeholders::error));
   }
 
-  void handle_accept(session* new_session, const asio::error_code& err)
+  void handle_accept(session* new_session, const std::error_code& err)
   {
     if (!err)
     {

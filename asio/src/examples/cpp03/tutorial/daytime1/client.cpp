@@ -36,14 +36,14 @@ int main(int argc, char* argv[])
     for (;;)
     {
       boost::array<char, 128> buf;
-      asio::error_code error;
+      std::error_code error;
 
       size_t len = socket.read_some(asio::buffer(buf), error);
 
       if (error == asio::error::eof)
         break; // Connection closed cleanly by peer.
       else if (error)
-        throw asio::system_error(error); // Some other error.
+        throw std::system_error(error); // Some other error.
 
       std::cout.write(buf.data(), len);
     }

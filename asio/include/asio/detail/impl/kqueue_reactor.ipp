@@ -58,7 +58,7 @@ kqueue_reactor::kqueue_reactor(asio::execution_context& ctx)
       EVFILT_READ, EV_ADD, 0, 0, &interrupter_);
   if (::kevent(kqueue_fd_, events, 1, 0, 0, 0) == -1)
   {
-    asio::error_code error(errno,
+    std::error_code error(errno,
         asio::error::get_system_category());
     asio::detail::throw_error(error);
   }
@@ -106,7 +106,7 @@ void kqueue_reactor::notify_fork(
         EVFILT_READ, EV_ADD, 0, 0, &interrupter_);
     if (::kevent(kqueue_fd_, events, 1, 0, 0, 0) == -1)
     {
-      asio::error_code ec(errno,
+      std::error_code ec(errno,
           asio::error::get_system_category());
       asio::detail::throw_error(ec, "kqueue interrupter registration");
     }
@@ -124,7 +124,7 @@ void kqueue_reactor::notify_fork(
             EVFILT_WRITE, EV_ADD | EV_CLEAR, 0, 0, state);
         if (::kevent(kqueue_fd_, events, state->num_kevents_, 0, 0, 0) == -1)
         {
-          asio::error_code ec(errno,
+          std::error_code ec(errno,
               asio::error::get_system_category());
           asio::detail::throw_error(ec, "kqueue re-registration");
         }
@@ -237,7 +237,7 @@ void kqueue_reactor::start_op(int op_type, socket_type descriptor,
         }
         else
         {
-          op->ec_ = asio::error_code(errno,
+          op->ec_ = std::error_code(errno,
               asio::error::get_system_category());
           scheduler_.post_immediate_completion(op, is_continuation);
           return;
@@ -480,7 +480,7 @@ void kqueue_reactor::run(long usec, op_queue<operation>& ops)
             {
               if (events[i].flags & EV_ERROR)
               {
-                op->ec_ = asio::error_code(
+                op->ec_ = std::error_code(
                     static_cast<int>(events[i].data),
                     asio::error::get_system_category());
                 descriptor_data->op_queue_[j].pop();
@@ -514,7 +514,7 @@ int kqueue_reactor::do_kqueue_create()
   int fd = ::kqueue();
   if (fd == -1)
   {
-    asio::error_code ec(errno,
+    std::error_code ec(errno,
         asio::error::get_system_category());
     asio::detail::throw_error(ec, "kqueue");
   }

@@ -42,7 +42,7 @@ public:
   }
 
 private:
-  void handle_read(const asio::error_code& ec, std::size_t size)
+  void handle_read(const std::error_code& ec, std::size_t size)
   {
     if (!ec)
     {
@@ -57,11 +57,11 @@ private:
     }
     else
     {
-      throw asio::system_error(ec);
+      throw std::system_error(ec);
     }
   }
 
-  void handle_write(const asio::error_code& ec)
+  void handle_write(const std::error_code& ec)
   {
     if (!ec)
     {
@@ -73,7 +73,7 @@ private:
     }
     else
     {
-      throw asio::system_error(ec);
+      throw std::system_error(ec);
     }
   }
 

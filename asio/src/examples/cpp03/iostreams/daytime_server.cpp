@@ -34,7 +34,7 @@ int main()
     for (;;)
     {
       tcp::iostream stream;
-      asio::error_code ec;
+      std::error_code ec;
       acceptor.accept(stream.socket(), ec);
       if (!ec)
       {

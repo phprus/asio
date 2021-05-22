@@ -119,12 +119,12 @@ private:
 
 //----------------------------------------------------------------------
 
-void high_priority_handler(const asio::error_code& /*ec*/)
+void high_priority_handler(const std::error_code& /*ec*/)
 {
   std::cout << "High priority handler\n";
 }
 
-void middle_priority_handler(const asio::error_code& /*ec*/)
+void middle_priority_handler(const std::error_code& /*ec*/)
 {
   std::cout << "Middle priority handler\n";
 }

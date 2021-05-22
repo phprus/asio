@@ -105,7 +105,7 @@ public:
    *
    * @param handle The new underlying handle implementation.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   basic_stream_handle(const executor_type& ex, const native_handle_type& handle)
     : basic_overlapped_handle<Executor>(ex, handle)
@@ -123,7 +123,7 @@ public:
    *
    * @param handle The new underlying handle implementation.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ExecutionContext>
   basic_stream_handle(ExecutionContext& context,
@@ -178,7 +178,7 @@ public:
    *
    * @returns The number of bytes written.
    *
-   * @throws asio::system_error Thrown on failure. An error code of
+   * @throws std::system_error Thrown on failure. An error code of
    * asio::error::eof indicates that the connection was closed by the
    * peer.
    *
@@ -198,7 +198,7 @@ public:
   template <typename ConstBufferSequence>
   std::size_t write_some(const ConstBufferSequence& buffers)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = this->impl_.get_service().write_some(
         this->impl_.get_implementation(), buffers, ec);
     asio::detail::throw_error(ec, "write_some");
@@ -223,7 +223,7 @@ public:
    */
   template <typename ConstBufferSequence>
   std::size_t write_some(const ConstBufferSequence& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return this->impl_.get_service().write_some(
         this->impl_.get_implementation(), buffers, ec);
@@ -243,7 +243,7 @@ public:
    * Copies will be made of the handler as required. The function signature of
    * the handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   std::size_t bytes_transferred           // Number of bytes written.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -265,17 +265,17 @@ public:
    * std::vector.
    */
   template <typename ConstBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) WriteHandler
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(WriteHandler,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_write_some(const ConstBufferSequence& buffers,
       ASIO_MOVE_ARG(WriteHandler) handler
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<WriteHandler,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         initiate_async_write_some(this), handler, buffers);
   }
 
@@ -289,7 +289,7 @@ public:
    *
    * @returns The number of bytes read.
    *
-   * @throws asio::system_error Thrown on failure. An error code of
+   * @throws std::system_error Thrown on failure. An error code of
    * asio::error::eof indicates that the connection was closed by the
    * peer.
    *
@@ -310,7 +310,7 @@ public:
   template <typename MutableBufferSequence>
   std::size_t read_some(const MutableBufferSequence& buffers)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = this->impl_.get_service().read_some(
         this->impl_.get_implementation(), buffers, ec);
     asio::detail::throw_error(ec, "read_some");
@@ -336,7 +336,7 @@ public:
    */
   template <typename MutableBufferSequence>
   std::size_t read_some(const MutableBufferSequence& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return this->impl_.get_service().read_some(
         this->impl_.get_implementation(), buffers, ec);
@@ -356,7 +356,7 @@ public:
    * Copies will be made of the handler as required. The function signature of
    * the handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   std::size_t bytes_transferred           // Number of bytes read.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -379,17 +379,17 @@ public:
    * std::vector.
    */
   template <typename MutableBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) ReadHandler
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ReadHandler,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_read_some(const MutableBufferSequence& buffers,
       ASIO_MOVE_ARG(ReadHandler) handler
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<ReadHandler,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         initiate_async_read_some(this), handler, buffers);
   }
 

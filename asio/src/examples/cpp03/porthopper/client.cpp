@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
       // Ask the server to switch over to the new port.
       control_request change = control_request::change(
           data_endpoint.port(), new_data_endpoint.port());
-      asio::error_code control_result;
+      std::error_code control_result;
       asio::async_write(control_socket, change.to_buffers(),
           (
             lambda::var(control_result) = lambda::_1
@@ -101,7 +101,7 @@ int main(int argc, char* argv[])
       // socket, which will cause any outstanding receive operation on it to be
       // cancelled.
       frame f1;
-      asio::error_code new_data_socket_result;
+      std::error_code new_data_socket_result;
       new_data_socket->async_receive(f1.to_buffers(),
           (
             // Note: lambda::_1 is the first argument to the callback handler,
@@ -166,9 +166,9 @@ int main(int argc, char* argv[])
       // the renegotation, or an error has occurred. First we'll check for
       // errors.
       if (control_result)
-        throw asio::system_error(control_result);
+        throw std::system_error(control_result);
       if (new_data_socket_result)
-        throw asio::system_error(new_data_socket_result);
+        throw std::system_error(new_data_socket_result);
 
       // If we get here it means we have successfully started receiving data on
       // the new data socket. This new data socket will be used from now on

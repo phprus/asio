@@ -38,7 +38,7 @@
 namespace asio {
 
 ASIO_SYNC_OP_VOID serial_port_base::baud_rate::store(
-    ASIO_OPTION_STORAGE& storage, asio::error_code& ec) const
+    ASIO_OPTION_STORAGE& storage, std::error_code& ec) const
 {
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
   storage.BaudRate = value_;
@@ -120,12 +120,12 @@ ASIO_SYNC_OP_VOID serial_port_base::baud_rate::store(
   ::cfsetospeed(&storage, baud);
 # endif
 #endif
-  ec = asio::error_code();
+  ec = std::error_code();
   ASIO_SYNC_OP_VOID_RETURN(ec);
 }
 
 ASIO_SYNC_OP_VOID serial_port_base::baud_rate::load(
-    const ASIO_OPTION_STORAGE& storage, asio::error_code& ec)
+    const ASIO_OPTION_STORAGE& storage, std::error_code& ec)
 {
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
   value_ = storage.BaudRate;
@@ -202,7 +202,7 @@ ASIO_SYNC_OP_VOID serial_port_base::baud_rate::load(
     ASIO_SYNC_OP_VOID_RETURN(ec);
   }
 #endif
-  ec = asio::error_code();
+  ec = std::error_code();
   ASIO_SYNC_OP_VOID_RETURN(ec);
 }
 
@@ -218,7 +218,7 @@ serial_port_base::flow_control::flow_control(
 }
 
 ASIO_SYNC_OP_VOID serial_port_base::flow_control::store(
-    ASIO_OPTION_STORAGE& storage, asio::error_code& ec) const
+    ASIO_OPTION_STORAGE& storage, std::error_code& ec) const
 {
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
   storage.fOutxCtsFlow = FALSE;
@@ -280,12 +280,12 @@ ASIO_SYNC_OP_VOID serial_port_base::flow_control::store(
     break;
   }
 #endif
-  ec = asio::error_code();
+  ec = std::error_code();
   ASIO_SYNC_OP_VOID_RETURN(ec);
 }
 
 ASIO_SYNC_OP_VOID serial_port_base::flow_control::load(
-    const ASIO_OPTION_STORAGE& storage, asio::error_code& ec)
+    const ASIO_OPTION_STORAGE& storage, std::error_code& ec)
 {
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
   if (storage.fOutX && storage.fInX)
@@ -321,7 +321,7 @@ ASIO_SYNC_OP_VOID serial_port_base::flow_control::load(
     value_ = none;
   }
 #endif
-  ec = asio::error_code();
+  ec = std::error_code();
   ASIO_SYNC_OP_VOID_RETURN(ec);
 }
 
@@ -336,7 +336,7 @@ serial_port_base::parity::parity(serial_port_base::parity::type t)
 }
 
 ASIO_SYNC_OP_VOID serial_port_base::parity::store(
-    ASIO_OPTION_STORAGE& storage, asio::error_code& ec) const
+    ASIO_OPTION_STORAGE& storage, std::error_code& ec) const
 {
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
   switch (value_)
@@ -378,12 +378,12 @@ ASIO_SYNC_OP_VOID serial_port_base::parity::store(
     break;
   }
 #endif
-  ec = asio::error_code();
+  ec = std::error_code();
   ASIO_SYNC_OP_VOID_RETURN(ec);
 }
 
 ASIO_SYNC_OP_VOID serial_port_base::parity::load(
-    const ASIO_OPTION_STORAGE& storage, asio::error_code& ec)
+    const ASIO_OPTION_STORAGE& storage, std::error_code& ec)
 {
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
   if (storage.Parity == EVENPARITY)
@@ -415,7 +415,7 @@ ASIO_SYNC_OP_VOID serial_port_base::parity::load(
     value_ = none;
   }
 #endif
-  ec = asio::error_code();
+  ec = std::error_code();
   ASIO_SYNC_OP_VOID_RETURN(ec);
 }
 
@@ -431,7 +431,7 @@ serial_port_base::stop_bits::stop_bits(
 }
 
 ASIO_SYNC_OP_VOID serial_port_base::stop_bits::store(
-    ASIO_OPTION_STORAGE& storage, asio::error_code& ec) const
+    ASIO_OPTION_STORAGE& storage, std::error_code& ec) const
 {
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
   switch (value_)
@@ -462,12 +462,12 @@ ASIO_SYNC_OP_VOID serial_port_base::stop_bits::store(
     ASIO_SYNC_OP_VOID_RETURN(ec);
   }
 #endif
-  ec = asio::error_code();
+  ec = std::error_code();
   ASIO_SYNC_OP_VOID_RETURN(ec);
 }
 
 ASIO_SYNC_OP_VOID serial_port_base::stop_bits::load(
-    const ASIO_OPTION_STORAGE& storage, asio::error_code& ec)
+    const ASIO_OPTION_STORAGE& storage, std::error_code& ec)
 {
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
   if (storage.StopBits == ONESTOPBIT)
@@ -489,7 +489,7 @@ ASIO_SYNC_OP_VOID serial_port_base::stop_bits::load(
 #else
   value_ = (storage.c_cflag & CSTOPB) ? two : one;
 #endif
-  ec = asio::error_code();
+  ec = std::error_code();
   ASIO_SYNC_OP_VOID_RETURN(ec);
 }
 
@@ -504,7 +504,7 @@ serial_port_base::character_size::character_size(unsigned int t)
 }
 
 ASIO_SYNC_OP_VOID serial_port_base::character_size::store(
-    ASIO_OPTION_STORAGE& storage, asio::error_code& ec) const
+    ASIO_OPTION_STORAGE& storage, std::error_code& ec) const
 {
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
   storage.ByteSize = value_;
@@ -519,12 +519,12 @@ ASIO_SYNC_OP_VOID serial_port_base::character_size::store(
   default: break;
   }
 #endif
-  ec = asio::error_code();
+  ec = std::error_code();
   ASIO_SYNC_OP_VOID_RETURN(ec);
 }
 
 ASIO_SYNC_OP_VOID serial_port_base::character_size::load(
-    const ASIO_OPTION_STORAGE& storage, asio::error_code& ec)
+    const ASIO_OPTION_STORAGE& storage, std::error_code& ec)
 {
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
   value_ = storage.ByteSize;
@@ -539,7 +539,7 @@ ASIO_SYNC_OP_VOID serial_port_base::character_size::load(
     value_ = 8;
   }
 #endif
-  ec = asio::error_code();
+  ec = std::error_code();
   ASIO_SYNC_OP_VOID_RETURN(ec);
 }
 

@@ -96,8 +96,8 @@ public:
   ASIO_DECL void destroy(implementation_type& impl);
 
   // Assign a native handle to a handle implementation.
-  ASIO_DECL asio::error_code assign(implementation_type& impl,
-      const native_handle_type& handle, asio::error_code& ec);
+  ASIO_DECL std::error_code assign(implementation_type& impl,
+      const native_handle_type& handle, std::error_code& ec);
 
   // Determine whether the handle is open.
   bool is_open(const implementation_type& impl) const
@@ -106,8 +106,8 @@ public:
   }
 
   // Destroy a handle implementation.
-  ASIO_DECL asio::error_code close(implementation_type& impl,
-      asio::error_code& ec);
+  ASIO_DECL std::error_code close(implementation_type& impl,
+      std::error_code& ec);
 
   // Get the native handle representation.
   native_handle_type native_handle(const implementation_type& impl) const
@@ -116,13 +116,13 @@ public:
   }
 
   // Cancel all operations associated with the handle.
-  ASIO_DECL asio::error_code cancel(implementation_type& impl,
-      asio::error_code& ec);
+  ASIO_DECL std::error_code cancel(implementation_type& impl,
+      std::error_code& ec);
 
   // Write the given data. Returns the number of bytes written.
   template <typename ConstBufferSequence>
   size_t write_some(implementation_type& impl,
-      const ConstBufferSequence& buffers, asio::error_code& ec)
+      const ConstBufferSequence& buffers, std::error_code& ec)
   {
     return write_some_at(impl, 0, buffers, ec);
   }
@@ -131,7 +131,7 @@ public:
   // written.
   template <typename ConstBufferSequence>
   size_t write_some_at(implementation_type& impl, uint64_t offset,
-      const ConstBufferSequence& buffers, asio::error_code& ec)
+      const ConstBufferSequence& buffers, std::error_code& ec)
   {
     asio::const_buffer buffer =
       buffer_sequence_adapter<asio::const_buffer,
@@ -189,7 +189,7 @@ public:
   // Read some data. Returns the number of bytes received.
   template <typename MutableBufferSequence>
   size_t read_some(implementation_type& impl,
-      const MutableBufferSequence& buffers, asio::error_code& ec)
+      const MutableBufferSequence& buffers, std::error_code& ec)
   {
     return read_some_at(impl, 0, buffers, ec);
   }
@@ -197,7 +197,7 @@ public:
   // Read some data at a specified offset. Returns the number of bytes received.
   template <typename MutableBufferSequence>
   size_t read_some_at(implementation_type& impl, uint64_t offset,
-      const MutableBufferSequence& buffers, asio::error_code& ec)
+      const MutableBufferSequence& buffers, std::error_code& ec)
   {
     asio::mutable_buffer buffer =
       buffer_sequence_adapter<asio::mutable_buffer,
@@ -258,9 +258,9 @@ public:
 private:
   // Prevent the use of the null_buffers type with this service.
   size_t write_some(implementation_type& impl,
-      const null_buffers& buffers, asio::error_code& ec);
+      const null_buffers& buffers, std::error_code& ec);
   size_t write_some_at(implementation_type& impl, uint64_t offset,
-      const null_buffers& buffers, asio::error_code& ec);
+      const null_buffers& buffers, std::error_code& ec);
   template <typename Handler, typename IoExecutor>
   void async_write_some(implementation_type& impl,
       const null_buffers& buffers, Handler& handler,
@@ -269,9 +269,9 @@ private:
   void async_write_some_at(implementation_type& impl, uint64_t offset,
       const null_buffers& buffers, Handler& handler, const IoExecutor& io_ex);
   size_t read_some(implementation_type& impl,
-      const null_buffers& buffers, asio::error_code& ec);
+      const null_buffers& buffers, std::error_code& ec);
   size_t read_some_at(implementation_type& impl, uint64_t offset,
-      const null_buffers& buffers, asio::error_code& ec);
+      const null_buffers& buffers, std::error_code& ec);
   template <typename Handler, typename IoExecutor>
   void async_read_some(implementation_type& impl,
       const null_buffers& buffers, Handler& handler,
@@ -286,7 +286,7 @@ private:
   // Helper function to perform a synchronous write operation.
   ASIO_DECL size_t do_write(implementation_type& impl,
       uint64_t offset, const asio::const_buffer& buffer,
-      asio::error_code& ec);
+      std::error_code& ec);
 
   // Helper function to start a write operation.
   ASIO_DECL void start_write_op(implementation_type& impl,
@@ -296,7 +296,7 @@ private:
   // Helper function to perform a synchronous write operation.
   ASIO_DECL size_t do_read(implementation_type& impl,
       uint64_t offset, const asio::mutable_buffer& buffer,
-      asio::error_code& ec);
+      std::error_code& ec);
 
   // Helper function to start a read operation.
   ASIO_DECL void start_read_op(implementation_type& impl,

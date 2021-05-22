@@ -64,7 +64,7 @@ void server::start_accept()
         asio::placeholders::error));
 }
 
-void server::handle_accept(const asio::error_code& e)
+void server::handle_accept(const std::error_code& e)
 {
   // Check whether the server was stopped by a signal before this completion
   // handler had a chance to run.
