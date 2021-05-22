@@ -84,7 +84,8 @@ public:
       socket_ops::background_getnameinfo(o->cancel_token_, o->endpoint_.data(),
           o->endpoint_.size(), host_name, NI_MAXHOST, service_name, NI_MAXSERV,
           o->endpoint_.protocol().type(), o->ec_);
-      o->results_ = results_type::create(o->endpoint_, host_name, service_name);
+      o->results_ = o->ec_ ? results_type() : results_type::create(
+          o->endpoint_, host_name, service_name);
 
       // Pass operation back to main io_context for completion.
       o->scheduler_.post_deferred_completion(o);
