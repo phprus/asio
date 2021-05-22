@@ -364,13 +364,6 @@ needs.
     [`ASIO_DISABLE_STD_FUNCTION`]
   ]
   [
-    [`ASIO_HAS_STD_FUTURE`]
-    [
-      Standard library support for futures.
-    ]
-    [`ASIO_DISABLE_STD_FUTURE`]
-  ]
-  [
     [`ASIO_HAS_STD_HASH`]
     [
       Standard library support for std::hash.
