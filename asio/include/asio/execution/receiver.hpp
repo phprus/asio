@@ -21,11 +21,7 @@
 #include "asio/execution/set_error.hpp"
 #include "asio/execution/set_value.hpp"
 
-#if defined(ASIO_HAS_STD_EXCEPTION_PTR)
-# include <exception>
-#else // defined(ASIO_HAS_STD_EXCEPTION_PTR)
-# include "asio/error_code.hpp"
-#endif // defined(ASIO_HAS_STD_EXCEPTION_PTR)
+#include <exception>
 
 #if defined(ASIO_HAS_DEDUCED_SET_DONE_FREE_TRAIT) \
   && defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT) \
@@ -62,12 +58,7 @@ struct is_receiver_base :
 
 } // namespace detail
 
-#if defined(ASIO_HAS_STD_EXCEPTION_PTR)
-# define ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT = std::exception_ptr
-#else // defined(ASIO_HAS_STD_EXCEPTION_PTR)
-# define ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT \
-  = ::asio::error_code
-#endif // defined(ASIO_HAS_STD_EXCEPTION_PTR)
+#define ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT = std::exception_ptr
 
 /// The is_receiver trait detects whether a type T satisfies the
 /// execution::receiver concept.

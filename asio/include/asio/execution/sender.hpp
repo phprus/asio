@@ -109,8 +109,7 @@ struct sender_traits_base<S,
           as_invocable<void_receiver, S> >::value
     >::type>
 {
-#if defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT) \
-  && defined(ASIO_HAS_STD_EXCEPTION_PTR)
+#if defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
 
   template <
       template <typename...> class Tuple,
@@ -123,7 +122,6 @@ struct sender_traits_base<S,
   ASIO_STATIC_CONSTEXPR(bool, sends_done = true);
 
 #endif // defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
-       //   && defined(ASIO_HAS_STD_EXCEPTION_PTR)
 };
 
 } // namespace detail
