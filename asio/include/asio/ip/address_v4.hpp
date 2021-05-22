@@ -17,7 +17,7 @@
 
 #include "asio/detail/config.hpp"
 #include <string>
-#include "asio/detail/array.hpp"
+#include <array>
 #include "asio/detail/cstdint.hpp"
 #include "asio/detail/socket_types.hpp"
 #include "asio/detail/string_view.hpp"
@@ -58,7 +58,7 @@ public:
 #if defined(GENERATING_DOCUMENTATION)
   typedef array<unsigned char, 4> bytes_type;
 #else
-  typedef asio::detail::array<unsigned char, 4> bytes_type;
+  typedef std::array<unsigned char, 4> bytes_type;
 #endif
 
   /// Default constructor.

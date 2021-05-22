@@ -101,13 +101,6 @@ needs.
     [`ASIO_DISABLE_BOOST_THROW_EXCEPTION`]
   ]
   [
-    [`ASIO_HAS_BOOST_WORKAROUND`]
-    [
-      Boost's BOOST_WORKAROUND macro.
-    ]
-    [`ASIO_DISABLE_BOOST_WORKAROUND`]
-  ]
-  [
     [`ASIO_HAS_CHRONO`]
     [
       Some form of chrono library is available.
@@ -288,13 +281,6 @@ needs.
       Standard library support for std::any.
     ]
     [`ASIO_DISABLE_STD_ANY`]
-  ]
-  [
-    [`ASIO_HAS_STD_ARRAY`]
-    [
-      Standard library support for arrays.
-    ]
-    [`ASIO_DISABLE_STD_ARRAY`]
   ]
   [
     [`ASIO_HAS_STD_ATOMIC`]

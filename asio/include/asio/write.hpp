@@ -65,7 +65,7 @@ namespace asio {
  * To write a single data buffer use the @ref buffer function as follows:
  * @code asio::write(s, asio::buffer(data, size)); @endcode
  * See the @ref buffer documentation for information on writing multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  *
  * @note This overload is equivalent to calling:
@@ -107,7 +107,7 @@ std::size_t write(SyncWriteStream& s, const ConstBufferSequence& buffers,
  * To write a single data buffer use the @ref buffer function as follows:
  * @code asio::write(s, asio::buffer(data, size), ec); @endcode
  * See the @ref buffer documentation for information on writing multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  *
  * @note This overload is equivalent to calling:
@@ -165,7 +165,7 @@ std::size_t write(SyncWriteStream& s, const ConstBufferSequence& buffers,
  * @code asio::write(s, asio::buffer(data, size),
  *     asio::transfer_at_least(32)); @endcode
  * See the @ref buffer documentation for information on writing multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  */
 template <typename SyncWriteStream, typename ConstBufferSequence,
@@ -758,7 +758,7 @@ std::size_t write(SyncWriteStream& s, DynamicBuffer_v2 buffers,
  * asio::async_write(s, asio::buffer(data, size), handler);
  * @endcode
  * See the @ref buffer documentation for information on writing multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  */
 template <typename AsyncWriteStream, typename ConstBufferSequence,
@@ -840,7 +840,7 @@ async_write(AsyncWriteStream& s, const ConstBufferSequence& buffers,
  *     asio::transfer_at_least(32),
  *     handler); @endcode
  * See the @ref buffer documentation for information on writing multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  */
 template <typename AsyncWriteStream,

@@ -351,31 +351,8 @@
 #endif // !defined(ASIO_HAS_STD_SYSTEM_ERROR)
 
 // Standard library support for arrays.
-#if !defined(ASIO_HAS_STD_ARRAY)
-# if !defined(ASIO_DISABLE_STD_ARRAY)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_ARRAY 1
-#   elif (__cplusplus >= 201103)
-#    if __has_include(<array>)
-#     define ASIO_HAS_STD_ARRAY 1
-#    endif // __has_include(<array>)
-#   endif // (__cplusplus >= 201103)
-#  endif // defined(__clang__)
-#  if defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 3)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_ARRAY 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 3)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1600)
-#    define ASIO_HAS_STD_ARRAY 1
-#   endif // (_MSC_VER >= 1600)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_ARRAY)
-#endif // !defined(ASIO_HAS_STD_ARRAY)
+// С++11
+#define ASIO_HAS_STD_ARRAY 1
 
 // Standard library support for shared_ptr and weak_ptr.
 #if !defined(ASIO_HAS_STD_SHARED_PTR)
@@ -1113,13 +1090,6 @@
 # endif // !defined(ASIO_DISABLE_BOOST_ALIGN)
 #endif // !defined(ASIO_HAS_BOOST_ALIGN)
 
-// Boost array library.
-#if !defined(ASIO_HAS_BOOST_ARRAY)
-# if !defined(ASIO_DISABLE_BOOST_ARRAY)
-#  define ASIO_HAS_BOOST_ARRAY 1
-# endif // !defined(ASIO_DISABLE_BOOST_ARRAY)
-#endif // !defined(ASIO_HAS_BOOST_ARRAY)
-
 // Boost assert macro.
 #if !defined(ASIO_HAS_BOOST_ASSERT)
 # if !defined(ASIO_DISABLE_BOOST_ASSERT)
@@ -1147,13 +1117,6 @@
 #  define ASIO_HAS_BOOST_BIND 1
 # endif // !defined(ASIO_DISABLE_BOOST_BIND)
 #endif // !defined(ASIO_HAS_BOOST_BIND)
-
-// Boost's BOOST_WORKAROUND macro.
-#if !defined(ASIO_HAS_BOOST_WORKAROUND)
-# if !defined(ASIO_DISABLE_BOOST_WORKAROUND)
-#  define ASIO_HAS_BOOST_WORKAROUND 1
-# endif // !defined(ASIO_DISABLE_BOOST_WORKAROUND)
-#endif // !defined(ASIO_HAS_BOOST_WORKAROUND)
 
 // Microsoft Visual C++'s secure C runtime library.
 #if !defined(ASIO_HAS_SECURE_RTL)

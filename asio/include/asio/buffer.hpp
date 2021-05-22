@@ -22,7 +22,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
-#include "asio/detail/array_fwd.hpp"
+#include <array>
 #include "asio/detail/memory.hpp"
 #include "asio/detail/string_view.hpp"
 #include "asio/detail/throw_exception.hpp"
@@ -47,21 +47,6 @@
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
 # include <functional>
 #endif // ASIO_ENABLE_BUFFER_DEBUGGING
-
-#if defined(ASIO_HAS_BOOST_WORKAROUND)
-# include <boost/detail/workaround.hpp>
-# if !defined(__clang__)
-#  if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
-#   define ASIO_ENABLE_ARRAY_BUFFER_WORKAROUND
-#  endif // BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
-# elif BOOST_WORKAROUND(__SUNPRO_CC, BOOST_TESTED_AT(0x590))
-#  define ASIO_ENABLE_ARRAY_BUFFER_WORKAROUND
-# endif // BOOST_WORKAROUND(__SUNPRO_CC, BOOST_TESTED_AT(0x590))
-#endif // defined(ASIO_HAS_BOOST_WORKAROUND)
-
-#if defined(ASIO_ENABLE_ARRAY_BUFFER_WORKAROUND)
-# include "asio/detail/type_traits.hpp"
-#endif // defined(ASIO_ENABLE_ARRAY_BUFFER_WORKAROUND)
 
 #include "asio/detail/push_options.hpp"
 
@@ -705,7 +690,7 @@ private:
  * memory also meets the requirements of the MutableBufferSequence concept.
  *
  * An individual buffer may be created from a builtin array, std::vector,
- * std::array or boost::array of POD elements. This helps prevent buffer
+ * std::array of POD elements. This helps prevent buffer
  * overruns by automatically determining the size of the buffer:
  *
  * @code char d1[128];
@@ -717,7 +702,7 @@ private:
  * std::array<char, 128> d3;
  * bytes_transferred = sock.receive(asio::buffer(d3));
  *
- * boost::array<char, 128> d4;
+ * std::array<char, 128> d4;
  * bytes_transferred = sock.receive(asio::buffer(d4)); @endcode
  *
  * In all three cases above, the buffers created are exactly 128 bytes long.
@@ -786,7 +771,7 @@ private:
  * which helps prevent buffer overruns. Consider an array initialised as
  * follows:
  *
- * @code boost::array<char, 6> a = { 'a', 'b', 'c', 'd', 'e' }; @endcode
+ * @code std::array<char, 6> a = { 'a', 'b', 'c', 'd', 'e' }; @endcode
  *
  * A buffer object @c b1 created using:
  *
@@ -826,9 +811,9 @@ private:
  * @code
  * char d1[128];
  * std::vector<char> d2(128);
- * boost::array<char, 128> d3;
+ * std::array<char, 128> d3;
  *
- * boost::array<mutable_buffer, 3> bufs1 = {
+ * std::array<mutable_buffer, 3> bufs1 = {
  *   asio::buffer(d1),
  *   asio::buffer(d2),
  *   asio::buffer(d3) };
@@ -988,171 +973,6 @@ inline ASIO_CONST_BUFFER buffer(const PodType (&data)[N],
       ? N * sizeof(PodType) : max_size_in_bytes);
 }
 
-#if defined(ASIO_ENABLE_ARRAY_BUFFER_WORKAROUND)
-
-// Borland C++ and Sun Studio think the overloads:
-//
-//   unspecified buffer(boost::array<PodType, N>& array ...);
-//
-// and
-//
-//   unspecified buffer(boost::array<const PodType, N>& array ...);
-//
-// are ambiguous. This will be worked around by using a buffer_types traits
-// class that contains typedefs for the appropriate buffer and container
-// classes, based on whether PodType is const or non-const.
-
-namespace detail {
-
-template <bool IsConst>
-struct buffer_types_base;
-
-template <>
-struct buffer_types_base<false>
-{
-  typedef mutable_buffer buffer_type;
-  typedef ASIO_MUTABLE_BUFFER container_type;
-};
-
-template <>
-struct buffer_types_base<true>
-{
-  typedef const_buffer buffer_type;
-  typedef ASIO_CONST_BUFFER container_type;
-};
-
-template <typename PodType>
-struct buffer_types
-  : public buffer_types_base<is_const<PodType>::value>
-{
-};
-
-} // namespace detail
-
-template <typename PodType, std::size_t N>
-inline typename detail::buffer_types<PodType>::container_type
-buffer(boost::array<PodType, N>& data) noexcept(true)
-{
-  typedef typename asio::detail::buffer_types<PodType>::buffer_type
-    buffer_type;
-  typedef typename asio::detail::buffer_types<PodType>::container_type
-    container_type;
-  return container_type(
-      buffer_type(data.c_array(), data.size() * sizeof(PodType)));
-}
-
-template <typename PodType, std::size_t N>
-inline typename detail::buffer_types<PodType>::container_type
-buffer(boost::array<PodType, N>& data,
-    std::size_t max_size_in_bytes) noexcept(true)
-{
-  typedef typename asio::detail::buffer_types<PodType>::buffer_type
-    buffer_type;
-  typedef typename asio::detail::buffer_types<PodType>::container_type
-    container_type;
-  return container_type(
-      buffer_type(data.c_array(),
-        data.size() * sizeof(PodType) < max_size_in_bytes
-        ? data.size() * sizeof(PodType) : max_size_in_bytes));
-}
-
-#else // defined(ASIO_ENABLE_ARRAY_BUFFER_WORKAROUND)
-
-/// Create a new modifiable buffer that represents the given POD array.
-/**
- * @returns A mutable_buffer value equivalent to:
- * @code mutable_buffer(
- *     data.data(),
- *     data.size() * sizeof(PodType)); @endcode
- */
-template <typename PodType, std::size_t N>
-inline ASIO_MUTABLE_BUFFER buffer(
-    boost::array<PodType, N>& data) noexcept(true)
-{
-  return ASIO_MUTABLE_BUFFER(
-      data.c_array(), data.size() * sizeof(PodType));
-}
-
-/// Create a new modifiable buffer that represents the given POD array.
-/**
- * @returns A mutable_buffer value equivalent to:
- * @code mutable_buffer(
- *     data.data(),
- *     min(data.size() * sizeof(PodType), max_size_in_bytes)); @endcode
- */
-template <typename PodType, std::size_t N>
-inline ASIO_MUTABLE_BUFFER buffer(boost::array<PodType, N>& data,
-    std::size_t max_size_in_bytes) noexcept(true)
-{
-  return ASIO_MUTABLE_BUFFER(data.c_array(),
-      data.size() * sizeof(PodType) < max_size_in_bytes
-      ? data.size() * sizeof(PodType) : max_size_in_bytes);
-}
-
-/// Create a new non-modifiable buffer that represents the given POD array.
-/**
- * @returns A const_buffer value equivalent to:
- * @code const_buffer(
- *     data.data(),
- *     data.size() * sizeof(PodType)); @endcode
- */
-template <typename PodType, std::size_t N>
-inline ASIO_CONST_BUFFER buffer(
-    boost::array<const PodType, N>& data) noexcept(true)
-{
-  return ASIO_CONST_BUFFER(data.data(), data.size() * sizeof(PodType));
-}
-
-/// Create a new non-modifiable buffer that represents the given POD array.
-/**
- * @returns A const_buffer value equivalent to:
- * @code const_buffer(
- *     data.data(),
- *     min(data.size() * sizeof(PodType), max_size_in_bytes)); @endcode
- */
-template <typename PodType, std::size_t N>
-inline ASIO_CONST_BUFFER buffer(boost::array<const PodType, N>& data,
-    std::size_t max_size_in_bytes) noexcept(true)
-{
-  return ASIO_CONST_BUFFER(data.data(),
-      data.size() * sizeof(PodType) < max_size_in_bytes
-      ? data.size() * sizeof(PodType) : max_size_in_bytes);
-}
-
-#endif // defined(ASIO_ENABLE_ARRAY_BUFFER_WORKAROUND)
-
-/// Create a new non-modifiable buffer that represents the given POD array.
-/**
- * @returns A const_buffer value equivalent to:
- * @code const_buffer(
- *     data.data(),
- *     data.size() * sizeof(PodType)); @endcode
- */
-template <typename PodType, std::size_t N>
-inline ASIO_CONST_BUFFER buffer(
-    const boost::array<PodType, N>& data) noexcept(true)
-{
-  return ASIO_CONST_BUFFER(data.data(), data.size() * sizeof(PodType));
-}
-
-/// Create a new non-modifiable buffer that represents the given POD array.
-/**
- * @returns A const_buffer value equivalent to:
- * @code const_buffer(
- *     data.data(),
- *     min(data.size() * sizeof(PodType), max_size_in_bytes)); @endcode
- */
-template <typename PodType, std::size_t N>
-inline ASIO_CONST_BUFFER buffer(const boost::array<PodType, N>& data,
-    std::size_t max_size_in_bytes) noexcept(true)
-{
-  return ASIO_CONST_BUFFER(data.data(),
-      data.size() * sizeof(PodType) < max_size_in_bytes
-      ? data.size() * sizeof(PodType) : max_size_in_bytes);
-}
-
-#if defined(ASIO_HAS_STD_ARRAY) || defined(GENERATING_DOCUMENTATION)
-
 /// Create a new modifiable buffer that represents the given POD array.
 /**
  * @returns A mutable_buffer value equivalent to:
@@ -1242,8 +1062,6 @@ inline ASIO_CONST_BUFFER buffer(const std::array<PodType, N>& data,
       data.size() * sizeof(PodType) < max_size_in_bytes
       ? data.size() * sizeof(PodType) : max_size_in_bytes);
 }
-
-#endif // defined(ASIO_HAS_STD_ARRAY) || defined(GENERATING_DOCUMENTATION)
 
 /// Create a new modifiable buffer that represents the given POD vector.
 /**

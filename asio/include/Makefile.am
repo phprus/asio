@@ -37,8 +37,6 @@ nobase_include_HEADERS = \
 	asio/deadline_timer.hpp \
 	asio/defer.hpp \
 	asio/detached.hpp \
-	asio/detail/array_fwd.hpp \
-	asio/detail/array.hpp \
 	asio/detail/atomic_count.hpp \
 	asio/detail/base_from_completion_cond.hpp \
 	asio/detail/bind_handler.hpp \
