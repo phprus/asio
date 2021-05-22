@@ -41,7 +41,6 @@ UNIT_TEST_EXES = \
 	tests/unit/async_result.exe \
 	tests/unit/awaitable.exe \
 	tests/unit/basic_datagram_socket.exe \
-	tests/unit/basic_deadline_timer.exe \
 	tests/unit/basic_raw_socket.exe \
 	tests/unit/basic_seq_packet_socket.exe \
 	tests/unit/basic_serial_port.exe \
@@ -62,7 +61,6 @@ UNIT_TEST_EXES = \
 	tests/unit/compose.exe \
 	tests/unit/connect.exe \
 	tests/unit/coroutine.exe \
-	tests/unit/deadline_timer.exe \
 	tests/unit/defer.exe \
 	tests/unit/detached.exe \
 	tests/unit/dispatch.exe \
@@ -147,7 +145,6 @@ UNIT_TEST_EXES = \
 	tests/unit/this_coro.exe \
 	tests/unit/thread.exe \
 	tests/unit/thread_pool.exe \
-	tests/unit/time_traits.exe \
 	tests/unit/ts/buffer.exe \
 	tests/unit/ts/executor.exe \
 	tests/unit/ts/internet.exe \

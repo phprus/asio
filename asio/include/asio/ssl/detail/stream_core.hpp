@@ -17,11 +17,7 @@
 
 #include "asio/detail/config.hpp"
 
-#if defined(ASIO_HAS_BOOST_DATE_TIME)
-# include "asio/deadline_timer.hpp"
-#else // defined(ASIO_HAS_BOOST_DATE_TIME)
-# include "asio/steady_timer.hpp"
-#endif // defined(ASIO_HAS_BOOST_DATE_TIME)
+#include "asio/steady_timer.hpp"
 #include "asio/ssl/detail/engine.hpp"
 #include "asio/buffer.hpp"
 
@@ -53,21 +49,12 @@ struct stream_core
 
   stream_core(stream_core&& other)
     : engine_(ASIO_MOVE_CAST(engine)(other.engine_)),
-#if defined(ASIO_HAS_BOOST_DATE_TIME)
-      pending_read_(
-         ASIO_MOVE_CAST(asio::deadline_timer)(
-           other.pending_read_)),
-      pending_write_(
-         ASIO_MOVE_CAST(asio::deadline_timer)(
-           other.pending_write_)),
-#else // defined(ASIO_HAS_BOOST_DATE_TIME)
       pending_read_(
          ASIO_MOVE_CAST(asio::steady_timer)(
            other.pending_read_)),
       pending_write_(
          ASIO_MOVE_CAST(asio::steady_timer)(
            other.pending_write_)),
-#endif // defined(ASIO_HAS_BOOST_DATE_TIME)
       output_buffer_space_(
           ASIO_MOVE_CAST(std::vector<unsigned char>)(
             other.output_buffer_space_)),
@@ -90,32 +77,6 @@ struct stream_core
   // The SSL engine.
   engine engine_;
 
-#if defined(ASIO_HAS_BOOST_DATE_TIME)
-  // Timer used for storing queued read operations.
-  asio::deadline_timer pending_read_;
-
-  // Timer used for storing queued write operations.
-  asio::deadline_timer pending_write_;
-
-  // Helper function for obtaining a time value that always fires.
-  static asio::deadline_timer::time_type neg_infin()
-  {
-    return boost::posix_time::neg_infin;
-  }
-
-  // Helper function for obtaining a time value that never fires.
-  static asio::deadline_timer::time_type pos_infin()
-  {
-    return boost::posix_time::pos_infin;
-  }
-
-  // Helper function to get a timer's expiry time.
-  static asio::deadline_timer::time_type expiry(
-      const asio::deadline_timer& timer)
-  {
-    return timer.expires_at();
-  }
-#else // defined(ASIO_HAS_BOOST_DATE_TIME)
   // Timer used for storing queued read operations.
   asio::steady_timer pending_read_;
 
@@ -140,7 +101,6 @@ struct stream_core
   {
     return timer.expiry();
   }
-#endif // defined(ASIO_HAS_BOOST_DATE_TIME)
 
   // Buffer space used to prepare output intended for the transport.
   std::vector<unsigned char> output_buffer_space_;

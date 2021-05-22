@@ -364,15 +364,6 @@ functionality, and behaviour of Asio.
     ]
   ]
   [
-    [`ASIO_USE_BOOST_DATE_TIME_FOR_SOCKET_IOSTREAM`]
-    [
-      Changes [link asio.reference.basic_socket_streambuf
-      `basic_socket_streambuf`] and [link asio.reference.basic_socket_iostream
-      `basic_socket_iostream`] to use the old Boost.Date_Time interface, rather
-      than chrono.
-    ]
-  ]
-  [
     [`ASIO_SEPARATE_COMPILATION`]
     [
       Uses separately compiled source code for Asio's implementation.

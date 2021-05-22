@@ -17,8 +17,6 @@
 
 #include "asio/detail/config.hpp"
 
-#if defined(ASIO_HAS_CHRONO) || defined(GENERATING_DOCUMENTATION)
-
 #include "asio/basic_waitable_timer.hpp"
 #include "asio/detail/chrono.hpp"
 
@@ -30,7 +28,7 @@ namespace asio {
  * available. Otherwise, it may use the Boost.Chrono library. To explicitly
  * utilise Boost.Chrono, use the basic_waitable_timer template directly:
  * @code
- * typedef basic_waitable_timer<boost::chrono::high_resolution_clock> timer;
+ * typedef basic_waitable_timer<std::chrono::high_resolution_clock> timer;
  * @endcode
  */
 typedef basic_waitable_timer<
@@ -38,7 +36,5 @@ typedef basic_waitable_timer<
   high_resolution_timer;
 
 } // namespace asio
-
-#endif // defined(ASIO_HAS_CHRONO) || defined(GENERATING_DOCUMENTATION)
 
 #endif // ASIO_HIGH_RESOLUTION_TIMER_HPP

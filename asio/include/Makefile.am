@@ -6,7 +6,6 @@ nobase_include_HEADERS = \
 	asio/async_result.hpp \
 	asio/awaitable.hpp \
 	asio/basic_datagram_socket.hpp \
-	asio/basic_deadline_timer.hpp \
 	asio/basic_io_object.hpp \
 	asio/basic_raw_socket.hpp \
 	asio/basic_seq_packet_socket.hpp \
@@ -34,7 +33,6 @@ nobase_include_HEADERS = \
 	asio/compose.hpp \
 	asio/connect.hpp \
 	asio/coroutine.hpp \
-	asio/deadline_timer.hpp \
 	asio/defer.hpp \
 	asio/detached.hpp \
 	asio/detail/atomic_count.hpp \
@@ -55,7 +53,6 @@ nobase_include_HEADERS = \
 	asio/detail/config.hpp \
 	asio/detail/consuming_buffers.hpp \
 	asio/detail/cstdint.hpp \
-	asio/detail/date_time_fwd.hpp \
 	asio/detail/deadline_timer_service.hpp \
 	asio/detail/dependent_type.hpp \
 	asio/detail/descriptor_ops.hpp \
@@ -112,7 +109,6 @@ nobase_include_HEADERS = \
 	asio/detail/impl/strand_service.ipp \
 	asio/detail/impl/thread_context.ipp \
 	asio/detail/impl/throw_error.ipp \
-	asio/detail/impl/timer_queue_ptime.ipp \
 	asio/detail/impl/timer_queue_set.ipp \
 	asio/detail/impl/win_event.ipp \
 	asio/detail/impl/win_iocp_handle_service.ipp \
@@ -226,7 +222,6 @@ nobase_include_HEADERS = \
 	asio/detail/throw_exception.hpp \
 	asio/detail/timer_queue_base.hpp \
 	asio/detail/timer_queue.hpp \
-	asio/detail/timer_queue_ptime.hpp \
 	asio/detail/timer_queue_set.hpp \
 	asio/detail/timer_scheduler_fwd.hpp \
 	asio/detail/timer_scheduler.hpp \
@@ -489,7 +484,6 @@ nobase_include_HEADERS = \
 	asio/this_coro.hpp \
 	asio/thread.hpp \
 	asio/thread_pool.hpp \
-	asio/time_traits.hpp \
 	asio/traits/bulk_execute_free.hpp \
 	asio/traits/bulk_execute_member.hpp \
 	asio/traits/connect_free.hpp \

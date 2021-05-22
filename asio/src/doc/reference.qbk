@@ -80215,7 +80215,7 @@ Changing the expiry time of a timer while there are pending asynchronous waits c
 
 This typedef uses the C++11 `<chrono>` standard library facility, if available. Otherwise, it may use the Boost.Chrono library. To explicitly utilise Boost.Chrono, use the [link asio.reference.basic_waitable_timer `basic_waitable_timer`] template directly: 
 
-   typedef basic_waitable_timer<boost::chrono::high_resolution_clock> timer;
+   typedef basic_waitable_timer<std::chrono::high_resolution_clock> timer;
 
 
 
@@ -125450,7 +125450,7 @@ Changing the expiry time of a timer while there are pending asynchronous waits c
 
 This typedef uses the C++11 `<chrono>` standard library facility, if available. Otherwise, it may use the Boost.Chrono library. To explicitly utilise Boost.Chrono, use the [link asio.reference.basic_waitable_timer `basic_waitable_timer`] template directly: 
 
-   typedef basic_waitable_timer<boost::chrono::steady_clock> timer;
+   typedef basic_waitable_timer<std::chrono::steady_clock> timer;
 
 
 
@@ -127770,7 +127770,7 @@ Changing the expiry time of a timer while there are pending asynchronous waits c
 
 This typedef uses the C++11 `<chrono>` standard library facility, if available. Otherwise, it may use the Boost.Chrono library. To explicitly utilise Boost.Chrono, use the [link asio.reference.basic_waitable_timer `basic_waitable_timer`] template directly: 
 
-   typedef basic_waitable_timer<boost::chrono::system_clock> timer;
+   typedef basic_waitable_timer<std::chrono::system_clock> timer;
 
 
 

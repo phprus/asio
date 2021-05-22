@@ -30,8 +30,6 @@
 # define ASIO_DISABLE_BOOST_ARRAY 1
 # define ASIO_DISABLE_BOOST_ASSERT 1
 # define ASIO_DISABLE_BOOST_BIND 1
-# define ASIO_DISABLE_BOOST_CHRONO 1
-# define ASIO_DISABLE_BOOST_DATE_TIME 1
 # define ASIO_DISABLE_BOOST_LIMITS 1
 # define ASIO_DISABLE_BOOST_REGEX 1
 # define ASIO_DISABLE_BOOST_STATIC_CONSTANT 1
@@ -408,62 +406,10 @@
 // C++11
 #define ASIO_HAS_STD_ATOMIC 1
 
-// Standard library support for chrono. Some standard libraries (such as the
-// libstdc++ shipped with gcc 4.6) provide monotonic_clock as per early C++0x
-// drafts, rather than the eventually standardised name of steady_clock.
-#if !defined(ASIO_HAS_STD_CHRONO)
-# if !defined(ASIO_DISABLE_STD_CHRONO)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_CHRONO 1
-#   elif (__cplusplus >= 201103)
-#    if __has_include(<chrono>)
-#     define ASIO_HAS_STD_CHRONO 1
-#    endif // __has_include(<chrono>)
-#   endif // (__cplusplus >= 201103)
-#  endif // defined(__clang__)
-#  if defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_CHRONO 1
-#     if ((__GNUC__ == 4) && (__GNUC_MINOR__ == 6))
-#      define ASIO_HAS_STD_CHRONO_MONOTONIC_CLOCK 1
-#     endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ == 6))
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1700)
-#    define ASIO_HAS_STD_CHRONO 1
-#   endif // (_MSC_VER >= 1700)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_CHRONO)
-#endif // !defined(ASIO_HAS_STD_CHRONO)
-
-// Boost support for chrono.
-#if !defined(ASIO_HAS_BOOST_CHRONO)
-# if !defined(ASIO_DISABLE_BOOST_CHRONO)
-#  if defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 104700)
-#   define ASIO_HAS_BOOST_CHRONO 1
-#  endif // defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 104700)
-# endif // !defined(ASIO_DISABLE_BOOST_CHRONO)
-#endif // !defined(ASIO_HAS_BOOST_CHRONO)
-
-// Some form of chrono library is available.
-#if !defined(ASIO_HAS_CHRONO)
-# if defined(ASIO_HAS_STD_CHRONO) \
-    || defined(ASIO_HAS_BOOST_CHRONO)
-#  define ASIO_HAS_CHRONO 1
-# endif // defined(ASIO_HAS_STD_CHRONO)
-        // || defined(ASIO_HAS_BOOST_CHRONO)
-#endif // !defined(ASIO_HAS_CHRONO)
-
-// Boost support for the DateTime library.
-#if !defined(ASIO_HAS_BOOST_DATE_TIME)
-# if !defined(ASIO_DISABLE_BOOST_DATE_TIME)
-#  define ASIO_HAS_BOOST_DATE_TIME 1
-# endif // !defined(ASIO_DISABLE_BOOST_DATE_TIME)
-#endif // !defined(ASIO_HAS_BOOST_DATE_TIME)
+// Standard library support for chrono.
+// C++11
+#define ASIO_HAS_STD_CHRONO 1
+#define ASIO_HAS_CHRONO 1
 
 // Standard library support for addressof.
 // C++11

@@ -19,7 +19,6 @@
 #include <cstddef>
 #include <vector>
 #include "asio/detail/cstdint.hpp"
-#include "asio/detail/date_time_fwd.hpp"
 #include <limits>
 #include "asio/detail/op_queue.hpp"
 #include "asio/detail/timer_queue_base.hpp"
@@ -298,14 +297,6 @@ private:
   static bool is_positive_infinity(const Time_Type&)
   {
     return false;
-  }
-
-  // Determine if the specified absolute time is positive infinity.
-  template <typename T, typename TimeSystem>
-  static bool is_positive_infinity(
-      const boost::date_time::base_time<T, TimeSystem>& time)
-  {
-    return time.is_pos_infinity();
   }
 
   // Helper function to convert a duration into milliseconds.

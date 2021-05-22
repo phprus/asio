@@ -23,8 +23,6 @@
 
 #include "unit_test.hpp"
 
-#if defined(ASIO_HAS_STD_CHRONO)
-
 #include "asio/executor_work_guard.hpp"
 #include "asio/io_context.hpp"
 #include "asio/thread.hpp"
@@ -469,10 +467,3 @@ ASIO_TEST_SUITE
   ASIO_TEST_CASE(system_timer_thread_test)
   ASIO_TEST_CASE(system_timer_move_test)
 )
-#else // defined(ASIO_HAS_STD_CHRONO)
-ASIO_TEST_SUITE
-(
-  "system_timer",
-  ASIO_TEST_CASE(null_test)
-)
-#endif // defined(ASIO_HAS_STD_CHRONO)

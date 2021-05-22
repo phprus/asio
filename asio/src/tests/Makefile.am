@@ -17,7 +17,6 @@ check_PROGRAMS = \
 	unit/async_result \
 	unit/awaitable \
 	unit/basic_datagram_socket \
-	unit/basic_deadline_timer \
 	unit/basic_raw_socket \
 	unit/basic_seq_packet_socket \
 	unit/basic_serial_port \
@@ -38,7 +37,6 @@ check_PROGRAMS = \
 	unit/compose \
 	unit/connect \
 	unit/coroutine \
-	unit/deadline_timer \
 	unit/defer \
 	unit/detached \
 	unit/dispatch \
@@ -132,7 +130,6 @@ check_PROGRAMS = \
 	unit/this_coro \
 	unit/thread \
 	unit/thread_pool \
-	unit/time_traits \
 	unit/ts/buffer \
 	unit/ts/executor \
 	unit/ts/internet \
@@ -184,7 +181,6 @@ TESTS = \
 	unit/async_result \
 	unit/awaitable \
 	unit/basic_datagram_socket \
-	unit/basic_deadline_timer \
 	unit/basic_raw_socket \
 	unit/basic_seq_packet_socket \
 	unit/basic_serial_port \
@@ -204,7 +200,6 @@ TESTS = \
 	unit/completion_condition \
 	unit/compose \
 	unit/connect \
-	unit/deadline_timer \
 	unit/defer \
 	unit/detached \
 	unit/dispatch \
@@ -293,7 +288,6 @@ TESTS = \
 	unit/this_coro \
 	unit/thread \
 	unit/thread_pool \
-	unit/time_traits \
 	unit/ts/buffer \
 	unit/ts/executor \
 	unit/ts/internet \
@@ -349,7 +343,6 @@ unit_associated_executor_SOURCES = unit/associated_executor.cpp
 unit_async_result_SOURCES = unit/async_result.cpp
 unit_awaitable_SOURCES = unit/awaitable.cpp
 unit_basic_datagram_socket_SOURCES = unit/basic_datagram_socket.cpp
-unit_basic_deadline_timer_SOURCES = unit/basic_deadline_timer.cpp
 unit_basic_raw_socket_SOURCES = unit/basic_raw_socket.cpp
 unit_basic_seq_packet_socket_SOURCES = unit/basic_seq_packet_socket.cpp
 unit_basic_serial_port_SOURCES = unit/basic_serial_port.cpp
@@ -370,7 +363,6 @@ unit_completion_condition_SOURCES = unit/completion_condition.cpp
 unit_compose_SOURCES = unit/compose.cpp
 unit_connect_SOURCES = unit/connect.cpp
 unit_coroutine_SOURCES = unit/coroutine.cpp
-unit_deadline_timer_SOURCES = unit/deadline_timer.cpp
 unit_defer_SOURCES = unit/defer.cpp
 unit_detached_SOURCES = unit/detached.cpp
 unit_dispatch_SOURCES = unit/dispatch.cpp
@@ -464,7 +456,6 @@ unit_system_timer_SOURCES = unit/system_timer.cpp
 unit_this_coro_SOURCES = unit/this_coro.cpp
 unit_thread_SOURCES = unit/thread.cpp
 unit_thread_pool_SOURCES = unit/thread_pool.cpp
-unit_time_traits_SOURCES = unit/time_traits.cpp
 unit_ts_buffer_SOURCES = unit/ts/buffer.cpp
 unit_ts_executor_SOURCES = unit/ts/executor.cpp
 unit_ts_internet_SOURCES = unit/ts/internet.cpp
