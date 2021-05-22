@@ -378,13 +378,6 @@ needs.
     [`ASIO_DISABLE_STD_SYSTEM_ERROR`]
   ]
   [
-    [`ASIO_HAS_STD_TYPE_TRAITS`]
-    [
-      Standard library support for type traits.
-    ]
-    [`ASIO_DISABLE_STD_TYPE_TRAITS`]
-  ]
-  [
     [`ASIO_HAS_STRING_VIEW`]
     [
       Standard library has a string_view that we can use.

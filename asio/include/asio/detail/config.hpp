@@ -530,31 +530,8 @@
 #define ASIO_HAS_STD_REFERENCE_WRAPPER 1
 
 // Standard library support for type traits.
-#if !defined(ASIO_HAS_STD_TYPE_TRAITS)
-# if !defined(ASIO_DISABLE_STD_TYPE_TRAITS)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_TYPE_TRAITS 1
-#   elif (__cplusplus >= 201103)
-#    if __has_include(<type_traits>)
-#     define ASIO_HAS_STD_TYPE_TRAITS 1
-#    endif // __has_include(<type_traits>)
-#   endif // (__cplusplus >= 201103)
-#  endif // defined(__clang__)
-#  if defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 8)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_TYPE_TRAITS 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 8)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1700)
-#    define ASIO_HAS_STD_TYPE_TRAITS 1
-#   endif // (_MSC_VER >= 1700)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_TYPE_TRAITS)
-#endif // !defined(ASIO_HAS_STD_TYPE_TRAITS)
+// C++11
+#define ASIO_HAS_STD_TYPE_TRAITS 1
 
 // Standard library support for the nullptr_t type.
 // C++11
