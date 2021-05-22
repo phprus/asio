@@ -4104,7 +4104,7 @@ To asynchronously read data into a `std::string` until a matching character is f
 
    namespace asio {
      template <> struct is_match_condition<match_char>
-       : public boost::true_type {};
+       : public std::true_type {};
    } // namespace asio
    ...
    void handler(const std::error_code& e, std::size_t size);
@@ -4558,7 +4558,7 @@ To asynchronously read data into a streambuf until a matching character is found
 
    namespace asio {
      template <> struct is_match_condition<match_char>
-       : public boost::true_type {};
+       : public std::true_type {};
    } // namespace asio
    ...
    void handler(const std::error_code& e, std::size_t size);
@@ -5014,7 +5014,7 @@ To asynchronously read data into a `std::string` until a matching character is f
 
    namespace asio {
      template <> struct is_match_condition<match_char>
-       : public boost::true_type {};
+       : public std::true_type {};
    } // namespace asio
    ...
    void handler(const std::error_code& e, std::size_t size);
@@ -115007,7 +115007,7 @@ To read data into a `std::string` until a matching character is found:
 
    namespace asio {
      template <> struct is_match_condition<match_char>
-       : public boost::true_type {};
+       : public std::true_type {};
    } // namespace asio
    ...
    std::string data;
@@ -115675,7 +115675,7 @@ To read data into a streambuf until a matching character is found:
 
    namespace asio {
      template <> struct is_match_condition<match_char>
-       : public boost::true_type {};
+       : public std::true_type {};
    } // namespace asio
    ...
    asio::streambuf b;
@@ -116338,7 +116338,7 @@ To read data into a `std::string` until a matching character is found:
 
    namespace asio {
      template <> struct is_match_condition<match_char>
-       : public boost::true_type {};
+       : public std::true_type {};
    } // namespace asio
    ...
    std::string data;

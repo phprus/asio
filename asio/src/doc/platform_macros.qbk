@@ -38,20 +38,6 @@ needs.
     [`ASIO_DISABLE_ALIGNOF`]
   ]
   [
-    [`ASIO_HAS_BOOST_ARRAY`]
-    [
-      Boost array library.
-    ]
-    [`ASIO_DISABLE_BOOST_ARRAY`]
-  ]
-  [
-    [`ASIO_HAS_BOOST_ASSERT`]
-    [
-      Boost assert macro.
-    ]
-    [`ASIO_DISABLE_BOOST_ASSERT`]
-  ]
-  [
     [`ASIO_HAS_BOOST_BIND`]
     [
       Boost bind function.
@@ -59,25 +45,11 @@ needs.
     [`ASIO_DISABLE_BOOST_BIND`]
   ]
   [
-    [`ASIO_HAS_BOOST_CONFIG`]
-    [
-      boostify: non-boost code ends here
-    ]
-    []
-  ]
-  [
     [`ASIO_HAS_BOOST_REGEX`]
     [
       Boost regex library.
     ]
     [`ASIO_DISABLE_BOOST_REGEX`]
-  ]
-  [
-    [`ASIO_HAS_BOOST_THROW_EXCEPTION`]
-    [
-      Boost throw_exception function.
-    ]
-    [`ASIO_DISABLE_BOOST_THROW_EXCEPTION`]
   ]
   [
     [`ASIO_HAS_CLANG_LIBCXX`]

@@ -17,16 +17,8 @@
 
 #include "asio/detail/config.hpp"
 
-#if defined(ASIO_HAS_BOOST_THROW_EXCEPTION)
-# include <boost/throw_exception.hpp>
-#endif // defined(ASIO_BOOST_THROW_EXCEPTION)
-
 namespace asio {
 namespace detail {
-
-#if defined(ASIO_HAS_BOOST_THROW_EXCEPTION)
-using boost::throw_exception;
-#else // defined(ASIO_HAS_BOOST_THROW_EXCEPTION)
 
 // Declare the throw_exception function for all targets.
 template <typename Exception>
@@ -42,8 +34,6 @@ void throw_exception(const Exception& e)
   throw e;
 }
 # endif // !defined(ASIO_NO_EXCEPTIONS)
-
-#endif // defined(ASIO_HAS_BOOST_THROW_EXCEPTION)
 
 } // namespace detail
 } // namespace asio
