@@ -19,7 +19,7 @@
 #include <cstddef>
 #include <new>
 #include <typeinfo>
-#include "asio/detail/assert.hpp"
+#include <cassert>
 #include "asio/detail/executor_function.hpp"
 #include "asio/detail/memory.hpp"
 #include "asio/detail/non_const_lvalue.hpp"

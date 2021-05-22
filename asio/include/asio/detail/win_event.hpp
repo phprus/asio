@@ -20,7 +20,7 @@
 #if defined(ASIO_WINDOWS)
 
 #include <cstddef>
-#include "asio/detail/assert.hpp"
+#include <cassert>
 #include "asio/detail/noncopyable.hpp"
 #include "asio/detail/socket_types.hpp"
 
@@ -50,7 +50,7 @@ public:
   template <typename Lock>
   void signal_all(Lock& lock)
   {
-    ASIO_ASSERT(lock.locked());
+    assert(lock.locked());
     (void)lock;
     state_ |= 1;
     ::SetEvent(events_[0]);
@@ -60,7 +60,7 @@ public:
   template <typename Lock>
   void unlock_and_signal_one(Lock& lock)
   {
-    ASIO_ASSERT(lock.locked());
+    assert(lock.locked());
     state_ |= 1;
     bool have_waiters = (state_ > 1);
     lock.unlock();
@@ -72,7 +72,7 @@ public:
   template <typename Lock>
   void unlock_and_signal_one_for_destruction(Lock& lock)
   {
-    ASIO_ASSERT(lock.locked());
+    assert(lock.locked());
     state_ |= 1;
     bool have_waiters = (state_ > 1);
     if (have_waiters)
@@ -84,7 +84,7 @@ public:
   template <typename Lock>
   bool maybe_unlock_and_signal_one(Lock& lock)
   {
-    ASIO_ASSERT(lock.locked());
+    assert(lock.locked());
     state_ |= 1;
     if (state_ > 1)
     {
@@ -99,7 +99,7 @@ public:
   template <typename Lock>
   void clear(Lock& lock)
   {
-    ASIO_ASSERT(lock.locked());
+    assert(lock.locked());
     (void)lock;
     ::ResetEvent(events_[0]);
     state_ &= ~std::size_t(1);
@@ -109,7 +109,7 @@ public:
   template <typename Lock>
   void wait(Lock& lock)
   {
-    ASIO_ASSERT(lock.locked());
+    assert(lock.locked());
     while ((state_ & 1) == 0)
     {
       state_ += 2;
@@ -128,7 +128,7 @@ public:
   template <typename Lock>
   bool wait_for_usec(Lock& lock, long usec)
   {
-    ASIO_ASSERT(lock.locked());
+    assert(lock.locked());
     if ((state_ & 1) == 0)
     {
       state_ += 2;

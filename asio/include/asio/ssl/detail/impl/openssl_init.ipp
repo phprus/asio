@@ -18,7 +18,7 @@
 
 #include "asio/detail/config.hpp"
 #include <vector>
-#include "asio/detail/assert.hpp"
+#include <cassert>
 #include "asio/detail/mutex.hpp"
 #include "asio/detail/tss_ptr.hpp"
 #include "asio/ssl/detail/openssl_init.hpp"
@@ -112,7 +112,7 @@ private:
     return ::GetCurrentThreadId();
 #else // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
     void* id = &errno;
-    ASIO_ASSERT(sizeof(unsigned long) >= sizeof(void*));
+    assert(sizeof(unsigned long) >= sizeof(void*));
     return reinterpret_cast<unsigned long>(id);
 #endif // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
   }

@@ -23,7 +23,7 @@
 #include <cstring>
 #include <cerrno>
 #include <new>
-#include "asio/detail/assert.hpp"
+#include <cassert>
 #include "asio/detail/socket_ops.hpp"
 #include "asio/error.hpp"
 
@@ -2837,7 +2837,7 @@ inline asio::error_code translate_netdb_error(int error)
   case NO_DATA:
     return asio::error::no_data;
   default:
-    ASIO_ASSERT(false);
+    assert(false);
     return asio::error::invalid_argument;
   }
 }
