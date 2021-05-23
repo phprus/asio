@@ -4820,7 +4820,6 @@
 /include/asio/impl/redirect_error.hpp
 /include/asio/impl/serial_port_base.hpp
 /include/asio/impl/serial_port_base.ipp
-/include/asio/impl/spawn.hpp
 /include/asio/impl/src.hpp
 /include/asio/impl/system_context.hpp
 /include/asio/impl/system_context.ipp
@@ -4914,7 +4913,6 @@
 /include/asio/serial_port.hpp
 /include/asio/signal_set.hpp
 /include/asio/socket_base.hpp
-/include/asio/spawn.hpp
 /include/asio/ssl/
 /include/asio/ssl/context_base.hpp
 /include/asio/ssl/context.hpp
@@ -5162,9 +5160,6 @@
 /src/examples/cpp03/socks4/
 /src/examples/cpp03/socks4/socks4.hpp
 /src/examples/cpp03/socks4/sync_client.cpp
-/src/examples/cpp03/spawn/
-/src/examples/cpp03/spawn/echo_server.cpp
-/src/examples/cpp03/spawn/parallel_grep.cpp
 /src/examples/cpp03/ssl/
 /src/examples/cpp03/ssl/ca.pem
 /src/examples/cpp03/ssl/client.cpp
@@ -5285,9 +5280,6 @@
 /src/examples/cpp11/socks4/
 /src/examples/cpp11/socks4/socks4.hpp
 /src/examples/cpp11/socks4/sync_client.cpp
-/src/examples/cpp11/spawn/
-/src/examples/cpp11/spawn/echo_server.cpp
-/src/examples/cpp11/spawn/parallel_grep.cpp
 /src/examples/cpp11/ssl/
 /src/examples/cpp11/ssl/client.cpp
 /src/examples/cpp11/ssl/server.cpp
