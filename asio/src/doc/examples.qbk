@@ -344,7 +344,7 @@ with Asio.
 This example shows how to customise the allocation of memory associated with
 asynchronous operations.
 
-* [@../src/examples/cpp11/allocation/server.cpp] ([@examples/diffs/allocation/server.cpp.html diff to C++03])
+* [@../src/examples/cpp11/allocation/server.cpp]
 
 
 [heading Buffers]
@@ -352,7 +352,7 @@ asynchronous operations.
 This example demonstrates how to create reference counted buffers that can be
 used with socket read and write operations.
 
-* [@../src/examples/cpp11/buffers/reference_counted.cpp] ([@examples/diffs/buffers/reference_counted.cpp.html diff to C++03])
+* [@../src/examples/cpp11/buffers/reference_counted.cpp]
 
 
 [heading Chat]
@@ -360,9 +360,9 @@ used with socket read and write operations.
 This example implements a chat server and client. The programs use a custom
 protocol with a fixed length message header and variable length message body.
 
-* [@../src/examples/cpp11/chat/chat_message.hpp] ([@examples/diffs/chat/chat_message.hpp.html diff to C++03])
-* [@../src/examples/cpp11/chat/chat_client.cpp] ([@examples/diffs/chat/chat_client.cpp.html diff to C++03])
-* [@../src/examples/cpp11/chat/chat_server.cpp] ([@examples/diffs/chat/chat_server.cpp.html diff to C++03])
+* [@../src/examples/cpp11/chat/chat_message.hpp]
+* [@../src/examples/cpp11/chat/chat_client.cpp]
+* [@../src/examples/cpp11/chat/chat_server.cpp]
 
 
 [heading Echo]
@@ -370,12 +370,12 @@ protocol with a fixed length message header and variable length message body.
 A collection of simple clients and servers, showing the use of both synchronous
 and asynchronous operations.
 
-* [@../src/examples/cpp11/echo/async_tcp_echo_server.cpp] ([@examples/diffs/echo/async_tcp_echo_server.cpp.html diff to C++03])
-* [@../src/examples/cpp11/echo/async_udp_echo_server.cpp] ([@examples/diffs/echo/async_udp_echo_server.cpp.html diff to C++03])
-* [@../src/examples/cpp11/echo/blocking_tcp_echo_client.cpp] ([@examples/diffs/echo/blocking_tcp_echo_client.cpp.html diff to C++03])
-* [@../src/examples/cpp11/echo/blocking_tcp_echo_server.cpp] ([@examples/diffs/echo/blocking_tcp_echo_server.cpp.html diff to C++03])
-* [@../src/examples/cpp11/echo/blocking_udp_echo_client.cpp] ([@examples/diffs/echo/blocking_udp_echo_client.cpp.html diff to C++03])
-* [@../src/examples/cpp11/echo/blocking_udp_echo_server.cpp] ([@examples/diffs/echo/blocking_udp_echo_server.cpp.html diff to C++03])
+* [@../src/examples/cpp11/echo/async_tcp_echo_server.cpp]
+* [@../src/examples/cpp11/echo/async_udp_echo_server.cpp]
+* [@../src/examples/cpp11/echo/blocking_tcp_echo_client.cpp]
+* [@../src/examples/cpp11/echo/blocking_tcp_echo_server.cpp]
+* [@../src/examples/cpp11/echo/blocking_udp_echo_client.cpp]
+* [@../src/examples/cpp11/echo/blocking_udp_echo_server.cpp]
 
 
 [heading Fork]
@@ -384,12 +384,12 @@ These POSIX-specific examples show how to use Asio in conjunction with the
 `fork()` system call. The first example illustrates the steps required to start
 a daemon process:
 
-* [@../src/examples/cpp11/fork/daemon.cpp] ([@examples/diffs/fork/daemon.cpp.html diff to C++03])
+* [@../src/examples/cpp11/fork/daemon.cpp]
 
 The second example demonstrates how it is possible to fork a process from
 within a completion handler.
 
-* [@../src/examples/cpp11/fork/process_per_connection.cpp] ([@examples/diffs/fork/process_per_connection.cpp.html diff to C++03])
+* [@../src/examples/cpp11/fork/process_per_connection.cpp]
 
 
 [heading Futures]
@@ -418,23 +418,23 @@ This example illustrates the use of asio in a simple single-threaded server
 implementation of HTTP 1.0. It demonstrates how to perform a clean shutdown by
 cancelling all outstanding asynchronous operations.
 
-* [@../src/examples/cpp11/http/server/connection.cpp] ([@examples/diffs/http/server/connection.cpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/connection.hpp] ([@examples/diffs/http/server/connection.hpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/connection_manager.cpp] ([@examples/diffs/http/server/connection_manager.cpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/connection_manager.hpp] ([@examples/diffs/http/server/connection_manager.hpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/header.hpp] ([@examples/diffs/http/server/header.hpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/main.cpp] ([@examples/diffs/http/server/main.cpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/mime_types.cpp] ([@examples/diffs/http/server/mime_types.cpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/mime_types.hpp] ([@examples/diffs/http/server/mime_types.hpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/reply.cpp] ([@examples/diffs/http/server/reply.cpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/reply.hpp] ([@examples/diffs/http/server/reply.hpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/request.hpp] ([@examples/diffs/http/server/request.hpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/request_handler.cpp] ([@examples/diffs/http/server/request_handler.cpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/request_handler.hpp] ([@examples/diffs/http/server/request_handler.hpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/request_parser.cpp] ([@examples/diffs/http/server/request_parser.cpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/request_parser.hpp] ([@examples/diffs/http/server/request_parser.hpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/server.cpp] ([@examples/diffs/http/server/server.cpp.html diff to C++03])
-* [@../src/examples/cpp11/http/server/server.hpp] ([@examples/diffs/http/server/server.hpp.html diff to C++03])
+* [@../src/examples/cpp11/http/server/connection.cpp]
+* [@../src/examples/cpp11/http/server/connection.hpp]
+* [@../src/examples/cpp11/http/server/connection_manager.cpp]
+* [@../src/examples/cpp11/http/server/connection_manager.hpp]
+* [@../src/examples/cpp11/http/server/header.hpp]
+* [@../src/examples/cpp11/http/server/main.cpp]
+* [@../src/examples/cpp11/http/server/mime_types.cpp]
+* [@../src/examples/cpp11/http/server/mime_types.hpp]
+* [@../src/examples/cpp11/http/server/reply.cpp]
+* [@../src/examples/cpp11/http/server/reply.hpp]
+* [@../src/examples/cpp11/http/server/request.hpp]
+* [@../src/examples/cpp11/http/server/request_handler.cpp]
+* [@../src/examples/cpp11/http/server/request_handler.hpp]
+* [@../src/examples/cpp11/http/server/request_parser.cpp]
+* [@../src/examples/cpp11/http/server/request_parser.hpp]
+* [@../src/examples/cpp11/http/server/server.cpp]
+* [@../src/examples/cpp11/http/server/server.hpp]
 
 
 [heading Multicast]
@@ -442,8 +442,8 @@ cancelling all outstanding asynchronous operations.
 An example showing the use of multicast to transmit packets to a group of
 subscribers.
 
-* [@../src/examples/cpp11/multicast/receiver.cpp] ([@examples/diffs/multicast/receiver.cpp.html diff to C++03])
-* [@../src/examples/cpp11/multicast/sender.cpp] ([@examples/diffs/multicast/sender.cpp.html diff to C++03])
+* [@../src/examples/cpp11/multicast/receiver.cpp]
+* [@../src/examples/cpp11/multicast/sender.cpp]
 
 
 [heading Nonblocking]
@@ -451,7 +451,7 @@ subscribers.
 Example demonstrating reactor-style operations for integrating a third-party
 library that wants to perform the I/O operations itself.
 
-* [@../src/examples/cpp11/nonblocking/third_party_lib.cpp] ([@examples/diffs/nonblocking/third_party_lib.cpp.html diff to C++03])
+* [@../src/examples/cpp11/nonblocking/third_party_lib.cpp]
 
 
 [heading Operations]
@@ -473,8 +473,8 @@ Examples showing how to implement composed asynchronous operations as reusable l
 Example client program implementing the SOCKS 4 protocol for communication via
 a proxy.
 
-* [@../src/examples/cpp11/socks4/sync_client.cpp] ([@examples/diffs/socks4/sync_client.cpp.html diff to C++03])
-* [@../src/examples/cpp11/socks4/socks4.hpp] ([@examples/diffs/socks4/socks4.hpp.html diff to C++03])
+* [@../src/examples/cpp11/socks4/sync_client.cpp]
+* [@../src/examples/cpp11/socks4/socks4.hpp]
 
 
 [heading Spawn]
@@ -484,7 +484,7 @@ Example of using the asio::spawn() function, a wrapper around the
 library, to implement a chain of asynchronous operations using stackful
 coroutines.
 
-* [@../src/examples/cpp11/spawn/echo_server.cpp] ([@examples/diffs/spawn/echo_server.cpp.html diff to C++03])
+* [@../src/examples/cpp11/spawn/echo_server.cpp]
 
 
 [heading SSL]
@@ -492,8 +492,8 @@ coroutines.
 Example client and server programs showing the use of the [link
 asio.reference.ssl__stream ssl::stream<>] template with asynchronous operations.
 
-* [@../src/examples/cpp11/ssl/client.cpp] ([@examples/diffs/ssl/client.cpp.html diff to C++03])
-* [@../src/examples/cpp11/ssl/server.cpp] ([@examples/diffs/ssl/server.cpp.html diff to C++03])
+* [@../src/examples/cpp11/ssl/client.cpp]
+* [@../src/examples/cpp11/ssl/server.cpp]
 
 
 [heading Timeouts]
@@ -501,28 +501,28 @@ asio.reference.ssl__stream ssl::stream<>] template with asynchronous operations.
 A collection of examples showing how to cancel long running asynchronous
 operations after a period of time.
 
-* [@../src/examples/cpp11/timeouts/async_tcp_client.cpp] ([@examples/diffs/timeouts/async_tcp_client.cpp.html diff to C++03])
-* [@../src/examples/cpp11/timeouts/blocking_tcp_client.cpp] ([@examples/diffs/timeouts/blocking_tcp_client.cpp.html diff to C++03])
-* [@../src/examples/cpp11/timeouts/blocking_token_tcp_client.cpp] ([@examples/diffs/timeouts/blocking_token_tcp_client.cpp.html diff to C++03])
-* [@../src/examples/cpp11/timeouts/blocking_udp_client.cpp] ([@examples/diffs/timeouts/blocking_udp_client.cpp.html diff to C++03])
-* [@../src/examples/cpp11/timeouts/server.cpp] ([@examples/diffs/timeouts/server.cpp.html diff to C++03])
+* [@../src/examples/cpp11/timeouts/async_tcp_client.cpp]
+* [@../src/examples/cpp11/timeouts/blocking_tcp_client.cpp]
+* [@../src/examples/cpp11/timeouts/blocking_token_tcp_client.cpp]
+* [@../src/examples/cpp11/timeouts/blocking_udp_client.cpp]
+* [@../src/examples/cpp11/timeouts/server.cpp]
 
 
 [heading Timers]
 
 Example showing how to customise basic_waitable_timer using a different clock type.
 
-* [@../src/examples/cpp11/timers/time_t_timer.cpp] ([@examples/diffs/timers/time_t_timer.cpp.html diff to C++03])
+* [@../src/examples/cpp11/timers/time_t_timer.cpp]
 
 
 [heading UNIX Domain Sockets]
 
 Examples showing how to use UNIX domain (local) sockets.
 
-* [@../src/examples/cpp11/local/connect_pair.cpp] ([@examples/diffs/local/connect_pair.cpp.html diff to C++03])
-* [@../src/examples/cpp11/local/iostream_client.cpp] ([@examples/diffs/local/iostream_client.cpp.html diff to C++03])
-* [@../src/examples/cpp11/local/stream_server.cpp] ([@examples/diffs/local/stream_server.cpp.html diff to C++03])
-* [@../src/examples/cpp11/local/stream_client.cpp] ([@examples/diffs/local/stream_client.cpp.html diff to C++03])
+* [@../src/examples/cpp11/local/connect_pair.cpp]
+* [@../src/examples/cpp11/local/iostream_client.cpp]
+* [@../src/examples/cpp11/local/stream_server.cpp]
+* [@../src/examples/cpp11/local/stream_client.cpp]
 
 
 [endsect]
