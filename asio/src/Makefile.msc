@@ -263,23 +263,12 @@ CPP11_EXAMPLE_EXES = \
 	examples\cpp11\echo\blocking_tcp_echo_server.exe \
 	examples\cpp11\echo\blocking_udp_echo_client.exe \
 	examples\cpp11\echo\blocking_udp_echo_server.exe \
-	examples\cpp11\http\client\async_client.exe \
-	examples\cpp11\http\client\sync_client.exe \
 	examples\cpp11\http\server\http_server.exe \
-	examples\cpp11\http\server2\http_server.exe \
-	examples\cpp11\http\server3\http_server.exe \
-	examples\cpp11\http\server4\http_server.exe \
-	examples\cpp11\icmp\ping.exe \
 	examples\cpp11\invocation\prioritised_handlers.exe \
-	examples\cpp11\iostreams\daytime_client.exe \
-	examples\cpp11\iostreams\daytime_server.exe \
 	examples\cpp11\iostreams\http_client.exe \
 	examples\cpp11\multicast\receiver.exe \
 	examples\cpp11\multicast\sender.exe \
 	examples\cpp11\nonblocking\third_party_lib.exe \
-	examples\cpp11\porthopper\client.exe \
-	examples\cpp11\porthopper\server.exe \
-	examples\cpp11\services\daytime_client.exe \
 	examples\cpp11\socks4\sync_client.exe \
 	examples\cpp11\timeouts\async_tcp_client.exe \
 	examples\cpp11\timeouts\blocking_tcp_client.exe \
@@ -287,18 +276,6 @@ CPP11_EXAMPLE_EXES = \
 	examples\cpp11\timeouts\blocking_udp_client.exe \
 	examples\cpp11\timeouts\server.exe \
 	examples\cpp11\timers\time_t_timer.exe \
-	examples\cpp11\tutorial\timer1\timer.exe \
-	examples\cpp11\tutorial\timer2\timer.exe \
-	examples\cpp11\tutorial\timer3\timer.exe \
-	examples\cpp11\tutorial\timer4\timer.exe \
-	examples\cpp11\tutorial\timer5\timer.exe \
-	examples\cpp11\tutorial\daytime1\client.exe \
-	examples\cpp11\tutorial\daytime2\server.exe \
-	examples\cpp11\tutorial\daytime3\server.exe \
-	examples\cpp11\tutorial\daytime4\client.exe \
-	examples\cpp11\tutorial\daytime5\server.exe \
-	examples\cpp11\tutorial\daytime6\server.exe \
-	examples\cpp11\tutorial\daytime7\server.exe \
 	examples\cpp11\windows\transmit_file.exe
 
 SSL_UNIT_TEST_EXES = \
@@ -324,7 +301,9 @@ asio.lib: asio.cpp
 
 !ifdef STANDALONE
 all: \
-	$(UNIT_TEST_EXES)
+	$(PERFORMANCE_TEST_EXES) \
+	$(UNIT_TEST_EXES) \
+	$(CPP11_EXAMPLE_EXES)
 !else
 all: \
 	$(LATENCY_TEST_EXES) \
@@ -385,12 +364,6 @@ tests\unit\unit_test.obj: tests\unit\unit_test.cpp
 {examples\cpp11\echo}.cpp{examples\cpp11\echo}.exe:
 	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
 
-{examples\cpp11\http\client}.cpp{examples\cpp11\http\client}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
-{examples\cpp11\icmp}.cpp{examples\cpp11\icmp}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
 {examples\cpp11\invocation}.cpp{examples\cpp11\invocation}.exe:
 	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
 
@@ -403,9 +376,6 @@ tests\unit\unit_test.obj: tests\unit\unit_test.cpp
 {examples\cpp11\nonblocking}.cpp{examples\cpp11\nonblocking}.exe:
 	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
 
-{examples\cpp11\porthopper}.cpp{examples\cpp11\porthopper}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
 {examples\cpp11\socks4}.cpp{examples\cpp11\socks4}.exe:
 	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
 
@@ -416,42 +386,6 @@ tests\unit\unit_test.obj: tests\unit\unit_test.cpp
 	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
 
 {examples\cpp11\timers}.cpp{examples\cpp11\timers}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
-{examples\cpp11\tutorial\timer1}.cpp{examples\cpp11\tutorial\timer1}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
-{examples\cpp11\tutorial\timer2}.cpp{examples\cpp11\tutorial\timer2}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
-{examples\cpp11\tutorial\timer3}.cpp{examples\cpp11\tutorial\timer3}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
-{examples\cpp11\tutorial\timer4}.cpp{examples\cpp11\tutorial\timer4}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
-{examples\cpp11\tutorial\timer5}.cpp{examples\cpp11\tutorial\timer5}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
-{examples\cpp11\tutorial\daytime1}.cpp{examples\cpp11\tutorial\daytime1}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
-{examples\cpp11\tutorial\daytime2}.cpp{examples\cpp11\tutorial\daytime2}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
-{examples\cpp11\tutorial\daytime3}.cpp{examples\cpp11\tutorial\daytime3}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
-{examples\cpp11\tutorial\daytime4}.cpp{examples\cpp11\tutorial\daytime4}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
-{examples\cpp11\tutorial\daytime5}.cpp{examples\cpp11\tutorial\daytime5}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
-{examples\cpp11\tutorial\daytime6}.cpp{examples\cpp11\tutorial\daytime6}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
-{examples\cpp11\tutorial\daytime7}.cpp{examples\cpp11\tutorial\daytime7}.exe:
 	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
 
 {examples\cpp11\windows}.cpp{examples\cpp11\windows}.exe:
@@ -476,41 +410,6 @@ examples\cpp11\http\server\http_server.exe: \
 		examples\cpp11\http\server\request_parser.cpp \
 		examples\cpp11\http\server\server.cpp
 	cl -Fe$@ -Foexamples\cpp11\http\server\ $(CXXFLAGS) $(DEFINES) $** $(LIBS) -link -opt:ref
-
-examples\cpp11\http\server2\http_server.exe: \
-		examples\cpp11\http\server2\connection.cpp \
-		examples\cpp11\http\server2\io_context_pool.cpp \
-		examples\cpp11\http\server2\main.cpp \
-		examples\cpp11\http\server2\mime_types.cpp \
-		examples\cpp11\http\server2\reply.cpp \
-		examples\cpp11\http\server2\request_handler.cpp \
-		examples\cpp11\http\server2\request_parser.cpp \
-		examples\cpp11\http\server2\server.cpp
-	cl -Fe$@ -Foexamples\cpp11\http\server2\ $(CXXFLAGS) $(DEFINES) $** $(LIBS) -link -opt:ref
-
-examples\cpp11\http\server3\http_server.exe: \
-		examples\cpp11\http\server3\connection.cpp \
-		examples\cpp11\http\server3\main.cpp \
-		examples\cpp11\http\server3\mime_types.cpp \
-		examples\cpp11\http\server3\reply.cpp \
-		examples\cpp11\http\server3\request_handler.cpp \
-		examples\cpp11\http\server3\request_parser.cpp \
-		examples\cpp11\http\server3\server.cpp
-	cl -Fe$@ -Foexamples\cpp11\http\server3\ $(CXXFLAGS) $(DEFINES) $** $(LIBS) -link -opt:ref
-
-examples\cpp11\http\server4\http_server.exe: \
-		examples\cpp11\http\server4\file_handler.cpp \
-		examples\cpp11\http\server4\main.cpp \
-		examples\cpp11\http\server4\mime_types.cpp \
-		examples\cpp11\http\server4\reply.cpp \
-		examples\cpp11\http\server4\request_parser.cpp \
-		examples\cpp11\http\server4\server.cpp
-	cl -Fe$@ -Foexamples\cpp11\http\server4\ $(CXXFLAGS) $(DEFINES) $** $(LIBS) -link -opt:ref
-
-examples\cpp11\services\daytime_client.exe: \
-		examples\cpp11\services\daytime_client.cpp \
-		examples\cpp11\services\logger_service.cpp
-	cl -Fe$@ -Foexamples\cpp11\services\ $(CXXFLAGS) $(DEFINES) $** $(LIBS) -link -opt:ref
 
 clean:
 	-del /q /s asio.lib
