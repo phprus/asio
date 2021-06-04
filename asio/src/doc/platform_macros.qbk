@@ -483,13 +483,6 @@ needs.
     [`ASIO_DISABLE_STD_NESTED_EXCEPTION`]
   ]
   [
-    [`ASIO_HAS_STD_REFERENCE_WRAPPER`]
-    [
-      Standard library support for the reference_wrapper class.
-    ]
-    [`ASIO_DISABLE_STD_REFERENCE_WRAPPER`]
-  ]
-  [
     [`ASIO_HAS_STD_SHARED_PTR`]
     [
       Standard library support for shared_ptr and weak_ptr.
