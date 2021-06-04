@@ -38,13 +38,6 @@ needs.
     [`ASIO_DISABLE_ALIGNOF`]
   ]
   [
-    [`ASIO_HAS_BOOST_ALIGN`]
-    [
-      Boost align library.
-    ]
-    [`ASIO_DISABLE_BOOST_ALIGN`]
-  ]
-  [
     [`ASIO_HAS_BOOST_ARRAY`]
     [
       Boost array library.

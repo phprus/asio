@@ -19,15 +19,13 @@
 #include <cstddef>
 #include <memory>
 #include <new>
+#if defined(ASIO_WINDOWS)
+# include <malloc.h>
+#else
+# include <cstdlib>
+#endif
 
-#if !defined(ASIO_HAS_ALIGNED_NEW) \
-  && defined(ASIO_HAS_BOOST_ALIGN) \
-  && defined(ASIO_HAS_ALIGNOF)
-# include <boost/align/aligned_alloc.hpp>
-# include "asio/detail/throw_exception.hpp"
-#endif // !defined(ASIO_HAS_ALIGNED_NEW)
-       //   && defined(ASIO_HAS_BOOST_ALIGN)
-       //   && defined(ASIO_HAS_ALIGNOF)
+#include "asio/detail/throw_exception.hpp"
 
 namespace asio {
 namespace detail {
@@ -53,35 +51,32 @@ using std::allocator_arg_t;
 
 inline void* aligned_new(std::size_t align, std::size_t size)
 {
-#if defined(ASIO_HAS_ALIGNED_NEW) && defined(ASIO_HAS_ALIGNOF)
-  return ::operator new(size, std::align_val_t(align));
-#elif defined(ASIO_HAS_BOOST_ALIGN) && defined(ASIO_HAS_ALIGNOF)
-  void* ptr = boost::alignment::aligned_alloc(align, size);
+#if defined(ASIO_WINDOWS)
+  void* ptr = _aligned_malloc(size, align);
   if (!ptr)
   {
     std::bad_alloc ex;
     asio::detail::throw_exception(ex);
   }
   return ptr;
-#else // defined(ASIO_HAS_BOOST_ALIGN) && defined(ASIO_HAS_ALIGNOF)
-  (void)align;
-  return ::operator new(size);
-#endif // defined(ASIO_HAS_BOOST_ALIGN) && defined(ASIO_HAS_ALIGNOF)
+#else
+  void *ptr = nullptr;
+  if (posix_memalign(&ptr, (align < sizeof(void *) ? sizeof(void *) : align), size))
+  {
+    std::bad_alloc ex;
+    asio::detail::throw_exception(ex);
+  }
+  return ptr;
+#endif
 }
 
 inline void aligned_delete(void* ptr)
 {
-#if !defined(ASIO_HAS_ALIGNED_NEW) \
-  && defined(ASIO_HAS_BOOST_ALIGN) \
-  && defined(ASIO_HAS_ALIGNOF)
-  boost::alignment::aligned_free(ptr);
-#else // !defined(ASIO_HAS_ALIGNED_NEW)
-      //   && defined(ASIO_HAS_BOOST_ALIGN)
-      //   && defined(ASIO_HAS_ALIGNOF)
-  ::operator delete(ptr);
-#endif // !defined(ASIO_HAS_ALIGNED_NEW)
-       //   && defined(ASIO_HAS_BOOST_ALIGN)
-       //   && defined(ASIO_HAS_ALIGNOF)
+#if defined(ASIO_WINDOWS)
+  _aligned_free(ptr);
+#else
+  std::free(ptr);
+#endif
 }
 
 } // namespace asio
