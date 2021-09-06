@@ -11,9 +11,8 @@
 #include <ctime>
 #include <iostream>
 #include <string>
-#include <boost/bind/bind.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/enable_shared_from_this.hpp>
+#include <functional>
+#include <memory>
 #include "asio.hpp"
 
 #if defined(ASIO_HAS_WINDOWS_OVERLAPPED_PTR)
@@ -47,7 +46,7 @@ void transmit_file(tcp_socket& socket,
     // The operation completed immediately, so a completion notification needs
     // to be posted. When complete() is called, ownership of the OVERLAPPED-
     // derived object passes to the io_context.
-    asio::error_code ec(last_error,
+    std::error_code ec(last_error,
         asio::error::get_system_category());
     overlapped.complete(ec, 0);
   }
@@ -60,10 +59,10 @@ void transmit_file(tcp_socket& socket,
 }
 
 class connection
-  : public boost::enable_shared_from_this<connection>
+  : public std::enable_shared_from_this<connection>
 {
 public:
-  typedef boost::shared_ptr<connection> pointer;
+  typedef std::shared_ptr<connection> pointer;
 
   static pointer create(asio::io_context& io_context,
       const std::string& filename)
@@ -78,13 +77,13 @@ public:
 
   void start()
   {
-    asio::error_code ec;
+    std::error_code ec;
     file_.assign(::CreateFile(filename_.c_str(), GENERIC_READ, 0, 0,
           OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, 0), ec);
     if (file_.is_open())
     {
       transmit_file(socket_, file_,
-          boost::bind(&connection::handle_write, shared_from_this(),
+          std::bind(&connection::handle_write, shared_from_this(),
             asio::placeholders::error,
             asio::placeholders::bytes_transferred));
     }
@@ -98,10 +97,10 @@ private:
   {
   }
 
-  void handle_write(const asio::error_code& /*error*/,
+  void handle_write(const std::error_code& /*error*/,
       size_t /*bytes_transferred*/)
   {
-    asio::error_code ignored_ec;
+    std::error_code ignored_ec;
     socket_.shutdown(tcp_socket::shutdown_both, ignored_ec);
   }
 
@@ -128,12 +127,12 @@ private:
       connection::create(acceptor_.get_executor().context(), filename_);
 
     acceptor_.async_accept(new_connection->socket(),
-        boost::bind(&server::handle_accept, this, new_connection,
+        std::bind(&server::handle_accept, this, new_connection,
           asio::placeholders::error));
   }
 
   void handle_accept(connection::pointer new_connection,
-      const asio::error_code& error)
+      const std::error_code& error)
   {
     if (!error)
     {
