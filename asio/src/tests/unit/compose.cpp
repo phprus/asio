@@ -24,11 +24,7 @@
 #include "asio/post.hpp"
 #include "asio/system_timer.hpp"
 
-#if defined(ASIO_HAS_BOOST_BIND)
-# include <boost/bind/bind.hpp>
-#else // defined(ASIO_HAS_BOOST_BIND)
-# include <functional>
-#endif // defined(ASIO_HAS_BOOST_BIND)
+#include <functional>
 
 //------------------------------------------------------------------------------
 
@@ -89,11 +85,7 @@ struct compose_0_args_lvalue_handler
 
 void compose_0_completion_args_test()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
 
   asio::io_context ioc;
   int count = 0;
@@ -189,11 +181,7 @@ struct compose_1_arg_lvalue_handler
 
 void compose_1_completion_arg_test()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
 
   asio::io_context ioc;
@@ -297,11 +285,7 @@ void compose_partial_cancellation_handler(
 
 void compose_default_cancellation_test()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
 
   asio::io_context ioc;
@@ -379,11 +363,7 @@ void compose_default_cancellation_test()
 
 void compose_partial_cancellation_test()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
 
   asio::io_context ioc;
@@ -461,11 +441,7 @@ void compose_partial_cancellation_test()
 
 void compose_total_cancellation_test()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
 
   asio::io_context ioc;

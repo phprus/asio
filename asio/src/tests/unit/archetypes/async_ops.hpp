@@ -16,19 +16,11 @@
 #include <asio/async_result.hpp>
 #include <asio/error.hpp>
 
-#if defined(ASIO_HAS_BOOST_BIND)
-# include <boost/bind/bind.hpp>
-#else // defined(ASIO_HAS_BOOST_BIND)
-# include <functional>
-#endif // defined(ASIO_HAS_BOOST_BIND)
+#include <functional>
 
 namespace archetypes {
 
-#if defined(ASIO_HAS_BOOST_BIND)
-namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
 namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
 
 template <typename CompletionToken>
 ASIO_INITFN_RESULT_TYPE(CompletionToken, void())

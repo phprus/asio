@@ -57,7 +57,7 @@ A non-static class member function adapted to a wait handler using
         this, std::placeholders::_1));
 
 A non-static class member function adapted to a wait handler using
-`boost::bind()`:
+`std::bind()`:
 
   void my_class::wait_handler(
       const asio::error_code& ec)
@@ -66,7 +66,7 @@ A non-static class member function adapted to a wait handler using
   }
   ...
   socket.async_wait(...,
-      boost::bind(&my_class::wait_handler,
+      std::bind(&my_class::wait_handler,
         this, asio::placeholders::error));
 
 [endsect]

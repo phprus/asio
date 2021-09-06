@@ -21,11 +21,7 @@
 #include "asio/execution/invocable_archetype.hpp"
 #include "../unit_test.hpp"
 
-#if defined(ASIO_HAS_BOOST_BIND)
-# include <boost/bind/bind.hpp>
-#else // defined(ASIO_HAS_BOOST_BIND)
-# include <functional>
-#endif // defined(ASIO_HAS_BOOST_BIND)
+#include <functional>
 
 namespace exec = asio::execution;
 
@@ -322,11 +318,7 @@ void increment(int* count)
 
 void test_execute()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
 
   int count = 0;
   const_member_execute ex1 = {};

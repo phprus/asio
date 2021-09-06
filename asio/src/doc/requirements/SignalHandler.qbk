@@ -62,7 +62,7 @@ A non-static class member function adapted to a signal handler using
         std::placeholders::_2));
 
 A non-static class member function adapted to a signal handler using
-`boost::bind()`:
+`std::bind()`:
 
   void my_class::signal_handler(
       const asio::error_code& ec,
@@ -72,7 +72,7 @@ A non-static class member function adapted to a signal handler using
   }
   ...
   my_signal_set.async_wait(
-      boost::bind(&my_class::signal_handler,
+      std::bind(&my_class::signal_handler,
         this, asio::placeholders::error,
         asio::placeholders::signal_number));
 

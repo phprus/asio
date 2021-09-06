@@ -66,13 +66,6 @@ needs.
     [`ASIO_DISABLE_BOOST_ASSERT`]
   ]
   [
-    [`ASIO_HAS_BOOST_BIND`]
-    [
-      Boost bind function.
-    ]
-    [`ASIO_DISABLE_BOOST_BIND`]
-  ]
-  [
     [`ASIO_HAS_BOOST_CHRONO`]
     [
       Boost support for chrono.
