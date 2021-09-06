@@ -24,7 +24,6 @@
 #include "asio/detail/thread_context.hpp"
 #include "asio/detail/thread_info_base.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/detail/variadic_templates.hpp"
 
 #include "asio/detail/push_options.hpp"
 
@@ -46,31 +45,12 @@ class cancellation_handler
   : public cancellation_handler_base
 {
 public:
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
   template <typename... Args>
   cancellation_handler(std::size_t size, ASIO_MOVE_ARG(Args)... args)
     : handler_(ASIO_MOVE_CAST(Args)(args)...),
       size_(size)
   {
   }
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-  cancellation_handler(std::size_t size)
-    : handler_(),
-      size_(size)
-  {
-  }
-
-#define ASIO_PRIVATE_HANDLER_CTOR_DEF(n) \
-  template <ASIO_VARIADIC_TPARAMS(n)> \
-  cancellation_handler(std::size_t size, ASIO_VARIADIC_MOVE_PARAMS(n)) \
-    : handler_(ASIO_VARIADIC_MOVE_ARGS(n)), \
-      size_(size) \
-  { \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_HANDLER_CTOR_DEF)
-#undef ASIO_PRIVATE_HANDLER_CTOR_DEF
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
   void call(cancellation_type_t type)
   {
@@ -154,8 +134,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES) \
-  || defined(GENERATING_DOCUMENTATION)
   /// Installs a handler into the slot, constructing the new object directly.
   /**
    * Destroys any existing handler in the slot, then installs the new handler,
@@ -188,43 +166,6 @@ public:
     *handler_ = handler_obj;
     return handler_obj->handler();
   }
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-      //   || defined(GENERATING_DOCUMENTATION)
-  template <typename CancellationHandler>
-  CancellationHandler& emplace()
-  {
-    typedef detail::cancellation_handler<CancellationHandler>
-      cancellation_handler_type;
-    auto_delete_helper del = { prepare_memory(
-        sizeof(cancellation_handler_type),
-        ASIO_ALIGNOF(CancellationHandler)) };
-    cancellation_handler_type* handler_obj =
-      new (del.mem.first) cancellation_handler_type(del.mem.second);
-    del.mem.first = 0;
-    *handler_ = handler_obj;
-    return handler_obj->handler();
-  }
-
-#define ASIO_PRIVATE_HANDLER_EMPLACE_DEF(n) \
-  template <typename CancellationHandler, ASIO_VARIADIC_TPARAMS(n)> \
-  CancellationHandler& emplace(ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  { \
-    typedef detail::cancellation_handler<CancellationHandler> \
-      cancellation_handler_type; \
-    auto_delete_helper del = { prepare_memory( \
-        sizeof(cancellation_handler_type), \
-        ASIO_ALIGNOF(CancellationHandler)) }; \
-    cancellation_handler_type* handler_obj = \
-      new (del.mem.first) cancellation_handler_type( \
-        del.mem.second, ASIO_VARIADIC_MOVE_ARGS(n)); \
-    del.mem.first = 0; \
-    *handler_ = handler_obj; \
-    return handler_obj->handler(); \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_HANDLER_EMPLACE_DEF)
-#undef ASIO_PRIVATE_HANDLER_EMPLACE_DEF
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
   /// Installs a handler into the slot.
   /**

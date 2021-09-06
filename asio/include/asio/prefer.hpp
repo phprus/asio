@@ -358,8 +358,8 @@ struct call_traits<Impl, T, void(P0, P1),
 };
 
 template <typename Impl, typename T, typename P0,
-    typename P1, typename ASIO_ELLIPSIS PN>
-struct call_traits<Impl, T, void(P0, P1, PN ASIO_ELLIPSIS),
+    typename P1, typename ... PN>
+struct call_traits<Impl, T, void(P0, P1, PN ...),
   typename enable_if<
     call_traits<Impl, T, void(P0)>::overload != ill_formed
   >::type,
@@ -367,7 +367,7 @@ struct call_traits<Impl, T, void(P0, P1, PN ASIO_ELLIPSIS),
     call_traits<
       Impl,
       typename call_traits<Impl, T, void(P0)>::result_type,
-      void(P1, PN ASIO_ELLIPSIS)
+      void(P1, PN ...)
     >::overload != ill_formed
   >::type>
 {
@@ -380,7 +380,7 @@ struct call_traits<Impl, T, void(P0, P1, PN ASIO_ELLIPSIS),
       call_traits<
         Impl,
         typename call_traits<Impl, T, void(P0)>::result_type,
-        void(P1, PN ASIO_ELLIPSIS)
+        void(P1, PN ...)
       >::is_noexcept
     ));
 
@@ -388,7 +388,7 @@ struct call_traits<Impl, T, void(P0, P1, PN ASIO_ELLIPSIS),
     typename call_traits<
       Impl,
       typename call_traits<Impl, T, void(P0)>::result_type,
-      void(P1, PN ASIO_ELLIPSIS)
+      void(P1, PN ...)
     >::result_type
   >::type result_type;
 };
@@ -531,27 +531,27 @@ struct impl
   }
 
   template <typename T, typename P0, typename P1,
-    typename ASIO_ELLIPSIS PN>
+    typename ... PN>
   ASIO_NODISCARD ASIO_CONSTEXPR typename enable_if<
     call_traits<impl, T,
-      void(P0, P1, PN ASIO_ELLIPSIS)>::overload == n_props,
+      void(P0, P1, PN ...)>::overload == n_props,
     typename call_traits<impl, T,
-      void(P0, P1, PN ASIO_ELLIPSIS)>::result_type
+      void(P0, P1, PN ...)>::result_type
   >::type
   operator()(
       ASIO_MOVE_ARG(T) t,
       ASIO_MOVE_ARG(P0) p0,
       ASIO_MOVE_ARG(P1) p1,
-      ASIO_MOVE_ARG(PN) ASIO_ELLIPSIS pn) const
+      ASIO_MOVE_ARG(PN) ... pn) const
     ASIO_NOEXCEPT_IF((
-      call_traits<impl, T, void(P0, P1, PN ASIO_ELLIPSIS)>::is_noexcept))
+      call_traits<impl, T, void(P0, P1, PN ...)>::is_noexcept))
   {
     return (*this)(
         (*this)(
           ASIO_MOVE_CAST(T)(t),
           ASIO_MOVE_CAST(P0)(p0)),
         ASIO_MOVE_CAST(P1)(p1),
-        ASIO_MOVE_CAST(PN)(pn) ASIO_ELLIPSIS);
+        ASIO_MOVE_CAST(PN)(pn) ...);
   }
 };
 
@@ -575,8 +575,6 @@ static ASIO_CONSTEXPR const asio_prefer_fn::impl&
 
 typedef asio_prefer_fn::impl prefer_t;
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
 template <typename T, typename... Properties>
 struct can_prefer :
   integral_constant<bool,
@@ -586,53 +584,13 @@ struct can_prefer :
 {
 };
 
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-template <typename T, typename P0 = void,
-    typename P1 = void, typename P2 = void>
-struct can_prefer :
-  integral_constant<bool,
-    asio_prefer_fn::call_traits<
-      prefer_t, T, void(P0, P1, P2)>::overload
-        != asio_prefer_fn::ill_formed>
-{
-};
-
-template <typename T, typename P0, typename P1>
-struct can_prefer<T, P0, P1> :
-  integral_constant<bool,
-    asio_prefer_fn::call_traits<
-      prefer_t, T, void(P0, P1)>::overload
-        != asio_prefer_fn::ill_formed>
-{
-};
-
-template <typename T, typename P0>
-struct can_prefer<T, P0> :
-  integral_constant<bool,
-    asio_prefer_fn::call_traits<
-      prefer_t, T, void(P0)>::overload
-        != asio_prefer_fn::ill_formed>
-{
-};
-
-template <typename T>
-struct can_prefer<T> :
-  false_type
-{
-};
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
 #if defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
-template <typename T, typename ASIO_ELLIPSIS Properties>
+template <typename T, typename ... Properties>
 constexpr bool can_prefer_v
-  = can_prefer<T, Properties ASIO_ELLIPSIS>::value;
+  = can_prefer<T, Properties ...>::value;
 
 #endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 template <typename T, typename... Properties>
 struct is_nothrow_prefer :
@@ -642,50 +600,13 @@ struct is_nothrow_prefer :
 {
 };
 
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-template <typename T, typename P0 = void,
-    typename P1 = void, typename P2 = void>
-struct is_nothrow_prefer :
-  integral_constant<bool,
-    asio_prefer_fn::call_traits<
-      prefer_t, T, void(P0, P1, P2)>::is_noexcept>
-{
-};
-
-template <typename T, typename P0, typename P1>
-struct is_nothrow_prefer<T, P0, P1> :
-  integral_constant<bool,
-    asio_prefer_fn::call_traits<
-      prefer_t, T, void(P0, P1)>::is_noexcept>
-{
-};
-
-template <typename T, typename P0>
-struct is_nothrow_prefer<T, P0> :
-  integral_constant<bool,
-    asio_prefer_fn::call_traits<
-      prefer_t, T, void(P0)>::is_noexcept>
-{
-};
-
-template <typename T>
-struct is_nothrow_prefer<T> :
-  false_type
-{
-};
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
 #if defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
-template <typename T, typename ASIO_ELLIPSIS Properties>
+template <typename T, typename ... Properties>
 constexpr bool is_nothrow_prefer_v
-  = is_nothrow_prefer<T, Properties ASIO_ELLIPSIS>::value;
+  = is_nothrow_prefer<T, Properties ...>::value;
 
 #endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 template <typename T, typename... Properties>
 struct prefer_result
@@ -693,37 +614,6 @@ struct prefer_result
   typedef typename asio_prefer_fn::call_traits<
       prefer_t, T, void(Properties...)>::result_type type;
 };
-
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-template <typename T, typename P0 = void,
-    typename P1 = void, typename P2 = void>
-struct prefer_result
-{
-  typedef typename asio_prefer_fn::call_traits<
-      prefer_t, T, void(P0, P1, P2)>::result_type type;
-};
-
-template <typename T, typename P0, typename P1>
-struct prefer_result<T, P0, P1>
-{
-  typedef typename asio_prefer_fn::call_traits<
-      prefer_t, T, void(P0, P1)>::result_type type;
-};
-
-template <typename T, typename P0>
-struct prefer_result<T, P0>
-{
-  typedef typename asio_prefer_fn::call_traits<
-      prefer_t, T, void(P0)>::result_type type;
-};
-
-template <typename T>
-struct prefer_result<T>
-{
-};
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 } // namespace asio
 
