@@ -18,14 +18,12 @@
 #include "asio/detail/config.hpp"
 #include "asio/detail/type_traits.hpp"
 
-#if defined(ASIO_HAS_DECLTYPE) \
-  && defined(ASIO_HAS_NOEXCEPT) \
+#if defined(ASIO_HAS_NOEXCEPT) \
   && defined(ASIO_HAS_CONSTEXPR) \
   && defined(ASIO_HAS_CONSTANT_EXPRESSION_SFINAE) \
   && defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 # define ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT 1
-#endif // defined(ASIO_HAS_DECLTYPE)
-       //   && defined(ASIO_HAS_NOEXCEPT)
+#endif // defined(ASIO_HAS_NOEXCEPT)
        //   && defined(ASIO_HAS_CONSTEXPR)
        //   && defined(ASIO_HAS_CONSTANT_EXPRESSION_SFINAE)
        //   && defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
