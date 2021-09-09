@@ -86,11 +86,7 @@ struct bulk_receiver_traits
       >::type
     > type;
 
-#if defined(ASIO_HAS_MOVE)
   typedef type arg_type;
-#else // defined(ASIO_HAS_MOVE)
-  typedef const type& arg_type;
-#endif // defined(ASIO_HAS_MOVE)
 };
 
 template <typename Sender, typename Function, typename Number>

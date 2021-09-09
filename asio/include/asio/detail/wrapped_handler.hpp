@@ -56,7 +56,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   wrapped_handler(const wrapped_handler& other)
     : dispatcher_(other.dispatcher_),
       handler_(other.handler_)
@@ -68,7 +67,6 @@ public:
       handler_(ASIO_MOVE_CAST(Handler)(other.handler_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   void operator()()
   {
@@ -171,7 +169,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   rewrapped_handler(const rewrapped_handler& other)
     : context_(other.context_),
       handler_(other.handler_)
@@ -183,7 +180,6 @@ public:
       handler_(ASIO_MOVE_CAST(Handler)(other.handler_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   void operator()()
   {

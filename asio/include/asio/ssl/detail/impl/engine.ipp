@@ -55,7 +55,6 @@ engine::engine(SSL_CTX* context)
   ::SSL_set_bio(ssl_, int_bio, int_bio);
 }
 
-#if defined(ASIO_HAS_MOVE)
 engine::engine(engine&& other) ASIO_NOEXCEPT
   : ssl_(other.ssl_),
     ext_bio_(other.ext_bio_)
@@ -63,7 +62,6 @@ engine::engine(engine&& other) ASIO_NOEXCEPT
   other.ssl_ = 0;
   other.ext_bio_ = 0;
 }
-#endif // defined(ASIO_HAS_MOVE)
 
 engine::~engine()
 {
@@ -80,7 +78,6 @@ engine::~engine()
     ::SSL_free(ssl_);
 }
 
-#if defined(ASIO_HAS_MOVE)
 engine& engine::operator=(engine&& other) ASIO_NOEXCEPT
 {
   if (this != &other)
@@ -92,7 +89,6 @@ engine& engine::operator=(engine&& other) ASIO_NOEXCEPT
   }
   return *this;
 }
-#endif // defined(ASIO_HAS_MOVE)
 
 SSL* engine::native_handle()
 {

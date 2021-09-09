@@ -101,11 +101,7 @@ asio.reference.async_read async_read()] store a reference to the stream object.
 Moving during the composed operation means that the composed operation may
 attempt to access a moved-from object.
 
-Move support is automatically enabled for [^g++] 4.5 and later, when the
-[^-std=c++0x] or [^-std=gnu++0x] compiler options are used. It may be disabled
-by defining `ASIO_DISABLE_MOVE`, or explicitly enabled for other compilers by
-defining `ASIO_HAS_MOVE`. Note that these macros also affect the availability
-of [link asio.overview.cpp2011.move_handlers movable handlers].
+Move support is automatically enabled [link asio.overview.cpp2011.move_handlers movable handlers].
 
 [endsect]
 
@@ -142,11 +138,7 @@ arguments to `async_XYZ()` are members of the handler. For example:
     }
   };
 
-Move support is automatically enabled for [^g++] 4.5 and later, when the
-[^-std=c++0x] or [^-std=gnu++0x] compiler options are used. It may be disabled
-by defining `ASIO_DISABLE_MOVE`, or explicitly enabled for other compilers by
-defining `ASIO_HAS_MOVE`. Note that these macros also affect the availability
-of [link asio.overview.cpp2011.move_objects movable I/O objects].
+Move support is automatically enabled [link asio.overview.cpp2011.move_objects movable I/O objects].
 
 [endsect]
 

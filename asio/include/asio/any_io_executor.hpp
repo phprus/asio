@@ -104,13 +104,11 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move constructor.
   any_io_executor(any_io_executor&& e) ASIO_NOEXCEPT
     : base_type(static_cast<base_type&&>(e))
   {
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Construct to point to the same target as another any_executor.
 #if defined(GENERATING_DOCUMENTATION)
@@ -164,14 +162,12 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move assignment operator.
   any_io_executor& operator=(any_io_executor&& e) ASIO_NOEXCEPT
   {
     base_type::operator=(static_cast<base_type&&>(e));
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Assignment operator that sets the polymorphic wrapper to the empty state.
   any_io_executor& operator=(nullptr_t)

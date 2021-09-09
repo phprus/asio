@@ -332,8 +332,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
-
   /// Move constructor.
   executor_binder(executor_binder&& other)
     : base_type(ASIO_MOVE_CAST(executor_type)(other.get_executor()),
@@ -364,8 +362,6 @@ public:
     : base_type(e, ASIO_MOVE_CAST(U)(other.get()))
   {
   }
-
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destructor.
   ~executor_binder()

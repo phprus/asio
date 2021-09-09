@@ -132,11 +132,7 @@ struct call_traits<S,
   ASIO_STATIC_CONSTEXPR(overload_type, overload = identity);
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
 
-#if defined(ASIO_HAS_MOVE)
   typedef ASIO_MOVE_ARG(S) result_type;
-#else // defined(ASIO_HAS_MOVE)
-  typedef ASIO_MOVE_ARG(typename decay<S>::type) result_type;
-#endif // defined(ASIO_HAS_MOVE)
 };
 
 struct impl
@@ -153,7 +149,6 @@ struct impl
     return ASIO_MOVE_CAST(S)(s);
   }
 
-#if defined(ASIO_HAS_MOVE)
   template <typename S>
   ASIO_CONSTEXPR typename enable_if<
     call_traits<S>::overload == call_member,
@@ -177,55 +172,6 @@ struct impl
   {
     return schedule(ASIO_MOVE_CAST(S)(s));
   }
-#else // defined(ASIO_HAS_MOVE)
-  template <typename S>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<S&>::overload == call_member,
-    typename call_traits<S&>::result_type
-  >::type
-  operator()(S& s) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<S&>::is_noexcept))
-  {
-    return s.schedule();
-  }
-
-  template <typename S>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<const S&>::overload == call_member,
-    typename call_traits<const S&>::result_type
-  >::type
-  operator()(const S& s) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<const S&>::is_noexcept))
-  {
-    return s.schedule();
-  }
-
-  template <typename S>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<S&>::overload == call_free,
-    typename call_traits<S&>::result_type
-  >::type
-  operator()(S& s) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<S&>::is_noexcept))
-  {
-    return schedule(s);
-  }
-
-  template <typename S>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<const S&>::overload == call_free,
-    typename call_traits<const S&>::result_type
-  >::type
-  operator()(const S& s) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<const S&>::is_noexcept))
-  {
-    return schedule(s);
-  }
-#endif // defined(ASIO_HAS_MOVE)
 };
 
 template <typename T = impl>

@@ -114,15 +114,9 @@ template <typename T> T& lvref();
 template <typename T> T& lvref(T);
 template <typename T> const T& clvref();
 template <typename T> const T& clvref(T);
-#if defined(ASIO_HAS_MOVE)
 template <typename T> T rvref();
 template <typename T> T rvref(T);
 template <typename T> T rorlvref();
-#else // defined(ASIO_HAS_MOVE)
-template <typename T> const T& rvref();
-template <typename T> const T& rvref(T);
-template <typename T> T& rorlvref();
-#endif // defined(ASIO_HAS_MOVE)
 template <typename T> char argbyv(T);
 
 template <int>

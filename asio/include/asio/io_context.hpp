@@ -683,7 +683,6 @@ public:
         io_context_->impl_.work_started();
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move constructor.
   basic_executor_type(basic_executor_type&& other) ASIO_NOEXCEPT
     : io_context_(other.io_context_),
@@ -693,7 +692,6 @@ public:
     if (Bits & outstanding_work_tracked)
       other.io_context_ = 0;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destructor.
   ~basic_executor_type() ASIO_NOEXCEPT
@@ -707,11 +705,9 @@ public:
   basic_executor_type& operator=(
       const basic_executor_type& other) ASIO_NOEXCEPT;
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move assignment operator.
   basic_executor_type& operator=(
       basic_executor_type&& other) ASIO_NOEXCEPT;
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
 #if !defined(GENERATING_DOCUMENTATION)
 private:

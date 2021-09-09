@@ -38,7 +38,6 @@ protected:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   socket_iostream_base(socket_iostream_base&& other)
     : streambuf_(std::move(other.streambuf_))
   {
@@ -54,7 +53,6 @@ protected:
     streambuf_ = std::move(other.streambuf_);
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   basic_socket_streambuf<Protocol, Clock, WaitTraits> streambuf_;
 };
@@ -144,7 +142,6 @@ public:
     this->setf(std::ios_base::unitbuf);
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Construct a basic_socket_iostream from the supplied socket.
   explicit basic_socket_iostream(basic_stream_socket<protocol_type> s)
     : detail::socket_iostream_base<
@@ -178,7 +175,6 @@ public:
   }
 #endif // defined(ASIO_HAS_STD_IOSTREAM_MOVE)
        //   || defined(GENERATING_DOCUMENTATION)
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
 #if defined(GENERATING_DOCUMENTATION)
   /// Establish a connection to an endpoint corresponding to a resolver query.

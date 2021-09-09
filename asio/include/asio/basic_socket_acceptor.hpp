@@ -35,9 +35,7 @@
 # include "asio/detail/reactive_socket_service.hpp"
 #endif
 
-#if defined(ASIO_HAS_MOVE)
-# include <utility>
-#endif // defined(ASIO_HAS_MOVE)
+#include <utility>
 
 #include "asio/detail/push_options.hpp"
 
@@ -348,7 +346,6 @@ public:
     asio::detail::throw_error(ec, "assign");
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-construct a basic_socket_acceptor from another.
   /**
    * This constructor moves an acceptor from one object to another.
@@ -431,7 +428,6 @@ public:
     impl_ = std::move(tmp.impl_);
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destroys the acceptor.
   /**
@@ -1500,7 +1496,6 @@ public:
   }
 #endif // !defined(ASIO_NO_EXTENSIONS)
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Accept a new connection.
   /**
    * This function is used to accept a new connection from a peer. The function
@@ -2471,7 +2466,6 @@ public:
         context.get_executor(), &peer_endpoint,
         static_cast<other_socket_type*>(0));
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
 private:
   // Disallow copying and assignment.

@@ -470,8 +470,6 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE)
-
   any_executor_base(any_executor_base&& other) ASIO_NOEXCEPT
     : object_fns_(other.object_fns_),
       target_fns_(other.target_fns_)
@@ -497,8 +495,6 @@ public:
     }
     return *this;
   }
-
-#endif // defined(ASIO_HAS_MOVE)
 
   void swap(any_executor_base& other) ASIO_NOEXCEPT
   {
@@ -1169,8 +1165,6 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE)
-
   any_executor(any_executor&& other) ASIO_NOEXCEPT
     : detail::any_executor_base(
         static_cast<any_executor_base&&>(
@@ -1188,8 +1182,6 @@ public:
     }
     return *this;
   }
-
-#endif // defined(ASIO_HAS_MOVE)
 
   void swap(any_executor& other) ASIO_NOEXCEPT
   {
@@ -1355,8 +1347,6 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE)
-
   any_executor(any_executor&& other) ASIO_NOEXCEPT
     : detail::any_executor_base(
         static_cast<any_executor_base&&>(
@@ -1377,8 +1367,6 @@ public:
     }
     return *this;
   }
-
-#endif // defined(ASIO_HAS_MOVE)
 
   void swap(any_executor& other) ASIO_NOEXCEPT
   {

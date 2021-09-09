@@ -435,11 +435,7 @@ bool old_style_transfer_all(const asio::error_code& ec,
 struct short_transfer
 {
   short_transfer() {}
-#if defined(ASIO_HAS_MOVE)
   short_transfer(short_transfer&&) {}
-#else // defined(ASIO_HAS_MOVE)
-  short_transfer(const short_transfer&) {}
-#endif // defined(ASIO_HAS_MOVE)
   size_t operator()(const asio::error_code& ec,
       size_t /*bytes_transferred*/)
   {

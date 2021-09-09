@@ -314,7 +314,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     range_connect_op(const range_connect_op& other)
       : base_from_cancellation_state<RangeConnectHandler>(other),
         base_from_connect_condition<ConnectCondition>(other),
@@ -338,7 +337,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(RangeConnectHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(asio::error_code ec, int start = 0)
     {
@@ -550,7 +548,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     iterator_connect_op(const iterator_connect_op& other)
       : base_from_cancellation_state<IteratorConnectHandler>(other),
         base_from_connect_condition<ConnectCondition>(other),
@@ -574,7 +571,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(IteratorConnectHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(asio::error_code ec, int start = 0)
     {

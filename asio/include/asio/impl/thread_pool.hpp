@@ -67,7 +67,6 @@ thread_pool::basic_executor_type<Allocator, Bits>::operator=(
   return *this;
 }
 
-#if defined(ASIO_HAS_MOVE)
 template <typename Allocator, unsigned int Bits>
 thread_pool::basic_executor_type<Allocator, Bits>&
 thread_pool::basic_executor_type<Allocator, Bits>::operator=(
@@ -88,7 +87,6 @@ thread_pool::basic_executor_type<Allocator, Bits>::operator=(
   }
   return *this;
 }
-#endif // defined(ASIO_HAS_MOVE)
 
 template <typename Allocator, unsigned int Bits>
 inline bool thread_pool::basic_executor_type<Allocator,
