@@ -115,7 +115,7 @@ public:
   }
 
   /// Obtain the underlying execution context.
-  asio::io_context& context() const ASIO_NOEXCEPT
+  asio::io_context& context() const noexcept(true)
   {
     return service_.get_io_context();
   }
@@ -124,7 +124,7 @@ public:
   /**
    * The strand delegates this call to its underlying io_context.
    */
-  void on_work_started() const ASIO_NOEXCEPT
+  void on_work_started() const noexcept(true)
   {
     context().get_executor().on_work_started();
   }
@@ -133,7 +133,7 @@ public:
   /**
    * The strand delegates this call to its underlying io_context.
    */
-  void on_work_finished() const ASIO_NOEXCEPT
+  void on_work_finished() const noexcept(true)
   {
     context().get_executor().on_work_finished();
   }
@@ -300,7 +300,7 @@ public:
    * submitted to the strand using post(), dispatch() or wrap(). Otherwise
    * returns @c false.
    */
-  bool running_in_this_thread() const ASIO_NOEXCEPT
+  bool running_in_this_thread() const noexcept(true)
   {
     return service_.running_in_this_thread(impl_);
   }
@@ -310,7 +310,7 @@ public:
    * Two strands are equal if they refer to the same ordered, non-concurrent
    * state.
    */
-  friend bool operator==(const strand& a, const strand& b) ASIO_NOEXCEPT
+  friend bool operator==(const strand& a, const strand& b) noexcept(true)
   {
     return a.impl_ == b.impl_;
   }
@@ -320,7 +320,7 @@ public:
    * Two strands are equal if they refer to the same ordered, non-concurrent
    * state.
    */
-  friend bool operator!=(const strand& a, const strand& b) ASIO_NOEXCEPT
+  friend bool operator!=(const strand& a, const strand& b) noexcept(true)
   {
     return a.impl_ != b.impl_;
   }

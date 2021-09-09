@@ -419,7 +419,7 @@ struct associator<Associator,
   static typename Associator<Handler, DefaultCandidate>::type get(
       const experimental::detail::parallel_group_completion_handler<
         Handler, Ops...>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_, c);
   }

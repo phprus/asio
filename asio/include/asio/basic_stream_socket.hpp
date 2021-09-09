@@ -259,7 +259,7 @@ public:
    * constructed using the @c basic_stream_socket(const executor_type&)
    * constructor.
    */
-  basic_stream_socket(basic_stream_socket&& other) ASIO_NOEXCEPT
+  basic_stream_socket(basic_stream_socket&& other) noexcept(true)
     : basic_socket<Protocol, Executor>(std::move(other))
   {
   }
@@ -1052,7 +1052,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }
@@ -1086,7 +1086,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }

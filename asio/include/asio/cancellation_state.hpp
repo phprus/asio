@@ -32,7 +32,7 @@ struct cancellation_filter
 {
   /// Returns <tt>type & Mask</tt>.
   cancellation_type_t operator()(
-      cancellation_type_t type) const ASIO_NOEXCEPT
+      cancellation_type_t type) const noexcept(true)
   {
     return type & Mask;
   }
@@ -80,7 +80,7 @@ class cancellation_state
 {
 public:
   /// Construct a disconnected cancellation state.
-  ASIO_CONSTEXPR cancellation_state() ASIO_NOEXCEPT
+  ASIO_CONSTEXPR cancellation_state() noexcept(true)
     : impl_(0)
   {
   }
@@ -165,20 +165,20 @@ public:
   /**
    * This sub-slot is used with the operations that are being composed.
    */
-  ASIO_CONSTEXPR cancellation_slot slot() const ASIO_NOEXCEPT
+  ASIO_CONSTEXPR cancellation_slot slot() const noexcept(true)
   {
     return impl_ ? impl_->signal_.slot() : cancellation_slot();
   }
 
   /// Returns the cancellation types that have been triggered.
-  cancellation_type_t cancelled() const ASIO_NOEXCEPT
+  cancellation_type_t cancelled() const noexcept(true)
   {
     return impl_ ? impl_->cancelled_ : cancellation_type_t();
   }
 
   /// Clears the specified cancellation types, if they have been triggered.
   void clear(cancellation_type_t mask = cancellation_type::all)
-    ASIO_NOEXCEPT
+    noexcept(true)
   {
     if (impl_)
       impl_->cancelled_ &= ~mask;

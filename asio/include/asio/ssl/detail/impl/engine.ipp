@@ -55,7 +55,7 @@ engine::engine(SSL_CTX* context)
   ::SSL_set_bio(ssl_, int_bio, int_bio);
 }
 
-engine::engine(engine&& other) ASIO_NOEXCEPT
+engine::engine(engine&& other) noexcept(true)
   : ssl_(other.ssl_),
     ext_bio_(other.ext_bio_)
 {
@@ -78,7 +78,7 @@ engine::~engine()
     ::SSL_free(ssl_);
 }
 
-engine& engine::operator=(engine&& other) ASIO_NOEXCEPT
+engine& engine::operator=(engine&& other) noexcept(true)
 {
   if (this != &other)
   {

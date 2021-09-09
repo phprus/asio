@@ -1019,7 +1019,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -1060,7 +1060,7 @@ struct associator<Associator,
   static typename Associator<ReadHandler, DefaultCandidate>::type get(
       const detail::read_until_delim_op_v1<AsyncReadStream,
         DynamicBuffer_v1, ReadHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -1319,7 +1319,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -1360,7 +1360,7 @@ struct associator<Associator,
   static typename Associator<ReadHandler, DefaultCandidate>::type get(
       const detail::read_until_delim_string_op_v1<AsyncReadStream,
         DynamicBuffer_v1, ReadHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -1627,7 +1627,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -1667,7 +1667,7 @@ struct associator<Associator,
   static typename Associator<ReadHandler, DefaultCandidate>::type get(
       const detail::read_until_expr_op_v1<AsyncReadStream,
         DynamicBuffer_v1, RegEx, ReadHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -1930,7 +1930,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -1972,7 +1972,7 @@ struct associator<Associator,
   static typename Associator<ReadHandler, DefaultCandidate>::type get(
       const detail::read_until_match_op_v1<AsyncReadStream,
         DynamicBuffer_v1, MatchCondition, ReadHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -2296,7 +2296,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -2336,7 +2336,7 @@ struct associator<Associator,
   static typename Associator<ReadHandler, DefaultCandidate>::type get(
       const detail::read_until_delim_op_v2<AsyncReadStream,
         DynamicBuffer_v2, ReadHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -2599,7 +2599,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -2640,7 +2640,7 @@ struct associator<Associator,
   static typename Associator<ReadHandler, DefaultCandidate>::type get(
       const detail::read_until_delim_string_op_v2<AsyncReadStream,
         DynamicBuffer_v2, ReadHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -2912,7 +2912,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -2953,7 +2953,7 @@ struct associator<Associator,
   static typename Associator<ReadHandler, DefaultCandidate>::type get(
       const detail::read_until_expr_op_v2<AsyncReadStream,
         DynamicBuffer_v2, RegEx, ReadHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -3219,7 +3219,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -3261,7 +3261,7 @@ struct associator<Associator,
   static typename Associator<ReadHandler, DefaultCandidate>::type get(
       const detail::read_until_match_op_v2<AsyncReadStream,
         DynamicBuffer_v2, MatchCondition, ReadHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c);
   }

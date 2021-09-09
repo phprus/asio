@@ -304,7 +304,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type get(
       const detail::coro_handler<Handler, T>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -355,14 +355,14 @@ namespace detail {
   {
     typedef typename associated_allocator<Handler>::type allocator_type;
 
-    allocator_type get_allocator() const ASIO_NOEXCEPT
+    allocator_type get_allocator() const noexcept(true)
     {
       return (get_associated_allocator)(data_->handler_);
     }
 
     typedef typename associated_executor<Handler>::type executor_type;
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return (get_associated_executor)(data_->handler_);
     }

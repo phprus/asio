@@ -34,7 +34,7 @@ class cancellation_handler_base
 {
 public:
   virtual void call(cancellation_type_t) = 0;
-  virtual std::pair<void*, std::size_t> destroy() ASIO_NOEXCEPT = 0;
+  virtual std::pair<void*, std::size_t> destroy() noexcept(true) = 0;
 
 protected:
   ~cancellation_handler_base() {}
@@ -57,14 +57,14 @@ public:
     handler_(type);
   }
 
-  std::pair<void*, std::size_t> destroy() ASIO_NOEXCEPT
+  std::pair<void*, std::size_t> destroy() noexcept(true)
   {
     std::pair<void*, std::size_t> mem(this, size_);
     this->cancellation_handler::~cancellation_handler();
     return mem;
   }
 
-  Handler& handler() ASIO_NOEXCEPT
+  Handler& handler() noexcept(true)
   {
     return handler_;
   }
@@ -115,7 +115,7 @@ public:
    * The signal object must remain valid for as long the slot may be used.
    * Destruction of the signal invalidates the slot.
    */
-  cancellation_slot slot() ASIO_NOEXCEPT;
+  cancellation_slot slot() noexcept(true);
 
 private:
   cancellation_signal(const cancellation_signal&) ASIO_DELETED;
@@ -206,27 +206,27 @@ public:
   }
 
   /// Returns whether the slot is connected to a signal.
-  ASIO_CONSTEXPR bool is_connected() const ASIO_NOEXCEPT
+  ASIO_CONSTEXPR bool is_connected() const noexcept(true)
   {
     return handler_ != 0;
   }
 
   /// Returns whether the slot is connected and has an installed handler.
-  ASIO_CONSTEXPR bool has_handler() const ASIO_NOEXCEPT
+  ASIO_CONSTEXPR bool has_handler() const noexcept(true)
   {
     return handler_ != 0 && *handler_ != 0;
   }
 
   /// Compare two slots for equality.
   friend ASIO_CONSTEXPR bool operator==(const cancellation_slot& lhs,
-      const cancellation_slot& rhs) ASIO_NOEXCEPT
+      const cancellation_slot& rhs) noexcept(true)
   {
     return lhs.handler_ == rhs.handler_;
   }
 
   /// Compare two slots for inequality.
   friend ASIO_CONSTEXPR bool operator!=(const cancellation_slot& lhs,
-      const cancellation_slot& rhs) ASIO_NOEXCEPT
+      const cancellation_slot& rhs) noexcept(true)
   {
     return lhs.handler_ != rhs.handler_;
   }
@@ -288,7 +288,7 @@ private:
   detail::cancellation_handler_base** handler_;
 };
 
-inline cancellation_slot cancellation_signal::slot() ASIO_NOEXCEPT
+inline cancellation_slot cancellation_signal::slot() noexcept(true)
 {
   return cancellation_slot(0, &handler_);
 }

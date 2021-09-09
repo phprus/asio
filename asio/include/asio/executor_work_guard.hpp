@@ -53,7 +53,7 @@ public:
   /**
    * Stores a copy of @c e and calls <tt>on_work_started()</tt> on it.
    */
-  explicit executor_work_guard(const executor_type& e) ASIO_NOEXCEPT
+  explicit executor_work_guard(const executor_type& e) noexcept(true)
     : executor_(e),
       owns_(true)
   {
@@ -61,7 +61,7 @@ public:
   }
 
   /// Copy constructor.
-  executor_work_guard(const executor_work_guard& other) ASIO_NOEXCEPT
+  executor_work_guard(const executor_work_guard& other) noexcept(true)
     : executor_(other.executor_),
       owns_(other.owns_)
   {
@@ -70,7 +70,7 @@ public:
   }
 
   /// Move constructor.
-  executor_work_guard(executor_work_guard&& other) ASIO_NOEXCEPT
+  executor_work_guard(executor_work_guard&& other) noexcept(true)
     : executor_(ASIO_MOVE_CAST(Executor)(other.executor_)),
       owns_(other.owns_)
   {
@@ -89,13 +89,13 @@ public:
   }
 
   /// Obtain the associated executor.
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return executor_;
   }
 
   /// Whether the executor_work_guard object owns some outstanding work.
-  bool owns_work() const ASIO_NOEXCEPT
+  bool owns_work() const noexcept(true)
   {
     return owns_;
   }
@@ -105,7 +105,7 @@ public:
    * Unless the object has already been reset, or is in a moved-from state,
    * calls <tt>on_work_finished()</tt> on the stored executor.
    */
-  void reset() ASIO_NOEXCEPT
+  void reset() noexcept(true)
   {
     if (owns_)
     {
@@ -136,7 +136,7 @@ class executor_work_guard<Executor,
 public:
   typedef Executor executor_type;
 
-  explicit executor_work_guard(const executor_type& e) ASIO_NOEXCEPT
+  explicit executor_work_guard(const executor_type& e) noexcept(true)
     : executor_(e),
       owns_(true)
   {
@@ -144,7 +144,7 @@ public:
           execution::outstanding_work.tracked));
   }
 
-  executor_work_guard(const executor_work_guard& other) ASIO_NOEXCEPT
+  executor_work_guard(const executor_work_guard& other) noexcept(true)
     : executor_(other.executor_),
       owns_(other.owns_)
   {
@@ -155,7 +155,7 @@ public:
     }
   }
 
-  executor_work_guard(executor_work_guard&& other) ASIO_NOEXCEPT
+  executor_work_guard(executor_work_guard&& other) noexcept(true)
     : executor_(ASIO_MOVE_CAST(Executor)(other.executor_)),
       owns_(other.owns_)
   {
@@ -175,17 +175,17 @@ public:
       static_cast<work_type*>(static_cast<void*>(&work_))->~work_type();
   }
 
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return executor_;
   }
 
-  bool owns_work() const ASIO_NOEXCEPT
+  bool owns_work() const noexcept(true)
   {
     return owns_;
   }
 
-  void reset() ASIO_NOEXCEPT
+  void reset() noexcept(true)
   {
     if (owns_)
     {

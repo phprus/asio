@@ -103,7 +103,7 @@ struct context_as_t
   static ASIO_CONSTEXPR
   typename context_t::query_static_constexpr_member<E>::result_type
   static_query()
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       context_t::query_static_constexpr_member<E>::is_noexcept))
   {
     return context_t::query_static_constexpr_member<E>::value();
@@ -126,10 +126,10 @@ struct context_as_t
       >::type* = 0)
 #if !defined(__clang__) // Clang crashes if noexcept is used here.
 #if defined(ASIO_MSVC) // Visual C++ wants the type to be qualified.
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&, const context_t&>::value))
 #else // defined(ASIO_MSVC)
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&, const context_t&>::value))
 #endif // defined(ASIO_MSVC)
 #endif // !defined(__clang__)

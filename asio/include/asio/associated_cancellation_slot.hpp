@@ -48,7 +48,7 @@ struct associated_cancellation_slot_impl
 
   typedef S type;
 
-  static type get(const T&, const S& s = S()) ASIO_NOEXCEPT
+  static type get(const T&, const S& s = S()) noexcept(true)
   {
     return s;
   }
@@ -60,7 +60,7 @@ struct associated_cancellation_slot_impl<T, S,
 {
   typedef typename T::cancellation_slot_type type;
 
-  static type get(const T& t, const S& = S()) ASIO_NOEXCEPT
+  static type get(const T& t, const S& = S()) noexcept(true)
   {
     return t.get_cancellation_slot();
   }
@@ -113,7 +113,7 @@ struct associated_cancellation_slot
   /// If @c T has a nested type @c cancellation_slot_type, returns
   /// <tt>t.get_cancellation_slot()</tt>. Otherwise returns @c s.
   static type get(const T& t,
-      const CancellationSlot& s = CancellationSlot()) ASIO_NOEXCEPT;
+      const CancellationSlot& s = CancellationSlot()) noexcept(true);
 #endif // defined(GENERATING_DOCUMENTATION)
 };
 
@@ -123,7 +123,7 @@ struct associated_cancellation_slot
  */
 template <typename T>
 inline typename associated_cancellation_slot<T>::type
-get_associated_cancellation_slot(const T& t) ASIO_NOEXCEPT
+get_associated_cancellation_slot(const T& t) noexcept(true)
 {
   return associated_cancellation_slot<T>::get(t);
 }
@@ -136,7 +136,7 @@ get_associated_cancellation_slot(const T& t) ASIO_NOEXCEPT
 template <typename T, typename CancellationSlot>
 inline typename associated_cancellation_slot<T, CancellationSlot>::type
 get_associated_cancellation_slot(const T& t,
-    const CancellationSlot& st) ASIO_NOEXCEPT
+    const CancellationSlot& st) noexcept(true)
 {
   return associated_cancellation_slot<T, CancellationSlot>::get(t, st);
 }

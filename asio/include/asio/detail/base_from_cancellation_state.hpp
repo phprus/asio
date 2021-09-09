@@ -31,12 +31,12 @@ class base_from_cancellation_state
 public:
   typedef cancellation_slot cancellation_slot_type;
 
-  cancellation_slot_type get_cancellation_slot() const ASIO_NOEXCEPT
+  cancellation_slot_type get_cancellation_slot() const noexcept(true)
   {
     return cancellation_state_.slot();
   }
 
-  cancellation_state get_cancellation_state() const ASIO_NOEXCEPT
+  cancellation_state get_cancellation_state() const noexcept(true)
   {
     return cancellation_state_;
   }
@@ -90,7 +90,7 @@ protected:
         ASIO_MOVE_CAST(OutFilter)(out_filter));
   }
 
-  cancellation_type_t cancelled() const ASIO_NOEXCEPT
+  cancellation_type_t cancelled() const noexcept(true)
   {
     return cancellation_state_.cancelled();
   }
@@ -111,7 +111,7 @@ class base_from_cancellation_state<Handler,
     >::type>
 {
 public:
-  cancellation_state get_cancellation_state() const ASIO_NOEXCEPT
+  cancellation_state get_cancellation_state() const noexcept(true)
   {
     return cancellation_state();
   }
@@ -149,7 +149,7 @@ protected:
   {
   }
 
-  ASIO_CONSTEXPR cancellation_type_t cancelled() const ASIO_NOEXCEPT
+  ASIO_CONSTEXPR cancellation_type_t cancelled() const noexcept(true)
   {
     return cancellation_type::none;
   }

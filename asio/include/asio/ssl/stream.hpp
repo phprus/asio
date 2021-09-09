@@ -146,7 +146,7 @@ public:
    *
    * @return A copy of the executor that stream will use to dispatch handlers.
    */
-  executor_type get_executor() ASIO_NOEXCEPT
+  executor_type get_executor() noexcept(true)
   {
     return next_layer_.lowest_layer().get_executor();
   }
@@ -796,7 +796,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }
@@ -828,7 +828,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }
@@ -864,7 +864,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }
@@ -895,7 +895,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }
@@ -927,7 +927,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }

@@ -143,7 +143,7 @@ struct impl
     typename call_traits<S>::result_type
   >::type
   operator()(ASIO_MOVE_ARG(S) s) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<S>::is_noexcept))
   {
     return ASIO_MOVE_CAST(S)(s);
@@ -155,7 +155,7 @@ struct impl
     typename call_traits<S>::result_type
   >::type
   operator()(S&& s) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<S>::is_noexcept))
   {
     return ASIO_MOVE_CAST(S)(s).schedule();
@@ -167,7 +167,7 @@ struct impl
     typename call_traits<S>::result_type
   >::type
   operator()(S&& s) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<S>::is_noexcept))
   {
     return schedule(ASIO_MOVE_CAST(S)(s));

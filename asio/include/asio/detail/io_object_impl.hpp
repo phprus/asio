@@ -100,7 +100,7 @@ public:
   }
 
   // Get the executor associated with the object.
-  const executor_type& get_executor() ASIO_NOEXCEPT
+  const executor_type& get_executor() noexcept(true)
   {
     return executor_;
   }

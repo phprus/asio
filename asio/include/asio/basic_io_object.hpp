@@ -99,7 +99,7 @@ public:
   typedef asio::io_context::executor_type executor_type;
 
   /// Get the executor associated with the object.
-  executor_type get_executor() ASIO_NOEXCEPT
+  executor_type get_executor() noexcept(true)
   {
     return service_.get_io_context().get_executor();
   }
@@ -210,7 +210,7 @@ public:
 
   typedef asio::io_context::executor_type executor_type;
 
-  executor_type get_executor() ASIO_NOEXCEPT
+  executor_type get_executor() noexcept(true)
   {
     return service_->get_io_context().get_executor();
   }

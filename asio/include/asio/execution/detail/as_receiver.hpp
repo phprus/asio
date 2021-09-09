@@ -46,18 +46,18 @@ struct as_receiver
 #endif // defined(ASIO_MSVC)
 
   void set_value()
-    ASIO_NOEXCEPT_IF(noexcept(declval<Function&>()()))
+    noexcept(noexcept(declval<Function&>()()))
   {
     f_();
   }
 
   template <typename E>
-  void set_error(E) ASIO_NOEXCEPT
+  void set_error(E) noexcept(true)
   {
     std::terminate();
   }
 
-  void set_done() ASIO_NOEXCEPT
+  void set_done() noexcept(true)
   {
   }
 };
@@ -83,12 +83,8 @@ struct set_value_member<
     asio::execution::detail::as_receiver<Function, T>, void()>
 {
   ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-#if defined(ASIO_HAS_NOEXCEPT)
   ASIO_STATIC_CONSTEXPR(bool,
       is_noexcept = noexcept(declval<Function&>()()));
-#else // defined(ASIO_HAS_NOEXCEPT)
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-#endif // defined(ASIO_HAS_NOEXCEPT)
   typedef void result_type;
 };
 

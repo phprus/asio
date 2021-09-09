@@ -493,7 +493,7 @@ public:
             is_convertible<InnerExecutor1, InnerExecutor>,
             false_type
           >::type::value
-        >::type = 0) ASIO_NOEXCEPT
+        >::type = 0) noexcept(true)
       : InnerExecutor(ex)
     {
     }
