@@ -826,34 +826,6 @@ struct static_query<T, execution::relationship_t::continuation_t,
 #endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-#if !defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT)
-
-template <typename T>
-struct static_require<T, execution::relationship_t::fork_t,
-  typename enable_if<
-    static_query<T, execution::relationship_t::fork_t>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid =
-    (is_same<typename static_query<T,
-      execution::relationship_t::fork_t>::result_type,
-        execution::relationship_t::fork_t>::value));
-};
-
-template <typename T>
-struct static_require<T, execution::relationship_t::continuation_t,
-  typename enable_if<
-    static_query<T, execution::relationship_t::continuation_t>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid =
-    (is_same<typename static_query<T,
-      execution::relationship_t::continuation_t>::result_type,
-        execution::relationship_t::continuation_t>::value));
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT)
-
 } // namespace traits
 
 #endif // defined(GENERATING_DOCUMENTATION)
