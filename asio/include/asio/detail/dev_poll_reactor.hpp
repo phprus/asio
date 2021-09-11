@@ -23,7 +23,7 @@
 #include <vector>
 #include <sys/devpoll.h>
 #include "asio/detail/hash_map.hpp"
-#include "asio/detail/limits.hpp"
+#include <limits>
 #include "asio/detail/mutex.hpp"
 #include "asio/detail/op_queue.hpp"
 #include "asio/detail/reactor_op.hpp"
