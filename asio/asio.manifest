@@ -4809,10 +4809,6 @@
 /include/asio/detail/fd_set_adapter.hpp
 /include/asio/detail/fenced_block.hpp
 /include/asio/detail/future.hpp
-/include/asio/detail/gcc_arm_fenced_block.hpp
-/include/asio/detail/gcc_hppa_fenced_block.hpp
-/include/asio/detail/gcc_sync_fenced_block.hpp
-/include/asio/detail/gcc_x86_fenced_block.hpp
 /include/asio/detail/global.hpp
 /include/asio/detail/handler_alloc_helpers.hpp
 /include/asio/detail/handler_cont_helpers.hpp
@@ -4880,7 +4876,6 @@
 /include/asio/detail/keyword_tss_ptr.hpp
 /include/asio/detail/kqueue_reactor.hpp
 /include/asio/detail/local_free_on_block_exit.hpp
-/include/asio/detail/macos_fenced_block.hpp
 /include/asio/detail/memory.hpp
 /include/asio/detail/mutex.hpp
 /include/asio/detail/non_const_lvalue.hpp
@@ -4952,7 +4947,6 @@
 /include/asio/detail/socket_option.hpp
 /include/asio/detail/socket_select_interrupter.hpp
 /include/asio/detail/socket_types.hpp
-/include/asio/detail/solaris_fenced_block.hpp
 /include/asio/detail/source_location.hpp
 /include/asio/detail/static_mutex.hpp
 /include/asio/detail/std_event.hpp
@@ -4984,7 +4978,6 @@
 /include/asio/detail/wince_thread.hpp
 /include/asio/detail/win_event.hpp
 /include/asio/detail/win_fd_set_adapter.hpp
-/include/asio/detail/win_fenced_block.hpp
 /include/asio/detail/win_global.hpp
 /include/asio/detail/win_iocp_handle_read_op.hpp
 /include/asio/detail/win_iocp_handle_service.hpp
