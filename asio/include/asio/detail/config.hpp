@@ -379,29 +379,10 @@
 #define ASIO_HAS_REF_QUALIFIED_FUNCTIONS 1
 
 // Support for the alignof operator.
-#if !defined(ASIO_HAS_ALIGNOF)
-# if !defined(ASIO_DISABLE_ALIGNOF)
-#  if (__cplusplus >= 201103)
-#   define ASIO_HAS_ALIGNOF 1
-#  endif // (__cplusplus >= 201103)
-# endif // !defined(ASIO_DISABLE_ALIGNOF)
-#endif // !defined(ASIO_HAS_ALIGNOF)
-
-#if defined(ASIO_HAS_ALIGNOF)
-# define ASIO_ALIGNOF(T) alignof(T)
-# if defined(__GNUC__)
-#  if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 9)) || (__GNUC__ > 4)
-#   define ASIO_DEFAULT_ALIGN alignof(std::max_align_t)
-#  else // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 9)) || (__GNUC__ > 4)
-#   define ASIO_DEFAULT_ALIGN alignof(max_align_t)
-#  endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 9)) || (__GNUC__ > 4)
-# else // defined(__GNUC__)
-#  define ASIO_DEFAULT_ALIGN alignof(std::max_align_t)
-# endif // defined(__GNUC__)
-#else // defined(ASIO_HAS_ALIGNOF)
-# define ASIO_ALIGNOF(T) 1
-# define ASIO_DEFAULT_ALIGN 1
-#endif // defined(ASIO_HAS_ALIGNOF)
+// C++11
+#define ASIO_HAS_ALIGNOF 1
+#define ASIO_ALIGNOF(T) alignof(T)
+#define ASIO_DEFAULT_ALIGN alignof(std::max_align_t)
 
 // Standard library support for aligned allocation.
 #if !defined(ASIO_HAS_STD_ALIGNED_ALLOC)

@@ -31,13 +31,6 @@ needs.
     [`ASIO_DISABLE_ALIGNED_NEW`]
   ]
   [
-    [`ASIO_HAS_ALIGNOF`]
-    [
-      Support for the alignof operator.
-    ]
-    [`ASIO_DISABLE_ALIGNOF`]
-  ]
-  [
     [`ASIO_HAS_BOOST_ALIGN`]
     [
       Boost align library.
