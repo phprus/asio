@@ -19,7 +19,7 @@
 #include <cstddef>
 #include <iterator>
 #include "asio/buffer.hpp"
-#include "asio/detail/assert.hpp"
+#include <cassert>
 #include "asio/detail/type_traits.hpp"
 
 #include "asio/detail/push_options.hpp"
@@ -353,7 +353,7 @@ private:
   // Increment the iterator.
   void increment()
   {
-    ASIO_ASSERT(current_ != end_ && "iterator out of bounds");
+    assert(current_ != end_ && "iterator out of bounds");
     ++position_;
 
     // Check if the increment can be satisfied by the current buffer.
@@ -376,7 +376,7 @@ private:
   // Decrement the iterator.
   void decrement()
   {
-    ASIO_ASSERT(position_ > 0 && "iterator out of bounds");
+    assert(position_ > 0 && "iterator out of bounds");
     --position_;
 
     // Check if the decrement can be satisfied by the current buffer.
@@ -408,7 +408,7 @@ private:
   {
     if (n > 0)
     {
-      ASIO_ASSERT(current_ != end_ && "iterator out of bounds");
+      assert(current_ != end_ && "iterator out of bounds");
       for (;;)
       {
         std::ptrdiff_t current_buffer_balance
@@ -430,7 +430,7 @@ private:
         // next iteration of this loop.
         if (++current_ == end_)
         {
-          ASIO_ASSERT(n == 0 && "iterator out of bounds");
+          assert(n == 0 && "iterator out of bounds");
           current_buffer_ = buffer_type();
           current_buffer_position_ = 0;
           return;
@@ -442,7 +442,7 @@ private:
     else if (n < 0)
     {
       std::size_t abs_n = -n;
-      ASIO_ASSERT(position_ >= abs_n && "iterator out of bounds");
+      assert(position_ >= abs_n && "iterator out of bounds");
       for (;;)
       {
         // Check if the advance can be satisfied by the current buffer.
@@ -460,7 +460,7 @@ private:
         // Check if we've reached the beginning of the buffers.
         if (current_ == begin_)
         {
-          ASIO_ASSERT(abs_n == 0 && "iterator out of bounds");
+          assert(abs_n == 0 && "iterator out of bounds");
           current_buffer_position_ = 0;
           return;
         }

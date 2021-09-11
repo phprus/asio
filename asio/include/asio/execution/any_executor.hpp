@@ -18,7 +18,7 @@
 #include "asio/detail/config.hpp"
 #include <new>
 #include <typeinfo>
-#include "asio/detail/assert.hpp"
+#include <cassert>
 #include "asio/detail/cstddef.hpp"
 #include "asio/detail/executor_function.hpp"
 #include "asio/detail/memory.hpp"

@@ -18,7 +18,7 @@
 #include "asio/detail/config.hpp"
 #include <list>
 #include <utility>
-#include "asio/detail/assert.hpp"
+#include <cassert>
 #include "asio/detail/noncopyable.hpp"
 
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
@@ -179,8 +179,8 @@ public:
   // Erase an entry from the map.
   void erase(iterator it)
   {
-    ASIO_ASSERT(it != values_.end());
-    ASIO_ASSERT(num_buckets_ != 0);
+    assert(it != values_.end());
+    assert(num_buckets_ != 0);
 
     size_t bucket = calculate_hash_value(it->first) % num_buckets_;
     bool is_first = (it == buckets_[bucket].first);
@@ -243,7 +243,7 @@ private:
   {
     if (num_buckets == num_buckets_)
       return;
-    ASIO_ASSERT(num_buckets != 0);
+    assert(num_buckets != 0);
 
     iterator end_iter = values_.end();
 

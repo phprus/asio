@@ -20,7 +20,7 @@
 #if defined(ASIO_HAS_DEV_POLL)
 
 #include "asio/detail/dev_poll_reactor.hpp"
-#include "asio/detail/assert.hpp"
+#include <cassert>
 #include "asio/detail/scheduler.hpp"
 #include "asio/detail/throw_error.hpp"
 #include "asio/error.hpp"
