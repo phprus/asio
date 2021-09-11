@@ -150,13 +150,6 @@ needs.
     [`ASIO_DISABLE_CSTDINT`]
   ]
   [
-    [`ASIO_HAS_CXX11_ALLOCATORS`]
-    [
-      Standard library support for the C++11 allocator additions.
-    ]
-    [`ASIO_DISABLE_CXX11_ALLOCATORS`]
-  ]
-  [
     [`ASIO_HAS_DEV_POLL`]
     [
       Solaris: /dev/poll.
@@ -297,20 +290,6 @@ needs.
     [`ASIO_DISABLE_SSIZE_T`]
   ]
   [
-    [`ASIO_HAS_STD_ADDRESSOF`]
-    [
-      Standard library support for addressof.
-    ]
-    [`ASIO_DISABLE_STD_ADDRESSOF`]
-  ]
-  [
-    [`ASIO_HAS_STD_ALLOCATOR_ARG`]
-    [
-      Standard library support for allocator_arg_t.
-    ]
-    [`ASIO_DISABLE_STD_ALLOCATOR_ARG`]
-  ]
-  [
     [`ASIO_HAS_STD_ANY`]
     [
       Standard library support for std::any.
@@ -418,13 +397,6 @@ needs.
       Standard library support for std::nested_exception.
     ]
     [`ASIO_DISABLE_STD_NESTED_EXCEPTION`]
-  ]
-  [
-    [`ASIO_HAS_STD_SHARED_PTR`]
-    [
-      Standard library support for shared_ptr and weak_ptr.
-    ]
-    [`ASIO_DISABLE_STD_SHARED_PTR`]
   ]
   [
     [`ASIO_HAS_STD_STRING_VIEW`]
