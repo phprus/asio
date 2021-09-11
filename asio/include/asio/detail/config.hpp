@@ -26,13 +26,11 @@
 
 // boostify: non-boost code ends here
 #if defined(ASIO_STANDALONE)
-# define ASIO_DISABLE_BOOST_ARRAY 1
 # define ASIO_DISABLE_BOOST_CHRONO 1
 # define ASIO_DISABLE_BOOST_DATE_TIME 1
 # define ASIO_DISABLE_BOOST_REGEX 1
 # define ASIO_DISABLE_BOOST_STATIC_CONSTANT 1
 # define ASIO_DISABLE_BOOST_THROW_EXCEPTION 1
-# define ASIO_DISABLE_BOOST_WORKAROUND 1
 #else // defined(ASIO_STANDALONE)
 # include <boost/config.hpp>
 # include <boost/version.hpp>
@@ -454,30 +452,8 @@
 #endif // !defined(ASIO_ERROR_CATEGORY_NOEXCEPT)
 
 // Standard library support for arrays.
-#if !defined(ASIO_HAS_STD_ARRAY)
-# if !defined(ASIO_DISABLE_STD_ARRAY)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_ARRAY 1
-#   elif (__cplusplus >= 201103)
-#    if __has_include(<array>)
-#     define ASIO_HAS_STD_ARRAY 1
-#    endif // __has_include(<array>)
-#   endif // (__cplusplus >= 201103)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 3)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_ARRAY 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 3)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1600)
-#    define ASIO_HAS_STD_ARRAY 1
-#   endif // (_MSC_VER >= 1600)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_ARRAY)
-#endif // !defined(ASIO_HAS_STD_ARRAY)
+// C++11
+#define ASIO_HAS_STD_ARRAY 1
 
 // Standard library support for shared_ptr and weak_ptr.
 // C++11
@@ -1219,13 +1195,6 @@
 # endif // !defined(ASIO_DISABLE_BOOST_STATIC_CONSTANT)
 #endif // !defined(ASIO_STATIC_CONSTANT)
 
-// Boost array library.
-#if !defined(ASIO_HAS_BOOST_ARRAY)
-# if !defined(ASIO_DISABLE_BOOST_ARRAY)
-#  define ASIO_HAS_BOOST_ARRAY 1
-# endif // !defined(ASIO_DISABLE_BOOST_ARRAY)
-#endif // !defined(ASIO_HAS_BOOST_ARRAY)
-
 // Boost throw_exception function.
 #if !defined(ASIO_HAS_BOOST_THROW_EXCEPTION)
 # if !defined(ASIO_DISABLE_BOOST_THROW_EXCEPTION)
@@ -1239,13 +1208,6 @@
 #  define ASIO_HAS_BOOST_REGEX 1
 # endif // !defined(ASIO_DISABLE_BOOST_REGEX)
 #endif // !defined(ASIO_HAS_BOOST_REGEX)
-
-// Boost's BOOST_WORKAROUND macro.
-#if !defined(ASIO_HAS_BOOST_WORKAROUND)
-# if !defined(ASIO_DISABLE_BOOST_WORKAROUND)
-#  define ASIO_HAS_BOOST_WORKAROUND 1
-# endif // !defined(ASIO_DISABLE_BOOST_WORKAROUND)
-#endif // !defined(ASIO_HAS_BOOST_WORKAROUND)
 
 // Microsoft Visual C++'s secure C runtime library.
 #if !defined(ASIO_HAS_SECURE_RTL)

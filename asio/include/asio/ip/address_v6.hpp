@@ -17,7 +17,7 @@
 
 #include "asio/detail/config.hpp"
 #include <string>
-#include "asio/detail/array.hpp"
+#include <array>
 #include "asio/detail/cstdint.hpp"
 #include "asio/detail/socket_types.hpp"
 #include "asio/detail/string_view.hpp"
@@ -58,11 +58,7 @@ public:
    * @note This type is defined in terms of the C++0x template @c std::array
    * when it is available. Otherwise, it uses @c boost:array.
    */
-#if defined(GENERATING_DOCUMENTATION)
-  typedef array<unsigned char, 16> bytes_type;
-#else
-  typedef asio::detail::array<unsigned char, 16> bytes_type;
-#endif
+  typedef std::array<unsigned char, 16> bytes_type;
 
   /// Default constructor.
   ASIO_DECL address_v6() noexcept(true);

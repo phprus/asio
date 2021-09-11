@@ -907,13 +907,13 @@ Now we create and connect the socket. The list of endpoints obtained above may c
 
 The connection is open. All we need to do now is read the response from the daytime service.
 
-We use a `boost::array` to hold the received data. The asio::buffer() function automatically determines the size of the array to help prevent buffer overruns. Instead of a `boost::array`, we could have used a `char []` or `std::vector`.
+We use a `std::array` to hold the received data. The asio::buffer() function automatically determines the size of the array to help prevent buffer overruns. Instead of a `std::array`, we could have used a `char []` or `std::vector`.
 
 
 
   ``''''''``    for (;;)
   ``''''''``    {
-  ``''''''``      boost::array<char, 128> buf;
+  ``''''''``      std::array<char, 128> buf;
   ``''''''``      asio::error_code error;
 
   ``''''''``      size_t len = socket.read_some(asio::buffer(buf), error);
@@ -993,7 +993,7 @@ Next: [link asio.tutorial.tutdaytime2 Daytime.2 - A synchronous TCP daytime serv
 
   ``''''''``    for (;;)
   ``''''''``    {
-  ``''''''``      boost::array<char, 128> buf;
+  ``''''''``      std::array<char, 128> buf;
   ``''''''``      asio::error_code error;
 
   ``''''''``      size_t len = socket.read_some(asio::buffer(buf), error);
@@ -1544,7 +1544,7 @@ Since UDP is datagram-oriented, we will not be using a stream socket. Create an 
   ``''''''``    udp::socket socket(io_context);
   ``''''''``    socket.open(udp::v4());
 
-  ``''''''``    boost::array<char, 1> send_buf  = {{ 0 }};
+  ``''''''``    std::array<char, 1> send_buf  = {{ 0 }};
   ``''''''``    socket.send_to(asio::buffer(send_buf), receiver_endpoint);
 
 
@@ -1553,7 +1553,7 @@ Now we need to be ready to accept whatever the server sends back to us. The endp
 
 
 
-  ``''''''``    boost::array<char, 128> recv_buf;
+  ``''''''``    std::array<char, 128> recv_buf;
   ``''''''``    udp::endpoint sender_endpoint;
   ``''''''``    size_t len = socket.receive_from(
   ``''''''``        asio::buffer(recv_buf), sender_endpoint);
@@ -1622,10 +1622,10 @@ Next: [link asio.tutorial.tutdaytime5 Daytime.5 - A synchronous UDP daytime serv
   ``''''''``    udp::socket socket(io_context);
   ``''''''``    socket.open(udp::v4());
 
-  ``''''''``    boost::array<char, 1> send_buf  = {{ 0 }};
+  ``''''''``    std::array<char, 1> send_buf  = {{ 0 }};
   ``''''''``    socket.send_to(asio::buffer(send_buf), receiver_endpoint);
 
-  ``''''''``    boost::array<char, 128> recv_buf;
+  ``''''''``    std::array<char, 128> recv_buf;
   ``''''''``    udp::endpoint sender_endpoint;
   ``''''''``    size_t len = socket.receive_from(
   ``''''''``        asio::buffer(recv_buf), sender_endpoint);
@@ -1673,7 +1673,7 @@ Wait for a client to initiate contact with us. The remote\_endpoint object will 
 
   ``''''''``    for (;;)
   ``''''''``    {
-  ``''''''``      boost::array<char, 1> recv_buf;
+  ``''''''``      std::array<char, 1> recv_buf;
   ``''''''``      udp::endpoint remote_endpoint;
   ``''''''``      socket.receive_from(asio::buffer(recv_buf), remote_endpoint);
 
@@ -1760,7 +1760,7 @@ Next: [link asio.tutorial.tutdaytime6 Daytime.6 - An asynchronous UDP daytime se
 
   ``''''''``    for (;;)
   ``''''''``    {
-  ``''''''``      boost::array<char, 1> recv_buf;
+  ``''''''``      std::array<char, 1> recv_buf;
   ``''''''``      udp::endpoint remote_endpoint;
   ``''''''``      socket.receive_from(asio::buffer(recv_buf), remote_endpoint);
 
@@ -1921,7 +1921,7 @@ The function `handle_send()` is invoked after the service request has been compl
 
   ``''''''``  udp::socket socket_;
   ``''''''``  udp::endpoint remote_endpoint_;
-  ``''''''``  boost::array<char, 1> recv_buffer_;
+  ``''''''``  std::array<char, 1> recv_buffer_;
   ``''''''``};
 
 
@@ -2010,7 +2010,7 @@ Next: [link asio.tutorial.tutdaytime7 Daytime.7 - A combined TCP/UDP asynchronou
 
   ``''''''``  udp::socket socket_;
   ``''''''``  udp::endpoint remote_endpoint_;
-  ``''''''``  boost::array<char, 1> recv_buffer_;
+  ``''''''``  std::array<char, 1> recv_buffer_;
   ``''''''``};
 
   ``''''''``int main()
@@ -2204,7 +2204,7 @@ Similarly, this next class is taken from the [link asio.tutorial.tutdaytime6 pre
 
   ``''''''``  udp::socket socket_;
   ``''''''``  udp::endpoint remote_endpoint_;
-  ``''''''``  boost::array<char, 1> recv_buffer_;
+  ``''''''``  std::array<char, 1> recv_buffer_;
   ``''''''``};
 
 
@@ -2361,7 +2361,7 @@ Previous: [link asio.tutorial.tutdaytime6 Daytime.6 - An asynchronous UDP daytim
 
   ``''''''``  udp::socket socket_;
   ``''''''``  udp::endpoint remote_endpoint_;
-  ``''''''``  boost::array<char, 1> recv_buffer_;
+  ``''''''``  std::array<char, 1> recv_buffer_;
   ``''''''``};
 
   ``''''''``int main()

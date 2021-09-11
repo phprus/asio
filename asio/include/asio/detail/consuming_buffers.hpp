@@ -34,20 +34,10 @@ struct prepared_buffers_max
 };
 
 template <typename Elem, std::size_t N>
-struct prepared_buffers_max<boost::array<Elem, N> >
-{
-  enum { value = N };
-};
-
-#if defined(ASIO_HAS_STD_ARRAY)
-
-template <typename Elem, std::size_t N>
 struct prepared_buffers_max<std::array<Elem, N> >
 {
   enum { value = N };
 };
-
-#endif // defined(ASIO_HAS_STD_ARRAY)
 
 // A buffer sequence used to represent a subsequence of the buffers.
 template <typename Buffer, std::size_t MaxBuffers>
@@ -270,58 +260,6 @@ public:
 #endif // !defined(ASIO_NO_DEPRECATED)
 
 template <typename Buffer, typename Elem>
-class consuming_buffers<Buffer, boost::array<Elem, 2>,
-    typename boost::array<Elem, 2>::const_iterator>
-{
-public:
-  // Construct to represent the entire list of buffers.
-  explicit consuming_buffers(const boost::array<Elem, 2>& buffers)
-    : buffers_(buffers),
-      total_consumed_(0)
-  {
-  }
-
-  // Determine if we are at the end of the buffers.
-  bool empty() const
-  {
-    return total_consumed_ >=
-      Buffer(buffers_[0]).size() + Buffer(buffers_[1]).size();
-  }
-
-  // Get the buffer for a single transfer, with a size.
-  boost::array<Buffer, 2> prepare(std::size_t max_size)
-  {
-    boost::array<Buffer, 2> result = {{
-      Buffer(buffers_[0]), Buffer(buffers_[1]) }};
-    std::size_t buffer0_size = result[0].size();
-    result[0] = asio::buffer(result[0] + total_consumed_, max_size);
-    result[1] = asio::buffer(
-        result[1] + (total_consumed_ < buffer0_size
-          ? 0 : total_consumed_ - buffer0_size),
-        max_size - result[0].size());
-    return result;
-  }
-
-  // Consume the specified number of bytes from the buffers.
-  void consume(std::size_t size)
-  {
-    total_consumed_ += size;
-  }
-
-  // Get the total number of bytes consumed from the buffers.
-  std::size_t total_consumed() const
-  {
-    return total_consumed_;
-  }
-
-private:
-  boost::array<Elem, 2> buffers_;
-  std::size_t total_consumed_;
-};
-
-#if defined(ASIO_HAS_STD_ARRAY)
-
-template <typename Buffer, typename Elem>
 class consuming_buffers<Buffer, std::array<Elem, 2>,
     typename std::array<Elem, 2>::const_iterator>
 {
@@ -370,8 +308,6 @@ private:
   std::array<Elem, 2> buffers_;
   std::size_t total_consumed_;
 };
-
-#endif // defined(ASIO_HAS_STD_ARRAY)
 
 // Specialisation for null_buffers to ensure that the null_buffers type is
 // always passed through to the underlying read or write operation.

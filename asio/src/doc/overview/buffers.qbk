@@ -43,7 +43,7 @@ an opaque representation of contiguous memory, where:
   can only create another buffer representing the same range of memory or a
   sub-range of it. To provide further safety, the library also includes
   mechanisms for automatically determining the size of a buffer from an array,
-  `boost::array` or `std::vector` of POD elements, or from a `std::string`.
+  `std::array` or `std::vector` of POD elements, or from a `std::string`.
 
 * The underlying memory is explicitly accessed using the `data()` member
   function. In general an application should never need to do this, but it is
@@ -54,7 +54,7 @@ Finally, multiple buffers can be passed to scatter-gather operations (such as
 [link asio.reference.read read()] or [link asio.reference.write write()]) by
 putting the buffer objects into a container. The `MutableBufferSequence` and
 `ConstBufferSequence` concepts have been defined so that containers such as
-`std::vector`, `std::list`, `std::array` or `boost::array` can be used.
+`std::vector`, `std::list`, `std::array` can be used.
 
 [heading Streambuf for Integration with Iostreams]
 

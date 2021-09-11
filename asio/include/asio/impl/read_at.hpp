@@ -19,7 +19,7 @@
 #include "asio/associator.hpp"
 #include "asio/buffer.hpp"
 #include "asio/completion_condition.hpp"
-#include "asio/detail/array_fwd.hpp"
+#include <array>
 #include "asio/detail/base_from_cancellation_state.hpp"
 #include "asio/detail/base_from_completion_cond.hpp"
 #include "asio/detail/bind_handler.hpp"
