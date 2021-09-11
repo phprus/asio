@@ -392,13 +392,6 @@ needs.
     [`ASIO_DISABLE_STD_SYSTEM_ERROR`]
   ]
   [
-    [`ASIO_HAS_STD_THREAD`]
-    [
-      Standard library support for the thread class.
-    ]
-    [`ASIO_DISABLE_STD_THREAD`]
-  ]
-  [
     [`ASIO_HAS_STRING_VIEW`]
     [
       Standard library has a string_view that we can use.
