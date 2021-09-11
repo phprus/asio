@@ -20,9 +20,7 @@
 #include "asio/ip/address.hpp"
 #include "asio/ip/detail/endpoint.hpp"
 
-#if defined(ASIO_HAS_STD_HASH)
-# include <functional>
-#endif // defined(ASIO_HAS_STD_HASH)
+#include <functional>
 
 #if !defined(ASIO_NO_IOSTREAM)
 # include <iosfwd>
@@ -261,7 +259,6 @@ std::basic_ostream<Elem, Traits>& operator<<(
 } // namespace ip
 } // namespace asio
 
-#if defined(ASIO_HAS_STD_HASH)
 namespace std {
 
 template <typename InternetProtocol>
@@ -278,7 +275,6 @@ struct hash<asio::ip::basic_endpoint<InternetProtocol> >
 };
 
 } // namespace std
-#endif // defined(ASIO_HAS_STD_HASH)
 
 #include "asio/detail/pop_options.hpp"
 
