@@ -336,13 +336,6 @@ needs.
     [`ASIO_DISABLE_STD_EXPERIMENTAL_STRING_VIEW`]
   ]
   [
-    [`ASIO_HAS_STD_FUTURE`]
-    [
-      Standard library support for futures.
-    ]
-    [`ASIO_DISABLE_STD_FUTURE`]
-  ]
-  [
     [`ASIO_HAS_STD_INVOKE_RESULT`]
     [
       Standard library has invoke_result (which supersedes result_of).
