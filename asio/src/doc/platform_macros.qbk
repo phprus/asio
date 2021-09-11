@@ -392,13 +392,6 @@ needs.
     [`ASIO_DISABLE_STD_EXPERIMENTAL_STRING_VIEW`]
   ]
   [
-    [`ASIO_HAS_STD_FUNCTION`]
-    [
-      Standard library support for the function class.
-    ]
-    [`ASIO_DISABLE_STD_FUNCTION`]
-  ]
-  [
     [`ASIO_HAS_STD_FUTURE`]
     [
       Standard library support for futures.
@@ -439,13 +432,6 @@ needs.
       Standard library support for std::nested_exception.
     ]
     [`ASIO_DISABLE_STD_NESTED_EXCEPTION`]
-  ]
-  [
-    [`ASIO_HAS_STD_REFERENCE_WRAPPER`]
-    [
-      Standard library support for the reference_wrapper class.
-    ]
-    [`ASIO_DISABLE_STD_REFERENCE_WRAPPER`]
   ]
   [
     [`ASIO_HAS_STD_SHARED_PTR`]
