@@ -46,26 +46,22 @@ _WIN32_WINNT=0x0601
 DEFINES = \
 	-DASIO_DISABLE_IOCP \
 	-D_WIN32_WINNT=$(_WIN32_WINNT) \
-	-DBOOST_ALL_NO_LIB \
-	-DBOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
+	-DBOOST_ALL_NO_LIB
 !else
 ! ifdef STORE
 DEFINES = \
 	-DWINAPI_FAMILY=WINAPI_FAMILY_PC_APP \
 	-DBOOST_ALL_NO_LIB -D_WIN32_WINNT=$(_WIN32_WINNT) \
-	-DUNICODE -D_UNICODE \
-	-DBOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
+	-DUNICODE -D_UNICODE
 ! else
 !  ifdef WINRT
 DEFINES = \
 	-ZW -FI SDKDDKVer.h -FI winapifamily.h -DWINAPI_FAMILY=WINAPI_PARTITION_APP \
-	-DBOOST_ALL_NO_LIB \
-	-DBOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
+	-DBOOST_ALL_NO_LIB
 !  else
 DEFINES = \
 	-D_WIN32_WINNT=$(_WIN32_WINNT) \
-	-DBOOST_ALL_NO_LIB \
-	-DBOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
+	-DBOOST_ALL_NO_LIB
 !  endif
 ! endif
 !endif
@@ -122,7 +118,6 @@ UNIT_TEST_EXES = \
 	tests\unit\async_result.exe \
 	tests\unit\awaitable.exe \
 	tests\unit\basic_datagram_socket.exe \
-	tests\unit\basic_deadline_timer.exe \
 	tests\unit\basic_raw_socket.exe \
 	tests\unit\basic_seq_packet_socket.exe \
 	tests\unit\basic_serial_port.exe \
@@ -147,7 +142,6 @@ UNIT_TEST_EXES = \
 	tests\unit\compose.exe \
 	tests\unit\connect.exe \
 	tests\unit\coroutine.exe \
-	tests\unit\deadline_timer.exe \
 	tests\unit\defer.exe \
 	tests\unit\detached.exe \
 	tests\unit\dispatch.exe \
@@ -236,7 +230,6 @@ UNIT_TEST_EXES = \
 	tests\unit\this_coro.exe \
 	tests\unit\thread.exe \
 	tests\unit\thread_pool.exe \
-	tests\unit\time_traits.exe \
 	tests\unit\ts\buffer.exe \
 	tests\unit\ts\executor.exe \
 	tests\unit\ts\internet.exe \
