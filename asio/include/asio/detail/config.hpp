@@ -21,6 +21,12 @@
 # endif // defined(_MSC_VER) && defined(_MSVC_LANG)
 #endif // !defined(ASIO_STANDALONE)
 
+#if !defined(ASIO_STANDALONE)
+#error This file requires compiler and library support \
+for the ISO C++ 2011 standard. This support must be enabled \
+with the -std=c++11 or -std=gnu++11 compiler options.
+#endif
+
 #if defined(ASIO_STANDALONE)
 # define ASIO_DISABLE_BOOST_REGEX 1
 #endif // defined(ASIO_STANDALONE)
