@@ -11,27 +11,18 @@
 #ifndef ASIO_DETAIL_CONFIG_HPP
 #define ASIO_DETAIL_CONFIG_HPP
 
-// boostify: non-boost code starts here
 #if !defined(ASIO_STANDALONE)
-# if !defined(ASIO_ENABLE_BOOST)
-#  if (__cplusplus >= 201103)
+# if (__cplusplus >= 201103)
+#  define ASIO_STANDALONE 1
+# elif defined(_MSC_VER) && defined(_MSVC_LANG)
+#  if (_MSC_VER >= 1900) && (_MSVC_LANG >= 201103)
 #   define ASIO_STANDALONE 1
-#  elif defined(_MSC_VER) && defined(_MSVC_LANG)
-#   if (_MSC_VER >= 1900) && (_MSVC_LANG >= 201103)
-#    define ASIO_STANDALONE 1
-#   endif // (_MSC_VER >= 1900) && (_MSVC_LANG >= 201103)
-#  endif // defined(_MSC_VER) && defined(_MSVC_LANG)
-# endif // !defined(ASIO_ENABLE_BOOST)
+#  endif // (_MSC_VER >= 1900) && (_MSVC_LANG >= 201103)
+# endif // defined(_MSC_VER) && defined(_MSVC_LANG)
 #endif // !defined(ASIO_STANDALONE)
 
-// boostify: non-boost code ends here
 #if defined(ASIO_STANDALONE)
 # define ASIO_DISABLE_BOOST_REGEX 1
-# define ASIO_DISABLE_BOOST_STATIC_CONSTANT 1
-#else // defined(ASIO_STANDALONE)
-# include <boost/config.hpp>
-# include <boost/version.hpp>
-# define ASIO_HAS_BOOST_CONFIG 1
 #endif // defined(ASIO_STANDALONE)
 
 // Default to a header-only implementation. The user must specifically request
@@ -72,12 +63,11 @@
 
 // Microsoft Visual C++ detection.
 #if !defined(ASIO_MSVC)
-# if defined(ASIO_HAS_BOOST_CONFIG) && defined(BOOST_MSVC)
-#  define ASIO_MSVC BOOST_MSVC
-# elif defined(_MSC_VER) && (defined(__INTELLISENSE__) \
+# if defined(_MSC_VER) && (defined(__INTELLISENSE__) \
       || (!defined(__MWERKS__) && !defined(__EDG_VERSION__)))
 #  define ASIO_MSVC _MSC_VER
-# endif // defined(ASIO_HAS_BOOST_CONFIG) && defined(BOOST_MSVC)
+# endif // defined(_MSC_VER) && (defined(__INTELLISENSE__)
+        //   || (!defined(__MWERKS__) && !defined(__EDG_VERSION__)))
 #endif // !defined(ASIO_MSVC)
 
 // Clang / libc++ detection.
@@ -593,13 +583,11 @@
 // Windows target. Excludes WinRT but includes Windows App targets.
 #if !defined(ASIO_WINDOWS)
 # if !defined(ASIO_WINDOWS_RUNTIME)
-#  if defined(ASIO_HAS_BOOST_CONFIG) && defined(BOOST_WINDOWS)
-#   define ASIO_WINDOWS 1
-#  elif defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
+#  if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
 #   define ASIO_WINDOWS 1
 #  elif defined(ASIO_WINDOWS_APP)
 #   define ASIO_WINDOWS 1
-#  endif // defined(ASIO_HAS_BOOST_CONFIG) && defined(BOOST_WINDOWS)
+#  endif // defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
 # endif // !defined(ASIO_WINDOWS_RUNTIME)
 #endif // !defined(ASIO_WINDOWS)
 
@@ -679,20 +667,18 @@
 // get access to the various platform feature macros, e.g. to be able to test
 // for threads support.
 #if !defined(ASIO_HAS_UNISTD_H)
-# if !defined(ASIO_HAS_BOOST_CONFIG)
-#  if defined(unix) \
-   || defined(__unix) \
-   || defined(_XOPEN_SOURCE) \
-   || defined(_POSIX_SOURCE) \
-   || (defined(__MACH__) && defined(__APPLE__)) \
-   || defined(__FreeBSD__) \
-   || defined(__NetBSD__) \
-   || defined(__OpenBSD__) \
-   || defined(__linux__) \
-   || defined(__HAIKU__)
-#   define ASIO_HAS_UNISTD_H 1
-#  endif
-# endif // !defined(ASIO_HAS_BOOST_CONFIG)
+# if defined(unix) \
+  || defined(__unix) \
+  || defined(_XOPEN_SOURCE) \
+  || defined(_POSIX_SOURCE) \
+  || (defined(__MACH__) && defined(__APPLE__)) \
+  || defined(__FreeBSD__) \
+  || defined(__NetBSD__) \
+  || defined(__OpenBSD__) \
+  || defined(__linux__) \
+  || defined(__HAIKU__)
+#  define ASIO_HAS_UNISTD_H 1
+# endif
 #endif // !defined(ASIO_HAS_UNISTD_H)
 #if defined(ASIO_HAS_UNISTD_H)
 # include <unistd.h>
@@ -871,32 +857,18 @@
 #endif // !defined(ASIO_HAS_GETADDRINFO)
 
 // Whether standard iostreams are disabled.
-#if !defined(ASIO_NO_IOSTREAM)
-# if defined(ASIO_HAS_BOOST_CONFIG) && defined(BOOST_NO_IOSTREAM)
-#  define ASIO_NO_IOSTREAM 1
-# endif // !defined(BOOST_NO_IOSTREAM)
-#endif // !defined(ASIO_NO_IOSTREAM)
+//#define ASIO_NO_IOSTREAM 1
 
 // Whether exception handling is disabled.
-#if !defined(ASIO_NO_EXCEPTIONS)
-# if defined(ASIO_HAS_BOOST_CONFIG) && defined(BOOST_NO_EXCEPTIONS)
-#  define ASIO_NO_EXCEPTIONS 1
-# endif // !defined(BOOST_NO_EXCEPTIONS)
-#endif // !defined(ASIO_NO_EXCEPTIONS)
+//#define ASIO_NO_EXCEPTIONS 1
 
 // Whether the typeid operator is supported.
-#if !defined(ASIO_NO_TYPEID)
-# if defined(ASIO_HAS_BOOST_CONFIG) && defined(BOOST_NO_TYPEID)
-#  define ASIO_NO_TYPEID 1
-# endif // !defined(BOOST_NO_TYPEID)
-#endif // !defined(ASIO_NO_TYPEID)
+//#define ASIO_NO_TYPEID 1
 
 // Threads.
 #if !defined(ASIO_HAS_THREADS)
 # if !defined(ASIO_DISABLE_THREADS)
-#  if defined(ASIO_HAS_BOOST_CONFIG) && defined(BOOST_HAS_THREADS)
-#   define ASIO_HAS_THREADS 1
-#  elif defined(__GNUC__) && !defined(__MINGW32__) \
+#  if defined(__GNUC__) && !defined(__MINGW32__) \
      && !defined(linux) && !defined(__linux) && !defined(__linux__)
 #   define ASIO_HAS_THREADS 1
 #  elif defined(_MT) || defined(__MT__)
@@ -911,20 +883,19 @@
 #   define ASIO_HAS_THREADS 1
 #  elif defined(_PTHREADS)
 #   define ASIO_HAS_THREADS 1
-#  endif // defined(ASIO_HAS_BOOST_CONFIG) && defined(BOOST_HAS_THREADS)
+#  endif // defined(__GNUC__) && !defined(__MINGW32__)
+         //   && !defined(linux) && !defined(__linux) && !defined(__linux__)
 # endif // !defined(ASIO_DISABLE_THREADS)
 #endif // !defined(ASIO_HAS_THREADS)
 
 // POSIX threads.
 #if !defined(ASIO_HAS_PTHREADS)
 # if defined(ASIO_HAS_THREADS)
-#  if defined(ASIO_HAS_BOOST_CONFIG) && defined(BOOST_HAS_PTHREADS)
-#   define ASIO_HAS_PTHREADS 1
-#  elif defined(_POSIX_THREADS) && (_POSIX_THREADS + 0 >= 0)
+#  if defined(_POSIX_THREADS) && (_POSIX_THREADS + 0 >= 0)
 #   define ASIO_HAS_PTHREADS 1
 #  elif defined(__HAIKU__)
 #   define ASIO_HAS_PTHREADS 1
-#  endif // defined(ASIO_HAS_BOOST_CONFIG) && defined(BOOST_HAS_PTHREADS)
+#  endif // defined(_POSIX_THREADS) && (_POSIX_THREADS + 0 >= 0)
 # endif // defined(ASIO_HAS_THREADS)
 #endif // !defined(ASIO_HAS_PTHREADS)
 
@@ -933,13 +904,8 @@
 
 // Helper to define in-class constants.
 #if !defined(ASIO_STATIC_CONSTANT)
-# if !defined(ASIO_DISABLE_BOOST_STATIC_CONSTANT)
-#  define ASIO_STATIC_CONSTANT(type, assignment) \
-    BOOST_STATIC_CONSTANT(type, assignment)
-# else // !defined(ASIO_DISABLE_BOOST_STATIC_CONSTANT)
-#  define ASIO_STATIC_CONSTANT(type, assignment) \
-    static const type assignment
-# endif // !defined(ASIO_DISABLE_BOOST_STATIC_CONSTANT)
+# define ASIO_STATIC_CONSTANT(type, assignment) \
+   static const type assignment
 #endif // !defined(ASIO_STATIC_CONSTANT)
 
 // Boost regex library.

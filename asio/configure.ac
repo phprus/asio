@@ -21,7 +21,6 @@ AC_ARG_WITH(boost,
       CPPFLAGS="$CPPFLAGS -I${withval}"
       LIBS="$LIBS -L${withval}/stage/lib"
     fi
-    CPPFLAGS="$CPPFLAGS -DASIO_ENABLE_BOOST"
   fi
 ],
 [

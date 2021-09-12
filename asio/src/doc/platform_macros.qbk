@@ -31,13 +31,6 @@ needs.
     [`ASIO_DISABLE_ALIGNED_NEW`]
   ]
   [
-    [`ASIO_HAS_BOOST_CONFIG`]
-    [
-      boostify: non-boost code ends here
-    ]
-    []
-  ]
-  [
     [`ASIO_HAS_BOOST_REGEX`]
     [
       Boost regex library.
