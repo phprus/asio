@@ -170,8 +170,8 @@ private:
   typename Protocol::endpoint* peer_endpoint_;
   unsigned char output_buffer_[(sizeof(sockaddr_storage_type) + 16) * 2];
   bool enable_connection_aborted_;
-  operation* proxy_op_;
   long* cancel_requested_;
+  operation* proxy_op_;
   Handler handler_;
   handler_work<Handler, IoExecutor> work_;
 };
