@@ -383,7 +383,6 @@ nobase_include_HEADERS = \
 	asio/impl/redirect_error.hpp \
 	asio/impl/serial_port_base.hpp \
 	asio/impl/serial_port_base.ipp \
-	asio/impl/spawn.hpp \
 	asio/impl/src.hpp \
 	asio/impl/system_context.hpp \
 	asio/impl/system_context.ipp \
@@ -469,7 +468,6 @@ nobase_include_HEADERS = \
 	asio/serial_port.hpp \
 	asio/signal_set.hpp \
 	asio/socket_base.hpp \
-	asio/spawn.hpp \
 	asio/ssl/context_base.hpp \
 	asio/ssl/context.hpp \
 	asio/ssl/detail/buffered_handshake_op.hpp \
