@@ -4706,7 +4706,7 @@ To asynchronously read data into a `std::string` until a matching character is f
 
    namespace asio {
      template <> struct is_match_condition<match_char>
-       : public boost::true_type {};
+       : public std::true_type {};
    } // namespace asio
    ...
    void handler(const std::error_code& e, std::size_t size);
@@ -5206,7 +5206,7 @@ To asynchronously read data into a streambuf until a matching character is found
 
    namespace asio {
      template <> struct is_match_condition<match_char>
-       : public boost::true_type {};
+       : public std::true_type {};
    } // namespace asio
    ...
    void handler(const std::error_code& e, std::size_t size);
@@ -5708,7 +5708,7 @@ To asynchronously read data into a `std::string` until a matching character is f
 
    namespace asio {
      template <> struct is_match_condition<match_char>
-       : public boost::true_type {};
+       : public std::true_type {};
    } // namespace asio
    ...
    void handler(const std::error_code& e, std::size_t size);
@@ -121639,7 +121639,7 @@ To read data into a `std::string` until a matching character is found:
 
    namespace asio {
      template <> struct is_match_condition<match_char>
-       : public boost::true_type {};
+       : public std::true_type {};
    } // namespace asio
    ...
    std::string data;
@@ -122307,7 +122307,7 @@ To read data into a streambuf until a matching character is found:
 
    namespace asio {
      template <> struct is_match_condition<match_char>
-       : public boost::true_type {};
+       : public std::true_type {};
    } // namespace asio
    ...
    asio::streambuf b;
@@ -122970,7 +122970,7 @@ To read data into a `std::string` until a matching character is found:
 
    namespace asio {
      template <> struct is_match_condition<match_char>
-       : public boost::true_type {};
+       : public std::true_type {};
    } // namespace asio
    ...
    std::string data;
@@ -134910,7 +134910,7 @@ A simple abstraction for starting threads.
   
 ]
 
-The [link asio.reference.thread `thread`] class implements the smallest possible subset of the functionality of boost::thread. It is intended to be used only for starting a thread and waiting for it to exit. If more extensive threading capabilities are required, you are strongly advised to use something else.
+The [link asio.reference.thread `thread`] class implements the smallest possible subset of the functionality of std::thread. It is intended to be used only for starting a thread and waiting for it to exit. If more extensive threading capabilities are required, you are strongly advised to use something else.
 
 
 [heading Thread Safety]

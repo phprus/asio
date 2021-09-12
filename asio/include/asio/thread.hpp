@@ -26,7 +26,7 @@ namespace asio {
 /// A simple abstraction for starting threads.
 /**
  * The asio::thread class implements the smallest possible subset of the
- * functionality of boost::thread. It is intended to be used only for starting
+ * functionality of std::thread. It is intended to be used only for starting
  * a thread and waiting for it to exit. If more extensive threading
  * capabilities are required, you are strongly advised to use something else.
  *
