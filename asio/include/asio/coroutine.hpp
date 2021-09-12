@@ -11,6 +11,8 @@
 #ifndef ASIO_COROUTINE_HPP
 #define ASIO_COROUTINE_HPP
 
+#include "asio/detail/config.hpp"
+
 namespace asio {
 namespace detail {
 
