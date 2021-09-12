@@ -143,13 +143,6 @@ needs.
     []
   ]
   [
-    [`ASIO_HAS_NULLPTR`]
-    [
-      Standard library support for the nullptr_t type.
-    ]
-    [`ASIO_DISABLE_NULLPTR`]
-  ]
-  [
     [`ASIO_HAS_POSIX_STREAM_DESCRIPTOR`]
     [
       POSIX: stream-oriented file descriptors.

@@ -20,7 +20,7 @@
 #include <new>
 #include <utility>
 #include "asio/cancellation_type.hpp"
-#include "asio/detail/cstddef.hpp"
+#include <cstddef>
 #include "asio/detail/thread_context.hpp"
 #include "asio/detail/thread_info_base.hpp"
 #include "asio/detail/type_traits.hpp"

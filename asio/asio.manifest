@@ -4790,7 +4790,6 @@
 /include/asio/detail/conditionally_enabled_mutex.hpp
 /include/asio/detail/config.hpp
 /include/asio/detail/consuming_buffers.hpp
-/include/asio/detail/cstddef.hpp
 /include/asio/detail/cstdint.hpp
 /include/asio/detail/deadline_timer_service.hpp
 /include/asio/detail/dependent_type.hpp

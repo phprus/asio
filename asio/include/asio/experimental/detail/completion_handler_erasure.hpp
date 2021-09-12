@@ -112,7 +112,7 @@ struct completion_handler_erasure<Return(Args...), Executor>
 
   constexpr completion_handler_erasure() = default;
 
-  constexpr completion_handler_erasure(nullptr_t)
+  constexpr completion_handler_erasure(std::nullptr_t)
     : completion_handler_erasure()
   {
   }
@@ -141,8 +141,8 @@ struct completion_handler_erasure<Return(Args...), Executor>
       f->call(std::move(args)...);
   }
 
-  constexpr bool operator==(nullptr_t) const noexcept {return impl_ == nullptr;}
-  constexpr bool operator!=(nullptr_t) const noexcept {return impl_ != nullptr;}
+  constexpr bool operator==(std::nullptr_t) const noexcept {return impl_ == nullptr;}
+  constexpr bool operator!=(std::nullptr_t) const noexcept {return impl_ != nullptr;}
   constexpr bool operator!() const noexcept {return impl_ == nullptr;}
 
 private:

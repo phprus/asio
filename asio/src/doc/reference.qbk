@@ -212,7 +212,7 @@ Construct in an empty state. Equivalent effects to default constructor.
 
 
   ``[link asio.reference.any_io_executor.any_io_executor.overload2 any_io_executor]``(
-      nullptr_t );
+      std::nullptr_t );
   ``  [''''&raquo;''' [link asio.reference.any_io_executor.any_io_executor.overload2 more...]]``
 
 
@@ -273,7 +273,7 @@ Construct in an empty state. Equivalent effects to default constructor.
 
 
   any_io_executor(
-      nullptr_t );
+      std::nullptr_t );
 
 
 
@@ -434,11 +434,11 @@ Inequality operator.
 
   bool ``[link asio.reference.any_io_executor.operator_not__eq_.overload2 operator!=]``(
       const any_executor< SupportableProperties...> & a,
-      nullptr_t );
+      std::nullptr_t );
   ``  [''''&raquo;''' [link asio.reference.any_io_executor.operator_not__eq_.overload2 more...]]``
 
   bool ``[link asio.reference.any_io_executor.operator_not__eq_.overload3 operator!=]``(
-      nullptr_t ,
+      std::nullptr_t ,
       const any_executor< SupportableProperties...> & b);
   ``  [''''&raquo;''' [link asio.reference.any_io_executor.operator_not__eq_.overload3 more...]]``
 
@@ -473,7 +473,7 @@ Inequality operator.
 
   bool operator!=(
       const any_executor< SupportableProperties...> & a,
-      nullptr_t );
+      std::nullptr_t );
 
 
 
@@ -491,7 +491,7 @@ Inequality operator.
 
 
   bool operator!=(
-      nullptr_t ,
+      std::nullptr_t ,
       const any_executor< SupportableProperties...> & b);
 
 
@@ -524,7 +524,7 @@ Assignment operator that sets the polymorphic wrapper to the empty state.
 
 
   any_io_executor & ``[link asio.reference.any_io_executor.operator_eq_.overload3 operator=]``(
-      nullptr_t );
+      std::nullptr_t );
   ``  [''''&raquo;''' [link asio.reference.any_io_executor.operator_eq_.overload3 more...]]``
 
 
@@ -565,7 +565,7 @@ Assignment operator that sets the polymorphic wrapper to the empty state.
 
 
   any_io_executor & operator=(
-      nullptr_t );
+      std::nullptr_t );
 
 
 
@@ -587,11 +587,11 @@ Equality operator.
 
   bool ``[link asio.reference.any_io_executor.operator_eq__eq_.overload2 operator==]``(
       const any_executor< SupportableProperties...> & a,
-      nullptr_t );
+      std::nullptr_t );
   ``  [''''&raquo;''' [link asio.reference.any_io_executor.operator_eq__eq_.overload2 more...]]``
 
   bool ``[link asio.reference.any_io_executor.operator_eq__eq_.overload3 operator==]``(
-      nullptr_t ,
+      std::nullptr_t ,
       const any_executor< SupportableProperties...> & b);
   ``  [''''&raquo;''' [link asio.reference.any_io_executor.operator_eq__eq_.overload3 more...]]``
 
@@ -626,7 +626,7 @@ Equality operator.
 
   bool operator==(
       const any_executor< SupportableProperties...> & a,
-      nullptr_t );
+      std::nullptr_t );
 
 
 
@@ -644,7 +644,7 @@ Equality operator.
 
 
   bool operator==(
-      nullptr_t ,
+      std::nullptr_t ,
       const any_executor< SupportableProperties...> & b);
 
 
@@ -68858,7 +68858,7 @@ Construct in an empty state. Equivalent effects to default constructor.
 
 
   ``[link asio.reference.execution__any_executor.any_executor.overload2 any_executor]``(
-      nullptr_t );
+      std::nullptr_t );
   ``  [''''&raquo;''' [link asio.reference.execution__any_executor.any_executor.overload2 more...]]``
 
 
@@ -68919,7 +68919,7 @@ Construct in an empty state. Equivalent effects to default constructor.
 
 
   any_executor(
-      nullptr_t );
+      std::nullptr_t );
 
 
 
@@ -69071,11 +69071,11 @@ Inequality operator.
 
   bool ``[link asio.reference.execution__any_executor.operator_not__eq_.overload2 operator!=]``(
       const any_executor< SupportableProperties...> & a,
-      nullptr_t );
+      std::nullptr_t );
   ``  [''''&raquo;''' [link asio.reference.execution__any_executor.operator_not__eq_.overload2 more...]]``
 
   bool ``[link asio.reference.execution__any_executor.operator_not__eq_.overload3 operator!=]``(
-      nullptr_t ,
+      std::nullptr_t ,
       const any_executor< SupportableProperties...> & b);
   ``  [''''&raquo;''' [link asio.reference.execution__any_executor.operator_not__eq_.overload3 more...]]``
 
@@ -69104,7 +69104,7 @@ Inequality operator.
 
   bool operator!=(
       const any_executor< SupportableProperties...> & a,
-      nullptr_t );
+      std::nullptr_t );
 
 
 
@@ -69119,7 +69119,7 @@ Inequality operator.
 
 
   bool operator!=(
-      nullptr_t ,
+      std::nullptr_t ,
       const any_executor< SupportableProperties...> & b);
 
 
@@ -69152,7 +69152,7 @@ Assignment operator that sets the polymorphic wrapper to the empty state.
 
 
   any_executor & ``[link asio.reference.execution__any_executor.operator_eq_.overload3 operator=]``(
-      nullptr_t );
+      std::nullptr_t );
   ``  [''''&raquo;''' [link asio.reference.execution__any_executor.operator_eq_.overload3 more...]]``
 
 
@@ -69203,7 +69203,7 @@ Assignment operator that sets the polymorphic wrapper to the empty state.
 
 
   any_executor & operator=(
-      nullptr_t );
+      std::nullptr_t );
 
 
 
@@ -69242,11 +69242,11 @@ Equality operator.
 
   bool ``[link asio.reference.execution__any_executor.operator_eq__eq_.overload2 operator==]``(
       const any_executor< SupportableProperties...> & a,
-      nullptr_t );
+      std::nullptr_t );
   ``  [''''&raquo;''' [link asio.reference.execution__any_executor.operator_eq__eq_.overload2 more...]]``
 
   bool ``[link asio.reference.execution__any_executor.operator_eq__eq_.overload3 operator==]``(
-      nullptr_t ,
+      std::nullptr_t ,
       const any_executor< SupportableProperties...> & b);
   ``  [''''&raquo;''' [link asio.reference.execution__any_executor.operator_eq__eq_.overload3 more...]]``
 
@@ -69275,7 +69275,7 @@ Equality operator.
 
   bool operator==(
       const any_executor< SupportableProperties...> & a,
-      nullptr_t );
+      std::nullptr_t );
 
 
 
@@ -69290,7 +69290,7 @@ Equality operator.
 
 
   bool operator==(
-      nullptr_t ,
+      std::nullptr_t ,
       const any_executor< SupportableProperties...> & b);
 
 
@@ -76795,7 +76795,7 @@ Polymorphic wrapper for executors.
      [hr]
      
      [hr]
-     Assignment operator for nullptr_t. 
+     Assignment operator for std::nullptr_t. 
      [hr]
      Assignment operator to create a polymorphic wrapper for the specified executor. ]
   ]
@@ -76955,7 +76955,7 @@ Construct from nullptr.
 
 
   ``[link asio.reference.executor.executor.overload2 executor]``(
-      nullptr_t );
+      std::nullptr_t );
   ``  [''''&raquo;''' [link asio.reference.executor.executor.overload2 more...]]``
 
 
@@ -77019,7 +77019,7 @@ Construct from nullptr.
 
 
   executor(
-      nullptr_t );
+      std::nullptr_t );
 
 
 
@@ -77180,7 +77180,7 @@ Assignment operator for nullptr\_t.
 
 
   executor & ``[link asio.reference.executor.operator_eq_.overload3 operator=]``(
-      nullptr_t );
+      std::nullptr_t );
   ``  [''''&raquo;''' [link asio.reference.executor.operator_eq_.overload3 more...]]``
 
 
@@ -77229,7 +77229,7 @@ Assignment operator for nullptr\_t.
 
 
   executor & operator=(
-      nullptr_t );
+      std::nullptr_t );
 
 
 
