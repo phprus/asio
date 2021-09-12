@@ -23,18 +23,18 @@
 namespace asio {
 namespace detail {
 
-ASIO_DECL void do_throw_error(const asio::error_code& err);
+ASIO_DECL void do_throw_error(const std::error_code& err);
 
-ASIO_DECL void do_throw_error(const asio::error_code& err,
+ASIO_DECL void do_throw_error(const std::error_code& err,
     const char* location);
 
-inline void throw_error(const asio::error_code& err)
+inline void throw_error(const std::error_code& err)
 {
   if (err)
     do_throw_error(err);
 }
 
-inline void throw_error(const asio::error_code& err,
+inline void throw_error(const std::error_code& err,
     const char* location)
 {
   if (err)

@@ -32,7 +32,7 @@ namespace bindns = std;
 typedef steady_timer timer;
 namespace chronons = asio::chrono;
 
-void increment_on_cancel(int* count, const asio::error_code& error)
+void increment_on_cancel(int* count, const std::error_code& error)
 {
   if (error == asio::error::operation_aborted)
     ++(*count);
@@ -71,7 +71,7 @@ struct incrementer_token
 namespace asio {
 
 template <>
-class async_result<incrementer_token, void(asio::error_code)>
+class async_result<incrementer_token, void(std::error_code)>
 {
 public:
   typedef void return_type;

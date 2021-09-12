@@ -92,7 +92,7 @@ address_v6::bytes_type address_v6::to_bytes() const noexcept(true)
 
 std::string address_v6::to_string() const
 {
-  asio::error_code ec;
+  std::error_code ec;
   char addr_str[asio::detail::max_addr_v6_str_len];
   const char* addr =
     asio::detail::socket_ops::inet_ntop(
@@ -104,7 +104,7 @@ std::string address_v6::to_string() const
 }
 
 #if !defined(ASIO_NO_DEPRECATED)
-std::string address_v6::to_string(asio::error_code& ec) const
+std::string address_v6::to_string(std::error_code& ec) const
 {
   char addr_str[asio::detail::max_addr_v6_str_len];
   const char* addr =
@@ -267,14 +267,14 @@ address_v6 address_v6::v4_compatible(const address_v4& addr)
 
 address_v6 make_address_v6(const char* str)
 {
-  asio::error_code ec;
+  std::error_code ec;
   address_v6 addr = make_address_v6(str, ec);
   asio::detail::throw_error(ec);
   return addr;
 }
 
 address_v6 make_address_v6(const char* str,
-    asio::error_code& ec) noexcept(true)
+    std::error_code& ec) noexcept(true)
 {
   address_v6::bytes_type bytes;
   unsigned long scope_id = 0;
@@ -290,7 +290,7 @@ address_v6 make_address_v6(const std::string& str)
 }
 
 address_v6 make_address_v6(const std::string& str,
-    asio::error_code& ec) noexcept(true)
+    std::error_code& ec) noexcept(true)
 {
   return make_address_v6(str.c_str(), ec);
 }
@@ -303,7 +303,7 @@ address_v6 make_address_v6(string_view str)
 }
 
 address_v6 make_address_v6(string_view str,
-    asio::error_code& ec) noexcept(true)
+    std::error_code& ec) noexcept(true)
 {
   return make_address_v6(static_cast<std::string>(str), ec);
 }

@@ -41,7 +41,7 @@ public:
   }
 
   engine::want operator()(engine& eng,
-      asio::error_code& ec,
+      std::error_code& ec,
       std::size_t& bytes_transferred) const
   {
     unsigned char storage[
@@ -57,7 +57,7 @@ public:
 
   template <typename Handler>
   void call_handler(Handler& handler,
-      const asio::error_code& ec,
+      const std::error_code& ec,
       const std::size_t& bytes_transferred) const
   {
     ASIO_MOVE_OR_LVALUE(Handler)(handler)(ec, bytes_transferred);

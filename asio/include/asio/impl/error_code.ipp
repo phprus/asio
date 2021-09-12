@@ -34,10 +34,10 @@
 namespace asio {
 namespace detail {
 
-class system_category : public error_category
+class system_category : public std::error_category
 {
 public:
-  const char* name() const ASIO_ERROR_CATEGORY_NOEXCEPT
+  const char* name() const noexcept(true)
   {
     return "asio.system";
   }
@@ -108,7 +108,7 @@ public:
 
 #if defined(ASIO_HAS_STD_ERROR_CODE)
   std::error_condition default_error_condition(
-      int ev) const ASIO_ERROR_CATEGORY_NOEXCEPT
+      int ev) const noexcept(true)
   {
     switch (ev)
     {
@@ -193,7 +193,7 @@ private:
 
 } // namespace detail
 
-const error_category& system_category()
+const std::error_category& system_category()
 {
   static detail::system_category instance;
   return instance;

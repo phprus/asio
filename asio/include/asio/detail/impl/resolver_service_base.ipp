@@ -33,7 +33,7 @@ public:
 
   void operator()()
   {
-    asio::error_code ec;
+    std::error_code ec;
     work_scheduler_.run(ec);
   }
 

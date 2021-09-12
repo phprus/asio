@@ -67,7 +67,7 @@ struct incrementer_token
 namespace asio {
 
 template <>
-class async_result<incrementer_token, void(asio::error_code)>
+class async_result<incrementer_token, void(std::error_code)>
 {
 public:
   typedef void return_type;

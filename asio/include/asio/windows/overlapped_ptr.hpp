@@ -124,7 +124,7 @@ public:
   }
 
   /// Post completion notification for overlapped operation. Releases ownership.
-  void complete(const asio::error_code& ec,
+  void complete(const std::error_code& ec,
       std::size_t bytes_transferred)
   {
     impl_.complete(ec, bytes_transferred);

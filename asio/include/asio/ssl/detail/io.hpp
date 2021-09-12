@@ -31,9 +31,9 @@ namespace detail {
 
 template <typename Stream, typename Operation>
 std::size_t io(Stream& next_layer, stream_core& core,
-    const Operation& op, asio::error_code& ec)
+    const Operation& op, std::error_code& ec)
 {
-  asio::error_code io_ec;
+  std::error_code io_ec;
   std::size_t bytes_transferred = 0;
   do switch (op(core.engine_, ec, bytes_transferred))
   {
@@ -140,7 +140,7 @@ public:
   {
   }
 
-  void operator()(asio::error_code ec,
+  void operator()(std::error_code ec,
       std::size_t bytes_transferred = ~std::size_t(0), int start = 0)
   {
     switch (start_ = start)
@@ -323,7 +323,7 @@ public:
   Operation op_;
   int start_;
   engine::want want_;
-  asio::error_code ec_;
+  std::error_code ec_;
   std::size_t bytes_transferred_;
   Handler handler_;
 };
@@ -394,7 +394,7 @@ inline void async_io(Stream& next_layer, stream_core& core,
 {
   io_op<Stream, Operation, Handler>(
     next_layer, core, op, handler)(
-      asio::error_code(), 0, 1);
+      std::error_code(), 0, 1);
 }
 
 } // namespace detail

@@ -112,7 +112,7 @@ public:
 
   // Resolve a query to a list of entries.
   results_type resolve(implementation_type&,
-      const query_type& query, asio::error_code& ec)
+      const query_type& query, std::error_code& ec)
   {
     try
     {
@@ -131,7 +131,7 @@ public:
     }
     catch (Platform::Exception^ e)
     {
-      ec = asio::error_code(e->HResult,
+      ec = std::error_code(e->HResult,
           asio::system_category());
       return results_type();
     }
@@ -165,7 +165,7 @@ public:
     }
     catch (Platform::Exception^ e)
     {
-      p.p->ec_ = asio::error_code(
+      p.p->ec_ = std::error_code(
           e->HResult, asio::system_category());
       scheduler_.post_immediate_completion(p.p, is_continuation);
       p.v = p.p = 0;
@@ -174,7 +174,7 @@ public:
 
   // Resolve an endpoint to a list of entries.
   results_type resolve(implementation_type&,
-      const endpoint_type&, asio::error_code& ec)
+      const endpoint_type&, std::error_code& ec)
   {
     ec = asio::error::operation_not_supported;
     return results_type();
@@ -185,7 +185,7 @@ public:
   void async_resolve(implementation_type&, const endpoint_type&,
       Handler& handler, const IoExecutor& io_ex)
   {
-    asio::error_code ec = asio::error::operation_not_supported;
+    std::error_code ec = asio::error::operation_not_supported;
     const results_type results;
     asio::post(io_ex, detail::bind_handler(handler, ec, results));
   }

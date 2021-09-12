@@ -400,54 +400,8 @@
 #endif // !defined(ASIO_HAS_STD_ALIGNED_ALLOC)
 
 // Standard library support for system errors.
-#if !defined(ASIO_HAS_STD_SYSTEM_ERROR)
-# if !defined(ASIO_DISABLE_STD_SYSTEM_ERROR)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_SYSTEM_ERROR 1
-#   elif (__cplusplus >= 201103)
-#    if __has_include(<system_error>)
-#     define ASIO_HAS_STD_SYSTEM_ERROR 1
-#    endif // __has_include(<system_error>)
-#   endif // (__cplusplus >= 201103)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_SYSTEM_ERROR 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1700)
-#    define ASIO_HAS_STD_SYSTEM_ERROR 1
-#   endif // (_MSC_VER >= 1700)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_SYSTEM_ERROR)
-#endif // !defined(ASIO_HAS_STD_SYSTEM_ERROR)
-
-// Compliant C++11 compilers put noexcept specifiers on error_category members.
-#if !defined(ASIO_ERROR_CATEGORY_NOEXCEPT)
-# if defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 105300)
-#  define ASIO_ERROR_CATEGORY_NOEXCEPT BOOST_NOEXCEPT
-# elif defined(__clang__)
-#  if __has_feature(__cxx_noexcept__)
-#   define ASIO_ERROR_CATEGORY_NOEXCEPT noexcept(true)
-#  endif // __has_feature(__cxx_noexcept__)
-# elif defined(__GNUC__)
-#  if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-#   if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_ERROR_CATEGORY_NOEXCEPT noexcept(true)
-#   endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#  endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-# elif defined(ASIO_MSVC)
-#  if (_MSC_VER >= 1900)
-#   define ASIO_ERROR_CATEGORY_NOEXCEPT noexcept(true)
-#  endif // (_MSC_VER >= 1900)
-# endif // defined(ASIO_MSVC)
-# if !defined(ASIO_ERROR_CATEGORY_NOEXCEPT)
-#  define ASIO_ERROR_CATEGORY_NOEXCEPT
-# endif // !defined(ASIO_ERROR_CATEGORY_NOEXCEPT)
-#endif // !defined(ASIO_ERROR_CATEGORY_NOEXCEPT)
+// C++11
+#define ASIO_HAS_STD_SYSTEM_ERROR 1
 
 // Standard library support for arrays.
 // C++11
@@ -1195,7 +1149,7 @@
 # define ASIO_SYNC_OP_VOID void
 # define ASIO_SYNC_OP_VOID_RETURN(e) return
 #else // defined(ASIO_NO_DEPRECATED)
-# define ASIO_SYNC_OP_VOID asio::error_code
+# define ASIO_SYNC_OP_VOID std::error_code
 # define ASIO_SYNC_OP_VOID_RETURN(e) return e
 #endif // defined(ASIO_NO_DEPRECATED)
 

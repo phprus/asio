@@ -74,7 +74,7 @@ public:
   }
 
   static void do_complete(void* owner, Operation* base,
-      const asio::error_code& /*ec*/,
+      const std::error_code& /*ec*/,
       std::size_t /*bytes_transferred*/)
   {
     blocking_executor_op* o(static_cast<blocking_executor_op*>(base));

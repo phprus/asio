@@ -25,7 +25,7 @@ namespace promise {
 void promise_tester()
 {
   using namespace asio;
-  using asio::error_code;
+  using std::error_code;
   using namespace std::chrono;
 
   io_context ctx;
@@ -65,7 +65,7 @@ void promise_tester()
 void promise_race_tester()
 {
   using namespace asio;
-  using asio::error_code;
+  using std::error_code;
   using namespace std::chrono;
 
   io_context ctx;
@@ -104,7 +104,7 @@ void promise_race_tester()
 void promise_all_tester()
 {
   using namespace asio;
-  using asio::error_code;
+  using std::error_code;
   using namespace std::chrono;
 
   io_context ctx;
@@ -143,7 +143,7 @@ void promise_all_tester()
 void promise_race_ranged_tester()
 {
   using namespace asio;
-  using asio::error_code;
+  using std::error_code;
   using namespace std::chrono;
 
   io_context ctx;
@@ -207,7 +207,7 @@ void promise_race_ranged_tester()
 void promise_all_ranged_tester()
 {
   using namespace asio;
-  using asio::error_code;
+  using std::error_code;
   using namespace std::chrono;
 
   io_context ctx;
@@ -270,7 +270,7 @@ void promise_all_ranged_tester()
 void promise_cancel_tester()
 {
   using namespace asio;
-  using asio::error_code;
+  using std::error_code;
   using namespace std::chrono;
 
   io_context ctx;

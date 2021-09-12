@@ -40,7 +40,7 @@ public:
 
   void operator()()
   {
-    asio::error_code ec;
+    std::error_code ec;
     this_->run(ec);
   }
 
@@ -184,9 +184,9 @@ void scheduler::init_task()
   }
 }
 
-std::size_t scheduler::run(asio::error_code& ec)
+std::size_t scheduler::run(std::error_code& ec)
 {
-  ec = asio::error_code();
+  ec = std::error_code();
   if (outstanding_work_ == 0)
   {
     stop();
@@ -206,9 +206,9 @@ std::size_t scheduler::run(asio::error_code& ec)
   return n;
 }
 
-std::size_t scheduler::run_one(asio::error_code& ec)
+std::size_t scheduler::run_one(std::error_code& ec)
 {
-  ec = asio::error_code();
+  ec = std::error_code();
   if (outstanding_work_ == 0)
   {
     stop();
@@ -224,9 +224,9 @@ std::size_t scheduler::run_one(asio::error_code& ec)
   return do_run_one(lock, this_thread, ec);
 }
 
-std::size_t scheduler::wait_one(long usec, asio::error_code& ec)
+std::size_t scheduler::wait_one(long usec, std::error_code& ec)
 {
-  ec = asio::error_code();
+  ec = std::error_code();
   if (outstanding_work_ == 0)
   {
     stop();
@@ -242,9 +242,9 @@ std::size_t scheduler::wait_one(long usec, asio::error_code& ec)
   return do_wait_one(lock, this_thread, usec, ec);
 }
 
-std::size_t scheduler::poll(asio::error_code& ec)
+std::size_t scheduler::poll(std::error_code& ec)
 {
-  ec = asio::error_code();
+  ec = std::error_code();
   if (outstanding_work_ == 0)
   {
     stop();
@@ -273,9 +273,9 @@ std::size_t scheduler::poll(asio::error_code& ec)
   return n;
 }
 
-std::size_t scheduler::poll_one(asio::error_code& ec)
+std::size_t scheduler::poll_one(std::error_code& ec)
 {
-  ec = asio::error_code();
+  ec = std::error_code();
   if (outstanding_work_ == 0)
   {
     stop();
@@ -440,7 +440,7 @@ void scheduler::abandon_operations(
 
 std::size_t scheduler::do_run_one(mutex::scoped_lock& lock,
     scheduler::thread_info& this_thread,
-    const asio::error_code& ec)
+    const std::error_code& ec)
 {
   while (!stopped_)
   {
@@ -500,7 +500,7 @@ std::size_t scheduler::do_run_one(mutex::scoped_lock& lock,
 
 std::size_t scheduler::do_wait_one(mutex::scoped_lock& lock,
     scheduler::thread_info& this_thread, long usec,
-    const asio::error_code& ec)
+    const std::error_code& ec)
 {
   if (stopped_)
     return 0;
@@ -571,7 +571,7 @@ std::size_t scheduler::do_wait_one(mutex::scoped_lock& lock,
 
 std::size_t scheduler::do_poll_one(mutex::scoped_lock& lock,
     scheduler::thread_info& this_thread,
-    const asio::error_code& ec)
+    const std::error_code& ec)
 {
   if (stopped_)
     return 0;

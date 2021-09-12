@@ -30,14 +30,14 @@ namespace asio {
 namespace detail {
 namespace descriptor_ops {
 
-int open(const char* path, int flags, asio::error_code& ec)
+int open(const char* path, int flags, std::error_code& ec)
 {
   int result = ::open(path, flags);
   get_last_error(ec, result < 0);
   return result;
 }
 
-int close(int d, state_type& state, asio::error_code& ec)
+int close(int d, state_type& state, std::error_code& ec)
 {
   int result = 0;
   if (d != -1)
@@ -74,7 +74,7 @@ int close(int d, state_type& state, asio::error_code& ec)
 }
 
 bool set_user_non_blocking(int d, state_type& state,
-    bool value, asio::error_code& ec)
+    bool value, std::error_code& ec)
 {
   if (d == -1)
   {
@@ -115,7 +115,7 @@ bool set_user_non_blocking(int d, state_type& state,
 }
 
 bool set_internal_non_blocking(int d, state_type& state,
-    bool value, asio::error_code& ec)
+    bool value, std::error_code& ec)
 {
   if (d == -1)
   {
@@ -160,7 +160,7 @@ bool set_internal_non_blocking(int d, state_type& state,
 }
 
 std::size_t sync_read(int d, state_type state, buf* bufs,
-    std::size_t count, bool all_empty, asio::error_code& ec)
+    std::size_t count, bool all_empty, std::error_code& ec)
 {
   if (d == -1)
   {
@@ -206,7 +206,7 @@ std::size_t sync_read(int d, state_type state, buf* bufs,
 }
 
 std::size_t sync_read1(int d, state_type state, void* data,
-    std::size_t size, asio::error_code& ec)
+    std::size_t size, std::error_code& ec)
 {
   if (d == -1)
   {
@@ -252,7 +252,7 @@ std::size_t sync_read1(int d, state_type state, void* data,
 }
 
 bool non_blocking_read(int d, buf* bufs, std::size_t count,
-    asio::error_code& ec, std::size_t& bytes_transferred)
+    std::error_code& ec, std::size_t& bytes_transferred)
 {
   for (;;)
   {
@@ -290,7 +290,7 @@ bool non_blocking_read(int d, buf* bufs, std::size_t count,
 }
 
 bool non_blocking_read1(int d, void* data, std::size_t size,
-    asio::error_code& ec, std::size_t& bytes_transferred)
+    std::error_code& ec, std::size_t& bytes_transferred)
 {
   for (;;)
   {
@@ -328,7 +328,7 @@ bool non_blocking_read1(int d, void* data, std::size_t size,
 }
 
 std::size_t sync_write(int d, state_type state, const buf* bufs,
-    std::size_t count, bool all_empty, asio::error_code& ec)
+    std::size_t count, bool all_empty, std::error_code& ec)
 {
   if (d == -1)
   {
@@ -367,7 +367,7 @@ std::size_t sync_write(int d, state_type state, const buf* bufs,
 }
 
 std::size_t sync_write1(int d, state_type state, const void* data,
-    std::size_t size, asio::error_code& ec)
+    std::size_t size, std::error_code& ec)
 {
   if (d == -1)
   {
@@ -406,7 +406,7 @@ std::size_t sync_write1(int d, state_type state, const void* data,
 }
 
 bool non_blocking_write(int d, const buf* bufs, std::size_t count,
-    asio::error_code& ec, std::size_t& bytes_transferred)
+    std::error_code& ec, std::size_t& bytes_transferred)
 {
   for (;;)
   {
@@ -437,7 +437,7 @@ bool non_blocking_write(int d, const buf* bufs, std::size_t count,
 }
 
 bool non_blocking_write1(int d, const void* data, std::size_t size,
-    asio::error_code& ec, std::size_t& bytes_transferred)
+    std::error_code& ec, std::size_t& bytes_transferred)
 {
   for (;;)
   {
@@ -468,7 +468,7 @@ bool non_blocking_write1(int d, const void* data, std::size_t size,
 }
 
 int ioctl(int d, state_type& state, long cmd,
-    ioctl_arg_type* arg, asio::error_code& ec)
+    ioctl_arg_type* arg, std::error_code& ec)
 {
   if (d == -1)
   {
@@ -506,7 +506,7 @@ int ioctl(int d, state_type& state, long cmd,
   return result;
 }
 
-int fcntl(int d, int cmd, asio::error_code& ec)
+int fcntl(int d, int cmd, std::error_code& ec)
 {
   if (d == -1)
   {
@@ -519,7 +519,7 @@ int fcntl(int d, int cmd, asio::error_code& ec)
   return result;
 }
 
-int fcntl(int d, int cmd, long arg, asio::error_code& ec)
+int fcntl(int d, int cmd, long arg, std::error_code& ec)
 {
   if (d == -1)
   {
@@ -532,7 +532,7 @@ int fcntl(int d, int cmd, long arg, asio::error_code& ec)
   return result;
 }
 
-int poll_read(int d, state_type state, asio::error_code& ec)
+int poll_read(int d, state_type state, std::error_code& ec)
 {
   if (d == -1)
   {
@@ -553,7 +553,7 @@ int poll_read(int d, state_type state, asio::error_code& ec)
   return result;
 }
 
-int poll_write(int d, state_type state, asio::error_code& ec)
+int poll_write(int d, state_type state, std::error_code& ec)
 {
   if (d == -1)
   {
@@ -574,7 +574,7 @@ int poll_write(int d, state_type state, asio::error_code& ec)
   return result;
 }
 
-int poll_error(int d, state_type state, asio::error_code& ec)
+int poll_error(int d, state_type state, std::error_code& ec)
 {
   if (d == -1)
   {

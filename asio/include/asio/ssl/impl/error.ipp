@@ -25,10 +25,10 @@ namespace asio {
 namespace error {
 namespace detail {
 
-class ssl_category : public asio::error_category
+class ssl_category : public std::error_category
 {
 public:
-  const char* name() const ASIO_ERROR_CATEGORY_NOEXCEPT
+  const char* name() const noexcept(true)
   {
     return "asio.ssl";
   }
@@ -42,7 +42,7 @@ public:
 
 } // namespace detail
 
-const asio::error_category& get_ssl_category()
+const std::error_category& get_ssl_category()
 {
   static detail::ssl_category instance;
   return instance;
@@ -54,7 +54,7 @@ namespace error {
 
 #if (OPENSSL_VERSION_NUMBER < 0x10100000L) && !defined(OPENSSL_IS_BORINGSSL)
 
-const asio::error_category& get_stream_category()
+const std::error_category& get_stream_category()
 {
   return asio::error::get_ssl_category();
 }
@@ -63,10 +63,10 @@ const asio::error_category& get_stream_category()
 
 namespace detail {
 
-class stream_category : public asio::error_category
+class stream_category : public std::error_category
 {
 public:
-  const char* name() const ASIO_ERROR_CATEGORY_NOEXCEPT
+  const char* name() const noexcept(true)
   {
     return "asio.ssl.stream";
   }
@@ -85,7 +85,7 @@ public:
 
 } // namespace detail
 
-const asio::error_category& get_stream_category()
+const std::error_category& get_stream_category()
 {
   static detail::stream_category instance;
   return instance;

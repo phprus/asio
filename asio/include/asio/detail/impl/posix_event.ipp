@@ -48,7 +48,7 @@ posix_event::posix_event()
 #endif // (defined(__MACH__) && defined(__APPLE__))
        // || (defined(__ANDROID__) && (__ANDROID_API__ < 21))
 
-  asio::error_code ec(error,
+  std::error_code ec(error,
       asio::error::get_system_category());
   asio::detail::throw_error(ec, "event");
 }

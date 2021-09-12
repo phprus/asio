@@ -81,7 +81,7 @@ public:
 
   template <typename E, typename... Args>
   ASIO_CONSTEXPR typename constraint<
-    !is_same<typename decay<E>::type, asio::error_code>::value
+    !is_same<typename decay<E>::type, std::error_code>::value
       && !is_same<typename decay<E>::type, std::exception_ptr>::value,
     cancellation_type_t
   >::type operator()(const E&, Args&&...) const noexcept(true)
@@ -91,7 +91,7 @@ public:
 
   template <typename E, typename... Args>
   ASIO_CONSTEXPR typename constraint<
-      is_same<typename decay<E>::type, asio::error_code>::value
+      is_same<typename decay<E>::type, std::error_code>::value
         || is_same<typename decay<E>::type, std::exception_ptr>::value,
       cancellation_type_t
   >::type operator()(const E& e, Args&&...) const noexcept(true)
@@ -125,7 +125,7 @@ public:
 
   template <typename E, typename... Args>
   ASIO_CONSTEXPR typename constraint<
-    !is_same<typename decay<E>::type, asio::error_code>::value
+    !is_same<typename decay<E>::type, std::error_code>::value
       && !is_same<typename decay<E>::type, std::exception_ptr>::value,
     cancellation_type_t
   >::type operator()(const E&, Args&&...) const noexcept(true)
@@ -135,7 +135,7 @@ public:
 
   template <typename E, typename... Args>
   ASIO_CONSTEXPR typename constraint<
-      is_same<typename decay<E>::type, asio::error_code>::value
+      is_same<typename decay<E>::type, std::error_code>::value
         || is_same<typename decay<E>::type, std::exception_ptr>::value,
       cancellation_type_t
   >::type operator()(const E& e, Args&&...) const noexcept(true)

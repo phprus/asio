@@ -19,19 +19,19 @@
 #include <sstream>
 #include "unit_test.hpp"
 
-void test_error_code(const asio::error_code& code)
+void test_error_code(const std::error_code& code)
 {
-  asio::error_code error(code);
+  std::error_code error(code);
   ASIO_CHECK(code == error);
 
   ASIO_CHECK(!code || error);
   ASIO_CHECK(!code || !!error);
 
-  asio::error_code error2(error);
+  std::error_code error2(error);
   ASIO_CHECK(error == error2);
   ASIO_CHECK(!(error != error2));
 
-  asio::error_code error3;
+  std::error_code error3;
   error3 = error;
   ASIO_CHECK(error == error3);
   ASIO_CHECK(!(error != error3));

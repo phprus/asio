@@ -150,14 +150,14 @@ struct handler_type_requirements
     handler_type, handler) \
   \
   typedef ASIO_HANDLER_TYPE(handler_type, \
-      void(asio::error_code, std::size_t)) \
+      void(std::error_code, std::size_t)) \
     asio_true_handler_type; \
   \
   ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT( \
       sizeof(asio::detail::two_arg_handler_test( \
           asio::detail::rvref< \
             asio_true_handler_type>(), \
-          static_cast<const asio::error_code*>(0), \
+          static_cast<const std::error_code*>(0), \
           static_cast<const std::size_t*>(0))) == 1, \
       "ReadHandler type requirements not met") \
   \
@@ -169,7 +169,7 @@ struct handler_type_requirements
       sizeof( \
         asio::detail::rorlvref< \
           asio_true_handler_type>()( \
-            asio::detail::lvref<const asio::error_code>(), \
+            asio::detail::lvref<const std::error_code>(), \
             asio::detail::lvref<const std::size_t>()), \
         char(0))> ASIO_UNUSED_TYPEDEF
 
@@ -177,14 +177,14 @@ struct handler_type_requirements
     handler_type, handler) \
   \
   typedef ASIO_HANDLER_TYPE(handler_type, \
-      void(asio::error_code, std::size_t)) \
+      void(std::error_code, std::size_t)) \
     asio_true_handler_type; \
   \
   ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT( \
       sizeof(asio::detail::two_arg_handler_test( \
           asio::detail::rvref< \
             asio_true_handler_type>(), \
-          static_cast<const asio::error_code*>(0), \
+          static_cast<const std::error_code*>(0), \
           static_cast<const std::size_t*>(0))) == 1, \
       "WriteHandler type requirements not met") \
   \
@@ -196,7 +196,7 @@ struct handler_type_requirements
       sizeof( \
         asio::detail::rorlvref< \
           asio_true_handler_type>()( \
-            asio::detail::lvref<const asio::error_code>(), \
+            asio::detail::lvref<const std::error_code>(), \
             asio::detail::lvref<const std::size_t>()), \
         char(0))> ASIO_UNUSED_TYPEDEF
 
@@ -204,14 +204,14 @@ struct handler_type_requirements
     handler_type, handler) \
   \
   typedef ASIO_HANDLER_TYPE(handler_type, \
-      void(asio::error_code)) \
+      void(std::error_code)) \
     asio_true_handler_type; \
   \
   ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT( \
       sizeof(asio::detail::one_arg_handler_test( \
           asio::detail::rvref< \
             asio_true_handler_type>(), \
-          static_cast<const asio::error_code*>(0))) == 1, \
+          static_cast<const std::error_code*>(0))) == 1, \
       "AcceptHandler type requirements not met") \
   \
   typedef asio::detail::handler_type_requirements< \
@@ -222,21 +222,21 @@ struct handler_type_requirements
       sizeof( \
         asio::detail::rorlvref< \
           asio_true_handler_type>()( \
-            asio::detail::lvref<const asio::error_code>()), \
+            asio::detail::lvref<const std::error_code>()), \
         char(0))> ASIO_UNUSED_TYPEDEF
 
 #define ASIO_MOVE_ACCEPT_HANDLER_CHECK( \
     handler_type, handler, socket_type) \
   \
   typedef ASIO_HANDLER_TYPE(handler_type, \
-      void(asio::error_code, socket_type)) \
+      void(std::error_code, socket_type)) \
     asio_true_handler_type; \
   \
   ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT( \
       sizeof(asio::detail::two_arg_move_handler_test( \
           asio::detail::rvref< \
             asio_true_handler_type>(), \
-          static_cast<const asio::error_code*>(0), \
+          static_cast<const std::error_code*>(0), \
           static_cast<socket_type*>(0))) == 1, \
       "MoveAcceptHandler type requirements not met") \
   \
@@ -248,7 +248,7 @@ struct handler_type_requirements
       sizeof( \
         asio::detail::rorlvref< \
           asio_true_handler_type>()( \
-            asio::detail::lvref<const asio::error_code>(), \
+            asio::detail::lvref<const std::error_code>(), \
             asio::detail::rvref<socket_type>()), \
         char(0))> ASIO_UNUSED_TYPEDEF
 
@@ -256,14 +256,14 @@ struct handler_type_requirements
     handler_type, handler) \
   \
   typedef ASIO_HANDLER_TYPE(handler_type, \
-      void(asio::error_code)) \
+      void(std::error_code)) \
     asio_true_handler_type; \
   \
   ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT( \
       sizeof(asio::detail::one_arg_handler_test( \
           asio::detail::rvref< \
             asio_true_handler_type>(), \
-          static_cast<const asio::error_code*>(0))) == 1, \
+          static_cast<const std::error_code*>(0))) == 1, \
       "ConnectHandler type requirements not met") \
   \
   typedef asio::detail::handler_type_requirements< \
@@ -274,21 +274,21 @@ struct handler_type_requirements
       sizeof( \
         asio::detail::rorlvref< \
           asio_true_handler_type>()( \
-            asio::detail::lvref<const asio::error_code>()), \
+            asio::detail::lvref<const std::error_code>()), \
         char(0))> ASIO_UNUSED_TYPEDEF
 
 #define ASIO_RANGE_CONNECT_HANDLER_CHECK( \
     handler_type, handler, endpoint_type) \
   \
   typedef ASIO_HANDLER_TYPE(handler_type, \
-      void(asio::error_code, endpoint_type)) \
+      void(std::error_code, endpoint_type)) \
     asio_true_handler_type; \
   \
   ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT( \
       sizeof(asio::detail::two_arg_handler_test( \
           asio::detail::rvref< \
             asio_true_handler_type>(), \
-          static_cast<const asio::error_code*>(0), \
+          static_cast<const std::error_code*>(0), \
           static_cast<const endpoint_type*>(0))) == 1, \
       "RangeConnectHandler type requirements not met") \
   \
@@ -300,7 +300,7 @@ struct handler_type_requirements
       sizeof( \
         asio::detail::rorlvref< \
           asio_true_handler_type>()( \
-            asio::detail::lvref<const asio::error_code>(), \
+            asio::detail::lvref<const std::error_code>(), \
             asio::detail::lvref<const endpoint_type>()), \
         char(0))> ASIO_UNUSED_TYPEDEF
 
@@ -308,14 +308,14 @@ struct handler_type_requirements
     handler_type, handler, iter_type) \
   \
   typedef ASIO_HANDLER_TYPE(handler_type, \
-      void(asio::error_code, iter_type)) \
+      void(std::error_code, iter_type)) \
     asio_true_handler_type; \
   \
   ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT( \
       sizeof(asio::detail::two_arg_handler_test( \
           asio::detail::rvref< \
             asio_true_handler_type>(), \
-          static_cast<const asio::error_code*>(0), \
+          static_cast<const std::error_code*>(0), \
           static_cast<const iter_type*>(0))) == 1, \
       "IteratorConnectHandler type requirements not met") \
   \
@@ -327,7 +327,7 @@ struct handler_type_requirements
       sizeof( \
         asio::detail::rorlvref< \
           asio_true_handler_type>()( \
-            asio::detail::lvref<const asio::error_code>(), \
+            asio::detail::lvref<const std::error_code>(), \
             asio::detail::lvref<const iter_type>()), \
         char(0))> ASIO_UNUSED_TYPEDEF
 
@@ -335,14 +335,14 @@ struct handler_type_requirements
     handler_type, handler, range_type) \
   \
   typedef ASIO_HANDLER_TYPE(handler_type, \
-      void(asio::error_code, range_type)) \
+      void(std::error_code, range_type)) \
     asio_true_handler_type; \
   \
   ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT( \
       sizeof(asio::detail::two_arg_handler_test( \
           asio::detail::rvref< \
             asio_true_handler_type>(), \
-          static_cast<const asio::error_code*>(0), \
+          static_cast<const std::error_code*>(0), \
           static_cast<const range_type*>(0))) == 1, \
       "ResolveHandler type requirements not met") \
   \
@@ -354,7 +354,7 @@ struct handler_type_requirements
       sizeof( \
         asio::detail::rorlvref< \
           asio_true_handler_type>()( \
-            asio::detail::lvref<const asio::error_code>(), \
+            asio::detail::lvref<const std::error_code>(), \
             asio::detail::lvref<const range_type>()), \
         char(0))> ASIO_UNUSED_TYPEDEF
 
@@ -362,14 +362,14 @@ struct handler_type_requirements
     handler_type, handler) \
   \
   typedef ASIO_HANDLER_TYPE(handler_type, \
-      void(asio::error_code)) \
+      void(std::error_code)) \
     asio_true_handler_type; \
   \
   ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT( \
       sizeof(asio::detail::one_arg_handler_test( \
           asio::detail::rvref< \
             asio_true_handler_type>(), \
-          static_cast<const asio::error_code*>(0))) == 1, \
+          static_cast<const std::error_code*>(0))) == 1, \
       "WaitHandler type requirements not met") \
   \
   typedef asio::detail::handler_type_requirements< \
@@ -380,21 +380,21 @@ struct handler_type_requirements
       sizeof( \
         asio::detail::rorlvref< \
           asio_true_handler_type>()( \
-            asio::detail::lvref<const asio::error_code>()), \
+            asio::detail::lvref<const std::error_code>()), \
         char(0))> ASIO_UNUSED_TYPEDEF
 
 #define ASIO_SIGNAL_HANDLER_CHECK( \
     handler_type, handler) \
   \
   typedef ASIO_HANDLER_TYPE(handler_type, \
-      void(asio::error_code, int)) \
+      void(std::error_code, int)) \
     asio_true_handler_type; \
   \
   ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT( \
       sizeof(asio::detail::two_arg_handler_test( \
           asio::detail::rvref< \
             asio_true_handler_type>(), \
-          static_cast<const asio::error_code*>(0), \
+          static_cast<const std::error_code*>(0), \
           static_cast<const int*>(0))) == 1, \
       "SignalHandler type requirements not met") \
   \
@@ -406,7 +406,7 @@ struct handler_type_requirements
       sizeof( \
         asio::detail::rorlvref< \
           asio_true_handler_type>()( \
-            asio::detail::lvref<const asio::error_code>(), \
+            asio::detail::lvref<const std::error_code>(), \
             asio::detail::lvref<const int>()), \
         char(0))> ASIO_UNUSED_TYPEDEF
 
@@ -414,14 +414,14 @@ struct handler_type_requirements
     handler_type, handler) \
   \
   typedef ASIO_HANDLER_TYPE(handler_type, \
-      void(asio::error_code)) \
+      void(std::error_code)) \
     asio_true_handler_type; \
   \
   ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT( \
       sizeof(asio::detail::one_arg_handler_test( \
           asio::detail::rvref< \
             asio_true_handler_type>(), \
-          static_cast<const asio::error_code*>(0))) == 1, \
+          static_cast<const std::error_code*>(0))) == 1, \
       "HandshakeHandler type requirements not met") \
   \
   typedef asio::detail::handler_type_requirements< \
@@ -432,21 +432,21 @@ struct handler_type_requirements
       sizeof( \
         asio::detail::rorlvref< \
           asio_true_handler_type>()( \
-            asio::detail::lvref<const asio::error_code>()), \
+            asio::detail::lvref<const std::error_code>()), \
         char(0))> ASIO_UNUSED_TYPEDEF
 
 #define ASIO_BUFFERED_HANDSHAKE_HANDLER_CHECK( \
     handler_type, handler) \
   \
   typedef ASIO_HANDLER_TYPE(handler_type, \
-      void(asio::error_code, std::size_t)) \
+      void(std::error_code, std::size_t)) \
     asio_true_handler_type; \
   \
   ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT( \
       sizeof(asio::detail::two_arg_handler_test( \
           asio::detail::rvref< \
             asio_true_handler_type>(), \
-          static_cast<const asio::error_code*>(0), \
+          static_cast<const std::error_code*>(0), \
           static_cast<const std::size_t*>(0))) == 1, \
       "BufferedHandshakeHandler type requirements not met") \
   \
@@ -458,7 +458,7 @@ struct handler_type_requirements
       sizeof( \
         asio::detail::rorlvref< \
           asio_true_handler_type>()( \
-          asio::detail::lvref<const asio::error_code>(), \
+          asio::detail::lvref<const std::error_code>(), \
           asio::detail::lvref<const std::size_t>()), \
         char(0))> ASIO_UNUSED_TYPEDEF
 
@@ -466,14 +466,14 @@ struct handler_type_requirements
     handler_type, handler) \
   \
   typedef ASIO_HANDLER_TYPE(handler_type, \
-      void(asio::error_code)) \
+      void(std::error_code)) \
     asio_true_handler_type; \
   \
   ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT( \
       sizeof(asio::detail::one_arg_handler_test( \
           asio::detail::rvref< \
             asio_true_handler_type>(), \
-          static_cast<const asio::error_code*>(0))) == 1, \
+          static_cast<const std::error_code*>(0))) == 1, \
       "ShutdownHandler type requirements not met") \
   \
   typedef asio::detail::handler_type_requirements< \
@@ -484,7 +484,7 @@ struct handler_type_requirements
       sizeof( \
         asio::detail::rorlvref< \
           asio_true_handler_type>()( \
-            asio::detail::lvref<const asio::error_code>()), \
+            asio::detail::lvref<const std::error_code>()), \
         char(0))> ASIO_UNUSED_TYPEDEF
 
 #else // !defined(ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS)

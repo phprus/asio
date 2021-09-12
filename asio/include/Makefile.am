@@ -506,7 +506,6 @@ nobase_include_HEADERS = \
 	asio/strand.hpp \
 	asio/streambuf.hpp \
 	asio/system_context.hpp \
-	asio/system_error.hpp \
 	asio/system_executor.hpp \
 	asio/system_timer.hpp \
 	asio/this_coro.hpp \

@@ -84,7 +84,7 @@ a lambda:
   asio::async_read(my_socket, my_buffer,
       asio::bind_cancellation_slot(
         my_cancellation_slot,
-        [](asio::error_code e, std::size_t n)
+        [](std::error_code e, std::size_t n)
         {
           ...
         }

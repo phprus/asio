@@ -42,7 +42,7 @@ std::size_t buffered_read_stream<Stream>::fill()
 }
 
 template <typename Stream>
-std::size_t buffered_read_stream<Stream>::fill(asio::error_code& ec)
+std::size_t buffered_read_stream<Stream>::fill(std::error_code& ec)
 {
   detail::buffer_resize_guard<detail::buffered_stream_storage>
     resize_guard(storage_);
@@ -84,7 +84,7 @@ namespace detail
     {
     }
 
-    void operator()(const asio::error_code& ec,
+    void operator()(const std::error_code& ec,
         const std::size_t bytes_transferred)
     {
       storage_.resize(previous_size_ + bytes_transferred);
@@ -218,15 +218,15 @@ struct associator<Associator,
 
 template <typename Stream>
 template <
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadHandler>
 ASIO_INITFN_AUTO_RESULT_TYPE(ReadHandler,
-    void (asio::error_code, std::size_t))
+    void (std::error_code, std::size_t))
 buffered_read_stream<Stream>::async_fill(
     ASIO_MOVE_ARG(ReadHandler) handler)
 {
   return async_initiate<ReadHandler,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_buffered_fill<Stream>(next_layer_),
       handler, &storage_);
 }
@@ -249,9 +249,9 @@ std::size_t buffered_read_stream<Stream>::read_some(
 template <typename Stream>
 template <typename MutableBufferSequence>
 std::size_t buffered_read_stream<Stream>::read_some(
-    const MutableBufferSequence& buffers, asio::error_code& ec)
+    const MutableBufferSequence& buffers, std::error_code& ec)
 {
-  ec = asio::error_code();
+  ec = std::error_code();
 
   using asio::buffer_size;
   if (buffer_size(buffers) == 0)
@@ -291,7 +291,7 @@ namespace detail
     {
     }
 
-    void operator()(const asio::error_code& ec, std::size_t)
+    void operator()(const std::error_code& ec, std::size_t)
     {
       if (ec || storage_.empty())
       {
@@ -452,16 +452,16 @@ struct associator<Associator,
 
 template <typename Stream>
 template <typename MutableBufferSequence,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadHandler>
 ASIO_INITFN_AUTO_RESULT_TYPE(ReadHandler,
-    void (asio::error_code, std::size_t))
+    void (std::error_code, std::size_t))
 buffered_read_stream<Stream>::async_read_some(
     const MutableBufferSequence& buffers,
     ASIO_MOVE_ARG(ReadHandler) handler)
 {
   return async_initiate<ReadHandler,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_buffered_read_some<Stream>(next_layer_),
       handler, &storage_, buffers);
 }
@@ -479,9 +479,9 @@ std::size_t buffered_read_stream<Stream>::peek(
 template <typename Stream>
 template <typename MutableBufferSequence>
 std::size_t buffered_read_stream<Stream>::peek(
-    const MutableBufferSequence& buffers, asio::error_code& ec)
+    const MutableBufferSequence& buffers, std::error_code& ec)
 {
-  ec = asio::error_code();
+  ec = std::error_code();
   if (storage_.empty() && !this->fill(ec))
     return 0;
   return this->peek_copy(buffers);

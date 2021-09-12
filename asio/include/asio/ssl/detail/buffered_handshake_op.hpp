@@ -43,7 +43,7 @@ public:
   }
 
   engine::want operator()(engine& eng,
-      asio::error_code& ec,
+      std::error_code& ec,
       std::size_t& bytes_transferred) const
   {
     return this->process(eng, ec, bytes_transferred,
@@ -53,7 +53,7 @@ public:
 
   template <typename Handler>
   void call_handler(Handler& handler,
-      const asio::error_code& ec,
+      const std::error_code& ec,
       const std::size_t& bytes_transferred) const
   {
     ASIO_MOVE_OR_LVALUE(Handler)(handler)(ec, bytes_transferred);
@@ -62,7 +62,7 @@ public:
 private:
   template <typename Iterator>
   engine::want process(engine& eng,
-      asio::error_code& ec,
+      std::error_code& ec,
       std::size_t& bytes_transferred,
       Iterator begin, Iterator end) const
   {

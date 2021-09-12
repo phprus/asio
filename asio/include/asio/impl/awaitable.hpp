@@ -28,7 +28,7 @@
 #include "asio/detail/type_traits.hpp"
 #include "asio/error.hpp"
 #include "asio/post.hpp"
-#include "asio/system_error.hpp"
+#include <system_error>
 #include "asio/this_coro.hpp"
 
 #include "asio/detail/push_options.hpp"
@@ -133,9 +133,9 @@ public:
     pending_exception_ = e;
   }
 
-  void set_error(const asio::error_code& ec)
+  void set_error(const std::error_code& ec)
   {
-    this->set_except(std::make_exception_ptr(asio::system_error(ec)));
+    this->set_except(std::make_exception_ptr(std::system_error(ec)));
   }
 
   void unhandled_exception()

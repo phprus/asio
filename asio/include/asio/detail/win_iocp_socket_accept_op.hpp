@@ -82,10 +82,10 @@ public:
   }
 
   static void do_complete(void* owner, operation* base,
-      const asio::error_code& result_ec,
+      const std::error_code& result_ec,
       std::size_t /*bytes_transferred*/)
   {
-    asio::error_code ec(result_ec);
+    std::error_code ec(result_ec);
 
     // Take ownership of the operation object.
     win_iocp_socket_accept_op* o(static_cast<win_iocp_socket_accept_op*>(base));
@@ -146,7 +146,7 @@ public:
     // with the handler. Consequently, a local copy of the handler is required
     // to ensure that any owning sub-object remains valid until after we have
     // deallocated the memory here.
-    detail::binder1<Handler, asio::error_code>
+    detail::binder1<Handler, std::error_code>
       handler(o->handler_, ec);
     p.h = asio::detail::addressof(handler.handler_);
     p.reset();
@@ -224,10 +224,10 @@ public:
   }
 
   static void do_complete(void* owner, operation* base,
-      const asio::error_code& result_ec,
+      const std::error_code& result_ec,
       std::size_t /*bytes_transferred*/)
   {
-    asio::error_code ec(result_ec);
+    std::error_code ec(result_ec);
 
     // Take ownership of the operation object.
     win_iocp_socket_move_accept_op* o(
@@ -290,7 +290,7 @@ public:
     // to ensure that any owning sub-object remains valid until after we have
     // deallocated the memory here.
     detail::move_binder2<Handler,
-      asio::error_code, peer_socket_type>
+      std::error_code, peer_socket_type>
         handler(0, ASIO_MOVE_CAST(Handler)(o->handler_), ec,
           ASIO_MOVE_CAST(peer_socket_type)(o->peer_));
     p.h = asio::detail::addressof(handler.handler_);

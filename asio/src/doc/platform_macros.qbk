@@ -290,13 +290,6 @@ needs.
     [`ASIO_DISABLE_STD_STRING_VIEW`]
   ]
   [
-    [`ASIO_HAS_STD_SYSTEM_ERROR`]
-    [
-      Standard library support for system errors.
-    ]
-    [`ASIO_DISABLE_STD_SYSTEM_ERROR`]
-  ]
-  [
     [`ASIO_HAS_STRING_VIEW`]
     [
       Standard library has a string_view that we can use.

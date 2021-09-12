@@ -98,9 +98,9 @@ public:
   ASIO_DECL void destroy(implementation_type& impl);
 
   // Assign a native descriptor to a descriptor implementation.
-  ASIO_DECL asio::error_code assign(implementation_type& impl,
+  ASIO_DECL std::error_code assign(implementation_type& impl,
       const native_handle_type& native_descriptor,
-      asio::error_code& ec);
+      std::error_code& ec);
 
   // Determine whether the descriptor is open.
   bool is_open(const implementation_type& impl) const
@@ -109,8 +109,8 @@ public:
   }
 
   // Destroy a descriptor implementation.
-  ASIO_DECL asio::error_code close(implementation_type& impl,
-      asio::error_code& ec);
+  ASIO_DECL std::error_code close(implementation_type& impl,
+      std::error_code& ec);
 
   // Get the native descriptor representation.
   native_handle_type native_handle(const implementation_type& impl) const
@@ -122,13 +122,13 @@ public:
   ASIO_DECL native_handle_type release(implementation_type& impl);
 
   // Cancel all operations associated with the descriptor.
-  ASIO_DECL asio::error_code cancel(implementation_type& impl,
-      asio::error_code& ec);
+  ASIO_DECL std::error_code cancel(implementation_type& impl,
+      std::error_code& ec);
 
   // Perform an IO control command on the descriptor.
   template <typename IO_Control_Command>
-  asio::error_code io_control(implementation_type& impl,
-      IO_Control_Command& command, asio::error_code& ec)
+  std::error_code io_control(implementation_type& impl,
+      IO_Control_Command& command, std::error_code& ec)
   {
     descriptor_ops::ioctl(impl.descriptor_, impl.state_,
         command.name(), static_cast<ioctl_arg_type*>(command.data()), ec);
@@ -142,8 +142,8 @@ public:
   }
 
   // Sets the non-blocking mode of the descriptor.
-  asio::error_code non_blocking(implementation_type& impl,
-      bool mode, asio::error_code& ec)
+  std::error_code non_blocking(implementation_type& impl,
+      bool mode, std::error_code& ec)
   {
     descriptor_ops::set_user_non_blocking(
         impl.descriptor_, impl.state_, mode, ec);
@@ -157,8 +157,8 @@ public:
   }
 
   // Sets the non-blocking mode of the native descriptor implementation.
-  asio::error_code native_non_blocking(implementation_type& impl,
-      bool mode, asio::error_code& ec)
+  std::error_code native_non_blocking(implementation_type& impl,
+      bool mode, std::error_code& ec)
   {
     descriptor_ops::set_internal_non_blocking(
         impl.descriptor_, impl.state_, mode, ec);
@@ -167,8 +167,8 @@ public:
 
   // Wait for the descriptor to become ready to read, ready to write, or to have
   // pending error conditions.
-  asio::error_code wait(implementation_type& impl,
-      posix::descriptor_base::wait_type w, asio::error_code& ec)
+  std::error_code wait(implementation_type& impl,
+      posix::descriptor_base::wait_type w, std::error_code& ec)
   {
     switch (w)
     {
@@ -245,7 +245,7 @@ public:
   // Write some data to the descriptor.
   template <typename ConstBufferSequence>
   size_t write_some(implementation_type& impl,
-      const ConstBufferSequence& buffers, asio::error_code& ec)
+      const ConstBufferSequence& buffers, std::error_code& ec)
   {
     typedef buffer_sequence_adapter<asio::const_buffer,
         ConstBufferSequence> bufs_type;
@@ -267,7 +267,7 @@ public:
 
   // Wait until data can be written without blocking.
   size_t write_some(implementation_type& impl,
-      const null_buffers&, asio::error_code& ec)
+      const null_buffers&, std::error_code& ec)
   {
     // Wait for descriptor to become ready.
     descriptor_ops::poll_write(impl.descriptor_, impl.state_, ec);
@@ -348,7 +348,7 @@ public:
   // Read some data from the stream. Returns the number of bytes read.
   template <typename MutableBufferSequence>
   size_t read_some(implementation_type& impl,
-      const MutableBufferSequence& buffers, asio::error_code& ec)
+      const MutableBufferSequence& buffers, std::error_code& ec)
   {
     typedef buffer_sequence_adapter<asio::mutable_buffer,
         MutableBufferSequence> bufs_type;
@@ -370,7 +370,7 @@ public:
 
   // Wait until data can be read without blocking.
   size_t read_some(implementation_type& impl,
-      const null_buffers&, asio::error_code& ec)
+      const null_buffers&, std::error_code& ec)
   {
     // Wait for descriptor to become ready.
     descriptor_ops::poll_read(impl.descriptor_, impl.state_, ec);
@@ -490,7 +490,7 @@ private:
   reactor& reactor_;
 
   // Cached success value to avoid accessing category singleton.
-  const asio::error_code success_ec_;
+  const std::error_code success_ec_;
 };
 
 } // namespace detail

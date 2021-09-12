@@ -42,7 +42,7 @@ public:
 
   win_iocp_null_buffers_op(socket_ops::weak_cancel_token_type cancel_token,
       Handler& handler, const IoExecutor& io_ex)
-    : reactor_op(asio::error_code(),
+    : reactor_op(std::error_code(),
         &win_iocp_null_buffers_op::do_perform,
         &win_iocp_null_buffers_op::do_complete),
       cancel_token_(cancel_token),
@@ -57,10 +57,10 @@ public:
   }
 
   static void do_complete(void* owner, operation* base,
-      const asio::error_code& result_ec,
+      const std::error_code& result_ec,
       std::size_t bytes_transferred)
   {
-    asio::error_code ec(result_ec);
+    std::error_code ec(result_ec);
 
     // Take ownership of the operation object.
     win_iocp_null_buffers_op* o(static_cast<win_iocp_null_buffers_op*>(base));
@@ -96,7 +96,7 @@ public:
     // with the handler. Consequently, a local copy of the handler is required
     // to ensure that any owning sub-object remains valid until after we have
     // deallocated the memory here.
-    detail::binder2<Handler, asio::error_code, std::size_t>
+    detail::binder2<Handler, std::error_code, std::size_t>
       handler(o->handler_, ec, bytes_transferred);
     p.h = asio::detail::addressof(handler.handler_);
     p.reset();

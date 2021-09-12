@@ -30,11 +30,11 @@
 
 namespace windows_stream_handle_compile {
 
-void write_some_handler(const asio::error_code&, std::size_t)
+void write_some_handler(const std::error_code&, std::size_t)
 {
 }
 
-void read_some_handler(const asio::error_code&, std::size_t)
+void read_some_handler(const std::error_code&, std::size_t)
 {
 }
 
@@ -51,7 +51,7 @@ void test()
     char mutable_char_buffer[128] = "";
     const char const_char_buffer[128] = "";
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
 
     // basic_stream_handle constructors.
 

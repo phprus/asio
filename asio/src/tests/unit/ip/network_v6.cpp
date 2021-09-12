@@ -36,7 +36,7 @@ void test()
 
   try
   {
-    asio::error_code ec;
+    std::error_code ec;
 
     // network_v6 constructors.
 
@@ -154,7 +154,7 @@ void test()
   ASIO_CHECK(make_network_v6("2001:370::10:7344/27").network() == make_address_v6("2001:360::"));
 
   // construct network from invalid string
-  asio::error_code ec;
+  std::error_code ec;
   make_network_v6("a:b/24", ec);
   ASIO_CHECK(!!ec);
   make_network_v6("2001:370::10:7344/129", ec);

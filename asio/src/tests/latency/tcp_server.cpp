@@ -32,7 +32,7 @@ public:
   {
   }
 
-  void operator()(asio::error_code ec, std::size_t n = 0)
+  void operator()(std::error_code ec, std::size_t n = 0)
   {
     reenter (this) for (;;)
     {
@@ -63,7 +63,7 @@ public:
     {
     }
 
-    void operator()(asio::error_code ec, std::size_t n = 0)
+    void operator()(std::error_code ec, std::size_t n = 0)
     {
       (*p_)(ec, n);
     }
@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
   {
     boost::shared_ptr<tcp_server> s(new tcp_server(acceptor, buf_size));
     servers.push_back(s);
-    (*s)(asio::error_code());
+    (*s)(std::error_code());
   }
 
   if (spin)
