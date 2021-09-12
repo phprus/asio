@@ -289,9 +289,9 @@ public:
 
 private:
   completion_handler_async_result(
-      const completion_handler_async_result&) ASIO_DELETED;
+      const completion_handler_async_result&) = delete;
   completion_handler_async_result& operator=(
-      const completion_handler_async_result&) ASIO_DELETED;
+      const completion_handler_async_result&) = delete;
 };
 
 } // namespace detail
@@ -346,8 +346,8 @@ public:
       ASIO_MOVE_ARG(Args)... args);
 
 private:
-  async_result(const async_result&) ASIO_DELETED;
-  async_result& operator=(const async_result&) ASIO_DELETED;
+  async_result(const async_result&) = delete;
+  async_result& operator=(const async_result&) = delete;
 };
 
 #else // defined(GENERATING_DOCUMENTATION)
@@ -376,8 +376,8 @@ public:
   using base_type::base_type;
 
 private:
-  async_result(const async_result&) ASIO_DELETED;
-  async_result& operator=(const async_result&) ASIO_DELETED;
+  async_result(const async_result&) = delete;
+  async_result& operator=(const async_result&) = delete;
 };
 
 template <ASIO_COMPLETION_SIGNATURES_TSPECPARAMS>

@@ -531,8 +531,8 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_signal_set(const basic_signal_set&) ASIO_DELETED;
-  basic_signal_set& operator=(const basic_signal_set&) ASIO_DELETED;
+  basic_signal_set(const basic_signal_set&) = delete;
+  basic_signal_set& operator=(const basic_signal_set&) = delete;
 
   class initiate_async_wait
   {

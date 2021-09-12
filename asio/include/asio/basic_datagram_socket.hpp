@@ -1153,9 +1153,9 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_datagram_socket(const basic_datagram_socket&) ASIO_DELETED;
+  basic_datagram_socket(const basic_datagram_socket&) = delete;
   basic_datagram_socket& operator=(
-      const basic_datagram_socket&) ASIO_DELETED;
+      const basic_datagram_socket&) = delete;
 
   class initiate_async_send
   { 

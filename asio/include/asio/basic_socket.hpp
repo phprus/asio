@@ -1825,8 +1825,8 @@ protected:
 
 private:
   // Disallow copying and assignment.
-  basic_socket(const basic_socket&) ASIO_DELETED;
-  basic_socket& operator=(const basic_socket&) ASIO_DELETED;
+  basic_socket(const basic_socket&) = delete;
+  basic_socket& operator=(const basic_socket&) = delete;
 
   class initiate_async_connect
   {

@@ -768,9 +768,9 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_waitable_timer(const basic_waitable_timer&) ASIO_DELETED;
+  basic_waitable_timer(const basic_waitable_timer&) = delete;
   basic_waitable_timer& operator=(
-      const basic_waitable_timer&) ASIO_DELETED;
+      const basic_waitable_timer&) = delete;
 
   class initiate_async_wait
   {
