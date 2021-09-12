@@ -51,7 +51,7 @@ enum cancellation_type
 /// Portability typedef.
 typedef cancellation_type cancellation_type_t;
 
-#elif defined(ASIO_HAS_ENUM_CLASS)
+#else
 
 enum class cancellation_type : unsigned int
 {
@@ -64,24 +64,7 @@ enum class cancellation_type : unsigned int
 
 typedef cancellation_type cancellation_type_t;
 
-#else // defined(ASIO_HAS_ENUM_CLASS)
-
-namespace cancellation_type {
-
-enum cancellation_type_t
-{
-  none = 0,
-  terminal = 1,
-  partial = 2,
-  total = 4,
-  all = 0xFFFFFFFF
-};
-
-} // namespace cancellation_type
-
-typedef cancellation_type::cancellation_type_t cancellation_type_t;
-
-#endif // defined(ASIO_HAS_ENUM_CLASS)
+#endif // defined(GENERATING_DOCUMENTATION)
 
 /// Negation operator.
 /**
