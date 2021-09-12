@@ -87,7 +87,7 @@ struct is_receiver :
 #if defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T, typename E ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT>
-ASIO_CONSTEXPR const bool is_receiver_v = is_receiver<T, E>::value;
+constexpr const bool is_receiver_v = is_receiver<T, E>::value;
 
 #endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
@@ -128,7 +128,7 @@ struct is_receiver_of :
 #if defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T, typename... Vs>
-ASIO_CONSTEXPR const bool is_receiver_of_v =
+constexpr const bool is_receiver_of_v =
   is_receiver_of<T, Vs...>::value;
 
 #endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
@@ -177,7 +177,7 @@ struct is_nothrow_receiver_of :
 #if defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T, typename... Vs>
-ASIO_CONSTEXPR const bool is_nothrow_receiver_of_v =
+constexpr const bool is_nothrow_receiver_of_v =
   is_nothrow_receiver_of<T, Vs...>::value;
 
 #endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)

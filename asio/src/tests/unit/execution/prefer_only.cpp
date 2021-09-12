@@ -80,7 +80,7 @@ struct equality_comparable<possibly_blocking_executor>
 
 struct never_blocking_executor
 {
-  static ASIO_CONSTEXPR execution::blocking_t::never_t
+  static constexpr execution::blocking_t::never_t
     query(execution::blocking_t) noexcept(true)
   {
     return execution::blocking_t::never_t();
@@ -145,7 +145,7 @@ struct query_static_constexpr_member<
 
   typedef execution::blocking_t::never_t result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return result_type();
   }

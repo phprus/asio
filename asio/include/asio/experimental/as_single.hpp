@@ -47,7 +47,7 @@ public:
    * token is itself defaulted as an argument to allow it to capture a source
    * location.
    */
-  ASIO_CONSTEXPR as_single_t(
+  constexpr as_single_t(
       default_constructor_tag = default_constructor_tag(),
       CompletionToken token = CompletionToken())
     : token_(ASIO_MOVE_CAST(CompletionToken)(token))
@@ -56,7 +56,7 @@ public:
 
   /// Constructor.
   template <typename T>
-  ASIO_CONSTEXPR explicit as_single_t(
+  constexpr explicit as_single_t(
       ASIO_MOVE_ARG(T) completion_token)
     : token_(ASIO_MOVE_CAST(T)(completion_token))
   {
@@ -114,7 +114,7 @@ public:
 /// Create a completion token to specify that the completion handler arguments
 /// should be combined into a single argument.
 template <typename CompletionToken>
-inline ASIO_CONSTEXPR as_single_t<typename decay<CompletionToken>::type>
+inline constexpr as_single_t<typename decay<CompletionToken>::type>
 as_single(ASIO_MOVE_ARG(CompletionToken) completion_token)
 {
   return as_single_t<typename decay<CompletionToken>::type>(

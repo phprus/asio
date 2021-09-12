@@ -149,7 +149,7 @@ protected:
   {
   }
 
-  ASIO_CONSTEXPR cancellation_type_t cancelled() const noexcept(true)
+  constexpr cancellation_type_t cancelled() const noexcept(true)
   {
     return cancellation_type::none;
   }

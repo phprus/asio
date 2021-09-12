@@ -180,17 +180,17 @@ struct relationship_t
   typedef detail::relationship::fork_t<I> fork_t;
   typedef detail::relationship::continuation_t<I> continuation_t;
 
-  ASIO_CONSTEXPR relationship_t()
+  constexpr relationship_t()
     : value_(-1)
   {
   }
 
-  ASIO_CONSTEXPR relationship_t(fork_t)
+  constexpr relationship_t(fork_t)
     : value_(0)
   {
   }
 
-  ASIO_CONSTEXPR relationship_t(continuation_t)
+  constexpr relationship_t(continuation_t)
     : value_(1)
   {
   }
@@ -256,7 +256,7 @@ struct relationship_t
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename query_static_constexpr_member<T>::result_type
   static_query()
     noexcept((
@@ -266,7 +266,7 @@ struct relationship_t
   }
 
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename traits::static_query<T, fork_t>::result_type
   static_query(
       typename enable_if<
@@ -283,7 +283,7 @@ struct relationship_t
   }
 
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename traits::static_query<T, continuation_t>::result_type
   static_query(
       typename enable_if<
@@ -304,18 +304,18 @@ struct relationship_t
 
   template <typename E,
       typename T = decltype(relationship_t::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = relationship_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const relationship_t& a, const relationship_t& b)
   {
     return a.value_ == b.value_;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const relationship_t& a, const relationship_t& b)
   {
     return a.value_ != b.value_;
@@ -323,13 +323,13 @@ struct relationship_t
 
   struct convertible_from_relationship_t
   {
-    ASIO_CONSTEXPR convertible_from_relationship_t(relationship_t)
+    constexpr convertible_from_relationship_t(relationship_t)
     {
     }
   };
 
   template <typename Executor>
-  friend ASIO_CONSTEXPR relationship_t query(
+  friend constexpr relationship_t query(
       const Executor& ex, convertible_from_relationship_t,
       typename enable_if<
         can_query<const Executor&, fork_t>::value
@@ -348,7 +348,7 @@ struct relationship_t
   }
 
   template <typename Executor>
-  friend ASIO_CONSTEXPR relationship_t query(
+  friend constexpr relationship_t query(
       const Executor& ex, convertible_from_relationship_t,
       typename enable_if<
         !can_query<const Executor&, fork_t>::value
@@ -373,10 +373,6 @@ struct relationship_t
   ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(fork_t, fork);
   ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(continuation_t, continuation);
 
-#if !defined(ASIO_HAS_CONSTEXPR)
-  static const relationship_t instance;
-#endif // !defined(ASIO_HAS_CONSTEXPR)
-
 private:
   int value_;
 };
@@ -387,11 +383,6 @@ template <int I> template <typename E, typename T>
 const T relationship_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
-
-#if !defined(ASIO_HAS_CONSTEXPR)
-template <int I>
-const relationship_t<I> relationship_t<I>::instance;
-#endif
 
 template <int I>
 const typename relationship_t<I>::fork_t
@@ -427,7 +418,7 @@ struct fork_t
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = true);
   typedef relationship_t<I> polymorphic_query_result_type;
 
-  ASIO_CONSTEXPR fork_t()
+  constexpr fork_t()
   {
   }
 
@@ -444,7 +435,7 @@ struct fork_t
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename query_static_constexpr_member<T>::result_type
   static_query()
     noexcept((
@@ -454,7 +445,7 @@ struct fork_t
   }
 
   template <typename T>
-  static ASIO_CONSTEXPR fork_t static_query(
+  static constexpr fork_t static_query(
       typename enable_if<
         !query_static_constexpr_member<T>::is_valid
       >::type* = 0,
@@ -472,23 +463,23 @@ struct fork_t
   }
 
   template <typename E, typename T = decltype(fork_t::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = fork_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-  static ASIO_CONSTEXPR relationship_t<I> value()
+  static constexpr relationship_t<I> value()
   {
     return fork_t();
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const fork_t&, const fork_t&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const fork_t&, const fork_t&)
   {
     return false;
@@ -526,7 +517,7 @@ struct continuation_t
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = true);
   typedef relationship_t<I> polymorphic_query_result_type;
 
-  ASIO_CONSTEXPR continuation_t()
+  constexpr continuation_t()
   {
   }
 
@@ -544,7 +535,7 @@ struct continuation_t
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename query_static_constexpr_member<T>::result_type
   static_query()
     noexcept((
@@ -555,23 +546,23 @@ struct continuation_t
 
   template <typename E,
       typename T = decltype(continuation_t::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = continuation_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-  static ASIO_CONSTEXPR relationship_t<I> value()
+  static constexpr relationship_t<I> value()
   {
     return continuation_t();
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const continuation_t&, const continuation_t&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const continuation_t&, const continuation_t&)
   {
     return false;
@@ -590,12 +581,7 @@ const T continuation_t<I>::static_query_v;
 
 typedef detail::relationship_t<> relationship_t;
 
-#if defined(ASIO_HAS_CONSTEXPR) || defined(GENERATING_DOCUMENTATION)
 constexpr relationship_t relationship;
-#else // defined(ASIO_HAS_CONSTEXPR) || defined(GENERATING_DOCUMENTATION)
-namespace { static const relationship_t&
-  relationship = relationship_t::instance; }
-#endif
 
 } // namespace execution
 
@@ -703,7 +689,7 @@ struct static_query<T, execution::relationship_t,
   typedef typename execution::detail::relationship_t<0>::
     query_static_constexpr_member<T>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return execution::detail::relationship_t<0>::
       query_static_constexpr_member<T>::value();
@@ -727,7 +713,7 @@ struct static_query<T, execution::relationship_t,
   typedef typename traits::static_query<T,
     execution::relationship_t::fork_t>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return traits::static_query<T,
         execution::relationship_t::fork_t>::value();
@@ -753,7 +739,7 @@ struct static_query<T, execution::relationship_t,
   typedef typename traits::static_query<T,
     execution::relationship_t::continuation_t>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return traits::static_query<T,
         execution::relationship_t::continuation_t>::value();
@@ -773,7 +759,7 @@ struct static_query<T, execution::relationship_t::fork_t,
   typedef typename execution::detail::relationship::fork_t<0>::
     query_static_constexpr_member<T>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return execution::detail::relationship::fork_t<0>::
       query_static_constexpr_member<T>::value();
@@ -797,7 +783,7 @@ struct static_query<T, execution::relationship_t::fork_t,
 
   typedef execution::relationship_t::fork_t result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return result_type();
   }
@@ -816,7 +802,7 @@ struct static_query<T, execution::relationship_t::continuation_t,
   typedef typename execution::detail::relationship::continuation_t<0>::
     query_static_constexpr_member<T>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return execution::detail::relationship::continuation_t<0>::
       query_static_constexpr_member<T>::value();

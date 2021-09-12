@@ -67,7 +67,7 @@ struct is_operation_state :
 #if defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T>
-ASIO_CONSTEXPR const bool is_operation_state_v =
+constexpr const bool is_operation_state_v =
   is_operation_state<T>::value;
 
 #endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)

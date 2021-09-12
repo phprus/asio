@@ -33,7 +33,7 @@ class append_t
 public:
   /// Constructor.
   template <typename T, typename... V>
-  ASIO_CONSTEXPR explicit append_t(
+  constexpr explicit append_t(
       ASIO_MOVE_ARG(T) completion_token,
       ASIO_MOVE_ARG(V)... values)
     : token_(ASIO_MOVE_CAST(T)(completion_token)),
@@ -50,7 +50,7 @@ public:
 /// arguments should be passed additional values after the results of the
 /// operation.
 template <typename CompletionToken, typename... Values>
-inline ASIO_CONSTEXPR append_t<
+inline constexpr append_t<
   typename decay<CompletionToken>::type, typename decay<Values>::type...>
 append(ASIO_MOVE_ARG(CompletionToken) completion_token,
     ASIO_MOVE_ARG(Values)... values)
