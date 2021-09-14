@@ -27,6 +27,7 @@
 #include "asio/multiple_exceptions.hpp"
 #include "asio/this_coro.hpp"
 #include "asio/use_awaitable.hpp"
+#include "asio/co_spawn.hpp"
 
 #include "asio/detail/push_options.hpp"
 
