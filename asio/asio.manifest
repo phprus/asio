@@ -5137,8 +5137,6 @@
 /include/asio/impl/write.hpp
 /include/asio/io_context.hpp
 /include/asio/io_context_strand.hpp
-/include/asio/io_service.hpp
-/include/asio/io_service_strand.hpp
 /include/asio/ip/
 /include/asio/ip/address.hpp
 /include/asio/ip/address_v4.hpp
@@ -5245,9 +5243,7 @@
 /include/asio/ssl/impl/context.ipp
 /include/asio/ssl/impl/error.ipp
 /include/asio/ssl/impl/host_name_verification.ipp
-/include/asio/ssl/impl/rfc2818_verification.ipp
 /include/asio/ssl/impl/src.hpp
-/include/asio/ssl/rfc2818_verification.hpp
 /include/asio/ssl/stream_base.hpp
 /include/asio/ssl/stream.hpp
 /include/asio/ssl/verify_context.hpp
@@ -5758,7 +5754,6 @@
 /src/tests/unit/ssl/context.cpp
 /src/tests/unit/ssl/error.cpp
 /src/tests/unit/ssl/host_name_verification.cpp
-/src/tests/unit/ssl/rfc2818_verification.cpp
 /src/tests/unit/ssl/stream_base.cpp
 /src/tests/unit/ssl/stream.cpp
 /src/tests/unit/static_thread_pool.cpp

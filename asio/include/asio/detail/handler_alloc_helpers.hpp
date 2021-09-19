@@ -30,7 +30,6 @@
 // asio_handler_alloc_helpers namespace is defined here for that purpose.
 namespace asio_handler_alloc_helpers {
 
-#if defined(ASIO_NO_DEPRECATED)
 template <typename Handler>
 inline void error_if_hooks_are_defined(Handler& h)
 {
@@ -48,7 +47,6 @@ inline void error_if_hooks_are_defined(Handler& h)
     asio_handler_deallocate(static_cast<void*>(0),
       static_cast<std::size_t>(0), asio::detail::addressof(h)));
 }
-#endif // defined(ASIO_NO_DEPRECATED)
 
 template <typename Handler>
 inline void* allocate(std::size_t s, Handler& h,
@@ -56,7 +54,7 @@ inline void* allocate(std::size_t s, Handler& h,
 {
 #if !defined(ASIO_HAS_HANDLER_HOOKS)
   return aligned_new(align, s);
-#elif defined(ASIO_NO_DEPRECATED)
+#else
   // The asio_handler_allocate hook is no longer used to obtain memory.
   (void)&error_if_hooks_are_defined<Handler>;
   (void)h;
@@ -67,10 +65,6 @@ inline void* allocate(std::size_t s, Handler& h,
 # else // !defined(ASIO_DISABLE_SMALL_BLOCK_RECYCLING)
   return aligned_new(align, s);
 # endif // !defined(ASIO_DISABLE_SMALL_BLOCK_RECYCLING)
-#else
-  (void)align;
-  using asio::asio_handler_allocate;
-  return asio_handler_allocate(s, asio::detail::addressof(h));
 #endif
 }
 
@@ -79,7 +73,7 @@ inline void deallocate(void* p, std::size_t s, Handler& h)
 {
 #if !defined(ASIO_HAS_HANDLER_HOOKS)
   aligned_delete(p);
-#elif defined(ASIO_NO_DEPRECATED)
+#else
   // The asio_handler_allocate hook is no longer used to obtain memory.
   (void)&error_if_hooks_are_defined<Handler>;
   (void)h;
@@ -90,9 +84,6 @@ inline void deallocate(void* p, std::size_t s, Handler& h)
   (void)s;
   aligned_delete(p);
 #endif // !defined(ASIO_DISABLE_SMALL_BLOCK_RECYCLING)
-#else
-  using asio::asio_handler_deallocate;
-  asio_handler_deallocate(p, s, asio::detail::addressof(h));
 #endif
 }
 

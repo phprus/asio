@@ -395,8 +395,6 @@ nobase_include_HEADERS = \
 	asio/impl/write.hpp \
 	asio/io_context.hpp \
 	asio/io_context_strand.hpp \
-	asio/io_service.hpp \
-	asio/io_service_strand.hpp \
 	asio/ip/address.hpp \
 	asio/ip/address_v4.hpp \
 	asio/ip/address_v4_iterator.hpp \
@@ -491,9 +489,7 @@ nobase_include_HEADERS = \
 	asio/ssl/impl/context.ipp \
 	asio/ssl/impl/error.ipp \
 	asio/ssl/impl/host_name_verification.ipp \
-	asio/ssl/impl/rfc2818_verification.ipp \
 	asio/ssl/impl/src.hpp \
-	asio/ssl/rfc2818_verification.hpp \
 	asio/ssl/stream_base.hpp \
 	asio/ssl/stream.hpp \
 	asio/ssl/verify_context.hpp \

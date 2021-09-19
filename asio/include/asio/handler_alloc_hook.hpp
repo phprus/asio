@@ -22,8 +22,6 @@
 
 namespace asio {
 
-#if defined(ASIO_NO_DEPRECATED)
-
 // Places in asio that would have previously called the allocate or deallocate
 // hooks to manage memory, now call them only to check whether the result types
 // are these types. If the result is not the correct type, it indicates that
@@ -36,13 +34,6 @@ typedef asio_handler_allocate_is_no_longer_used
   asio_handler_allocate_is_deprecated;
 typedef asio_handler_deallocate_is_no_longer_used
   asio_handler_deallocate_is_deprecated;
-
-#else // defined(ASIO_NO_DEPRECATED)
-
-typedef void* asio_handler_allocate_is_deprecated;
-typedef void asio_handler_deallocate_is_deprecated;
-
-#endif // defined(ASIO_NO_DEPRECATED)
 
 /// (Deprecated: Use the associated_allocator trait.) Default allocation
 /// function for handlers.

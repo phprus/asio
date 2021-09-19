@@ -445,9 +445,6 @@ void test()
     const io_context::executor_type ioc_ex = ioc.get_executor();
     archetypes::lazy_handler lazy;
     std::error_code ec;
-#if !defined(ASIO_NO_DEPRECATED)
-    ip::icmp::resolver::query q(ip::icmp::v4(), "localhost", "0");
-#endif // !defined(ASIO_NO_DEPRECATED)
     ip::icmp::endpoint e(ip::address_v4::loopback(), 0);
 
     // basic_resolver constructors.
@@ -470,14 +467,6 @@ void test()
     // basic_resolver functions.
 
     resolver.cancel();
-
-#if !defined(ASIO_NO_DEPRECATED)
-    ip::icmp::resolver::results_type results1 = resolver.resolve(q);
-    (void)results1;
-
-    ip::icmp::resolver::results_type results2 = resolver.resolve(q, ec);
-    (void)results2;
-#endif // !defined(ASIO_NO_DEPRECATED)
 
     ip::icmp::resolver::results_type results3 = resolver.resolve("", "");
     (void)results3;
@@ -514,12 +503,6 @@ void test()
 
     ip::icmp::resolver::results_type results12 = resolver.resolve(e, ec);
     (void)results12;
-
-#if !defined(ASIO_NO_DEPRECATED)
-    resolver.async_resolve(q, resolve_handler());
-    int i1 = resolver.async_resolve(q, lazy);
-    (void)i1;
-#endif // !defined(ASIO_NO_DEPRECATED)
 
     resolver.async_resolve("", "", resolve_handler());
     int i2 = resolver.async_resolve("", "", lazy);
