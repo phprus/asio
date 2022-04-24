@@ -22,8 +22,7 @@
 
 namespace asio {
 
-#if defined(ASIO_HAS_CONCEPTS) \
-  && defined(ASIO_HAS_DECLTYPE)
+#if defined(ASIO_HAS_CONCEPTS)
 
 namespace detail {
 
@@ -172,7 +171,6 @@ ASIO_CONCEPT completion_handler_for =
   ::asio::completion_handler_for<sig0, sig1, sig2>
 
 #else // defined(ASIO_HAS_CONCEPTS)
-      //   && defined(ASIO_HAS_DECLTYPE)
 
 #define ASIO_COMPLETION_SIGNATURE typename
 #define ASIO_COMPLETION_HANDLER_FOR(sig) typename
@@ -180,7 +178,6 @@ ASIO_CONCEPT completion_handler_for =
 #define ASIO_COMPLETION_HANDLER_FOR3(sig0, sig1, sig2) typename
 
 #endif // defined(ASIO_HAS_CONCEPTS)
-       //   && defined(ASIO_HAS_DECLTYPE)
 
 namespace detail {
 
@@ -600,20 +597,13 @@ struct async_result_has_initiate_memfn
   void_or_deduced
 # define ASIO_INITFN_DEDUCED_RESULT_TYPE3(ct, sig0, sig1, sig2, expr) \
   void_or_deduced
-#elif defined(ASIO_HAS_DECLTYPE)
-# define ASIO_INITFN_DEDUCED_RESULT_TYPE(ct, sig, expr) \
-  decltype expr
-# define ASIO_INITFN_DEDUCED_RESULT_TYPE2(ct, sig0, sig1, expr) \
-  decltype expr
-# define ASIO_INITFN_DEDUCED_RESULT_TYPE3(ct, sig0, sig1, sig2, expr) \
-  decltype expr
 #else
 # define ASIO_INITFN_DEDUCED_RESULT_TYPE(ct, sig, expr) \
-  ASIO_INITFN_RESULT_TYPE(ct, sig)
+  decltype expr
 # define ASIO_INITFN_DEDUCED_RESULT_TYPE2(ct, sig0, sig1, expr) \
-  ASIO_INITFN_RESULT_TYPE2(ct, sig0, sig1)
+  decltype expr
 # define ASIO_INITFN_DEDUCED_RESULT_TYPE3(ct, sig0, sig1, sig2, expr) \
-  ASIO_INITFN_RESULT_TYPE3(ct, sig0, sig1, sig2)
+  decltype expr
 #endif
 
 #if defined(GENERATING_DOCUMENTATION)
@@ -672,8 +662,7 @@ async_initiate(ASIO_MOVE_ARG(Initiation) initiation,
 
 #endif // defined(GENERATING_DOCUMENTATION)
 
-#if defined(ASIO_HAS_CONCEPTS) \
-  && defined(ASIO_HAS_DECLTYPE)
+#if defined(ASIO_HAS_CONCEPTS)
 
 namespace detail {
 
@@ -706,14 +695,12 @@ ASIO_CONCEPT completion_token_for =
   ::asio::completion_token_for<sig0, sig1, sig2>
 
 #else // defined(ASIO_HAS_CONCEPTS)
-      //   && defined(ASIO_HAS_DECLTYPE)
 
 #define ASIO_COMPLETION_TOKEN_FOR(sig) typename
 #define ASIO_COMPLETION_TOKEN_FOR2(sig0, sig1) typename
 #define ASIO_COMPLETION_TOKEN_FOR3(sig0, sig1, sig2) typename
 
 #endif // defined(ASIO_HAS_CONCEPTS)
-       //   && defined(ASIO_HAS_DECLTYPE)
 
 namespace detail {
 
