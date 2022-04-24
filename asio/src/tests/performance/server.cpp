@@ -210,8 +210,7 @@ int main(int argc, char* argv[])
     std::list<asio::thread*> threads;
     while (--thread_count > 0)
     {
-      asio::thread* new_thread = new asio::thread(
-          std::bind(&asio::io_context::run, &ioc));
+      asio::thread* new_thread = new asio::thread([&ioc] { ioc.run(); });
       threads.push_back(new_thread);
     }
 
