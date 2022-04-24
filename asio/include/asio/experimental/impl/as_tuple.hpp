@@ -129,8 +129,6 @@ struct as_tuple_signature<R(Args...)>
   typedef R type(std::tuple<typename decay<Args>::type...>);
 };
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
-
 template <typename R, typename... Args>
 struct as_tuple_signature<R(Args...) &>
 {
@@ -164,7 +162,6 @@ struct as_tuple_signature<R(Args...) && noexcept>
 };
 
 # endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
 
 } // namespace detail
 } // namespace experimental
