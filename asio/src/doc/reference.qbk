@@ -105465,7 +105465,7 @@ then the return value is a function object with the signature
 
 that, when invoked, executes code equivalent to: 
 
-   io_context.dispatch(boost::bind(f, a1, ... an)); 
+   io_context.dispatch(std::bind(f, a1, ... an)); 
 
 
 
@@ -107257,7 +107257,7 @@ then the return value is a function object with the signature
 
 that, when invoked, executes code equivalent to: 
 
-   strand.dispatch(boost::bind(f, a1, ... an)); 
+   strand.dispatch(std::bind(f, a1, ... an)); 
 
 
 
@@ -130863,7 +130863,7 @@ Output an error code.
 
 [indexterm1 asio.indexterm.placeholders__bytes_transferred..placeholders::bytes_transferred]
 
-An argument placeholder, for use with boost::bind(), that corresponds to the bytes\_transferred argument of a handler for asynchronous functions such as `asio::basic_stream_socket::async_write_some` or `asio::async_write`. 
+An argument placeholder, for use with std::bind(), that corresponds to the bytes\_transferred argument of a handler for asynchronous functions such as `asio::basic_stream_socket::async_write_some` or `asio::async_write`. 
 
 
   unspecified bytes_transferred;
@@ -130884,7 +130884,7 @@ An argument placeholder, for use with boost::bind(), that corresponds to the byt
 
 [indexterm1 asio.indexterm.placeholders__endpoint..placeholders::endpoint]
 
-An argument placeholder, for use with boost::bind(), that corresponds to the results argument of a handler for asynchronous functions such as `asio::async_connect`. 
+An argument placeholder, for use with std::bind(), that corresponds to the results argument of a handler for asynchronous functions such as `asio::async_connect`. 
 
 
   unspecified endpoint;
@@ -130905,7 +130905,7 @@ An argument placeholder, for use with boost::bind(), that corresponds to the res
 
 [indexterm1 asio.indexterm.placeholders__error..placeholders::error]
 
-An argument placeholder, for use with boost::bind(), that corresponds to the error argument of a handler for any of the asynchronous functions. 
+An argument placeholder, for use with std::bind(), that corresponds to the error argument of a handler for any of the asynchronous functions. 
 
 
   unspecified error;
@@ -130926,7 +130926,7 @@ An argument placeholder, for use with boost::bind(), that corresponds to the err
 
 [indexterm1 asio.indexterm.placeholders__iterator..placeholders::iterator]
 
-An argument placeholder, for use with boost::bind(), that corresponds to the iterator argument of a handler for asynchronous functions such as `asio::async_connect`. 
+An argument placeholder, for use with std::bind(), that corresponds to the iterator argument of a handler for asynchronous functions such as `asio::async_connect`. 
 
 
   unspecified iterator;
@@ -130947,7 +130947,7 @@ An argument placeholder, for use with boost::bind(), that corresponds to the ite
 
 [indexterm1 asio.indexterm.placeholders__results..placeholders::results]
 
-An argument placeholder, for use with boost::bind(), that corresponds to the results argument of a handler for asynchronous functions such as asio::basic\_resolver::async\_resolve. 
+An argument placeholder, for use with std::bind(), that corresponds to the results argument of a handler for asynchronous functions such as asio::basic\_resolver::async\_resolve. 
 
 
   unspecified results;
@@ -130968,7 +130968,7 @@ An argument placeholder, for use with boost::bind(), that corresponds to the res
 
 [indexterm1 asio.indexterm.placeholders__signal_number..placeholders::signal_number]
 
-An argument placeholder, for use with boost::bind(), that corresponds to the signal\_number argument of a handler for asynchronous functions such as `asio::signal_set::async_wait`. 
+An argument placeholder, for use with std::bind(), that corresponds to the signal\_number argument of a handler for asynchronous functions such as `asio::signal_set::async_wait`. 
 
 
   unspecified signal_number;
@@ -154251,7 +154251,7 @@ A typical use of [link asio.reference.thread `thread`] would be to launch a thre
 
    asio::io_context io_context;
    // ...
-   asio::thread t(boost::bind(&asio::io_context::run, &io_context));
+   asio::thread t(std::bind(&asio::io_context::run, &io_context));
    // ...
    t.join(); 
 

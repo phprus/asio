@@ -74,8 +74,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 INPUT                  = ./../examples/cpp03/tutorial/index_dox.txt \
                          ./../examples/cpp03/tutorial/timer_dox.txt \
-                         ./../examples/cpp03/tutorial/daytime_dox.txt \
-                         ./boost_bind_dox.txt
+                         ./../examples/cpp03/tutorial/daytime_dox.txt
 FILE_PATTERNS          = 
 RECURSIVE              = NO
 EXCLUDE                = 
