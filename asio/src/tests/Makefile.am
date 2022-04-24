@@ -190,17 +190,15 @@ noinst_PROGRAMS += \
 	latency/udp_server
 endif
 
-if HAVE_CXX11
+# C++11
 check_PROGRAMS += \
 	unit/experimental/as_tuple
-endif
 
-if HAVE_CXX14
+# C++14
 check_PROGRAMS += \
 	unit/experimental/append \
 	unit/experimental/deferred \
 	unit/experimental/prepend
-endif
 
 if HAVE_CXX17
 check_PROGRAMS += \
@@ -401,17 +399,15 @@ TESTS = \
 	unit/write \
 	unit/write_at
 
-if HAVE_CXX11
+# C++11
 TESTS += \
 	unit/experimental/as_tuple
-endif
 
-if HAVE_CXX14
+# C++14
 TESTS += \
 	unit/experimental/append \
 	unit/experimental/deferred \
 	unit/experimental/prepend
-endif
 
 if HAVE_CXX17
 TESTS += \
@@ -633,15 +629,13 @@ unit_writable_pipe_SOURCES = unit/writable_pipe.cpp
 unit_write_SOURCES = unit/write.cpp
 unit_write_at_SOURCES = unit/write_at.cpp
 
-if HAVE_CXX11
+# C++11
 unit_experimental_as_tuple_SOURCES = unit/experimental/as_tuple.cpp
-endif
 
-if HAVE_CXX14
+# C++14
 unit_experimental_append_SOURCES = unit/experimental/append.cpp
 unit_experimental_deferred_SOURCES = unit/experimental/deferred.cpp
 unit_experimental_prepend_SOURCES = unit/experimental/prepend.cpp
-endif
 
 if HAVE_CXX17
 unit_experimental_basic_channel_SOURCES = unit/experimental/basic_channel.cpp

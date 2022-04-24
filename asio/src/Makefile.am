@@ -1,8 +1,7 @@
 EXAMPLES_CPP11 = examples/cpp11
 
-if HAVE_CXX14
+# C++14
 EXAMPLES_CPP14 = examples/cpp14
-endif
 
 if HAVE_CXX17
 EXAMPLES_CPP17 = examples/cpp17

@@ -140,8 +140,6 @@ CPP11_TEST_EXES = \
 	cpp11\can_prefer_not_preferable_static.exe \
 	cpp11\can_prefer_not_preferable_unsupported.exe
 
-!ifdef CPP14
-
 CPP14_TEST_EXES = \
 	cpp14\query_free.exe \
 	cpp14\query_member.exe \
@@ -200,8 +198,6 @@ CPP14_TEST_EXES = \
 	cpp14\can_prefer_not_preferable_member_require.exe \
 	cpp14\can_prefer_not_preferable_static.exe \
 	cpp14\can_prefer_not_preferable_unsupported.exe
-
-!endif
 
 TEST_EXES = \
 	$(CPP11_TEST_EXES) \

@@ -131,33 +131,6 @@ if test "$SEPARATE_COMPILATION" = yes; then
   CPPFLAGS="$CPPFLAGS -DASIO_SEPARATE_COMPILATION"
 fi
 
-AC_MSG_CHECKING([whether C++11 is enabled])
-AC_COMPILE_IFELSE(
-  [AC_LANG_PROGRAM(
-    [[#if __cplusplus < 201103L]]
-    [[#error C++11 not available]]
-    [[#endif]])],
-  [AC_MSG_RESULT([yes])
-    HAVE_CXX11=yes;],
-  [AC_MSG_RESULT([no])
-    HAVE_CXX11=no;])
-
-AC_MSG_CHECKING([whether C++14 is enabled])
-AC_COMPILE_IFELSE(
-  [AC_LANG_PROGRAM(
-    [[#if defined(__GNUC__) && !defined(__clang__)]]
-    [[# if (__GNUC__ <= 6)]]
-    [[#  error C++14 support on this compiler not sufficiently compliant]]
-    [[# endif]]
-    [[#endif]]
-    [[#if __cplusplus < 201402L]]
-    [[#error C++14 not available]]
-    [[#endif]])],
-  [AC_MSG_RESULT([yes])
-    HAVE_CXX14=yes;],
-  [AC_MSG_RESULT([no])
-    HAVE_CXX14=no;])
-
 AC_MSG_CHECKING([whether C++17 is enabled])
 AC_COMPILE_IFELSE(
   [AC_LANG_PROGRAM(
@@ -204,15 +177,6 @@ AC_COMPILE_IFELSE(
   [AC_MSG_RESULT([no])
     HAVE_COROUTINES=no;])
 
-if test "$GXX" = yes; then
-  if test "$STANDALONE" = yes; then
-    if test "$HAVE_CXX11" = no; then
-      HAVE_CXX11=yes
-      CPPFLAGS="-std=c++0x $CPPFLAGS"
-    fi
-  fi
-fi
-
 AM_CONDITIONAL(STANDALONE,test x$STANDALONE = xyes)
 
 AM_CONDITIONAL(SEPARATE_COMPILATION,test x$SEPARATE_COMPILATION = xyes)
@@ -220,10 +184,6 @@ AM_CONDITIONAL(SEPARATE_COMPILATION,test x$SEPARATE_COMPILATION = xyes)
 AM_CONDITIONAL(HAVE_BOOST_COROUTINE,test x$HAVE_BOOST_COROUTINE = xyes)
 
 AM_CONDITIONAL(WINDOWS_TARGET,test x$WINDOWS != xno)
-
-AM_CONDITIONAL(HAVE_CXX11,test x$HAVE_CXX11 = xyes)
-
-AM_CONDITIONAL(HAVE_CXX14,test x$HAVE_CXX14 = xyes)
 
 AM_CONDITIONAL(HAVE_CXX17,test x$HAVE_CXX17 = xyes)
 
