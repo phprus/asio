@@ -604,13 +604,6 @@ needs.
     [`ASIO_DISABLE_VARIABLE_TEMPLATES`]
   ]
   [
-    [`ASIO_HAS_VARIADIC_TEMPLATES`]
-    [
-      Support variadic templates on compilers known to allow it.
-    ]
-    [`ASIO_DISABLE_VARIADIC_TEMPLATES`]
-  ]
-  [
     [`ASIO_HAS_WINDOWS_OBJECT_HANDLE`]
     [
       Windows: object handles.

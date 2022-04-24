@@ -22,7 +22,6 @@
 #include "asio/detail/handler_cont_helpers.hpp"
 #include "asio/detail/handler_invoke_helpers.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/detail/variadic_templates.hpp"
 #include "asio/execution/executor.hpp"
 #include "asio/execution/outstanding_work.hpp"
 #include "asio/executor_work_guard.hpp"
@@ -138,8 +137,6 @@ namespace detail
     return composed_io_executors<void(Head)>(head);
   }
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
   template <typename Head, typename... Tail>
   struct composed_io_executors<void(Head, Tail...)>
   {
@@ -167,45 +164,6 @@ namespace detail
   {
     return composed_io_executors<void(Head, Tail...)>(head, tail...);
   }
-
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-#define ASIO_PRIVATE_COMPOSED_IO_EXECUTORS_DEF(n) \
-  template <typename Head, ASIO_VARIADIC_TPARAMS(n)> \
-  struct composed_io_executors<void(Head, ASIO_VARIADIC_TARGS(n))> \
-  { \
-    explicit composed_io_executors(const Head& head, \
-        ASIO_VARIADIC_CONSTREF_PARAMS(n)) ASIO_NOEXCEPT \
-      : head_(head), \
-        tail_(ASIO_VARIADIC_BYVAL_ARGS(n)) \
-    { \
-    } \
-  \
-    void reset() \
-    { \
-      head_.reset(); \
-      tail_.reset(); \
-    } \
-  \
-    typedef Head head_type; \
-    Head head_; \
-    composed_io_executors<void(ASIO_VARIADIC_TARGS(n))> tail_; \
-  }; \
-  \
-  template <typename Head, ASIO_VARIADIC_TPARAMS(n)> \
-  inline composed_io_executors<void(Head, ASIO_VARIADIC_TARGS(n))> \
-  make_composed_io_executors(const Head& head, \
-      ASIO_VARIADIC_CONSTREF_PARAMS(n)) \
-  { \
-    return composed_io_executors< \
-      void(Head, ASIO_VARIADIC_TARGS(n))>( \
-        head, ASIO_VARIADIC_BYVAL_ARGS(n)); \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_COMPOSED_IO_EXECUTORS_DEF)
-#undef ASIO_PRIVATE_COMPOSED_IO_EXECUTORS_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
   template <typename>
   struct composed_work;
@@ -248,8 +206,6 @@ namespace detail
     composed_work_guard<Head> head_;
   };
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
   template <typename Head, typename... Tail>
   struct composed_work<void(Head, Tail...)>
   {
@@ -272,48 +228,12 @@ namespace detail
     composed_work<void(Tail...)> tail_;
   };
 
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-#define ASIO_PRIVATE_COMPOSED_WORK_DEF(n) \
-  template <typename Head, ASIO_VARIADIC_TPARAMS(n)> \
-  struct composed_work<void(Head, ASIO_VARIADIC_TARGS(n))> \
-  { \
-    typedef composed_io_executors<void(Head, \
-      ASIO_VARIADIC_TARGS(n))> executors_type; \
-  \
-    explicit composed_work(const executors_type& ex) ASIO_NOEXCEPT \
-      : head_(ex.head_), \
-        tail_(ex.tail_) \
-    { \
-    } \
-  \
-    void reset() \
-    { \
-      head_.reset(); \
-      tail_.reset(); \
-    } \
-  \
-    typedef Head head_type; \
-    composed_work_guard<Head> head_; \
-    composed_work<void(ASIO_VARIADIC_TARGS(n))> tail_; \
-  }; \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_COMPOSED_WORK_DEF)
-#undef ASIO_PRIVATE_COMPOSED_WORK_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
   template <typename Impl, typename Work, typename Handler, typename Signature>
   class composed_op;
 
   template <typename Impl, typename Work, typename Handler,
       typename R, typename... Args>
   class composed_op<Impl, Work, Handler, R(Args...)>
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-  template <typename Impl, typename Work, typename Handler, typename Signature>
-  class composed_op
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
     : public base_from_cancellation_state<Handler>
   {
   public:
@@ -362,8 +282,6 @@ namespace detail
       return (get_associated_allocator)(handler_, std::allocator<void>());
     }
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
     template<typename... T>
     void operator()(ASIO_MOVE_ARG(T)... t)
     {
@@ -379,45 +297,6 @@ namespace detail
       ASIO_MOVE_OR_LVALUE(Handler)(this->handler_)(
           ASIO_MOVE_CAST(Args)(args)...);
     }
-
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-    void operator()()
-    {
-      if (invocations_ < ~0u)
-        ++invocations_;
-      this->get_cancellation_state().slot().clear();
-      impl_(*this);
-    }
-
-    void complete()
-    {
-      this->work_.reset();
-      ASIO_MOVE_OR_LVALUE(Handler)(this->handler_)();
-    }
-
-#define ASIO_PRIVATE_COMPOSED_OP_DEF(n) \
-    template<ASIO_VARIADIC_TPARAMS(n)> \
-    void operator()(ASIO_VARIADIC_MOVE_PARAMS(n)) \
-    { \
-      if (invocations_ < ~0u) \
-        ++invocations_; \
-      this->get_cancellation_state().slot().clear(); \
-      impl_(*this, ASIO_VARIADIC_MOVE_ARGS(n)); \
-    } \
-    \
-    template<ASIO_VARIADIC_TPARAMS(n)> \
-    void complete(ASIO_VARIADIC_MOVE_PARAMS(n)) \
-    { \
-      this->work_.reset(); \
-      ASIO_MOVE_OR_LVALUE(Handler)(this->handler_)( \
-          ASIO_VARIADIC_MOVE_ARGS(n)); \
-    } \
-    /**/
-    ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_COMPOSED_OP_DEF)
-#undef ASIO_PRIVATE_COMPOSED_OP_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
     void reset_cancellation_state()
     {
@@ -590,8 +469,6 @@ struct associator<Associator,
   }
 };
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
 template <typename CompletionToken, typename Signature,
     typename Implementation, typename... IoObjectsOrExecutors>
 ASIO_INITFN_AUTO_RESULT_TYPE(CompletionToken, Signature)
@@ -608,96 +485,6 @@ async_compose(ASIO_MOVE_ARG(Implementation) implementation,
       token, ASIO_MOVE_CAST(Implementation)(implementation));
 }
 
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-template <typename CompletionToken, typename Signature, typename Implementation>
-ASIO_INITFN_AUTO_RESULT_TYPE(CompletionToken, Signature)
-async_compose(ASIO_MOVE_ARG(Implementation) implementation,
-    ASIO_NONDEDUCED_MOVE_ARG(CompletionToken) token)
-{
-  return async_initiate<CompletionToken, Signature>(
-      detail::make_initiate_composed_op<Signature>(
-        detail::make_composed_io_executors()),
-      token, ASIO_MOVE_CAST(Implementation)(implementation));
-}
-
-# define ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR(n) \
-  ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_##n
-
-# define ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_1 \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T1)(x1))
-# define ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_2 \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T1)(x1)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T2)(x2))
-# define ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_3 \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T1)(x1)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T2)(x2)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T3)(x3))
-# define ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_4 \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T1)(x1)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T2)(x2)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T3)(x3)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T4)(x4))
-# define ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_5 \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T1)(x1)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T2)(x2)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T3)(x3)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T4)(x4)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T5)(x5))
-# define ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_6 \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T1)(x1)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T2)(x2)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T3)(x3)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T4)(x4)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T5)(x5)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T6)(x6))
-# define ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_7 \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T1)(x1)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T2)(x2)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T3)(x3)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T4)(x4)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T5)(x5)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T6)(x6)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T7)(x7))
-# define ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_8 \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T1)(x1)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T2)(x2)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T3)(x3)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T4)(x4)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T5)(x5)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T6)(x6)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T7)(x7)), \
-  detail::get_composed_io_executor(ASIO_MOVE_CAST(T8)(x8))
-
-#define ASIO_PRIVATE_ASYNC_COMPOSE_DEF(n) \
-  template <typename CompletionToken, typename Signature, \
-      typename Implementation, ASIO_VARIADIC_TPARAMS(n)> \
-  ASIO_INITFN_AUTO_RESULT_TYPE(CompletionToken, Signature) \
-  async_compose(ASIO_MOVE_ARG(Implementation) implementation, \
-      ASIO_NONDEDUCED_MOVE_ARG(CompletionToken) token, \
-      ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  { \
-    return async_initiate<CompletionToken, Signature>( \
-        detail::make_initiate_composed_op<Signature>( \
-          detail::make_composed_io_executors( \
-            ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR(n))), \
-        token, ASIO_MOVE_CAST(Implementation)(implementation)); \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_ASYNC_COMPOSE_DEF)
-#undef ASIO_PRIVATE_ASYNC_COMPOSE_DEF
-
-#undef ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR
-#undef ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_1
-#undef ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_2
-#undef ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_3
-#undef ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_4
-#undef ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_5
-#undef ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_6
-#undef ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_7
-#undef ASIO_PRIVATE_GET_COMPOSED_IO_EXECUTOR_8
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 #endif // !defined(GENERATING_DOCUMENTATION)
 
 } // namespace asio

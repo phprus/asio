@@ -156,11 +156,6 @@ basic_socket_streambuf::connect()] and [link
 asio.reference.basic_socket_iostream.connect basic_socket_iostream::connect()]
 functions.
 
-Support for variadic templates is automatically enabled for [^g++] 4.3 and
-later, when the [^-std=c++0x] or [^-std=gnu++0x] compiler options are used. It
-may be disabled by defining `ASIO_DISABLE_VARIADIC_TEMPLATES`, or explicitly
-enabled for other compilers by defining `ASIO_HAS_VARIADIC_TEMPLATES`.
-
 [endsect]
 
 [section:array Array Container]

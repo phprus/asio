@@ -25,12 +25,10 @@
 #include "asio/detail/push_options.hpp"
 
 #if defined(ASIO_HAS_ALIAS_TEMPLATES) \
-  && defined(ASIO_HAS_VARIADIC_TEMPLATES) \
   && defined(ASIO_HAS_DECLTYPE) \
   && !defined(ASIO_MSVC) || (_MSC_VER >= 1910)
 # define ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT 1
 #endif // defined(ASIO_HAS_ALIAS_TEMPLATES)
-       //   && defined(ASIO_HAS_VARIADIC_TEMPLATES)
        //   && defined(ASIO_HAS_DECLTYPE)
        //   && !defined(ASIO_MSVC) || (_MSC_VER >= 1910)
 
