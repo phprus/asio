@@ -31,7 +31,6 @@
 # define ASIO_DISABLE_BOOST_ASSERT 1
 # define ASIO_DISABLE_BOOST_CHRONO 1
 # define ASIO_DISABLE_BOOST_DATE_TIME 1
-# define ASIO_DISABLE_BOOST_LIMITS 1
 # define ASIO_DISABLE_BOOST_REGEX 1
 # define ASIO_DISABLE_BOOST_STATIC_CONSTANT 1
 # define ASIO_DISABLE_BOOST_THROW_EXCEPTION 1
@@ -1512,13 +1511,6 @@
 #  define ASIO_HAS_BOOST_ASSERT 1
 # endif // !defined(ASIO_DISABLE_BOOST_ASSERT)
 #endif // !defined(ASIO_HAS_BOOST_ASSERT)
-
-// Boost limits header.
-#if !defined(ASIO_HAS_BOOST_LIMITS)
-# if !defined(ASIO_DISABLE_BOOST_LIMITS)
-#  define ASIO_HAS_BOOST_LIMITS 1
-# endif // !defined(ASIO_DISABLE_BOOST_LIMITS)
-#endif // !defined(ASIO_HAS_BOOST_LIMITS)
 
 // Boost throw_exception function.
 #if !defined(ASIO_HAS_BOOST_THROW_EXCEPTION)
