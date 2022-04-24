@@ -178,7 +178,6 @@ public:
     service_->construct(impl_, max_buffer_size);
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-construct a basic_channel from another.
   /**
    * This constructor moves a channel from one object to another.
@@ -273,7 +272,6 @@ public:
     }
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destructor.
   ~basic_channel()

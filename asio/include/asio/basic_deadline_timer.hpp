@@ -268,7 +268,6 @@ public:
     asio::detail::throw_error(ec, "expires_from_now");
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-construct a basic_deadline_timer from another.
   /**
    * This constructor moves a timer from one object to another.
@@ -302,7 +301,6 @@ public:
     impl_ = std::move(other.impl_);
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destroys the timer.
   /**

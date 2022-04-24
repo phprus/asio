@@ -400,7 +400,6 @@ struct async_completion
       ASIO_COMPLETION_SIGNATURES_TARGS>::completion_handler_type
         completion_handler_type;
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Constructor.
   /**
    * The constructor creates the concrete completion handler and makes the link
@@ -413,28 +412,11 @@ struct async_completion
       result(completion_handler)
   {
   }
-#else // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
-  explicit async_completion(typename decay<CompletionToken>::type& token)
-    : completion_handler(token),
-      result(completion_handler)
-  {
-  }
-
-  explicit async_completion(const typename decay<CompletionToken>::type& token)
-    : completion_handler(token),
-      result(completion_handler)
-  {
-  }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// A copy of, or reference to, a real handler object.
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   typename conditional<
     is_same<CompletionToken, completion_handler_type>::value,
     completion_handler_type&, completion_handler_type>::type completion_handler;
-#else // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
-  completion_handler_type completion_handler;
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// The result of the asynchronous operation's initiating function.
   async_result<typename decay<CompletionToken>::type,

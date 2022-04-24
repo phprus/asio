@@ -84,7 +84,6 @@ public:
   /// The type of the executor associated with the object.
   typedef typename lowest_layer_type::executor_type executor_type;
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Construct a stream.
   /**
    * This constructor creates a stream and initialises the underlying stream
@@ -117,23 +116,7 @@ public:
       core_(handle, next_layer_.lowest_layer().get_executor())
   {
   }
-#else // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
-  template <typename Arg>
-  stream(Arg& arg, context& ctx)
-    : next_layer_(arg),
-      core_(ctx.native_handle(), next_layer_.lowest_layer().get_executor())
-  {
-  }
 
-  template <typename Arg>
-  stream(Arg& arg, native_handle_type handle)
-    : next_layer_(arg),
-      core_(handle, next_layer_.lowest_layer().get_executor())
-  {
-  }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
-
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-construct a stream from another.
   /**
    * @param other The other stream object from which the move will occur. Must
@@ -163,7 +146,6 @@ public:
     }
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destructor.
   /**

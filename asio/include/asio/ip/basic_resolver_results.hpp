@@ -93,14 +93,12 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move constructor.
   basic_resolver_results(basic_resolver_results&& other)
     : basic_resolver_iterator<InternetProtocol>(
         ASIO_MOVE_CAST(basic_resolver_results)(other))
   {
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Assignment operator.
   basic_resolver_results& operator=(const basic_resolver_results& other)
@@ -109,7 +107,6 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-assignment operator.
   basic_resolver_results& operator=(basic_resolver_results&& other)
   {
@@ -117,7 +114,6 @@ public:
         ASIO_MOVE_CAST(basic_resolver_results)(other));
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
 #if !defined(GENERATING_DOCUMENTATION)
   // Create results from an addrinfo list returned by getaddrinfo.

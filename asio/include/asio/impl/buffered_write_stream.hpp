@@ -58,7 +58,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     buffered_flush_handler(const buffered_flush_handler& other)
       : storage_(other.storage_),
         handler_(other.handler_)
@@ -70,7 +69,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(WriteHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         const std::size_t bytes_written)
@@ -259,21 +257,19 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
-      buffered_write_some_handler(const buffered_write_some_handler& other)
-        : storage_(other.storage_),
-          buffers_(other.buffers_),
-          handler_(other.handler_)
-      {
-      }
+    buffered_write_some_handler(const buffered_write_some_handler& other)
+      : storage_(other.storage_),
+        buffers_(other.buffers_),
+        handler_(other.handler_)
+    {
+    }
 
-      buffered_write_some_handler(buffered_write_some_handler&& other)
-        : storage_(other.storage_),
-          buffers_(other.buffers_),
-          handler_(ASIO_MOVE_CAST(WriteHandler)(other.handler_))
-      {
-      }
-#endif // defined(ASIO_HAS_MOVE)
+    buffered_write_some_handler(buffered_write_some_handler&& other)
+      : storage_(other.storage_),
+        buffers_(other.buffers_),
+        handler_(ASIO_MOVE_CAST(WriteHandler)(other.handler_))
+    {
+    }
 
     void operator()(const asio::error_code& ec, std::size_t)
     {

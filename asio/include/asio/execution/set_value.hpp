@@ -118,8 +118,6 @@ struct call_traits<R, Vs,
 
 struct impl
 {
-#if defined(ASIO_HAS_MOVE)
-
   template <typename R, typename... Vs>
   ASIO_CONSTEXPR typename enable_if<
     call_traits<R, void(Vs...)>::overload == call_member,
@@ -145,57 +143,6 @@ struct impl
         ASIO_MOVE_CAST(Vs)(v)...);
   }
 
-#else // defined(ASIO_HAS_MOVE)
-
-  template <typename R, typename... Vs>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<R&, void(const Vs&...)>::overload == call_member,
-    typename call_traits<R&, void(const Vs&...)>::result_type
-  >::type
-  operator()(R& r, const Vs&... v) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<R&, void(const Vs&...)>::is_noexcept))
-  {
-    return r.set_value(v...);
-  }
-
-  template <typename R, typename... Vs>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<const R&, void(const Vs&...)>::overload == call_member,
-    typename call_traits<const R&, void(const Vs&...)>::result_type
-  >::type
-  operator()(const R& r, const Vs&... v) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<const R&, void(const Vs&...)>::is_noexcept))
-  {
-    return r.set_value(v...);
-  }
-
-  template <typename R, typename... Vs>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<R&, void(const Vs&...)>::overload == call_free,
-    typename call_traits<R&, void(const Vs&...)>::result_type
-  >::type
-  operator()(R& r, const Vs&... v) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<R&, void(const Vs&...)>::is_noexcept))
-  {
-    return set_value(r, v...);
-  }
-
-  template <typename R, typename... Vs>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<const R&, void(const Vs&...)>::overload == call_free,
-    typename call_traits<const R&, void(const Vs&...)>::result_type
-  >::type
-  operator()(const R& r, const Vs&... v) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<const R&, void(const Vs&...)>::is_noexcept))
-  {
-    return set_value(r, v...);
-  }
-
-#endif // defined(ASIO_HAS_MOVE)
 };
 
 template <typename T = impl>
