@@ -157,13 +157,6 @@ needs.
     [`ASIO_DISABLE_CXX11_ALLOCATORS`]
   ]
   [
-    [`ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS`]
-    [
-      Support default function template arguments on compilers known to allow it.
-    ]
-    [`ASIO_DISABLE_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS`]
-  ]
-  [
     [`ASIO_HAS_DEV_POLL`]
     [
       Solaris: /dev/poll.
