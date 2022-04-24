@@ -88,7 +88,6 @@ nobase_include_HEADERS = \
 	asio/detail/executor_op.hpp \
 	asio/detail/fd_set_adapter.hpp \
 	asio/detail/fenced_block.hpp \
-	asio/detail/functional.hpp \
 	asio/detail/future.hpp \
 	asio/detail/gcc_arm_fenced_block.hpp \
 	asio/detail/gcc_hppa_fenced_block.hpp \

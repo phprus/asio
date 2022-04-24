@@ -657,53 +657,11 @@
 # endif // !defined(ASIO_DISABLE_STD_ADDRESSOF)
 #endif // !defined(ASIO_HAS_STD_ADDRESSOF)
 
-// Standard library support for the function class.
-#if !defined(ASIO_HAS_STD_FUNCTION)
-# if !defined(ASIO_DISABLE_STD_FUNCTION)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_FUNCTION 1
-#   elif (__cplusplus >= 201103)
-#    define ASIO_HAS_STD_FUNCTION 1
-#   endif // (__cplusplus >= 201103)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_FUNCTION 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1700)
-#    define ASIO_HAS_STD_FUNCTION 1
-#   endif // (_MSC_VER >= 1700)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_FUNCTION)
-#endif // !defined(ASIO_HAS_STD_FUNCTION)
+// C++11: Standard library support for the function class.
+#define ASIO_HAS_STD_FUNCTION 1
 
-// Standard library support for the reference_wrapper class.
-#if !defined(ASIO_HAS_STD_REFERENCE_WRAPPER)
-# if !defined(ASIO_DISABLE_STD_REFERENCE_WRAPPER)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_REFERENCE_WRAPPER 1
-#   elif (__cplusplus >= 201103)
-#    define ASIO_HAS_STD_REFERENCE_WRAPPER 1
-#   endif // (__cplusplus >= 201103)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_REFERENCE_WRAPPER 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1700)
-#    define ASIO_HAS_STD_REFERENCE_WRAPPER 1
-#   endif // (_MSC_VER >= 1700)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_REFERENCE_WRAPPER)
-#endif // !defined(ASIO_HAS_STD_REFERENCE_WRAPPER)
+// C++11: Standard library support for the reference_wrapper class.
+#define ASIO_HAS_STD_REFERENCE_WRAPPER 1
 
 // Standard library support for type traits.
 #if !defined(ASIO_HAS_STD_TYPE_TRAITS)
