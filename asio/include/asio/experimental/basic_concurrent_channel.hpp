@@ -287,19 +287,19 @@ public:
   }
 
   /// Get the executor associated with the object.
-  executor_type get_executor() ASIO_NOEXCEPT
+  executor_type get_executor() noexcept(true)
   {
     return executor_;
   }
 
   /// Get the capacity of the channel's buffer.
-  std::size_t capacity() ASIO_NOEXCEPT
+  std::size_t capacity() noexcept(true)
   {
     return service_->capacity(impl_);
   }
 
   /// Determine whether the channel is open.
-  bool is_open() const ASIO_NOEXCEPT
+  bool is_open() const noexcept(true)
   {
     return service_->is_open(impl_);
   }
@@ -328,7 +328,7 @@ public:
   }
 
   /// Determine whether a message can be received without blocking.
-  bool ready() const ASIO_NOEXCEPT
+  bool ready() const noexcept(true)
   {
     return service_->ready(impl_);
   }
@@ -424,7 +424,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }
@@ -453,7 +453,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }

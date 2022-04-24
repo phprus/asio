@@ -198,7 +198,7 @@ struct impl
   operator()(
       ASIO_MOVE_ARG(T) t,
       ASIO_MOVE_ARG(F) f) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<impl, T, void(F)>::is_noexcept))
   {
     return ASIO_MOVE_CAST(T)(t).execute(ASIO_MOVE_CAST(F)(f));
@@ -212,7 +212,7 @@ struct impl
   operator()(
       ASIO_MOVE_ARG(T) t,
       ASIO_MOVE_ARG(F) f) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<impl, T, void(F)>::is_noexcept))
   {
     return execute(ASIO_MOVE_CAST(T)(t), ASIO_MOVE_CAST(F)(f));
@@ -226,7 +226,7 @@ struct impl
   operator()(
       ASIO_MOVE_ARG(T) t,
       ASIO_MOVE_ARG(F) f) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<impl, T, void(F)>::is_noexcept))
   {
     return asio::execution::detail::submit_helper(

@@ -50,7 +50,7 @@ inline detail::io_context_impl& use_service<detail::io_context_impl>(
 #endif // !defined(GENERATING_DOCUMENTATION)
 
 inline io_context::executor_type
-io_context::get_executor() ASIO_NOEXCEPT
+io_context::get_executor() noexcept(true)
 {
   return executor_type(*this);
 }
@@ -216,7 +216,7 @@ io_context::wrap(Handler handler)
 template <typename Allocator, uintptr_t Bits>
 io_context::basic_executor_type<Allocator, Bits>&
 io_context::basic_executor_type<Allocator, Bits>::operator=(
-    const basic_executor_type& other) ASIO_NOEXCEPT
+    const basic_executor_type& other) noexcept(true)
 {
   if (this != &other)
   {
@@ -237,7 +237,7 @@ io_context::basic_executor_type<Allocator, Bits>::operator=(
 template <typename Allocator, uintptr_t Bits>
 io_context::basic_executor_type<Allocator, Bits>&
 io_context::basic_executor_type<Allocator, Bits>::operator=(
-    basic_executor_type&& other) ASIO_NOEXCEPT
+    basic_executor_type&& other) noexcept(true)
 {
   if (this != &other)
   {
@@ -256,7 +256,7 @@ io_context::basic_executor_type<Allocator, Bits>::operator=(
 
 template <typename Allocator, uintptr_t Bits>
 inline bool io_context::basic_executor_type<Allocator,
-    Bits>::running_in_this_thread() const ASIO_NOEXCEPT
+    Bits>::running_in_this_thread() const noexcept(true)
 {
   return context_ptr()->impl_.can_dispatch();
 }
@@ -315,21 +315,21 @@ void io_context::basic_executor_type<Allocator, Bits>::execute(
 #if !defined(ASIO_NO_TS_EXECUTORS)
 template <typename Allocator, uintptr_t Bits>
 inline io_context& io_context::basic_executor_type<
-    Allocator, Bits>::context() const ASIO_NOEXCEPT
+    Allocator, Bits>::context() const noexcept(true)
 {
   return *context_ptr();
 }
 
 template <typename Allocator, uintptr_t Bits>
 inline void io_context::basic_executor_type<Allocator,
-    Bits>::on_work_started() const ASIO_NOEXCEPT
+    Bits>::on_work_started() const noexcept(true)
 {
   context_ptr()->impl_.work_started();
 }
 
 template <typename Allocator, uintptr_t Bits>
 inline void io_context::basic_executor_type<Allocator,
-    Bits>::on_work_finished() const ASIO_NOEXCEPT
+    Bits>::on_work_finished() const noexcept(true)
 {
   context_ptr()->impl_.work_finished();
 }

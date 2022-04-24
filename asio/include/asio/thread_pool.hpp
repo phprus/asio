@@ -102,13 +102,13 @@ public:
   ASIO_DECL ~thread_pool();
 
   /// Obtains the executor associated with the pool.
-  executor_type get_executor() ASIO_NOEXCEPT;
+  executor_type get_executor() noexcept(true);
 
   /// Obtains the executor associated with the pool.
-  executor_type executor() ASIO_NOEXCEPT;
+  executor_type executor() noexcept(true);
 
   /// Obtains the scheduler associated with the pool.
-  scheduler_type scheduler() ASIO_NOEXCEPT;
+  scheduler_type scheduler() noexcept(true);
 
   /// Stops the threads.
   /**
@@ -190,7 +190,7 @@ public:
 
   /// Copy constructor.
   basic_executor_type(
-      const basic_executor_type& other) ASIO_NOEXCEPT
+      const basic_executor_type& other) noexcept(true)
     : pool_(other.pool_),
       allocator_(other.allocator_),
       bits_(other.bits_)
@@ -201,7 +201,7 @@ public:
   }
 
   /// Move constructor.
-  basic_executor_type(basic_executor_type&& other) ASIO_NOEXCEPT
+  basic_executor_type(basic_executor_type&& other) noexcept(true)
     : pool_(other.pool_),
       allocator_(ASIO_MOVE_CAST(Allocator)(other.allocator_)),
       bits_(other.bits_)
@@ -211,7 +211,7 @@ public:
   }
 
   /// Destructor.
-  ~basic_executor_type() ASIO_NOEXCEPT
+  ~basic_executor_type() noexcept(true)
   {
     if (Bits & outstanding_work_tracked)
       if (pool_)
@@ -220,11 +220,11 @@ public:
 
   /// Assignment operator.
   basic_executor_type& operator=(
-      const basic_executor_type& other) ASIO_NOEXCEPT;
+      const basic_executor_type& other) noexcept(true);
 
   /// Move assignment operator.
   basic_executor_type& operator=(
-      basic_executor_type&& other) ASIO_NOEXCEPT;
+      basic_executor_type&& other) noexcept(true);
 
 #if !defined(GENERATING_DOCUMENTATION)
 private:
@@ -411,7 +411,7 @@ private:
    *   ... @endcode
    */
   static ASIO_CONSTEXPR execution::bulk_guarantee_t query(
-      execution::bulk_guarantee_t) ASIO_NOEXCEPT
+      execution::bulk_guarantee_t) noexcept(true)
   {
     return execution::bulk_guarantee.parallel;
   }
@@ -428,7 +428,7 @@ private:
    *   ... @endcode
    */
   static ASIO_CONSTEXPR execution::mapping_t query(
-      execution::mapping_t) ASIO_NOEXCEPT
+      execution::mapping_t) noexcept(true)
   {
     return execution::mapping.thread;
   }
@@ -443,7 +443,7 @@ private:
    * asio::thread_pool& pool = asio::query(
    *     ex, asio::execution::context); @endcode
    */
-  thread_pool& query(execution::context_t) const ASIO_NOEXCEPT
+  thread_pool& query(execution::context_t) const noexcept(true)
   {
     return *pool_;
   }
@@ -460,7 +460,7 @@ private:
    *   ... @endcode
    */
   ASIO_CONSTEXPR execution::blocking_t query(
-      execution::blocking_t) const ASIO_NOEXCEPT
+      execution::blocking_t) const noexcept(true)
   {
     return (bits_ & blocking_never)
       ? execution::blocking_t(execution::blocking.never)
@@ -481,7 +481,7 @@ private:
    *   ... @endcode
    */
   ASIO_CONSTEXPR execution::relationship_t query(
-      execution::relationship_t) const ASIO_NOEXCEPT
+      execution::relationship_t) const noexcept(true)
   {
     return (bits_ & relationship_continuation)
       ? execution::relationship_t(execution::relationship.continuation)
@@ -500,7 +500,7 @@ private:
    *   ... @endcode
    */
   static ASIO_CONSTEXPR execution::outstanding_work_t query(
-      execution::outstanding_work_t) ASIO_NOEXCEPT
+      execution::outstanding_work_t) noexcept(true)
   {
     return (Bits & outstanding_work_tracked)
       ? execution::outstanding_work_t(execution::outstanding_work.tracked)
@@ -519,7 +519,7 @@ private:
    */
   template <typename OtherAllocator>
   ASIO_CONSTEXPR Allocator query(
-      execution::allocator_t<OtherAllocator>) const ASIO_NOEXCEPT
+      execution::allocator_t<OtherAllocator>) const noexcept(true)
   {
     return allocator_;
   }
@@ -535,7 +535,7 @@ private:
    *     asio::execution::allocator); @endcode
    */
   ASIO_CONSTEXPR Allocator query(
-      execution::allocator_t<void>) const ASIO_NOEXCEPT
+      execution::allocator_t<void>) const noexcept(true)
   {
     return allocator_;
   }
@@ -550,7 +550,7 @@ private:
    * std::size_t occupancy = asio::query(
    *     ex, asio::execution::occupancy); @endcode
    */
-  std::size_t query(execution::occupancy_t) const ASIO_NOEXCEPT
+  std::size_t query(execution::occupancy_t) const noexcept(true)
   {
     return static_cast<std::size_t>(pool_->num_threads_);
   }
@@ -561,14 +561,14 @@ public:
    * @return @c true if the current thread is running the thread pool. Otherwise
    * returns @c false.
    */
-  bool running_in_this_thread() const ASIO_NOEXCEPT;
+  bool running_in_this_thread() const noexcept(true);
 
   /// Compare two executors for equality.
   /**
    * Two executors are equal if they refer to the same underlying thread pool.
    */
   friend bool operator==(const basic_executor_type& a,
-      const basic_executor_type& b) ASIO_NOEXCEPT
+      const basic_executor_type& b) noexcept(true)
   {
     return a.pool_ == b.pool_
       && a.allocator_ == b.allocator_
@@ -580,7 +580,7 @@ public:
    * Two executors are equal if they refer to the same underlying thread pool.
    */
   friend bool operator!=(const basic_executor_type& a,
-      const basic_executor_type& b) ASIO_NOEXCEPT
+      const basic_executor_type& b) noexcept(true)
   {
     return a.pool_ != b.pool_
       || a.allocator_ != b.allocator_
@@ -624,7 +624,7 @@ public:
    *
    * @return An object that satisfies the sender concept.
    */
-  sender_type schedule() const ASIO_NOEXCEPT
+  sender_type schedule() const noexcept(true)
   {
     return *this;
   }
@@ -651,7 +651,7 @@ public:
 
 #if !defined(ASIO_NO_TS_EXECUTORS)
   /// Obtain the underlying execution context.
-  thread_pool& context() const ASIO_NOEXCEPT;
+  thread_pool& context() const noexcept(true);
 
   /// Inform the thread pool that it has some outstanding work to do.
   /**
@@ -659,7 +659,7 @@ public:
    * This ensures that the thread pool's join() function will not return while
    * the work is underway.
    */
-  void on_work_started() const ASIO_NOEXCEPT;
+  void on_work_started() const noexcept(true);
 
   /// Inform the thread pool that some work is no longer outstanding.
   /**
@@ -667,7 +667,7 @@ public:
    * finished. Once the count of unfinished work reaches zero, the thread
    * pool's join() function is permitted to exit.
    */
-  void on_work_finished() const ASIO_NOEXCEPT;
+  void on_work_finished() const noexcept(true);
 
   /// Request the thread pool to invoke the given function object.
   /**
@@ -731,7 +731,7 @@ private:
   template <typename, unsigned int> friend class basic_executor_type;
 
   // Constructor used by thread_pool::get_executor().
-  explicit basic_executor_type(thread_pool& p) ASIO_NOEXCEPT
+  explicit basic_executor_type(thread_pool& p) noexcept(true)
     : pool_(&p),
       allocator_(),
       bits_(0)
@@ -742,7 +742,7 @@ private:
 
   // Constructor used by require().
   basic_executor_type(thread_pool* p,
-      const Allocator& a, unsigned int bits) ASIO_NOEXCEPT
+      const Allocator& a, unsigned int bits) noexcept(true)
     : pool_(p),
       allocator_(a),
       bits_(bits)
@@ -975,7 +975,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef asio::execution::bulk_guarantee_t::parallel_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() ASIO_NOEXCEPT
+  static ASIO_CONSTEXPR result_type value() noexcept(true)
   {
     return result_type();
   }
@@ -997,7 +997,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef asio::execution::outstanding_work_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() ASIO_NOEXCEPT
+  static ASIO_CONSTEXPR result_type value() noexcept(true)
   {
     return (Bits & outstanding_work_tracked)
       ? execution::outstanding_work_t(execution::outstanding_work.tracked)
@@ -1021,7 +1021,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef asio::execution::mapping_t::thread_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() ASIO_NOEXCEPT
+  static ASIO_CONSTEXPR result_type value() noexcept(true)
   {
     return result_type();
   }

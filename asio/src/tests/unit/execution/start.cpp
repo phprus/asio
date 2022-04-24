@@ -29,7 +29,7 @@ struct no_start
 
 struct const_member_start
 {
-  void start() const ASIO_NOEXCEPT
+  void start() const noexcept(true)
   {
     ++call_count;
   }
@@ -55,7 +55,7 @@ struct start_member<const const_member_start>
 
 struct free_start_const_receiver
 {
-  friend void start(const free_start_const_receiver&) ASIO_NOEXCEPT
+  friend void start(const free_start_const_receiver&) noexcept(true)
   {
     ++call_count;
   }
@@ -81,7 +81,7 @@ struct start_free<const free_start_const_receiver>
 
 struct non_const_member_start
 {
-  void start() ASIO_NOEXCEPT
+  void start() noexcept(true)
   {
     ++call_count;
   }
@@ -107,7 +107,7 @@ struct start_member<non_const_member_start>
 
 struct free_start_non_const_receiver
 {
-  friend void start(free_start_non_const_receiver&) ASIO_NOEXCEPT
+  friend void start(free_start_non_const_receiver&) noexcept(true)
   {
     ++call_count;
   }

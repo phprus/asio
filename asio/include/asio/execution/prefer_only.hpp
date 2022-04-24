@@ -119,7 +119,7 @@ struct prefer_only_property<InnerProperty,
   }
 
   ASIO_CONSTEXPR auto value() const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       noexcept(asio::declval<const InnerProperty>().value())))
     -> decltype(asio::declval<const InnerProperty>().value())
   {
@@ -199,7 +199,7 @@ struct prefer_only :
   static ASIO_CONSTEXPR
   typename traits::static_query<T, InnerProperty>::result_type
   static_query()
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       traits::static_query<T, InnerProperty>::is_noexcept))
   {
     return traits::static_query<T, InnerProperty>::value();
@@ -223,7 +223,7 @@ struct prefer_only :
       >::type* = 0)
 #if !defined(ASIO_MSVC) \
   && !defined(__clang__) // Clang crashes if noexcept is used here.
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_prefer<const Executor&, const InnerProperty&>::value))
 #endif // !defined(ASIO_MSVC)
        //   && !defined(__clang__)
@@ -243,7 +243,7 @@ struct prefer_only :
       >::type* = 0)
 #if !defined(ASIO_MSVC) \
   && !defined(__clang__) // Clang crashes if noexcept is used here.
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&, const InnerProperty&>::value))
 #endif // !defined(ASIO_MSVC)
        //   && !defined(__clang__)

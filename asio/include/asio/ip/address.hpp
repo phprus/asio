@@ -51,44 +51,44 @@ class address
 {
 public:
   /// Default constructor.
-  ASIO_DECL address() ASIO_NOEXCEPT;
+  ASIO_DECL address() noexcept(true);
 
   /// Construct an address from an IPv4 address.
   ASIO_DECL address(
-      const asio::ip::address_v4& ipv4_address) ASIO_NOEXCEPT;
+      const asio::ip::address_v4& ipv4_address) noexcept(true);
 
   /// Construct an address from an IPv6 address.
   ASIO_DECL address(
-      const asio::ip::address_v6& ipv6_address) ASIO_NOEXCEPT;
+      const asio::ip::address_v6& ipv6_address) noexcept(true);
 
   /// Copy constructor.
-  ASIO_DECL address(const address& other) ASIO_NOEXCEPT;
+  ASIO_DECL address(const address& other) noexcept(true);
 
   /// Move constructor.
-  ASIO_DECL address(address&& other) ASIO_NOEXCEPT;
+  ASIO_DECL address(address&& other) noexcept(true);
 
   /// Assign from another address.
-  ASIO_DECL address& operator=(const address& other) ASIO_NOEXCEPT;
+  ASIO_DECL address& operator=(const address& other) noexcept(true);
 
   /// Move-assign from another address.
-  ASIO_DECL address& operator=(address&& other) ASIO_NOEXCEPT;
+  ASIO_DECL address& operator=(address&& other) noexcept(true);
 
   /// Assign from an IPv4 address.
   ASIO_DECL address& operator=(
-      const asio::ip::address_v4& ipv4_address) ASIO_NOEXCEPT;
+      const asio::ip::address_v4& ipv4_address) noexcept(true);
 
   /// Assign from an IPv6 address.
   ASIO_DECL address& operator=(
-      const asio::ip::address_v6& ipv6_address) ASIO_NOEXCEPT;
+      const asio::ip::address_v6& ipv6_address) noexcept(true);
 
   /// Get whether the address is an IP version 4 address.
-  bool is_v4() const ASIO_NOEXCEPT
+  bool is_v4() const noexcept(true)
   {
     return type_ == ipv4;
   }
 
   /// Get whether the address is an IP version 6 address.
-  bool is_v6() const ASIO_NOEXCEPT
+  bool is_v6() const noexcept(true)
   {
     return type_ == ipv6;
   }
@@ -129,46 +129,46 @@ public:
 #endif // !defined(ASIO_NO_DEPRECATED)
 
   /// Determine whether the address is a loopback address.
-  ASIO_DECL bool is_loopback() const ASIO_NOEXCEPT;
+  ASIO_DECL bool is_loopback() const noexcept(true);
 
   /// Determine whether the address is unspecified.
-  ASIO_DECL bool is_unspecified() const ASIO_NOEXCEPT;
+  ASIO_DECL bool is_unspecified() const noexcept(true);
 
   /// Determine whether the address is a multicast address.
-  ASIO_DECL bool is_multicast() const ASIO_NOEXCEPT;
+  ASIO_DECL bool is_multicast() const noexcept(true);
 
   /// Compare two addresses for equality.
   ASIO_DECL friend bool operator==(const address& a1,
-      const address& a2) ASIO_NOEXCEPT;
+      const address& a2) noexcept(true);
 
   /// Compare two addresses for inequality.
   friend bool operator!=(const address& a1,
-      const address& a2) ASIO_NOEXCEPT
+      const address& a2) noexcept(true)
   {
     return !(a1 == a2);
   }
 
   /// Compare addresses for ordering.
   ASIO_DECL friend bool operator<(const address& a1,
-      const address& a2) ASIO_NOEXCEPT;
+      const address& a2) noexcept(true);
 
   /// Compare addresses for ordering.
   friend bool operator>(const address& a1,
-      const address& a2) ASIO_NOEXCEPT
+      const address& a2) noexcept(true)
   {
     return a2 < a1;
   }
 
   /// Compare addresses for ordering.
   friend bool operator<=(const address& a1,
-      const address& a2) ASIO_NOEXCEPT
+      const address& a2) noexcept(true)
   {
     return !(a2 < a1);
   }
 
   /// Compare addresses for ordering.
   friend bool operator>=(const address& a1,
-      const address& a2) ASIO_NOEXCEPT
+      const address& a2) noexcept(true)
   {
     return !(a1 < a2);
   }
@@ -197,7 +197,7 @@ ASIO_DECL address make_address(const char* str);
  * @relates address
  */
 ASIO_DECL address make_address(const char* str,
-    asio::error_code& ec) ASIO_NOEXCEPT;
+    asio::error_code& ec) noexcept(true);
 
 /// Create an address from an IPv4 address string in dotted decimal form,
 /// or from an IPv6 address in hexadecimal notation.
@@ -212,7 +212,7 @@ ASIO_DECL address make_address(const std::string& str);
  * @relates address
  */
 ASIO_DECL address make_address(const std::string& str,
-    asio::error_code& ec) ASIO_NOEXCEPT;
+    asio::error_code& ec) noexcept(true);
 
 #if defined(ASIO_HAS_STRING_VIEW) \
   || defined(GENERATING_DOCUMENTATION)
@@ -230,7 +230,7 @@ ASIO_DECL address make_address(string_view str);
  * @relates address
  */
 ASIO_DECL address make_address(string_view str,
-    asio::error_code& ec) ASIO_NOEXCEPT;
+    asio::error_code& ec) noexcept(true);
 
 #endif // defined(ASIO_HAS_STRING_VIEW)
        //  || defined(GENERATING_DOCUMENTATION)
@@ -265,7 +265,7 @@ template <>
 struct hash<asio::ip::address>
 {
   std::size_t operator()(const asio::ip::address& addr)
-    const ASIO_NOEXCEPT
+    const noexcept(true)
   {
     return addr.is_v4()
       ? std::hash<asio::ip::address_v4>()(addr.to_v4())

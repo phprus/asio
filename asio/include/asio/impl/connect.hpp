@@ -500,7 +500,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return socket_.get_executor();
     }
@@ -720,7 +720,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return socket_.get_executor();
     }
@@ -763,7 +763,7 @@ struct associator<Associator,
   static typename Associator<RangeConnectHandler, DefaultCandidate>::type get(
       const detail::range_connect_op<Protocol, Executor,
         EndpointSequence, ConnectCondition, RangeConnectHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<RangeConnectHandler, DefaultCandidate>::get(
         h.handler_, c);
@@ -784,7 +784,7 @@ struct associator<Associator,
   get(
       const detail::iterator_connect_op<Protocol, Executor,
         Iterator, ConnectCondition, IteratorConnectHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<IteratorConnectHandler, DefaultCandidate>::get(
         h.handler_, c);

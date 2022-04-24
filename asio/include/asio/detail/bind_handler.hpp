@@ -935,7 +935,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type get(
       const detail::binder0<Handler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -949,7 +949,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type get(
       const detail::binder1<Handler, Arg1>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -964,7 +964,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type get(
       const detail::binder2<Handler, Arg1, Arg2>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -979,7 +979,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type get(
       const detail::binder3<Handler, Arg1, Arg2, Arg3>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -994,7 +994,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type get(
       const detail::binder4<Handler, Arg1, Arg2, Arg3, Arg4>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -1009,7 +1009,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type get(
       const detail::binder5<Handler, Arg1, Arg2, Arg3, Arg4, Arg5>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -1023,7 +1023,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type get(
       const detail::move_binder1<Handler, Arg1>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -1038,7 +1038,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type get(
       const detail::move_binder2<Handler, Arg1, Arg2>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_, c);
   }
