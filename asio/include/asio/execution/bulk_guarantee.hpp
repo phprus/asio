@@ -1164,46 +1164,6 @@ struct static_query<T, execution::bulk_guarantee_t::parallel_t,
 #endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-#if !defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT)
-
-template <typename T>
-struct static_require<T, execution::bulk_guarantee_t::unsequenced_t,
-  typename enable_if<
-    static_query<T, execution::bulk_guarantee_t::unsequenced_t>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid =
-    (is_same<typename static_query<T,
-      execution::bulk_guarantee_t::unsequenced_t>::result_type,
-        execution::bulk_guarantee_t::unsequenced_t>::value));
-};
-
-template <typename T>
-struct static_require<T, execution::bulk_guarantee_t::sequenced_t,
-  typename enable_if<
-    static_query<T, execution::bulk_guarantee_t::sequenced_t>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid =
-    (is_same<typename static_query<T,
-      execution::bulk_guarantee_t::sequenced_t>::result_type,
-        execution::bulk_guarantee_t::sequenced_t>::value));
-};
-
-template <typename T>
-struct static_require<T, execution::bulk_guarantee_t::parallel_t,
-  typename enable_if<
-    static_query<T, execution::bulk_guarantee_t::parallel_t>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid =
-    (is_same<typename static_query<T,
-      execution::bulk_guarantee_t::parallel_t>::result_type,
-        execution::bulk_guarantee_t::parallel_t>::value));
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT)
-
 } // namespace traits
 
 #endif // defined(GENERATING_DOCUMENTATION)

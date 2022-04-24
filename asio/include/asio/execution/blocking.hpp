@@ -1296,46 +1296,6 @@ struct static_query<T, execution::blocking_t::never_t,
 #endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-#if !defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT)
-
-template <typename T>
-struct static_require<T, execution::blocking_t::possibly_t,
-  typename enable_if<
-    static_query<T, execution::blocking_t::possibly_t>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid =
-    (is_same<typename static_query<T,
-      execution::blocking_t::possibly_t>::result_type,
-        execution::blocking_t::possibly_t>::value));
-};
-
-template <typename T>
-struct static_require<T, execution::blocking_t::always_t,
-  typename enable_if<
-    static_query<T, execution::blocking_t::always_t>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid =
-    (is_same<typename static_query<T,
-      execution::blocking_t::always_t>::result_type,
-        execution::blocking_t::always_t>::value));
-};
-
-template <typename T>
-struct static_require<T, execution::blocking_t::never_t,
-  typename enable_if<
-    static_query<T, execution::blocking_t::never_t>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid =
-    (is_same<typename static_query<T,
-      execution::blocking_t::never_t>::result_type,
-        execution::blocking_t::never_t>::value));
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT)
-
 #if !defined(ASIO_HAS_DEDUCED_REQUIRE_FREE_TRAIT)
 
 template <typename T>
