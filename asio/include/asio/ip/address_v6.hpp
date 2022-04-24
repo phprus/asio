@@ -25,9 +25,7 @@
 #include "asio/error_code.hpp"
 #include "asio/ip/address_v4.hpp"
 
-#if defined(ASIO_HAS_STD_HASH)
-# include <functional>
-#endif // defined(ASIO_HAS_STD_HASH)
+#include <functional>
 
 #if !defined(ASIO_NO_IOSTREAM)
 # include <iosfwd>
@@ -369,7 +367,6 @@ std::basic_ostream<Elem, Traits>& operator<<(
 } // namespace ip
 } // namespace asio
 
-#if defined(ASIO_HAS_STD_HASH)
 namespace std {
 
 template <>
@@ -400,7 +397,6 @@ private:
 };
 
 } // namespace std
-#endif // defined(ASIO_HAS_STD_HASH)
 
 #include "asio/detail/pop_options.hpp"
 
