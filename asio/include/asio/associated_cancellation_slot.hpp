@@ -142,13 +142,9 @@ get_associated_cancellation_slot(const T& t,
   return associated_cancellation_slot<T, CancellationSlot>::get(t, st);
 }
 
-#if defined(ASIO_HAS_ALIAS_TEMPLATES)
-
 template <typename T, typename CancellationSlot = cancellation_slot>
 using associated_cancellation_slot_t =
   typename associated_cancellation_slot<T, CancellationSlot>::type;
-
-#endif // defined(ASIO_HAS_ALIAS_TEMPLATES)
 
 namespace detail {
 
