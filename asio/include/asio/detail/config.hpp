@@ -619,31 +619,8 @@
 // C++11: Standard library support for the call_once function.
 #define ASIO_HAS_STD_CALL_ONCE 1
 
-// Standard library support for futures.
-#if !defined(ASIO_HAS_STD_FUTURE)
-# if !defined(ASIO_DISABLE_STD_FUTURE)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_FUTURE 1
-#   elif (__cplusplus >= 201103)
-#    if __has_include(<future>)
-#     define ASIO_HAS_STD_FUTURE 1
-#    endif // __has_include(<future>)
-#   endif // (__cplusplus >= 201103)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_FUTURE 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1700)
-#    define ASIO_HAS_STD_FUTURE 1
-#   endif // (_MSC_VER >= 1700)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_FUTURE)
-#endif // !defined(ASIO_HAS_STD_FUTURE)
+// C++11: Standard library support for futures.
+#define ASIO_HAS_STD_FUTURE 1
 
 // Standard library support for std::string_view.
 #if !defined(ASIO_HAS_STD_STRING_VIEW)
