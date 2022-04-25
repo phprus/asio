@@ -146,7 +146,7 @@ public:
       cancellation_handler_type;
     auto_delete_helper del = { prepare_memory(
         sizeof(cancellation_handler_type),
-        ASIO_ALIGNOF(CancellationHandler)) };
+        alignof(CancellationHandler)) };
     cancellation_handler_type* handler_obj =
       new (del.mem.first) cancellation_handler_type(
         del.mem.second, ASIO_MOVE_CAST(Args)(args)...);
