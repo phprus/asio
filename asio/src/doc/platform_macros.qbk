@@ -122,13 +122,6 @@ needs.
     [`ASIO_DISABLE_CO_AWAIT`]
   ]
   [
-    [`ASIO_HAS_CSTDINT`]
-    [
-      Standard library support for the cstdint header.
-    ]
-    [`ASIO_DISABLE_CSTDINT`]
-  ]
-  [
     [`ASIO_HAS_DEV_POLL`]
     [
       Solaris: /dev/poll.
