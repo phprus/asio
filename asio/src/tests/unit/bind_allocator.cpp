@@ -20,11 +20,7 @@
 #include "asio/steady_timer.hpp"
 #include "unit_test.hpp"
 
-#if defined(ASIO_HAS_BOOST_DATE_TIME)
-# include "asio/deadline_timer.hpp"
-#else // defined(ASIO_HAS_BOOST_DATE_TIME)
-# include "asio/steady_timer.hpp"
-#endif // defined(ASIO_HAS_BOOST_DATE_TIME)
+#include "asio/steady_timer.hpp"
 
 #include <functional>
 
@@ -32,13 +28,8 @@ using namespace asio;
 
 namespace bindns = std;
 
-#if defined(ASIO_HAS_BOOST_DATE_TIME)
-typedef deadline_timer timer;
-namespace chronons = boost::posix_time;
-#elif defined(ASIO_HAS_CHRONO)
 typedef steady_timer timer;
 namespace chronons = asio::chrono;
-#endif // defined(ASIO_HAS_BOOST_DATE_TIME)
 
 template <typename T>
 class test_allocator

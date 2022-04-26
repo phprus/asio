@@ -55,8 +55,6 @@ io_context::get_executor() noexcept(true)
   return executor_type(*this);
 }
 
-#if defined(ASIO_HAS_CHRONO)
-
 template <typename Rep, typename Period>
 std::size_t io_context::run_for(
     const chrono::duration<Rep, Period>& rel_time)
@@ -107,8 +105,6 @@ std::size_t io_context::run_one_until(
 
   return 0;
 }
-
-#endif // defined(ASIO_HAS_CHRONO)
 
 #if !defined(ASIO_NO_DEPRECATED)
 
