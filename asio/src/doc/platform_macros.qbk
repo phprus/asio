@@ -304,13 +304,6 @@ needs.
     [`ASIO_DISABLE_STD_IOSTREAM_MOVE`]
   ]
   [
-    [`ASIO_HAS_STD_NESTED_EXCEPTION`]
-    [
-      Standard library support for std::nested_exception.
-    ]
-    [`ASIO_DISABLE_STD_NESTED_EXCEPTION`]
-  ]
-  [
     [`ASIO_HAS_STD_STRING_VIEW`]
     [
       Standard library support for std::string_view.
