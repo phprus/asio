@@ -27,7 +27,7 @@
 #include "asio/execution.hpp"
 #include "asio/execution_context.hpp"
 
-#include "asio/detail/chrono.hpp"
+#include <chrono>
 
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
 # include "asio/detail/winsock_init.hpp"
@@ -344,7 +344,7 @@ public:
    * @return The number of handlers that were executed.
    */
   template <typename Rep, typename Period>
-  std::size_t run_for(const chrono::duration<Rep, Period>& rel_time);
+  std::size_t run_for(const std::chrono::duration<Rep, Period>& rel_time);
 
   /// Run the io_context object's event processing loop until a specified time.
   /**
@@ -357,7 +357,7 @@ public:
    * @return The number of handlers that were executed.
    */
   template <typename Clock, typename Duration>
-  std::size_t run_until(const chrono::time_point<Clock, Duration>& abs_time);
+  std::size_t run_until(const std::chrono::time_point<Clock, Duration>& abs_time);
 
   /// Run the io_context object's event processing loop to execute at most one
   /// handler.
@@ -413,7 +413,7 @@ public:
    * @return The number of handlers that were executed.
    */
   template <typename Rep, typename Period>
-  std::size_t run_one_for(const chrono::duration<Rep, Period>& rel_time);
+  std::size_t run_one_for(const std::chrono::duration<Rep, Period>& rel_time);
 
   /// Run the io_context object's event processing loop until a specified time
   /// to execute at most one handler.
@@ -428,7 +428,7 @@ public:
    */
   template <typename Clock, typename Duration>
   std::size_t run_one_until(
-      const chrono::time_point<Clock, Duration>& abs_time);
+      const std::chrono::time_point<Clock, Duration>& abs_time);
 
   /// Run the io_context object's event processing loop to execute ready
   /// handlers.

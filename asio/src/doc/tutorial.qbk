@@ -98,7 +98,7 @@ Next we declare an object of type asio::steady\_timer. The core asio classes tha
 
 
 
-  ``''''''``  asio::steady_timer t(io, asio::chrono::seconds(5));
+  ``''''''``  asio::steady_timer t(io, std::chrono::seconds(5));
 
 
 
@@ -150,7 +150,7 @@ Next: [link asio.tutorial.tuttimer2 Timer.2 - Using a timer asynchronously]
   ``''''''``{
   ``''''''``  asio::io_context io;
 
-  ``''''''``  asio::steady_timer t(io, asio::chrono::seconds(5));
+  ``''''''``  asio::steady_timer t(io, std::chrono::seconds(5));
   ``''''''``  t.wait();
 
   ``''''''``  std::cout << "Hello, world!" << std::endl;
@@ -191,7 +191,7 @@ Using asio's asynchronous functionality means having a callback function that wi
   ``''''''``{
   ``''''''``  asio::io_context io;
 
-  ``''''''``  asio::steady_timer t(io, asio::chrono::seconds(5));
+  ``''''''``  asio::steady_timer t(io, std::chrono::seconds(5));
 
 
 
@@ -253,7 +253,7 @@ Next: [link asio.tutorial.tuttimer3 Timer.3 - Binding arguments to a handler]
   ``''''''``{
   ``''''''``  asio::io_context io;
 
-  ``''''''``  asio::steady_timer t(io, asio::chrono::seconds(5));
+  ``''''''``  asio::steady_timer t(io, std::chrono::seconds(5));
   ``''''''``  t.async_wait(&print);
 
   ``''''''``  io.run();
@@ -312,7 +312,7 @@ Next we move the expiry time for the timer along by one second from the previous
 
 
 
-  ``''''''``    t->expires_at(t->expiry() + asio::chrono::seconds(1));
+  ``''''''``    t->expires_at(t->expiry() + std::chrono::seconds(1));
 
 
 
@@ -337,7 +337,7 @@ A new `count` variable is added so that we can stop the program when the timer f
 
 
   ``''''''``  int count = 0;
-  ``''''''``  asio::steady_timer t(io, asio::chrono::seconds(1));
+  ``''''''``  asio::steady_timer t(io, std::chrono::seconds(1));
 
 
 
@@ -397,7 +397,7 @@ Next: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a handl
   ``''''''``    std::cout << *count << std::endl;
   ``''''''``    ++(*count);
 
-  ``''''''``    t->expires_at(t->expiry() + asio::chrono::seconds(1));
+  ``''''''``    t->expires_at(t->expiry() + std::chrono::seconds(1));
   ``''''''``    t->async_wait(std::bind(print,
   ``''''''``          asio::placeholders::error, t, count));
   ``''''''``  }
@@ -408,7 +408,7 @@ Next: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a handl
   ``''''''``  asio::io_context io;
 
   ``''''''``  int count = 0;
-  ``''''''``  asio::steady_timer t(io, asio::chrono::seconds(1));
+  ``''''''``  asio::steady_timer t(io, std::chrono::seconds(1));
   ``''''''``  t.async_wait(std::bind(print,
   ``''''''``        asio::placeholders::error, &t, &count));
 
@@ -454,7 +454,7 @@ The constructor of this class will take a reference to the io\_context object an
 
 
   ``''''''``  printer(asio::io_context& io)
-  ``''''''``    : timer_(io, asio::chrono::seconds(1)),
+  ``''''''``    : timer_(io, std::chrono::seconds(1)),
   ``''''''``      count_(0)
   ``''''''``  {
 
@@ -492,7 +492,7 @@ The `print` member function is very similar to the `print` function from tutoria
   ``''''''``      std::cout << count_ << std::endl;
   ``''''''``      ++count_;
 
-  ``''''''``      timer_.expires_at(timer_.expiry() + asio::chrono::seconds(1));
+  ``''''''``      timer_.expires_at(timer_.expiry() + std::chrono::seconds(1));
   ``''''''``      timer_.async_wait(std::bind(&printer::print, this));
   ``''''''``    }
   ``''''''``  }
@@ -552,7 +552,7 @@ Next: [link asio.tutorial.tuttimer5 Timer.5 - Synchronising handlers in multithr
   ``''''''``{
   ``''''''``public:
   ``''''''``  printer(asio::io_context& io)
-  ``''''''``    : timer_(io, asio::chrono::seconds(1)),
+  ``''''''``    : timer_(io, std::chrono::seconds(1)),
   ``''''''``      count_(0)
   ``''''''``  {
   ``''''''``    timer_.async_wait(std::bind(&printer::print, this));
@@ -570,7 +570,7 @@ Next: [link asio.tutorial.tuttimer5 Timer.5 - Synchronising handlers in multithr
   ``''''''``      std::cout << count_ << std::endl;
   ``''''''``      ++count_;
 
-  ``''''''``      timer_.expires_at(timer_.expiry() + asio::chrono::seconds(1));
+  ``''''''``      timer_.expires_at(timer_.expiry() + std::chrono::seconds(1));
   ``''''''``      timer_.async_wait(std::bind(&printer::print, this));
   ``''''''``    }
   ``''''''``  }
@@ -645,8 +645,8 @@ The
 
   ``''''''``  printer(asio::io_context& io)
   ``''''''``    : strand_(asio::make_strand(io)),
-  ``''''''``      timer1_(io, asio::chrono::seconds(1)),
-  ``''''''``      timer2_(io, asio::chrono::seconds(1)),
+  ``''''''``      timer1_(io, std::chrono::seconds(1)),
+  ``''''''``      timer2_(io, std::chrono::seconds(1)),
   ``''''''``      count_(0)
   ``''''''``  {
 
@@ -682,7 +682,7 @@ In a multithreaded program, the handlers for asynchronous operations should be s
   ``''''''``      std::cout << "Timer 1: " << count_ << std::endl;
   ``''''''``      ++count_;
 
-  ``''''''``      timer1_.expires_at(timer1_.expiry() + asio::chrono::seconds(1));
+  ``''''''``      timer1_.expires_at(timer1_.expiry() + std::chrono::seconds(1));
 
   ``''''''``      timer1_.async_wait(asio::bind_executor(strand_,
   ``''''''``            std::bind(&printer::print1, this)));
@@ -696,7 +696,7 @@ In a multithreaded program, the handlers for asynchronous operations should be s
   ``''''''``      std::cout << "Timer 2: " << count_ << std::endl;
   ``''''''``      ++count_;
 
-  ``''''''``      timer2_.expires_at(timer2_.expiry() + asio::chrono::seconds(1));
+  ``''''''``      timer2_.expires_at(timer2_.expiry() + std::chrono::seconds(1));
 
   ``''''''``      timer2_.async_wait(asio::bind_executor(strand_,
   ``''''''``            std::bind(&printer::print2, this)));
@@ -764,8 +764,8 @@ Previous: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a h
   ``''''''``public:
   ``''''''``  printer(asio::io_context& io)
   ``''''''``    : strand_(asio::make_strand(io)),
-  ``''''''``      timer1_(io, asio::chrono::seconds(1)),
-  ``''''''``      timer2_(io, asio::chrono::seconds(1)),
+  ``''''''``      timer1_(io, std::chrono::seconds(1)),
+  ``''''''``      timer2_(io, std::chrono::seconds(1)),
   ``''''''``      count_(0)
   ``''''''``  {
   ``''''''``    timer1_.async_wait(asio::bind_executor(strand_,
@@ -787,7 +787,7 @@ Previous: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a h
   ``''''''``      std::cout << "Timer 1: " << count_ << std::endl;
   ``''''''``      ++count_;
 
-  ``''''''``      timer1_.expires_at(timer1_.expiry() + asio::chrono::seconds(1));
+  ``''''''``      timer1_.expires_at(timer1_.expiry() + std::chrono::seconds(1));
 
   ``''''''``      timer1_.async_wait(asio::bind_executor(strand_,
   ``''''''``            std::bind(&printer::print1, this)));
@@ -801,7 +801,7 @@ Previous: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a h
   ``''''''``      std::cout << "Timer 2: " << count_ << std::endl;
   ``''''''``      ++count_;
 
-  ``''''''``      timer2_.expires_at(timer2_.expiry() + asio::chrono::seconds(1));
+  ``''''''``      timer2_.expires_at(timer2_.expiry() + std::chrono::seconds(1));
 
   ``''''''``      timer2_.async_wait(asio::bind_executor(strand_,
   ``''''''``            std::bind(&printer::print2, this)));

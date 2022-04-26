@@ -51419,7 +51419,7 @@ Iostream interface for a socket.
 
   template<
       typename ``[link asio.reference.Protocol Protocol]``,
-      typename Clock = chrono::steady_clock,
+      typename Clock = std::chrono::steady_clock,
       typename ``[link asio.reference.WaitTraits WaitTraits]`` = wait_traits<Clock>>
   class basic_socket_iostream
 
@@ -52127,7 +52127,7 @@ Iostream streambuf for a socket.
 
   template<
       typename ``[link asio.reference.Protocol Protocol]``,
-      typename Clock = chrono::steady_clock,
+      typename Clock = std::chrono::steady_clock,
       typename ``[link asio.reference.WaitTraits WaitTraits]`` = wait_traits<Clock>>
   class basic_socket_streambuf :
     basic_socket< Protocol >
@@ -93540,7 +93540,7 @@ Unless customising the traits, applications will typically use the `experimental
    {
      if (i < 10)
      {
-       timer.expires_after(chrono::seconds(1));
+       timer.expires_after(std::chrono::seconds(1));
        timer.async_wait(
            [i, &timer, &ch](error_code error)
            {
@@ -94314,7 +94314,7 @@ Unless customising the traits, applications will typically use the `experimental
    {
      if (i < 10)
      {
-       timer.expires_after(chrono::seconds(1));
+       timer.expires_after(std::chrono::seconds(1));
        timer.async_wait(
            [i, &timer, &ch](error_code error)
            {
@@ -94512,7 +94512,7 @@ Unless customising the traits, applications will typically use the `experimental
    {
      if (i < 10)
      {
-       timer.expires_after(chrono::seconds(1));
+       timer.expires_after(std::chrono::seconds(1));
        timer.async_wait(
            [i, &timer, &ch](error_code error)
            {
@@ -95267,7 +95267,7 @@ Unless customising the traits, applications will typically use the `experimental
    {
      if (i < 10)
      {
-       timer.expires_after(chrono::seconds(1));
+       timer.expires_after(std::chrono::seconds(1));
        timer.async_wait(
            [i, &timer, &ch](error_code error)
            {
@@ -103489,7 +103489,7 @@ Helper function to obtain an object's associated executor.
 Typedef for a timer based on the high resolution clock. 
 
 
-  typedef basic_waitable_timer< chrono::high_resolution_clock > high_resolution_timer;
+  typedef basic_waitable_timer< std::chrono::high_resolution_clock > high_resolution_timer;
 
 
 [heading Types]
@@ -103724,7 +103724,7 @@ Changing the expiry time of a timer while there are pending asynchronous waits c
 
 This typedef uses the C++11 `<chrono>` standard library facility, if available. Otherwise, it may use the Boost.Chrono library. To explicitly utilise Boost.Chrono, use the [link asio.reference.basic_waitable_timer `basic_waitable_timer`] template directly: 
 
-   typedef basic_waitable_timer<boost::chrono::high_resolution_clock> timer;
+   typedef basic_waitable_timer<std::chrono::high_resolution_clock> timer;
 
 
 
@@ -105047,7 +105047,7 @@ Run the [link asio.reference.io_context `io_context`] object's event processing 
       typename Rep,
       typename Period>
   std::size_t run_for(
-      const chrono::duration< Rep, Period > & rel_time);
+      const std::chrono::duration< Rep, Period > & rel_time);
 
 
 The `run_for()` function blocks until all work has finished and there are no more handlers to be dispatched, until the [link asio.reference.io_context `io_context`] has been stopped, or until the specified duration has elapsed.
@@ -105162,7 +105162,7 @@ Run the [link asio.reference.io_context `io_context`] object's event processing 
       typename Rep,
       typename Period>
   std::size_t run_one_for(
-      const chrono::duration< Rep, Period > & rel_time);
+      const std::chrono::duration< Rep, Period > & rel_time);
 
 
 The `run_one_for()` function blocks until one handler has been dispatched, until the [link asio.reference.io_context `io_context`] has been stopped, or until the specified duration has elapsed.
@@ -105199,7 +105199,7 @@ Run the [link asio.reference.io_context `io_context`] object's event processing 
       typename Clock,
       typename Duration>
   std::size_t run_one_until(
-      const chrono::time_point< Clock, Duration > & abs_time);
+      const std::chrono::time_point< Clock, Duration > & abs_time);
 
 
 The `run_one_until()` function blocks until one handler has been dispatched, until the [link asio.reference.io_context `io_context`] has been stopped, or until the specified time has been reached.
@@ -105236,7 +105236,7 @@ Run the [link asio.reference.io_context `io_context`] object's event processing 
       typename Clock,
       typename Duration>
   std::size_t run_until(
-      const chrono::time_point< Clock, Duration > & abs_time);
+      const std::chrono::time_point< Clock, Duration > & abs_time);
 
 
 The `run_until()` function blocks until all work has finished and there are no more handlers to be dispatched, until the [link asio.reference.io_context `io_context`] has been stopped, or until the specified time has been reached.
@@ -150994,7 +150994,7 @@ For example:
 Typedef for a timer based on the steady clock. 
 
 
-  typedef basic_waitable_timer< chrono::steady_clock > steady_timer;
+  typedef basic_waitable_timer< std::chrono::steady_clock > steady_timer;
 
 
 [heading Types]
@@ -151229,7 +151229,7 @@ Changing the expiry time of a timer while there are pending asynchronous waits c
 
 This typedef uses the C++11 `<chrono>` standard library facility, if available. Otherwise, it may use the Boost.Chrono library. To explicitly utilise Boost.Chrono, use the [link asio.reference.basic_waitable_timer `basic_waitable_timer`] template directly: 
 
-   typedef basic_waitable_timer<boost::chrono::steady_clock> timer;
+   typedef basic_waitable_timer<std::chrono::steady_clock> timer;
 
 
 
@@ -153554,7 +153554,7 @@ The system executor represents an execution context where functions are permitte
 Typedef for a timer based on the system clock. 
 
 
-  typedef basic_waitable_timer< chrono::system_clock > system_timer;
+  typedef basic_waitable_timer< std::chrono::system_clock > system_timer;
 
 
 [heading Types]
@@ -153789,7 +153789,7 @@ Changing the expiry time of a timer while there are pending asynchronous waits c
 
 This typedef uses the C++11 `<chrono>` standard library facility, if available. Otherwise, it may use the Boost.Chrono library. To explicitly utilise Boost.Chrono, use the [link asio.reference.basic_waitable_timer `basic_waitable_timer`] template directly: 
 
-   typedef basic_waitable_timer<boost::chrono::system_clock> timer;
+   typedef basic_waitable_timer<std::chrono::system_clock> timer;
 
 
 
