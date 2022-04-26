@@ -456,37 +456,8 @@
 // C++11: Standard library support for allocator_arg_t.
 #define ASIO_HAS_STD_ALLOCATOR_ARG 1
 
-// Standard library support for atomic operations.
-#if !defined(ASIO_HAS_STD_ATOMIC)
-# if !defined(ASIO_DISABLE_STD_ATOMIC)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_ATOMIC 1
-#   elif (__cplusplus >= 201103)
-#    if __has_include(<atomic>)
-#     define ASIO_HAS_STD_ATOMIC 1
-#    endif // __has_include(<atomic>)
-#   elif defined(__apple_build_version__) && defined(_LIBCPP_VERSION)
-#    if (__clang_major__ >= 10)
-#     if __has_include(<atomic>)
-#      define ASIO_HAS_STD_ATOMIC 1
-#     endif // __has_include(<atomic>)
-#    endif // (__clang_major__ >= 10)
-#   endif // defined(__apple_build_version__) && defined(_LIBCPP_VERSION)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_ATOMIC 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1700)
-#    define ASIO_HAS_STD_ATOMIC 1
-#   endif // (_MSC_VER >= 1700)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_ATOMIC)
-#endif // !defined(ASIO_HAS_STD_ATOMIC)
+// C++11: Standard library support for atomic operations.
+#define ASIO_HAS_STD_ATOMIC 1
 
 // Standard library support for chrono. Some standard libraries (such as the
 // libstdc++ shipped with gcc 4.6) provide monotonic_clock as per early C++0x

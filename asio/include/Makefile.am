@@ -87,10 +87,6 @@ nobase_include_HEADERS = \
 	asio/detail/fd_set_adapter.hpp \
 	asio/detail/fenced_block.hpp \
 	asio/detail/future.hpp \
-	asio/detail/gcc_arm_fenced_block.hpp \
-	asio/detail/gcc_hppa_fenced_block.hpp \
-	asio/detail/gcc_sync_fenced_block.hpp \
-	asio/detail/gcc_x86_fenced_block.hpp \
 	asio/detail/global.hpp \
 	asio/detail/handler_alloc_helpers.hpp \
 	asio/detail/handler_cont_helpers.hpp \
@@ -182,7 +178,6 @@ nobase_include_HEADERS = \
 	asio/detail/keyword_tss_ptr.hpp \
 	asio/detail/kqueue_reactor.hpp \
 	asio/detail/local_free_on_block_exit.hpp \
-	asio/detail/macos_fenced_block.hpp \
 	asio/detail/memory.hpp \
 	asio/detail/mutex.hpp \
 	asio/detail/non_const_lvalue.hpp \
@@ -254,7 +249,6 @@ nobase_include_HEADERS = \
 	asio/detail/socket_option.hpp \
 	asio/detail/socket_select_interrupter.hpp \
 	asio/detail/socket_types.hpp \
-	asio/detail/solaris_fenced_block.hpp \
 	asio/detail/source_location.hpp \
 	asio/detail/static_mutex.hpp \
 	asio/detail/std_event.hpp \
@@ -286,7 +280,6 @@ nobase_include_HEADERS = \
 	asio/detail/wince_thread.hpp \
 	asio/detail/win_event.hpp \
 	asio/detail/win_fd_set_adapter.hpp \
-	asio/detail/win_fenced_block.hpp \
 	asio/detail/win_global.hpp \
 	asio/detail/win_iocp_file_service.hpp \
 	asio/detail/win_iocp_handle_read_op.hpp \
