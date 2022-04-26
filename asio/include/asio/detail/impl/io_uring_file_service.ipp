@@ -41,10 +41,10 @@ void io_uring_file_service::shutdown()
   descriptor_service_.shutdown();
 }
 
-asio::error_code io_uring_file_service::open(
+std::error_code io_uring_file_service::open(
     io_uring_file_service::implementation_type& impl,
     const char* path, file_base::flags open_flags,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (is_open(impl))
   {
@@ -60,7 +60,7 @@ asio::error_code io_uring_file_service::open(
   // We're done. Take ownership of the serial port descriptor.
   if (descriptor_service_.assign(impl, fd, ec))
   {
-    asio::error_code ignored_ec;
+    std::error_code ignored_ec;
     descriptor_ops::close(fd, state, ignored_ec);
   }
 
@@ -72,7 +72,7 @@ asio::error_code io_uring_file_service::open(
 
 uint64_t io_uring_file_service::size(
     const io_uring_file_service::implementation_type& impl,
-    asio::error_code& ec) const
+    std::error_code& ec) const
 {
   struct stat s;
   int result = ::fstat(native_handle(impl), &s);
@@ -80,27 +80,27 @@ uint64_t io_uring_file_service::size(
   return !ec ? s.st_size : 0;
 }
 
-asio::error_code io_uring_file_service::resize(
+std::error_code io_uring_file_service::resize(
     io_uring_file_service::implementation_type& impl,
-    uint64_t n, asio::error_code& ec)
+    uint64_t n, std::error_code& ec)
 {
   int result = ::ftruncate(native_handle(impl), n);
   descriptor_ops::get_last_error(ec, result != 0);
   return ec;
 }
 
-asio::error_code io_uring_file_service::sync_all(
+std::error_code io_uring_file_service::sync_all(
     io_uring_file_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   int result = ::fsync(native_handle(impl));
   descriptor_ops::get_last_error(ec, result != 0);
   return ec;
 }
 
-asio::error_code io_uring_file_service::sync_data(
+std::error_code io_uring_file_service::sync_data(
     io_uring_file_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
 #if defined(_POSIX_SYNCHRONIZED_IO)
   int result = ::fdatasync(native_handle(impl));
@@ -113,7 +113,7 @@ asio::error_code io_uring_file_service::sync_data(
 
 uint64_t io_uring_file_service::seek(
     io_uring_file_service::implementation_type& impl, int64_t offset,
-    file_base::seek_basis whence, asio::error_code& ec)
+    file_base::seek_basis whence, std::error_code& ec)
 {
   int64_t result = ::lseek(native_handle(impl), offset, whence);
   descriptor_ops::get_last_error(ec, result < 0);

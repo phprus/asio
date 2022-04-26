@@ -131,7 +131,7 @@ public:
    *   ...
    * } @endcode
    */
-  basic_yield_context operator[](asio::error_code& ec) const
+  basic_yield_context operator[](std::error_code& ec) const
   {
     basic_yield_context tmp(*this);
     tmp.ec_ = &ec;
@@ -144,7 +144,7 @@ private:
   detail::weak_ptr<callee_type> coro_;
   caller_type& ca_;
   Handler handler_;
-  asio::error_code* ec_;
+  std::error_code* ec_;
 };
 
 #if defined(GENERATING_DOCUMENTATION)

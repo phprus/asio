@@ -33,7 +33,7 @@ followed by write, and so on), expressed as a simple state machine.
 
     template <typename Self>
     void operator()(Self& self,
-        asio::error_code error = {},
+        std::error_code error = {},
         std::size_t n = 0)
     {
       switch (state_)
@@ -72,10 +72,10 @@ wraps `async_compose`:
       CompletionToken&& token) ->
     typename asio::async_result<
       typename std::decay<CompletionToken>::type,
-        void(asio::error_code, std::size_t)>::return_type
+        void(std::error_code, std::size_t)>::return_type
   {
     return asio::async_compose<CompletionToken,
-      void(asio::error_code, std::size_t)>(
+      void(std::error_code, std::size_t)>(
         async_echo_implementation{socket, buffer,
           async_echo_implementation::starting},
         token, socket);

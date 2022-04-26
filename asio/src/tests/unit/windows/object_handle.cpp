@@ -30,7 +30,7 @@
 
 namespace windows_object_handle_compile {
 
-void wait_handler(const asio::error_code&)
+void wait_handler(const std::error_code&)
 {
 }
 
@@ -45,7 +45,7 @@ void test()
     io_context ioc;
     const io_context::executor_type ioc_ex = ioc.get_executor();
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
 
     // basic_object_handle constructors.
 

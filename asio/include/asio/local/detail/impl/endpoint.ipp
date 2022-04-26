@@ -59,7 +59,7 @@ void endpoint::resize(std::size_t new_size)
 {
   if (new_size > sizeof(asio::detail::sockaddr_un_type))
   {
-    asio::error_code ec(asio::error::invalid_argument);
+    std::error_code ec(asio::error::invalid_argument);
     asio::detail::throw_error(ec);
   }
   else if (new_size == 0)
@@ -108,7 +108,7 @@ void endpoint::init(const char* path_name, std::size_t path_length)
   if (path_length > sizeof(data_.local.sun_path) - 1)
   {
     // The buffer is not large enough to store this address.
-    asio::error_code ec(asio::error::name_too_long);
+    std::error_code ec(asio::error::name_too_long);
     asio::detail::throw_error(ec);
   }
 

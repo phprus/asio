@@ -15,7 +15,7 @@ registered with multiple [link asio.reference.signal_set signal_set] objects,
 however the signal number must be used only with Asio.
 
   void handler(
-      const asio::error_code& error,
+      const std::error_code& error,
       int signal_number)
   {
     if (!error)

@@ -124,13 +124,13 @@ public:
    * @param open_flags A set of flags that determine how the file should be
    * opened.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   basic_stream_file(const executor_type& ex,
       const char* path, file_base::flags open_flags)
     : basic_file<Executor>(ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     this->impl_.get_service().set_is_stream(
         this->impl_.get_implementation(), true);
     this->impl_.get_service().open(
@@ -152,7 +152,7 @@ public:
    * @param open_flags A set of flags that determine how the file should be
    * opened.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ExecutionContext>
   basic_stream_file(ExecutionContext& context,
@@ -163,7 +163,7 @@ public:
       >::type = defaulted_constraint())
     : basic_file<Executor>(context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     this->impl_.get_service().set_is_stream(
         this->impl_.get_implementation(), true);
     this->impl_.get_service().open(
@@ -184,13 +184,13 @@ public:
    * @param open_flags A set of flags that determine how the file should be
    * opened.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   basic_stream_file(const executor_type& ex,
       const std::string& path, file_base::flags open_flags)
     : basic_file<Executor>(ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     this->impl_.get_service().set_is_stream(
         this->impl_.get_implementation(), true);
     this->impl_.get_service().open(
@@ -212,7 +212,7 @@ public:
    * @param open_flags A set of flags that determine how the file should be
    * opened.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ExecutionContext>
   basic_stream_file(ExecutionContext& context,
@@ -223,7 +223,7 @@ public:
       >::type = defaulted_constraint())
     : basic_file<Executor>(context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     this->impl_.get_service().set_is_stream(
         this->impl_.get_implementation(), true);
     this->impl_.get_service().open(
@@ -242,7 +242,7 @@ public:
    *
    * @param native_file The new underlying file implementation.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   basic_stream_file(const executor_type& ex,
       const native_handle_type& native_file)
@@ -263,7 +263,7 @@ public:
    *
    * @param native_file The new underlying file implementation.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ExecutionContext>
   basic_stream_file(ExecutionContext& context,
@@ -373,11 +373,11 @@ public:
    *
    * @returns The new position relative to the beginning of the file.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   uint64_t seek(int64_t offset, file_base::seek_basis whence)
   {
-    asio::error_code ec;
+    std::error_code ec;
     uint64_t n = this->impl_.get_service().seek(
         this->impl_.get_implementation(), offset, whence, ec);
     asio::detail::throw_error(ec, "seek");
@@ -397,7 +397,7 @@ public:
    * @returns The new position relative to the beginning of the file.
    */
   uint64_t seek(int64_t offset, file_base::seek_basis whence,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return this->impl_.get_service().seek(
         this->impl_.get_implementation(), offset, whence, ec);
@@ -413,7 +413,7 @@ public:
    *
    * @returns The number of bytes written.
    *
-   * @throws asio::system_error Thrown on failure. An error code of
+   * @throws std::system_error Thrown on failure. An error code of
    * asio::error::eof indicates that the end of the file was reached.
    *
    * @note The write_some operation may not transmit all of the data to the
@@ -432,7 +432,7 @@ public:
   template <typename ConstBufferSequence>
   std::size_t write_some(const ConstBufferSequence& buffers)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = this->impl_.get_service().write_some(
         this->impl_.get_implementation(), buffers, ec);
     asio::detail::throw_error(ec, "write_some");
@@ -457,7 +457,7 @@ public:
    */
   template <typename ConstBufferSequence>
   std::size_t write_some(const ConstBufferSequence& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return this->impl_.get_service().write_some(
         this->impl_.get_implementation(), buffers, ec);
@@ -480,7 +480,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   std::size_t bytes_transferred // Number of bytes written.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -489,7 +489,7 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    *
    * @note The write operation may not transmit all of the data to the peer.
    * Consider using the @ref async_write function if you need to ensure that all
@@ -515,17 +515,17 @@ public:
    * @li @c cancellation_type::total
    */
   template <typename ConstBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) WriteToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(WriteToken,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_write_some(const ConstBufferSequence& buffers,
       ASIO_MOVE_ARG(WriteToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<WriteToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         initiate_async_write_some(this), token, buffers);
   }
 
@@ -539,7 +539,7 @@ public:
    *
    * @returns The number of bytes read.
    *
-   * @throws asio::system_error Thrown on failure. An error code of
+   * @throws std::system_error Thrown on failure. An error code of
    * asio::error::eof indicates that the end of the file was reached.
    *
    * @note The read_some operation may not read all of the requested number of
@@ -559,7 +559,7 @@ public:
   template <typename MutableBufferSequence>
   std::size_t read_some(const MutableBufferSequence& buffers)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = this->impl_.get_service().read_some(
         this->impl_.get_implementation(), buffers, ec);
     asio::detail::throw_error(ec, "read_some");
@@ -585,7 +585,7 @@ public:
    */
   template <typename MutableBufferSequence>
   std::size_t read_some(const MutableBufferSequence& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return this->impl_.get_service().read_some(
         this->impl_.get_implementation(), buffers, ec);
@@ -608,7 +608,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   std::size_t bytes_transferred // Number of bytes read.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -617,7 +617,7 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    *
    * @note The read operation may not read all of the requested number of bytes.
    * Consider using the @ref async_read function if you need to ensure that the
@@ -644,17 +644,17 @@ public:
    * @li @c cancellation_type::total
    */
   template <typename MutableBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) ReadToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ReadToken,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_read_some(const MutableBufferSequence& buffers,
       ASIO_MOVE_ARG(ReadToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         initiate_async_read_some(this), token, buffers);
   }
 

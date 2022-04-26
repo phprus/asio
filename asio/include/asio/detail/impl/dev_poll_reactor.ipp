@@ -244,7 +244,7 @@ void dev_poll_reactor::deregister_internal_descriptor(
 
   // Destroy all operations associated with the descriptor.
   op_queue<operation> ops;
-  asio::error_code ec;
+  std::error_code ec;
   for (int i = 0; i < max_ops; ++i)
     op_queue_[i].cancel_operations(descriptor, ops, ec);
 }
@@ -273,7 +273,7 @@ void dev_poll_reactor::run(long usec, op_queue<operation>& ops)
         &pending_event_changes_[0], events_size);
     if (result != static_cast<int>(events_size))
     {
-      asio::error_code ec = asio::error_code(
+      std::error_code ec = std::error_code(
           errno, asio::error::get_system_category());
       for (std::size_t i = 0; i < pending_event_changes_.size(); ++i)
       {
@@ -368,7 +368,7 @@ void dev_poll_reactor::run(long usec, op_queue<operation>& ops)
         int result = ::write(dev_poll_fd_, &ev, sizeof(ev));
         if (result != sizeof(ev))
         {
-          asio::error_code ec(errno,
+          std::error_code ec(errno,
               asio::error::get_system_category());
           for (int j = 0; j < max_ops; ++j)
             op_queue_[j].cancel_operations(descriptor, ops, ec);
@@ -389,7 +389,7 @@ int dev_poll_reactor::do_dev_poll_create()
   int fd = ::open("/dev/poll", O_RDWR);
   if (fd == -1)
   {
-    asio::error_code ec(errno,
+    std::error_code ec(errno,
         asio::error::get_system_category());
     asio::detail::throw_error(ec, "/dev/poll");
   }
@@ -418,7 +418,7 @@ int dev_poll_reactor::get_timeout(int msec)
 }
 
 void dev_poll_reactor::cancel_ops_unlocked(socket_type descriptor,
-    const asio::error_code& ec)
+    const std::error_code& ec)
 {
   bool need_interrupt = false;
   op_queue<operation> ops;

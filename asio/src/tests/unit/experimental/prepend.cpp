@@ -33,7 +33,7 @@ void prepend_test()
   timer1.async_wait(
       asio::experimental::prepend(
         asio::bind_executor(io2.get_executor(),
-          [&count](int a, int b, asio::error_code)
+          [&count](int a, int b, std::error_code)
           {
             ++count;
             ASIO_CHECK(a == 123);

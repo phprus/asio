@@ -257,13 +257,13 @@ public:
    * @param v A bitmask of peer verification modes. See @ref verify_mode for
    * available values.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note Calls @c SSL_set_verify.
    */
   void set_verify_mode(verify_mode v)
   {
-    asio::error_code ec;
+    std::error_code ec;
     set_verify_mode(v, ec);
     asio::detail::throw_error(ec, "set_verify_mode");
   }
@@ -281,7 +281,7 @@ public:
    * @note Calls @c SSL_set_verify.
    */
   ASIO_SYNC_OP_VOID set_verify_mode(
-      verify_mode v, asio::error_code& ec)
+      verify_mode v, std::error_code& ec)
   {
     core_.engine_.set_verify_mode(v, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -295,13 +295,13 @@ public:
    * @param depth Maximum depth for the certificate chain verification that
    * shall be allowed.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note Calls @c SSL_set_verify_depth.
    */
   void set_verify_depth(int depth)
   {
-    asio::error_code ec;
+    std::error_code ec;
     set_verify_depth(depth, ec);
     asio::detail::throw_error(ec, "set_verify_depth");
   }
@@ -319,7 +319,7 @@ public:
    * @note Calls @c SSL_set_verify_depth.
    */
   ASIO_SYNC_OP_VOID set_verify_depth(
-      int depth, asio::error_code& ec)
+      int depth, std::error_code& ec)
   {
     core_.engine_.set_verify_depth(depth, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -339,14 +339,14 @@ public:
    * The return value of the callback is true if the certificate has passed
    * verification, false otherwise.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note Calls @c SSL_set_verify.
    */
   template <typename VerifyCallback>
   void set_verify_callback(VerifyCallback callback)
   {
-    asio::error_code ec;
+    std::error_code ec;
     this->set_verify_callback(callback, ec);
     asio::detail::throw_error(ec, "set_verify_callback");
   }
@@ -371,7 +371,7 @@ public:
    */
   template <typename VerifyCallback>
   ASIO_SYNC_OP_VOID set_verify_callback(VerifyCallback callback,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     core_.engine_.set_verify_callback(
         new detail::verify_callback<VerifyCallback>(callback), ec);
@@ -386,11 +386,11 @@ public:
    * @param type The type of handshaking to be performed, i.e. as a client or as
    * a server.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void handshake(handshake_type type)
   {
-    asio::error_code ec;
+    std::error_code ec;
     handshake(type, ec);
     asio::detail::throw_error(ec, "handshake");
   }
@@ -406,7 +406,7 @@ public:
    * @param ec Set to indicate what error occurred, if any.
    */
   ASIO_SYNC_OP_VOID handshake(handshake_type type,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     detail::io(next_layer_, core_, detail::handshake_op(type), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -422,12 +422,12 @@ public:
    *
    * @param buffers The buffered data to be reused for the handshake.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ConstBufferSequence>
   void handshake(handshake_type type, const ConstBufferSequence& buffers)
   {
-    asio::error_code ec;
+    std::error_code ec;
     handshake(type, buffers, ec);
     asio::detail::throw_error(ec, "handshake");
   }
@@ -446,7 +446,7 @@ public:
    */
   template <typename ConstBufferSequence>
   ASIO_SYNC_OP_VOID handshake(handshake_type type,
-      const ConstBufferSequence& buffers, asio::error_code& ec)
+      const ConstBufferSequence& buffers, std::error_code& ec)
   {
     detail::io(next_layer_, core_,
         detail::buffered_handshake_op<ConstBufferSequence>(type, buffers), ec);
@@ -468,7 +468,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error // Result of operation.
+   *   const std::error_code& error // Result of operation.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
    * not, the completion handler will not be invoked from within this function.
@@ -476,7 +476,7 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code) @endcode
+   * @code void(std::error_code) @endcode
    *
    * @par Per-Operation Cancellation
    * This asynchronous operation supports cancellation for the following
@@ -490,17 +490,17 @@ public:
    * @c async_write_some operations.
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code))
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code))
         HandshakeToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(HandshakeToken,
-      void (asio::error_code))
+      void (std::error_code))
   async_handshake(handshake_type type,
       ASIO_MOVE_ARG(HandshakeToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<HandshakeToken,
-      void (asio::error_code)>(
+      void (std::error_code)>(
         initiate_async_handshake(this), token, type);
   }
 
@@ -524,7 +524,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   std::size_t bytes_transferred // Amount of buffers used in handshake.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -533,7 +533,7 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    *
    * @par Per-Operation Cancellation
    * This asynchronous operation supports cancellation for the following
@@ -547,17 +547,17 @@ public:
    * @c async_write_some operations.
    */
   template <typename ConstBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) BufferedHandshakeToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(BufferedHandshakeToken,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_handshake(handshake_type type, const ConstBufferSequence& buffers,
       ASIO_MOVE_ARG(BufferedHandshakeToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<BufferedHandshakeToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         initiate_async_buffered_handshake(this), token, type, buffers);
   }
 
@@ -566,11 +566,11 @@ public:
    * This function is used to shut down SSL on the stream. The function call
    * will block until SSL has been shut down or an error occurs.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void shutdown()
   {
-    asio::error_code ec;
+    std::error_code ec;
     shutdown(ec);
     asio::detail::throw_error(ec, "shutdown");
   }
@@ -582,7 +582,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID shutdown(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID shutdown(std::error_code& ec)
   {
     detail::io(next_layer_, core_, detail::shutdown_op(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -600,7 +600,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error // Result of operation.
+   *   const std::error_code& error // Result of operation.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
    * not, the completion handler will not be invoked from within this function.
@@ -608,7 +608,7 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code) @endcode
+   * @code void(std::error_code) @endcode
    *
    * @par Per-Operation Cancellation
    * This asynchronous operation supports cancellation for the following
@@ -622,17 +622,17 @@ public:
    * @c async_write_some operations.
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code))
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code))
         ShutdownToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ShutdownToken,
-      void (asio::error_code))
+      void (std::error_code))
   async_shutdown(
       ASIO_MOVE_ARG(ShutdownToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<ShutdownToken,
-      void (asio::error_code)>(
+      void (std::error_code)>(
         initiate_async_shutdown(this), token);
   }
 
@@ -646,7 +646,7 @@ public:
    *
    * @returns The number of bytes written.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note The write_some operation may not transmit all of the data to the
    * peer. Consider using the @ref write function if you need to ensure that all
@@ -655,7 +655,7 @@ public:
   template <typename ConstBufferSequence>
   std::size_t write_some(const ConstBufferSequence& buffers)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t n = write_some(buffers, ec);
     asio::detail::throw_error(ec, "write_some");
     return n;
@@ -679,7 +679,7 @@ public:
    */
   template <typename ConstBufferSequence>
   std::size_t write_some(const ConstBufferSequence& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return detail::io(next_layer_, core_,
         detail::write_op<ConstBufferSequence>(buffers), ec);
@@ -702,7 +702,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   std::size_t bytes_transferred // Number of bytes written.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -711,7 +711,7 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    *
    * @note The async_write_some operation may not transmit all of the data to
    * the peer. Consider using the @ref async_write function if you need to
@@ -730,17 +730,17 @@ public:
    * @c async_write_some operations.
    */
   template <typename ConstBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) WriteToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(WriteToken,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_write_some(const ConstBufferSequence& buffers,
       ASIO_MOVE_ARG(WriteToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<WriteToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         initiate_async_write_some(this), token, buffers);
   }
 
@@ -754,7 +754,7 @@ public:
    *
    * @returns The number of bytes read.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note The read_some operation may not read all of the requested number of
    * bytes. Consider using the @ref read function if you need to ensure that the
@@ -763,7 +763,7 @@ public:
   template <typename MutableBufferSequence>
   std::size_t read_some(const MutableBufferSequence& buffers)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t n = read_some(buffers, ec);
     asio::detail::throw_error(ec, "read_some");
     return n;
@@ -787,7 +787,7 @@ public:
    */
   template <typename MutableBufferSequence>
   std::size_t read_some(const MutableBufferSequence& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return detail::io(next_layer_, core_,
         detail::read_op<MutableBufferSequence>(buffers), ec);
@@ -810,7 +810,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   std::size_t bytes_transferred // Number of bytes read.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -819,7 +819,7 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    *
    * @note The async_read_some operation may not read all of the requested
    * number of bytes. Consider using the @ref async_read function if you need to
@@ -838,17 +838,17 @@ public:
    * @c async_write_some operations.
    */
   template <typename MutableBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) ReadToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ReadToken,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_read_some(const MutableBufferSequence& buffers,
       ASIO_MOVE_ARG(ReadToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         initiate_async_read_some(this), token, buffers);
   }
 

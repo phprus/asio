@@ -35,23 +35,23 @@ bool verify_callback(bool, asio::ssl::verify_context&)
   return false;
 }
 
-void handshake_handler(const asio::error_code&)
+void handshake_handler(const std::error_code&)
 {
 }
 
-void buffered_handshake_handler(const asio::error_code&, std::size_t)
+void buffered_handshake_handler(const std::error_code&, std::size_t)
 {
 }
 
-void shutdown_handler(const asio::error_code&)
+void shutdown_handler(const std::error_code&)
 {
 }
 
-void write_some_handler(const asio::error_code&, std::size_t)
+void write_some_handler(const std::error_code&, std::size_t)
 {
 }
 
-void read_some_handler(const asio::error_code&, std::size_t)
+void read_some_handler(const std::error_code&, std::size_t)
 {
 }
 
@@ -67,7 +67,7 @@ void test()
     const char const_char_buffer[128] = "";
     asio::ssl::context context(asio::ssl::context::sslv23);
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
 
     // ssl::stream constructors.
 

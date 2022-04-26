@@ -63,7 +63,7 @@ namespace asio {
  *
  * @returns The number of bytes transferred.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @par Example
  * To read into a single data buffer use the @ref buffer function as follows:
@@ -125,7 +125,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
 template <typename SyncRandomAccessReadDevice, typename MutableBufferSequence>
 std::size_t read_at(SyncRandomAccessReadDevice& d,
     uint64_t offset, const MutableBufferSequence& buffers,
-    asio::error_code& ec);
+    std::error_code& ec);
 
 /// Attempt to read a certain amount of data at the specified offset before
 /// returning.
@@ -156,7 +156,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
  * must be:
  * @code std::size_t completion_condition(
  *   // Result of latest read_some_at operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // Number of bytes transferred so far.
  *   std::size_t bytes_transferred
@@ -167,7 +167,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
  *
  * @returns The number of bytes transferred.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @par Example
  * To read into a single data buffer use the @ref buffer function as follows:
@@ -212,7 +212,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
  * must be:
  * @code std::size_t completion_condition(
  *   // Result of latest read_some_at operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // Number of bytes transferred so far.
  *   std::size_t bytes_transferred
@@ -230,7 +230,7 @@ template <typename SyncRandomAccessReadDevice, typename MutableBufferSequence,
     typename CompletionCondition>
 std::size_t read_at(SyncRandomAccessReadDevice& d,
     uint64_t offset, const MutableBufferSequence& buffers,
-    CompletionCondition completion_condition, asio::error_code& ec);
+    CompletionCondition completion_condition, std::error_code& ec);
 
 #if !defined(ASIO_NO_EXTENSIONS)
 #if !defined(ASIO_NO_IOSTREAM)
@@ -256,7 +256,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
  *
  * @returns The number of bytes transferred.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @note This overload is equivalent to calling:
  * @code asio::read_at(
@@ -298,7 +298,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
 template <typename SyncRandomAccessReadDevice, typename Allocator>
 std::size_t read_at(SyncRandomAccessReadDevice& d,
     uint64_t offset, basic_streambuf<Allocator>& b,
-    asio::error_code& ec);
+    std::error_code& ec);
 
 /// Attempt to read a certain amount of data at the specified offset before
 /// returning.
@@ -324,7 +324,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
  * must be:
  * @code std::size_t completion_condition(
  *   // Result of latest read_some_at operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // Number of bytes transferred so far.
  *   std::size_t bytes_transferred
@@ -335,7 +335,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
  *
  * @returns The number of bytes transferred.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  */
 template <typename SyncRandomAccessReadDevice, typename Allocator,
     typename CompletionCondition>
@@ -367,7 +367,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
  * must be:
  * @code std::size_t completion_condition(
  *   // Result of latest read_some_at operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // Number of bytes transferred so far.
  *   std::size_t bytes_transferred
@@ -385,7 +385,7 @@ template <typename SyncRandomAccessReadDevice, typename Allocator,
     typename CompletionCondition>
 std::size_t read_at(SyncRandomAccessReadDevice& d,
     uint64_t offset, basic_streambuf<Allocator>& b,
-    CompletionCondition completion_condition, asio::error_code& ec);
+    CompletionCondition completion_condition, std::error_code& ec);
 
 #endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
@@ -434,7 +434,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // Number of bytes copied into the buffers. If an error
  *   // occurred, this will be the number of bytes successfully
@@ -447,7 +447,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
  * manner equivalent to using asio::post().
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @par Example
  * To read into a single data buffer use the @ref buffer function as follows:
@@ -476,12 +476,12 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
  * async_read_some_at operation.
  */
 template <typename AsyncRandomAccessReadDevice, typename MutableBufferSequence,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken
         ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(
           typename AsyncRandomAccessReadDevice::executor_type)>
 ASIO_INITFN_AUTO_RESULT_TYPE(ReadToken,
-    void (asio::error_code, std::size_t))
+    void (std::error_code, std::size_t))
 async_read_at(AsyncRandomAccessReadDevice& d, uint64_t offset,
     const MutableBufferSequence& buffers,
     ASIO_MOVE_ARG(ReadToken) token
@@ -518,7 +518,7 @@ async_read_at(AsyncRandomAccessReadDevice& d, uint64_t offset,
  * must be:
  * @code std::size_t completion_condition(
  *   // Result of latest async_read_some_at operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // Number of bytes transferred so far.
  *   std::size_t bytes_transferred
@@ -534,7 +534,7 @@ async_read_at(AsyncRandomAccessReadDevice& d, uint64_t offset,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // Number of bytes copied into the buffers. If an error
  *   // occurred, this will be the number of bytes successfully
@@ -547,7 +547,7 @@ async_read_at(AsyncRandomAccessReadDevice& d, uint64_t offset,
  * manner equivalent to using asio::post().
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @par Example
  * To read into a single data buffer use the @ref buffer function as follows:
@@ -572,12 +572,12 @@ async_read_at(AsyncRandomAccessReadDevice& d, uint64_t offset,
  */
 template <typename AsyncRandomAccessReadDevice,
     typename MutableBufferSequence, typename CompletionCondition,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken
         ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(
           typename AsyncRandomAccessReadDevice::executor_type)>
 ASIO_INITFN_AUTO_RESULT_TYPE(ReadToken,
-    void (asio::error_code, std::size_t))
+    void (std::error_code, std::size_t))
 async_read_at(AsyncRandomAccessReadDevice& d,
     uint64_t offset, const MutableBufferSequence& buffers,
     CompletionCondition completion_condition,
@@ -618,7 +618,7 @@ async_read_at(AsyncRandomAccessReadDevice& d,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // Number of bytes copied into the buffers. If an error
  *   // occurred, this will be the number of bytes successfully
@@ -631,7 +631,7 @@ async_read_at(AsyncRandomAccessReadDevice& d,
  * manner equivalent to using asio::post().
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @note This overload is equivalent to calling:
  * @code asio::async_read_at(
@@ -651,12 +651,12 @@ async_read_at(AsyncRandomAccessReadDevice& d,
  * async_read_some_at operation.
  */
 template <typename AsyncRandomAccessReadDevice, typename Allocator,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken
         ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(
           typename AsyncRandomAccessReadDevice::executor_type)>
 ASIO_INITFN_AUTO_RESULT_TYPE(ReadToken,
-    void (asio::error_code, std::size_t))
+    void (std::error_code, std::size_t))
 async_read_at(AsyncRandomAccessReadDevice& d,
     uint64_t offset, basic_streambuf<Allocator>& b,
     ASIO_MOVE_ARG(ReadToken) token
@@ -691,7 +691,7 @@ async_read_at(AsyncRandomAccessReadDevice& d,
  * must be:
  * @code std::size_t completion_condition(
  *   // Result of latest async_read_some_at operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // Number of bytes transferred so far.
  *   std::size_t bytes_transferred
@@ -707,7 +707,7 @@ async_read_at(AsyncRandomAccessReadDevice& d,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // Number of bytes copied into the buffers. If an error
  *   // occurred, this will be the number of bytes successfully
@@ -720,7 +720,7 @@ async_read_at(AsyncRandomAccessReadDevice& d,
  * manner equivalent to using asio::post().
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @par Per-Operation Cancellation
  * This asynchronous operation supports cancellation for the following
@@ -735,12 +735,12 @@ async_read_at(AsyncRandomAccessReadDevice& d,
  */
 template <typename AsyncRandomAccessReadDevice,
     typename Allocator, typename CompletionCondition,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken
         ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(
           typename AsyncRandomAccessReadDevice::executor_type)>
 ASIO_INITFN_AUTO_RESULT_TYPE(ReadToken,
-    void (asio::error_code, std::size_t))
+    void (std::error_code, std::size_t))
 async_read_at(AsyncRandomAccessReadDevice& d,
     uint64_t offset, basic_streambuf<Allocator>& b,
     CompletionCondition completion_condition,

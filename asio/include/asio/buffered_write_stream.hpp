@@ -111,7 +111,7 @@ public:
   }
 
   /// Close the stream.
-  ASIO_SYNC_OP_VOID close(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID close(std::error_code& ec)
   {
     next_layer_.close(ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -125,19 +125,19 @@ public:
   /// Flush all data from the buffer to the next layer. Returns the number of
   /// bytes written to the next layer on the last write operation, or 0 if an
   /// error occurred.
-  std::size_t flush(asio::error_code& ec);
+  std::size_t flush(std::error_code& ec);
 
   /// Start an asynchronous flush.
   /**
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) WriteHandler
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(WriteHandler,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_flush(
       ASIO_MOVE_ARG(WriteHandler) handler
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type));
@@ -151,20 +151,20 @@ public:
   /// or 0 if an error occurred and the error handler did not throw.
   template <typename ConstBufferSequence>
   std::size_t write_some(const ConstBufferSequence& buffers,
-      asio::error_code& ec);
+      std::error_code& ec);
 
   /// Start an asynchronous write. The data being written must be valid for the
   /// lifetime of the asynchronous operation.
   /**
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    */
   template <typename ConstBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) WriteHandler
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(WriteHandler,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_write_some(const ConstBufferSequence& buffers,
       ASIO_MOVE_ARG(WriteHandler) handler
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type));
@@ -181,7 +181,7 @@ public:
   /// an error occurred.
   template <typename MutableBufferSequence>
   std::size_t read_some(const MutableBufferSequence& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return next_layer_.read_some(buffers, ec);
   }
@@ -190,14 +190,14 @@ public:
   /// must be valid for the lifetime of the asynchronous operation.
   /**
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    */
   template <typename MutableBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) ReadHandler
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ReadHandler,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_read_some(const MutableBufferSequence& buffers,
       ASIO_MOVE_ARG(ReadHandler) handler
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
@@ -218,7 +218,7 @@ public:
   /// or 0 if an error occurred.
   template <typename MutableBufferSequence>
   std::size_t peek(const MutableBufferSequence& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return next_layer_.peek(buffers, ec);
   }
@@ -230,7 +230,7 @@ public:
   }
 
   /// Determine the amount of data that may be read without blocking.
-  std::size_t in_avail(asio::error_code& ec)
+  std::size_t in_avail(std::error_code& ec)
   {
     return next_layer_.in_avail(ec);
   }

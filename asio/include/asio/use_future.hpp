@@ -105,7 +105,7 @@ public:
    *
    * @code std::future<std::size_t> fut =
    *   my_socket.async_read_some(buffer,
-   *     use_future([](asio::error_code ec, std::size_t n)
+   *     use_future([](std::error_code ec, std::size_t n)
    *       {
    *         return ec ? 0 : n;
    *       }));

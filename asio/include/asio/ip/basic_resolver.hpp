@@ -242,11 +242,11 @@ public:
    * successful call to this function is guaranteed to return a non-empty
    * range.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   results_type resolve(const query& q)
   {
-    asio::error_code ec;
+    std::error_code ec;
     results_type r = impl_.get_service().resolve(
         impl_.get_implementation(), q, ec);
     asio::detail::throw_error(ec, "resolve");
@@ -266,7 +266,7 @@ public:
    * empty range is returned if an error occurs. A successful call to this
    * function is guaranteed to return a non-empty range.
    */
-  results_type resolve(const query& q, asio::error_code& ec)
+  results_type resolve(const query& q, std::error_code& ec)
   {
     return impl_.get_service().resolve(impl_.get_implementation(), q, ec);
   }
@@ -292,7 +292,7 @@ public:
    * successful call to this function is guaranteed to return a non-empty
    * range.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note On POSIX systems, host names may be locally defined in the file
    * <tt>/etc/hosts</tt>. On Windows, host names may be defined in the file
@@ -345,7 +345,7 @@ public:
    * may use additional locations when resolving service names.
    */
   results_type resolve(ASIO_STRING_VIEW_PARAM host,
-      ASIO_STRING_VIEW_PARAM service, asio::error_code& ec)
+      ASIO_STRING_VIEW_PARAM service, std::error_code& ec)
   {
     return resolve(host, service, resolver_base::flags(), ec);
   }
@@ -375,7 +375,7 @@ public:
    * successful call to this function is guaranteed to return a non-empty
    * range.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note On POSIX systems, host names may be locally defined in the file
    * <tt>/etc/hosts</tt>. On Windows, host names may be defined in the file
@@ -391,7 +391,7 @@ public:
   results_type resolve(ASIO_STRING_VIEW_PARAM host,
       ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags)
   {
-    asio::error_code ec;
+    std::error_code ec;
     basic_resolver_query<protocol_type> q(static_cast<std::string>(host),
         static_cast<std::string>(service), resolve_flags);
     results_type r = impl_.get_service().resolve(
@@ -440,7 +440,7 @@ public:
    */
   results_type resolve(ASIO_STRING_VIEW_PARAM host,
       ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     basic_resolver_query<protocol_type> q(static_cast<std::string>(host),
         static_cast<std::string>(service), resolve_flags);
@@ -470,7 +470,7 @@ public:
    * successful call to this function is guaranteed to return a non-empty
    * range.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note On POSIX systems, host names may be locally defined in the file
    * <tt>/etc/hosts</tt>. On Windows, host names may be defined in the file
@@ -527,7 +527,7 @@ public:
    */
   results_type resolve(const protocol_type& protocol,
       ASIO_STRING_VIEW_PARAM host, ASIO_STRING_VIEW_PARAM service,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return resolve(protocol, host, service, resolver_base::flags(), ec);
   }
@@ -560,7 +560,7 @@ public:
    * successful call to this function is guaranteed to return a non-empty
    * range.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note On POSIX systems, host names may be locally defined in the file
    * <tt>/etc/hosts</tt>. On Windows, host names may be defined in the file
@@ -577,7 +577,7 @@ public:
       ASIO_STRING_VIEW_PARAM host, ASIO_STRING_VIEW_PARAM service,
       resolver_base::flags resolve_flags)
   {
-    asio::error_code ec;
+    std::error_code ec;
     basic_resolver_query<protocol_type> q(
         protocol, static_cast<std::string>(host),
         static_cast<std::string>(service), resolve_flags);
@@ -630,7 +630,7 @@ public:
    */
   results_type resolve(const protocol_type& protocol,
       ASIO_STRING_VIEW_PARAM host, ASIO_STRING_VIEW_PARAM service,
-      resolver_base::flags resolve_flags, asio::error_code& ec)
+      resolver_base::flags resolve_flags, std::error_code& ec)
   {
     basic_resolver_query<protocol_type> q(
         protocol, static_cast<std::string>(host),
@@ -654,7 +654,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   resolver::results_type results // Resolved endpoints as a range.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -666,20 +666,20 @@ public:
    * the handler.
    *
    * @par Completion Signature
-   * @code void(asio::error_code, results_type) @endcode
+   * @code void(std::error_code, results_type) @endcode
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         results_type)) ResolveToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ResolveToken,
-      void (asio::error_code, results_type))
+      void (std::error_code, results_type))
   async_resolve(const query& q,
       ASIO_MOVE_ARG(ResolveToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return asio::async_initiate<ResolveToken,
-      void (asio::error_code, results_type)>(
+      void (std::error_code, results_type)>(
         initiate_async_resolve(this), token, q);
   }
 #endif // !defined(ASIO_NO_DEPRECATED)
@@ -706,7 +706,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   resolver::results_type results // Resolved endpoints as a range.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -718,7 +718,7 @@ public:
    * the handler.
    *
    * @par Completion Signature
-   * @code void(asio::error_code, results_type) @endcode
+   * @code void(std::error_code, results_type) @endcode
    *
    * @note On POSIX systems, host names may be locally defined in the file
    * <tt>/etc/hosts</tt>. On Windows, host names may be defined in the file
@@ -732,11 +732,11 @@ public:
    * may use additional locations when resolving service names.
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         results_type)) ResolveToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ResolveToken,
-      void (asio::error_code, results_type))
+      void (std::error_code, results_type))
   async_resolve(ASIO_STRING_VIEW_PARAM host,
       ASIO_STRING_VIEW_PARAM service,
       ASIO_MOVE_ARG(ResolveToken) token
@@ -774,7 +774,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   resolver::results_type results // Resolved endpoints as a range.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -786,7 +786,7 @@ public:
    * the handler.
    *
    * @par Completion Signature
-   * @code void(asio::error_code, results_type) @endcode
+   * @code void(std::error_code, results_type) @endcode
    *
    * @note On POSIX systems, host names may be locally defined in the file
    * <tt>/etc/hosts</tt>. On Windows, host names may be defined in the file
@@ -800,11 +800,11 @@ public:
    * may use additional locations when resolving service names.
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         results_type)) ResolveToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ResolveToken,
-      void (asio::error_code, results_type))
+      void (std::error_code, results_type))
   async_resolve(ASIO_STRING_VIEW_PARAM host,
       ASIO_STRING_VIEW_PARAM service,
       resolver_base::flags resolve_flags,
@@ -815,7 +815,7 @@ public:
         static_cast<std::string>(service), resolve_flags);
 
     return asio::async_initiate<ResolveToken,
-      void (asio::error_code, results_type)>(
+      void (std::error_code, results_type)>(
         initiate_async_resolve(this), token, q);
   }
 
@@ -845,7 +845,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   resolver::results_type results // Resolved endpoints as a range.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -857,7 +857,7 @@ public:
    * the handler.
    *
    * @par Completion Signature
-   * @code void(asio::error_code, results_type) @endcode
+   * @code void(std::error_code, results_type) @endcode
    *
    * @note On POSIX systems, host names may be locally defined in the file
    * <tt>/etc/hosts</tt>. On Windows, host names may be defined in the file
@@ -871,11 +871,11 @@ public:
    * may use additional locations when resolving service names.
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         results_type)) ResolveToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ResolveToken,
-      void (asio::error_code, results_type))
+      void (std::error_code, results_type))
   async_resolve(const protocol_type& protocol,
       ASIO_STRING_VIEW_PARAM host, ASIO_STRING_VIEW_PARAM service,
       ASIO_MOVE_ARG(ResolveToken) token
@@ -916,7 +916,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   resolver::results_type results // Resolved endpoints as a range.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -928,7 +928,7 @@ public:
    * the handler.
    *
    * @par Completion Signature
-   * @code void(asio::error_code, results_type) @endcode
+   * @code void(std::error_code, results_type) @endcode
    *
    * @note On POSIX systems, host names may be locally defined in the file
    * <tt>/etc/hosts</tt>. On Windows, host names may be defined in the file
@@ -942,11 +942,11 @@ public:
    * may use additional locations when resolving service names.
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         results_type)) ResolveToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ResolveToken,
-      void (asio::error_code, results_type))
+      void (std::error_code, results_type))
   async_resolve(const protocol_type& protocol,
       ASIO_STRING_VIEW_PARAM host, ASIO_STRING_VIEW_PARAM service,
       resolver_base::flags resolve_flags,
@@ -958,7 +958,7 @@ public:
         static_cast<std::string>(service), resolve_flags);
 
     return asio::async_initiate<ResolveToken,
-      void (asio::error_code, results_type)>(
+      void (std::error_code, results_type)>(
         initiate_async_resolve(this), token, q);
   }
 
@@ -974,11 +974,11 @@ public:
    * successful call to this function is guaranteed to return a non-empty
    * range.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   results_type resolve(const endpoint_type& e)
   {
-    asio::error_code ec;
+    std::error_code ec;
     results_type i = impl_.get_service().resolve(
         impl_.get_implementation(), e, ec);
     asio::detail::throw_error(ec, "resolve");
@@ -999,7 +999,7 @@ public:
    * empty range is returned if an error occurs. A successful call to this
    * function is guaranteed to return a non-empty range.
    */
-  results_type resolve(const endpoint_type& e, asio::error_code& ec)
+  results_type resolve(const endpoint_type& e, std::error_code& ec)
   {
     return impl_.get_service().resolve(impl_.get_implementation(), e, ec);
   }
@@ -1020,7 +1020,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   resolver::results_type results // Resolved endpoints as a range.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -1032,20 +1032,20 @@ public:
    * the handler.
    *
    * @par Completion Signature
-   * @code void(asio::error_code, results_type) @endcode
+   * @code void(std::error_code, results_type) @endcode
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         results_type)) ResolveToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ResolveToken,
-      void (asio::error_code, results_type))
+      void (std::error_code, results_type))
   async_resolve(const endpoint_type& e,
       ASIO_MOVE_ARG(ResolveToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return asio::async_initiate<ResolveToken,
-      void (asio::error_code, results_type)>(
+      void (std::error_code, results_type)>(
         initiate_async_resolve(this), token, e);
   }
 

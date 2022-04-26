@@ -42,7 +42,7 @@ socket_select_interrupter::socket_select_interrupter()
 
 void socket_select_interrupter::open_descriptors()
 {
-  asio::error_code ec;
+  std::error_code ec;
   socket_holder acceptor(socket_ops::socket(
         AF_INET, SOCK_STREAM, IPPROTO_TCP, ec));
   if (acceptor.get() == invalid_socket)
@@ -122,7 +122,7 @@ socket_select_interrupter::~socket_select_interrupter()
 
 void socket_select_interrupter::close_descriptors()
 {
-  asio::error_code ec;
+  std::error_code ec;
   socket_ops::state_type state = socket_ops::internal_non_blocking;
   if (read_descriptor_ != invalid_socket)
     socket_ops::close(read_descriptor_, state, true, ec);
@@ -145,7 +145,7 @@ void socket_select_interrupter::interrupt()
   char byte = 0;
   socket_ops::buf b;
   socket_ops::init_buf(b, &byte, 1);
-  asio::error_code ec;
+  std::error_code ec;
   socket_ops::send(write_descriptor_, &b, 1, 0, ec);
 }
 
@@ -154,7 +154,7 @@ bool socket_select_interrupter::reset()
   char data[1024];
   socket_ops::buf b;
   socket_ops::init_buf(b, data, sizeof(data));
-  asio::error_code ec;
+  std::error_code ec;
   for (;;)
   {
     int bytes_read = socket_ops::recv(read_descriptor_, &b, 1, 0, ec);

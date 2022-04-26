@@ -32,7 +32,7 @@ completion handler are passed through as-is.
 
   my_socket.async_read_some(my_buffer,
       asio::bind_executor(my_strand,
-        [](asio::error_code error, std::size_t bytes_transferred)
+        [](std::error_code error, std::size_t bytes_transferred)
         {
           // ...
         }));
@@ -68,7 +68,7 @@ that the error should be captured into `my_error`. The `error_code` is no
 longer passed to the completion handler, but the remaining arguments are passed
 through as-is.
 
-  asio::error_code my_error; // N.B. must be valid until operation completes
+  std::error_code my_error; // N.B. must be valid until operation completes
   // ...
   my_socket.async_read_some(my_buffer,
       asio::redirect_error(
@@ -85,7 +85,7 @@ expression will no longer throw an exception on resumption.
   asio::awaitable<void> my_coroutine()
   {
     // ...
-    asio::error_code my_error;
+    std::error_code my_error;
     std::size_t bytes_transferred =
       co_await my_socket.async_read_some(my_buffer,
         asio::redirect_error(asio::use_awaitable, my_error));
@@ -135,7 +135,7 @@ argument is passed directly to the completion handler:
 
   my_timer.async_wait(
       asio::experimental::as_single(
-        [](asio::error_code error)
+        [](std::error_code error)
         {
           // ...
         }));
@@ -145,7 +145,7 @@ specifies two parameters, the handler is passed the result as a tuple:
 
   my_socket.async_read_some(my_buffer,
       asio::experimental::as_single,
-        [](std::tuple<asio::error_code, std::size_t> result)
+        [](std::tuple<std::error_code, std::size_t> result)
         {
           // ...
         }));

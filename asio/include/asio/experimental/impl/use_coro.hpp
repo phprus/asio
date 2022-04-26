@@ -185,12 +185,12 @@ struct coro_init_handler
 
     template <typename... Args>
     static auto resume_impl(
-        std::tuple<asio::error_code, Args...>&& tup)
+        std::tuple<std::error_code, Args...>&& tup)
     {
       auto ec = get<0>(std::move(tup));
       if (ec)
         asio::detail::throw_exception(
-            asio::system_error(ec, "error_code in use_coro"));
+            std::system_error(ec, "error_code in use_coro"));
 
       if constexpr (sizeof...(Args) == 0u)
         return;
@@ -212,7 +212,7 @@ struct coro_init_handler
     }
 
     static auto resume_impl(
-        std::tuple<asio::error_code>&& tup)
+        std::tuple<std::error_code>&& tup)
     {
       auto ec = get<0>(std::move(tup));
       if (ec)

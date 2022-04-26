@@ -161,9 +161,9 @@ void win_iocp_socket_service_base::destroy(
   impl.prev_ = 0;
 }
 
-asio::error_code win_iocp_socket_service_base::close(
+std::error_code win_iocp_socket_service_base::close(
     win_iocp_socket_service_base::base_implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (is_open(impl))
   {
@@ -186,7 +186,7 @@ asio::error_code win_iocp_socket_service_base::close(
   }
   else
   {
-    ec = asio::error_code();
+    ec = std::error_code();
   }
 
   impl.socket_ = invalid_socket;
@@ -201,7 +201,7 @@ asio::error_code win_iocp_socket_service_base::close(
 
 socket_type win_iocp_socket_service_base::release(
     win_iocp_socket_service_base::base_implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (!is_open(impl))
     return invalid_socket;
@@ -232,9 +232,9 @@ socket_type win_iocp_socket_service_base::release(
   return tmp;
 }
 
-asio::error_code win_iocp_socket_service_base::cancel(
+std::error_code win_iocp_socket_service_base::cancel(
     win_iocp_socket_service_base::base_implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (!is_open(impl))
   {
@@ -262,24 +262,24 @@ asio::error_code win_iocp_socket_service_base::cancel(
         // ERROR_NOT_FOUND means that there were no operations to be
         // cancelled. We swallow this error to match the behaviour on other
         // platforms.
-        ec = asio::error_code();
+        ec = std::error_code();
       }
       else
       {
-        ec = asio::error_code(last_error,
+        ec = std::error_code(last_error,
             asio::error::get_system_category());
       }
     }
     else
     {
-      ec = asio::error_code();
+      ec = std::error_code();
     }
   }
 #if defined(ASIO_ENABLE_CANCELIO)
   else if (impl.safe_cancellation_thread_id_ == 0)
   {
     // No operations have been started, so there's nothing to cancel.
-    ec = asio::error_code();
+    ec = std::error_code();
   }
   else if (impl.safe_cancellation_thread_id_ == ::GetCurrentThreadId())
   {
@@ -290,12 +290,12 @@ asio::error_code win_iocp_socket_service_base::cancel(
     if (!::CancelIo(sock_as_handle))
     {
       DWORD last_error = ::GetLastError();
-      ec = asio::error_code(last_error,
+      ec = std::error_code(last_error,
           asio::error::get_system_category());
     }
     else
     {
-      ec = asio::error_code();
+      ec = std::error_code();
     }
   }
   else
@@ -325,9 +325,9 @@ asio::error_code win_iocp_socket_service_base::cancel(
   return ec;
 }
 
-asio::error_code win_iocp_socket_service_base::do_open(
+std::error_code win_iocp_socket_service_base::do_open(
     win_iocp_socket_service_base::base_implementation_type& impl,
-    int family, int type, int protocol, asio::error_code& ec)
+    int family, int type, int protocol, std::error_code& ec)
 {
   if (is_open(impl))
   {
@@ -351,13 +351,13 @@ asio::error_code win_iocp_socket_service_base::do_open(
   default: impl.state_ = 0; break;
   }
   impl.cancel_token_.reset(static_cast<void*>(0), socket_ops::noop_deleter());
-  ec = asio::error_code();
+  ec = std::error_code();
   return ec;
 }
 
-asio::error_code win_iocp_socket_service_base::do_assign(
+std::error_code win_iocp_socket_service_base::do_assign(
     win_iocp_socket_service_base::base_implementation_type& impl,
-    int type, socket_type native_socket, asio::error_code& ec)
+    int type, socket_type native_socket, std::error_code& ec)
 {
   if (is_open(impl))
   {
@@ -377,7 +377,7 @@ asio::error_code win_iocp_socket_service_base::do_assign(
   default: impl.state_ = 0; break;
   }
   impl.cancel_token_.reset(static_cast<void*>(0), socket_ops::noop_deleter());
-  ec = asio::error_code();
+  ec = std::error_code();
   return ec;
 }
 
@@ -528,7 +528,7 @@ void win_iocp_socket_service_base::start_accept_op(
     iocp_service_.on_completion(op, asio::error::already_open);
   else
   {
-    asio::error_code ec;
+    std::error_code ec;
     new_socket.reset(socket_ops::socket(family, type, protocol, ec));
     if (new_socket.get() == invalid_socket)
       iocp_service_.on_completion(op, ec);
@@ -559,7 +559,7 @@ void win_iocp_socket_service_base::restart_accept_op(
     if (::InterlockedExchangeAdd(cancel_requested, 0) == 1)
       iocp_service_.on_completion(op, asio::error::operation_aborted);
 
-  asio::error_code ec;
+  std::error_code ec;
   new_socket.reset(socket_ops::socket(family, type, protocol, ec));
   if (new_socket.get() == invalid_socket)
     iocp_service_.on_completion(op, ec);
@@ -665,7 +665,7 @@ int win_iocp_socket_service_base::start_connect_op(
       if (op->ec_ == asio::error::in_progress
           || op->ec_ == asio::error::would_block)
       {
-        op->ec_ = asio::error_code();
+        op->ec_ = std::error_code();
         r.start_op(select_reactor::connect_op, impl.socket_,
             impl.reactor_data_, op, false, false);
         return select_reactor::connect_op;
@@ -694,7 +694,7 @@ void win_iocp_socket_service_base::close_for_destruction(
     if (r)
       r->deregister_descriptor(impl.socket_, impl.reactor_data_, true);
 
-    asio::error_code ignored_ec;
+    std::error_code ignored_ec;
     socket_ops::close(impl.socket_, impl.state_, true, ignored_ec);
 
     if (r)

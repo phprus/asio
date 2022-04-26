@@ -329,7 +329,7 @@ public:
    * The poll() function may also be used to dispatch ready handlers, but
    * without blocking.
    */
-  ASIO_DECL count_type run(asio::error_code& ec);
+  ASIO_DECL count_type run(std::error_code& ec);
 #endif // !defined(ASIO_NO_DEPRECATED)
 
   /// Run the io_context object's event processing loop for a specified
@@ -398,7 +398,7 @@ public:
    * poll_one() on the same io_context object may introduce the potential for
    * deadlock. It is the caller's reponsibility to avoid this.
    */
-  ASIO_DECL count_type run_one(asio::error_code& ec);
+  ASIO_DECL count_type run_one(std::error_code& ec);
 #endif // !defined(ASIO_NO_DEPRECATED)
 
   /// Run the io_context object's event processing loop for a specified duration
@@ -451,7 +451,7 @@ public:
    *
    * @return The number of handlers that were executed.
    */
-  ASIO_DECL count_type poll(asio::error_code& ec);
+  ASIO_DECL count_type poll(std::error_code& ec);
 #endif // !defined(ASIO_NO_DEPRECATED)
 
   /// Run the io_context object's event processing loop to execute one ready
@@ -475,7 +475,7 @@ public:
    *
    * @return The number of handlers that were executed.
    */
-  ASIO_DECL count_type poll_one(asio::error_code& ec);
+  ASIO_DECL count_type poll_one(std::error_code& ec);
 #endif // !defined(ASIO_NO_DEPRECATED)
 
   /// Stop the io_context object's event processing loop.

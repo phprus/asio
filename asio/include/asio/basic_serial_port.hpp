@@ -129,7 +129,7 @@ public:
   basic_serial_port(const executor_type& ex, const char* device)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(), device, ec);
     asio::detail::throw_error(ec, "open");
   }
@@ -153,7 +153,7 @@ public:
       >::type = 0)
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(), device, ec);
     asio::detail::throw_error(ec, "open");
   }
@@ -173,7 +173,7 @@ public:
   basic_serial_port(const executor_type& ex, const std::string& device)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(), device, ec);
     asio::detail::throw_error(ec, "open");
   }
@@ -197,7 +197,7 @@ public:
       >::type = 0)
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(), device, ec);
     asio::detail::throw_error(ec, "open");
   }
@@ -213,13 +213,13 @@ public:
    *
    * @param native_serial_port A native serial port.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   basic_serial_port(const executor_type& ex,
       const native_handle_type& native_serial_port)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(impl_.get_implementation(),
         native_serial_port, ec);
     asio::detail::throw_error(ec, "assign");
@@ -236,7 +236,7 @@ public:
    *
    * @param native_serial_port A native serial port.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ExecutionContext>
   basic_serial_port(ExecutionContext& context,
@@ -246,7 +246,7 @@ public:
       >::type = 0)
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(impl_.get_implementation(),
         native_serial_port, ec);
     asio::detail::throw_error(ec, "assign");
@@ -335,11 +335,11 @@ public:
    *
    * @param device The platform-specific device name.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void open(const std::string& device)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(), device, ec);
     asio::detail::throw_error(ec, "open");
   }
@@ -354,7 +354,7 @@ public:
    * @param ec Set the indicate what error occurred, if any.
    */
   ASIO_SYNC_OP_VOID open(const std::string& device,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     impl_.get_service().open(impl_.get_implementation(), device, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -366,11 +366,11 @@ public:
    *
    * @param native_serial_port A native serial port.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void assign(const native_handle_type& native_serial_port)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(impl_.get_implementation(),
         native_serial_port, ec);
     asio::detail::throw_error(ec, "assign");
@@ -385,7 +385,7 @@ public:
    * @param ec Set to indicate what error occurred, if any.
    */
   ASIO_SYNC_OP_VOID assign(const native_handle_type& native_serial_port,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     impl_.get_service().assign(impl_.get_implementation(),
         native_serial_port, ec);
@@ -404,11 +404,11 @@ public:
    * write operations will be cancelled immediately, and will complete with the
    * asio::error::operation_aborted error.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void close()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().close(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "close");
   }
@@ -421,7 +421,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID close(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID close(std::error_code& ec)
   {
     impl_.get_service().close(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -444,11 +444,11 @@ public:
    * to finish immediately, and the handlers for cancelled operations will be
    * passed the asio::error::operation_aborted error.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void cancel()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().cancel(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "cancel");
   }
@@ -461,7 +461,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID cancel(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID cancel(std::error_code& ec)
   {
     impl_.get_service().cancel(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -472,11 +472,11 @@ public:
    * This function causes a break sequence of platform-specific duration to be
    * sent out the serial port.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void send_break()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().send_break(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "send_break");
   }
@@ -488,7 +488,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID send_break(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID send_break(std::error_code& ec)
   {
     impl_.get_service().send_break(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -500,7 +500,7 @@ public:
    *
    * @param option The option value to be set on the serial port.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @sa SettableSerialPortOption @n
    * asio::serial_port_base::baud_rate @n
@@ -512,7 +512,7 @@ public:
   template <typename SettableSerialPortOption>
   void set_option(const SettableSerialPortOption& option)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().set_option(impl_.get_implementation(), option, ec);
     asio::detail::throw_error(ec, "set_option");
   }
@@ -534,7 +534,7 @@ public:
    */
   template <typename SettableSerialPortOption>
   ASIO_SYNC_OP_VOID set_option(const SettableSerialPortOption& option,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     impl_.get_service().set_option(impl_.get_implementation(), option, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -547,7 +547,7 @@ public:
    *
    * @param option The option value to be obtained from the serial port.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @sa GettableSerialPortOption @n
    * asio::serial_port_base::baud_rate @n
@@ -559,7 +559,7 @@ public:
   template <typename GettableSerialPortOption>
   void get_option(GettableSerialPortOption& option) const
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().get_option(impl_.get_implementation(), option, ec);
     asio::detail::throw_error(ec, "get_option");
   }
@@ -582,7 +582,7 @@ public:
    */
   template <typename GettableSerialPortOption>
   ASIO_SYNC_OP_VOID get_option(GettableSerialPortOption& option,
-      asio::error_code& ec) const
+      std::error_code& ec) const
   {
     impl_.get_service().get_option(impl_.get_implementation(), option, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -598,7 +598,7 @@ public:
    *
    * @returns The number of bytes written.
    *
-   * @throws asio::system_error Thrown on failure. An error code of
+   * @throws std::system_error Thrown on failure. An error code of
    * asio::error::eof indicates that the connection was closed by the
    * peer.
    *
@@ -618,7 +618,7 @@ public:
   template <typename ConstBufferSequence>
   std::size_t write_some(const ConstBufferSequence& buffers)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = impl_.get_service().write_some(
         impl_.get_implementation(), buffers, ec);
     asio::detail::throw_error(ec, "write_some");
@@ -643,7 +643,7 @@ public:
    */
   template <typename ConstBufferSequence>
   std::size_t write_some(const ConstBufferSequence& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return impl_.get_service().write_some(
         impl_.get_implementation(), buffers, ec);
@@ -666,7 +666,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   std::size_t bytes_transferred // Number of bytes written.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -675,7 +675,7 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    *
    * @note The write operation may not transmit all of the data to the peer.
    * Consider using the @ref async_write function if you need to ensure that all
@@ -702,17 +702,17 @@ public:
    * @li @c cancellation_type::total
    */
   template <typename ConstBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) WriteToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(WriteToken,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_write_some(const ConstBufferSequence& buffers,
       ASIO_MOVE_ARG(WriteToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<WriteToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         initiate_async_write_some(this), token, buffers);
   }
 
@@ -726,7 +726,7 @@ public:
    *
    * @returns The number of bytes read.
    *
-   * @throws asio::system_error Thrown on failure. An error code of
+   * @throws std::system_error Thrown on failure. An error code of
    * asio::error::eof indicates that the connection was closed by the
    * peer.
    *
@@ -747,7 +747,7 @@ public:
   template <typename MutableBufferSequence>
   std::size_t read_some(const MutableBufferSequence& buffers)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = impl_.get_service().read_some(
         impl_.get_implementation(), buffers, ec);
     asio::detail::throw_error(ec, "read_some");
@@ -773,7 +773,7 @@ public:
    */
   template <typename MutableBufferSequence>
   std::size_t read_some(const MutableBufferSequence& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return impl_.get_service().read_some(
         impl_.get_implementation(), buffers, ec);
@@ -796,7 +796,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   std::size_t bytes_transferred // Number of bytes read.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -805,7 +805,7 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    *
    * @note The read operation may not read all of the requested number of bytes.
    * Consider using the @ref async_read function if you need to ensure that the
@@ -833,17 +833,17 @@ public:
    * @li @c cancellation_type::total
    */
   template <typename MutableBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) ReadToken
           ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(ReadToken,
-      void (asio::error_code, std::size_t))
+      void (std::error_code, std::size_t))
   async_read_some(const MutableBufferSequence& buffers,
       ASIO_MOVE_ARG(ReadToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         initiate_async_read_some(this), token, buffers);
   }
 

@@ -32,13 +32,8 @@
 [section:system_error System Errors and Error Codes]
 
 When available, Asio can use the `std::error_code` and `std::system_error`
-classes for reporting errors. In this case, the names `asio::error_code` and
-`asio::system_error` will be typedefs for these standard classes.
-
-System error support is automatically enabled for [^g++] 4.6 and later, when
-the [^-std=c++0x] or [^-std=gnu++0x] compiler options are used. It may be
-disabled by defining `ASIO_DISABLE_STD_SYSTEM_ERROR`, or explicitly enabled for
-other compilers by defining `ASIO_HAS_STD_SYSTEM_ERROR`.
+classes for reporting errors. In this case, the names `std::error_code` and
+`std::system_error` will be typedefs for these standard classes.
 
 [endsect]
 

@@ -47,7 +47,7 @@ public:
   }
 
   static void do_complete(void* owner, operation* base,
-      const asio::error_code& ec, std::size_t bytes_transferred)
+      const std::error_code& ec, std::size_t bytes_transferred)
   {
     // Take ownership of the operation object.
     win_iocp_overlapped_op* o(static_cast<win_iocp_overlapped_op*>(base));
@@ -66,7 +66,7 @@ public:
     // with the handler. Consequently, a local copy of the handler is required
     // to ensure that any owning sub-object remains valid until after we have
     // deallocated the memory here.
-    detail::binder2<Handler, asio::error_code, std::size_t>
+    detail::binder2<Handler, std::error_code, std::size_t>
       handler(o->handler_, ec, bytes_transferred);
     p.h = asio::detail::addressof(handler.handler_);
     p.reset();

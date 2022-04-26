@@ -161,12 +161,12 @@ public:
    *
    * @param protocol An object specifying protocol parameters to be used.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   basic_socket_acceptor(const executor_type& ex, const protocol_type& protocol)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(), protocol, ec);
     asio::detail::throw_error(ec, "open");
   }
@@ -181,7 +181,7 @@ public:
    *
    * @param protocol An object specifying protocol parameters to be used.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ExecutionContext>
   basic_socket_acceptor(ExecutionContext& context,
@@ -192,7 +192,7 @@ public:
       >::type = defaulted_constraint())
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(), protocol, ec);
     asio::detail::throw_error(ec, "open");
   }
@@ -212,7 +212,7 @@ public:
    * @param reuse_addr Whether the constructor should set the socket option
    * socket_base::reuse_address.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note This constructor is equivalent to the following code:
    * @code
@@ -228,7 +228,7 @@ public:
       const endpoint_type& endpoint, bool reuse_addr = true)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     const protocol_type protocol = endpoint.protocol();
     impl_.get_service().open(impl_.get_implementation(), protocol, ec);
     asio::detail::throw_error(ec, "open");
@@ -260,7 +260,7 @@ public:
    * @param reuse_addr Whether the constructor should set the socket option
    * socket_base::reuse_address.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note This constructor is equivalent to the following code:
    * @code
@@ -280,7 +280,7 @@ public:
       >::type = 0)
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     const protocol_type protocol = endpoint.protocol();
     impl_.get_service().open(impl_.get_implementation(), protocol, ec);
     asio::detail::throw_error(ec, "open");
@@ -310,13 +310,13 @@ public:
    *
    * @param native_acceptor A native acceptor.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   basic_socket_acceptor(const executor_type& ex,
       const protocol_type& protocol, const native_handle_type& native_acceptor)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(impl_.get_implementation(),
         protocol, native_acceptor, ec);
     asio::detail::throw_error(ec, "assign");
@@ -335,7 +335,7 @@ public:
    *
    * @param native_acceptor A native acceptor.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ExecutionContext>
   basic_socket_acceptor(ExecutionContext& context,
@@ -345,7 +345,7 @@ public:
       >::type = 0)
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(impl_.get_implementation(),
         protocol, native_acceptor, ec);
     asio::detail::throw_error(ec, "assign");
@@ -457,7 +457,7 @@ public:
    *
    * @param protocol An object specifying which protocol is to be used.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * @code
@@ -467,7 +467,7 @@ public:
    */
   void open(const protocol_type& protocol = protocol_type())
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(), protocol, ec);
     asio::detail::throw_error(ec, "open");
   }
@@ -484,7 +484,7 @@ public:
    * @par Example
    * @code
    * asio::ip::tcp::acceptor acceptor(my_context);
-   * asio::error_code ec;
+   * std::error_code ec;
    * acceptor.open(asio::ip::tcp::v4(), ec);
    * if (ec)
    * {
@@ -493,7 +493,7 @@ public:
    * @endcode
    */
   ASIO_SYNC_OP_VOID open(const protocol_type& protocol,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     impl_.get_service().open(impl_.get_implementation(), protocol, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -507,12 +507,12 @@ public:
    *
    * @param native_acceptor A native acceptor.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void assign(const protocol_type& protocol,
       const native_handle_type& native_acceptor)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(impl_.get_implementation(),
         protocol, native_acceptor, ec);
     asio::detail::throw_error(ec, "assign");
@@ -529,7 +529,7 @@ public:
    * @param ec Set to indicate what error occurred, if any.
    */
   ASIO_SYNC_OP_VOID assign(const protocol_type& protocol,
-      const native_handle_type& native_acceptor, asio::error_code& ec)
+      const native_handle_type& native_acceptor, std::error_code& ec)
   {
     impl_.get_service().assign(impl_.get_implementation(),
         protocol, native_acceptor, ec);
@@ -550,7 +550,7 @@ public:
    * @param endpoint An endpoint on the local machine to which the socket
    * acceptor will be bound.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * @code
@@ -562,7 +562,7 @@ public:
    */
   void bind(const endpoint_type& endpoint)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().bind(impl_.get_implementation(), endpoint, ec);
     asio::detail::throw_error(ec, "bind");
   }
@@ -582,7 +582,7 @@ public:
    * asio::ip::tcp::acceptor acceptor(my_context);
    * asio::ip::tcp::endpoint endpoint(asio::ip::tcp::v4(), 12345);
    * acceptor.open(endpoint.protocol());
-   * asio::error_code ec;
+   * std::error_code ec;
    * acceptor.bind(endpoint, ec);
    * if (ec)
    * {
@@ -591,7 +591,7 @@ public:
    * @endcode
    */
   ASIO_SYNC_OP_VOID bind(const endpoint_type& endpoint,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     impl_.get_service().bind(impl_.get_implementation(), endpoint, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -605,11 +605,11 @@ public:
    *
    * @param backlog The maximum length of the queue of pending connections.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void listen(int backlog = socket_base::max_listen_connections)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().listen(impl_.get_implementation(), backlog, ec);
     asio::detail::throw_error(ec, "listen");
   }
@@ -628,7 +628,7 @@ public:
    * @code
    * asio::ip::tcp::acceptor acceptor(my_context);
    * ...
-   * asio::error_code ec;
+   * std::error_code ec;
    * acceptor.listen(asio::socket_base::max_listen_connections, ec);
    * if (ec)
    * {
@@ -636,7 +636,7 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID listen(int backlog, asio::error_code& ec)
+  ASIO_SYNC_OP_VOID listen(int backlog, std::error_code& ec)
   {
     impl_.get_service().listen(impl_.get_implementation(), backlog, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -650,11 +650,11 @@ public:
    * A subsequent call to open() is required before the acceptor can again be
    * used to again perform socket accept operations.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void close()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().close(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "close");
   }
@@ -673,7 +673,7 @@ public:
    * @code
    * asio::ip::tcp::acceptor acceptor(my_context);
    * ...
-   * asio::error_code ec;
+   * std::error_code ec;
    * acceptor.close(ec);
    * if (ec)
    * {
@@ -681,7 +681,7 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID close(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID close(std::error_code& ec)
   {
     impl_.get_service().close(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -694,7 +694,7 @@ public:
    * passed the asio::error::operation_aborted error. Ownership of the
    * native acceptor is then transferred to the caller.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note This function is unsupported on Windows versions prior to Windows
    * 8.1, and will fail with asio::error::operation_not_supported on
@@ -708,7 +708,7 @@ public:
 #endif
   native_handle_type release()
   {
-    asio::error_code ec;
+    std::error_code ec;
     native_handle_type s = impl_.get_service().release(
         impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "release");
@@ -734,7 +734,7 @@ public:
         "operation_not_supported when used on Windows versions "
         "prior to Windows 8.1."))
 #endif
-  native_handle_type release(asio::error_code& ec)
+  native_handle_type release(std::error_code& ec)
   {
     return impl_.get_service().release(impl_.get_implementation(), ec);
   }
@@ -756,11 +756,11 @@ public:
    * operations to finish immediately, and the handlers for cancelled operations
    * will be passed the asio::error::operation_aborted error.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void cancel()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().cancel(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "cancel");
   }
@@ -773,7 +773,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID cancel(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID cancel(std::error_code& ec)
   {
     impl_.get_service().cancel(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -785,7 +785,7 @@ public:
    *
    * @param option The new option value to be set on the acceptor.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @sa SettableSocketOption @n
    * asio::socket_base::reuse_address
@@ -803,7 +803,7 @@ public:
   template <typename SettableSocketOption>
   void set_option(const SettableSocketOption& option)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().set_option(impl_.get_implementation(), option, ec);
     asio::detail::throw_error(ec, "set_option");
   }
@@ -826,7 +826,7 @@ public:
    * asio::ip::tcp::acceptor acceptor(my_context);
    * ...
    * asio::ip::tcp::acceptor::reuse_address option(true);
-   * asio::error_code ec;
+   * std::error_code ec;
    * acceptor.set_option(option, ec);
    * if (ec)
    * {
@@ -836,7 +836,7 @@ public:
    */
   template <typename SettableSocketOption>
   ASIO_SYNC_OP_VOID set_option(const SettableSocketOption& option,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     impl_.get_service().set_option(impl_.get_implementation(), option, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -849,7 +849,7 @@ public:
    *
    * @param option The option value to be obtained from the acceptor.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @sa GettableSocketOption @n
    * asio::socket_base::reuse_address
@@ -867,7 +867,7 @@ public:
   template <typename GettableSocketOption>
   void get_option(GettableSocketOption& option) const
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().get_option(impl_.get_implementation(), option, ec);
     asio::detail::throw_error(ec, "get_option");
   }
@@ -890,7 +890,7 @@ public:
    * asio::ip::tcp::acceptor acceptor(my_context);
    * ...
    * asio::ip::tcp::acceptor::reuse_address option;
-   * asio::error_code ec;
+   * std::error_code ec;
    * acceptor.get_option(option, ec);
    * if (ec)
    * {
@@ -901,7 +901,7 @@ public:
    */
   template <typename GettableSocketOption>
   ASIO_SYNC_OP_VOID get_option(GettableSocketOption& option,
-      asio::error_code& ec) const
+      std::error_code& ec) const
   {
     impl_.get_service().get_option(impl_.get_implementation(), option, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -913,7 +913,7 @@ public:
    *
    * @param command The IO control command to be performed on the acceptor.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @sa IoControlCommand @n
    * asio::socket_base::non_blocking_io
@@ -930,7 +930,7 @@ public:
   template <typename IoControlCommand>
   void io_control(IoControlCommand& command)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().io_control(impl_.get_implementation(), command, ec);
     asio::detail::throw_error(ec, "io_control");
   }
@@ -952,7 +952,7 @@ public:
    * asio::ip::tcp::acceptor acceptor(my_context);
    * ...
    * asio::ip::tcp::acceptor::non_blocking_io command(true);
-   * asio::error_code ec;
+   * std::error_code ec;
    * socket.io_control(command, ec);
    * if (ec)
    * {
@@ -962,7 +962,7 @@ public:
    */
   template <typename IoControlCommand>
   ASIO_SYNC_OP_VOID io_control(IoControlCommand& command,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     impl_.get_service().io_control(impl_.get_implementation(), command, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -991,7 +991,7 @@ public:
    * requested operation immediately. If @c false, synchronous operations will
    * block until complete.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note The non-blocking mode has no effect on the behaviour of asynchronous
    * operations. Asynchronous operations will never fail with the error
@@ -999,7 +999,7 @@ public:
    */
   void non_blocking(bool mode)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().non_blocking(impl_.get_implementation(), mode, ec);
     asio::detail::throw_error(ec, "non_blocking");
   }
@@ -1018,7 +1018,7 @@ public:
    * asio::error::would_block.
    */
   ASIO_SYNC_OP_VOID non_blocking(
-      bool mode, asio::error_code& ec)
+      bool mode, std::error_code& ec)
   {
     impl_.get_service().non_blocking(impl_.get_implementation(), mode, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -1053,14 +1053,14 @@ public:
    * mode and direct system calls may fail with asio::error::would_block
    * (or the equivalent system error).
    *
-   * @throws asio::system_error Thrown on failure. If the @c mode is
+   * @throws std::system_error Thrown on failure. If the @c mode is
    * @c false, but the current value of @c non_blocking() is @c true, this
    * function fails with asio::error::invalid_argument, as the
    * combination does not make sense.
    */
   void native_non_blocking(bool mode)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().native_non_blocking(
         impl_.get_implementation(), mode, ec);
     asio::detail::throw_error(ec, "native_non_blocking");
@@ -1082,7 +1082,7 @@ public:
    * combination does not make sense.
    */
   ASIO_SYNC_OP_VOID native_non_blocking(
-      bool mode, asio::error_code& ec)
+      bool mode, std::error_code& ec)
   {
     impl_.get_service().native_non_blocking(
         impl_.get_implementation(), mode, ec);
@@ -1095,7 +1095,7 @@ public:
    *
    * @returns An object that represents the local endpoint of the acceptor.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * @code
@@ -1106,7 +1106,7 @@ public:
    */
   endpoint_type local_endpoint() const
   {
-    asio::error_code ec;
+    std::error_code ec;
     endpoint_type ep = impl_.get_service().local_endpoint(
         impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "local_endpoint");
@@ -1127,7 +1127,7 @@ public:
    * @code
    * asio::ip::tcp::acceptor acceptor(my_context);
    * ...
-   * asio::error_code ec;
+   * std::error_code ec;
    * asio::ip::tcp::endpoint endpoint = acceptor.local_endpoint(ec);
    * if (ec)
    * {
@@ -1135,7 +1135,7 @@ public:
    * }
    * @endcode
    */
-  endpoint_type local_endpoint(asio::error_code& ec) const
+  endpoint_type local_endpoint(std::error_code& ec) const
   {
     return impl_.get_service().local_endpoint(impl_.get_implementation(), ec);
   }
@@ -1158,7 +1158,7 @@ public:
    */
   void wait(wait_type w)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().wait(impl_.get_implementation(), w, ec);
     asio::detail::throw_error(ec, "wait");
   }
@@ -1178,11 +1178,11 @@ public:
    * @code
    * asio::ip::tcp::acceptor acceptor(my_context);
    * ...
-   * asio::error_code ec;
+   * std::error_code ec;
    * acceptor.wait(asio::ip::tcp::acceptor::wait_read, ec);
    * @endcode
    */
-  ASIO_SYNC_OP_VOID wait(wait_type w, asio::error_code& ec)
+  ASIO_SYNC_OP_VOID wait(wait_type w, std::error_code& ec)
   {
     impl_.get_service().wait(impl_.get_implementation(), w, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -1204,7 +1204,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error // Result of operation.
+   *   const std::error_code& error // Result of operation.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
    * not, the completion handler will not be invoked from within this function.
@@ -1212,11 +1212,11 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code) @endcode
+   * @code void(std::error_code) @endcode
    *
    * @par Example
    * @code
-   * void wait_handler(const asio::error_code& error)
+   * void wait_handler(const std::error_code& error)
    * {
    *   if (!error)
    *   {
@@ -1244,15 +1244,15 @@ public:
    * @li @c cancellation_type::total
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code))
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code))
         WaitToken ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(WaitToken,
-      void (asio::error_code))
+      void (std::error_code))
   async_wait(wait_type w,
       ASIO_MOVE_ARG(WaitToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
-    return async_initiate<WaitToken, void (asio::error_code)>(
+    return async_initiate<WaitToken, void (std::error_code)>(
         initiate_async_wait(this), token, w);
   }
 
@@ -1265,7 +1265,7 @@ public:
    *
    * @param peer The socket into which the new connection will be accepted.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * @code
@@ -1281,7 +1281,7 @@ public:
         is_convertible<Protocol, Protocol1>::value
       >::type = 0)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().accept(impl_.get_implementation(),
         peer, static_cast<endpoint_type*>(0), ec);
     asio::detail::throw_error(ec, "accept");
@@ -1302,7 +1302,7 @@ public:
    * asio::ip::tcp::acceptor acceptor(my_context);
    * ...
    * asio::ip::tcp::socket socket(my_context);
-   * asio::error_code ec;
+   * std::error_code ec;
    * acceptor.accept(socket, ec);
    * if (ec)
    * {
@@ -1312,7 +1312,7 @@ public:
    */
   template <typename Protocol1, typename Executor1>
   ASIO_SYNC_OP_VOID accept(
-      basic_socket<Protocol1, Executor1>& peer, asio::error_code& ec,
+      basic_socket<Protocol1, Executor1>& peer, std::error_code& ec,
       typename constraint<
         is_convertible<Protocol, Protocol1>::value
       >::type = 0)
@@ -1339,7 +1339,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error // Result of operation.
+   *   const std::error_code& error // Result of operation.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
    * not, the completion handler will not be invoked from within this function.
@@ -1347,11 +1347,11 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code) @endcode
+   * @code void(std::error_code) @endcode
    *
    * @par Example
    * @code
-   * void accept_handler(const asio::error_code& error)
+   * void accept_handler(const std::error_code& error)
    * {
    *   if (!error)
    *   {
@@ -1378,10 +1378,10 @@ public:
    * @li @c cancellation_type::total
    */
   template <typename Protocol1, typename Executor1,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code))
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code))
         AcceptToken ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(AcceptToken,
-      void (asio::error_code))
+      void (std::error_code))
   async_accept(basic_socket<Protocol1, Executor1>& peer,
       ASIO_MOVE_ARG(AcceptToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type),
@@ -1389,7 +1389,7 @@ public:
         is_convertible<Protocol, Protocol1>::value
       >::type = 0)
   {
-    return async_initiate<AcceptToken, void (asio::error_code)>(
+    return async_initiate<AcceptToken, void (std::error_code)>(
         initiate_async_accept(this), token,
         &peer, static_cast<endpoint_type*>(0));
   }
@@ -1406,7 +1406,7 @@ public:
    * @param peer_endpoint An endpoint object which will receive the endpoint of
    * the remote peer.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * @code
@@ -1421,7 +1421,7 @@ public:
   void accept(basic_socket<protocol_type, Executor1>& peer,
       endpoint_type& peer_endpoint)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().accept(impl_.get_implementation(),
         peer, &peer_endpoint, ec);
     asio::detail::throw_error(ec, "accept");
@@ -1447,7 +1447,7 @@ public:
    * ...
    * asio::ip::tcp::socket socket(my_context);
    * asio::ip::tcp::endpoint endpoint;
-   * asio::error_code ec;
+   * std::error_code ec;
    * acceptor.accept(socket, endpoint, ec);
    * if (ec)
    * {
@@ -1457,7 +1457,7 @@ public:
    */
   template <typename Executor1>
   ASIO_SYNC_OP_VOID accept(basic_socket<protocol_type, Executor1>& peer,
-      endpoint_type& peer_endpoint, asio::error_code& ec)
+      endpoint_type& peer_endpoint, std::error_code& ec)
   {
     impl_.get_service().accept(
         impl_.get_implementation(), peer, &peer_endpoint, ec);
@@ -1486,7 +1486,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error // Result of operation.
+   *   const std::error_code& error // Result of operation.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
    * not, the completion handler will not be invoked from within this function.
@@ -1494,7 +1494,7 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code) @endcode
+   * @code void(std::error_code) @endcode
    *
    * @par Per-Operation Cancellation
    * On POSIX or Windows operating systems, this asynchronous operation supports
@@ -1507,16 +1507,16 @@ public:
    * @li @c cancellation_type::total
    */
   template <typename Executor1,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code))
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code))
         AcceptToken ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(AcceptToken,
-      void (asio::error_code))
+      void (std::error_code))
   async_accept(basic_socket<protocol_type, Executor1>& peer,
       endpoint_type& peer_endpoint,
       ASIO_MOVE_ARG(AcceptToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
-    return async_initiate<AcceptToken, void (asio::error_code)>(
+    return async_initiate<AcceptToken, void (std::error_code)>(
         initiate_async_accept(this), token, &peer, &peer_endpoint);
   }
 #endif // !defined(ASIO_NO_EXTENSIONS)
@@ -1532,7 +1532,7 @@ public:
    *
    * @returns A socket object representing the newly accepted connection.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * @code
@@ -1544,7 +1544,7 @@ public:
   typename Protocol::socket::template rebind_executor<executor_type>::other
   accept()
   {
-    asio::error_code ec;
+    std::error_code ec;
     typename Protocol::socket::template rebind_executor<
       executor_type>::other peer(impl_.get_executor());
     impl_.get_service().accept(impl_.get_implementation(), peer, 0, ec);
@@ -1578,7 +1578,7 @@ public:
    * @endcode
    */
   typename Protocol::socket::template rebind_executor<executor_type>::other
-  accept(asio::error_code& ec)
+  accept(std::error_code& ec)
   {
     typename Protocol::socket::template rebind_executor<
       executor_type>::other peer(impl_.get_executor());
@@ -1602,7 +1602,7 @@ public:
    * signature. The function signature of the completion handler must be:
    * @code void handler(
    *   // Result of operation.
-   *   const asio::error_code& error,
+   *   const std::error_code& error,
    *
    *   // On success, the newly accepted socket.
    *   typename Protocol::socket::template
@@ -1614,13 +1614,13 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code,
+   * @code void(std::error_code,
    *    typename Protocol::socket::template
    *      rebind_executor<executor_type>::other)) @endcode
    *
    * @par Example
    * @code
-   * void accept_handler(const asio::error_code& error,
+   * void accept_handler(const std::error_code& error,
    *     asio::ip::tcp::socket peer)
    * {
    *   if (!error)
@@ -1647,12 +1647,12 @@ public:
    * @li @c cancellation_type::total
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         typename Protocol::socket::template rebind_executor<
           executor_type>::other)) MoveAcceptToken
             ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(MoveAcceptToken,
-      void (asio::error_code,
+      void (std::error_code,
         typename Protocol::socket::template
           rebind_executor<executor_type>::other))
   async_accept(
@@ -1660,7 +1660,7 @@ public:
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<MoveAcceptToken,
-      void (asio::error_code, typename Protocol::socket::template
+      void (std::error_code, typename Protocol::socket::template
         rebind_executor<executor_type>::other)>(
           initiate_async_move_accept(this), token,
           impl_.get_executor(), static_cast<endpoint_type*>(0),
@@ -1682,7 +1682,7 @@ public:
    *
    * @returns A socket object representing the newly accepted connection.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * @code
@@ -1699,7 +1699,7 @@ public:
           || execution::is_executor<Executor1>::value
       >::type = 0)
   {
-    asio::error_code ec;
+    std::error_code ec;
     typename Protocol::socket::template
       rebind_executor<Executor1>::other peer(ex);
     impl_.get_service().accept(impl_.get_implementation(), peer, 0, ec);
@@ -1721,7 +1721,7 @@ public:
    *
    * @returns A socket object representing the newly accepted connection.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * @code
@@ -1738,7 +1738,7 @@ public:
         is_convertible<ExecutionContext&, execution_context&>::value
       >::type = 0)
   {
-    asio::error_code ec;
+    std::error_code ec;
     typename Protocol::socket::template rebind_executor<
         typename ExecutionContext::executor_type>::other peer(context);
     impl_.get_service().accept(impl_.get_implementation(), peer, 0, ec);
@@ -1776,7 +1776,7 @@ public:
    */
   template <typename Executor1>
   typename Protocol::socket::template rebind_executor<Executor1>::other
-  accept(const Executor1& ex, asio::error_code& ec,
+  accept(const Executor1& ex, std::error_code& ec,
       typename constraint<
         is_executor<Executor1>::value
           || execution::is_executor<Executor1>::value
@@ -1819,7 +1819,7 @@ public:
   template <typename ExecutionContext>
   typename Protocol::socket::template rebind_executor<
       typename ExecutionContext::executor_type>::other
-  accept(ExecutionContext& context, asio::error_code& ec,
+  accept(ExecutionContext& context, std::error_code& ec,
       typename constraint<
         is_convertible<ExecutionContext&, execution_context&>::value
       >::type = 0)
@@ -1849,7 +1849,7 @@ public:
    * signature. The function signature of the completion handler must be:
    * @code void handler(
    *   // Result of operation.
-   *   const asio::error_code& error,
+   *   const std::error_code& error,
    *
    *   // On success, the newly accepted socket.
    *   typename Protocol::socket::template rebind_executor<
@@ -1861,13 +1861,13 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code,
+   * @code void(std::error_code,
    *    typename Protocol::socket::template rebind_executor<
    *      Executor1>::other)) @endcode
    *
    * @par Example
    * @code
-   * void accept_handler(const asio::error_code& error,
+   * void accept_handler(const std::error_code& error,
    *     asio::ip::tcp::socket peer)
    * {
    *   if (!error)
@@ -1894,12 +1894,12 @@ public:
    * @li @c cancellation_type::total
    */
   template <typename Executor1,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         typename Protocol::socket::template rebind_executor<
           Executor1>::other)) MoveAcceptToken
             ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(MoveAcceptToken,
-      void (asio::error_code,
+      void (std::error_code,
         typename Protocol::socket::template rebind_executor<
           Executor1>::other))
   async_accept(const Executor1& ex,
@@ -1914,7 +1914,7 @@ public:
       Executor1>::other other_socket_type;
 
     return async_initiate<MoveAcceptToken,
-      void (asio::error_code, other_socket_type)>(
+      void (std::error_code, other_socket_type)>(
         initiate_async_move_accept(this), token,
         ex, static_cast<endpoint_type*>(0),
         static_cast<other_socket_type*>(0));
@@ -1939,7 +1939,7 @@ public:
    * signature. The function signature of the completion handler must be:
    * @code void handler(
    *   // Result of operation.
-   *   const asio::error_code& error,
+   *   const std::error_code& error,
    *
    *   // On success, the newly accepted socket.
    *   typename Protocol::socket::template rebind_executor<
@@ -1951,13 +1951,13 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code,
+   * @code void(std::error_code,
    *    typename Protocol::socket::template rebind_executor<
    *      typename ExecutionContext::executor_type>::other)) @endcode
    *
    * @par Example
    * @code
-   * void accept_handler(const asio::error_code& error,
+   * void accept_handler(const std::error_code& error,
    *     asio::ip::tcp::socket peer)
    * {
    *   if (!error)
@@ -1984,12 +1984,12 @@ public:
    * @li @c cancellation_type::total
    */
   template <typename ExecutionContext,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         typename Protocol::socket::template rebind_executor<
           typename ExecutionContext::executor_type>::other)) MoveAcceptToken
             ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(MoveAcceptToken,
-      void (asio::error_code,
+      void (std::error_code,
         typename Protocol::socket::template rebind_executor<
           typename ExecutionContext::executor_type>::other))
   async_accept(ExecutionContext& context,
@@ -2003,7 +2003,7 @@ public:
       typename ExecutionContext::executor_type>::other other_socket_type;
 
     return async_initiate<MoveAcceptToken,
-      void (asio::error_code, other_socket_type)>(
+      void (std::error_code, other_socket_type)>(
         initiate_async_move_accept(this), token,
         context.get_executor(), static_cast<endpoint_type*>(0),
         static_cast<other_socket_type*>(0));
@@ -2023,7 +2023,7 @@ public:
    *
    * @returns A socket object representing the newly accepted connection.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * @code
@@ -2036,7 +2036,7 @@ public:
   typename Protocol::socket::template rebind_executor<executor_type>::other
   accept(endpoint_type& peer_endpoint)
   {
-    asio::error_code ec;
+    std::error_code ec;
     typename Protocol::socket::template rebind_executor<
       executor_type>::other peer(impl_.get_executor());
     impl_.get_service().accept(impl_.get_implementation(),
@@ -2075,7 +2075,7 @@ public:
    * @endcode
    */
   typename Protocol::socket::template rebind_executor<executor_type>::other
-  accept(endpoint_type& peer_endpoint, asio::error_code& ec)
+  accept(endpoint_type& peer_endpoint, std::error_code& ec)
   {
     typename Protocol::socket::template rebind_executor<
       executor_type>::other peer(impl_.get_executor());
@@ -2105,7 +2105,7 @@ public:
    * signature. The function signature of the completion handler must be:
    * @code void handler(
    *   // Result of operation.
-   *   const asio::error_code& error,
+   *   const std::error_code& error,
    *
    *   // On success, the newly accepted socket.
    *   typename Protocol::socket::template
@@ -2117,13 +2117,13 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code,
+   * @code void(std::error_code,
    *    typename Protocol::socket::template
    *      rebind_executor<executor_type>::other)) @endcode
    *
    * @par Example
    * @code
-   * void accept_handler(const asio::error_code& error,
+   * void accept_handler(const std::error_code& error,
    *     asio::ip::tcp::socket peer)
    * {
    *   if (!error)
@@ -2151,12 +2151,12 @@ public:
    * @li @c cancellation_type::total
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         typename Protocol::socket::template rebind_executor<
           executor_type>::other)) MoveAcceptToken
             ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(MoveAcceptToken,
-      void (asio::error_code,
+      void (std::error_code,
         typename Protocol::socket::template
           rebind_executor<executor_type>::other))
   async_accept(endpoint_type& peer_endpoint,
@@ -2164,7 +2164,7 @@ public:
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
   {
     return async_initiate<MoveAcceptToken,
-      void (asio::error_code, typename Protocol::socket::template
+      void (std::error_code, typename Protocol::socket::template
         rebind_executor<executor_type>::other)>(
           initiate_async_move_accept(this), token,
           impl_.get_executor(), &peer_endpoint,
@@ -2189,7 +2189,7 @@ public:
    *
    * @returns A socket object representing the newly accepted connection.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * @code
@@ -2208,7 +2208,7 @@ public:
           || execution::is_executor<Executor1>::value
       >::type = 0)
   {
-    asio::error_code ec;
+    std::error_code ec;
     typename Protocol::socket::template
         rebind_executor<Executor1>::other peer(ex);
     impl_.get_service().accept(impl_.get_implementation(),
@@ -2234,7 +2234,7 @@ public:
    *
    * @returns A socket object representing the newly accepted connection.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * @code
@@ -2253,7 +2253,7 @@ public:
         is_convertible<ExecutionContext&, execution_context&>::value
       >::type = 0)
   {
-    asio::error_code ec;
+    std::error_code ec;
     typename Protocol::socket::template rebind_executor<
         typename ExecutionContext::executor_type>::other peer(context);
     impl_.get_service().accept(impl_.get_implementation(),
@@ -2298,7 +2298,7 @@ public:
   template <typename Executor1>
   typename Protocol::socket::template rebind_executor<Executor1>::other
   accept(const executor_type& ex,
-      endpoint_type& peer_endpoint, asio::error_code& ec,
+      endpoint_type& peer_endpoint, std::error_code& ec,
       typename constraint<
         is_executor<Executor1>::value
           || execution::is_executor<Executor1>::value
@@ -2348,7 +2348,7 @@ public:
   typename Protocol::socket::template rebind_executor<
       typename ExecutionContext::executor_type>::other
   accept(ExecutionContext& context,
-      endpoint_type& peer_endpoint, asio::error_code& ec,
+      endpoint_type& peer_endpoint, std::error_code& ec,
       typename constraint<
         is_convertible<ExecutionContext&, execution_context&>::value
       >::type = 0)
@@ -2384,7 +2384,7 @@ public:
    * signature. The function signature of the completion handler must be:
    * @code void handler(
    *   // Result of operation.
-   *   const asio::error_code& error,
+   *   const std::error_code& error,
    *
    *   // On success, the newly accepted socket.
    *   typename Protocol::socket::template rebind_executor<
@@ -2396,13 +2396,13 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code,
+   * @code void(std::error_code,
    *    typename Protocol::socket::template rebind_executor<
    *      Executor1>::other)) @endcode
    *
    * @par Example
    * @code
-   * void accept_handler(const asio::error_code& error,
+   * void accept_handler(const std::error_code& error,
    *     asio::ip::tcp::socket peer)
    * {
    *   if (!error)
@@ -2430,12 +2430,12 @@ public:
    * @li @c cancellation_type::total
    */
   template <typename Executor1,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         typename Protocol::socket::template rebind_executor<
           Executor1>::other)) MoveAcceptToken
             ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(MoveAcceptToken,
-      void (asio::error_code,
+      void (std::error_code,
         typename Protocol::socket::template rebind_executor<
           Executor1>::other))
   async_accept(const Executor1& ex, endpoint_type& peer_endpoint,
@@ -2450,7 +2450,7 @@ public:
       Executor1>::other other_socket_type;
 
     return async_initiate<MoveAcceptToken,
-      void (asio::error_code, other_socket_type)>(
+      void (std::error_code, other_socket_type)>(
         initiate_async_move_accept(this), token,
         ex, &peer_endpoint,
         static_cast<other_socket_type*>(0));
@@ -2480,7 +2480,7 @@ public:
    * signature. The function signature of the completion handler must be:
    * @code void handler(
    *   // Result of operation.
-   *   const asio::error_code& error,
+   *   const std::error_code& error,
    *
    *   // On success, the newly accepted socket.
    *   typename Protocol::socket::template rebind_executor<
@@ -2492,13 +2492,13 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code,
+   * @code void(std::error_code,
    *    typename Protocol::socket::template rebind_executor<
    *      typename ExecutionContext::executor_type>::other)) @endcode
    *
    * @par Example
    * @code
-   * void accept_handler(const asio::error_code& error,
+   * void accept_handler(const std::error_code& error,
    *     asio::ip::tcp::socket peer)
    * {
    *   if (!error)
@@ -2526,12 +2526,12 @@ public:
    * @li @c cancellation_type::total
    */
   template <typename ExecutionContext,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         typename Protocol::socket::template rebind_executor<
           typename ExecutionContext::executor_type>::other)) MoveAcceptToken
             ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE(MoveAcceptToken,
-      void (asio::error_code,
+      void (std::error_code,
         typename Protocol::socket::template rebind_executor<
           typename ExecutionContext::executor_type>::other))
   async_accept(ExecutionContext& context,
@@ -2546,7 +2546,7 @@ public:
       typename ExecutionContext::executor_type>::other other_socket_type;
 
     return async_initiate<MoveAcceptToken,
-      void (asio::error_code, other_socket_type)>(
+      void (std::error_code, other_socket_type)>(
         initiate_async_move_accept(this), token,
         context.get_executor(), &peer_endpoint,
         static_cast<other_socket_type*>(0));

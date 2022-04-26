@@ -252,7 +252,7 @@ void select_reactor::run(long usec, op_queue<operation>& ops)
   lock.unlock();
 
   // Block on the select call until descriptors become ready.
-  asio::error_code ec;
+  std::error_code ec;
   int retval = socket_ops::select(static_cast<int>(max_fd + 1),
       fd_sets_[read_op], fd_sets_[write_op], fd_sets_[except_op], tv, ec);
 
@@ -331,7 +331,7 @@ timeval* select_reactor::get_timeout(long usec, timeval& tv)
 }
 
 void select_reactor::cancel_ops_unlocked(socket_type descriptor,
-    const asio::error_code& ec)
+    const std::error_code& ec)
 {
   bool need_interrupt = false;
   op_queue<operation> ops;
