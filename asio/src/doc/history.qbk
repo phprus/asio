@@ -2344,7 +2344,7 @@
     `io_service`.
 
   * Specialising asynchronous read and write operations for buffer sequences
-    that are arrays (`boost::array` or `std::array`) of exactly two buffers.
+    that are arrays (`std::array` or `std::array`) of exactly two buffers.
 
 * Fixed a compile error in the regex overload of `async_read_until`.
 
@@ -2686,7 +2686,7 @@
 [heading Asio 1.4.6]
 
 * Reduced compile times. (Note that some programs may need to add additional
-  `#include`s, e.g. if the program uses boost::array but does not explicitly
+  `#include`s, e.g. if the program uses std::array but does not explicitly
   include `<boost/array.hpp>`.)
 
 * Reduced the size of generated code.

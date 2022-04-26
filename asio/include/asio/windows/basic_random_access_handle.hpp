@@ -194,7 +194,7 @@ public:
    * handle.write_some_at(42, asio::buffer(data, size));
    * @endcode
    * See the @ref buffer documentation for information on writing multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    */
   template <typename ConstBufferSequence>
@@ -274,7 +274,7 @@ public:
    * handle.async_write_some_at(42, asio::buffer(data, size), handler);
    * @endcode
    * See the @ref buffer documentation for information on writing multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    *
    * @par Per-Operation Cancellation
@@ -330,7 +330,7 @@ public:
    * handle.read_some_at(42, asio::buffer(data, size));
    * @endcode
    * See the @ref buffer documentation for information on reading into multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    */
   template <typename MutableBufferSequence>
@@ -412,7 +412,7 @@ public:
    * handle.async_read_some_at(42, asio::buffer(data, size), handler);
    * @endcode
    * See the @ref buffer documentation for information on reading into multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    *
    * @par Per-Operation Cancellation

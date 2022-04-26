@@ -29,11 +29,7 @@
 #include "../archetypes/io_control_command.hpp"
 #include "../archetypes/settable_socket_option.hpp"
 
-#if defined(ASIO_HAS_BOOST_ARRAY)
-# include <boost/array.hpp>
-#else // defined(ASIO_HAS_BOOST_ARRAY)
-# include <array>
-#endif // defined(ASIO_HAS_BOOST_ARRAY)
+#include <array>
 
 #include <functional>
 
@@ -192,11 +188,7 @@ private:
 
 void test()
 {
-#if defined(ASIO_HAS_BOOST_ARRAY)
-  using boost::array;
-#else // defined(ASIO_HAS_BOOST_ARRAY)
   using std::array;
-#endif // defined(ASIO_HAS_BOOST_ARRAY)
 
   using namespace asio;
   namespace ip = asio::ip;

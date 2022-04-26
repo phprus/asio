@@ -146,11 +146,7 @@ asio::ip::address endpoint::address() const noexcept(true)
   else
   {
     asio::ip::address_v6::bytes_type bytes;
-#if defined(ASIO_HAS_STD_ARRAY)
     memcpy(bytes.data(), data_.v6.sin6_addr.s6_addr, 16);
-#else // defined(ASIO_HAS_STD_ARRAY)
-    memcpy(bytes.elems, data_.v6.sin6_addr.s6_addr, 16);
-#endif // defined(ASIO_HAS_STD_ARRAY)
     return asio::ip::address_v6(bytes, data_.v6.sin6_scope_id);
   }
 }

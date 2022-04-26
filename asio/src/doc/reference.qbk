@@ -3876,7 +3876,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    asio::async_read(s, asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Remarks]
@@ -3995,7 +3995,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
        handler); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -4720,7 +4720,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    asio::async_read_at(d, 42, asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Remarks]
@@ -4841,7 +4841,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
        handler); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -7366,7 +7366,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    asio::async_write(s, asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -7473,7 +7473,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
        handler); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -8158,7 +8158,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    asio::async_write_at(d, 42, asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -8267,7 +8267,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
        handler); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -9394,7 +9394,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
    socket.async_receive(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -9575,7 +9575,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
        asio::buffer(data, size), sender_endpoint, handler); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -9753,7 +9753,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
    socket.async_send(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -9936,7 +9936,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
        asio::buffer(data, size), destination, handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -13588,7 +13588,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
    socket.receive(asio::buffer(data, size)); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -13836,7 +13836,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
        asio::buffer(data, size), sender_endpoint);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -14336,7 +14336,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
    socket.send(asio::buffer(data, size)); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -14638,7 +14638,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
    socket.send_to(asio::buffer(data, size), destination);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -20255,7 +20255,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    handle.async_read_some_at(42, asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -20339,7 +20339,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    handle.async_write_some_at(42, asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -21643,7 +21643,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    handle.read_some_at(42, asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -22301,7 +22301,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    handle.write_some_at(42, asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -23301,7 +23301,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
    socket.async_receive(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -23482,7 +23482,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
        asio::buffer(data, size), 0, sender_endpoint, handler); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -23660,7 +23660,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
    socket.async_send(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -23843,7 +23843,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
        asio::buffer(data, size), destination, handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -27495,7 +27495,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
    socket.receive(asio::buffer(data, size)); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -27743,7 +27743,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
        asio::buffer(data, size), sender_endpoint);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -28243,7 +28243,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
    socket.send(asio::buffer(data, size)); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -28545,7 +28545,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
    socket.send_to(asio::buffer(data, size), destination);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -29826,7 +29826,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
        asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -30598,7 +30598,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    basic_readable_pipe.read_some(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -31485,7 +31485,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
    socket.async_receive(asio::buffer(data, size), out_flags, handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -31569,7 +31569,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
        0, out_flags, handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -31650,7 +31650,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
    socket.async_send(asio::buffer(data, size), 0, handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -35233,7 +35233,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
    socket.receive(asio::buffer(data, size), out_flags);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -35300,7 +35300,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
    socket.receive(asio::buffer(data, size), 0, out_flags);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -35799,7 +35799,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
    socket.send(asio::buffer(data, size), 0);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -37153,7 +37153,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
        asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -37235,7 +37235,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
        asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -38403,7 +38403,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    basic_serial_port.read_some(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -38699,7 +38699,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    basic_serial_port.write_some(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -53301,7 +53301,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    file.async_read_some(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -53382,7 +53382,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    file.async_write_some(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -54681,7 +54681,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    file.read_some(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -55437,7 +55437,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    file.write_some(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -56422,7 +56422,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    socket.async_read_some(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -56526,7 +56526,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
    socket.async_receive(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -56610,7 +56610,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
    socket.async_receive(asio::buffer(data, size), 0, handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -56716,7 +56716,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
    socket.async_send(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -56800,7 +56800,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
    socket.async_send(asio::buffer(data, size), 0, handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -56972,7 +56972,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    socket.async_write_some(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -60453,7 +60453,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    socket.read_some(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -60591,7 +60591,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
    socket.receive(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -60655,7 +60655,7 @@ To receive into a single data buffer use the [link asio.reference.buffer `buffer
    socket.receive(asio::buffer(data, size), 0);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on receiving into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -61159,7 +61159,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
    socket.send(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -61223,7 +61223,7 @@ To send a single data buffer use the [link asio.reference.buffer `buffer`] funct
    socket.send(asio::buffer(data, size), 0);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on sending multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -61909,7 +61909,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    socket.write_some(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -66445,7 +66445,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    pipe.async_write_some(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -67217,7 +67217,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    pipe.write_some(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -67911,14 +67911,14 @@ Create a new modifiable buffer that represents the given POD array.
       typename PodType,
       std::size_t N>
   mutable_buffer ``[link asio.reference.buffer.overload11 buffer]``(
-      boost::array< PodType, N > & data);
+      std::array< PodType, N > & data);
   ``  [''''&raquo;''' [link asio.reference.buffer.overload11 more...]]``
 
   template<
       typename PodType,
       std::size_t N>
   mutable_buffer ``[link asio.reference.buffer.overload12 buffer]``(
-      boost::array< PodType, N > & data,
+      std::array< PodType, N > & data,
       std::size_t max_size_in_bytes);
   ``  [''''&raquo;''' [link asio.reference.buffer.overload12 more...]]``
 
@@ -67928,14 +67928,14 @@ Create a new non-modifiable buffer that represents the given POD array.
       typename PodType,
       std::size_t N>
   const_buffer ``[link asio.reference.buffer.overload13 buffer]``(
-      boost::array< const PodType, N > & data);
+      std::array< const PodType, N > & data);
   ``  [''''&raquo;''' [link asio.reference.buffer.overload13 more...]]``
 
   template<
       typename PodType,
       std::size_t N>
   const_buffer ``[link asio.reference.buffer.overload14 buffer]``(
-      boost::array< const PodType, N > & data,
+      std::array< const PodType, N > & data,
       std::size_t max_size_in_bytes);
   ``  [''''&raquo;''' [link asio.reference.buffer.overload14 more...]]``
 
@@ -67943,14 +67943,14 @@ Create a new non-modifiable buffer that represents the given POD array.
       typename PodType,
       std::size_t N>
   const_buffer ``[link asio.reference.buffer.overload15 buffer]``(
-      const boost::array< PodType, N > & data);
+      const std::array< PodType, N > & data);
   ``  [''''&raquo;''' [link asio.reference.buffer.overload15 more...]]``
 
   template<
       typename PodType,
       std::size_t N>
   const_buffer ``[link asio.reference.buffer.overload16 buffer]``(
-      const boost::array< PodType, N > & data,
+      const std::array< PodType, N > & data,
       std::size_t max_size_in_bytes);
   ``  [''''&raquo;''' [link asio.reference.buffer.overload16 more...]]``
 
@@ -68129,7 +68129,7 @@ The simplest use case involves reading or writing a single buffer of a specified
 
 In the above example, the return value of `asio::buffer` meets the requirements of the ConstBufferSequence concept so that it may be directly passed to the socket's write function. A buffer created for modifiable memory also meets the requirements of the MutableBufferSequence concept.
 
-An individual buffer may be created from a builtin array, std::vector, std::array or boost::array of POD elements. This helps prevent buffer overruns by automatically determining the size of the buffer:
+An individual buffer may be created from a builtin array, std::vector, std::array of POD elements. This helps prevent buffer overruns by automatically determining the size of the buffer:
 
 
 
@@ -68141,9 +68141,6 @@ An individual buffer may be created from a builtin array, std::vector, std::arra
 
    std::array<char, 128> d3;
    bytes_transferred = sock.receive(asio::buffer(d3));
-
-   boost::array<char, 128> d4;
-   bytes_transferred = sock.receive(asio::buffer(d4)); 
 
 
 
@@ -68215,7 +68212,7 @@ Buffer objects may be manipulated using simple arithmetic in a safe way which he
 
 
 
-   boost::array<char, 6> a = { 'a', 'b', 'c', 'd', 'e' }; 
+   std::array<char, 6> a = { 'a', 'b', 'c', 'd', 'e' }; 
 
 
 
@@ -68273,9 +68270,9 @@ To read or write using multiple buffers (i.e. scatter-gather I/O), multiple buff
 
    char d1[128];
    std::vector<char> d2(128);
-   boost::array<char, 128> d3;
+   std::array<char, 128> d3;
 
-   boost::array<mutable_buffer, 3> bufs1 = {
+   std::array<mutable_buffer, 3> bufs1 = {
      asio::buffer(d1),
      asio::buffer(d2),
      asio::buffer(d3) };
@@ -68587,7 +68584,7 @@ Create a new modifiable buffer that represents the given POD array.
       typename PodType,
       std::size_t N>
   mutable_buffer buffer(
-      boost::array< PodType, N > & data);
+      std::array< PodType, N > & data);
 
 
 
@@ -68619,7 +68616,7 @@ Create a new modifiable buffer that represents the given POD array.
       typename PodType,
       std::size_t N>
   mutable_buffer buffer(
-      boost::array< PodType, N > & data,
+      std::array< PodType, N > & data,
       std::size_t max_size_in_bytes);
 
 
@@ -68652,7 +68649,7 @@ Create a new non-modifiable buffer that represents the given POD array.
       typename PodType,
       std::size_t N>
   const_buffer buffer(
-      boost::array< const PodType, N > & data);
+      std::array< const PodType, N > & data);
 
 
 
@@ -68684,7 +68681,7 @@ Create a new non-modifiable buffer that represents the given POD array.
       typename PodType,
       std::size_t N>
   const_buffer buffer(
-      boost::array< const PodType, N > & data,
+      std::array< const PodType, N > & data,
       std::size_t max_size_in_bytes);
 
 
@@ -68717,7 +68714,7 @@ Create a new non-modifiable buffer that represents the given POD array.
       typename PodType,
       std::size_t N>
   const_buffer buffer(
-      const boost::array< PodType, N > & data);
+      const std::array< PodType, N > & data);
 
 
 
@@ -68749,7 +68746,7 @@ Create a new non-modifiable buffer that represents the given POD array.
       typename PodType,
       std::size_t N>
   const_buffer buffer(
-      const boost::array< PodType, N > & data,
+      const std::array< PodType, N > & data,
       std::size_t max_size_in_bytes);
 
 
@@ -133166,7 +133163,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    descriptor.async_read_some(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -133338,7 +133335,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    descriptor.async_write_some(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -134807,7 +134804,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    descriptor.read_some(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -135105,7 +135102,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    descriptor.write_some(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -136930,7 +136927,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    asio::read(s, asio::buffer(data, size)); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Remarks]
@@ -137004,7 +137001,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    asio::read(s, asio::buffer(data, size), ec); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Remarks]
@@ -137100,7 +137097,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
        asio::transfer_at_least(32)); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -138160,7 +138157,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    asio::read_at(d, 42, asio::buffer(data, size)); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Remarks]
@@ -138237,7 +138234,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
        asio::buffer(data, size), ec); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Remarks]
@@ -138335,7 +138332,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
        asio::transfer_at_least(32)); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -157206,7 +157203,7 @@ This function is used to create an object, of unspecified type, that meets Compl
   
 Reading until a buffer is full: 
 
-   boost::array<char, 128> buf;
+   std::array<char, 128> buf;
    asio::error_code ec;
    std::size_t n = asio::read(
        sock, asio::buffer(buf),
@@ -157254,7 +157251,7 @@ This function is used to create an object, of unspecified type, that meets Compl
   
 Reading until a buffer is full or contains at least 64 bytes: 
 
-   boost::array<char, 128> buf;
+   std::array<char, 128> buf;
    asio::error_code ec;
    std::size_t n = asio::read(
        sock, asio::buffer(buf),
@@ -157302,7 +157299,7 @@ This function is used to create an object, of unspecified type, that meets Compl
   
 Reading until a buffer is full or contains exactly 64 bytes: 
 
-   boost::array<char, 128> buf;
+   std::array<char, 128> buf;
    asio::error_code ec;
    std::size_t n = asio::read(
        sock, asio::buffer(buf),
@@ -160469,7 +160466,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    handle.async_read_some_at(42, asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -160553,7 +160550,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    handle.async_write_some_at(42, asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -161370,7 +161367,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    handle.read_some_at(42, asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -161504,7 +161501,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    handle.write_some_at(42, asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -161998,7 +161995,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    handle.async_read_some(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -162079,7 +162076,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    handle.async_write_some(asio::buffer(data, size), handler);
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Per-Operation Cancellation]
@@ -162891,7 +162888,7 @@ To read into a single data buffer use the [link asio.reference.buffer `buffer`] 
    handle.read_some(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on reading into multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -163017,7 +163014,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    handle.write_some(asio::buffer(data, size));
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -164540,7 +164537,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    asio::write(s, asio::buffer(data, size)); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Remarks]
@@ -164614,7 +164611,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    asio::write(s, asio::buffer(data, size), ec); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Remarks]
@@ -164710,7 +164707,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
        asio::transfer_at_least(32)); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 
@@ -165776,7 +165773,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
    asio::write_at(d, 42, asio::buffer(data, size)); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Remarks]
@@ -165853,7 +165850,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
        asio::buffer(data, size), ec); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector.
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector.
 
 
 [heading Remarks]
@@ -165951,7 +165948,7 @@ To write a single data buffer use the [link asio.reference.buffer `buffer`] func
        asio::transfer_at_least(32)); 
 
 
-See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, boost::array or std::vector. 
+See the [link asio.reference.buffer `buffer`] documentation for information on writing multiple buffers in one go, and how to use it with arrays, std::array or std::vector. 
 
 
 

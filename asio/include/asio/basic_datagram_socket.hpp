@@ -352,7 +352,7 @@ public:
    * To send a single data buffer use the @ref buffer function as follows:
    * @code socket.send(asio::buffer(data, size)); @endcode
    * See the @ref buffer documentation for information on sending multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    */
   template <typename ConstBufferSequence>
@@ -456,7 +456,7 @@ public:
    * socket.async_send(asio::buffer(data, size), handler);
    * @endcode
    * See the @ref buffer documentation for information on sending multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    *
    * @par Per-Operation Cancellation
@@ -567,7 +567,7 @@ public:
    * socket.send_to(asio::buffer(data, size), destination);
    * @endcode
    * See the @ref buffer documentation for information on sending multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    */
   template <typename ConstBufferSequence>
@@ -673,7 +673,7 @@ public:
    *     asio::buffer(data, size), destination, handler);
    * @endcode
    * See the @ref buffer documentation for information on sending multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    *
    * @par Per-Operation Cancellation
@@ -783,7 +783,7 @@ public:
    * follows:
    * @code socket.receive(asio::buffer(data, size)); @endcode
    * See the @ref buffer documentation for information on receiving into
-   * multiple buffers in one go, and how to use it with arrays, boost::array or
+   * multiple buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    */
   template <typename MutableBufferSequence>
@@ -890,7 +890,7 @@ public:
    * socket.async_receive(asio::buffer(data, size), handler);
    * @endcode
    * See the @ref buffer documentation for information on receiving into
-   * multiple buffers in one go, and how to use it with arrays, boost::array or
+   * multiple buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    *
    * @par Per-Operation Cancellation
@@ -1002,7 +1002,7 @@ public:
    *     asio::buffer(data, size), sender_endpoint);
    * @endcode
    * See the @ref buffer documentation for information on receiving into
-   * multiple buffers in one go, and how to use it with arrays, boost::array or
+   * multiple buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    */
   template <typename MutableBufferSequence>
@@ -1107,7 +1107,7 @@ public:
    * @code socket.async_receive_from(
    *     asio::buffer(data, size), sender_endpoint, handler); @endcode
    * See the @ref buffer documentation for information on receiving into
-   * multiple buffers in one go, and how to use it with arrays, boost::array or
+   * multiple buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    *
    * @par Per-Operation Cancellation
