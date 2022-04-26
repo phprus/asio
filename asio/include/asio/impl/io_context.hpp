@@ -271,25 +271,21 @@ void io_context::basic_executor_type<Allocator, Bits>::execute(
     // Make a local, non-const copy of the function.
     function_type tmp(ASIO_MOVE_CAST(Function)(f));
 
-#if defined(ASIO_HAS_STD_EXCEPTION_PTR) \
-  && !defined(ASIO_NO_EXCEPTIONS)
+#if !defined(ASIO_NO_EXCEPTIONS)
     try
     {
-#endif // defined(ASIO_HAS_STD_EXCEPTION_PTR)
-       //   && !defined(ASIO_NO_EXCEPTIONS)
+#endif // !defined(ASIO_NO_EXCEPTIONS)
       detail::fenced_block b(detail::fenced_block::full);
       asio_handler_invoke_helpers::invoke(tmp, tmp);
       return;
-#if defined(ASIO_HAS_STD_EXCEPTION_PTR) \
-  && !defined(ASIO_NO_EXCEPTIONS)
+#if !defined(ASIO_NO_EXCEPTIONS)
     }
     catch (...)
     {
       context_ptr()->impl_.capture_current_exception();
       return;
     }
-#endif // defined(ASIO_HAS_STD_EXCEPTION_PTR)
-       //   && !defined(ASIO_NO_EXCEPTIONS)
+#endif // !defined(ASIO_NO_EXCEPTIONS)
   }
 
   // Allocate and construct an operation to wrap the function.

@@ -276,13 +276,6 @@ needs.
     [`ASIO_DISABLE_STD_COROUTINE`]
   ]
   [
-    [`ASIO_HAS_STD_EXCEPTION_PTR`]
-    [
-      Standard library support for std::exception_ptr and std::current_exception.
-    ]
-    [`ASIO_DISABLE_STD_EXCEPTION_PTR`]
-  ]
-  [
     [`ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION`]
     [
       Standard library support for std::experimental::source_location.
