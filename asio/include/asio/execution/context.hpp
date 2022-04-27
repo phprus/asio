@@ -68,7 +68,6 @@ namespace detail {
 template <int I = 0>
 struct context_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
@@ -83,7 +82,6 @@ struct context_t
             false_type,
             is_scheduler<T>
           >::type::value));
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = false);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = false);
@@ -159,27 +157,6 @@ typedef detail::context_t<> context_t;
 constexpr context_t context;
 
 } // namespace execution
-
-#if !defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
-template <typename T>
-struct is_applicable_property<T, execution::context_t>
-  : integral_constant<bool,
-      execution::is_executor<T>::value
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_sender<T>
-          >::type::value
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_scheduler<T>
-          >::type::value>
-{
-};
-
-#endif // !defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 namespace traits {
 

@@ -277,12 +277,8 @@ struct can_bulk_execute :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename S, typename F, typename N>
 constexpr bool can_bulk_execute_v = can_bulk_execute<S, F, N>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename S, typename F, typename N>
 struct is_nothrow_bulk_execute :
@@ -292,13 +288,9 @@ struct is_nothrow_bulk_execute :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename S, typename F, typename N>
 constexpr bool is_nothrow_bulk_execute_v
   = is_nothrow_bulk_execute<S, F, N>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename S, typename F, typename N>
 struct bulk_execute_result

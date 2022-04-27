@@ -266,12 +266,8 @@ struct can_execute :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T, typename F>
 constexpr bool can_execute_v = can_execute<T, F>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 } // namespace execution
 } // namespace asio

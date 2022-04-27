@@ -248,12 +248,8 @@ struct can_submit :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename S, typename R>
 constexpr bool can_submit_v = can_submit<S, R>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename S, typename R>
 struct is_nothrow_submit :
@@ -262,13 +258,9 @@ struct is_nothrow_submit :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename S, typename R>
 constexpr bool is_nothrow_submit_v
   = is_nothrow_submit<S, R>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename S, typename R>
 struct submit_result

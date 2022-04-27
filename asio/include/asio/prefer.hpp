@@ -576,13 +576,9 @@ struct can_prefer :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T, typename ... Properties>
 constexpr bool can_prefer_v
   = can_prefer<T, Properties ...>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T, typename... Properties>
 struct is_nothrow_prefer :
@@ -592,13 +588,9 @@ struct is_nothrow_prefer :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T, typename ... Properties>
 constexpr bool is_nothrow_prefer_v
   = is_nothrow_prefer<T, Properties ...>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T, typename... Properties>
 struct prefer_result
