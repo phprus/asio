@@ -255,13 +255,6 @@ needs.
     [`ASIO_DISABLE_STD_INVOKE_RESULT`]
   ]
   [
-    [`ASIO_HAS_STD_IOSTREAM_MOVE`]
-    [
-      Standard library support for iostream move construction and assignment.
-    ]
-    [`ASIO_DISABLE_STD_IOSTREAM_MOVE`]
-  ]
-  [
     [`ASIO_HAS_STD_STRING_VIEW`]
     [
       Standard library support for std::string_view.
