@@ -51,7 +51,7 @@ struct is_applicable_property :
 #if defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T, typename Property>
-ASIO_CONSTEXPR const bool is_applicable_property_v
+constexpr const bool is_applicable_property_v
   = is_applicable_property<T, Property>::value;
 
 #endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)

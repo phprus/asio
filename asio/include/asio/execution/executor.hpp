@@ -123,7 +123,7 @@ struct is_executor :
 #if defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T>
-ASIO_CONSTEXPR const bool is_executor_v = is_executor<T>::value;
+constexpr const bool is_executor_v = is_executor<T>::value;
 
 #endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
@@ -163,7 +163,7 @@ struct is_executor_of :
 #if defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T, typename F>
-ASIO_CONSTEXPR const bool is_executor_of_v =
+constexpr const bool is_executor_of_v =
   is_executor_of<T, F>::value;
 
 #endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)

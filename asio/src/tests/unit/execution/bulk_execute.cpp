@@ -211,36 +211,36 @@ struct equality_comparable<executor>
 
 void test_can_bulk_execute()
 {
-  ASIO_CONSTEXPR bool b1 = exec::can_bulk_execute<
+  constexpr bool b1 = exec::can_bulk_execute<
       no_bulk_execute&, exec::invocable_archetype, std::size_t>::value;
   ASIO_CHECK(b1 == false);
 
-  ASIO_CONSTEXPR bool b2 = exec::can_bulk_execute<
+  constexpr bool b2 = exec::can_bulk_execute<
       const no_bulk_execute&, exec::invocable_archetype, std::size_t>::value;
   ASIO_CHECK(b2 == false);
 
-  ASIO_CONSTEXPR bool b3 = exec::can_bulk_execute<
+  constexpr bool b3 = exec::can_bulk_execute<
       const_member_bulk_execute&, exec::invocable_archetype, std::size_t>::value;
   ASIO_CHECK(b3 == true);
 
-  ASIO_CONSTEXPR bool b4 = exec::can_bulk_execute<
+  constexpr bool b4 = exec::can_bulk_execute<
       const const_member_bulk_execute&,
       exec::invocable_archetype, std::size_t>::value;
   ASIO_CHECK(b4 == true);
 
-  ASIO_CONSTEXPR bool b5 = exec::can_bulk_execute<
+  constexpr bool b5 = exec::can_bulk_execute<
       free_bulk_execute&, exec::invocable_archetype, std::size_t>::value;
   ASIO_CHECK(b5 == true);
 
-  ASIO_CONSTEXPR bool b6 = exec::can_bulk_execute<
+  constexpr bool b6 = exec::can_bulk_execute<
       const free_bulk_execute&, exec::invocable_archetype, std::size_t>::value;
   ASIO_CHECK(b6 == true);
 
-  ASIO_CONSTEXPR bool b7 = exec::can_bulk_execute<
+  constexpr bool b7 = exec::can_bulk_execute<
       executor&, exec::invocable_archetype, std::size_t>::value;
   ASIO_CHECK(b7 == true);
 
-  ASIO_CONSTEXPR bool b8 = exec::can_bulk_execute<
+  constexpr bool b8 = exec::can_bulk_execute<
       const executor&, exec::invocable_archetype, std::size_t>::value;
   ASIO_CHECK(b8 == true);
 }

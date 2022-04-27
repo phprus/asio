@@ -18,12 +18,10 @@
 #include "asio/detail/config.hpp"
 #include "asio/detail/type_traits.hpp"
 
-#if defined(ASIO_HAS_CONSTEXPR) \
-  && defined(ASIO_HAS_CONSTANT_EXPRESSION_SFINAE) \
+#if defined(ASIO_HAS_CONSTANT_EXPRESSION_SFINAE) \
   && defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 # define ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT 1
-#endif // defined(ASIO_HAS_CONSTEXPR)
-       //   && defined(ASIO_HAS_CONSTANT_EXPRESSION_SFINAE)
+#endif // defined(ASIO_HAS_CONSTANT_EXPRESSION_SFINAE)
        //   && defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 
 #include "asio/detail/push_options.hpp"
@@ -73,7 +71,7 @@ struct query_static_constexpr_member_trait<T, Property,
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept =
     noexcept(T::query(Property{})));
 
-  static ASIO_CONSTEXPR result_type value() noexcept(is_noexcept)
+  static constexpr result_type value() noexcept(is_noexcept)
   {
     return T::query(Property{});
   }

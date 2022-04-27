@@ -44,26 +44,26 @@ public:
   };
 
   /// Default constructor.
-  ASIO_CONSTEXPR recycling_allocator() noexcept(true)
+  constexpr recycling_allocator() noexcept(true)
   {
   }
 
   /// Converting constructor.
   template <typename U>
-  ASIO_CONSTEXPR recycling_allocator(
+  constexpr recycling_allocator(
       const recycling_allocator<U>&) noexcept(true)
   {
   }
 
   /// Equality operator. Always returns true.
-  ASIO_CONSTEXPR bool operator==(
+  constexpr bool operator==(
       const recycling_allocator&) const noexcept(true)
   {
     return true;
   }
 
   /// Inequality operator. Always returns false.
-  ASIO_CONSTEXPR bool operator!=(
+  constexpr bool operator!=(
       const recycling_allocator&) const noexcept(true)
   {
     return false;
@@ -105,26 +105,26 @@ public:
   };
 
   /// Default constructor.
-  ASIO_CONSTEXPR recycling_allocator() noexcept(true)
+  constexpr recycling_allocator() noexcept(true)
   {
   }
 
   /// Converting constructor.
   template <typename U>
-  ASIO_CONSTEXPR recycling_allocator(
+  constexpr recycling_allocator(
       const recycling_allocator<U>&) noexcept(true)
   {
   }
 
   /// Equality operator. Always returns true.
-  ASIO_CONSTEXPR bool operator==(
+  constexpr bool operator==(
       const recycling_allocator&) const noexcept(true)
   {
     return true;
   }
 
   /// Inequality operator. Always returns false.
-  ASIO_CONSTEXPR bool operator!=(
+  constexpr bool operator!=(
       const recycling_allocator&) const noexcept(true)
   {
     return false;

@@ -274,51 +274,51 @@ struct equality_comparable<executor>
 
 void test_can_schedule()
 {
-  ASIO_CONSTEXPR bool b1 = exec::can_schedule<
+  constexpr bool b1 = exec::can_schedule<
       no_schedule&>::value;
   ASIO_CHECK(b1 == false);
 
-  ASIO_CONSTEXPR bool b2 = exec::can_schedule<
+  constexpr bool b2 = exec::can_schedule<
       const no_schedule&>::value;
   ASIO_CHECK(b2 == false);
 
-  ASIO_CONSTEXPR bool b3 = exec::can_schedule<
+  constexpr bool b3 = exec::can_schedule<
       const_member_schedule&>::value;
   ASIO_CHECK(b3 == true);
 
-  ASIO_CONSTEXPR bool b4 = exec::can_schedule<
+  constexpr bool b4 = exec::can_schedule<
       const const_member_schedule&>::value;
   ASIO_CHECK(b4 == true);
 
-  ASIO_CONSTEXPR bool b5 = exec::can_schedule<
+  constexpr bool b5 = exec::can_schedule<
       free_schedule_const_receiver&>::value;
   ASIO_CHECK(b5 == true);
 
-  ASIO_CONSTEXPR bool b6 = exec::can_schedule<
+  constexpr bool b6 = exec::can_schedule<
       const free_schedule_const_receiver&>::value;
   ASIO_CHECK(b6 == true);
 
-  ASIO_CONSTEXPR bool b7 = exec::can_schedule<
+  constexpr bool b7 = exec::can_schedule<
       non_const_member_schedule&>::value;
   ASIO_CHECK(b7 == true);
 
-  ASIO_CONSTEXPR bool b8 = exec::can_schedule<
+  constexpr bool b8 = exec::can_schedule<
       const non_const_member_schedule&>::value;
   ASIO_CHECK(b8 == false);
 
-  ASIO_CONSTEXPR bool b9 = exec::can_schedule<
+  constexpr bool b9 = exec::can_schedule<
       free_schedule_non_const_receiver&>::value;
   ASIO_CHECK(b9 == true);
 
-  ASIO_CONSTEXPR bool b10 = exec::can_schedule<
+  constexpr bool b10 = exec::can_schedule<
       const free_schedule_non_const_receiver&>::value;
   ASIO_CHECK(b10 == false);
 
-  ASIO_CONSTEXPR bool b11 = exec::can_schedule<
+  constexpr bool b11 = exec::can_schedule<
       executor&>::value;
   ASIO_CHECK(b11 == true);
 
-  ASIO_CONSTEXPR bool b12 = exec::can_schedule<
+  constexpr bool b12 = exec::can_schedule<
       const executor&>::value;
   ASIO_CHECK(b12 == true);
 }

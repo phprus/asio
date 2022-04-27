@@ -240,7 +240,7 @@ private:
    * auto ex2 = asio::require(ex1,
    *     asio::execution::blocking.possibly); @endcode
    */
-  ASIO_CONSTEXPR basic_executor_type<Allocator,
+  constexpr basic_executor_type<Allocator,
       ASIO_UNSPECIFIED(Bits & ~blocking_mask)>
   require(execution::blocking_t::possibly_t) const
   {
@@ -258,7 +258,7 @@ private:
    * auto ex2 = asio::require(ex1,
    *     asio::execution::blocking.always); @endcode
    */
-  ASIO_CONSTEXPR basic_executor_type<Allocator,
+  constexpr basic_executor_type<Allocator,
       ASIO_UNSPECIFIED((Bits & ~blocking_mask) | blocking_always)>
   require(execution::blocking_t::always_t) const
   {
@@ -277,7 +277,7 @@ private:
    * auto ex2 = asio::require(ex1,
    *     asio::execution::blocking.never); @endcode
    */
-  ASIO_CONSTEXPR basic_executor_type<Allocator,
+  constexpr basic_executor_type<Allocator,
       ASIO_UNSPECIFIED(Bits & ~blocking_mask)>
   require(execution::blocking_t::never_t) const
   {
@@ -295,7 +295,7 @@ private:
    * auto ex2 = asio::require(ex1,
    *     asio::execution::relationship.fork); @endcode
    */
-  ASIO_CONSTEXPR basic_executor_type require(
+  constexpr basic_executor_type require(
       execution::relationship_t::fork_t) const
   {
     return basic_executor_type(pool_,
@@ -312,7 +312,7 @@ private:
    * auto ex2 = asio::require(ex1,
    *     asio::execution::relationship.continuation); @endcode
    */
-  ASIO_CONSTEXPR basic_executor_type require(
+  constexpr basic_executor_type require(
       execution::relationship_t::continuation_t) const
   {
     return basic_executor_type(pool_,
@@ -329,7 +329,7 @@ private:
    * auto ex2 = asio::require(ex1,
    *     asio::execution::outstanding_work.tracked); @endcode
    */
-  ASIO_CONSTEXPR basic_executor_type<Allocator,
+  constexpr basic_executor_type<Allocator,
       ASIO_UNSPECIFIED(Bits | outstanding_work_tracked)>
   require(execution::outstanding_work_t::tracked_t) const
   {
@@ -347,7 +347,7 @@ private:
    * auto ex2 = asio::require(ex1,
    *     asio::execution::outstanding_work.untracked); @endcode
    */
-  ASIO_CONSTEXPR basic_executor_type<Allocator,
+  constexpr basic_executor_type<Allocator,
       ASIO_UNSPECIFIED(Bits & ~outstanding_work_tracked)>
   require(execution::outstanding_work_t::untracked_t) const
   {
@@ -366,7 +366,7 @@ private:
    *     asio::execution::allocator(my_allocator)); @endcode
    */
   template <typename OtherAllocator>
-  ASIO_CONSTEXPR basic_executor_type<OtherAllocator, Bits>
+  constexpr basic_executor_type<OtherAllocator, Bits>
   require(execution::allocator_t<OtherAllocator> a) const
   {
     return basic_executor_type<OtherAllocator, Bits>(
@@ -383,7 +383,7 @@ private:
    * auto ex2 = asio::require(ex1,
    *     asio::execution::allocator); @endcode
    */
-  ASIO_CONSTEXPR basic_executor_type<std::allocator<void>, Bits>
+  constexpr basic_executor_type<std::allocator<void>, Bits>
   require(execution::allocator_t<void>) const
   {
     return basic_executor_type<std::allocator<void>, Bits>(
@@ -408,7 +408,7 @@ private:
    *       == asio::execution::bulk_guarantee.parallel)
    *   ... @endcode
    */
-  static ASIO_CONSTEXPR execution::bulk_guarantee_t query(
+  static constexpr execution::bulk_guarantee_t query(
       execution::bulk_guarantee_t) noexcept(true)
   {
     return execution::bulk_guarantee.parallel;
@@ -425,7 +425,7 @@ private:
    *       == asio::execution::mapping.thread)
    *   ... @endcode
    */
-  static ASIO_CONSTEXPR execution::mapping_t query(
+  static constexpr execution::mapping_t query(
       execution::mapping_t) noexcept(true)
   {
     return execution::mapping.thread;
@@ -457,7 +457,7 @@ private:
    *       == asio::execution::blocking.always)
    *   ... @endcode
    */
-  ASIO_CONSTEXPR execution::blocking_t query(
+  constexpr execution::blocking_t query(
       execution::blocking_t) const noexcept(true)
   {
     return (bits_ & blocking_never)
@@ -478,7 +478,7 @@ private:
    *       == asio::execution::relationship.continuation)
    *   ... @endcode
    */
-  ASIO_CONSTEXPR execution::relationship_t query(
+  constexpr execution::relationship_t query(
       execution::relationship_t) const noexcept(true)
   {
     return (bits_ & relationship_continuation)
@@ -497,7 +497,7 @@ private:
    *       == asio::execution::outstanding_work.tracked)
    *   ... @endcode
    */
-  static ASIO_CONSTEXPR execution::outstanding_work_t query(
+  static constexpr execution::outstanding_work_t query(
       execution::outstanding_work_t) noexcept(true)
   {
     return (Bits & outstanding_work_tracked)
@@ -516,7 +516,7 @@ private:
    *     asio::execution::allocator); @endcode
    */
   template <typename OtherAllocator>
-  ASIO_CONSTEXPR Allocator query(
+  constexpr Allocator query(
       execution::allocator_t<OtherAllocator>) const noexcept(true)
   {
     return allocator_;
@@ -532,7 +532,7 @@ private:
    * auto alloc = asio::query(ex,
    *     asio::execution::allocator); @endcode
    */
-  ASIO_CONSTEXPR Allocator query(
+  constexpr Allocator query(
       execution::allocator_t<void>) const noexcept(true)
   {
     return allocator_;
@@ -973,7 +973,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef asio::execution::bulk_guarantee_t::parallel_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() noexcept(true)
+  static constexpr result_type value() noexcept(true)
   {
     return result_type();
   }
@@ -995,7 +995,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef asio::execution::outstanding_work_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() noexcept(true)
+  static constexpr result_type value() noexcept(true)
   {
     return (Bits & outstanding_work_tracked)
       ? execution::outstanding_work_t(execution::outstanding_work.tracked)
@@ -1019,7 +1019,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef asio::execution::mapping_t::thread_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() noexcept(true)
+  static constexpr result_type value() noexcept(true)
   {
     return result_type();
   }

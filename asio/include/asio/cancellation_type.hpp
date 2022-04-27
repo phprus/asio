@@ -87,7 +87,7 @@ typedef cancellation_type::cancellation_type_t cancellation_type_t;
 /**
  * @relates cancellation_type
  */
-inline ASIO_CONSTEXPR bool operator!(cancellation_type_t x)
+inline constexpr bool operator!(cancellation_type_t x)
 {
   return static_cast<unsigned int>(x) == 0;
 }
@@ -96,7 +96,7 @@ inline ASIO_CONSTEXPR bool operator!(cancellation_type_t x)
 /**
  * @relates cancellation_type
  */
-inline ASIO_CONSTEXPR cancellation_type_t operator&(
+inline constexpr cancellation_type_t operator&(
     cancellation_type_t x, cancellation_type_t y)
 {
   return static_cast<cancellation_type_t>(
@@ -107,7 +107,7 @@ inline ASIO_CONSTEXPR cancellation_type_t operator&(
 /**
  * @relates cancellation_type
  */
-inline ASIO_CONSTEXPR cancellation_type_t operator|(
+inline constexpr cancellation_type_t operator|(
     cancellation_type_t x, cancellation_type_t y)
 {
   return static_cast<cancellation_type_t>(
@@ -118,7 +118,7 @@ inline ASIO_CONSTEXPR cancellation_type_t operator|(
 /**
  * @relates cancellation_type
  */
-inline ASIO_CONSTEXPR cancellation_type_t operator^(
+inline constexpr cancellation_type_t operator^(
     cancellation_type_t x, cancellation_type_t y)
 {
   return static_cast<cancellation_type_t>(
@@ -129,7 +129,7 @@ inline ASIO_CONSTEXPR cancellation_type_t operator^(
 /**
  * @relates cancellation_type
  */
-inline ASIO_CONSTEXPR cancellation_type_t operator~(cancellation_type_t x)
+inline constexpr cancellation_type_t operator~(cancellation_type_t x)
 {
   return static_cast<cancellation_type_t>(~static_cast<unsigned int>(x));
 }
