@@ -33,7 +33,6 @@ void do_throw_error(const std::error_code& err)
 
 void do_throw_error(const std::error_code& err, const char* location)
 {
-  // boostify: non-boost code starts here
 #if defined(ASIO_MSVC) \
   && (_MSC_VER < 1928)
   // Microsoft's implementation of std::system_error is non-conformant in that
@@ -46,13 +45,10 @@ void do_throw_error(const std::error_code& err, const char* location)
   asio::detail::throw_exception(e);
 #else // defined(ASIO_MSVC)
       //   && (_MSC_VER < 1928)
-  // boostify: non-boost code ends here
   std::system_error e(err, location);
   asio::detail::throw_exception(e);
-  // boostify: non-boost code starts here
 #endif // defined(ASIO_MSVC)
        //   && (_MSC_VER < 1928)
-  // boostify: non-boost code ends here
 }
 
 } // namespace detail
