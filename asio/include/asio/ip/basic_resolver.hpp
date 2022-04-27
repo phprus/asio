@@ -1051,8 +1051,8 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_resolver(const basic_resolver&) ASIO_DELETED;
-  basic_resolver& operator=(const basic_resolver&) ASIO_DELETED;
+  basic_resolver(const basic_resolver&) = delete;
+  basic_resolver& operator=(const basic_resolver&) = delete;
 
   class initiate_async_resolve
   {

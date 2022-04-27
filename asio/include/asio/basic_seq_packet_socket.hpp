@@ -733,9 +733,9 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_seq_packet_socket(const basic_seq_packet_socket&) ASIO_DELETED;
+  basic_seq_packet_socket(const basic_seq_packet_socket&) = delete;
   basic_seq_packet_socket& operator=(
-      const basic_seq_packet_socket&) ASIO_DELETED;
+      const basic_seq_packet_socket&) = delete;
 
   class initiate_async_send
   {

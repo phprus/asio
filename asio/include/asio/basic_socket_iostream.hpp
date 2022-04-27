@@ -314,9 +314,9 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_socket_iostream(const basic_socket_iostream&) ASIO_DELETED;
+  basic_socket_iostream(const basic_socket_iostream&) = delete;
   basic_socket_iostream& operator=(
-      const basic_socket_iostream&) ASIO_DELETED;
+      const basic_socket_iostream&) = delete;
 };
 
 } // namespace asio

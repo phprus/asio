@@ -606,9 +606,9 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_random_access_file(const basic_random_access_file&) ASIO_DELETED;
+  basic_random_access_file(const basic_random_access_file&) = delete;
   basic_random_access_file& operator=(
-      const basic_random_access_file&) ASIO_DELETED;
+      const basic_random_access_file&) = delete;
 
   class initiate_async_write_some_at
   {

@@ -106,8 +106,8 @@ public:
   cancellation_slot slot() noexcept(true);
 
 private:
-  cancellation_signal(const cancellation_signal&) ASIO_DELETED;
-  cancellation_signal& operator=(const cancellation_signal&) ASIO_DELETED;
+  cancellation_signal(const cancellation_signal&) = delete;
+  cancellation_signal& operator=(const cancellation_signal&) = delete;
 
   detail::cancellation_handler_base* handler_;
 };

@@ -142,8 +142,8 @@ public:
   ASIO_DECL void wait();
 
 private:
-  thread_pool(const thread_pool&) ASIO_DELETED;
-  thread_pool& operator=(const thread_pool&) ASIO_DELETED;
+  thread_pool(const thread_pool&) = delete;
+  thread_pool& operator=(const thread_pool&) = delete;
 
   struct thread_function;
 

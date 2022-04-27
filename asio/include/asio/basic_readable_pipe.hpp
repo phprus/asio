@@ -470,8 +470,8 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_readable_pipe(const basic_readable_pipe&) ASIO_DELETED;
-  basic_readable_pipe& operator=(const basic_readable_pipe&) ASIO_DELETED;
+  basic_readable_pipe(const basic_readable_pipe&) = delete;
+  basic_readable_pipe& operator=(const basic_readable_pipe&) = delete;
 
   class initiate_async_read_some
   {
