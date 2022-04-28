@@ -3698,6 +3698,14 @@ inline std::error_code translate_addrinfo_error(int error)
     return asio::error::service_not_found;
   case EAI_SOCKTYPE:
     return asio::error::socket_type_not_supported;
+#if defined(EAI_SYSTEM) && !(defined(ASIO_WINDOWS) || defined(__CYGWIN__))
+  case EAI_SYSTEM:
+    if (errno == 0)
+    {
+      return asio::error::try_again;
+    }
+    [[fallthrough]];
+#endif
   default: // Possibly the non-portable EAI_SYSTEM.
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
     return std::error_code(
