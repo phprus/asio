@@ -936,13 +936,9 @@ with the -std=c++11 or -std=gnu++11 compiler options.
 #endif // !defined(ASIO_DISABLE_SSIZE_T)
 
 // Helper macros to manage transition away from error_code return values.
-#if defined(ASIO_NO_DEPRECATED)
-# define ASIO_SYNC_OP_VOID void
-# define ASIO_SYNC_OP_VOID_RETURN(e) return
-#else // defined(ASIO_NO_DEPRECATED)
-# define ASIO_SYNC_OP_VOID std::error_code
-# define ASIO_SYNC_OP_VOID_RETURN(e) return e
-#endif // defined(ASIO_NO_DEPRECATED)
+#define ASIO_NO_DEPRECATED 1
+#define ASIO_SYNC_OP_VOID void
+#define ASIO_SYNC_OP_VOID_RETURN(e) return
 
 // Newer gcc, clang need special treatment to suppress unused typedef warnings.
 #if defined(__clang__)
