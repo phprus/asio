@@ -224,8 +224,6 @@ ASIO_DECL network_v4 make_network_v4(
 #endif // defined(ASIO_HAS_STRING_VIEW)
        //  || defined(GENERATING_DOCUMENTATION)
 
-#if !defined(ASIO_NO_IOSTREAM)
-
 /// Output a network as a string.
 /**
  * Used to output a human-readable string for a specified network.
@@ -241,8 +239,6 @@ ASIO_DECL network_v4 make_network_v4(
 template <typename Elem, typename Traits>
 std::basic_ostream<Elem, Traits>& operator<<(
     std::basic_ostream<Elem, Traits>& os, const network_v4& net);
-
-#endif // !defined(ASIO_NO_IOSTREAM)
 
 } // namespace ip
 } // namespace asio

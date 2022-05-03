@@ -25,10 +25,7 @@
 #include "asio/error_code.hpp"
 
 #include <functional>
-
-#if !defined(ASIO_NO_IOSTREAM)
-# include <iosfwd>
-#endif // !defined(ASIO_NO_IOSTREAM)
+#include <iosfwd>
 
 #include "asio/detail/push_options.hpp"
 
@@ -315,8 +312,6 @@ ASIO_DECL address_v4 make_address_v4(string_view str,
 #endif // defined(ASIO_HAS_STRING_VIEW)
        //  || defined(GENERATING_DOCUMENTATION)
 
-#if !defined(ASIO_NO_IOSTREAM)
-
 /// Output an address as a string.
 /**
  * Used to output a human-readable string for a specified address.
@@ -332,8 +327,6 @@ ASIO_DECL address_v4 make_address_v4(string_view str,
 template <typename Elem, typename Traits>
 std::basic_ostream<Elem, Traits>& operator<<(
     std::basic_ostream<Elem, Traits>& os, const address_v4& addr);
-
-#endif // !defined(ASIO_NO_IOSTREAM)
 
 } // namespace ip
 } // namespace asio

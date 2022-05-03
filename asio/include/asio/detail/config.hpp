@@ -816,9 +816,6 @@ with the -std=c++11 or -std=gnu++11 compiler options.
 # endif // !defined(ASIO_DISABLE_GETADDRINFO)
 #endif // !defined(ASIO_HAS_GETADDRINFO)
 
-// Whether standard iostreams are disabled.
-//#define ASIO_NO_IOSTREAM 1
-
 // Threads.
 #if !defined(ASIO_HAS_THREADS)
 # if !defined(ASIO_DISABLE_THREADS)

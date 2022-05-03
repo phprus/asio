@@ -113,10 +113,8 @@ public:
     return data_.base.sa_family == ASIO_OS_DEF(AF_INET);
   }
 
-#if !defined(ASIO_NO_IOSTREAM)
   // Convert to a string.
   ASIO_DECL std::string to_string() const;
-#endif // !defined(ASIO_NO_IOSTREAM)
 
 private:
   // The underlying IP socket address.

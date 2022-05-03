@@ -397,7 +397,6 @@ std::size_t read(SyncReadStream& s,
     >::type = 0);
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 /// Attempt to read a certain amount of data from a stream before returning.
 /**
@@ -539,7 +538,6 @@ template <typename SyncReadStream, typename Allocator,
 std::size_t read(SyncReadStream& s, basic_streambuf<Allocator>& b,
     CompletionCondition completion_condition, std::error_code& ec);
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 #endif // !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
 
@@ -1077,7 +1075,6 @@ async_read(AsyncReadStream& s,
     >::type = 0);
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 /// Start an asynchronous operation to read a certain amount of data from a
 /// stream.
@@ -1241,7 +1238,6 @@ async_read(AsyncReadStream& s, basic_streambuf<Allocator>& b,
       ASIO_DEFAULT_COMPLETION_TOKEN(
         typename AsyncReadStream::executor_type));
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 #endif // !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
 

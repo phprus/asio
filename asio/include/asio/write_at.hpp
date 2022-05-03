@@ -229,7 +229,6 @@ std::size_t write_at(SyncRandomAccessWriteDevice& d,
     CompletionCondition completion_condition, std::error_code& ec);
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 /// Write all of the supplied data at the specified offset before returning.
 /**
@@ -386,7 +385,6 @@ std::size_t write_at(SyncRandomAccessWriteDevice& d, uint64_t offset,
     basic_streambuf<Allocator>& b, CompletionCondition completion_condition,
     std::error_code& ec);
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 
 /*@}*/
@@ -589,7 +587,6 @@ async_write_at(AsyncRandomAccessWriteDevice& d,
         typename AsyncRandomAccessWriteDevice::executor_type));
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 /// Start an asynchronous operation to write all of the supplied data at the
 /// specified offset.
@@ -756,7 +753,6 @@ async_write_at(AsyncRandomAccessWriteDevice& d, uint64_t offset,
       ASIO_DEFAULT_COMPLETION_TOKEN(
         typename AsyncRandomAccessWriteDevice::executor_type));
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 
 /*@}*/

@@ -408,8 +408,6 @@ std::size_t read_until(SyncReadStream& s,
   }
 }
 
-#if !defined(ASIO_NO_IOSTREAM)
-
 template <typename SyncReadStream, typename Allocator>
 inline std::size_t read_until(SyncReadStream& s,
     asio::basic_streambuf<Allocator>& b, char delim)
@@ -477,7 +475,6 @@ inline std::size_t read_until(SyncReadStream& s,
   return read_until(s, basic_streambuf_ref<Allocator>(b), match_condition, ec);
 }
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 #endif // !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
 
@@ -1961,8 +1958,6 @@ async_read_until(AsyncReadStream& s,
       ASIO_MOVE_CAST(DynamicBuffer_v1)(buffers), match_condition);
 }
 
-#if !defined(ASIO_NO_IOSTREAM)
-
 template <typename AsyncReadStream, typename Allocator,
     ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken>
@@ -2021,7 +2016,6 @@ async_read_until(AsyncReadStream& s,
       match_condition, ASIO_MOVE_CAST(ReadToken)(token));
 }
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 #endif // !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
 

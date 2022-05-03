@@ -233,7 +233,6 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
     CompletionCondition completion_condition, std::error_code& ec);
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 /// Attempt to read a certain amount of data at the specified offset before
 /// returning.
@@ -387,7 +386,6 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
     uint64_t offset, basic_streambuf<Allocator>& b,
     CompletionCondition completion_condition, std::error_code& ec);
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 
 /*@}*/
@@ -586,7 +584,6 @@ async_read_at(AsyncRandomAccessReadDevice& d,
         typename AsyncRandomAccessReadDevice::executor_type));
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 /// Start an asynchronous operation to read a certain amount of data at the
 /// specified offset.
@@ -748,7 +745,6 @@ async_read_at(AsyncRandomAccessReadDevice& d,
       ASIO_DEFAULT_COMPLETION_TOKEN(
         typename AsyncRandomAccessReadDevice::executor_type));
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 
 /*@}*/
