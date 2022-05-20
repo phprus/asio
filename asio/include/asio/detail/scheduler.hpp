@@ -17,7 +17,7 @@
 
 #include "asio/detail/config.hpp"
 
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/execution_context.hpp"
 #include "asio/detail/atomic_count.hpp"
 #include "asio/detail/conditionally_enabled_event.hpp"

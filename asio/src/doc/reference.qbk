@@ -12809,7 +12809,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -12924,7 +12924,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -13032,7 +13032,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -26716,7 +26716,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -26831,7 +26831,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -26939,7 +26939,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -34449,7 +34449,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -34564,7 +34564,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -34672,7 +34672,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -43467,7 +43467,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -43579,7 +43579,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -43684,7 +43684,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -59682,7 +59682,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -59797,7 +59797,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -59905,7 +59905,7 @@ This function is intended to allow the encapsulation of arbitrary non-blocking s
            errno = 0;
            int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
            ec = std::error_code(n < 0 ? errno : 0,
-               asio::error::get_system_category());
+               std::system_category());
            total_bytes_transferred_ += ec ? 0 : n;
 
            // Retry operation immediately if interrupted by signal.
@@ -81484,24 +81484,6 @@ A cancellation filter that enables terminal, partial and total cancellation.
 
 
 
-[section:error__get_system_category error::get_system_category]
-
-[indexterm1 asio.indexterm.error__get_system_category..error::get_system_category]
-
-
-  const std::error_category & get_system_category();
-
-
-[heading Requirements]
-
-['Header: ][^asio/error.hpp]
-
-['Convenience header: ][^asio.hpp]
-
-
-[endsect]
-
-
 [section:error__make_error_code error::make_error_code]
 
 [indexterm1 asio.indexterm.error__make_error_code..error::make_error_code]
@@ -81776,7 +81758,7 @@ A cancellation filter that enables terminal, partial and total cancellation.
 [indexterm1 asio.indexterm.error__system_category..error::system_category]
 
 
-  static const std::error_category & system_category = asio::error::get_system_category();
+  static const std::error_category & system_category = std::system_category();
 
 
 [heading Requirements]

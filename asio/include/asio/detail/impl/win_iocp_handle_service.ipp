@@ -52,7 +52,7 @@ public:
     {
       DWORD last_error = ::GetLastError();
       ec = std::error_code(last_error,
-          asio::error::get_system_category());
+          std::system_category());
     }
   }
 
@@ -206,7 +206,7 @@ std::error_code win_iocp_handle_service::close(
     {
       DWORD last_error = ::GetLastError();
       ec = std::error_code(last_error,
-          asio::error::get_system_category());
+          std::system_category());
     }
     else
     {
@@ -289,7 +289,7 @@ std::error_code win_iocp_handle_service::cancel(
       else
       {
         ec = std::error_code(last_error,
-            asio::error::get_system_category());
+            std::system_category());
       }
     }
     else
@@ -310,7 +310,7 @@ std::error_code win_iocp_handle_service::cancel(
     {
       DWORD last_error = ::GetLastError();
       ec = std::error_code(last_error,
-          asio::error::get_system_category());
+          std::system_category());
     }
     else
     {
@@ -361,7 +361,7 @@ size_t win_iocp_handle_service::do_write(
     if (last_error != ERROR_IO_PENDING)
     {
       ec = std::error_code(last_error,
-          asio::error::get_system_category());
+          std::system_category());
       return 0;
     }
   }
@@ -374,7 +374,7 @@ size_t win_iocp_handle_service::do_write(
   {
     DWORD last_error = ::GetLastError();
     ec = std::error_code(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     return 0;
   }
 
@@ -459,7 +459,7 @@ size_t win_iocp_handle_service::do_read(
       else
       {
         ec = std::error_code(last_error,
-            asio::error::get_system_category());
+            std::system_category());
       }
       return 0;
     }
@@ -479,7 +479,7 @@ size_t win_iocp_handle_service::do_read(
     else
     {
       ec = std::error_code(last_error,
-          asio::error::get_system_category());
+          std::system_category());
     }
     return (last_error == ERROR_MORE_DATA) ? bytes_transferred : 0;
   }

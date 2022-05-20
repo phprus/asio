@@ -522,7 +522,7 @@ private:
 
       // Check the result of the connect operation.
       ec_ = std::error_code(connect_error,
-          asio::error::get_system_category());
+          std::system_category());
       if (!ec_)
         return;
     }

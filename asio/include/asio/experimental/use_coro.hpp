@@ -20,7 +20,7 @@
 #include <optional>
 #include "asio/bind_cancellation_slot.hpp"
 #include "asio/bind_executor.hpp"
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/experimental/detail/partial_promise.hpp"
 
 #include "asio/detail/push_options.hpp"

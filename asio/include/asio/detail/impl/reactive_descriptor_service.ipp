@@ -113,7 +113,7 @@ std::error_code reactive_descriptor_service::assign(
         native_descriptor, impl.reactor_data_))
   {
     ec = std::error_code(err,
-        asio::error::get_system_category());
+        std::system_category());
     return ec;
   }
 

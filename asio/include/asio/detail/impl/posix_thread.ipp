@@ -61,7 +61,7 @@ void posix_thread::start_thread(func_base* arg)
   {
     delete arg;
     std::error_code ec(error,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "thread");
   }
 }

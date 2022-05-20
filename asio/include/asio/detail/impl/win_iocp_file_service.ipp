@@ -102,7 +102,7 @@ std::error_code win_iocp_file_service::open(
       {
         DWORD last_error = ::GetLastError();
         ::CloseHandle(handle);
-        ec.assign(last_error, asio::error::get_system_category());
+        ec.assign(last_error, std::system_category());
         return ec;
       }
     }
@@ -116,7 +116,7 @@ std::error_code win_iocp_file_service::open(
   else
   {
     DWORD last_error = ::GetLastError();
-    ec.assign(last_error, asio::error::get_system_category());
+    ec.assign(last_error, std::system_category());
     return ec;
   }
 }
@@ -134,7 +134,7 @@ uint64_t win_iocp_file_service::size(
   else
   {
     DWORD last_error = ::GetLastError();
-    ec.assign(last_error, asio::error::get_system_category());
+    ec.assign(last_error, std::system_category());
     return 0;
   }
 }
@@ -160,13 +160,13 @@ std::error_code win_iocp_file_service::resize(
     if (result)
       ec.assign(0, ec.category());
     else
-      ec.assign(last_error, asio::error::get_system_category());
+      ec.assign(last_error, std::system_category());
     return ec;
   }
   else
   {
     DWORD last_error = ::GetLastError();
-    ec.assign(last_error, asio::error::get_system_category());
+    ec.assign(last_error, std::system_category());
     return ec;
   }
 }
@@ -184,7 +184,7 @@ std::error_code win_iocp_file_service::sync_all(
   else
   {
     DWORD last_error = ::GetLastError();
-    ec.assign(last_error, asio::error::get_system_category());
+    ec.assign(last_error, std::system_category());
     return ec;
   }
 }
@@ -238,7 +238,7 @@ uint64_t win_iocp_file_service::seek(
   else
   {
     DWORD last_error = ::GetLastError();
-    ec.assign(last_error, asio::error::get_system_category());
+    ec.assign(last_error, std::system_category());
     return 0;
   }
 }

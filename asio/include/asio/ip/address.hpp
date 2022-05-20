@@ -20,7 +20,7 @@
 #include "asio/detail/throw_exception.hpp"
 #include "asio/detail/string_view.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/ip/address_v4.hpp"
 #include "asio/ip/address_v6.hpp"
 #include "asio/ip/bad_address_cast.hpp"

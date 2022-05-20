@@ -48,7 +48,7 @@ public:
     {
       DWORD last_error = ::GetLastError();
       std::error_code ec(last_error,
-          asio::error::get_system_category());
+          std::system_category());
       asio::detail::throw_error(ec, "thread");
     }
     arg.release();

@@ -19,7 +19,7 @@
 #include "asio/detail/config.hpp"
 #include "asio/dispatch.hpp"
 #include "asio/error.hpp"
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/experimental/coro_traits.hpp"
 #include "asio/experimental/detail/coro_promise_allocator.hpp"
 #include "asio/experimental/detail/partial_promise.hpp"

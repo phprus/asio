@@ -98,7 +98,7 @@ win_iocp_io_context::win_iocp_io_context(
   {
     DWORD last_error = ::GetLastError();
     std::error_code ec(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "iocp");
   }
 
@@ -178,7 +178,7 @@ std::error_code win_iocp_io_context::register_handle(
   {
     DWORD last_error = ::GetLastError();
     ec = std::error_code(last_error,
-        asio::error::get_system_category());
+        std::system_category());
   }
   else
   {
@@ -280,7 +280,7 @@ void win_iocp_io_context::stop()
       {
         DWORD last_error = ::GetLastError();
         std::error_code ec(last_error,
-            asio::error::get_system_category());
+            std::system_category());
         asio::detail::throw_error(ec, "pqcs");
       }
     }
@@ -370,7 +370,7 @@ void win_iocp_io_context::on_completion(win_iocp_operation* op,
 
   // Store results in the OVERLAPPED structure.
   op->Internal = reinterpret_cast<ulong_ptr_t>(
-      &asio::error::get_system_category());
+      &std::system_category());
   op->Offset = last_error;
   op->OffsetHigh = bytes_transferred;
 
@@ -439,7 +439,7 @@ size_t win_iocp_io_context::do_one(DWORD msec,
     {
       win_iocp_operation* op = static_cast<win_iocp_operation*>(overlapped);
       std::error_code result_ec(last_error,
-          asio::error::get_system_category());
+          std::system_category());
 
       // We may have been passed the last_error and bytes_transferred in the
       // OVERLAPPED structure itself.
@@ -480,7 +480,7 @@ size_t win_iocp_io_context::do_one(DWORD msec,
       if (last_error != WAIT_TIMEOUT)
       {
         ec = std::error_code(last_error,
-            asio::error::get_system_category());
+            std::system_category());
         return 0;
       }
 
@@ -513,7 +513,7 @@ size_t win_iocp_io_context::do_one(DWORD msec,
           {
             last_error = ::GetLastError();
             ec = std::error_code(last_error,
-                asio::error::get_system_category());
+                std::system_category());
             return 0;
           }
         }
@@ -554,7 +554,7 @@ void win_iocp_io_context::do_add_timer_queue(timer_queue_base& queue)
     {
       DWORD last_error = ::GetLastError();
       std::error_code ec(last_error,
-          asio::error::get_system_category());
+          std::system_category());
       asio::detail::throw_error(ec, "timer");
     }
 

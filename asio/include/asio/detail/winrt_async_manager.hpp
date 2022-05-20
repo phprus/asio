@@ -86,7 +86,7 @@ public:
         default:
           std::error_code ec(
               action->ErrorCode.Value,
-              asio::system_category());
+              std::system_category());
           promise->set_value(ec);
           break;
         }
@@ -118,7 +118,7 @@ public:
         default:
           std::error_code ec(
               operation->ErrorCode.Value,
-              asio::system_category());
+              std::system_category());
           promise->set_value(ec);
           break;
         }
@@ -157,7 +157,7 @@ public:
           default:
             std::error_code ec(
                 operation->ErrorCode.Value,
-                asio::system_category());
+                std::system_category());
             promise->set_value(ec);
             break;
           }
@@ -188,7 +188,7 @@ public:
         default:
           handler->ec_ = std::error_code(
               action->ErrorCode.Value,
-              asio::system_category());
+              std::system_category());
           break;
         }
         scheduler_.post_deferred_completion(handler);
@@ -225,7 +225,7 @@ public:
         default:
           handler->ec_ = std::error_code(
               operation->ErrorCode.Value,
-              asio::system_category());
+              std::system_category());
           break;
         }
         scheduler_.post_deferred_completion(handler);
@@ -266,7 +266,7 @@ public:
           default:
             handler->ec_ = std::error_code(
                 operation->ErrorCode.Value,
-                asio::system_category());
+                std::system_category());
             break;
           }
           scheduler_.post_deferred_completion(handler);
