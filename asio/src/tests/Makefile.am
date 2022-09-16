@@ -195,14 +195,13 @@ noinst_PROGRAMS += \
 	latency/udp_server
 endif
 
-if HAVE_CXX17
+# C++17
 check_PROGRAMS += \
 	unit/experimental/basic_channel \
 	unit/experimental/basic_concurrent_channel \
 	unit/experimental/channel \
 	unit/experimental/channel_traits \
 	unit/experimental/concurrent_channel
-endif
 
 if HAVE_CXX20
 check_PROGRAMS += \
@@ -401,14 +400,13 @@ TESTS = \
 	unit/write \
 	unit/write_at
 
-if HAVE_CXX17
+# C++17
 TESTS += \
 	unit/experimental/basic_channel \
 	unit/experimental/basic_concurrent_channel \
 	unit/experimental/channel \
 	unit/experimental/channel_traits \
 	unit/experimental/concurrent_channel
-endif
 
 if HAVE_CXX20
 TESTS += \
@@ -628,13 +626,12 @@ unit_writable_pipe_SOURCES = unit/writable_pipe.cpp
 unit_write_SOURCES = unit/write.cpp
 unit_write_at_SOURCES = unit/write_at.cpp
 
-if HAVE_CXX17
+# C++17
 unit_experimental_basic_channel_SOURCES = unit/experimental/basic_channel.cpp
 unit_experimental_basic_concurrent_channel_SOURCES = unit/experimental/basic_concurrent_channel.cpp
 unit_experimental_channel_SOURCES = unit/experimental/channel.cpp
 unit_experimental_channel_traits_SOURCES = unit/experimental/channel_traits.cpp
 unit_experimental_concurrent_channel_SOURCES = unit/experimental/concurrent_channel.cpp
-endif
 
 if HAVE_CXX20
 unit_experimental_promise_SOURCES = unit/experimental/promise.cpp
