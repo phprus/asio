@@ -1,0 +1,72 @@
+name: linux
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04]
+        compiler: [g++-9, g++-10, clang++-10]
+        cxx-std: ['c++17', 'c++2a', 'c++20']
+        separate-compilation: ['']
+        #separate-compilation: ['', '--enable-separate-compilation']
+        optim-level: ['-O0']
+        no-deprecated: ['']
+        select-reactor: ['', '-DASIO_DISABLE_EPOLL']
+        handler-tracking: ['']
+        exclude:
+          # Older compilers don't support newer std variants
+          - compiler: g++-9
+            cxx-std: c++20
+          - compiler: g++-10
+            cxx-std: c++2a
+          - compiler: clang++-10
+            cxx-std: c++2a
+          # Trim builds that use separate compilation
+          #- compiler: g++-9
+          #  separate-compilation: --enable-separate-compilation
+        include:
+          #
+          # Linux / g++-9 / -O0 / standalone / handler tracking
+          #
+          - os: ubuntu-20.04
+            compiler: g++-9
+            cxx-std: c++17
+            optim-level: -O0
+            handler-tracking: -DASIO_ENABLE_HANDLER_TRACKING
+          #
+          # Linux / g++-10 -std=c++20 -fcoroutines / -O2 / standalone
+          #
+          - os: ubuntu-20.04
+            compiler: g++-10
+            cxx-std: c++20 -fcoroutines
+            optim-level: -O2
+          #
+          # Linux / clang++-10 -std=c++20 / -O2 / standalone
+          #
+          - os: ubuntu-20.04
+            compiler: clang++-10
+            cxx-std: c++20
+            optim-level: -O2
+
+    runs-on: ${{ matrix.os }}
+    env:
+      CXX: ${{ matrix.compiler }}
+      CXXFLAGS: -std=${{ matrix.cxx-std }} ${{ matrix.optim-level }} -Wall -Wextra ${{ matrix.no-deprecated }} ${{ matrix.select-reactor }} ${{ matrix.handler-tracking }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install compiler
+      run: sudo apt-get install -y ${{ matrix.compiler }}
+    - name: Configure
+      working-directory: asio
+      run: |
+        ./autogen.sh
+        ./configure ${{ matrix.separate-compilation }}
+    - name: Build And Test
+      working-directory: asio
+      run: make && make check
