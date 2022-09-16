@@ -81,67 +81,6 @@ CXXFLAGS = \
 	$(TRACKING_CXXFLAGS) \
 	$(STANDALONE_CXXFLAGS)
 
-CPP03_TEST_EXES = \
-	cpp03\query_free.exe \
-	cpp03\query_member.exe \
-	cpp03\query_static.exe \
-	cpp03\can_query_free.exe \
-	cpp03\can_query_member.exe \
-	cpp03\can_query_static.exe \
-	cpp03\can_query_unsupported.exe \
-	cpp03\can_query_not_applicable_free.exe \
-	cpp03\can_query_not_applicable_member.exe \
-	cpp03\can_query_not_applicable_static.exe \
-	cpp03\can_query_not_applicable_unsupported.exe \
-	cpp03\require_concept_free.exe \
-	cpp03\require_concept_member.exe \
-	cpp03\require_concept_static.exe \
-	cpp03\can_require_concept_free.exe \
-	cpp03\can_require_concept_member.exe \
-	cpp03\can_require_concept_static.exe \
-	cpp03\can_require_concept_unsupported.exe \
-	cpp03\can_require_concept_not_applicable_free.exe \
-	cpp03\can_require_concept_not_applicable_member.exe \
-	cpp03\can_require_concept_not_applicable_static.exe \
-	cpp03\can_require_concept_not_applicable_unsupported.exe \
-	cpp03\require_free.exe \
-	cpp03\require_member.exe \
-	cpp03\require_static.exe \
-	cpp03\can_require_free.exe \
-	cpp03\can_require_member.exe \
-	cpp03\can_require_static.exe \
-	cpp03\can_require_unsupported.exe \
-	cpp03\can_require_not_applicable_free.exe \
-	cpp03\can_require_not_applicable_member.exe \
-	cpp03\can_require_not_applicable_static.exe \
-	cpp03\can_require_not_applicable_unsupported.exe \
-	cpp03\prefer_free_prefer.exe \
-	cpp03\prefer_member_prefer.exe \
-	cpp03\prefer_free_require.exe \
-	cpp03\prefer_member_require.exe \
-	cpp03\prefer_static.exe \
-	cpp03\prefer_unsupported.exe \
-	cpp03\can_prefer_free_prefer.exe \
-	cpp03\can_prefer_free_require.exe \
-	cpp03\can_prefer_member_prefer.exe \
-	cpp03\can_prefer_member_require.exe \
-	cpp03\can_prefer_static.exe \
-	cpp03\can_prefer_unsupported.exe \
-	cpp03\can_prefer_not_applicable_free_prefer.exe \
-	cpp03\can_prefer_not_applicable_free_require.exe \
-	cpp03\can_prefer_not_applicable_member_prefer.exe \
-	cpp03\can_prefer_not_applicable_member_require.exe \
-	cpp03\can_prefer_not_applicable_static.exe \
-	cpp03\can_prefer_not_applicable_unsupported.exe \
-	cpp03\can_prefer_not_preferable_free_prefer.exe \
-	cpp03\can_prefer_not_preferable_free_require.exe \
-	cpp03\can_prefer_not_preferable_member_prefer.exe \
-	cpp03\can_prefer_not_preferable_member_require.exe \
-	cpp03\can_prefer_not_preferable_static.exe \
-	cpp03\can_prefer_not_preferable_unsupported.exe
-
-!ifdef CPP11
-
 CPP11_TEST_EXES = \
 	cpp11\query_free.exe \
 	cpp11\query_member.exe \
@@ -200,8 +139,6 @@ CPP11_TEST_EXES = \
 	cpp11\can_prefer_not_preferable_member_require.exe \
 	cpp11\can_prefer_not_preferable_static.exe \
 	cpp11\can_prefer_not_preferable_unsupported.exe
-
-!endif
 
 !ifdef CPP14
 
@@ -267,7 +204,6 @@ CPP14_TEST_EXES = \
 !endif
 
 TEST_EXES = \
-	$(CPP03_TEST_EXES) \
 	$(CPP11_TEST_EXES) \
 	$(CPP14_TEST_EXES)
 
@@ -277,9 +213,6 @@ all: \
 check: $(TEST_EXES)
 	!@echo === Running $** === && $** && echo.
 
-{cpp03}.cpp{cpp03}.exe:
-	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
-
 {cpp11}.cpp{cpp11}.exe:
 	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
 
@@ -287,12 +220,6 @@ check: $(TEST_EXES)
 	cl -Fe$@ -Fo$(<:.cpp=.obj) $(CXXFLAGS) $(DEFINES) $< $(LIBS) -link -opt:ref
 
 clean:
-	-del /q /s cpp03\*.exe
-	-del /q /s cpp03\*.exe.manifest
-	-del /q /s cpp03\*.exp
-	-del /q /s cpp03\*.ilk
-	-del /q /s cpp03\*.pdb
-	-del /q /s cpp03\*.obj
 	-del /q /s cpp11\*.exe
 	-del /q /s cpp11\*.exe.manifest
 	-del /q /s cpp11\*.exp

@@ -11,9 +11,8 @@
 #include <ctime>
 #include <iostream>
 #include <string>
-#include <boost/bind/bind.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/enable_shared_from_this.hpp>
+#include <functional>
+#include <memory>
 #include "asio.hpp"
 
 #if defined(ASIO_HAS_WINDOWS_OVERLAPPED_PTR)
@@ -60,10 +59,10 @@ void transmit_file(tcp_socket& socket,
 }
 
 class connection
-  : public boost::enable_shared_from_this<connection>
+  : public std::enable_shared_from_this<connection>
 {
 public:
-  typedef boost::shared_ptr<connection> pointer;
+  typedef std::shared_ptr<connection> pointer;
 
   static pointer create(asio::io_context& io_context,
       const std::string& filename)
@@ -84,7 +83,7 @@ public:
     if (file_.is_open())
     {
       transmit_file(socket_, file_,
-          boost::bind(&connection::handle_write, shared_from_this(),
+          std::bind(&connection::handle_write, shared_from_this(),
             asio::placeholders::error,
             asio::placeholders::bytes_transferred));
     }
@@ -128,7 +127,7 @@ private:
       connection::create(acceptor_.get_executor().context(), filename_);
 
     acceptor_.async_accept(new_connection->socket(),
-        boost::bind(&server::handle_accept, this, new_connection,
+        std::bind(&server::handle_accept, this, new_connection,
           asio::placeholders::error));
   }
 
