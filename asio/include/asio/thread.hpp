@@ -41,7 +41,7 @@ namespace asio {
  * @par
  * @code asio::io_context io_context;
  * // ...
- * asio::thread t(boost::bind(&asio::io_context::run, &io_context));
+ * asio::thread t(std::bind(&asio::io_context::run, &io_context));
  * // ...
  * t.join(); @endcode
  */

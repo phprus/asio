@@ -62,7 +62,7 @@ A non-static class member function adapted to a resolve token using
         std::placeholders::_2));
 
 A non-static class member function adapted to a resolve token using
-`boost::bind()`:
+`std::bind()`:
 
   void my_class::resolve_handler(
       const asio::error_code& ec,
@@ -72,7 +72,7 @@ A non-static class member function adapted to a resolve token using
   }
   ...
   resolver.async_resolve(...,
-      boost::bind(&my_class::resolve_handler,
+      std::bind(&my_class::resolve_handler,
         this, asio::placeholders::error,
         asio::placeholders::results));
 
