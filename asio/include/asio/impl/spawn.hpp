@@ -29,7 +29,6 @@
 #include "asio/detail/noncopyable.hpp"
 #include "asio/detail/type_traits.hpp"
 #include "asio/detail/utility.hpp"
-#include "asio/detail/variadic_templates.hpp"
 #include "asio/system_error.hpp"
 
 #if defined(ASIO_HAS_STD_TUPLE)
@@ -696,8 +695,7 @@ private:
   result_type& result_;
 };
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES) \
-  && defined(ASIO_HAS_STD_TUPLE)
+#if defined(ASIO_HAS_STD_TUPLE)
 
 template <typename Executor, typename R, typename... Ts>
 class spawn_handler<Executor, R(Ts...)>
@@ -816,8 +814,7 @@ private:
   result_type& result_;
 };
 
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-       //   && defined(ASIO_HAS_STD_TUPLE)
+#endif // defined(ASIO_HAS_STD_TUPLE)
 
 template <typename Executor, typename Signature>
 inline bool asio_handler_is_continuation(spawn_handler<Executor, Signature>*)
@@ -834,8 +831,7 @@ public:
   typedef typename detail::spawn_handler<Executor, Signature> handler_type;
   typedef typename handler_type::return_type return_type;
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-# if defined(ASIO_HAS_VARIADIC_LAMBDA_CAPTURES)
+#if defined(ASIO_HAS_VARIADIC_LAMBDA_CAPTURES)
 
   template <typename Initiation, typename... InitArgs>
   static return_type initiate(ASIO_MOVE_ARG(Initiation) init,
@@ -856,7 +852,7 @@ public:
     return handler_type::on_resume(result);
   }
 
-# else // defined(ASIO_HAS_VARIADIC_LAMBDA_CAPTURES)
+#else // defined(ASIO_HAS_VARIADIC_LAMBDA_CAPTURES)
 
   template <typename Initiation, typename... InitArgs>
   struct suspend_with_helper
@@ -897,105 +893,7 @@ public:
     return handler_type::on_resume(result);
   }
 
-# endif // defined(ASIO_HAS_VARIADIC_LAMBDA_CAPTURES)
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-  template <typename Initiation>
-  static return_type initiate(Initiation init,
-      const basic_yield_context<Executor>& yield)
-  {
-    typename handler_type::result_type result
-      = typename handler_type::result_type();
-
-    struct on_suspend
-    {
-      Initiation& init_;
-      const basic_yield_context<Executor>& yield_;
-      typename handler_type::result_type& result_;
-
-      void do_call()
-      {
-        ASIO_MOVE_CAST(Initiation)(init_)(
-            handler_type(yield_, result_));
-      }
-
-      static void call(void* arg)
-      {
-        static_cast<on_suspend*>(arg)->do_call();
-      }
-    } o = { init, yield, result };
-
-    yield.spawned_thread_->suspend_with(&on_suspend::call, &o);
-
-    return handler_type::on_resume(result);
-  }
-
-#define ASIO_PRIVATE_ON_SUSPEND_MEMBERS(n) \
-  ASIO_PRIVATE_ON_SUSPEND_MEMBERS_##n
-#define ASIO_PRIVATE_ON_SUSPEND_MEMBERS_1 \
-  T1& x1;
-#define ASIO_PRIVATE_ON_SUSPEND_MEMBERS_2 \
-  T1& x1; T2& x2;
-#define ASIO_PRIVATE_ON_SUSPEND_MEMBERS_3 \
-  T1& x1; T2& x2; T3& x3;
-#define ASIO_PRIVATE_ON_SUSPEND_MEMBERS_4 \
-  T1& x1; T2& x2; T3& x3; T4& x4;
-#define ASIO_PRIVATE_ON_SUSPEND_MEMBERS_5 \
-  T1& x1; T2& x2; T3& x3; T4& x4; T5& x5;
-#define ASIO_PRIVATE_ON_SUSPEND_MEMBERS_6 \
-  T1& x1; T2& x2; T3& x3; T4& x4; T5& x5; T6& x6;
-#define ASIO_PRIVATE_ON_SUSPEND_MEMBERS_7 \
-  T1& x1; T2& x2; T3& x3; T4& x4; T5& x5; T6& x6; T7& x7;
-#define ASIO_PRIVATE_ON_SUSPEND_MEMBERS_8 \
-  T1& x1; T2& x2; T3& x3; T4& x4; T5& x5; T6& x6; T7& x7; T8& x8;
-
-#define ASIO_PRIVATE_INITIATE_DEF(n) \
-  template <typename Initiation, ASIO_VARIADIC_TPARAMS(n)> \
-  static return_type initiate(Initiation init, \
-      const basic_yield_context<Executor>& yield, \
-      ASIO_VARIADIC_BYVAL_PARAMS(n)) \
-  { \
-    typename handler_type::result_type result \
-      = typename handler_type::result_type(); \
-  \
-    struct on_suspend \
-    { \
-      Initiation& init; \
-      const basic_yield_context<Executor>& yield; \
-      typename handler_type::result_type& result; \
-      ASIO_PRIVATE_ON_SUSPEND_MEMBERS(n) \
-  \
-      void do_call() \
-      { \
-        ASIO_MOVE_CAST(Initiation)(init)( \
-            handler_type(yield, result), \
-            ASIO_VARIADIC_MOVE_ARGS(n)); \
-      } \
-  \
-      static void call(void* arg) \
-      { \
-        static_cast<on_suspend*>(arg)->do_call(); \
-      } \
-    } o = { init, yield, result, ASIO_VARIADIC_BYVAL_ARGS(n) }; \
-  \
-    yield.spawned_thread_->suspend_with(&on_suspend::call, &o); \
-  \
-    return handler_type::on_resume(result); \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_INITIATE_DEF)
-#undef ASIO_PRIVATE_INITIATE_DEF
-#undef ASIO_PRIVATE_ON_SUSPEND_MEMBERS
-#undef ASIO_PRIVATE_ON_SUSPEND_MEMBERS_1
-#undef ASIO_PRIVATE_ON_SUSPEND_MEMBERS_2
-#undef ASIO_PRIVATE_ON_SUSPEND_MEMBERS_3
-#undef ASIO_PRIVATE_ON_SUSPEND_MEMBERS_4
-#undef ASIO_PRIVATE_ON_SUSPEND_MEMBERS_5
-#undef ASIO_PRIVATE_ON_SUSPEND_MEMBERS_6
-#undef ASIO_PRIVATE_ON_SUSPEND_MEMBERS_7
-#undef ASIO_PRIVATE_ON_SUSPEND_MEMBERS_8
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
+#endif // defined(ASIO_HAS_VARIADIC_LAMBDA_CAPTURES)
 };
 
 namespace detail {

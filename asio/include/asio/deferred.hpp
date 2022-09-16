@@ -18,8 +18,7 @@
 #include "asio/detail/config.hpp"
 
 #if (defined(ASIO_HAS_STD_TUPLE) \
-    && defined(ASIO_HAS_DECLTYPE) \
-    && defined(ASIO_HAS_VARIADIC_TEMPLATES)) \
+    && defined(ASIO_HAS_DECLTYPE)) \
   || defined(GENERATING_DOCUMENTATION)
 
 #include <tuple>
@@ -669,7 +668,6 @@ __declspec(selectany) deferred_t deferred;
 
 #endif // (defined(ASIO_HAS_STD_TUPLE)
        //     && defined(ASIO_HAS_DECLTYPE))
-       //     && defined(ASIO_HAS_VARIADIC_TEMPLATES))
        //   || defined(GENERATING_DOCUMENTATION)
 
 #endif // ASIO_DEFERRED_HPP

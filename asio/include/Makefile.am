@@ -289,7 +289,6 @@ nobase_include_HEADERS = \
 	asio/detail/tss_ptr.hpp \
 	asio/detail/type_traits.hpp \
 	asio/detail/utility.hpp \
-	asio/detail/variadic_templates.hpp \
 	asio/detail/wait_handler.hpp \
 	asio/detail/wait_op.hpp \
 	asio/detail/winapp_thread.hpp \

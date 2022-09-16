@@ -140,8 +140,6 @@ class async_result<incrementer_token_v2, void(asio::error_code)>
 public:
   typedef void return_type;
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
   template <typename Initiation, typename... Args>
   static void initiate(Initiation initiation,
       incrementer_token_v2 token, ASIO_MOVE_ARG(Args)... args)
@@ -152,31 +150,6 @@ public:
         ASIO_MOVE_CAST(Args)(args)...);
   }
 
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-  template <typename Initiation>
-  static void initiate(Initiation initiation, incrementer_token_v2 token)
-  {
-    initiation(
-        bindns::bind(&increment_on_cancel,
-          token.count, bindns::placeholders::_1));
-  }
-
-#define ASIO_PRIVATE_INITIATE_DEF(n) \
-  template <typename Initiation, ASIO_VARIADIC_TPARAMS(n)> \
-  static return_type initiate(Initiation initiation, \
-      incrementer_token_v2 token, ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  { \
-    initiation( \
-        bindns::bind(&increment_on_cancel, \
-          token.count, bindns::placeholders::_1), \
-        ASIO_VARIADIC_MOVE_ARGS(n)); \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_INITIATE_DEF)
-#undef ASIO_PRIVATE_INITIATE_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 };
 
 } // namespace asio
