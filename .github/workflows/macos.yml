@@ -1,0 +1,36 @@
+name: macos
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-11]
+        cxx-std: ['c++17', 'c++20']
+        separate-compilation: ['']
+        #separate-compilation: ['', '--enable-separate-compilation']
+        optim-level: ['-O0']
+        no-deprecated: ['']
+        select-reactor: ['', '-DASIO_DISABLE_KQUEUE']
+        handler-tracking: ['']
+    runs-on: ${{ matrix.os }}
+    env:
+      CXX: clang++
+      CXXFLAGS: -std=${{ matrix.cxx-std }} ${{ matrix.optim-level }} -Wall -Wextra ${{ matrix.no-deprecated }} ${{ matrix.select-reactor }} ${{ matrix.handler-tracking }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install autotools
+      run: brew install automake
+    - name: Configure
+      working-directory: asio
+      run: |
+        ./autogen.sh
+        ./configure ${{ matrix.separate-compilation }}
+    - name: Build And Test
+      working-directory: asio
+      run: make && make check
