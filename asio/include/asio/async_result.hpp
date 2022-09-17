@@ -36,8 +36,6 @@ struct is_completion_signature<R(Args...)> : true_type
 {
 };
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
-
 template <typename R, typename... Args>
 struct is_completion_signature<R(Args...) &> : true_type
 {
@@ -48,7 +46,7 @@ struct is_completion_signature<R(Args...) &&> : true_type
 {
 };
 
-# if defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
+#if defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
 
 template <typename R, typename... Args>
 struct is_completion_signature<R(Args...) noexcept> : true_type
@@ -65,8 +63,7 @@ struct is_completion_signature<R(Args...) && noexcept> : true_type
 {
 };
 
-# endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
+#endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
 
 template <typename... T>
 struct are_completion_signatures : false_type
@@ -104,8 +101,6 @@ struct is_completion_handler_for<T, R(Args...)>
 {
 };
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
-
 template <typename T, typename R, typename... Args>
 struct is_completion_handler_for<T, R(Args...) &>
   : integral_constant<bool, (callable_with<T&, Args...>)>
@@ -118,7 +113,7 @@ struct is_completion_handler_for<T, R(Args...) &&>
 {
 };
 
-# if defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
+#if defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
 
 template <typename T, typename R, typename... Args>
 struct is_completion_handler_for<T, R(Args...) noexcept>
@@ -138,8 +133,7 @@ struct is_completion_handler_for<T, R(Args...) && noexcept>
 {
 };
 
-# endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
+#endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
 
 template <typename T, typename Signature0, typename... SignatureN>
 struct is_completion_handler_for<T, Signature0, SignatureN...>
@@ -219,8 +213,6 @@ struct simple_completion_signature<R(Args...)>
   typedef R type(Args...);
 };
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
-
 template <typename R, typename... Args>
 struct simple_completion_signature<R(Args...) &>
 {
@@ -233,7 +225,7 @@ struct simple_completion_signature<R(Args...) &&>
   typedef R type(Args...);
 };
 
-# if defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
+#if defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
 
 template <typename R, typename... Args>
 struct simple_completion_signature<R(Args...) noexcept>
@@ -253,8 +245,7 @@ struct simple_completion_signature<R(Args...) && noexcept>
   typedef R type(Args...);
 };
 
-# endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
+#endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
 
 # define ASIO_COMPLETION_SIGNATURES_TPARAMS \
     ASIO_COMPLETION_SIGNATURE... Signatures
@@ -361,8 +352,6 @@ private:
 
 #else // defined(GENERATING_DOCUMENTATION)
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
-
 template <typename CompletionToken, ASIO_COMPLETION_SIGNATURES_TPARAMS>
 class async_result :
   public conditional<
@@ -390,27 +379,6 @@ private:
   async_result(const async_result&) ASIO_DELETED;
   async_result& operator=(const async_result&) ASIO_DELETED;
 };
-
-#else // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
-
-template <typename CompletionToken, ASIO_COMPLETION_SIGNATURES_TPARAMS>
-class async_result :
-  public detail::completion_handler_async_result<
-    CompletionToken, ASIO_COMPLETION_SIGNATURES_TARGS>
-{
-public:
-  explicit async_result(CompletionToken& h)
-    : detail::completion_handler_async_result<
-        CompletionToken, ASIO_COMPLETION_SIGNATURES_TARGS>(h)
-  {
-  }
-
-private:
-  async_result(const async_result&) ASIO_DELETED;
-  async_result& operator=(const async_result&) ASIO_DELETED;
-};
-
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
 
 template <ASIO_COMPLETION_SIGNATURES_TSPECPARAMS>
 class async_result<void, ASIO_COMPLETION_SIGNATURES_TARGS>
