@@ -63,7 +63,6 @@ nobase_include_HEADERS = \
 	asio/detail/buffer_sequence_adapter.hpp \
 	asio/detail/bulk_executor_op.hpp \
 	asio/detail/call_stack.hpp \
-	asio/detail/chrono.hpp \
 	asio/detail/chrono_time_traits.hpp \
 	asio/detail/completion_handler.hpp \
 	asio/detail/concurrency_hint.hpp \
