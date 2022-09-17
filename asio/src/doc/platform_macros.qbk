@@ -332,13 +332,6 @@ needs.
     [`ASIO_DISABLE_STD_ATOMIC`]
   ]
   [
-    [`ASIO_HAS_STD_CALL_ONCE`]
-    [
-      Standard library support for the call_once function.
-    ]
-    [`ASIO_DISABLE_STD_CALL_ONCE`]
-  ]
-  [
     [`ASIO_HAS_STD_CHRONO`]
     [
       Standard library support for chrono. Some standard libraries (such as the
