@@ -18,7 +18,7 @@
 #include "asio/detail/config.hpp"
 #include <memory>
 #include "asio/associator.hpp"
-#include "asio/detail/functional.hpp"
+#include <functional>
 #include "asio/detail/type_traits.hpp"
 
 #include "asio/detail/push_options.hpp"
@@ -187,12 +187,9 @@ struct associated_allocator_forwarding_base<T, A,
 
 } // namespace detail
 
-#if defined(ASIO_HAS_STD_REFERENCE_WRAPPER) \
-  || defined(GENERATING_DOCUMENTATION)
-
 /// Specialisation of associated_allocator for @c std::reference_wrapper.
 template <typename T, typename Allocator>
-struct associated_allocator<reference_wrapper<T>, Allocator>
+struct associated_allocator<std::reference_wrapper<T>, Allocator>
 #if !defined(GENERATING_DOCUMENTATION)
   : detail::associated_allocator_forwarding_base<T, Allocator>
 #endif // !defined(GENERATING_DOCUMENTATION)
@@ -203,7 +200,7 @@ struct associated_allocator<reference_wrapper<T>, Allocator>
 
   /// Forwards the request to get the allocator to the associator specialisation
   /// for the unwrapped type @c T.
-  static type get(reference_wrapper<T> t) noexcept(true)
+  static type get(std::reference_wrapper<T> t) noexcept(true)
   {
     return associated_allocator<T, Allocator>::get(t.get());
   }
@@ -211,16 +208,13 @@ struct associated_allocator<reference_wrapper<T>, Allocator>
   /// Forwards the request to get the allocator to the associator specialisation
   /// for the unwrapped type @c T.
   static ASIO_AUTO_RETURN_TYPE_PREFIX(type) get(
-      reference_wrapper<T> t, const Allocator& a) noexcept(true)
+      std::reference_wrapper<T> t, const Allocator& a) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       associated_allocator<T, Allocator>::get(t.get(), a)))
   {
     return associated_allocator<T, Allocator>::get(t.get(), a);
   }
 };
-
-#endif // defined(ASIO_HAS_STD_REFERENCE_WRAPPER)
-       //   || defined(GENERATING_DOCUMENTATION)
 
 } // namespace asio
 

@@ -17,7 +17,7 @@
 
 #include "asio/detail/config.hpp"
 #include "asio/associator.hpp"
-#include "asio/detail/functional.hpp"
+#include <functional>
 #include "asio/detail/type_traits.hpp"
 #include "asio/execution/executor.hpp"
 #include "asio/is_executor.hpp"
@@ -211,12 +211,9 @@ struct associated_executor_forwarding_base<T, E,
 
 } // namespace detail
 
-#if defined(ASIO_HAS_STD_REFERENCE_WRAPPER) \
-  || defined(GENERATING_DOCUMENTATION)
-
 /// Specialisation of associated_executor for @c std::reference_wrapper.
 template <typename T, typename Executor>
-struct associated_executor<reference_wrapper<T>, Executor>
+struct associated_executor<std::reference_wrapper<T>, Executor>
 #if !defined(GENERATING_DOCUMENTATION)
   : detail::associated_executor_forwarding_base<T, Executor>
 #endif // !defined(GENERATING_DOCUMENTATION)
@@ -227,7 +224,7 @@ struct associated_executor<reference_wrapper<T>, Executor>
 
   /// Forwards the request to get the executor to the associator specialisation
   /// for the unwrapped type @c T.
-  static type get(reference_wrapper<T> t) noexcept(true)
+  static type get(std::reference_wrapper<T> t) noexcept(true)
   {
     return associated_executor<T, Executor>::get(t.get());
   }
@@ -235,16 +232,13 @@ struct associated_executor<reference_wrapper<T>, Executor>
   /// Forwards the request to get the executor to the associator specialisation
   /// for the unwrapped type @c T.
   static ASIO_AUTO_RETURN_TYPE_PREFIX(type) get(
-      reference_wrapper<T> t, const Executor& ex) noexcept(true)
+      std::reference_wrapper<T> t, const Executor& ex) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       associated_executor<T, Executor>::get(t.get(), ex)))
   {
     return associated_executor<T, Executor>::get(t.get(), ex);
   }
 };
-
-#endif // defined(ASIO_HAS_STD_REFERENCE_WRAPPER)
-       //   || defined(GENERATING_DOCUMENTATION)
 
 } // namespace asio
 
