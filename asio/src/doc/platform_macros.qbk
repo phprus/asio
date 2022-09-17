@@ -455,13 +455,6 @@ needs.
     [`ASIO_DISABLE_STD_FUTURE`]
   ]
   [
-    [`ASIO_HAS_STD_HASH`]
-    [
-      Standard library support for std::hash.
-    ]
-    [`ASIO_DISABLE_STD_HASH`]
-  ]
-  [
     [`ASIO_HAS_STD_INDEX_SEQUENCE`]
     [
       Standard library support for std::index_sequence.
