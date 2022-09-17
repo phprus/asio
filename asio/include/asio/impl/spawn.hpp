@@ -328,31 +328,13 @@ public:
   explicit spawned_thread_resumer(spawned_thread_base* spawned_thread)
     : spawned_thread_(spawned_thread)
   {
-#if !defined(ASIO_HAS_MOVE)
-    spawned_thread->detach();
-    spawned_thread->attach(&spawned_thread_);
-#endif // !defined(ASIO_HAS_MOVE)
   }
-
-#if defined(ASIO_HAS_MOVE)
 
   spawned_thread_resumer(spawned_thread_resumer&& other) ASIO_NOEXCEPT
     : spawned_thread_(other.spawned_thread_)
   {
     other.spawned_thread_ = 0;
   }
-
-#else // defined(ASIO_HAS_MOVE)
-
-  spawned_thread_resumer(
-      const spawned_thread_resumer& other) ASIO_NOEXCEPT
-    : spawned_thread_(other.spawned_thread_)
-  {
-    spawned_thread_->detach();
-    spawned_thread_->attach(&spawned_thread_);
-  }
-
-#endif // defined(ASIO_HAS_MOVE)
 
   ~spawned_thread_resumer()
   {
@@ -362,9 +344,7 @@ public:
 
   void operator()()
   {
-#if defined(ASIO_HAS_MOVE)
     spawned_thread_->attach(&spawned_thread_);
-#endif // defined(ASIO_HAS_MOVE)
     spawned_thread_->resume();
   }
 
@@ -380,30 +360,13 @@ public:
     : spawned_thread_(spawned_thread)
   {
     spawned_thread->detach();
-#if !defined(ASIO_HAS_MOVE)
-    spawned_thread->attach(&spawned_thread_);
-#endif // !defined(ASIO_HAS_MOVE)
   }
-
-#if defined(ASIO_HAS_MOVE)
 
   spawned_thread_destroyer(spawned_thread_destroyer&& other) ASIO_NOEXCEPT
     : spawned_thread_(other.spawned_thread_)
   {
     other.spawned_thread_ = 0;
   }
-
-#else // defined(ASIO_HAS_MOVE)
-
-  spawned_thread_destroyer(
-      const spawned_thread_destroyer& other) ASIO_NOEXCEPT
-    : spawned_thread_(other.spawned_thread_)
-  {
-    spawned_thread_->detach();
-    spawned_thread_->attach(&spawned_thread_);
-  }
-
-#endif // defined(ASIO_HAS_MOVE)
 
   ~spawned_thread_destroyer()
   {
@@ -437,12 +400,7 @@ public:
       spawned_thread_(yield.spawned_thread_)
   {
     spawned_thread_->detach();
-#if !defined(ASIO_HAS_MOVE)
-    spawned_thread_->attach(&spawned_thread_);
-#endif // !defined(ASIO_HAS_MOVE)
   }
-
-#if defined(ASIO_HAS_MOVE)
 
   spawn_handler_base(spawn_handler_base&& other) ASIO_NOEXCEPT
     : yield_(other.yield_),
@@ -451,18 +409,6 @@ public:
   {
     other.spawned_thread_ = 0;
   }
-
-#else // defined(ASIO_HAS_MOVE)
-
-  spawn_handler_base(const spawn_handler_base& other) ASIO_NOEXCEPT
-    : yield_(other.yield_),
-      spawned_thread_(other.spawned_thread_)
-  {
-    spawned_thread_->detach();
-    spawned_thread_->attach(&spawned_thread_);
-  }
-
-#endif // defined(ASIO_HAS_MOVE)
 
   ~spawn_handler_base()
   {

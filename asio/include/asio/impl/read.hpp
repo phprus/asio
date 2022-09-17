@@ -338,7 +338,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     read_op(const read_op& other)
       : base_from_cancellation_state<ReadHandler>(other),
         base_from_completion_cond<CompletionCondition>(other),
@@ -362,7 +361,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(ReadHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(asio::error_code ec,
         std::size_t bytes_transferred, int start = 0)
@@ -631,7 +629,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     read_dynbuf_v1_op(const read_dynbuf_v1_op& other)
       : base_from_cancellation_state<ReadHandler>(other),
         base_from_completion_cond<CompletionCondition>(other),
@@ -657,7 +654,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(ReadHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(asio::error_code ec,
         std::size_t bytes_transferred, int start = 0)
@@ -969,7 +965,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     read_dynbuf_v2_op(const read_dynbuf_v2_op& other)
       : base_from_cancellation_state<ReadHandler>(other),
         base_from_completion_cond<CompletionCondition>(other),
@@ -997,7 +992,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(ReadHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(asio::error_code ec,
         std::size_t bytes_transferred, int start = 0)

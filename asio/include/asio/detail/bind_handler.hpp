@@ -42,7 +42,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   binder0(const binder0& other)
     : handler_(other.handler_)
   {
@@ -52,7 +51,6 @@ public:
     : handler_(ASIO_MOVE_CAST(Handler)(other.handler_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   void operator()()
   {
@@ -151,7 +149,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   binder1(const binder1& other)
     : handler_(other.handler_),
       arg1_(other.arg1_)
@@ -163,7 +160,6 @@ public:
       arg1_(ASIO_MOVE_CAST(Arg1)(other.arg1_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   void operator()()
   {
@@ -267,7 +263,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   binder2(const binder2& other)
     : handler_(other.handler_),
       arg1_(other.arg1_),
@@ -281,7 +276,6 @@ public:
       arg2_(ASIO_MOVE_CAST(Arg2)(other.arg2_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   void operator()()
   {
@@ -390,7 +384,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   binder3(const binder3& other)
     : handler_(other.handler_),
       arg1_(other.arg1_),
@@ -406,7 +399,6 @@ public:
       arg3_(ASIO_MOVE_CAST(Arg3)(other.arg3_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   void operator()()
   {
@@ -523,7 +515,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   binder4(const binder4& other)
     : handler_(other.handler_),
       arg1_(other.arg1_),
@@ -541,7 +532,6 @@ public:
       arg4_(ASIO_MOVE_CAST(Arg4)(other.arg4_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   void operator()()
   {
@@ -666,7 +656,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   binder5(const binder5& other)
     : handler_(other.handler_),
       arg1_(other.arg1_),
@@ -686,7 +675,6 @@ public:
       arg5_(ASIO_MOVE_CAST(Arg5)(other.arg5_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   void operator()()
   {
@@ -784,8 +772,6 @@ bind_handler(ASIO_MOVE_ARG(Handler) handler, const Arg1& arg1,
   return binder5<typename decay<Handler>::type, Arg1, Arg2, Arg3, Arg4, Arg5>(0,
       ASIO_MOVE_CAST(Handler)(handler), arg1, arg2, arg3, arg4, arg5);
 }
-
-#if defined(ASIO_HAS_MOVE)
 
 template <typename Handler, typename Arg1>
 class move_binder1
@@ -939,8 +925,6 @@ asio_handler_invoke(ASIO_MOVE_ARG(Function) function,
 #endif // defined(ASIO_NO_DEPRECATED)
 }
 
-#endif // defined(ASIO_HAS_MOVE)
-
 } // namespace detail
 
 template <template <typename, typename> class Associator,
@@ -1031,8 +1015,6 @@ struct associator<Associator,
   }
 };
 
-#if defined(ASIO_HAS_MOVE)
-
 template <template <typename, typename> class Associator,
     typename Handler, typename Arg1, typename DefaultCandidate>
 struct associator<Associator,
@@ -1061,8 +1043,6 @@ struct associator<Associator,
     return Associator<Handler, DefaultCandidate>::get(h.handler_, c);
   }
 };
-
-#endif // defined(ASIO_HAS_MOVE)
 
 } // namespace asio
 

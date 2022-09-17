@@ -296,8 +296,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
-
   /// Move constructor.
   allocator_binder(allocator_binder&& other)
     : allocator_(ASIO_MOVE_CAST(allocator_type)(
@@ -333,8 +331,6 @@ public:
       target_(ASIO_MOVE_CAST(U)(other.get()))
   {
   }
-
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destructor.
   ~allocator_binder()

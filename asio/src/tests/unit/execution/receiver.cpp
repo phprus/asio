@@ -34,11 +34,9 @@ struct receiver
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   receiver(receiver&&)
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   template <typename E>
   void set_error(ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT
@@ -90,11 +88,9 @@ struct receiver_of_0
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   receiver_of_0(receiver_of_0&&)
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   template <typename E>
   void set_error(ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT
@@ -161,11 +157,9 @@ struct receiver_of_1
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   receiver_of_1(receiver_of_1&&)
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   template <typename E>
   void set_error(ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT
@@ -232,11 +226,9 @@ struct receiver_of_2
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   receiver_of_2(receiver_of_2&&)
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   template <typename E>
   void set_error(ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT

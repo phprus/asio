@@ -250,7 +250,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   composed_op(composed_op&& other)
     : base_from_cancellation_state<Handler>(
         ASIO_MOVE_CAST(base_from_cancellation_state<
@@ -261,7 +260,6 @@ public:
       invocations_(other.invocations_)
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   typedef typename associated_executor<Handler,
       typename composed_work_guard<

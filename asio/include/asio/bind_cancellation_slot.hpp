@@ -296,8 +296,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
-
   /// Move constructor.
   cancellation_slot_binder(cancellation_slot_binder&& other)
     : slot_(ASIO_MOVE_CAST(cancellation_slot_type)(
@@ -334,8 +332,6 @@ public:
       target_(ASIO_MOVE_CAST(U)(other.get()))
   {
   }
-
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destructor.
   ~cancellation_slot_binder()

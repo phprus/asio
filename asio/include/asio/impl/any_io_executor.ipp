@@ -40,12 +40,10 @@ any_io_executor::any_io_executor(const any_io_executor& e) ASIO_NOEXCEPT
 {
 }
 
-#if defined(ASIO_HAS_MOVE)
 any_io_executor::any_io_executor(any_io_executor&& e) ASIO_NOEXCEPT
   : base_type(static_cast<base_type&&>(e))
 {
 }
-#endif // defined(ASIO_HAS_MOVE)
 
 any_io_executor& any_io_executor::operator=(
     const any_io_executor& e) ASIO_NOEXCEPT
@@ -54,14 +52,12 @@ any_io_executor& any_io_executor::operator=(
   return *this;
 }
 
-#if defined(ASIO_HAS_MOVE)
 any_io_executor& any_io_executor::operator=(
     any_io_executor&& e) ASIO_NOEXCEPT
 {
   base_type::operator=(static_cast<base_type&&>(e));
   return *this;
 }
-#endif // defined(ASIO_HAS_MOVE)
 
 any_io_executor& any_io_executor::operator=(nullptr_t)
 {

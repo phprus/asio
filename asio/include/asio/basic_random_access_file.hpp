@@ -249,7 +249,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-construct a basic_random_access_file from another.
   /**
    * This constructor moves a random-access file from one object to another.
@@ -328,7 +327,6 @@ public:
     basic_file<Executor>::operator=(std::move(other));
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destroys the file.
   /**
