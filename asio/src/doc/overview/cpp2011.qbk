@@ -138,10 +138,7 @@ Support for `std::array<>` is automatically enabled.
 Asio's implementation can use `std::atomic<>` in preference to
 `boost::detail::atomic_count`.
 
-Support for the standard atomic integer template is automatically enabled for
-[^g++] 4.5 and later, when the [^-std=c++0x] or [^-std=gnu++0x] compiler
-options are used. It may be disabled by defining `ASIO_DISABLE_STD_ATOMIC`, or
-explicitly enabled for other compilers by defining `ASIO_HAS_STD_ATOMIC`.
+Support for the standard atomic integer template is automatically enabled.
 
 [endsect]
 
