@@ -5650,7 +5650,6 @@
 /include/asio/detail/buffer_sequence_adapter.hpp
 /include/asio/detail/bulk_executor_op.hpp
 /include/asio/detail/call_stack.hpp
-/include/asio/detail/chrono.hpp
 /include/asio/detail/chrono_time_traits.hpp
 /include/asio/detail/completion_handler.hpp
 /include/asio/detail/composed_work.hpp
