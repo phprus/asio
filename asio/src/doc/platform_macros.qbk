@@ -420,13 +420,6 @@ needs.
     [`ASIO_DISABLE_STD_IOSTREAM_MOVE`]
   ]
   [
-    [`ASIO_HAS_STD_MUTEX_AND_CONDVAR`]
-    [
-      Standard library support for the mutex and condition variable classes.
-    ]
-    [`ASIO_DISABLE_STD_MUTEX_AND_CONDVAR`]
-  ]
-  [
     [`ASIO_HAS_STD_NESTED_EXCEPTION`]
     [
       Standard library support for std::nested_exception.

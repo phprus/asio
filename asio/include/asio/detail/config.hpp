@@ -688,31 +688,8 @@
 // C++17: Standard library support for the thread class.
 #define ASIO_HAS_STD_THREAD 1
 
-// Standard library support for the mutex and condition variable classes.
-#if !defined(ASIO_HAS_STD_MUTEX_AND_CONDVAR)
-# if !defined(ASIO_DISABLE_STD_MUTEX_AND_CONDVAR)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_MUTEX_AND_CONDVAR 1
-#   elif (__cplusplus >= 201103)
-#    if __has_include(<mutex>)
-#     define ASIO_HAS_STD_MUTEX_AND_CONDVAR 1
-#    endif // __has_include(<mutex>)
-#   endif // (__cplusplus >= 201103)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_MUTEX_AND_CONDVAR 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1700)
-#    define ASIO_HAS_STD_MUTEX_AND_CONDVAR 1
-#   endif // (_MSC_VER >= 1700)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_MUTEX_AND_CONDVAR)
-#endif // !defined(ASIO_HAS_STD_MUTEX_AND_CONDVAR)
+// C++17: Standard library support for the mutex and condition variable classes.
+#define ASIO_HAS_STD_MUTEX_AND_CONDVAR 1
 
 // Standard library support for the call_once function.
 #if !defined(ASIO_HAS_STD_CALL_ONCE)
