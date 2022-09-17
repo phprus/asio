@@ -5595,7 +5595,6 @@
 /include/asio/async_result.hpp
 /include/asio/awaitable.hpp
 /include/asio/basic_datagram_socket.hpp
-/include/asio/basic_deadline_timer.hpp
 /include/asio/basic_file.hpp
 /include/asio/basic_io_object.hpp
 /include/asio/basic_random_access_file.hpp
@@ -5636,7 +5635,6 @@
 /include/asio/consign.hpp
 /include/asio/coroutine.hpp
 /include/asio/co_spawn.hpp
-/include/asio/deadline_timer.hpp
 /include/asio/defer.hpp
 /include/asio/deferred.hpp
 /include/asio/detached.hpp
@@ -5663,7 +5661,6 @@
 /include/asio/detail/consuming_buffers.hpp
 /include/asio/detail/cstddef.hpp
 /include/asio/detail/cstdint.hpp
-/include/asio/detail/date_time_fwd.hpp
 /include/asio/detail/deadline_timer_service.hpp
 /include/asio/detail/dependent_type.hpp
 /include/asio/detail/descriptor_ops.hpp
@@ -5727,7 +5724,6 @@
 /include/asio/detail/impl/strand_service.ipp
 /include/asio/detail/impl/thread_context.ipp
 /include/asio/detail/impl/throw_error.ipp
-/include/asio/detail/impl/timer_queue_ptime.ipp
 /include/asio/detail/impl/timer_queue_set.ipp
 /include/asio/detail/impl/win_event.ipp
 /include/asio/detail/impl/win_iocp_file_service.ipp
@@ -5861,7 +5857,6 @@
 /include/asio/detail/throw_exception.hpp
 /include/asio/detail/timer_queue_base.hpp
 /include/asio/detail/timer_queue.hpp
-/include/asio/detail/timer_queue_ptime.hpp
 /include/asio/detail/timer_queue_set.hpp
 /include/asio/detail/timer_scheduler_fwd.hpp
 /include/asio/detail/timer_scheduler.hpp
@@ -6202,7 +6197,6 @@
 /include/asio/this_coro.hpp
 /include/asio/thread.hpp
 /include/asio/thread_pool.hpp
-/include/asio/time_traits.hpp
 /include/asio/traits/
 /include/asio/traits/bulk_execute_free.hpp
 /include/asio/traits/bulk_execute_member.hpp
@@ -6637,7 +6631,6 @@
 /src/tests/unit/async_result.cpp
 /src/tests/unit/awaitable.cpp
 /src/tests/unit/basic_datagram_socket.cpp
-/src/tests/unit/basic_deadline_timer.cpp
 /src/tests/unit/basic_file.cpp
 /src/tests/unit/basic_random_access_file.cpp
 /src/tests/unit/basic_raw_socket.cpp
@@ -6671,7 +6664,6 @@
 /src/tests/unit/consign.cpp
 /src/tests/unit/coroutine.cpp
 /src/tests/unit/co_spawn.cpp
-/src/tests/unit/deadline_timer.cpp
 /src/tests/unit/defer.cpp
 /src/tests/unit/deferred.cpp
 /src/tests/unit/detached.cpp
@@ -6805,7 +6797,6 @@
 /src/tests/unit/this_coro.cpp
 /src/tests/unit/thread.cpp
 /src/tests/unit/thread_pool.cpp
-/src/tests/unit/time_traits.cpp
 /src/tests/unit/ts/
 /src/tests/unit/ts/buffer.cpp
 /src/tests/unit/ts/executor.cpp

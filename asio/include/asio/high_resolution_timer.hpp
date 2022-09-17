@@ -17,8 +17,6 @@
 
 #include "asio/detail/config.hpp"
 
-#if defined(ASIO_HAS_CHRONO) || defined(GENERATING_DOCUMENTATION)
-
 #include "asio/basic_waitable_timer.hpp"
 #include "asio/detail/chrono.hpp"
 
@@ -38,7 +36,5 @@ typedef basic_waitable_timer<
   high_resolution_timer;
 
 } // namespace asio
-
-#endif // defined(ASIO_HAS_CHRONO) || defined(GENERATING_DOCUMENTATION)
 
 #endif // ASIO_HIGH_RESOLUTION_TIMER_HPP

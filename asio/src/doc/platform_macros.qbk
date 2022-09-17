@@ -24,25 +24,11 @@ needs.
 [table
   [[Macro][Description][Macro to disable feature]]
   [
-    [`ASIO_HAS_BOOST_CHRONO`]
-    [
-      Boost support for chrono.
-    ]
-    [`ASIO_DISABLE_BOOST_CHRONO`]
-  ]
-  [
     [`ASIO_HAS_BOOST_CONFIG`]
     [
       Boost.Config library is available.
     ]
     []
-  ]
-  [
-    [`ASIO_HAS_BOOST_DATE_TIME`]
-    [
-      Boost support for the DateTime library.
-    ]
-    [`ASIO_DISABLE_BOOST_DATE_TIME`]
   ]
   [
     [`ASIO_HAS_BOOST_REGEX`]
@@ -64,13 +50,6 @@ needs.
       Boost throw_exception function.
     ]
     [`ASIO_DISABLE_BOOST_THROW_EXCEPTION`]
-  ]
-  [
-    [`ASIO_HAS_CHRONO`]
-    [
-      Some form of chrono library is available.
-    ]
-    []
   ]
   [
     [`ASIO_HAS_CLANG_LIBCXX`]
@@ -295,24 +274,6 @@ needs.
       Standard library support for std::any.
     ]
     [`ASIO_DISABLE_STD_ANY`]
-  ]
-  [
-    [`ASIO_HAS_STD_CHRONO`]
-    [
-      Standard library support for chrono. Some standard libraries (such as the
-      libstdc++ shipped with gcc 4.6) provide monotonic_clock as per early C++0x
-      drafts, rather than the eventually standardised name of steady_clock.
-    ]
-    [`ASIO_DISABLE_STD_CHRONO`]
-  ]
-  [
-    [`ASIO_HAS_STD_CHRONO_MONOTONIC_CLOCK`]
-    [
-      Standard library support for chrono. Some standard libraries (such as the
-      libstdc++ shipped with gcc 4.6) provide monotonic_clock as per early C++0x
-      drafts, rather than the eventually standardised name of steady_clock.
-    ]
-    []
   ]
   [
     [`ASIO_HAS_STD_CONCEPTS`]

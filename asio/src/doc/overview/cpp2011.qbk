@@ -198,16 +198,7 @@ asio.reference.high_resolution_timer high_resolution_timer] utilise the
 standard clocks `system_clock`, `steady_clock` and `high_resolution_clock`
 respectively.
 
-Support for the `std::chrono` facilities is automatically enabled for [^g++]
-4.6 and later, when the [^-std=c++0x] or [^-std=gnu++0x] compiler options are
-used. (Note that, for [^g++], the draft-standard `monotonic_clock` is used in
-place of `steady_clock`.) Support may be disabled by defining
-`ASIO_DISABLE_STD_CHRONO`, or explicitly enabled for other compilers by
-defining `ASIO_HAS_STD_CHRONO`.
-
-When standard `chrono` is unavailable, Asio will otherwise use the Boost.Chrono
-library. The [link asio.reference.basic_waitable_timer basic_waitable_timer]
-class template may be used with either.
+Support for the `std::chrono` facilities is automatically enabled.
 
 [endsect]
 
