@@ -922,19 +922,10 @@ struct default_completion_token
 template <typename T>
 using default_completion_token_t = typename default_completion_token<T>::type;
 
-#if defined(ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS)
-
 #define ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(e) \
   = typename ::asio::default_completion_token<e>::type
 #define ASIO_DEFAULT_COMPLETION_TOKEN(e) \
   = typename ::asio::default_completion_token<e>::type()
-
-#else // defined(ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS)
-
-#define ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(e)
-#define ASIO_DEFAULT_COMPLETION_TOKEN(e)
-
-#endif // defined(ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS)
 
 } // namespace asio
 
