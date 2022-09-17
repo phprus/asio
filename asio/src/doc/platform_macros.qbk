@@ -185,13 +185,6 @@ needs.
     [`ASIO_DISABLE_CXX11_ALLOCATORS`]
   ]
   [
-    [`ASIO_HAS_DECLTYPE`]
-    [
-      Support automatic type deduction on compilers known to support it.
-    ]
-    [`ASIO_DISABLE_DECLTYPE`]
-  ]
-  [
     [`ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS`]
     [
       Support default function template arguments on compilers known to allow it.
