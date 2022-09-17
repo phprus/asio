@@ -18,13 +18,7 @@
 
 #include "unit_test.hpp"
 
-#if defined(ASIO_HAS_BOOST_ARRAY)
-# include <boost/array.hpp>
-#endif // defined(ASIO_HAS_BOOST_ARRAY)
-
-#if defined(ASIO_HAS_STD_ARRAY)
-# include <array>
-#endif // defined(ASIO_HAS_STD_ARRAY)
+#include <array>
 
 //------------------------------------------------------------------------------
 
@@ -81,16 +75,9 @@ void test()
     const char const_raw_data[1024] = "";
     void* void_ptr_data = raw_data;
     const void* const_void_ptr_data = const_raw_data;
-#if defined(ASIO_HAS_BOOST_ARRAY)
-    boost::array<char, 1024> array_data;
-    const boost::array<char, 1024>& const_array_data_1 = array_data;
-    boost::array<const char, 1024> const_array_data_2 = { { 0 } };
-#endif // defined(ASIO_HAS_BOOST_ARRAY)
-#if defined(ASIO_HAS_STD_ARRAY)
     std::array<char, 1024> std_array_data;
     const std::array<char, 1024>& const_std_array_data_1 = std_array_data;
     std::array<const char, 1024> const_std_array_data_2 = { { 0 } };
-#endif // defined(ASIO_HAS_STD_ARRAY)
     std::vector<char> vector_data(1024);
     const std::vector<char>& const_vector_data = vector_data;
     std::string string_data(1024, ' ');
@@ -221,22 +208,12 @@ void test()
     mb1 = buffer(raw_data, 1024);
     cb1 = buffer(const_raw_data);
     cb1 = buffer(const_raw_data, 1024);
-#if defined(ASIO_HAS_BOOST_ARRAY)
-    mb1 = buffer(array_data);
-    mb1 = buffer(array_data, 1024);
-    cb1 = buffer(const_array_data_1);
-    cb1 = buffer(const_array_data_1, 1024);
-    cb1 = buffer(const_array_data_2);
-    cb1 = buffer(const_array_data_2, 1024);
-#endif // defined(ASIO_HAS_BOOST_ARRAY)
-#if defined(ASIO_HAS_STD_ARRAY)
     mb1 = buffer(std_array_data);
     mb1 = buffer(std_array_data, 1024);
     cb1 = buffer(const_std_array_data_1);
     cb1 = buffer(const_std_array_data_1, 1024);
     cb1 = buffer(const_std_array_data_2);
     cb1 = buffer(const_std_array_data_2, 1024);
-#endif // defined(ASIO_HAS_STD_ARRAY)
     mb1 = buffer(vector_data);
     mb1 = buffer(vector_data, 1024);
     cb1 = buffer(const_vector_data);

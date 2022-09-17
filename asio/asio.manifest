@@ -5641,8 +5641,6 @@
 /include/asio/deferred.hpp
 /include/asio/detached.hpp
 /include/asio/detail/
-/include/asio/detail/array_fwd.hpp
-/include/asio/detail/array.hpp
 /include/asio/detail/assert.hpp
 /include/asio/detail/atomic_count.hpp
 /include/asio/detail/base_from_cancellation_state.hpp

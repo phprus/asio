@@ -61,11 +61,7 @@ address_v4::bytes_type address_v4::to_bytes() const noexcept(true)
 {
   using namespace std; // For memcpy.
   bytes_type bytes;
-#if defined(ASIO_HAS_STD_ARRAY)
   memcpy(bytes.data(), &addr_.s_addr, 4);
-#else // defined(ASIO_HAS_STD_ARRAY)
-  memcpy(bytes.elems, &addr_.s_addr, 4);
-#endif // defined(ASIO_HAS_STD_ARRAY)
   return bytes;
 }
 

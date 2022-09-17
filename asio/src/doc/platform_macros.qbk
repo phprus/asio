@@ -24,13 +24,6 @@ needs.
 [table
   [[Macro][Description][Macro to disable feature]]
   [
-    [`ASIO_HAS_BOOST_ARRAY`]
-    [
-      Boost array library.
-    ]
-    [`ASIO_DISABLE_BOOST_ARRAY`]
-  ]
-  [
     [`ASIO_HAS_BOOST_CHRONO`]
     [
       Boost support for chrono.
@@ -71,13 +64,6 @@ needs.
       Boost throw_exception function.
     ]
     [`ASIO_DISABLE_BOOST_THROW_EXCEPTION`]
-  ]
-  [
-    [`ASIO_HAS_BOOST_WORKAROUND`]
-    [
-      Boost's BOOST_WORKAROUND macro.
-    ]
-    [`ASIO_DISABLE_BOOST_WORKAROUND`]
   ]
   [
     [`ASIO_HAS_CHRONO`]
@@ -309,13 +295,6 @@ needs.
       Standard library support for std::any.
     ]
     [`ASIO_DISABLE_STD_ANY`]
-  ]
-  [
-    [`ASIO_HAS_STD_ARRAY`]
-    [
-      Standard library support for arrays.
-    ]
-    [`ASIO_DISABLE_STD_ARRAY`]
   ]
   [
     [`ASIO_HAS_STD_ATOMIC`]

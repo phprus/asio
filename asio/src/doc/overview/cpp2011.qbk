@@ -158,19 +158,15 @@ Where the standard library provides `std::array<>`, Asio:
 
 * Provides overloads for the [link asio.reference.buffer buffer()] function.
 
-* Uses it in preference to `boost::array<>` for the
+* Uses it in preference to `std::array<>` for the
   [link asio.reference.ip__address_v4.bytes_type ip::address_v4::bytes_type] and
   [link asio.reference.ip__address_v6.bytes_type ip::address_v6::bytes_type]
   types.
 
-* Uses it in preference to `boost::array<>` where a fixed size array type is
+* Uses it in preference to `std::array<>` where a fixed size array type is
   needed in the implementation.
 
-Support for `std::array<>` is automatically enabled for [^g++] 4.3 and later,
-when the [^-std=c++0x] or [^-std=gnu++0x] compiler options are used, as well as
-for Microsoft Visual C++ 10. It may be disabled by defining
-`ASIO_DISABLE_STD_ARRAY`, or explicitly enabled for other compilers by
-defining `ASIO_HAS_STD_ARRAY`.
+Support for `std::array<>` is automatically enabled.
 
 [endsect]
 
