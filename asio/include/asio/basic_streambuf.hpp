@@ -26,7 +26,7 @@
 #include <vector>
 #include "asio/basic_streambuf_fwd.hpp"
 #include "asio/buffer.hpp"
-#include "asio/detail/limits.hpp"
+#include <limits>
 #include "asio/detail/noncopyable.hpp"
 #include "asio/detail/throw_exception.hpp"
 

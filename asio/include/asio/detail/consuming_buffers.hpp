@@ -19,7 +19,7 @@
 #include <cstddef>
 #include "asio/buffer.hpp"
 #include "asio/detail/buffer_sequence_adapter.hpp"
-#include "asio/detail/limits.hpp"
+#include <limits>
 #include "asio/registered_buffer.hpp"
 
 #include "asio/detail/push_options.hpp"

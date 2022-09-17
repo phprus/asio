@@ -187,7 +187,6 @@ nobase_include_HEADERS = \
 	asio/detail/is_executor.hpp \
 	asio/detail/keyword_tss_ptr.hpp \
 	asio/detail/kqueue_reactor.hpp \
-	asio/detail/limits.hpp \
 	asio/detail/local_free_on_block_exit.hpp \
 	asio/detail/macos_fenced_block.hpp \
 	asio/detail/memory.hpp \
