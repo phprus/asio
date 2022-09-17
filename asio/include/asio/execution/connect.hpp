@@ -472,12 +472,8 @@ struct connect_result
       S, void(R)>::result_type type;
 };
 
-#if defined(ASIO_HAS_ALIAS_TEMPLATES)
-
 template <typename S, typename R>
 using connect_result_t = typename connect_result<S, R>::type;
-
-#endif // defined(ASIO_HAS_ALIAS_TEMPLATES)
 
 } // namespace execution
 } // namespace asio

@@ -869,11 +869,9 @@ struct completion_signature_of :
 {
 };
 
-#if defined(ASIO_HAS_ALIAS_TEMPLATES)
 template <typename T, typename... Args>
 using completion_signature_of_t =
   typename completion_signature_of<T, Args...>::type;
-#endif // defined(ASIO_HAS_ALIAS_TEMPLATES)
 
 #endif // defined(GENERATING_DOCUMENTATION)
 
@@ -921,12 +919,8 @@ struct default_completion_token
 };
 #endif
 
-#if defined(ASIO_HAS_ALIAS_TEMPLATES)
-
 template <typename T>
 using default_completion_token_t = typename default_completion_token<T>::type;
-
-#endif // defined(ASIO_HAS_ALIAS_TEMPLATES)
 
 #if defined(ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS)
 
