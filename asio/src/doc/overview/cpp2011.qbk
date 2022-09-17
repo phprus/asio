@@ -154,12 +154,6 @@ explicitly enabled for other compilers by defining `ASIO_HAS_STD_ATOMIC`.
 Asio's implementation can use `std::shared_ptr<>` and `std::weak_ptr<>` in
 preference to the Boost equivalents.
 
-Support for the standard smart pointers is automatically enabled for [^g++] 4.3
-and later, when the [^-std=c++0x] or [^-std=gnu++0x] compiler options are used,
-as well as for Microsoft Visual C++ 10. It may be disabled by defining
-`ASIO_DISABLE_STD_SHARED_PTR`, or explicitly enabled for other compilers by
-defining `ASIO_HAS_STD_SHARED_PTR`.
-
 [endsect]
 
 [section:chrono Chrono]
