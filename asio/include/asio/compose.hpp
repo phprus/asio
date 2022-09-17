@@ -53,7 +53,7 @@ public:
   {
   }
 
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return executor_;
   }
@@ -76,7 +76,7 @@ public:
   {
   }
 
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return system_executor();
   }
@@ -104,7 +104,7 @@ struct composed_io_executors;
 template <>
 struct composed_io_executors<void()>
 {
-  composed_io_executors() ASIO_NOEXCEPT
+  composed_io_executors() noexcept(true)
     : head_(system_executor())
   {
   }
@@ -121,7 +121,7 @@ inline composed_io_executors<void()> make_composed_io_executors()
 template <typename Head>
 struct composed_io_executors<void(Head)>
 {
-  explicit composed_io_executors(const Head& ex) ASIO_NOEXCEPT
+  explicit composed_io_executors(const Head& ex) noexcept(true)
     : head_(ex)
   {
   }
@@ -141,7 +141,7 @@ template <typename Head, typename... Tail>
 struct composed_io_executors<void(Head, Tail...)>
 {
   explicit composed_io_executors(const Head& head,
-      const Tail&... tail) ASIO_NOEXCEPT
+      const Tail&... tail) noexcept(true)
     : head_(head),
       tail_(tail...)
   {
@@ -173,7 +173,7 @@ struct composed_work<void()>
 {
   typedef composed_io_executors<void()> executors_type;
 
-  composed_work(const executors_type&) ASIO_NOEXCEPT
+  composed_work(const executors_type&) noexcept(true)
     : head_(system_executor())
   {
   }
@@ -192,7 +192,7 @@ struct composed_work<void(Head)>
 {
   typedef composed_io_executors<void(Head)> executors_type;
 
-  explicit composed_work(const executors_type& ex) ASIO_NOEXCEPT
+  explicit composed_work(const executors_type& ex) noexcept(true)
     : head_(ex.head_)
   {
   }
@@ -211,7 +211,7 @@ struct composed_work<void(Head, Tail...)>
 {
   typedef composed_io_executors<void(Head, Tail...)> executors_type;
 
-  explicit composed_work(const executors_type& ex) ASIO_NOEXCEPT
+  explicit composed_work(const executors_type& ex) noexcept(true)
     : head_(ex.head_),
       tail_(ex.tail_)
   {
@@ -267,7 +267,7 @@ public:
       >::executor_type
     >::type executor_type;
 
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return (get_associated_executor)(handler_, work_.head_.get_executor());
   }
@@ -275,7 +275,7 @@ public:
   typedef typename associated_allocator<Handler,
     std::allocator<void> >::type allocator_type;
 
-  allocator_type get_allocator() const ASIO_NOEXCEPT
+  allocator_type get_allocator() const noexcept(true)
   {
     return (get_associated_allocator)(handler_, std::allocator<void>());
   }
@@ -397,7 +397,7 @@ public:
   {
   }
 
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return executors_.head_;
   }
@@ -462,7 +462,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type get(
       const detail::composed_op<Impl, Work, Handler, Signature>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_, c);
   }

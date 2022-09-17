@@ -31,11 +31,11 @@ class multiple_exceptions
 public:
   /// Constructor.
   ASIO_DECL multiple_exceptions(
-      std::exception_ptr first) ASIO_NOEXCEPT;
+      std::exception_ptr first) noexcept(true);
 
   /// Obtain message associated with exception.
   ASIO_DECL virtual const char* what() const
-    ASIO_NOEXCEPT_OR_NOTHROW;
+    noexcept(true);
 
   /// Obtain a pointer to the first exception.
   ASIO_DECL std::exception_ptr first_exception() const;

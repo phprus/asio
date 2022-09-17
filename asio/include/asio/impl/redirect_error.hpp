@@ -286,7 +286,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type get(
       const detail::redirect_error_handler<Handler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_, c);
   }

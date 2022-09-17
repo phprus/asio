@@ -367,7 +367,7 @@ public:
    * constructed using the @c basic_socket_acceptor(const executor_type&)
    * constructor.
    */
-  basic_socket_acceptor(basic_socket_acceptor&& other) ASIO_NOEXCEPT
+  basic_socket_acceptor(basic_socket_acceptor&& other) noexcept(true)
     : impl_(std::move(other.impl_))
   {
   }
@@ -450,7 +450,7 @@ public:
   }
 
   /// Get the executor associated with the object.
-  executor_type get_executor() ASIO_NOEXCEPT
+  executor_type get_executor() noexcept(true)
   {
     return impl_.get_executor();
   }
@@ -2633,7 +2633,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }
@@ -2665,7 +2665,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }
@@ -2699,7 +2699,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }

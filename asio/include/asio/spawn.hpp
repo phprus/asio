@@ -76,12 +76,12 @@ public:
     suspend_with(&spawned_thread_base::call<F>, &f);
   }
 
-  cancellation_slot get_cancellation_slot() const ASIO_NOEXCEPT
+  cancellation_slot get_cancellation_slot() const noexcept(true)
   {
     return cancellation_state_.slot();
   }
 
-  cancellation_state get_cancellation_state() const ASIO_NOEXCEPT
+  cancellation_state get_cancellation_state() const noexcept(true)
   {
     return cancellation_state_;
   }
@@ -105,22 +105,22 @@ public:
         parent_cancellation_slot_, in_filter, out_filter);
   }
 
-  cancellation_type_t cancelled() const ASIO_NOEXCEPT
+  cancellation_type_t cancelled() const noexcept(true)
   {
     return cancellation_state_.cancelled();
   }
 
-  bool has_context_switched() const ASIO_NOEXCEPT
+  bool has_context_switched() const noexcept(true)
   {
     return has_context_switched_;
   }
 
-  bool throw_if_cancelled() const ASIO_NOEXCEPT
+  bool throw_if_cancelled() const noexcept(true)
   {
     return throw_if_cancelled_;
   }
 
-  void throw_if_cancelled(bool value) ASIO_NOEXCEPT
+  void throw_if_cancelled(bool value) noexcept(true)
   {
     throw_if_cancelled_ = value;
   }
@@ -208,19 +208,19 @@ public:
   }
 
   /// Get the executor associated with the yield context.
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return executor_;
   }
 
   /// Get the cancellation slot associated with the coroutine.
-  cancellation_slot_type get_cancellation_slot() const ASIO_NOEXCEPT
+  cancellation_slot_type get_cancellation_slot() const noexcept(true)
   {
     return spawned_thread_->get_cancellation_slot();
   }
 
   /// Get the cancellation state associated with the coroutine.
-  cancellation_state get_cancellation_state() const ASIO_NOEXCEPT
+  cancellation_state get_cancellation_state() const noexcept(true)
   {
     return spawned_thread_->get_cancellation_state();
   }
@@ -271,21 +271,21 @@ public:
   }
 
   /// Determine whether the current coroutine has been cancelled.
-  cancellation_type_t cancelled() const ASIO_NOEXCEPT
+  cancellation_type_t cancelled() const noexcept(true)
   {
     return spawned_thread_->cancelled();
   }
 
   /// Determine whether the coroutine throws if trying to suspend when it has
   /// been cancelled.
-  bool throw_if_cancelled() const ASIO_NOEXCEPT
+  bool throw_if_cancelled() const noexcept(true)
   {
     return spawned_thread_->throw_if_cancelled();
   }
 
   /// Set whether the coroutine throws if trying to suspend when it has been
   /// cancelled.
-  void throw_if_cancelled(bool value) const ASIO_NOEXCEPT
+  void throw_if_cancelled(bool value) const noexcept(true)
   {
     spawned_thread_->throw_if_cancelled(value);
   }

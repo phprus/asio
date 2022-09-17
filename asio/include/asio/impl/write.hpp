@@ -470,7 +470,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -512,7 +512,7 @@ struct associator<Associator,
   static typename Associator<WriteHandler, DefaultCandidate>::type get(
       const detail::write_op<AsyncWriteStream, ConstBufferSequence,
         ConstBufferIterator, CompletionCondition, WriteHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<WriteHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -711,7 +711,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -756,7 +756,7 @@ struct associator<Associator,
   static typename Associator<WriteHandler, DefaultCandidate>::type get(
       const detail::write_dynbuf_v1_op<AsyncWriteStream,
         DynamicBuffer_v1, CompletionCondition, WriteHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<WriteHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -1006,7 +1006,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -1051,7 +1051,7 @@ struct associator<Associator,
   static typename Associator<WriteHandler, DefaultCandidate>::type get(
       const detail::write_dynbuf_v2_op<AsyncWriteStream,
         DynamicBuffer_v2, CompletionCondition, WriteHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<WriteHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -1073,7 +1073,7 @@ struct associated_cancellation_slot<
   static type get(
       const detail::write_dynbuf_v2_op<AsyncWriteStream,
         DynamicBuffer_v2, CompletionCondition, WriteHandler>& h,
-      const CancellationSlot& s = CancellationSlot()) ASIO_NOEXCEPT
+      const CancellationSlot& s = CancellationSlot()) noexcept(true)
   {
     return associated_cancellation_slot<WriteHandler,
         CancellationSlot>::get(h.handler_, s);

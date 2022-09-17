@@ -153,7 +153,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return next_layer_.lowest_layer().get_executor();
     }
@@ -188,7 +188,7 @@ struct associator<Associator,
 {
   static typename Associator<WriteHandler, DefaultCandidate>::type get(
       const detail::buffered_flush_handler<WriteHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<WriteHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -382,7 +382,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return next_layer_.lowest_layer().get_executor();
     }
@@ -433,7 +433,7 @@ struct associator<Associator,
   static typename Associator<WriteHandler, DefaultCandidate>::type get(
       const detail::buffered_write_some_handler<
         ConstBufferSequence, WriteHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<WriteHandler, DefaultCandidate>::get(h.handler_, c);
   }

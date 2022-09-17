@@ -330,7 +330,7 @@ public:
   {
   }
 
-  spawned_thread_resumer(spawned_thread_resumer&& other) ASIO_NOEXCEPT
+  spawned_thread_resumer(spawned_thread_resumer&& other) noexcept(true)
     : spawned_thread_(other.spawned_thread_)
   {
     other.spawned_thread_ = 0;
@@ -362,7 +362,7 @@ public:
     spawned_thread->detach();
   }
 
-  spawned_thread_destroyer(spawned_thread_destroyer&& other) ASIO_NOEXCEPT
+  spawned_thread_destroyer(spawned_thread_destroyer&& other) noexcept(true)
     : spawned_thread_(other.spawned_thread_)
   {
     other.spawned_thread_ = 0;
@@ -402,7 +402,7 @@ public:
     spawned_thread_->detach();
   }
 
-  spawn_handler_base(spawn_handler_base&& other) ASIO_NOEXCEPT
+  spawn_handler_base(spawn_handler_base&& other) noexcept(true)
     : yield_(other.yield_),
       spawned_thread_(other.spawned_thread_)
 
@@ -416,12 +416,12 @@ public:
       (post)(yield_.executor_, spawned_thread_destroyer(spawned_thread_));
   }
 
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return yield_.executor_;
   }
 
-  cancellation_slot_type get_cancellation_slot() const ASIO_NOEXCEPT
+  cancellation_slot_type get_cancellation_slot() const noexcept(true)
   {
     return spawned_thread_->get_cancellation_slot();
   }
@@ -1018,7 +1018,7 @@ public:
   {
   }
 
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return executor_;
   }

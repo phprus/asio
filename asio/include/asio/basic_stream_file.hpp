@@ -293,7 +293,7 @@ public:
    * constructed using the @c basic_stream_file(const executor_type&)
    * constructor.
    */
-  basic_stream_file(basic_stream_file&& other) ASIO_NOEXCEPT
+  basic_stream_file(basic_stream_file&& other) noexcept(true)
     : basic_file<Executor>(std::move(other))
   {
   }
@@ -685,7 +685,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }
@@ -718,7 +718,7 @@ private:
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }

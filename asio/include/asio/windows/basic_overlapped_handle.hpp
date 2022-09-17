@@ -234,7 +234,7 @@ public:
   }
 
   /// Get the executor associated with the object.
-  executor_type get_executor() ASIO_NOEXCEPT
+  executor_type get_executor() noexcept(true)
   {
     return impl_.get_executor();
   }

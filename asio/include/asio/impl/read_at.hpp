@@ -365,7 +365,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return device_.get_executor();
     }
@@ -408,7 +408,7 @@ struct associator<Associator,
       const detail::read_at_op<AsyncRandomAccessReadDevice,
         MutableBufferSequence, MutableBufferIterator,
         CompletionCondition, ReadHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -642,7 +642,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return device_.get_executor();
     }
@@ -685,7 +685,7 @@ struct associator<Associator,
   static typename Associator<ReadHandler, DefaultCandidate>::type get(
       const detail::read_at_streambuf_op<AsyncRandomAccessReadDevice,
         Executor, CompletionCondition, ReadHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c);
   }

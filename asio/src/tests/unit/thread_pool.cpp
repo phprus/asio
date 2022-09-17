@@ -299,29 +299,29 @@ struct receiver
   {
   }
 
-  receiver(const receiver& other) ASIO_NOEXCEPT
+  receiver(const receiver& other) noexcept(true)
     : count_(other.count_)
   {
   }
 
-  receiver(receiver&& other) ASIO_NOEXCEPT
+  receiver(receiver&& other) noexcept(true)
     : count_(other.count_)
   {
     other.count_ = 0;
   }
 
-  void set_value() ASIO_NOEXCEPT
+  void set_value() noexcept(true)
   {
     ++(*count_);
   }
 
   template <typename E>
-  void set_error(ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT
+  void set_error(ASIO_MOVE_ARG(E) e) noexcept(true)
   {
     (void)e;
   }
 
-  void set_done() ASIO_NOEXCEPT
+  void set_done() noexcept(true)
   {
   }
 };

@@ -119,7 +119,7 @@ struct impl
     typename call_traits<R>::result_type
   >::type
   operator()(R&& r) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R>::is_noexcept))
   {
     return ASIO_MOVE_CAST(R)(r).start();
@@ -131,7 +131,7 @@ struct impl
     typename call_traits<R>::result_type
   >::type
   operator()(R&& r) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<R>::is_noexcept))
   {
     return start(ASIO_MOVE_CAST(R)(r));

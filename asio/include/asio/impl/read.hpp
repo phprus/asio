@@ -505,7 +505,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -547,7 +547,7 @@ struct associator<Associator,
   static typename Associator<ReadHandler, DefaultCandidate>::type get(
       const detail::read_op<AsyncReadStream, MutableBufferSequence,
         MutableBufferIterator, CompletionCondition, ReadHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -789,7 +789,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -833,7 +833,7 @@ struct associator<Associator,
   static typename Associator<ReadHandler, DefaultCandidate>::type get(
       const detail::read_dynbuf_v1_op<AsyncReadStream,
         DynamicBuffer_v1, CompletionCondition, ReadHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c);
   }
@@ -1130,7 +1130,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return stream_.get_executor();
     }
@@ -1174,7 +1174,7 @@ struct associator<Associator,
   static typename Associator<ReadHandler, DefaultCandidate>::type get(
       const detail::read_dynbuf_v2_op<AsyncReadStream,
         DynamicBuffer_v2, CompletionCondition, ReadHandler>& h,
-      const DefaultCandidate& c = DefaultCandidate()) ASIO_NOEXCEPT
+      const DefaultCandidate& c = DefaultCandidate()) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c);
   }

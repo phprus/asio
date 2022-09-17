@@ -27,7 +27,7 @@ namespace asio {
 template <typename Blocking, typename Relationship, typename Allocator>
 inline system_context&
 basic_system_executor<Blocking, Relationship, Allocator>::query(
-    execution::context_t) ASIO_NOEXCEPT
+    execution::context_t) noexcept(true)
 {
   return detail::global<system_context>();
 }
@@ -35,7 +35,7 @@ basic_system_executor<Blocking, Relationship, Allocator>::query(
 template <typename Blocking, typename Relationship, typename Allocator>
 inline std::size_t
 basic_system_executor<Blocking, Relationship, Allocator>::query(
-    execution::occupancy_t) const ASIO_NOEXCEPT
+    execution::occupancy_t) const noexcept(true)
 {
   return detail::global<system_context>().num_threads_;
 }
@@ -121,7 +121,7 @@ void basic_system_executor<Blocking, Relationship, Allocator>::do_execute(
 #if !defined(ASIO_NO_TS_EXECUTORS)
 template <typename Blocking, typename Relationship, typename Allocator>
 inline system_context& basic_system_executor<
-    Blocking, Relationship, Allocator>::context() const ASIO_NOEXCEPT
+    Blocking, Relationship, Allocator>::context() const noexcept(true)
 {
   return detail::global<system_context>();
 }
