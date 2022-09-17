@@ -31,13 +31,6 @@ needs.
     [`ASIO_DISABLE_BOOST_ARRAY`]
   ]
   [
-    [`ASIO_HAS_BOOST_ASSERT`]
-    [
-      Boost assert macro.
-    ]
-    [`ASIO_DISABLE_BOOST_ASSERT`]
-  ]
-  [
     [`ASIO_HAS_BOOST_CHRONO`]
     [
       Boost support for chrono.
