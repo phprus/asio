@@ -19,7 +19,7 @@
 #include <new>
 #include <typeinfo>
 #include "asio/detail/assert.hpp"
-#include "asio/detail/cstddef.hpp"
+#include <cstddef>
 #include "asio/detail/executor_function.hpp"
 #include "asio/detail/memory.hpp"
 #include "asio/detail/non_const_lvalue.hpp"
@@ -51,7 +51,7 @@ public:
   any_executor() noexcept;
 
   /// Construct in an empty state. Equivalent effects to default constructor.
-  any_executor(nullptr_t) noexcept;
+  any_executor(std::nullptr_t) noexcept;
 
   /// Copy constructor.
   any_executor(const any_executor& e) noexcept;
@@ -74,7 +74,7 @@ public:
   any_executor& operator=(any_executor&& e) noexcept;
 
   /// Assignment operator that sets the polymorphic wrapper to the empty state.
-  any_executor& operator=(nullptr_t);
+  any_executor& operator=(std::nullptr_t);
 
   /// Assignment operator to create a polymorphic wrapper for the specified
   /// executor.
@@ -176,14 +176,14 @@ bool operator==(const any_executor<SupportableProperties...>& a,
  */
 template <typename... SupportableProperties>
 bool operator==(const any_executor<SupportableProperties...>& a,
-    nullptr_t) noexcept;
+    std::nullptr_t) noexcept;
 
 /// Equality operator.
 /**
  * @relates any_executor
  */
 template <typename... SupportableProperties>
-bool operator==(nullptr_t,
+bool operator==(std::nullptr_t,
     const any_executor<SupportableProperties...>& b) noexcept;
 
 /// Inequality operator.
@@ -200,14 +200,14 @@ bool operator!=(const any_executor<SupportableProperties...>& a,
  */
 template <typename... SupportableProperties>
 bool operator!=(const any_executor<SupportableProperties...>& a,
-    nullptr_t) noexcept;
+    std::nullptr_t) noexcept;
 
 /// Inequality operator.
 /**
  * @relates any_executor
  */
 template <typename... SupportableProperties>
-bool operator!=(nullptr_t,
+bool operator!=(std::nullptr_t,
     const any_executor<SupportableProperties...>& b) noexcept;
 
 } // namespace execution
@@ -486,7 +486,7 @@ public:
     return *this;
   }
 
-  any_executor_base& operator=(nullptr_t) noexcept(true)
+  any_executor_base& operator=(std::nullptr_t) noexcept(true)
   {
     if (target_)
       object_fns_->destroy(*this);
@@ -1095,7 +1095,7 @@ public:
   {
   }
 
-  any_executor(nullptr_t) noexcept(true)
+  any_executor(std::nullptr_t) noexcept(true)
     : detail::any_executor_base()
   {
   }
@@ -1138,7 +1138,7 @@ public:
     return *this;
   }
 
-  any_executor& operator=(nullptr_t p) noexcept(true)
+  any_executor& operator=(std::nullptr_t p) noexcept(true)
   {
     detail::any_executor_base::operator=(p);
     return *this;
@@ -1194,7 +1194,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator==(const AnyExecutor& a, nullptr_t) noexcept(true)
+  >::type operator==(const AnyExecutor& a, std::nullptr_t) noexcept(true)
   {
     return !a;
   }
@@ -1203,7 +1203,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator==(nullptr_t, const AnyExecutor& b) noexcept(true)
+  >::type operator==(std::nullptr_t, const AnyExecutor& b) noexcept(true)
   {
     return !b;
   }
@@ -1223,7 +1223,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator!=(const AnyExecutor& a, nullptr_t) noexcept(true)
+  >::type operator!=(const AnyExecutor& a, std::nullptr_t) noexcept(true)
   {
     return !!a;
   }
@@ -1232,7 +1232,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator!=(nullptr_t, const AnyExecutor& b) noexcept(true)
+  >::type operator!=(std::nullptr_t, const AnyExecutor& b) noexcept(true)
   {
     return !!b;
   }
@@ -1258,7 +1258,7 @@ public:
   {
   }
 
-  any_executor(nullptr_t) noexcept(true)
+  any_executor(std::nullptr_t) noexcept(true)
     : detail::any_executor_base(),
       prop_fns_(prop_fns_table<void>())
   {
@@ -1319,7 +1319,7 @@ public:
     return *this;
   }
 
-  any_executor& operator=(nullptr_t p) noexcept(true)
+  any_executor& operator=(std::nullptr_t p) noexcept(true)
   {
     prop_fns_ = prop_fns_table<void>();
     detail::any_executor_base::operator=(p);
@@ -1385,7 +1385,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator==(const AnyExecutor& a, nullptr_t) noexcept(true)
+  >::type operator==(const AnyExecutor& a, std::nullptr_t) noexcept(true)
   {
     return !a;
   }
@@ -1394,7 +1394,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator==(nullptr_t, const AnyExecutor& b) noexcept(true)
+  >::type operator==(std::nullptr_t, const AnyExecutor& b) noexcept(true)
   {
     return !b;
   }
@@ -1414,7 +1414,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator!=(const AnyExecutor& a, nullptr_t) noexcept(true)
+  >::type operator!=(const AnyExecutor& a, std::nullptr_t) noexcept(true)
   {
     return !!a;
   }
@@ -1423,7 +1423,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator!=(nullptr_t, const AnyExecutor& b) noexcept(true)
+  >::type operator!=(std::nullptr_t, const AnyExecutor& b) noexcept(true)
   {
     return !!b;
   }
