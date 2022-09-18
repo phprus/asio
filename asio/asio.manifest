@@ -5715,7 +5715,6 @@
 /include/asio/detail/std_thread.hpp
 /include/asio/detail/strand_executor_service.hpp
 /include/asio/detail/strand_service.hpp
-/include/asio/detail/string_view.hpp
 /include/asio/detail/thread_context.hpp
 /include/asio/detail/thread_group.hpp
 /include/asio/detail/thread.hpp
