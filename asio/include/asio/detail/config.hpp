@@ -576,23 +576,8 @@
 # endif // !defined(ASIO_DISABLE_STD_IOSTREAM_MOVE)
 #endif // !defined(ASIO_HAS_STD_IOSTREAM_MOVE)
 
-// Standard library has invoke_result (which supersedes result_of).
-#if !defined(ASIO_HAS_STD_INVOKE_RESULT)
-# if !defined(ASIO_DISABLE_STD_INVOKE_RESULT)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1911 && _MSVC_LANG >= 201703)
-#    define ASIO_HAS_STD_INVOKE_RESULT 1
-#   endif // (_MSC_VER >= 1911 && _MSVC_LANG >= 201703)
-#  endif // defined(ASIO_MSVC)
-#  if defined(ASIO_HAS_CLANG_LIBCXX)
-#   if (_LIBCPP_VERSION >= 13000)
-#    if (__cplusplus >= 201703)
-#     define ASIO_HAS_STD_INVOKE_RESULT 1
-#    endif // (__cplusplus >= 201703)
-#   endif // (_LIBCPP_VERSION >= 13000)
-#  endif // defined(ASIO_HAS_CLANG_LIBCXX)
-# endif // !defined(ASIO_DISABLE_STD_INVOKE_RESULT)
-#endif // !defined(ASIO_HAS_STD_INVOKE_RESULT)
+// C++17: Standard library has invoke_result (which supersedes result_of).
+#define ASIO_HAS_STD_INVOKE_RESULT 1
 
 // C++17: Standard library support for std::exception_ptr and std::current_exception.
 #define ASIO_HAS_STD_EXCEPTION_PTR 1
