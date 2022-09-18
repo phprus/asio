@@ -910,8 +910,8 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_serial_port(const basic_serial_port&) ASIO_DELETED;
-  basic_serial_port& operator=(const basic_serial_port&) ASIO_DELETED;
+  basic_serial_port(const basic_serial_port&) = delete;
+  basic_serial_port& operator=(const basic_serial_port&) = delete;
 
   class initiate_async_write_some
   {

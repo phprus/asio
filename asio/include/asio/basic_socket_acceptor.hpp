@@ -2619,9 +2619,9 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_socket_acceptor(const basic_socket_acceptor&) ASIO_DELETED;
+  basic_socket_acceptor(const basic_socket_acceptor&) = delete;
   basic_socket_acceptor& operator=(
-      const basic_socket_acceptor&) ASIO_DELETED;
+      const basic_socket_acceptor&) = delete;
 
   class initiate_async_wait
   {

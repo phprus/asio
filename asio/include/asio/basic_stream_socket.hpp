@@ -1108,8 +1108,8 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_stream_socket(const basic_stream_socket&) ASIO_DELETED;
-  basic_stream_socket& operator=(const basic_stream_socket&) ASIO_DELETED;
+  basic_stream_socket(const basic_stream_socket&) = delete;
+  basic_stream_socket& operator=(const basic_stream_socket&) = delete;
 
   class initiate_async_send
   {

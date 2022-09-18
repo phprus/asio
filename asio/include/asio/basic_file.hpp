@@ -811,8 +811,8 @@ protected:
 
 private:
   // Disallow copying and assignment.
-  basic_file(const basic_file&) ASIO_DELETED;
-  basic_file& operator=(const basic_file&) ASIO_DELETED;
+  basic_file(const basic_file&) = delete;
+  basic_file& operator=(const basic_file&) = delete;
 };
 
 } // namespace asio

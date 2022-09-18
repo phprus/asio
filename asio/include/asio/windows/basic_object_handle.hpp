@@ -439,8 +439,8 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_object_handle(const basic_object_handle&) ASIO_DELETED;
-  basic_object_handle& operator=(const basic_object_handle&) ASIO_DELETED;
+  basic_object_handle(const basic_object_handle&) = delete;
+  basic_object_handle& operator=(const basic_object_handle&) = delete;
 
   class initiate_async_wait
   {

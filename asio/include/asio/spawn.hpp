@@ -135,8 +135,8 @@ protected:
 
 private:
   // Disallow copying and assignment.
-  spawned_thread_base(const spawned_thread_base&) ASIO_DELETED;
-  spawned_thread_base& operator=(const spawned_thread_base&) ASIO_DELETED;
+  spawned_thread_base(const spawned_thread_base&) = delete;
+  spawned_thread_base& operator=(const spawned_thread_base&) = delete;
 
   template <typename F>
   static void call(void* f)

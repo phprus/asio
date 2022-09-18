@@ -193,8 +193,8 @@ public:
 
 private:
   // Disallow copying and assignment.
-  buffer_registration(const buffer_registration&) ASIO_DELETED;
-  buffer_registration& operator=(const buffer_registration&) ASIO_DELETED;
+  buffer_registration(const buffer_registration&) = delete;
+  buffer_registration& operator=(const buffer_registration&) = delete;
 
   // Helper function to get an executor's context.
   template <typename T>
