@@ -54,7 +54,7 @@ template <typename Executor = any_io_executor>
 struct use_coro_t
 {
   /// Default constructor.
-  ASIO_CONSTEXPR use_coro_t(
+  constexpr use_coro_t(
 #if defined(ASIO_ENABLE_HANDLER_TRACKING)
 # if defined(ASIO_HAS_SOURCE_LOCATION)
       asio::detail::source_location location =
@@ -77,7 +77,7 @@ struct use_coro_t
   }
 
   /// Constructor used to specify file name, line, and function name.
-  ASIO_CONSTEXPR use_coro_t(const char* file_name,
+  constexpr use_coro_t(const char* file_name,
       int line, const char* function_name)
 #if defined(ASIO_ENABLE_HANDLER_TRACKING)
     : file_name_(file_name),
@@ -148,10 +148,8 @@ struct use_coro_t
  */
 #if defined(GENERATING_DOCUMENTATION)
 constexpr use_coro_t<> use_coro;
-#elif defined(ASIO_HAS_CONSTEXPR)
+#else
 constexpr use_coro_t<> use_coro(0, 0, 0);
-#elif defined(ASIO_MSVC)
-__declspec(selectany) use_coro_t<> use_coro(0, 0, 0);
 #endif
 
 } // namespace experimental

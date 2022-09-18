@@ -85,7 +85,7 @@ struct occupancy_t
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = false);
   typedef std::size_t polymorphic_query_result_type;
 
-  ASIO_CONSTEXPR occupancy_t()
+  constexpr occupancy_t()
   {
   }
 
@@ -122,7 +122,7 @@ struct occupancy_t
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename query_static_constexpr_member<T>::result_type
   static_query()
     noexcept((
@@ -132,14 +132,11 @@ struct occupancy_t
   }
 
   template <typename E, typename T = decltype(occupancy_t::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = occupancy_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-#if !defined(ASIO_HAS_CONSTEXPR)
-  static const occupancy_t instance;
-#endif // !defined(ASIO_HAS_CONSTEXPR)
 };
 
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
@@ -149,20 +146,11 @@ const T occupancy_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-#if !defined(ASIO_HAS_CONSTEXPR)
-template <int I>
-const occupancy_t<I> occupancy_t<I>::instance;
-#endif
-
 } // namespace detail
 
 typedef detail::occupancy_t<> occupancy_t;
 
-#if defined(ASIO_HAS_CONSTEXPR) || defined(GENERATING_DOCUMENTATION)
 constexpr occupancy_t occupancy;
-#else // defined(ASIO_HAS_CONSTEXPR) || defined(GENERATING_DOCUMENTATION)
-namespace { static const occupancy_t& occupancy = occupancy_t::instance; }
-#endif
 
 } // namespace execution
 
@@ -205,7 +193,7 @@ struct static_query<T, execution::occupancy_t,
   typedef typename execution::detail::occupancy_t<0>::
     query_static_constexpr_member<T>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return execution::detail::occupancy_t<0>::
       query_static_constexpr_member<T>::value();

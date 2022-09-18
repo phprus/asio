@@ -64,7 +64,7 @@ struct is_executor<ex_nq_nr> : asio::true_type
 template <typename ResultType, typename ParamType, typename Result>
 struct ex_cq_nr
 {
-  static ASIO_CONSTEXPR ResultType query(ParamType) noexcept(true)
+  static constexpr ResultType query(ParamType) noexcept(true)
   {
     return Result();
   }
@@ -119,7 +119,7 @@ struct query_static_constexpr_member<
 
   typedef Result result_type; // Must return raw result type.
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return Result();
   }
@@ -594,19 +594,19 @@ struct prefer_free<
 template <typename Executor, typename Param, bool ExpectedResult>
 void test_can_query()
 {
-  ASIO_CONSTEXPR bool b1 =
+  constexpr bool b1 =
     asio::can_query<Executor, Param>::value;
   ASIO_CHECK(b1 == ExpectedResult);
 
-  ASIO_CONSTEXPR bool b2 =
+  constexpr bool b2 =
     asio::can_query<const Executor, Param>::value;
   ASIO_CHECK(b2 == ExpectedResult);
 
-  ASIO_CONSTEXPR bool b3 =
+  constexpr bool b3 =
     asio::can_query<Executor&, Param>::value;
   ASIO_CHECK(b3 == ExpectedResult);
 
-  ASIO_CONSTEXPR bool b4 =
+  constexpr bool b4 =
     asio::can_query<const Executor&, Param>::value;
   ASIO_CHECK(b4 == ExpectedResult);
 }
@@ -629,29 +629,27 @@ void test_query()
 template <typename Executor, typename Param, typename ExpectedResult>
 void test_constexpr_query()
 {
-#if defined(ASIO_HAS_CONSTEXPR)
   constexpr Executor ex1 = {};
   constexpr exec::blocking_t result1 = asio::query(ex1, Param());
   ASIO_CHECK(result1 == ExpectedResult());
-#endif // defined(ASIO_HAS_CONSTEXPR)
 }
 
 template <typename Executor, typename Param, bool ExpectedResult>
 void test_can_require()
 {
-  ASIO_CONSTEXPR bool b1 =
+  constexpr bool b1 =
     asio::can_require<Executor, Param>::value;
   ASIO_CHECK(b1 == ExpectedResult);
 
-  ASIO_CONSTEXPR bool b2 =
+  constexpr bool b2 =
     asio::can_require<const Executor, Param>::value;
   ASIO_CHECK(b2 == ExpectedResult);
 
-  ASIO_CONSTEXPR bool b3 =
+  constexpr bool b3 =
     asio::can_require<Executor&, Param>::value;
   ASIO_CHECK(b3 == ExpectedResult);
 
-  ASIO_CONSTEXPR bool b4 =
+  constexpr bool b4 =
     asio::can_require<const Executor&, Param>::value;
   ASIO_CHECK(b4 == ExpectedResult);
 }
@@ -680,19 +678,19 @@ void test_require()
 template <typename Executor, typename Param, bool ExpectedResult>
 void test_can_prefer()
 {
-  ASIO_CONSTEXPR bool b1 =
+  constexpr bool b1 =
     asio::can_prefer<Executor, Param>::value;
   ASIO_CHECK(b1 == ExpectedResult);
 
-  ASIO_CONSTEXPR bool b2 =
+  constexpr bool b2 =
     asio::can_prefer<const Executor, Param>::value;
   ASIO_CHECK(b2 == ExpectedResult);
 
-  ASIO_CONSTEXPR bool b3 =
+  constexpr bool b3 =
     asio::can_prefer<Executor&, Param>::value;
   ASIO_CHECK(b3 == ExpectedResult);
 
-  ASIO_CONSTEXPR bool b4 =
+  constexpr bool b4 =
     asio::can_prefer<const Executor&, Param>::value;
   ASIO_CHECK(b4 == ExpectedResult);
 }

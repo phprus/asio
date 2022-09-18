@@ -49,7 +49,7 @@ public:
    * token is itself defaulted as an argument to allow it to capture a source
    * location.
    */
-  ASIO_CONSTEXPR as_tuple_t(
+  constexpr as_tuple_t(
       default_constructor_tag = default_constructor_tag(),
       CompletionToken token = CompletionToken())
     : token_(ASIO_MOVE_CAST(CompletionToken)(token))
@@ -58,7 +58,7 @@ public:
 
   /// Constructor.
   template <typename T>
-  ASIO_CONSTEXPR explicit as_tuple_t(
+  constexpr explicit as_tuple_t(
       ASIO_MOVE_ARG(T) completion_token)
     : token_(ASIO_MOVE_CAST(T)(completion_token))
   {
@@ -114,7 +114,7 @@ public:
 /// arguments should be combined into a single tuple argument.
 template <typename CompletionToken>
 ASIO_NODISCARD inline
-ASIO_CONSTEXPR as_tuple_t<typename decay<CompletionToken>::type>
+constexpr as_tuple_t<typename decay<CompletionToken>::type>
 as_tuple(ASIO_MOVE_ARG(CompletionToken) completion_token)
 {
   return as_tuple_t<typename decay<CompletionToken>::type>(

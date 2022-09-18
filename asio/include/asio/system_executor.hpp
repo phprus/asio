@@ -195,7 +195,7 @@ private:
    *       == asio::execution::mapping.thread)
    *   ... @endcode
    */
-  static ASIO_CONSTEXPR execution::mapping_t query(
+  static constexpr execution::mapping_t query(
       execution::mapping_t) noexcept(true)
   {
     return execution::mapping.thread;
@@ -224,7 +224,7 @@ private:
    *       == asio::execution::blocking.always)
    *   ... @endcode
    */
-  static ASIO_CONSTEXPR execution::blocking_t query(
+  static constexpr execution::blocking_t query(
       execution::blocking_t) noexcept(true)
   {
     return Blocking();
@@ -241,7 +241,7 @@ private:
    *       == asio::execution::relationship.continuation)
    *   ... @endcode
    */
-  static ASIO_CONSTEXPR execution::relationship_t query(
+  static constexpr execution::relationship_t query(
       execution::relationship_t) noexcept(true)
   {
     return Relationship();
@@ -258,7 +258,7 @@ private:
    *     asio::execution::allocator); @endcode
    */
   template <typename OtherAllocator>
-  ASIO_CONSTEXPR Allocator query(
+  constexpr Allocator query(
       execution::allocator_t<OtherAllocator>) const noexcept(true)
   {
     return allocator_;
@@ -274,7 +274,7 @@ private:
    * auto alloc = asio::query(ex,
    *     asio::execution::allocator); @endcode
    */
-  ASIO_CONSTEXPR Allocator query(
+  constexpr Allocator query(
       execution::allocator_t<void>) const noexcept(true)
   {
     return allocator_;
@@ -590,7 +590,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef asio::execution::mapping_t::thread_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() noexcept(true)
+  static constexpr result_type value() noexcept(true)
   {
     return result_type();
   }

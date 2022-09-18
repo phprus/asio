@@ -152,65 +152,17 @@
 # endif // !defined(ASIO_DELETED)
 #endif // !defined(ASIO_DELETED)
 
-// Support constexpr on compilers known to allow it.
-#if !defined(ASIO_HAS_CONSTEXPR)
-# if !defined(ASIO_DISABLE_CONSTEXPR)
-#  if defined(__clang__)
-#   if __has_feature(__cxx_constexpr__)
-#    define ASIO_HAS_CONSTEXPR 1
-#   endif // __has_feature(__cxx_constexpr__)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 8)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_CONSTEXPR 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 8)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1900)
-#    define ASIO_HAS_CONSTEXPR 1
-#   endif // (_MSC_VER >= 1900)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_CONSTEXPR)
-#endif // !defined(ASIO_HAS_CONSTEXPR)
-#if !defined(ASIO_CONSTEXPR)
-# if defined(ASIO_HAS_CONSTEXPR)
-#  define ASIO_CONSTEXPR constexpr
-# else // defined(ASIO_HAS_CONSTEXPR)
-#  define ASIO_CONSTEXPR
-# endif // defined(ASIO_HAS_CONSTEXPR)
-#endif // !defined(ASIO_CONSTEXPR)
-#if !defined(ASIO_STATIC_CONSTEXPR)
-# if defined(ASIO_HAS_CONSTEXPR)
-#  define ASIO_STATIC_CONSTEXPR(type, assignment) \
+// C++17: Support constexpr on compilers known to allow it.
+#define ASIO_HAS_CONSTEXPR 1
+#define ASIO_STATIC_CONSTEXPR(type, assignment) \
     static constexpr type assignment
-# else // defined(ASIO_HAS_CONSTEXPR)
-#  define ASIO_STATIC_CONSTEXPR(type, assignment) \
-    static const type assignment
-# endif // defined(ASIO_HAS_CONSTEXPR)
-#endif // !defined(ASIO_STATIC_CONSTEXPR)
-#if !defined(ASIO_STATIC_CONSTEXPR_DEFAULT_INIT)
-# if defined(ASIO_HAS_CONSTEXPR)
-#  if defined(__GNUC__)
-#   if (__GNUC__ >= 8)
-#    define ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(type, name) \
-      static constexpr const type name{}
-#   else // (__GNUC__ >= 8)
-#    define ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(type, name) \
-      static const type name
-#   endif // (__GNUC__ >= 8)
-#  elif defined(ASIO_MSVC)
-#   define ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(type, name) \
+#if defined(ASIO_MSVC)
+# define ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(type, name) \
      static const type name
-#  else // defined(ASIO_MSVC)
-#   define ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(type, name) \
+#else // defined(ASIO_MSVC)
+# define ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(type, name) \
      static constexpr const type name{}
-#  endif // defined(ASIO_MSVC)
-# else // defined(ASIO_HAS_CONSTEXPR)
-#  define ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(type, name) \
-    static const type name
-# endif // defined(ASIO_HAS_CONSTEXPR)
-#endif // !defined(ASIO_STATIC_CONSTEXPR_DEFAULT_INIT)
+#endif // defined(ASIO_MSVC)
 
 // C++17: Support noexcept on compilers known to allow it.
 #define ASIO_HAS_NOEXCEPT 1

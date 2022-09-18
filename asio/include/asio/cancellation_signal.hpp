@@ -84,7 +84,7 @@ class cancellation_slot;
 class cancellation_signal
 {
 public:
-  ASIO_CONSTEXPR cancellation_signal()
+  constexpr cancellation_signal()
     : handler_(0)
   {
   }
@@ -117,7 +117,7 @@ class cancellation_slot
 {
 public:
   /// Creates a slot that is not connected to any cancellation signal.
-  ASIO_CONSTEXPR cancellation_slot()
+  constexpr cancellation_slot()
     : handler_(0)
   {
   }
@@ -183,26 +183,26 @@ public:
   ASIO_DECL void clear();
 
   /// Returns whether the slot is connected to a signal.
-  ASIO_CONSTEXPR bool is_connected() const noexcept(true)
+  constexpr bool is_connected() const noexcept(true)
   {
     return handler_ != 0;
   }
 
   /// Returns whether the slot is connected and has an installed handler.
-  ASIO_CONSTEXPR bool has_handler() const noexcept(true)
+  constexpr bool has_handler() const noexcept(true)
   {
     return handler_ != 0 && *handler_ != 0;
   }
 
   /// Compare two slots for equality.
-  friend ASIO_CONSTEXPR bool operator==(const cancellation_slot& lhs,
+  friend constexpr bool operator==(const cancellation_slot& lhs,
       const cancellation_slot& rhs) noexcept(true)
   {
     return lhs.handler_ == rhs.handler_;
   }
 
   /// Compare two slots for inequality.
-  friend ASIO_CONSTEXPR bool operator!=(const cancellation_slot& lhs,
+  friend constexpr bool operator!=(const cancellation_slot& lhs,
       const cancellation_slot& rhs) noexcept(true)
   {
     return lhs.handler_ != rhs.handler_;
@@ -211,7 +211,7 @@ public:
 private:
   friend class cancellation_signal;
 
-  ASIO_CONSTEXPR cancellation_slot(int,
+  constexpr cancellation_slot(int,
       detail::cancellation_handler_base** handler)
     : handler_(handler)
   {
