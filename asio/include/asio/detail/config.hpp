@@ -305,28 +305,6 @@
 #define ASIO_HAS_STD_CHRONO 1
 #define ASIO_HAS_CHRONO 1
 
-// Boost support for the Context library's fibers.
-#if !defined(ASIO_HAS_BOOST_CONTEXT_FIBER)
-# if !defined(ASIO_DISABLE_BOOST_CONTEXT_FIBER)
-#  if defined(__clang__)
-#   if (__cplusplus >= 201103)
-#    define ASIO_HAS_BOOST_CONTEXT_FIBER 1
-#   endif // (__cplusplus >= 201103)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 8)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_BOOST_CONTEXT_FIBER 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 8)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSVC_LANG >= 201103)
-#    define ASIO_HAS_BOOST_CONTEXT_FIBER 1
-#   endif // (_MSC_LANG >= 201103)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_BOOST_CONTEXT_FIBER)
-#endif // !defined(ASIO_HAS_BOOST_CONTEXT_FIBER)
-
 // C++17: Standard library support for addressof.
 #define ASIO_HAS_STD_ADDRESSOF 1
 
