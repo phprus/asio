@@ -19,7 +19,7 @@
 #include "asio/any_io_executor.hpp"
 #include "asio/cancellation_signal.hpp"
 #include "asio/cancellation_state.hpp"
-#include "asio/detail/exception.hpp"
+#include <exception>
 #include "asio/detail/memory.hpp"
 #include "asio/detail/type_traits.hpp"
 #include "asio/io_context.hpp"
@@ -149,13 +149,13 @@ private:
 template <typename T>
 struct spawn_signature
 {
-  typedef void type(exception_ptr, T);
+  typedef void type(std::exception_ptr, T);
 };
 
 template <>
 struct spawn_signature<void>
 {
-  typedef void type(exception_ptr);
+  typedef void type(std::exception_ptr);
 };
 
 template <typename Executor>

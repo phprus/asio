@@ -64,13 +64,9 @@ struct as_invocable
     }
     catch (...)
     {
-#if defined(ASIO_HAS_STD_EXCEPTION_PTR)
       execution::set_error(ASIO_MOVE_CAST(Receiver)(*receiver_),
           std::make_exception_ptr(receiver_invocation_error()));
       receiver_ = 0;
-#else // defined(ASIO_HAS_STD_EXCEPTION_PTR)
-      std::terminate();
-#endif // defined(ASIO_HAS_STD_EXCEPTION_PTR)
     }
 #endif // !defined(ASIO_NO_EXCEPTIONS)
   }
