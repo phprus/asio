@@ -270,14 +270,7 @@ public:
    */
   template <typename Function>
   typename constraint<
-#if defined(ASIO_NO_DEPRECATED) \
-  || defined(GENERATING_DOCUMENTATION)
     traits::execute_member<const Executor&, Function>::is_valid,
-#else // defined(ASIO_NO_DEPRECATED)
-      //   || defined(GENERATING_DOCUMENTATION)
-    execution::can_execute<const Executor&, Function>::value,
-#endif // defined(ASIO_NO_DEPRECATED)
-       //   || defined(GENERATING_DOCUMENTATION)
     void
   >::type execute(ASIO_MOVE_ARG(Function) f) const
   {
@@ -492,11 +485,7 @@ struct equality_comparable<strand<Executor> >
 template <typename Executor, typename Function>
 struct execute_member<strand<Executor>, Function,
     typename enable_if<
-#if defined(ASIO_NO_DEPRECATED)
       traits::execute_member<const Executor&, Function>::is_valid
-#else // defined(ASIO_NO_DEPRECATED)
-      execution::can_execute<const Executor&, Function>::value
-#endif // defined(ASIO_NO_DEPRECATED)
     >::type>
 {
   ASIO_STATIC_CONSTEXPR(bool, is_valid = true);

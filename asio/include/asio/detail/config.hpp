@@ -843,13 +843,8 @@
 #endif // !defined(ASIO_DISABLE_SSIZE_T)
 
 // Helper macros to manage transition away from std::error_code return values.
-#if defined(ASIO_NO_DEPRECATED)
-# define ASIO_SYNC_OP_VOID void
-# define ASIO_SYNC_OP_VOID_RETURN(e) return
-#else // defined(ASIO_NO_DEPRECATED)
-# define ASIO_SYNC_OP_VOID std::error_code
-# define ASIO_SYNC_OP_VOID_RETURN(e) return e
-#endif // defined(ASIO_NO_DEPRECATED)
+#define ASIO_SYNC_OP_VOID void
+#define ASIO_SYNC_OP_VOID_RETURN(e) return
 
 // Support the co_await keyword on compilers known to allow it.
 #if !defined(ASIO_HAS_CO_AWAIT)

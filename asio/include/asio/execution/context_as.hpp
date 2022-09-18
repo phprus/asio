@@ -19,8 +19,6 @@
 #include "asio/detail/type_traits.hpp"
 #include "asio/execution/context.hpp"
 #include "asio/execution/executor.hpp"
-#include "asio/execution/scheduler.hpp"
-#include "asio/execution/sender.hpp"
 #include "asio/is_applicable_property.hpp"
 #include "asio/query.hpp"
 #include "asio/traits/query_static_constexpr_member.hpp"
@@ -67,28 +65,10 @@ namespace execution {
 template <typename T>
 struct context_as_t
 {
-#if defined(ASIO_NO_DEPRECATED)
   template <typename U>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
       is_executor<U>::value));
-#else // defined(ASIO_NO_DEPRECATED)
-  template <typename U>
-  ASIO_STATIC_CONSTEXPR(bool,
-    is_applicable_property_v = (
-      is_executor<U>::value
-        || conditional<
-            is_executor<U>::value,
-            false_type,
-            is_sender<U>
-          >::type::value
-        || conditional<
-            is_executor<U>::value,
-            false_type,
-            is_scheduler<U>
-          >::type::value
-      ));
-#endif // defined(ASIO_NO_DEPRECATED)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = false);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = false);

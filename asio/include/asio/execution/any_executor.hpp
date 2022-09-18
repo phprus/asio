@@ -29,7 +29,6 @@
 #include "asio/detail/throw_exception.hpp"
 #include "asio/execution/bad_executor.hpp"
 #include "asio/execution/blocking.hpp"
-#include "asio/execution/execute.hpp"
 #include "asio/execution/executor.hpp"
 #include "asio/prefer.hpp"
 #include "asio/query.hpp"
@@ -911,21 +910,13 @@ protected:
   static void execute_ex(const any_executor_base& ex,
       ASIO_MOVE_ARG(function) f)
   {
-#if defined(ASIO_NO_DEPRECATED)
     ex.target<Ex>()->execute(ASIO_MOVE_CAST(function)(f));
-#else // defined(ASIO_NO_DEPRECATED)
-    execution::execute(*ex.target<Ex>(), ASIO_MOVE_CAST(function)(f));
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename Ex>
   static void blocking_execute_ex(const any_executor_base& ex, function_view f)
   {
-#if defined(ASIO_NO_DEPRECATED)
     ex.target<Ex>()->execute(f);
-#else // defined(ASIO_NO_DEPRECATED)
-    execution::execute(*ex.target<Ex>(), f);
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename Ex>
