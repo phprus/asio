@@ -35,12 +35,6 @@ AC_ARG_ENABLE(separate-compilation,
   SEPARATE_COMPILATION=yes
 ])
 
-AC_ARG_ENABLE(boost-coroutine,
-[  --enable-boost-coroutine  use Boost.Coroutine to implement stackful coroutines],
-[
-  HAVE_BOOST_COROUTINE=yes
-])
-
 if test "$STANDALONE" != yes; then
   AC_CHECK_HEADER([boost/noncopyable.hpp],,
   [
@@ -198,8 +192,6 @@ fi
 AM_CONDITIONAL(STANDALONE,test x$STANDALONE = xyes)
 
 AM_CONDITIONAL(SEPARATE_COMPILATION,test x$SEPARATE_COMPILATION = xyes)
-
-AM_CONDITIONAL(HAVE_BOOST_COROUTINE,test x$HAVE_BOOST_COROUTINE = xyes)
 
 AM_CONDITIONAL(WINDOWS_TARGET,test x$WINDOWS != xno)
 
