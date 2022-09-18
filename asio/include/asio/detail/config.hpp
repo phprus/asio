@@ -39,7 +39,6 @@
 #if defined(ASIO_STANDALONE)
 # define ASIO_DISABLE_BOOST_REGEX 1
 # define ASIO_DISABLE_BOOST_STATIC_CONSTANT 1
-# define ASIO_DISABLE_BOOST_THROW_EXCEPTION 1
 #else // defined(ASIO_STANDALONE)
 // Boost.Config library is available.
 # include <boost/config.hpp>
@@ -837,13 +836,6 @@
     static const type assignment
 # endif // !defined(ASIO_DISABLE_BOOST_STATIC_CONSTANT)
 #endif // !defined(ASIO_STATIC_CONSTANT)
-
-// Boost throw_exception function.
-#if !defined(ASIO_HAS_BOOST_THROW_EXCEPTION)
-# if !defined(ASIO_DISABLE_BOOST_THROW_EXCEPTION)
-#  define ASIO_HAS_BOOST_THROW_EXCEPTION 1
-# endif // !defined(ASIO_DISABLE_BOOST_THROW_EXCEPTION)
-#endif // !defined(ASIO_HAS_BOOST_THROW_EXCEPTION)
 
 // Boost regex library.
 #if !defined(ASIO_HAS_BOOST_REGEX)
