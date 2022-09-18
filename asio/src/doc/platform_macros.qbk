@@ -360,13 +360,6 @@ needs.
     [`ASIO_DISABLE_STD_STRING_VIEW`]
   ]
   [
-    [`ASIO_HAS_STD_SYSTEM_ERROR`]
-    [
-      Standard library support for system errors.
-    ]
-    [`ASIO_DISABLE_STD_SYSTEM_ERROR`]
-  ]
-  [
     [`ASIO_HAS_STD_TO_ADDRESS`]
     [
       Standard library support for std::to_address.

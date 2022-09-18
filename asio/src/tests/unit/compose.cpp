@@ -241,7 +241,7 @@ public:
 
   template <typename Self>
   void operator()(Self& self,
-      const asio::error_code& ec = asio::error_code())
+      const std::error_code& ec = std::error_code())
   {
     switch (state_)
     {

@@ -152,7 +152,7 @@ public:
         while (wait_op* op = timer->op_queue_.front())
         {
           timer->op_queue_.pop();
-          op->ec_ = asio::error_code();
+          op->ec_ = std::error_code();
           ops.push(op);
         }
         remove_timer(*timer);

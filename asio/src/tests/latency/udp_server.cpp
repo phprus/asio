@@ -31,7 +31,7 @@ public:
   {
   }
 
-  void operator()(asio::error_code ec, std::size_t n = 0)
+  void operator()(std::error_code ec, std::size_t n = 0)
   {
     reenter (this) for (;;)
     {
@@ -64,7 +64,7 @@ public:
     {
     }
 
-    void operator()(asio::error_code ec, std::size_t n = 0)
+    void operator()(std::error_code ec, std::size_t n = 0)
     {
       (*p_)(ec, n);
     }
@@ -115,7 +115,7 @@ int main(int argc, char* argv[])
     unsigned short port = first_port + i;
     boost::shared_ptr<udp_server> s(new udp_server(io_context, port, buf_size));
     servers.push_back(s);
-    (*s)(asio::error_code());
+    (*s)(std::error_code());
   }
 
   if (spin)

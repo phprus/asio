@@ -45,7 +45,7 @@ namespace asio {
  * Performing an asynchronous wait:
  * @code
  * void handler(
- *     const asio::error_code& error,
+ *     const std::error_code& error,
  *     int signal_number)
  * {
  *   if (!error)
@@ -158,7 +158,7 @@ public:
   basic_signal_set(const executor_type& ex, int signal_number_1)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().add(impl_.get_implementation(), signal_number_1, ec);
     asio::detail::throw_error(ec, "add");
   }
@@ -185,7 +185,7 @@ public:
       >::type = defaulted_constraint())
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().add(impl_.get_implementation(), signal_number_1, ec);
     asio::detail::throw_error(ec, "add");
   }
@@ -211,7 +211,7 @@ public:
       int signal_number_2)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().add(impl_.get_implementation(), signal_number_1, ec);
     asio::detail::throw_error(ec, "add");
     impl_.get_service().add(impl_.get_implementation(), signal_number_2, ec);
@@ -244,7 +244,7 @@ public:
       >::type = defaulted_constraint())
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().add(impl_.get_implementation(), signal_number_1, ec);
     asio::detail::throw_error(ec, "add");
     impl_.get_service().add(impl_.get_implementation(), signal_number_2, ec);
@@ -275,7 +275,7 @@ public:
       int signal_number_2, int signal_number_3)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().add(impl_.get_implementation(), signal_number_1, ec);
     asio::detail::throw_error(ec, "add");
     impl_.get_service().add(impl_.get_implementation(), signal_number_2, ec);
@@ -313,7 +313,7 @@ public:
       >::type = defaulted_constraint())
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().add(impl_.get_implementation(), signal_number_1, ec);
     asio::detail::throw_error(ec, "add");
     impl_.get_service().add(impl_.get_implementation(), signal_number_2, ec);
@@ -345,11 +345,11 @@ public:
    *
    * @param signal_number The signal to be added to the set.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void add(int signal_number)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().add(impl_.get_implementation(), signal_number, ec);
     asio::detail::throw_error(ec, "add");
   }
@@ -364,7 +364,7 @@ public:
    * @param ec Set to indicate what error occurred, if any.
    */
   ASIO_SYNC_OP_VOID add(int signal_number,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     impl_.get_service().add(impl_.get_implementation(), signal_number, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -377,14 +377,14 @@ public:
    *
    * @param signal_number The signal to be removed from the set.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note Removes any notifications that have been queued for the specified
    * signal number.
    */
   void remove(int signal_number)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().remove(impl_.get_implementation(), signal_number, ec);
     asio::detail::throw_error(ec, "remove");
   }
@@ -402,7 +402,7 @@ public:
    * signal number.
    */
   ASIO_SYNC_OP_VOID remove(int signal_number,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     impl_.get_service().remove(impl_.get_implementation(), signal_number, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -413,13 +413,13 @@ public:
    * This function removes all signals from the set. It has no effect if the set
    * is already empty.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note Removes all queued notifications.
    */
   void clear()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().clear(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "clear");
   }
@@ -433,7 +433,7 @@ public:
    *
    * @note Removes all queued notifications.
    */
-  ASIO_SYNC_OP_VOID clear(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID clear(std::error_code& ec)
   {
     impl_.get_service().clear(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -448,7 +448,7 @@ public:
    *
    * Cancellation does not alter the set of registered signals.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note If a registered signal occurred before cancel() is called, then the
    * handlers for asynchronous wait operations will:
@@ -462,7 +462,7 @@ public:
    */
   void cancel()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().cancel(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "cancel");
   }
@@ -488,7 +488,7 @@ public:
    * These handlers can no longer be cancelled, and therefore are passed an
    * error code that indicates the successful completion of the wait operation.
    */
-  ASIO_SYNC_OP_VOID cancel(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID cancel(std::error_code& ec)
   {
     impl_.get_service().cancel(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -514,7 +514,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error, // Result of operation.
+   *   const std::error_code& error, // Result of operation.
    *   int signal_number // Indicates which signal occurred.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
@@ -523,7 +523,7 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code, int) @endcode
+   * @code void(std::error_code, int) @endcode
    *
    * @par Per-Operation Cancellation
    * This asynchronous operation supports cancellation for the following
@@ -536,18 +536,18 @@ public:
    * @li @c cancellation_type::total
    */
   template <
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code, int))
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code, int))
       SignalToken ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX(SignalToken,
-      void (asio::error_code, int))
+      void (std::error_code, int))
   async_wait(
       ASIO_MOVE_ARG(SignalToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
     ASIO_INITFN_AUTO_RESULT_TYPE_SUFFIX((
-      async_initiate<SignalToken, void (asio::error_code, int)>(
+      async_initiate<SignalToken, void (std::error_code, int)>(
           declval<initiate_async_wait>(), token)))
   {
-    return async_initiate<SignalToken, void (asio::error_code, int)>(
+    return async_initiate<SignalToken, void (std::error_code, int)>(
         initiate_async_wait(this), token);
   }
 

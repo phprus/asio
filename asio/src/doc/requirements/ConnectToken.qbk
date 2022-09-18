@@ -15,7 +15,7 @@ for completion signature `void(error_code)`.
 A free function as a connect token:
 
   void connect_handler(
-      const asio::error_code& ec)
+      const std::error_code& ec)
   {
     ...
   }
@@ -26,7 +26,7 @@ A connect token function object:
   {
     ...
     void operator()(
-        const asio::error_code& ec)
+        const std::error_code& ec)
     {
       ...
     }
@@ -36,7 +36,7 @@ A connect token function object:
 A lambda as a connect token:
 
   socket.async_connect(...,
-      [](const asio::error_code& ec)
+      [](const std::error_code& ec)
       {
         ...
       });
@@ -45,7 +45,7 @@ A non-static class member function adapted to a connect token using
 `std::bind()`:
 
   void my_class::connect_handler(
-      const asio::error_code& ec)
+      const std::error_code& ec)
   {
     ...
   }
@@ -58,7 +58,7 @@ A non-static class member function adapted to a connect token using
 `std::bind()`:
 
   void my_class::connect_handler(
-      const asio::error_code& ec)
+      const std::error_code& ec)
   {
     ...
   }

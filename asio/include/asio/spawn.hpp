@@ -290,11 +290,11 @@ public:
     spawned_thread_->throw_if_cancelled(value);
   }
 
-  /// Return a yield context that sets the specified error_code.
+  /// Return a yield context that sets the specified std::error_code.
   /**
    * By default, when a yield context is used with an asynchronous operation, a
-   * non-success error_code is converted to system_error and thrown. This
-   * operator may be used to specify an error_code object that should instead be
+   * non-success std::error_code is converted to system_error and thrown. This
+   * operator may be used to specify an std::error_code object that should instead be
    * set with the asynchronous operation's result. For example:
    *
    * @code template <typename Executor>
@@ -309,7 +309,7 @@ public:
    *   ...
    * } @endcode
    */
-  basic_yield_context operator[](asio::error_code& ec) const
+  basic_yield_context operator[](std::error_code& ec) const
   {
     basic_yield_context tmp(*this);
     tmp.ec_ = &ec;
@@ -328,7 +328,7 @@ public:
 
   detail::spawned_thread_base* spawned_thread_;
   Executor executor_;
-  asio::error_code* ec_;
+  std::error_code* ec_;
 #endif // !defined(GENERATING_DOCUMENTATION)
 };
 

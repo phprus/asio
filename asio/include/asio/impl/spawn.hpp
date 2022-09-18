@@ -29,7 +29,7 @@
 #include "asio/detail/noncopyable.hpp"
 #include "asio/detail/type_traits.hpp"
 #include "asio/detail/utility.hpp"
-#include "asio/system_error.hpp"
+#include <system_error>
 
 #if defined(ASIO_HAS_STD_TUPLE)
 # include <tuple>
@@ -467,12 +467,12 @@ public:
 };
 
 template <typename Executor, typename R>
-class spawn_handler<Executor, R(asio::error_code)>
+class spawn_handler<Executor, R(std::error_code)>
   : public spawn_handler_base<Executor>
 {
 public:
   typedef void return_type;
-  typedef asio::error_code* result_type;
+  typedef std::error_code* result_type;
 
   spawn_handler(const basic_yield_context<Executor>& yield, result_type& result)
     : spawn_handler_base<Executor>(yield),
@@ -480,7 +480,7 @@ public:
   {
   }
 
-  void operator()(asio::error_code ec)
+  void operator()(std::error_code ec)
   {
     if (this->yield_.ec_)
     {
@@ -562,7 +562,7 @@ private:
 };
 
 template <typename Executor, typename R, typename T>
-class spawn_handler<Executor, R(asio::error_code, T)>
+class spawn_handler<Executor, R(std::error_code, T)>
   : public spawn_handler_base<Executor>
 {
 public:
@@ -570,7 +570,7 @@ public:
 
   struct result_type
   {
-    asio::error_code* ec_;
+    std::error_code* ec_;
     return_type* value_;
   };
 
@@ -580,7 +580,7 @@ public:
   {
   }
 
-  void operator()(asio::error_code ec, T value)
+  void operator()(std::error_code ec, T value)
   {
     if (this->yield_.ec_)
     {
@@ -676,7 +676,7 @@ private:
 };
 
 template <typename Executor, typename R, typename... Ts>
-class spawn_handler<Executor, R(asio::error_code, Ts...)>
+class spawn_handler<Executor, R(std::error_code, Ts...)>
   : public spawn_handler_base<Executor>
 {
 public:
@@ -684,7 +684,7 @@ public:
 
   struct result_type
   {
-    asio::error_code* ec_;
+    std::error_code* ec_;
     return_type* value_;
   };
 
@@ -695,7 +695,7 @@ public:
   }
 
   template <typename... Args>
-  void operator()(asio::error_code ec,
+  void operator()(std::error_code ec,
       ASIO_MOVE_ARG(Args)... args)
   {
     return_type value(ASIO_MOVE_CAST(Args)(args)...);

@@ -22,7 +22,7 @@
 #include "asio/error.hpp"
 #include "asio/ip/address.hpp"
 #include "asio/ip/bad_address_cast.hpp"
-#include "asio/system_error.hpp"
+#include <system_error>
 
 #include "asio/detail/push_options.hpp"
 
@@ -102,14 +102,14 @@ address& address::operator=(
 
 address make_address(const char* str)
 {
-  asio::error_code ec;
+  std::error_code ec;
   address addr = make_address(str, ec);
   asio::detail::throw_error(ec);
   return addr;
 }
 
 address make_address(const char* str,
-    asio::error_code& ec) noexcept(true)
+    std::error_code& ec) noexcept(true)
 {
   asio::ip::address_v6 ipv6_address =
     asio::ip::make_address_v6(str, ec);
@@ -130,7 +130,7 @@ address make_address(const std::string& str)
 }
 
 address make_address(const std::string& str,
-    asio::error_code& ec) noexcept(true)
+    std::error_code& ec) noexcept(true)
 {
   return make_address(str.c_str(), ec);
 }
@@ -143,7 +143,7 @@ address make_address(string_view str)
 }
 
 address make_address(string_view str,
-    asio::error_code& ec) noexcept(true)
+    std::error_code& ec) noexcept(true)
 {
   return make_address(static_cast<std::string>(str), ec);
 }
@@ -178,7 +178,7 @@ std::string address::to_string() const
 }
 
 #if !defined(ASIO_NO_DEPRECATED)
-std::string address::to_string(asio::error_code& ec) const
+std::string address::to_string(std::error_code& ec) const
 {
   if (type_ == ipv6)
     return ipv6_address_.to_string(ec);

@@ -24,9 +24,9 @@
 namespace asio {
 
 /// A @ref completion_token adapter used to specify that an error produced by an
-/// asynchronous operation is captured to an error_code variable.
+/// asynchronous operation is captured to an std::error_code variable.
 /**
- * The redirect_error_t class is used to indicate that any error_code produced
+ * The redirect_error_t class is used to indicate that any std::error_code produced
  * by an asynchronous operation is captured to a specified variable.
  */
 template <typename CompletionToken>
@@ -36,7 +36,7 @@ public:
   /// Constructor. 
   template <typename T>
   redirect_error_t(ASIO_MOVE_ARG(T) completion_token,
-      asio::error_code& ec)
+      std::error_code& ec)
     : token_(ASIO_MOVE_CAST(T)(completion_token)),
       ec_(ec)
   {
@@ -44,14 +44,14 @@ public:
 
 //private:
   CompletionToken token_;
-  asio::error_code& ec_;
+  std::error_code& ec_;
 };
 
-/// Adapt a @ref completion_token to capture error_code values to a variable.
+/// Adapt a @ref completion_token to capture std::error_code values to a variable.
 template <typename CompletionToken>
 inline redirect_error_t<typename decay<CompletionToken>::type> redirect_error(
     ASIO_MOVE_ARG(CompletionToken) completion_token,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   return redirect_error_t<typename decay<CompletionToken>::type>(
       ASIO_MOVE_CAST(CompletionToken)(completion_token), ec);

@@ -353,7 +353,7 @@ public:
 
   /// Asynchronously send a message.
   template <typename... Args,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code))
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code))
         CompletionToken ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   auto async_send(ASIO_MOVE_ARG(Args)... args,
       ASIO_MOVE_ARG(CompletionToken) token);

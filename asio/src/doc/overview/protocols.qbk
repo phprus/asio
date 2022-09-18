@@ -47,7 +47,7 @@ Similarly, an asynchronous connect may be performed by writing:
 
   // ...
 
-  void handle_connect(const error_code& error)
+  void handle_connect(const std::error_code& error)
   {
     if (!error)
     {

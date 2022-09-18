@@ -40,7 +40,7 @@ void promise_tester()
   auto p = timer1.async_wait(experimental::use_promise);
 
   steady_clock::time_point completed_when;
-  asio::error_code ec;
+  std::error_code ec;
   bool called = false;
 
   p.async_wait(
@@ -70,7 +70,7 @@ void test_cancel()
 {
   asio::io_context ctx;
   asio::steady_timer tim{ctx, std::chrono::seconds(10)};
-  asio::error_code ec;
+  std::error_code ec;
 
   {
     auto p = tim.async_wait(
