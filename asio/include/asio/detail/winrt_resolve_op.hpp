@@ -84,7 +84,7 @@ public:
       catch (Platform::Exception^ e)
       {
         o->ec_ = std::error_code(e->HResult,
-            asio::system_category());
+            std::system_category());
       }
     }
 

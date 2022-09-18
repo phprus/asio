@@ -352,7 +352,7 @@ std::error_code signal_set_service::add(
         ec = asio::error::invalid_argument;
 # else // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
         ec = std::error_code(errno,
-            asio::error::get_system_category());
+            std::system_category());
 # endif // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
         delete new_registration;
         return ec;
@@ -422,7 +422,7 @@ std::error_code signal_set_service::remove(
         ec = asio::error::invalid_argument;
 # else // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
         ec = std::error_code(errno,
-            asio::error::get_system_category());
+            std::system_category());
 # endif // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
         return ec;
       }
@@ -476,7 +476,7 @@ std::error_code signal_set_service::clear(
         ec = asio::error::invalid_argument;
 # else // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
         ec = std::error_code(errno,
-            asio::error::get_system_category());
+            std::system_category());
 # endif // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
         return ec;
       }
@@ -713,7 +713,7 @@ void signal_set_service::open_descriptors()
   else
   {
     std::error_code ec(errno,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "signal_set_service pipe");
   }
 #endif // !defined(ASIO_WINDOWS)

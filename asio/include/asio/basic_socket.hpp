@@ -1331,7 +1331,7 @@ public:
    *         errno = 0;
    *         int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
    *         ec = std::error_code(n < 0 ? errno : 0,
-   *             asio::error::get_system_category());
+   *             std::system_category());
    *         total_bytes_transferred_ += ec ? 0 : n;
    *
    *         // Retry operation immediately if interrupted by signal.
@@ -1421,7 +1421,7 @@ public:
    *         errno = 0;
    *         int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
    *         ec = std::error_code(n < 0 ? errno : 0,
-   *             asio::error::get_system_category());
+   *             std::system_category());
    *         total_bytes_transferred_ += ec ? 0 : n;
    *
    *         // Retry operation immediately if interrupted by signal.
@@ -1514,7 +1514,7 @@ public:
    *         errno = 0;
    *         int n = ::sendfile(sock_.native_handle(), fd_, &offset_, 65536);
    *         ec = std::error_code(n < 0 ? errno : 0,
-   *             asio::error::get_system_category());
+   *             std::system_category());
    *         total_bytes_transferred_ += ec ? 0 : n;
    *
    *         // Retry operation immediately if interrupted by signal.

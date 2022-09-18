@@ -16,7 +16,7 @@
 // Test that header file is self-contained.
 #include "asio/execution/sender.hpp"
 
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "../unit_test.hpp"
 
 namespace exec = asio::execution;

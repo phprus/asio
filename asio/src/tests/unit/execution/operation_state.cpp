@@ -17,7 +17,7 @@
 #include "asio/execution/operation_state.hpp"
 
 #include <string>
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "../unit_test.hpp"
 
 struct not_an_operation_state_1

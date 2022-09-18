@@ -26,7 +26,7 @@
 #endif // !defined(ASIO_WINDOWS) && !defined(__CYGWIN__)
 
 #include "asio/detail/socket_types.hpp"
-#include "asio/error_code.hpp"
+#include <system_error>
 
 #if defined(GENERATING_DOCUMENTATION)
 # define ASIO_OPTION_STORAGE implementation_defined

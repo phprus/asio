@@ -17,7 +17,7 @@
 #include "asio/execution/receiver.hpp"
 
 #include <string>
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "../unit_test.hpp"
 
 struct not_a_receiver

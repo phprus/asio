@@ -176,7 +176,6 @@ nobase_include_HEADERS = \
 	asio/detail/is_executor.hpp \
 	asio/detail/keyword_tss_ptr.hpp \
 	asio/detail/kqueue_reactor.hpp \
-	asio/detail/local_free_on_block_exit.hpp \
 	asio/detail/memory.hpp \
 	asio/detail/mutex.hpp \
 	asio/detail/non_const_lvalue.hpp \
@@ -320,7 +319,6 @@ nobase_include_HEADERS = \
 	asio/detail/work_dispatcher.hpp \
 	asio/detail/wrapped_handler.hpp \
 	asio/dispatch.hpp \
-	asio/error_code.hpp \
 	asio/error.hpp \
 	asio/execution.hpp \
 	asio/execution_context.hpp \
@@ -429,7 +427,6 @@ nobase_include_HEADERS = \
 	asio/impl/deferred.hpp \
 	asio/impl/detached.hpp \
 	asio/impl/dispatch.hpp \
-	asio/impl/error_code.ipp \
 	asio/impl/error.ipp \
 	asio/impl/execution_context.hpp \
 	asio/impl/execution_context.ipp \
