@@ -33,7 +33,7 @@ extern ASIO_DECL
 const std::error_category& get_ssl_category();
 
 static const std::error_category&
-  ssl_category ASIO_UNUSED_VARIABLE
+  ssl_category [[maybe_unused]]
   = asio::error::get_ssl_category();
 
 } // namespace error
@@ -70,7 +70,7 @@ extern ASIO_DECL
 const std::error_category& get_stream_category();
 
 static const std::error_category&
-  stream_category ASIO_UNUSED_VARIABLE
+  stream_category [[maybe_unused]]
   = asio::ssl::error::get_stream_category();
 
 } // namespace error

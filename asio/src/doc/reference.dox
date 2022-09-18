@@ -225,7 +225,6 @@ PREDEFINED             = GENERATING_DOCUMENTATION \
                          ASIO_CONST_BUFFER=const_buffer \
                          ASIO_MUTABLE_BUFFER=mutable_buffer \
                          ASIO_SYNC_OP_VOID=void \
-                         ASIO_UNUSED_VARIABLE= \
                          ASIO_UNSPECIFIED(e)=unspecified \
                          ASIO_EXECUTION_EXECUTOR=typename \
                          ASIO_EXECUTION_RECEIVER_OF_0=typename \
