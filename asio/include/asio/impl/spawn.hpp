@@ -770,8 +770,6 @@ public:
   typedef typename detail::spawn_handler<Executor, Signature> handler_type;
   typedef typename handler_type::return_type return_type;
 
-#if defined(ASIO_HAS_VARIADIC_LAMBDA_CAPTURES)
-
   template <typename Initiation, typename... InitArgs>
   static return_type initiate(ASIO_MOVE_ARG(Initiation) init,
       const basic_yield_context<Executor>& yield,
@@ -790,49 +788,6 @@ public:
 
     return handler_type::on_resume(result);
   }
-
-#else // defined(ASIO_HAS_VARIADIC_LAMBDA_CAPTURES)
-
-  template <typename Initiation, typename... InitArgs>
-  struct suspend_with_helper
-  {
-    typename handler_type::result_type& result_;
-    ASIO_MOVE_ARG(Initiation) init_;
-    const basic_yield_context<Executor>& yield_;
-    std::tuple<ASIO_MOVE_ARG(InitArgs)...> init_args_;
-
-    template <std::size_t... I>
-    void do_invoke(std::index_sequence<I...>)
-    {
-      ASIO_MOVE_CAST(Initiation)(init_)(
-          handler_type(yield_, result_),
-          ASIO_MOVE_CAST(InitArgs)(std::get<I>(init_args_))...);
-    }
-
-    void operator()()
-    {
-      this->do_invoke(std::make_index_sequence<sizeof...(InitArgs)>());
-    }
-  };
-
-  template <typename Initiation, typename... InitArgs>
-  static return_type initiate(ASIO_MOVE_ARG(Initiation) init,
-      const basic_yield_context<Executor>& yield,
-      ASIO_MOVE_ARG(InitArgs)... init_args)
-  {
-    typename handler_type::result_type result
-      = typename handler_type::result_type();
-
-    yield.spawned_thread_->suspend_with(
-      suspend_with_helper<Initiation, InitArgs...>{
-          result, ASIO_MOVE_CAST(Initiation)(init), yield,
-          std::tuple<ASIO_MOVE_ARG(InitArgs)...>(
-            ASIO_MOVE_CAST(InitArgs)(init_args)...)});
-
-    return handler_type::on_resume(result);
-  }
-
-#endif // defined(ASIO_HAS_VARIADIC_LAMBDA_CAPTURES)
 };
 
 namespace detail {
