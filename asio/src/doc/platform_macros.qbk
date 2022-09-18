@@ -45,13 +45,6 @@ needs.
     [`ASIO_DISABLE_BOOST_SOURCE_LOCATION`]
   ]
   [
-    [`ASIO_HAS_BOOST_THROW_EXCEPTION`]
-    [
-      Boost throw_exception function.
-    ]
-    [`ASIO_DISABLE_BOOST_THROW_EXCEPTION`]
-  ]
-  [
     [`ASIO_HAS_CLANG_LIBCXX`]
     [
       Clang / libc++ detection.
