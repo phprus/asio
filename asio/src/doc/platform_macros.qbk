@@ -262,13 +262,6 @@ needs.
     [`ASIO_DISABLE_STD_ALIGNED_ALLOC`]
   ]
   [
-    [`ASIO_HAS_STD_ANY`]
-    [
-      Standard library support for std::any.
-    ]
-    [`ASIO_DISABLE_STD_ANY`]
-  ]
-  [
     [`ASIO_HAS_STD_CONCEPTS`]
     [
       Support concepts on compilers known to allow them.

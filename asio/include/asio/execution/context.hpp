@@ -24,9 +24,7 @@
 #include "asio/traits/query_static_constexpr_member.hpp"
 #include "asio/traits/static_query.hpp"
 
-#if defined(ASIO_HAS_STD_ANY)
-# include <any>
-#endif // defined(ASIO_HAS_STD_ANY)
+#include <any>
 
 #include "asio/detail/push_options.hpp"
 
@@ -88,9 +86,7 @@ struct context_t
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = false);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = false);
 
-#if defined(ASIO_HAS_STD_ANY)
   typedef std::any polymorphic_query_result_type;
-#endif // defined(ASIO_HAS_STD_ANY)
 
   constexpr context_t()
   {
