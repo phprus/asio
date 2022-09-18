@@ -7,11 +7,7 @@
 
 [section:cpp2011 C++ 2011 Support]
 
-[/boostify: non-boost docs start here]
-
 [link asio.overview.cpp2011.system_error System Errors and Error Codes]
-
-[/boostify: non-boost docs end here]
 
 [link asio.overview.cpp2011.move_objects Movable I/O Objects]
 
@@ -27,8 +23,6 @@
 
 [link asio.overview.cpp2011.chrono Chrono]
 
-[/boostify: non-boost docs start here]
-
 [section:system_error System Errors and Error Codes]
 
 When available, Asio can use the `std::error_code` and `std::system_error`
@@ -38,8 +32,6 @@ classes for reporting errors. In this case, the names `std::error_code` and
 System error support is automatically enabled.
 
 [endsect]
-
-[/boostify: non-boost docs end here]
 
 [section:move_objects Movable I/O Objects]
 
