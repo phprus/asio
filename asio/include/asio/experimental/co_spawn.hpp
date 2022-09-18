@@ -20,8 +20,8 @@
 #include "asio/compose.hpp"
 #include "asio/detail/type_traits.hpp"
 #include "asio/experimental/coro.hpp"
-#include "asio/experimental/deferred.hpp"
-#include "asio/experimental/prepend.hpp"
+#include "asio/deferred.hpp"
+#include "asio/prepend.hpp"
 #include "asio/redirect_error.hpp"
 
 #include "asio/detail/push_options.hpp"
@@ -37,8 +37,8 @@ struct coro_spawn_op
 
   void operator()(auto& self)
   {
-    auto op = c.async_resume(deferred);
-    std::move(op)((prepend)(std::move(self), 0));
+    auto op = c.async_resume(asio::deferred);
+    std::move(op)((asio::prepend)(std::move(self), 0));
   }
 
   void operator()(auto& self, int, auto... res)
