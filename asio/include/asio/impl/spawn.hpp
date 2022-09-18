@@ -28,7 +28,7 @@
 #include "asio/detail/memory.hpp"
 #include "asio/detail/noncopyable.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/detail/utility.hpp"
+#include <utility>
 #include <system_error>
 
 #if defined(ASIO_HAS_STD_TUPLE)
@@ -809,7 +809,7 @@ public:
     std::tuple<ASIO_MOVE_ARG(InitArgs)...> init_args_;
 
     template <std::size_t... I>
-    void do_invoke(detail::index_sequence<I...>)
+    void do_invoke(std::index_sequence<I...>)
     {
       ASIO_MOVE_CAST(Initiation)(init_)(
           handler_type(yield_, result_),
@@ -818,7 +818,7 @@ public:
 
     void operator()()
     {
-      this->do_invoke(detail::make_index_sequence<sizeof...(InitArgs)>());
+      this->do_invoke(std::make_index_sequence<sizeof...(InitArgs)>());
     }
   };
 
