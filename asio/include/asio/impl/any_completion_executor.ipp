@@ -30,8 +30,8 @@ any_completion_executor::any_completion_executor() noexcept(true)
 {
 }
 
-any_completion_executor::any_completion_executor(nullptr_t) noexcept(true)
-  : base_type(nullptr_t())
+any_completion_executor::any_completion_executor(std::nullptr_t) noexcept(true)
+  : base_type(std::nullptr_t())
 {
 }
 
@@ -73,9 +73,9 @@ any_completion_executor& any_completion_executor::operator=(
   return *this;
 }
 
-any_completion_executor& any_completion_executor::operator=(nullptr_t)
+any_completion_executor& any_completion_executor::operator=(std::nullptr_t)
 {
-  base_type::operator=(nullptr_t());
+  base_type::operator=(std::nullptr_t());
   return *this;
 }
 

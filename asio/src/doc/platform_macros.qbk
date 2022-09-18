@@ -171,13 +171,6 @@ needs.
     [`ASIO_DISABLE_NOEXCEPT_FUNCTION_TYPE`]
   ]
   [
-    [`ASIO_HAS_NULLPTR`]
-    [
-      Standard library support for the nullptr_t type.
-    ]
-    [`ASIO_DISABLE_NULLPTR`]
-  ]
-  [
     [`ASIO_HAS_PIPE`]
     [
       Pipes.

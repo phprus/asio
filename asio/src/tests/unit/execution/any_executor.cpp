@@ -133,7 +133,7 @@ void any_executor_construction_test()
     > ex_two_props_t;
 
   thread_pool pool(1);
-  asio::nullptr_t null_ptr = asio::nullptr_t();
+  std::nullptr_t null_ptr = std::nullptr_t();
 
   ex_two_props_t ex_two_props_1;
 
@@ -444,7 +444,7 @@ void any_executor_nothrow_construction_test()
     > ex_two_props_t;
 
   thread_pool pool(1);
-  asio::nullptr_t null_ptr = asio::nullptr_t();
+  std::nullptr_t null_ptr = std::nullptr_t();
 
   ex_two_props_t ex_two_props_1;
 
@@ -776,7 +776,7 @@ void any_executor_assignment_test()
     > ex_two_props_t;
 
   thread_pool pool(1);
-  asio::nullptr_t null_ptr = asio::nullptr_t();
+  std::nullptr_t null_ptr = std::nullptr_t();
 
   ex_two_props_t ex_two_props_1;
 
