@@ -122,7 +122,7 @@ struct associated_cancellation_slot
  * @returns <tt>associated_cancellation_slot<T>::get(t)</tt>
  */
 template <typename T>
-ASIO_NODISCARD inline typename associated_cancellation_slot<T>::type
+[[nodiscard]] inline typename associated_cancellation_slot<T>::type
 get_associated_cancellation_slot(const T& t) noexcept(true)
 {
   return associated_cancellation_slot<T>::get(t);
@@ -134,7 +134,7 @@ get_associated_cancellation_slot(const T& t) noexcept(true)
  * CancellationSlot>::get(t, st)</tt>
  */
 template <typename T, typename CancellationSlot>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 typename associated_cancellation_slot<T, CancellationSlot>::type
 get_associated_cancellation_slot(const T& t,
     const CancellationSlot& st) noexcept(true)

@@ -114,7 +114,7 @@ public:
 /// Adapt a @ref completion_token to specify that the completion handler
 /// arguments should be combined into a single argument.
 template <typename CompletionToken>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 constexpr as_single_t<typename decay<CompletionToken>::type>
 as_single(ASIO_MOVE_ARG(CompletionToken) completion_token)
 {

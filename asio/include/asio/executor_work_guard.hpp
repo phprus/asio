@@ -246,7 +246,7 @@ private:
  * @returns A work guard constructed with the specified executor.
  */
 template <typename Executor>
-ASIO_NODISCARD inline executor_work_guard<Executor>
+[[nodiscard]] inline executor_work_guard<Executor>
 make_work_guard(const Executor& ex,
     typename constraint<
       is_executor<Executor>::value || execution::is_executor<Executor>::value
@@ -263,7 +263,7 @@ make_work_guard(const Executor& ex,
  * obtained by performing <tt>ctx.get_executor()</tt>.
  */
 template <typename ExecutionContext>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 executor_work_guard<typename ExecutionContext::executor_type>
 make_work_guard(ExecutionContext& ctx,
     typename constraint<
@@ -283,7 +283,7 @@ make_work_guard(ExecutionContext& ctx,
  * @c t, which is obtained as if by calling <tt>get_associated_executor(t)</tt>.
  */
 template <typename T>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 executor_work_guard<typename associated_executor<T>::type>
 make_work_guard(const T& t,
     typename constraint<
@@ -313,7 +313,7 @@ make_work_guard(const T& t,
  * ex)</tt>.
  */
 template <typename T, typename Executor>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 executor_work_guard<typename associated_executor<T, Executor>::type>
 make_work_guard(const T& t, const Executor& ex,
     typename constraint<
@@ -337,7 +337,7 @@ make_work_guard(const T& t, const Executor& ex,
  * ctx.get_executor())</tt>.
  */
 template <typename T, typename ExecutionContext>
-ASIO_NODISCARD inline executor_work_guard<typename associated_executor<T,
+[[nodiscard]] inline executor_work_guard<typename associated_executor<T,
   typename ExecutionContext::executor_type>::type>
 make_work_guard(const T& t, ExecutionContext& ctx,
     typename constraint<

@@ -124,7 +124,7 @@ struct associated_executor
  * @returns <tt>associated_executor<T>::get(t)</tt>
  */
 template <typename T>
-ASIO_NODISCARD inline typename associated_executor<T>::type
+[[nodiscard]] inline typename associated_executor<T>::type
 get_associated_executor(const T& t) noexcept(true)
 {
   return associated_executor<T>::get(t);
@@ -135,7 +135,7 @@ get_associated_executor(const T& t) noexcept(true)
  * @returns <tt>associated_executor<T, Executor>::get(t, ex)</tt>
  */
 template <typename T, typename Executor>
-ASIO_NODISCARD inline typename associated_executor<T, Executor>::type
+[[nodiscard]] inline typename associated_executor<T, Executor>::type
 get_associated_executor(const T& t, const Executor& ex,
     typename constraint<
       is_executor<Executor>::value || execution::is_executor<Executor>::value
@@ -150,7 +150,7 @@ get_associated_executor(const T& t, const Executor& ex,
  * ExecutionContext::executor_type>::get(t, ctx.get_executor())</tt>
  */
 template <typename T, typename ExecutionContext>
-ASIO_NODISCARD inline typename associated_executor<T,
+[[nodiscard]] inline typename associated_executor<T,
   typename ExecutionContext::executor_type>::type
 get_associated_executor(const T& t, ExecutionContext& ctx,
     typename constraint<is_convertible<ExecutionContext&,

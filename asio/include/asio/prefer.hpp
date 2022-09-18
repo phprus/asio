@@ -428,7 +428,7 @@ struct impl
   };
 
   template <typename T, typename Property>
-  ASIO_NODISCARD constexpr typename enable_if<
+  [[nodiscard]] constexpr typename enable_if<
     call_traits<impl, T, void(Property)>::overload == identity,
     typename call_traits<impl, T, void(Property)>::result_type
   >::type
@@ -442,7 +442,7 @@ struct impl
   }
 
   template <typename T, typename Property>
-  ASIO_NODISCARD constexpr typename enable_if<
+  [[nodiscard]] constexpr typename enable_if<
     call_traits<impl, T, void(Property)>::overload == call_require_member,
     typename call_traits<impl, T, void(Property)>::result_type
   >::type
@@ -457,7 +457,7 @@ struct impl
   }
 
   template <typename T, typename Property>
-  ASIO_NODISCARD constexpr typename enable_if<
+  [[nodiscard]] constexpr typename enable_if<
     call_traits<impl, T, void(Property)>::overload == call_require_free,
     typename call_traits<impl, T, void(Property)>::result_type
   >::type
@@ -473,7 +473,7 @@ struct impl
   }
 
   template <typename T, typename Property>
-  ASIO_NODISCARD constexpr typename enable_if<
+  [[nodiscard]] constexpr typename enable_if<
     call_traits<impl, T, void(Property)>::overload == call_prefer_member,
     typename call_traits<impl, T, void(Property)>::result_type
   >::type
@@ -488,7 +488,7 @@ struct impl
   }
 
   template <typename T, typename Property>
-  ASIO_NODISCARD constexpr typename enable_if<
+  [[nodiscard]] constexpr typename enable_if<
     call_traits<impl, T, void(Property)>::overload == call_prefer_free,
     typename call_traits<impl, T, void(Property)>::result_type
   >::type
@@ -504,7 +504,7 @@ struct impl
   }
 
   template <typename T, typename P0, typename P1>
-  ASIO_NODISCARD constexpr typename enable_if<
+  [[nodiscard]] constexpr typename enable_if<
     call_traits<impl, T, void(P0, P1)>::overload == two_props,
     typename call_traits<impl, T, void(P0, P1)>::result_type
   >::type
@@ -524,7 +524,7 @@ struct impl
 
   template <typename T, typename P0, typename P1,
     typename ... PN>
-  ASIO_NODISCARD constexpr typename enable_if<
+  [[nodiscard]] constexpr typename enable_if<
     call_traits<impl, T,
       void(P0, P1, PN ...)>::overload == n_props,
     typename call_traits<impl, T,

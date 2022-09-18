@@ -189,7 +189,7 @@ public:
  * @endcode
  */
 template <typename... Ops>
-ASIO_NODISCARD inline parallel_group<Ops...>
+[[nodiscard]] inline parallel_group<Ops...>
 make_parallel_group(Ops... ops)
 {
   return parallel_group<Ops...>(std::move(ops)...);
