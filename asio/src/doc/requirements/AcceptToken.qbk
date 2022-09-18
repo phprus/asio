@@ -15,7 +15,7 @@ token] for completion signature `void(error_code)`.
 A free function as a accept token:
 
   void accept_handler(
-      const asio::error_code& ec)
+      const std::error_code& ec)
   {
     ...
   }
@@ -26,7 +26,7 @@ A accept token function object:
   {
     ...
     void operator()(
-        const asio::error_code& ec)
+        const std::error_code& ec)
     {
       ...
     }
@@ -36,7 +36,7 @@ A accept token function object:
 A lambda as a accept token:
 
   acceptor.async_accept(...,
-      [](const asio::error_code& ec)
+      [](const std::error_code& ec)
       {
         ...
       });
@@ -45,7 +45,7 @@ A non-static class member function adapted to a accept token using
 `std::bind()`:
 
   void my_class::accept_handler(
-      const asio::error_code& ec)
+      const std::error_code& ec)
   {
     ...
   }
@@ -58,7 +58,7 @@ A non-static class member function adapted to a accept token using
 `std::bind()`:
 
   void my_class::accept_handler(
-      const asio::error_code& ec)
+      const std::error_code& ec)
   {
     ...
   }

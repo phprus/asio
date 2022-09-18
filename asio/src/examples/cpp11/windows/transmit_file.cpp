@@ -46,7 +46,7 @@ void transmit_file(tcp_socket& socket,
     // The operation completed immediately, so a completion notification needs
     // to be posted. When complete() is called, ownership of the OVERLAPPED-
     // derived object passes to the io_context.
-    asio::error_code ec(last_error,
+    std::error_code ec(last_error,
         asio::error::get_system_category());
     overlapped.complete(ec, 0);
   }
@@ -77,7 +77,7 @@ public:
 
   void start()
   {
-    asio::error_code ec;
+    std::error_code ec;
     file_.assign(::CreateFile(filename_.c_str(), GENERIC_READ, 0, 0,
           OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, 0), ec);
     if (file_.is_open())
@@ -97,10 +97,10 @@ private:
   {
   }
 
-  void handle_write(const asio::error_code& /*error*/,
+  void handle_write(const std::error_code& /*error*/,
       size_t /*bytes_transferred*/)
   {
-    asio::error_code ignored_ec;
+    std::error_code ignored_ec;
     socket_.shutdown(tcp_socket::shutdown_both, ignored_ec);
   }
 
@@ -132,7 +132,7 @@ private:
   }
 
   void handle_accept(connection::pointer new_connection,
-      const asio::error_code& error)
+      const std::error_code& error)
   {
     if (!error)
     {

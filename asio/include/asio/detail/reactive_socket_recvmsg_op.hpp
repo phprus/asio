@@ -36,7 +36,7 @@ template <typename MutableBufferSequence>
 class reactive_socket_recvmsg_op_base : public reactor_op
 {
 public:
-  reactive_socket_recvmsg_op_base(const asio::error_code& success_ec,
+  reactive_socket_recvmsg_op_base(const std::error_code& success_ec,
       socket_type socket, const MutableBufferSequence& buffers,
       socket_base::message_flags in_flags,
       socket_base::message_flags& out_flags, func_type complete_func)
@@ -82,7 +82,7 @@ class reactive_socket_recvmsg_op :
 public:
   ASIO_DEFINE_HANDLER_PTR(reactive_socket_recvmsg_op);
 
-  reactive_socket_recvmsg_op(const asio::error_code& success_ec,
+  reactive_socket_recvmsg_op(const std::error_code& success_ec,
       socket_type socket, const MutableBufferSequence& buffers,
       socket_base::message_flags in_flags,
       socket_base::message_flags& out_flags, Handler& handler,
@@ -96,7 +96,7 @@ public:
   }
 
   static void do_complete(void* owner, operation* base,
-      const asio::error_code& /*ec*/,
+      const std::error_code& /*ec*/,
       std::size_t /*bytes_transferred*/)
   {
     // Take ownership of the handler object.
@@ -119,7 +119,7 @@ public:
     // with the handler. Consequently, a local copy of the handler is required
     // to ensure that any owning sub-object remains valid until after we have
     // deallocated the memory here.
-    detail::binder2<Handler, asio::error_code, std::size_t>
+    detail::binder2<Handler, std::error_code, std::size_t>
       handler(o->handler_, o->ec_, o->bytes_transferred_);
     p.h = asio::detail::addressof(handler.handler_);
     p.reset();

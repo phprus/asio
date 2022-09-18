@@ -20,7 +20,7 @@ requirements, and `ec` denotes an object of type `error_code`.
     [`size_t`]
     [Equivalent to:
      ``
-       error_code ec;
+       std::error_code ec;
        size_t s = a.read_some_at(o, mb, ec);
        if (ec) throw system_error(ec);
        return s;

@@ -101,7 +101,7 @@ void endpoint::resize(std::size_t new_size)
 {
   if (new_size > sizeof(asio::detail::sockaddr_storage_type))
   {
-    asio::error_code ec(asio::error::invalid_argument);
+    std::error_code ec(asio::error::invalid_argument);
     asio::detail::throw_error(ec);
   }
 }

@@ -29,7 +29,7 @@
 
 namespace signal_set_compile {
 
-void signal_handler(const asio::error_code&, int)
+void signal_handler(const std::error_code&, int)
 {
 }
 
@@ -42,7 +42,7 @@ void test()
     io_context ioc;
     const io_context::executor_type ioc_ex = ioc.get_executor();
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
 
     // basic_signal_set constructors.
 

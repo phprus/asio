@@ -43,7 +43,7 @@
   timer1->expires_after(std::chrono::seconds(1));
   timer1->async_wait(
       asio::consign(
-        [](asio::error_code ec)
+        [](std::error_code ec)
         {
           // ...
         },
@@ -59,7 +59,7 @@
   // Header file:
 
   void async_sleep_impl(
-      asio::any_completion_handler<void(asio::error_code)> handler,
+      asio::any_completion_handler<void(std::error_code)> handler,
       asio::any_io_executor ex, std::chrono::nanoseconds duration);
 
   template <typename CompletionToken>
@@ -67,14 +67,14 @@
       std::chrono::nanoseconds duration, CompletionToken&& token)
   {
     return asio::async_initiate<
-      CompletionToken, void(asio::error_code)>(
+      CompletionToken, void(std::error_code)>(
         async_sleep_impl, token, std::move(ex), duration);
   }
 
   // Separately compiled source file:
 
   void async_sleep_impl(
-      asio::any_completion_handler<void(asio::error_code)> handler,
+      asio::any_completion_handler<void(std::error_code)> handler,
       asio::any_io_executor ex, std::chrono::nanoseconds duration)
   {
     auto timer = std::make_shared<asio::steady_timer>(ex, duration);
@@ -92,9 +92,9 @@
       CompletionToken&& token)
   {
     return asio::async_initiate<
-      CompletionToken, void(asio::error_code)>(
+      CompletionToken, void(std::error_code)>(
         asio::experimental::co_composed<
-          void(asio::error_code)>(
+          void(std::error_code)>(
             [](auto state, tcp::socket& socket) -> void
             {
               try
@@ -113,7 +113,7 @@
                       asio::buffer(data, n), asio::deferred);
                 }
               }
-              catch (const asio::system_error& e)
+              catch (const std::system_error& e)
               {
                 co_return {e.code()};
               }
@@ -151,7 +151,7 @@
       asio::experimental::wait_for_all(),
       [](
           std::vector<std::size_t> completion_order,
-          std::vector<asio::error_code> e,
+          std::vector<std::error_code> e,
           std::vector<std::size_t> n
         )
       {

@@ -28,7 +28,7 @@ void unbuffered_channel_test()
 {
   io_context ctx;
 
-  channel<void(asio::error_code, std::string)> ch1(ctx);
+  channel<void(std::error_code, std::string)> ch1(ctx);
 
   ASIO_CHECK(ch1.is_open());
   ASIO_CHECK(!ch1.ready());
@@ -43,10 +43,10 @@ void unbuffered_channel_test()
   ASIO_CHECK(!b2);
   ASIO_CHECK(!s1.empty());
 
-  asio::error_code ec1;
+  std::error_code ec1;
   std::string s2;
   ch1.async_receive(
-      [&](asio::error_code ec, std::string s)
+      [&](std::error_code ec, std::string s)
       {
         ec1 = ec;
         s2 = std::move(s);
@@ -62,22 +62,22 @@ void unbuffered_channel_test()
   ASIO_CHECK(ec1 == asio::error::eof);
   ASIO_CHECK(s2 == "abcdefghijklmnopqrstuvwxyz");
 
-  bool b4 = ch1.try_receive([](asio::error_code, std::string){});
+  bool b4 = ch1.try_receive([](std::error_code, std::string){});
 
   ASIO_CHECK(!b4);
 
-  asio::error_code ec2 = asio::error::would_block;
+  std::error_code ec2 = asio::error::would_block;
   std::string s3 = "zyxwvutsrqponmlkjihgfedcba";
   ch1.async_send(asio::error::eof, std::move(s3),
-      [&](asio::error_code ec)
+      [&](std::error_code ec)
       {
         ec2 = ec;
       });
 
-  asio::error_code ec3;
+  std::error_code ec3;
   std::string s4;
   bool b5 = ch1.try_receive(
-      [&](asio::error_code ec, std::string s)
+      [&](std::error_code ec, std::string s)
       {
         ec3 = ec;
         s4 = s;
@@ -97,7 +97,7 @@ void buffered_channel_test()
 {
   io_context ctx;
 
-  channel<void(asio::error_code, std::string)> ch1(ctx, 1);
+  channel<void(std::error_code, std::string)> ch1(ctx, 1);
 
   ASIO_CHECK(ch1.is_open());
   ASIO_CHECK(!ch1.ready());
@@ -112,10 +112,10 @@ void buffered_channel_test()
   ASIO_CHECK(!b2);
   ASIO_CHECK(!s1.empty());
 
-  asio::error_code ec1;
+  std::error_code ec1;
   std::string s2;
   ch1.async_receive(
-      [&](asio::error_code ec, std::string s)
+      [&](std::error_code ec, std::string s)
       {
         ec1 = ec;
         s2 = std::move(s);
@@ -126,22 +126,22 @@ void buffered_channel_test()
   ASIO_CHECK(ec1 == asio::error::eof);
   ASIO_CHECK(s2 == "hello");
 
-  bool b4 = ch1.try_receive([](asio::error_code, std::string){});
+  bool b4 = ch1.try_receive([](std::error_code, std::string){});
 
   ASIO_CHECK(!b4);
 
-  asio::error_code ec2 = asio::error::would_block;
+  std::error_code ec2 = asio::error::would_block;
   std::string s3 = "zyxwvutsrqponmlkjihgfedcba";
   ch1.async_send(asio::error::eof, std::move(s3),
-      [&](asio::error_code ec)
+      [&](std::error_code ec)
       {
         ec2 = ec;
       });
 
-  asio::error_code ec3;
+  std::error_code ec3;
   std::string s4;
   bool b5 = ch1.try_receive(
-      [&](asio::error_code ec, std::string s)
+      [&](std::error_code ec, std::string s)
       {
         ec3 = ec;
         s4 = s;
@@ -161,7 +161,7 @@ void buffered_error_channel_test()
 {
   io_context ctx;
 
-  channel<void(asio::error_code)> ch1(ctx, 1);
+  channel<void(std::error_code)> ch1(ctx, 1);
 
   ASIO_CHECK(ch1.is_open());
   ASIO_CHECK(!ch1.ready());
@@ -174,9 +174,9 @@ void buffered_error_channel_test()
 
   ASIO_CHECK(!b2);
 
-  asio::error_code ec1;
+  std::error_code ec1;
   ch1.async_receive(
-      [&](asio::error_code ec)
+      [&](std::error_code ec)
       {
         ec1 = ec;
       });
@@ -185,20 +185,20 @@ void buffered_error_channel_test()
 
   ASIO_CHECK(ec1 == asio::error::eof);
 
-  bool b4 = ch1.try_receive([](asio::error_code){});
+  bool b4 = ch1.try_receive([](std::error_code){});
 
   ASIO_CHECK(!b4);
 
-  asio::error_code ec2 = asio::error::would_block;
+  std::error_code ec2 = asio::error::would_block;
   ch1.async_send(asio::error::eof,
-      [&](asio::error_code ec)
+      [&](std::error_code ec)
       {
         ec2 = ec;
       });
 
-  asio::error_code ec3;
+  std::error_code ec3;
   bool b5 = ch1.try_receive(
-      [&](asio::error_code ec)
+      [&](std::error_code ec)
       {
         ec3 = ec;
       });

@@ -191,7 +191,7 @@ void handler_tracking::completion::invocation_begin()
 }
 
 void handler_tracking::completion::invocation_begin(
-    const asio::error_code& ec)
+    const std::error_code& ec)
 {
   handler_tracking_timestamp timestamp;
 
@@ -208,7 +208,7 @@ void handler_tracking::completion::invocation_begin(
 }
 
 void handler_tracking::completion::invocation_begin(
-    const asio::error_code& ec, std::size_t bytes_transferred)
+    const std::error_code& ec, std::size_t bytes_transferred)
 {
   handler_tracking_timestamp timestamp;
 
@@ -226,7 +226,7 @@ void handler_tracking::completion::invocation_begin(
 }
 
 void handler_tracking::completion::invocation_begin(
-    const asio::error_code& ec, int signal_number)
+    const std::error_code& ec, int signal_number)
 {
   handler_tracking_timestamp timestamp;
 
@@ -243,7 +243,7 @@ void handler_tracking::completion::invocation_begin(
 }
 
 void handler_tracking::completion::invocation_begin(
-    const asio::error_code& ec, const char* arg)
+    const std::error_code& ec, const char* arg)
 {
   handler_tracking_timestamp timestamp;
 
@@ -316,7 +316,7 @@ void handler_tracking::reactor_events(execution_context& /*context*/,
 
 void handler_tracking::reactor_operation(
     const tracked_handler& h, const char* op_name,
-    const asio::error_code& ec)
+    const std::error_code& ec)
 {
   handler_tracking_timestamp timestamp;
 
@@ -332,7 +332,7 @@ void handler_tracking::reactor_operation(
 
 void handler_tracking::reactor_operation(
     const tracked_handler& h, const char* op_name,
-    const asio::error_code& ec, std::size_t bytes_transferred)
+    const std::error_code& ec, std::size_t bytes_transferred)
 {
   handler_tracking_timestamp timestamp;
 

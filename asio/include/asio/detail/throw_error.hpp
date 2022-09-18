@@ -25,16 +25,16 @@ namespace asio {
 namespace detail {
 
 ASIO_DECL void do_throw_error(
-    const asio::error_code& err
+    const std::error_code& err
     ASIO_SOURCE_LOCATION_PARAM);
 
 ASIO_DECL void do_throw_error(
-    const asio::error_code& err,
+    const std::error_code& err,
     const char* location
     ASIO_SOURCE_LOCATION_PARAM);
 
 inline void throw_error(
-    const asio::error_code& err
+    const std::error_code& err
     ASIO_SOURCE_LOCATION_DEFAULTED_PARAM)
 {
   if (err)
@@ -42,7 +42,7 @@ inline void throw_error(
 }
 
 inline void throw_error(
-    const asio::error_code& err,
+    const std::error_code& err,
     const char* location
     ASIO_SOURCE_LOCATION_DEFAULTED_PARAM)
 {

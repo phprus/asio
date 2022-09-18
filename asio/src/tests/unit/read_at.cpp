@@ -107,9 +107,9 @@ public:
 
   template <typename Mutable_Buffers>
   size_t read_some_at(asio::uint64_t offset,
-      const Mutable_Buffers& buffers, asio::error_code& ec)
+      const Mutable_Buffers& buffers, std::error_code& ec)
   {
-    ec = asio::error_code();
+    ec = std::error_code();
     return read_some_at(offset, buffers);
   }
 
@@ -121,7 +121,7 @@ public:
     asio::post(get_executor(),
         asio::detail::bind_handler(
           ASIO_MOVE_CAST(Handler)(handler),
-          asio::error_code(), bytes_transferred));
+          std::error_code(), bytes_transferred));
   }
 
 private:
@@ -297,7 +297,7 @@ void test_4_arg_nothrow_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  asio::error_code error;
+  std::error_code error;
   size_t bytes_transferred = asio::read_at(s, 0, buffers, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
   ASIO_CHECK(s.check_buffers(0, buffers, sizeof(read_data)));
@@ -354,7 +354,7 @@ void test_4_arg_nothrow_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  asio::error_code error;
+  std::error_code error;
   size_t bytes_transferred = asio::read_at(s, 0, buffers, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
   ASIO_CHECK(s.check_buffers(0, buffers, sizeof(read_data)));
@@ -408,7 +408,7 @@ void test_4_arg_nothrow_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  asio::error_code error;
+  std::error_code error;
   size_t bytes_transferred = asio::read_at(s, 0, sb, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
   ASIO_CHECK(sb.size() == sizeof(read_data));
@@ -460,7 +460,7 @@ void test_4_arg_nothrow_streambuf_read_at()
   ASIO_CHECK(!error);
 }
 
-bool old_style_transfer_all(const asio::error_code& ec,
+bool old_style_transfer_all(const std::error_code& ec,
     size_t /*bytes_transferred*/)
 {
   return !!ec;
@@ -470,7 +470,7 @@ struct short_transfer
 {
   short_transfer() {}
   short_transfer(short_transfer&&) {}
-  size_t operator()(const asio::error_code& ec,
+  size_t operator()(const std::error_code& ec,
       size_t /*bytes_transferred*/)
   {
     return !!ec ? 0 : 3;
@@ -1791,7 +1791,7 @@ void test_5_arg_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  asio::error_code error;
+  std::error_code error;
   size_t bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -1809,7 +1809,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -1819,7 +1819,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -1829,7 +1829,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -1839,7 +1839,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -1848,7 +1848,7 @@ void test_5_arg_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -1857,7 +1857,7 @@ void test_5_arg_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -1867,7 +1867,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -1877,7 +1877,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -1887,7 +1887,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -1897,7 +1897,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -1906,7 +1906,7 @@ void test_5_arg_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -1915,7 +1915,7 @@ void test_5_arg_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -1925,7 +1925,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -1935,7 +1935,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -1945,7 +1945,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -1955,7 +1955,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -1964,7 +1964,7 @@ void test_5_arg_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -1973,7 +1973,7 @@ void test_5_arg_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -1983,7 +1983,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -1993,7 +1993,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2003,7 +2003,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == 50);
@@ -2013,7 +2013,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == 50);
@@ -2022,7 +2022,7 @@ void test_5_arg_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2031,7 +2031,7 @@ void test_5_arg_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2041,7 +2041,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2051,7 +2051,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2061,7 +2061,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2071,7 +2071,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2080,7 +2080,7 @@ void test_5_arg_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2089,7 +2089,7 @@ void test_5_arg_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2099,7 +2099,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2109,7 +2109,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2119,7 +2119,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2129,7 +2129,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2138,7 +2138,7 @@ void test_5_arg_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2147,7 +2147,7 @@ void test_5_arg_mutable_buffer_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2157,7 +2157,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2167,7 +2167,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2177,7 +2177,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2187,7 +2187,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2213,7 +2213,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       old_style_transfer_all, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2223,7 +2223,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       old_style_transfer_all, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2233,7 +2233,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       old_style_transfer_all, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2243,7 +2243,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       old_style_transfer_all, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2269,7 +2269,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       short_transfer(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2279,7 +2279,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       short_transfer(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2289,7 +2289,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       short_transfer(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2299,7 +2299,7 @@ void test_5_arg_mutable_buffer_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       short_transfer(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2318,7 +2318,7 @@ void test_5_arg_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  asio::error_code error;
+  std::error_code error;
   size_t bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2336,7 +2336,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2346,7 +2346,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2356,7 +2356,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2366,7 +2366,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2375,7 +2375,7 @@ void test_5_arg_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2384,7 +2384,7 @@ void test_5_arg_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2394,7 +2394,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2404,7 +2404,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2414,7 +2414,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2424,7 +2424,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2433,7 +2433,7 @@ void test_5_arg_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2442,7 +2442,7 @@ void test_5_arg_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2452,7 +2452,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2462,7 +2462,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2472,7 +2472,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2482,7 +2482,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2491,7 +2491,7 @@ void test_5_arg_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2500,7 +2500,7 @@ void test_5_arg_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2510,7 +2510,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2520,7 +2520,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2530,7 +2530,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == 50);
@@ -2540,7 +2540,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == 50);
@@ -2549,7 +2549,7 @@ void test_5_arg_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2558,7 +2558,7 @@ void test_5_arg_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2568,7 +2568,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2578,7 +2578,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2588,7 +2588,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2598,7 +2598,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2607,7 +2607,7 @@ void test_5_arg_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2616,7 +2616,7 @@ void test_5_arg_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2626,7 +2626,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2636,7 +2636,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2646,7 +2646,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2656,7 +2656,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2665,7 +2665,7 @@ void test_5_arg_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2674,7 +2674,7 @@ void test_5_arg_vector_buffers_read_at()
 
   s.reset(read_data, sizeof(read_data));
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2684,7 +2684,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2694,7 +2694,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2704,7 +2704,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2714,7 +2714,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -2740,7 +2740,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       old_style_transfer_all, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2750,7 +2750,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       old_style_transfer_all, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2760,7 +2760,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       old_style_transfer_all, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2770,7 +2770,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       old_style_transfer_all, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2796,7 +2796,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       short_transfer(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2806,7 +2806,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       short_transfer(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2816,7 +2816,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, buffers,
       short_transfer(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2826,7 +2826,7 @@ void test_5_arg_vector_buffers_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   memset(read_buf, 0, sizeof(read_buf));
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, buffers,
       short_transfer(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2842,7 +2842,7 @@ void test_5_arg_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  asio::error_code error;
+  std::error_code error;
   size_t bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2862,7 +2862,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2873,7 +2873,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2884,7 +2884,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2895,7 +2895,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_all(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2905,7 +2905,7 @@ void test_5_arg_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2915,7 +2915,7 @@ void test_5_arg_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2926,7 +2926,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2937,7 +2937,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -2948,7 +2948,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2959,7 +2959,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_at_least(1), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -2969,7 +2969,7 @@ void test_5_arg_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2979,7 +2979,7 @@ void test_5_arg_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -2990,7 +2990,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -3001,7 +3001,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -3012,7 +3012,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -3023,7 +3023,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_at_least(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -3033,7 +3033,7 @@ void test_5_arg_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -3043,7 +3043,7 @@ void test_5_arg_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -3054,7 +3054,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -3065,7 +3065,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -3076,7 +3076,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == 50);
@@ -3087,7 +3087,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_at_least(42), error);
   ASIO_CHECK(bytes_transferred == 50);
@@ -3097,7 +3097,7 @@ void test_5_arg_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -3107,7 +3107,7 @@ void test_5_arg_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -3118,7 +3118,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -3129,7 +3129,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -3140,7 +3140,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -3151,7 +3151,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_exactly(1), error);
   ASIO_CHECK(bytes_transferred == 1);
@@ -3161,7 +3161,7 @@ void test_5_arg_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -3171,7 +3171,7 @@ void test_5_arg_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -3182,7 +3182,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -3193,7 +3193,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -3204,7 +3204,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -3215,7 +3215,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_exactly(10), error);
   ASIO_CHECK(bytes_transferred == 10);
@@ -3225,7 +3225,7 @@ void test_5_arg_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -3235,7 +3235,7 @@ void test_5_arg_streambuf_read_at()
 
   s.reset(read_data, sizeof(read_data));
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -3246,7 +3246,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -3257,7 +3257,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -3268,7 +3268,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -3279,7 +3279,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       asio::transfer_exactly(42), error);
   ASIO_CHECK(bytes_transferred == 42);
@@ -3308,7 +3308,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       old_style_transfer_all, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -3319,7 +3319,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       old_style_transfer_all, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -3330,7 +3330,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       old_style_transfer_all, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -3341,7 +3341,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       old_style_transfer_all, error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -3370,7 +3370,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       short_transfer(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -3381,7 +3381,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       short_transfer(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -3392,7 +3392,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 0, sb,
       short_transfer(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -3403,7 +3403,7 @@ void test_5_arg_streambuf_read_at()
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
   sb.consume(sb.size());
-  error = asio::error_code();
+  error = std::error_code();
   bytes_transferred = asio::read_at(s, 1234, sb,
       short_transfer(), error);
   ASIO_CHECK(bytes_transferred == sizeof(read_data));
@@ -3412,7 +3412,7 @@ void test_5_arg_streambuf_read_at()
   ASIO_CHECK(!error);
 }
 
-void async_read_handler(const asio::error_code& e,
+void async_read_handler(const std::error_code& e,
     size_t bytes_transferred, size_t expected_bytes_transferred, bool* called)
 {
   *called = true;

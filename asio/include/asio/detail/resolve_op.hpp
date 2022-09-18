@@ -28,7 +28,7 @@ class resolve_op : public operation
 {
 public:
   // The error code to be passed to the completion handler.
-  asio::error_code ec_;
+  std::error_code ec_;
 
 protected:
   resolve_op(func_type complete_func)

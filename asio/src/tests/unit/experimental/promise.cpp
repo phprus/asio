@@ -41,10 +41,10 @@ void promise_tester()
   auto p = timer1.async_wait(experimental::use_promise);
 
   steady_clock::time_point completed_when;
-  asio::error_code ec;
+  std::error_code ec;
   bool called = false;
 
-  p([&](asio::error_code ec_)
+  p([&](std::error_code ec_)
       {
         ec = ec_;
         called = true;
@@ -53,7 +53,7 @@ void promise_tester()
 
   steady_clock::time_point timer2_done;
   timer2.async_wait(
-      [&](asio::error_code)
+      [&](std::error_code)
       {
         timer2_done = steady_clock::now();
         p.cancel();
@@ -86,14 +86,14 @@ void promise_slot_tester()
   auto p = timer1.async_wait(experimental::use_promise);
 
   steady_clock::time_point completed_when;
-  asio::error_code ec;
+  std::error_code ec;
   bool called = false;
 
   asio::cancellation_signal sig;
 
   p(asio::bind_cancellation_slot(
         sig.slot(),
-        [&](asio::error_code ec_)
+        [&](std::error_code ec_)
         {
           ec = ec_;
           called = true;
@@ -102,7 +102,7 @@ void promise_slot_tester()
 
   steady_clock::time_point timer2_done;
   timer2.async_wait(
-      [&](asio::error_code)
+      [&](std::error_code)
       {
         timer2_done = steady_clock::now();
         sig.emit(asio::cancellation_type::all);
@@ -142,7 +142,7 @@ void early_completion()
 struct test_cancel_impl_op
 {
   asio::steady_timer & tim;
-  asio::error_code &ec;
+  std::error_code &ec;
   template<typename Self>
   void operator()(Self& self)
   {
@@ -150,7 +150,7 @@ struct test_cancel_impl_op
   }
 
   template<typename Self>
-  void operator()(Self& self, asio::error_code ec_)
+  void operator()(Self& self, std::error_code ec_)
   {
     ec = ec_;
     self.complete(ec_);
@@ -159,12 +159,12 @@ struct test_cancel_impl_op
 
 template <typename CompletionToken>
 ASIO_INITFN_AUTO_RESULT_TYPE(
-    CompletionToken, void(asio::error_code))
+    CompletionToken, void(std::error_code))
 test_cancel_impl(asio::steady_timer & tim,
-                 asio::error_code &ec,
+                 std::error_code &ec,
                  CompletionToken&& token)
 {
-  return asio::async_compose<CompletionToken, void(asio::error_code)>(
+  return asio::async_compose<CompletionToken, void(std::error_code)>(
       test_cancel_impl_op{tim, ec}, token, tim);
 }
 
@@ -172,7 +172,7 @@ void test_cancel()
 {
   asio::io_context ctx;
   asio::steady_timer tim{ctx, std::chrono::seconds(10)};
-  asio::error_code ec;
+  std::error_code ec;
 
   {
     auto p = test_cancel_impl(

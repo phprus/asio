@@ -22,7 +22,7 @@
 #include "asio/detail/handler_cont_helpers.hpp"
 #include "asio/detail/handler_invoke_helpers.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/system_error.hpp"
+#include <system_error>
 
 #include "asio/detail/push_options.hpp"
 
@@ -44,7 +44,7 @@ public:
   }
 
   template <typename RedirectedHandler>
-  redirect_error_handler(asio::error_code& ec,
+  redirect_error_handler(std::error_code& ec,
       ASIO_MOVE_ARG(RedirectedHandler) h)
     : ec_(ec),
       handler_(ASIO_MOVE_CAST(RedirectedHandler)(h))
@@ -58,7 +58,7 @@ public:
 
   template <typename Arg, typename... Args>
   typename enable_if<
-    !is_same<typename decay<Arg>::type, asio::error_code>::value
+    !is_same<typename decay<Arg>::type, std::error_code>::value
   >::type
   operator()(ASIO_MOVE_ARG(Arg) arg, ASIO_MOVE_ARG(Args)... args)
   {
@@ -68,7 +68,7 @@ public:
   }
 
   template <typename... Args>
-  void operator()(const asio::error_code& ec,
+  void operator()(const std::error_code& ec,
       ASIO_MOVE_ARG(Args)... args)
   {
     ec_ = ec;
@@ -77,7 +77,7 @@ public:
   }
 
 //private:
-  asio::error_code& ec_;
+  std::error_code& ec_;
   Handler handler_;
 };
 
@@ -146,37 +146,37 @@ struct redirect_error_signature
 };
 
 template <typename R, typename... Args>
-struct redirect_error_signature<R(asio::error_code, Args...)>
+struct redirect_error_signature<R(std::error_code, Args...)>
 {
   typedef R type(Args...);
 };
 
 template <typename R, typename... Args>
-struct redirect_error_signature<R(const asio::error_code&, Args...)>
+struct redirect_error_signature<R(const std::error_code&, Args...)>
 {
   typedef R type(Args...);
 };
 
 template <typename R, typename... Args>
-struct redirect_error_signature<R(asio::error_code, Args...) &>
+struct redirect_error_signature<R(std::error_code, Args...) &>
 {
   typedef R type(Args...) &;
 };
 
 template <typename R, typename... Args>
-struct redirect_error_signature<R(const asio::error_code&, Args...) &>
+struct redirect_error_signature<R(const std::error_code&, Args...) &>
 {
   typedef R type(Args...) &;
 };
 
 template <typename R, typename... Args>
-struct redirect_error_signature<R(asio::error_code, Args...) &&>
+struct redirect_error_signature<R(std::error_code, Args...) &&>
 {
   typedef R type(Args...) &&;
 };
 
 template <typename R, typename... Args>
-struct redirect_error_signature<R(const asio::error_code&, Args...) &&>
+struct redirect_error_signature<R(const std::error_code&, Args...) &&>
 {
   typedef R type(Args...) &&;
 };
@@ -185,42 +185,42 @@ struct redirect_error_signature<R(const asio::error_code&, Args...) &&>
 
 template <typename R, typename... Args>
 struct redirect_error_signature<
-  R(asio::error_code, Args...) noexcept>
+  R(std::error_code, Args...) noexcept>
 {
   typedef R type(Args...) & noexcept;
 };
 
 template <typename R, typename... Args>
 struct redirect_error_signature<
-  R(const asio::error_code&, Args...) noexcept>
+  R(const std::error_code&, Args...) noexcept>
 {
   typedef R type(Args...) & noexcept;
 };
 
 template <typename R, typename... Args>
 struct redirect_error_signature<
-  R(asio::error_code, Args...) & noexcept>
+  R(std::error_code, Args...) & noexcept>
 {
   typedef R type(Args...) & noexcept;
 };
 
 template <typename R, typename... Args>
 struct redirect_error_signature<
-  R(const asio::error_code&, Args...) & noexcept>
+  R(const std::error_code&, Args...) & noexcept>
 {
   typedef R type(Args...) & noexcept;
 };
 
 template <typename R, typename... Args>
 struct redirect_error_signature<
-  R(asio::error_code, Args...) && noexcept>
+  R(std::error_code, Args...) && noexcept>
 {
   typedef R type(Args...) && noexcept;
 };
 
 template <typename R, typename... Args>
 struct redirect_error_signature<
-  R(const asio::error_code&, Args...) && noexcept>
+  R(const std::error_code&, Args...) && noexcept>
 {
   typedef R type(Args...) && noexcept;
 };
@@ -242,7 +242,7 @@ struct async_result<redirect_error_t<CompletionToken>, Signature>
   struct init_wrapper
   {
     template <typename Init>
-    init_wrapper(asio::error_code& ec, ASIO_MOVE_ARG(Init) init)
+    init_wrapper(std::error_code& ec, ASIO_MOVE_ARG(Init) init)
       : ec_(ec),
         initiation_(ASIO_MOVE_CAST(Init)(init))
     {
@@ -260,7 +260,7 @@ struct async_result<redirect_error_t<CompletionToken>, Signature>
           ASIO_MOVE_CAST(Args)(args)...);
     }
 
-    asio::error_code& ec_;
+    std::error_code& ec_;
     Initiation initiation_;
   };
 

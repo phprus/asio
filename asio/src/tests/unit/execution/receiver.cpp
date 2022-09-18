@@ -292,37 +292,37 @@ void is_receiver_test()
   ASIO_CHECK((
       !asio::execution::is_receiver<
         void,
-        asio::error_code
+        std::error_code
       >::value));
 
   ASIO_CHECK((
       !asio::execution::is_receiver<
         not_a_receiver,
-        asio::error_code
+        std::error_code
       >::value));
 
   ASIO_CHECK((
       asio::execution::is_receiver<
         receiver,
-        asio::error_code
+        std::error_code
       >::value));
 
   ASIO_CHECK((
       asio::execution::is_receiver<
         receiver_of_0,
-        asio::error_code
+        std::error_code
       >::value));
 
   ASIO_CHECK((
       asio::execution::is_receiver<
         receiver_of_1,
-        asio::error_code
+        std::error_code
       >::value));
 
   ASIO_CHECK((
       asio::execution::is_receiver<
         receiver_of_2,
-        asio::error_code
+        std::error_code
       >::value));
 }
 

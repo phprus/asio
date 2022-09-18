@@ -34,9 +34,9 @@ enum channel_errors
 };
 
 extern ASIO_DECL
-const asio::error_category& get_channel_category();
+const std::error_category& get_channel_category();
 
-static const asio::error_category&
+static const std::error_category&
   channel_category ASIO_UNUSED_VARIABLE
   = asio::experimental::error::get_channel_category();
 
@@ -49,7 +49,6 @@ namespace channel_errc {
 } // namespace experimental
 } // namespace asio
 
-#if defined(ASIO_HAS_STD_SYSTEM_ERROR)
 namespace std {
 
 template<> struct is_error_code_enum<
@@ -59,15 +58,14 @@ template<> struct is_error_code_enum<
 };
 
 } // namespace std
-#endif // defined(ASIO_HAS_STD_SYSTEM_ERROR)
 
 namespace asio {
 namespace experimental {
 namespace error {
 
-inline asio::error_code make_error_code(channel_errors e)
+inline std::error_code make_error_code(channel_errors e)
 {
-  return asio::error_code(
+  return std::error_code(
       static_cast<int>(e), get_channel_category());
 }
 

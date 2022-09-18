@@ -182,7 +182,6 @@
 #include "asio/stream_file.hpp"
 #include "asio/streambuf.hpp"
 #include "asio/system_context.hpp"
-#include "asio/system_error.hpp"
 #include "asio/system_executor.hpp"
 #include "asio/system_timer.hpp"
 #include "asio/this_coro.hpp"

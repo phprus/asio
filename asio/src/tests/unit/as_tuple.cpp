@@ -34,7 +34,7 @@ void as_tuple_test()
   timer1.async_wait(
       asio::as_tuple(
         asio::bind_executor(io2.get_executor(),
-          [&count](std::tuple<asio::error_code>)
+          [&count](std::tuple<std::error_code>)
           {
             ++count;
           })));

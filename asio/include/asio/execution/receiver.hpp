@@ -69,7 +69,7 @@ struct is_receiver_base :
 # define ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT = std::exception_ptr
 #else // defined(ASIO_HAS_STD_EXCEPTION_PTR)
 # define ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT \
-  = ::asio::error_code
+  = std::error_code
 #endif // defined(ASIO_HAS_STD_EXCEPTION_PTR)
 
 /// The is_receiver trait detects whether a type T satisfies the
