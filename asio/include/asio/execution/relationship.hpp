@@ -251,8 +251,7 @@ struct relationship_t
     traits::query_static_constexpr_member<
       typename static_proxy<T>::type, relationship_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -305,7 +304,6 @@ struct relationship_t
   static constexpr const T static_query_v
     = relationship_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   friend constexpr bool operator==(
       const relationship_t& a, const relationship_t& b)
@@ -375,12 +373,10 @@ private:
   int value_;
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T relationship_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 template <int I>
 const typename relationship_t<I>::fork_t
@@ -428,8 +424,7 @@ struct fork_t
     traits::query_static_constexpr_member<
       typename relationship_t<I>::template static_proxy<T>::type, fork_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -462,7 +457,6 @@ struct fork_t
   static constexpr const T static_query_v
     = fork_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   static constexpr relationship_t<I> value()
   {
@@ -482,12 +476,10 @@ struct fork_t
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T fork_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 template <int I = 0>
 struct continuation_t
@@ -526,8 +518,7 @@ struct continuation_t
       typename relationship_t<I>::template static_proxy<T>::type,
         continuation_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -543,7 +534,6 @@ struct continuation_t
   static constexpr const T static_query_v
     = continuation_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   static constexpr relationship_t<I> value()
   {
@@ -563,12 +553,10 @@ struct continuation_t
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T continuation_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 } // namespace relationship
 } // namespace detail
@@ -612,8 +600,7 @@ struct query_free_default<T, execution::relationship_t,
 
 #endif // !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
 
-#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 template <typename T>
 struct static_query<T, execution::relationship_t,
@@ -749,7 +736,6 @@ struct static_query<T, execution::relationship_t::continuation_t,
 };
 
 #endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 } // namespace traits
 
