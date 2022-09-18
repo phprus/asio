@@ -24,7 +24,7 @@
 #include "asio/associator.hpp"
 #include "asio/async_result.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/detail/utility.hpp"
+#include <utility>
 
 #include "asio/detail/push_options.hpp"
 
@@ -174,7 +174,7 @@ private:
   template <typename CompletionToken, std::size_t... I>
   auto invoke_helper(
       ASIO_MOVE_ARG(CompletionToken) token,
-      detail::index_sequence<I...>)
+      std::index_sequence<I...>)
     -> decltype(
         asio::async_initiate<CompletionToken, void(Values...)>(
           initiate(), token,
@@ -189,7 +189,7 @@ private:
   template <typename CompletionToken, std::size_t... I>
   auto const_invoke_helper(
       ASIO_MOVE_ARG(CompletionToken) token,
-      detail::index_sequence<I...>)
+      std::index_sequence<I...>)
     -> decltype(
         asio::async_initiate<CompletionToken, void(Values...)>(
           initiate(), token, std::get<I>(values_)...))
@@ -215,11 +215,11 @@ public:
     -> decltype(
         this->invoke_helper(
           ASIO_MOVE_CAST(CompletionToken)(token),
-          detail::index_sequence_for<Values...>()))
+          std::index_sequence_for<Values...>()))
   {
     return this->invoke_helper(
         ASIO_MOVE_CAST(CompletionToken)(token),
-        detail::index_sequence_for<Values...>());
+        std::index_sequence_for<Values...>());
   }
 
   template <ASIO_COMPLETION_TOKEN_FOR(void(Values...)) CompletionToken>
@@ -228,11 +228,11 @@ public:
     -> decltype(
         this->const_invoke_helper(
           ASIO_MOVE_CAST(CompletionToken)(token),
-          detail::index_sequence_for<Values...>()))
+          std::index_sequence_for<Values...>()))
   {
     return this->const_invoke_helper(
         ASIO_MOVE_CAST(CompletionToken)(token),
-        detail::index_sequence_for<Values...>());
+        std::index_sequence_for<Values...>());
   }
 };
 
@@ -256,7 +256,7 @@ private:
   template <typename CompletionToken, std::size_t... I>
   auto invoke_helper(
       ASIO_MOVE_ARG(CompletionToken) token,
-      detail::index_sequence<I...>)
+      std::index_sequence<I...>)
     -> decltype(
         asio::async_initiate<CompletionToken, Signature>(
           ASIO_MOVE_CAST(initiation_t)(initiation_), token,
@@ -270,7 +270,7 @@ private:
   template <typename CompletionToken, std::size_t... I>
   auto const_invoke_helper(
       ASIO_MOVE_ARG(CompletionToken) token,
-      detail::index_sequence<I...>) const &
+      std::index_sequence<I...>) const &
     -> decltype(
         asio::async_initiate<CompletionToken, Signature>(
           initiation_t(initiation_), token, std::get<I>(init_args_)...))
@@ -298,11 +298,11 @@ public:
     -> decltype(
         this->invoke_helper(
           ASIO_MOVE_CAST(CompletionToken)(token),
-          detail::index_sequence_for<InitArgs...>()))
+          std::index_sequence_for<InitArgs...>()))
   {
     return this->invoke_helper(
         ASIO_MOVE_CAST(CompletionToken)(token),
-        detail::index_sequence_for<InitArgs...>());
+        std::index_sequence_for<InitArgs...>());
   }
 
   template <ASIO_COMPLETION_TOKEN_FOR(Signature) CompletionToken>
@@ -311,11 +311,11 @@ public:
     -> decltype(
         this->const_invoke_helper(
           ASIO_MOVE_CAST(CompletionToken)(token),
-          detail::index_sequence_for<InitArgs...>()))
+          std::index_sequence_for<InitArgs...>()))
   {
     return this->const_invoke_helper(
         ASIO_MOVE_CAST(CompletionToken)(token),
-        detail::index_sequence_for<InitArgs...>());
+        std::index_sequence_for<InitArgs...>());
   }
 };
 

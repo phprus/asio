@@ -5857,7 +5857,6 @@
 /include/asio/detail/timer_scheduler.hpp
 /include/asio/detail/tss_ptr.hpp
 /include/asio/detail/type_traits.hpp
-/include/asio/detail/utility.hpp
 /include/asio/detail/wait_handler.hpp
 /include/asio/detail/wait_op.hpp
 /include/asio/detail/winapp_thread.hpp
