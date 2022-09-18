@@ -30,10 +30,7 @@
 #include "asio/detail/type_traits.hpp"
 #include <utility>
 #include <system_error>
-
-#if defined(ASIO_HAS_STD_TUPLE)
-# include <tuple>
-#endif // defined(ASIO_HAS_STD_TUPLE)
+#include <tuple>
 
 #if defined(ASIO_HAS_BOOST_CONTEXT_FIBER)
 # include <boost/context/fiber.hpp>
@@ -641,8 +638,6 @@ private:
   result_type& result_;
 };
 
-#if defined(ASIO_HAS_STD_TUPLE)
-
 template <typename Executor, typename R, typename... Ts>
 class spawn_handler<Executor, R(Ts...)>
   : public spawn_handler_base<Executor>
@@ -759,8 +754,6 @@ public:
 private:
   result_type& result_;
 };
-
-#endif // defined(ASIO_HAS_STD_TUPLE)
 
 template <typename Executor, typename Signature>
 inline bool asio_handler_is_continuation(spawn_handler<Executor, Signature>*)
