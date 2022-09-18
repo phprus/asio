@@ -6,6 +6,8 @@ COMMON_CXXFLAGS = -nologo -EHac -GR -I. -I../include
 
 !ifdef CXXLATEST
 STD_CXXFLAGS = -std:c++latest -permissive-
+!else
+STD_CXXFLAGS = -std:c++17
 !endif
 
 !ifdef WARNINGS

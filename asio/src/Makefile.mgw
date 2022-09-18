@@ -23,7 +23,7 @@ SEPARATE_COMPILATION_CXXFLAGS = \
 	-DASIO_ENABLE_CANCELIO
 endif
 
-CXXFLAGS = -g -Wall -Wextra -mthreads -I../include \
+CXXFLAGS = -std=gnu++17 -g -Wall -Wextra -mthreads -I../include \
 	$(OPTIM_CXXFLAGS) \
 	$(BOOST_CXXFLAGS) \
 	$(SEPARATE_COMPILATION_CXXFLAGS)
