@@ -169,22 +169,8 @@
 // C++17: Support alias templates on compilers known to allow it.
 #define ASIO_HAS_ALIAS_TEMPLATES 1
 
-// Support return type deduction on compilers known to allow it.
-#if !defined(ASIO_HAS_RETURN_TYPE_DEDUCTION)
-# if !defined(ASIO_DISABLE_RETURN_TYPE_DEDUCTION)
-#  if defined(__clang__)
-#   if __has_feature(__cxx_return_type_deduction__)
-#    define ASIO_HAS_RETURN_TYPE_DEDUCTION 1
-#   endif // __has_feature(__cxx_return_type_deduction__)
-#  elif (__cplusplus >= 201402)
-#   define ASIO_HAS_RETURN_TYPE_DEDUCTION 1
-#  elif defined(__cpp_return_type_deduction)
-#   if (__cpp_return_type_deduction >= 201304)
-#    define ASIO_HAS_RETURN_TYPE_DEDUCTION 1
-#   endif // (__cpp_return_type_deduction >= 201304)
-#  endif // defined(__cpp_return_type_deduction)
-# endif // !defined(ASIO_DISABLE_RETURN_TYPE_DEDUCTION)
-#endif // !defined(ASIO_HAS_RETURN_TYPE_DEDUCTION)
+// C++17: Support return type deduction on compilers known to allow it.
+#define ASIO_HAS_RETURN_TYPE_DEDUCTION 1
 
 // C++17: Support default function template arguments on compilers known to allow it.
 #define ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS 1

@@ -199,13 +199,6 @@ needs.
     []
   ]
   [
-    [`ASIO_HAS_RETURN_TYPE_DEDUCTION`]
-    [
-      Support return type deduction on compilers known to allow it.
-    ]
-    [`ASIO_DISABLE_RETURN_TYPE_DEDUCTION`]
-  ]
-  [
     [`ASIO_HAS_SECURE_RTL`]
     [
       Microsoft Visual C++'s secure C runtime library.
