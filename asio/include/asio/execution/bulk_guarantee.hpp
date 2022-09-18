@@ -195,7 +195,6 @@ template <int I> struct parallel_t;
 template <int I = 0>
 struct bulk_guarantee_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
@@ -210,7 +209,6 @@ struct bulk_guarantee_t
             false_type,
             is_scheduler<T>
           >::type::value));
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = false);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = false);
@@ -494,7 +492,6 @@ namespace bulk_guarantee {
 template <int I = 0>
 struct unsequenced_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
@@ -509,7 +506,6 @@ struct unsequenced_t
             false_type,
             is_scheduler<T>
           >::type::value));
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = true);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = true);
@@ -622,7 +618,6 @@ const T unsequenced_t<I>::static_query_v;
 template <int I = 0>
 struct sequenced_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
@@ -637,7 +632,6 @@ struct sequenced_t
             false_type,
             is_scheduler<T>
           >::type::value));
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = true);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = true);
@@ -729,7 +723,6 @@ const T sequenced_t<I>::static_query_v;
 template <int I>
 struct parallel_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
@@ -744,7 +737,6 @@ struct parallel_t
             false_type,
             is_scheduler<T>
           >::type::value));
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = true);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = true);
@@ -841,78 +833,6 @@ typedef detail::bulk_guarantee_t<> bulk_guarantee_t;
 constexpr bulk_guarantee_t bulk_guarantee;
 
 } // namespace execution
-
-#if !defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
-template <typename T>
-struct is_applicable_property<T, execution::bulk_guarantee_t>
-  : integral_constant<bool,
-      execution::is_executor<T>::value
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_sender<T>
-          >::type::value
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_scheduler<T>
-          >::type::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::bulk_guarantee_t::unsequenced_t>
-  : integral_constant<bool,
-      execution::is_executor<T>::value
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_sender<T>
-          >::type::value
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_scheduler<T>
-          >::type::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::bulk_guarantee_t::sequenced_t>
-  : integral_constant<bool,
-      execution::is_executor<T>::value
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_sender<T>
-          >::type::value
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_scheduler<T>
-          >::type::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::bulk_guarantee_t::parallel_t>
-  : integral_constant<bool,
-      execution::is_executor<T>::value
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_sender<T>
-          >::type::value
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_scheduler<T>
-          >::type::value>
-{
-};
-
-#endif // !defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 namespace traits {
 

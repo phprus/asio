@@ -67,7 +67,6 @@ namespace execution {
 template <typename T>
 struct context_as_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename U>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
@@ -82,7 +81,6 @@ struct context_as_t
             false_type,
             is_scheduler<U>
           >::type::value));
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = false);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = false);
@@ -145,35 +143,10 @@ const U context_as_t<T>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES) \
-  || defined(GENERATING_DOCUMENTATION)
 template <typename T>
 constexpr context_as_t<T> context_as{};
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
-       //   || defined(GENERATING_DOCUMENTATION)
 
 } // namespace execution
-
-#if !defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
-template <typename T, typename U>
-struct is_applicable_property<T, execution::context_as_t<U> >
-  : integral_constant<bool,
-      execution::is_executor<T>::value
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_sender<T>
-          >::type::value
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_scheduler<T>
-          >::type::value>
-{
-};
-
-#endif // !defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 namespace traits {
 

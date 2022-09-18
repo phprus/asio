@@ -168,12 +168,8 @@ struct can_set_done :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename R>
 constexpr bool can_set_done_v = can_set_done<R>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename R>
 struct is_nothrow_set_done :
@@ -182,13 +178,9 @@ struct is_nothrow_set_done :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename R>
 constexpr bool is_nothrow_set_done_v
   = is_nothrow_set_done<R>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 } // namespace execution
 } // namespace asio
