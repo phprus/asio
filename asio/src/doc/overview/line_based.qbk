@@ -97,7 +97,7 @@ To read data into a streambuf until a matching character is found:
 
   namespace asio {
     template <> struct is_match_condition<match_char>
-      : public boost::true_type {};
+      : public std::true_type {};
   } // namespace asio
   ...
   asio::streambuf b;
