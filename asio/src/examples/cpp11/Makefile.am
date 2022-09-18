@@ -76,12 +76,6 @@ noinst_PROGRAMS += \
 	ssl/server
 endif
 
-if HAVE_BOOST_COROUTINE
-noinst_PROGRAMS += \
-  spawn/echo_server \
-  spawn/parallel_grep
-endif
-
 noinst_HEADERS = \
 	socks4/socks4.hpp \
 	chat/chat_message.hpp
@@ -158,13 +152,6 @@ endif
 if HAVE_OPENSSL
 ssl_client_SOURCES = ssl/client.cpp
 ssl_server_SOURCES = ssl/server.cpp
-endif
-
-if HAVE_BOOST_COROUTINE
-spawn_echo_server_SOURCES = spawn/echo_server.cpp
-spawn_echo_server_LDADD = $(LDADD) -lboost_coroutine -lboost_context -lboost_thread -lboost_system
-spawn_parallel_grep_SOURCES = spawn/parallel_grep.cpp
-spawn_parallel_grep_LDADD = $(LDADD) -lboost_coroutine -lboost_context -lboost_thread -lboost_system
 endif
 
 EXTRA_DIST = \
