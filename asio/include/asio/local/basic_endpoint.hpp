@@ -23,9 +23,7 @@
 
 #include "asio/local/detail/endpoint.hpp"
 
-#if !defined(ASIO_NO_IOSTREAM)
-# include <iosfwd>
-#endif // !defined(ASIO_NO_IOSTREAM)
+#include <iosfwd>
 
 #include "asio/detail/push_options.hpp"
 

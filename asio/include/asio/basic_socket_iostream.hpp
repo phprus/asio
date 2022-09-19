@@ -17,8 +17,6 @@
 
 #include "asio/detail/config.hpp"
 
-#if !defined(ASIO_NO_IOSTREAM)
-
 #include <istream>
 #include <ostream>
 #include "asio/basic_socket_streambuf.hpp"
@@ -270,7 +268,5 @@ private:
 } // namespace asio
 
 #include "asio/detail/pop_options.hpp"
-
-#endif // !defined(ASIO_NO_IOSTREAM)
 
 #endif // ASIO_BASIC_SOCKET_IOSTREAM_HPP

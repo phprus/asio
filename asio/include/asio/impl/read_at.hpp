@@ -108,7 +108,6 @@ inline std::size_t read_at(SyncRandomAccessReadDevice& d,
 }
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 template <typename SyncRandomAccessReadDevice, typename Allocator,
     typename CompletionCondition>
@@ -166,7 +165,6 @@ inline std::size_t read_at(SyncRandomAccessReadDevice& d,
   return bytes_transferred;
 }
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 
 namespace detail
@@ -461,7 +459,6 @@ async_read_at(AsyncRandomAccessReadDevice& d,
 }
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 namespace detail
 {
@@ -738,7 +735,6 @@ async_read_at(AsyncRandomAccessReadDevice& d,
       token, offset, &b, transfer_all());
 }
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 
 } // namespace asio
