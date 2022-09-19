@@ -718,9 +718,6 @@
 // Whether standard iostreams are disabled.
 //#define ASIO_NO_IOSTREAM 1
 
-// Whether exception handling is disabled.
-//#define ASIO_NO_EXCEPTIONS 1
-
 // Threads.
 #if !defined(ASIO_HAS_THREADS)
 # if !defined(ASIO_DISABLE_THREADS)

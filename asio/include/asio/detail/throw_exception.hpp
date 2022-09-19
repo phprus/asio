@@ -28,14 +28,12 @@ void throw_exception(
 // Only define the throw_exception function when exceptions are enabled.
 // Otherwise, it is up to the application to provide a definition of this
 // function.
-# if !defined(ASIO_NO_EXCEPTIONS)
 template <typename Exception>
 void throw_exception(
     const Exception& e)
 {
   throw e;
 }
-# endif // !defined(ASIO_NO_EXCEPTIONS)
 
 } // namespace detail
 } // namespace asio

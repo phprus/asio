@@ -44,16 +44,13 @@ struct as_operation
 
   void start() noexcept(true)
   {
-#if !defined(ASIO_NO_EXCEPTIONS)
     try
     {
-#endif // !defined(ASIO_NO_EXCEPTIONS)
       execution::execute(
           ASIO_MOVE_CAST(typename remove_cvref<Executor>::type)(ex_),
           as_invocable<typename remove_cvref<Receiver>::type,
               Executor>(receiver_
               ));
-#if !defined(ASIO_NO_EXCEPTIONS)
     }
     catch (...)
     {
@@ -63,7 +60,6 @@ struct as_operation
               receiver_),
           std::current_exception());
     }
-#endif // !defined(ASIO_NO_EXCEPTIONS)
   }
 };
 

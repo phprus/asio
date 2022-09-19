@@ -35,37 +35,29 @@ template <typename T, typename F, typename... Args>
 inline void promise_invoke_and_set(std::promise<T>& p,
     F& f, ASIO_MOVE_ARG(Args)... args)
 {
-#if !defined(ASIO_NO_EXCEPTIONS)
   try
-#endif // !defined(ASIO_NO_EXCEPTIONS)
   {
     p.set_value(f(ASIO_MOVE_CAST(Args)(args)...));
   }
-#if !defined(ASIO_NO_EXCEPTIONS)
   catch (...)
   {
     p.set_exception(std::current_exception());
   }
-#endif // !defined(ASIO_NO_EXCEPTIONS)
 }
 
 template <typename F, typename... Args>
 inline void promise_invoke_and_set(std::promise<void>& p,
     F& f, ASIO_MOVE_ARG(Args)... args)
 {
-#if !defined(ASIO_NO_EXCEPTIONS)
   try
-#endif // !defined(ASIO_NO_EXCEPTIONS)
   {
     f(ASIO_MOVE_CAST(Args)(args)...);
     p.set_value();
   }
-#if !defined(ASIO_NO_EXCEPTIONS)
   catch (...)
   {
     p.set_exception(std::current_exception());
   }
-#endif // !defined(ASIO_NO_EXCEPTIONS)
 }
 
 // A function object adapter to invoke a nullary function object and capture
@@ -82,18 +74,14 @@ public:
 
   void operator()()
   {
-#if !defined(ASIO_NO_EXCEPTIONS)
     try
-#endif // !defined(ASIO_NO_EXCEPTIONS)
     {
       f_();
     }
-#if !defined(ASIO_NO_EXCEPTIONS)
     catch (...)
     {
       p_->set_exception(std::current_exception());
     }
-#endif // !defined(ASIO_NO_EXCEPTIONS)
   }
 
 private:
