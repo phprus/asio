@@ -612,8 +612,6 @@ std::size_t read_until(SyncReadStream& s,
       !is_dynamic_buffer_v2<typename decay<DynamicBuffer_v1>::type>::value
     >::type = 0);
 
-#if !defined(ASIO_NO_IOSTREAM)
-
 /// Read data into a streambuf until it contains a specified delimiter.
 /**
  * This function is used to read data into the specified streambuf until the
@@ -1049,7 +1047,6 @@ std::size_t read_until(SyncReadStream& s,
     MatchCondition match_condition, std::error_code& ec,
     typename constraint<is_match_condition<MatchCondition>::value>::type = 0);
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 #endif // !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
 
@@ -2108,8 +2105,6 @@ async_read_until(AsyncReadStream& s,
         token, ASIO_MOVE_CAST(DynamicBuffer_v1)(buffers),
         match_condition)));
 
-#if !defined(ASIO_NO_IOSTREAM)
-
 /// Start an asynchronous operation to read data into a streambuf until it
 /// contains a specified delimiter.
 /**
@@ -2611,7 +2606,6 @@ async_read_until(AsyncReadStream& s,
     async_read_until(s, basic_streambuf_ref<Allocator>(b),
         match_condition, ASIO_MOVE_CAST(ReadToken)(token))));
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 #endif // !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
 

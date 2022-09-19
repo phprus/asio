@@ -185,7 +185,6 @@ inline std::size_t write(SyncWriteStream& s,
 }
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 template <typename SyncWriteStream, typename Allocator,
     typename CompletionCondition>
@@ -222,7 +221,6 @@ inline std::size_t write(SyncWriteStream& s,
       ASIO_MOVE_CAST(CompletionCondition)(completion_condition));
 }
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 #endif // !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
 
@@ -801,7 +799,6 @@ async_write(AsyncWriteStream& s,
 }
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 template <typename AsyncWriteStream, typename Allocator,
     ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
@@ -839,7 +836,6 @@ async_write(AsyncWriteStream& s,
       ASIO_MOVE_CAST(WriteToken)(token));
 }
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 #endif // !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
 

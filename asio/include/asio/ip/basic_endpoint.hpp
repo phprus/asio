@@ -21,10 +21,7 @@
 #include "asio/ip/detail/endpoint.hpp"
 
 #include <functional>
-
-#if !defined(ASIO_NO_IOSTREAM)
-# include <iosfwd>
-#endif // !defined(ASIO_NO_IOSTREAM)
+#include <iosfwd>
 
 #include "asio/detail/push_options.hpp"
 
@@ -235,8 +232,6 @@ private:
   asio::ip::detail::endpoint impl_;
 };
 
-#if !defined(ASIO_NO_IOSTREAM)
-
 /// Output an endpoint as a string.
 /**
  * Used to output a human-readable string for a specified endpoint.
@@ -253,8 +248,6 @@ template <typename Elem, typename Traits, typename InternetProtocol>
 std::basic_ostream<Elem, Traits>& operator<<(
     std::basic_ostream<Elem, Traits>& os,
     const basic_endpoint<InternetProtocol>& endpoint);
-
-#endif // !defined(ASIO_NO_IOSTREAM)
 
 } // namespace ip
 } // namespace asio
