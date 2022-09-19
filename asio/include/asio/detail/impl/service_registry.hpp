@@ -61,7 +61,6 @@ inline void service_registry::init_key(
   init_key_from_id(key, Service::id);
 }
 
-#if !defined(ASIO_NO_TYPEID)
 template <typename Service>
 void service_registry::init_key(execution_context::service::key& key,
     typename enable_if<
@@ -78,7 +77,6 @@ void service_registry::init_key_from_id(execution_context::service::key& key,
   key.type_info_ = &typeid(typeid_wrapper<Service>);
   key.id_ = 0;
 }
-#endif // !defined(ASIO_NO_TYPEID)
 
 template <typename Service, typename Owner>
 execution_context::service* service_registry::create(void* owner)
