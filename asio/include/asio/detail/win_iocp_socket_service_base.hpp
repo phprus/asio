@@ -70,7 +70,7 @@ public:
     socket_ops::shared_cancel_token_type cancel_token_;
 
     // Per-descriptor data used by the reactor.
-    select_reactor::per_descriptor_data reactor_data_;
+    select_reactor::per_descriptor_data reactor_data_{};
 
 #if defined(ASIO_ENABLE_CANCELIO)
     // The ID of the thread from which it is safe to cancel asynchronous
