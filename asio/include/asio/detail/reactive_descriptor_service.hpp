@@ -74,7 +74,7 @@ public:
     descriptor_ops::state_type state_;
 
     // Per-descriptor data used by the reactor.
-    reactor::per_descriptor_data reactor_data_;
+    reactor::per_descriptor_data reactor_data_{};
   };
 
   // Constructor.
