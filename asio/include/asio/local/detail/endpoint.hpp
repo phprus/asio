@@ -93,6 +93,9 @@ public:
   // Get the path associated with the endpoint.
   ASIO_DECL std::string path() const;
 
+  // Get the path associated with the endpoint.
+  ASIO_DECL std::string_view path_view() const noexcept;
+
   // Set the path associated with the endpoint.
   ASIO_DECL void path(const char* p);
 
