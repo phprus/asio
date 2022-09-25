@@ -80,6 +80,11 @@ std::string endpoint::path() const
   return std::string(data_.local.sun_path, path_length_);
 }
 
+std::string_view endpoint::path_view() const noexcept(true)
+{
+  return std::string_view(data_.local.sun_path, path_length_);
+}
+
 void endpoint::path(const char* p)
 {
   using namespace std; // For strlen.
