@@ -148,6 +148,12 @@ public:
     return impl_.path();
   }
 
+  /// Get the path associated with the endpoint.
+  std::string_view path_view() const noexcept(true)
+  {
+    return impl_.path_view();
+  }
+
   /// Set the path associated with the endpoint.
   void path(const char* p)
   {
@@ -224,7 +230,7 @@ std::basic_ostream<Elem, Traits>& operator<<(
     std::basic_ostream<Elem, Traits>& os,
     const basic_endpoint<Protocol>& endpoint)
 {
-  os << endpoint.path();
+  os << endpoint.path_view();
   return os;
 }
 
