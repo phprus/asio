@@ -27,10 +27,6 @@
 # include <cstddef>
 #endif // defined(__has_include)
 
-#if defined(ASIO_STANDALONE)
-# define ASIO_DISABLE_BOOST_REGEX 1
-#endif // defined(ASIO_STANDALONE)
-
 // Default to a header-only implementation. The user must specifically request
 // separate compilation by defining either ASIO_SEPARATE_COMPILATION or
 // ASIO_DYN_LINK (as a DLL/shared library implies separate compilation).
@@ -763,13 +759,6 @@
 // Helper to define in-class constants.
 #define ASIO_STATIC_CONSTANT(type, assignment) \
     static const type assignment
-
-// Boost regex library.
-#if !defined(ASIO_HAS_BOOST_REGEX)
-# if !defined(ASIO_DISABLE_BOOST_REGEX)
-#  define ASIO_HAS_BOOST_REGEX 1
-# endif // !defined(ASIO_DISABLE_BOOST_REGEX)
-#endif // !defined(ASIO_HAS_BOOST_REGEX)
 
 // Microsoft Visual C++'s secure C runtime library.
 #if !defined(ASIO_HAS_SECURE_RTL)
