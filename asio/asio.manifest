@@ -5680,7 +5680,6 @@
 /include/asio/detail/reactor_op.hpp
 /include/asio/detail/reactor_op_queue.hpp
 /include/asio/detail/recycling_allocator.hpp
-/include/asio/detail/regex_fwd.hpp
 /include/asio/detail/resolve_endpoint_op.hpp
 /include/asio/detail/resolve_op.hpp
 /include/asio/detail/resolve_query_op.hpp
