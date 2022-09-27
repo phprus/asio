@@ -117,10 +117,6 @@ if test "$GXX" = yes; then
   CXXFLAGS="$CXXFLAGS -ftemplate-depth-256"
 fi
 
-if test "$STANDALONE" = yes; then
-  CPPFLAGS="$CPPFLAGS -DASIO_STANDALONE"
-fi
-
 if test "$SEPARATE_COMPILATION" = yes; then
   CPPFLAGS="$CPPFLAGS -DASIO_SEPARATE_COMPILATION"
 fi
