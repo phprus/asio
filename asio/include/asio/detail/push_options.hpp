@@ -65,6 +65,9 @@
 # if (__clang_major__ >= 6)
 #  pragma GCC diagnostic ignored "-Wzero-as-null-pointer-constant"
 # endif // (__clang_major__ >= 6)
+# if defined(ASIO_ENABLE_HANDLER_TRACKING)
+#  pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+# endif // defined(ASIO_ENABLE_HANDLER_TRACKING)
 
 # pragma push_macro ("emit")
 # undef emit
