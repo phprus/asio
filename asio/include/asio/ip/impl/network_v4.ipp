@@ -17,6 +17,8 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include "asio/detail/config.hpp"
+#include <charconv>
+#include <iterator>
 #include <climits>
 #include <cstdio>
 #include <cstdlib>
@@ -126,14 +128,12 @@ std::string network_v4::to_string() const
 
 std::string network_v4::to_string(std::error_code& ec) const
 {
-  using namespace std; // For sprintf.
   ec = std::error_code();
   char prefix_len[16];
-#if defined(ASIO_HAS_SECURE_RTL)
-  sprintf_s(prefix_len, sizeof(prefix_len), "/%u", prefix_length_);
-#else // defined(ASIO_HAS_SECURE_RTL)
-  sprintf(prefix_len, "/%u", prefix_length_);
-#endif // defined(ASIO_HAS_SECURE_RTL)
+  // "/%u":
+  prefix_len[0] = '/';
+  auto ret = std::to_chars(prefix_len + 1, std::end(prefix_len), prefix_length_);
+  *ret.ptr = '\0';
   return address_.to_string() + prefix_len;
 }
 
