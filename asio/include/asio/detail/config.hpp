@@ -379,18 +379,8 @@
 # endif // !defined(ASIO_DISABLE_RETURN_TYPE_DEDUCTION)
 #endif // !defined(ASIO_HAS_RETURN_TYPE_DEDUCTION)
 
-// Support default function template arguments on compilers known to allow it.
-#if !defined(ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS)
-# if !defined(ASIO_DISABLE_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS)
-#  if (__cplusplus >= 201103)
-#   define ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS 1
-#  elif defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1900 && _MSVC_LANG >= 201103)
-#    define ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS 1
-#   endif // (_MSC_VER >= 1900 && _MSVC_LANG >= 201103)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS)
-#endif // !defined(ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS)
+// C++17: Support default function template arguments on compilers known to allow it.
+#define ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS 1
 
 // Support enum classes on compilers known to allow them.
 #if !defined(ASIO_HAS_ENUM_CLASS)
