@@ -157,8 +157,6 @@ struct redirect_error_signature<R(const asio::error_code&, Args...)>
   typedef R type(Args...);
 };
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
-
 template <typename R, typename... Args>
 struct redirect_error_signature<R(asio::error_code, Args...) &>
 {
@@ -183,7 +181,7 @@ struct redirect_error_signature<R(const asio::error_code&, Args...) &&>
   typedef R type(Args...) &&;
 };
 
-# if defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
+#if defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
 
 template <typename R, typename... Args>
 struct redirect_error_signature<
@@ -227,8 +225,7 @@ struct redirect_error_signature<
   typedef R type(Args...) && noexcept;
 };
 
-# endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
+#endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
 
 } // namespace detail
 

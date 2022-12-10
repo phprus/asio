@@ -534,42 +534,8 @@
 # endif // !defined(ASIO_DISABLE_WORKING_EXPRESSION_SFINAE)
 #endif // !defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 
-// Support ref-qualified functions on compilers known to allow it.
-#if !defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
-# if !defined(ASIO_DISABLE_REF_QUALIFIED_FUNCTIONS)
-#  if defined(__clang__)
-#   if __has_feature(__cxx_reference_qualified_functions__)
-#    define ASIO_HAS_REF_QUALIFIED_FUNCTIONS 1
-#   endif // __has_feature(__cxx_reference_qualified_functions__)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 9)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_REF_QUALIFIED_FUNCTIONS 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 9)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1900)
-#    define ASIO_HAS_REF_QUALIFIED_FUNCTIONS 1
-#   endif // (_MSC_VER >= 1900)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_REF_QUALIFIED_FUNCTIONS)
-#endif // !defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
-# if !defined(ASIO_LVALUE_REF_QUAL)
-#  define ASIO_LVALUE_REF_QUAL &
-# endif // !defined(ASIO_LVALUE_REF_QUAL)
-# if !defined(ASIO_RVALUE_REF_QUAL)
-#  define ASIO_RVALUE_REF_QUAL &&
-# endif // !defined(ASIO_RVALUE_REF_QUAL)
-#else // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
-# if !defined(ASIO_LVALUE_REF_QUAL)
-#  define ASIO_LVALUE_REF_QUAL
-# endif // !defined(ASIO_LVALUE_REF_QUAL)
-# if !defined(ASIO_RVALUE_REF_QUAL)
-#  define ASIO_RVALUE_REF_QUAL
-# endif // !defined(ASIO_RVALUE_REF_QUAL)
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
+// C++17: Support ref-qualified functions on compilers known to allow it.
+#define ASIO_HAS_REF_QUALIFIED_FUNCTIONS 1
 
 // Support for capturing parameter packs in lambdas.
 #if !defined(ASIO_HAS_VARIADIC_LAMBDA_CAPTURES)
