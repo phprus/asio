@@ -17,7 +17,6 @@
 
 #include "asio/detail/config.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/detail/variadic_templates.hpp"
 #include "asio/execution/executor.hpp"
 #include "asio/execution/outstanding_work.hpp"
 #include "asio/executor_work_guard.hpp"
@@ -132,8 +131,6 @@ make_composed_io_executors(const Head& head)
   return composed_io_executors<void(Head)>(head);
 }
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
 template <typename Head, typename... Tail>
 struct composed_io_executors<void(Head, Tail...)>
 {
@@ -161,45 +158,6 @@ make_composed_io_executors(const Head& head, const Tail&... tail)
 {
   return composed_io_executors<void(Head, Tail...)>(head, tail...);
 }
-
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-#define ASIO_PRIVATE_COMPOSED_IO_EXECUTORS_DEF(n) \
-template <typename Head, ASIO_VARIADIC_TPARAMS(n)> \
-struct composed_io_executors<void(Head, ASIO_VARIADIC_TARGS(n))> \
-{ \
-  explicit composed_io_executors(const Head& head, \
-      ASIO_VARIADIC_CONSTREF_PARAMS(n)) ASIO_NOEXCEPT \
-    : head_(head), \
-      tail_(ASIO_VARIADIC_BYVAL_ARGS(n)) \
-  { \
-  } \
-\
-  void reset() \
-  { \
-    head_.reset(); \
-    tail_.reset(); \
-  } \
-\
-  typedef Head head_type; \
-  Head head_; \
-  composed_io_executors<void(ASIO_VARIADIC_TARGS(n))> tail_; \
-}; \
-\
-template <typename Head, ASIO_VARIADIC_TPARAMS(n)> \
-inline composed_io_executors<void(Head, ASIO_VARIADIC_TARGS(n))> \
-make_composed_io_executors(const Head& head, \
-    ASIO_VARIADIC_CONSTREF_PARAMS(n)) \
-{ \
-  return composed_io_executors< \
-    void(Head, ASIO_VARIADIC_TARGS(n))>( \
-      head, ASIO_VARIADIC_BYVAL_ARGS(n)); \
-} \
-/**/
-ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_COMPOSED_IO_EXECUTORS_DEF)
-#undef ASIO_PRIVATE_COMPOSED_IO_EXECUTORS_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 template <typename>
 struct composed_work;
@@ -242,8 +200,6 @@ struct composed_work<void(Head)>
   composed_work_guard<Head> head_;
 };
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
 template <typename Head, typename... Tail>
 struct composed_work<void(Head, Tail...)>
 {
@@ -265,37 +221,6 @@ struct composed_work<void(Head, Tail...)>
   composed_work_guard<Head> head_;
   composed_work<void(Tail...)> tail_;
 };
-
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-#define ASIO_PRIVATE_COMPOSED_WORK_DEF(n) \
-template <typename Head, ASIO_VARIADIC_TPARAMS(n)> \
-struct composed_work<void(Head, ASIO_VARIADIC_TARGS(n))> \
-{ \
-  typedef composed_io_executors<void(Head, \
-    ASIO_VARIADIC_TARGS(n))> executors_type; \
-\
-  explicit composed_work(const executors_type& ex) ASIO_NOEXCEPT \
-    : head_(ex.head_), \
-      tail_(ex.tail_) \
-  { \
-  } \
-\
-  void reset() \
-  { \
-    head_.reset(); \
-    tail_.reset(); \
-  } \
-\
-  typedef Head head_type; \
-  composed_work_guard<Head> head_; \
-  composed_work<void(ASIO_VARIADIC_TARGS(n))> tail_; \
-}; \
-/**/
-ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_COMPOSED_WORK_DEF)
-#undef ASIO_PRIVATE_COMPOSED_WORK_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 template <typename IoObject>
 inline typename IoObject::executor_type

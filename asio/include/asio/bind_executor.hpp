@@ -17,7 +17,6 @@
 
 #include "asio/detail/config.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/detail/variadic_templates.hpp"
 #include "asio/associated_executor.hpp"
 #include "asio/associator.hpp"
 #include "asio/async_result.hpp"
@@ -396,7 +395,7 @@ public:
   template <typename... Args> auto operator()(Args&& ...);
   template <typename... Args> auto operator()(Args&& ...) const;
 
-#elif defined(ASIO_HAS_VARIADIC_TEMPLATES)
+#else // defined(GENERATING_DOCUMENTATION)
 
   /// Forwarding function call operator.
   template <typename... Args>
@@ -414,70 +413,7 @@ public:
     return this->target_(ASIO_MOVE_CAST(Args)(args)...);
   }
 
-#elif defined(ASIO_HAS_STD_TYPE_TRAITS) && !defined(_MSC_VER)
-
-  typename detail::executor_binder_result_of0<T>::type operator()()
-  {
-    return this->target_();
-  }
-
-  typename detail::executor_binder_result_of0<T>::type operator()() const
-  {
-    return this->target_();
-  }
-
-#define ASIO_PRIVATE_BIND_EXECUTOR_CALL_DEF(n) \
-  template <ASIO_VARIADIC_TPARAMS(n)> \
-  typename result_of<T(ASIO_VARIADIC_TARGS(n))>::type operator()( \
-      ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  { \
-    return this->target_(ASIO_VARIADIC_MOVE_ARGS(n)); \
-  } \
-  \
-  template <ASIO_VARIADIC_TPARAMS(n)> \
-  typename result_of<T(ASIO_VARIADIC_TARGS(n))>::type operator()( \
-      ASIO_VARIADIC_MOVE_PARAMS(n)) const \
-  { \
-    return this->target_(ASIO_VARIADIC_MOVE_ARGS(n)); \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_BIND_EXECUTOR_CALL_DEF)
-#undef ASIO_PRIVATE_BIND_EXECUTOR_CALL_DEF
-
-#else // defined(ASIO_HAS_STD_TYPE_TRAITS) && !defined(_MSC_VER)
-
-  typedef typename detail::executor_binder_result_type<T>::result_type_or_void
-    result_type_or_void;
-
-  result_type_or_void operator()()
-  {
-    return this->target_();
-  }
-
-  result_type_or_void operator()() const
-  {
-    return this->target_();
-  }
-
-#define ASIO_PRIVATE_BIND_EXECUTOR_CALL_DEF(n) \
-  template <ASIO_VARIADIC_TPARAMS(n)> \
-  result_type_or_void operator()( \
-      ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  { \
-    return this->target_(ASIO_VARIADIC_MOVE_ARGS(n)); \
-  } \
-  \
-  template <ASIO_VARIADIC_TPARAMS(n)> \
-  result_type_or_void operator()( \
-      ASIO_VARIADIC_MOVE_PARAMS(n)) const \
-  { \
-    return this->target_(ASIO_VARIADIC_MOVE_ARGS(n)); \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_BIND_EXECUTOR_CALL_DEF)
-#undef ASIO_PRIVATE_BIND_EXECUTOR_CALL_DEF
-
-#endif // defined(ASIO_HAS_STD_TYPE_TRAITS) && !defined(_MSC_VER)
+#endif // defined(GENERATING_DOCUMENTATION)
 
 private:
   typedef detail::executor_binder_base<T, Executor,
@@ -595,8 +531,6 @@ public:
     {
     }
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
     template <typename Handler, typename... Args>
     void operator()(
         ASIO_MOVE_ARG(Handler) handler,
@@ -619,59 +553,9 @@ public:
           ASIO_MOVE_CAST(Args)(args)...);
     }
 
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-    template <typename Handler>
-    void operator()(
-        ASIO_MOVE_ARG(Handler) handler)
-    {
-      ASIO_MOVE_CAST(Initiation)(initiation_)(
-          executor_binder<typename decay<Handler>::type, Executor>(
-            executor_arg_t(), ex_, ASIO_MOVE_CAST(Handler)(handler)));
-    }
-
-    template <typename Handler>
-    void operator()(
-        ASIO_MOVE_ARG(Handler) handler) const
-    {
-      initiation_(
-          executor_binder<typename decay<Handler>::type, Executor>(
-            executor_arg_t(), ex_, ASIO_MOVE_CAST(Handler)(handler)));
-    }
-
-#define ASIO_PRIVATE_INIT_WRAPPER_DEF(n) \
-    template <typename Handler, ASIO_VARIADIC_TPARAMS(n)> \
-    void operator()( \
-        ASIO_MOVE_ARG(Handler) handler, \
-        ASIO_VARIADIC_MOVE_PARAMS(n)) \
-    { \
-      ASIO_MOVE_CAST(Initiation)(initiation_)( \
-          executor_binder<typename decay<Handler>::type, Executor>( \
-            executor_arg_t(), ex_, ASIO_MOVE_CAST(Handler)(handler)), \
-          ASIO_VARIADIC_MOVE_ARGS(n)); \
-    } \
-    \
-    template <typename Handler, ASIO_VARIADIC_TPARAMS(n)> \
-    void operator()( \
-        ASIO_MOVE_ARG(Handler) handler, \
-        ASIO_VARIADIC_MOVE_PARAMS(n)) const \
-    { \
-      initiation_( \
-          executor_binder<typename decay<Handler>::type, Executor>( \
-            executor_arg_t(), ex_, ASIO_MOVE_CAST(Handler)(handler)), \
-          ASIO_VARIADIC_MOVE_ARGS(n)); \
-    } \
-    /**/
-    ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_INIT_WRAPPER_DEF)
-#undef ASIO_PRIVATE_INIT_WRAPPER_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
     Executor ex_;
     Initiation initiation_;
   };
-
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
   template <typename Initiation, typename RawCompletionToken, typename... Args>
   static ASIO_INITFN_DEDUCED_RESULT_TYPE(T, Signature,
@@ -689,47 +573,6 @@ public:
           token.get_executor(), ASIO_MOVE_CAST(Initiation)(initiation)),
         token.get(), ASIO_MOVE_CAST(Args)(args)...);
   }
-
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-  template <typename Initiation, typename RawCompletionToken>
-  static ASIO_INITFN_DEDUCED_RESULT_TYPE(T, Signature,
-    (async_initiate<T, Signature>(
-        declval<init_wrapper<typename decay<Initiation>::type> >(),
-        declval<RawCompletionToken>().get())))
-  initiate(
-      ASIO_MOVE_ARG(Initiation) initiation,
-      ASIO_MOVE_ARG(RawCompletionToken) token)
-  {
-    return async_initiate<T, Signature>(
-        init_wrapper<typename decay<Initiation>::type>(
-          token.get_executor(), ASIO_MOVE_CAST(Initiation)(initiation)),
-        token.get());
-  }
-
-#define ASIO_PRIVATE_INITIATE_DEF(n) \
-  template <typename Initiation, typename RawCompletionToken, \
-      ASIO_VARIADIC_TPARAMS(n)> \
-  static ASIO_INITFN_DEDUCED_RESULT_TYPE(T, Signature, \
-    (async_initiate<T, Signature>( \
-        declval<init_wrapper<typename decay<Initiation>::type> >(), \
-        declval<RawCompletionToken>().get(), \
-        ASIO_VARIADIC_MOVE_DECLVAL(n)))) \
-  initiate( \
-      ASIO_MOVE_ARG(Initiation) initiation, \
-      ASIO_MOVE_ARG(RawCompletionToken) token, \
-      ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  { \
-    return async_initiate<T, Signature>( \
-        init_wrapper<typename decay<Initiation>::type>( \
-          token.get_executor(), ASIO_MOVE_CAST(Initiation)(initiation)), \
-        token.get(), ASIO_VARIADIC_MOVE_ARGS(n)); \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_INITIATE_DEF)
-#undef ASIO_PRIVATE_INITIATE_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 private:
   async_result(const async_result&) ASIO_DELETED;

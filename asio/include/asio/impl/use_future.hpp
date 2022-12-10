@@ -31,8 +31,6 @@
 namespace asio {
 namespace detail {
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
 template <typename T, typename F, typename... Args>
 inline void promise_invoke_and_set(std::promise<T>& p,
     F& f, ASIO_MOVE_ARG(Args)... args)
@@ -69,103 +67,6 @@ inline void promise_invoke_and_set(std::promise<void>& p,
   }
 #endif // !defined(ASIO_NO_EXCEPTIONS)
 }
-
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-template <typename T, typename F>
-inline void promise_invoke_and_set(std::promise<T>& p, F& f)
-{
-#if !defined(ASIO_NO_EXCEPTIONS)
-  try
-#endif // !defined(ASIO_NO_EXCEPTIONS)
-  {
-    p.set_value(f());
-  }
-#if !defined(ASIO_NO_EXCEPTIONS)
-  catch (...)
-  {
-    p.set_exception(std::current_exception());
-  }
-#endif // !defined(ASIO_NO_EXCEPTIONS)
-}
-
-template <typename F, typename Args>
-inline void promise_invoke_and_set(std::promise<void>& p, F& f)
-{
-#if !defined(ASIO_NO_EXCEPTIONS)
-  try
-#endif // !defined(ASIO_NO_EXCEPTIONS)
-  {
-    f();
-    p.set_value();
-#if !defined(ASIO_NO_EXCEPTIONS)
-  }
-  catch (...)
-  {
-    p.set_exception(std::current_exception());
-  }
-#endif // !defined(ASIO_NO_EXCEPTIONS)
-}
-
-#if defined(ASIO_NO_EXCEPTIONS)
-
-#define ASIO_PRIVATE_PROMISE_INVOKE_DEF(n) \
-  template <typename T, typename F, ASIO_VARIADIC_TPARAMS(n)> \
-  inline void promise_invoke_and_set(std::promise<T>& p, \
-      F& f, ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  { \
-    p.set_value(f(ASIO_VARIADIC_MOVE_ARGS(n))); \
-  } \
-  \
-  template <typename F, ASIO_VARIADIC_TPARAMS(n)> \
-  inline void promise_invoke_and_set(std::promise<void>& p, \
-      F& f, ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  { \
-    f(ASIO_VARIADIC_MOVE_ARGS(n)); \
-    p.set_value(); \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_PROMISE_INVOKE_DEF)
-#undef ASIO_PRIVATE_PROMISE_INVOKE_DEF
-
-#else // defined(ASIO_NO_EXCEPTIONS)
-
-#define ASIO_PRIVATE_PROMISE_INVOKE_DEF(n) \
-  template <typename T, typename F, ASIO_VARIADIC_TPARAMS(n)> \
-  inline void promise_invoke_and_set(std::promise<T>& p, \
-      F& f, ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  { \
-    try \
-    { \
-      p.set_value(f(ASIO_VARIADIC_MOVE_ARGS(n))); \
-    } \
-    catch (...) \
-    { \
-      p.set_exception(std::current_exception()); \
-    } \
-  } \
-  \
-  template <typename F, ASIO_VARIADIC_TPARAMS(n)> \
-  inline void promise_invoke_and_set(std::promise<void>& p, \
-      F& f, ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  { \
-    try \
-    { \
-      f(ASIO_VARIADIC_MOVE_ARGS(n)); \
-      p.set_value(); \
-    } \
-    catch (...) \
-    { \
-      p.set_exception(std::current_exception()); \
-    } \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_PROMISE_INVOKE_DEF)
-#undef ASIO_PRIVATE_PROMISE_INVOKE_DEF
-
-#endif // defined(ASIO_NO_EXCEPTIONS)
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 // A function object adapter to invoke a nullary function object and capture
 // any exception thrown into a promise.
@@ -428,7 +329,6 @@ class promise_handler_n
   : public promise_creator<T>
 {
 public:
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
   template <typename... Args>
   void operator()(ASIO_MOVE_ARG(Args)... args)
@@ -438,21 +338,6 @@ public:
           ASIO_MOVE_CAST(Args)(args)...));
   }
 
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-#define ASIO_PRIVATE_CALL_OP_DEF(n) \
-  template <ASIO_VARIADIC_TPARAMS(n)> \
-  void operator()(ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  {\
-    this->p_->set_value( \
-        std::forward_as_tuple( \
-          ASIO_VARIADIC_MOVE_ARGS(n))); \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_CALL_OP_DEF)
-#undef ASIO_PRIVATE_CALL_OP_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 };
 
 // For completion signature void(error_code, T1, ..., Tn);
@@ -461,7 +346,6 @@ class promise_handler_ec_n
   : public promise_creator<T>
 {
 public:
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
   template <typename... Args>
   void operator()(const asio::error_code& ec,
@@ -481,31 +365,6 @@ public:
     }
   }
 
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-#define ASIO_PRIVATE_CALL_OP_DEF(n) \
-  template <ASIO_VARIADIC_TPARAMS(n)> \
-  void operator()(const asio::error_code& ec, \
-      ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  {\
-    if (ec) \
-    { \
-      this->p_->set_exception( \
-          std::make_exception_ptr( \
-            asio::system_error(ec))); \
-    } \
-    else \
-    { \
-      this->p_->set_value( \
-          std::forward_as_tuple( \
-            ASIO_VARIADIC_MOVE_ARGS(n))); \
-    } \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_CALL_OP_DEF)
-#undef ASIO_PRIVATE_CALL_OP_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 };
 
 // For completion signature void(exception_ptr, T1, ..., Tn);
@@ -514,7 +373,6 @@ class promise_handler_ex_n
   : public promise_creator<T>
 {
 public:
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
   template <typename... Args>
   void operator()(const std::exception_ptr& ex,
@@ -530,27 +388,6 @@ public:
     }
   }
 
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-#define ASIO_PRIVATE_CALL_OP_DEF(n) \
-  template <ASIO_VARIADIC_TPARAMS(n)> \
-  void operator()(const std::exception_ptr& ex, \
-      ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  {\
-    if (ex) \
-      this->p_->set_exception(ex); \
-    else \
-    { \
-      this->p_->set_value( \
-          std::forward_as_tuple( \
-            ASIO_VARIADIC_MOVE_ARGS(n))); \
-    } \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_CALL_OP_DEF)
-#undef ASIO_PRIVATE_CALL_OP_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 };
 
 // Helper template to choose the appropriate concrete promise handler
@@ -581,8 +418,6 @@ template <typename Arg>
 class promise_handler_selector<void(std::exception_ptr, Arg)>
   : public promise_handler_ex_1<Arg> {};
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
 template <typename... Arg>
 class promise_handler_selector<void(Arg...)>
   : public promise_handler_n<std::tuple<Arg...> > {};
@@ -594,32 +429,6 @@ class promise_handler_selector<void(asio::error_code, Arg...)>
 template <typename... Arg>
 class promise_handler_selector<void(std::exception_ptr, Arg...)>
   : public promise_handler_ex_n<std::tuple<Arg...> > {};
-
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-#define ASIO_PRIVATE_PROMISE_SELECTOR_DEF(n) \
-  template <typename Arg, ASIO_VARIADIC_TPARAMS(n)> \
-  class promise_handler_selector< \
-    void(Arg, ASIO_VARIADIC_TARGS(n))> \
-      : public promise_handler_n< \
-        std::tuple<Arg, ASIO_VARIADIC_TARGS(n)> > {}; \
-  \
-  template <typename Arg, ASIO_VARIADIC_TPARAMS(n)> \
-  class promise_handler_selector< \
-    void(asio::error_code, Arg, ASIO_VARIADIC_TARGS(n))> \
-      : public promise_handler_ec_n< \
-        std::tuple<Arg, ASIO_VARIADIC_TARGS(n)> > {}; \
-  \
-  template <typename Arg, ASIO_VARIADIC_TPARAMS(n)> \
-  class promise_handler_selector< \
-    void(std::exception_ptr, Arg, ASIO_VARIADIC_TARGS(n))> \
-      : public promise_handler_ex_n< \
-        std::tuple<Arg, ASIO_VARIADIC_TARGS(n)> > {}; \
-  /**/
-  ASIO_VARIADIC_GENERATE_5(ASIO_PRIVATE_PROMISE_SELECTOR_DEF)
-#undef ASIO_PRIVATE_PROMISE_SELECTOR_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 // Completion handlers produced from the use_future completion token, when not
 // using use_future::operator().
@@ -749,34 +558,12 @@ public:
     return allocator_;
   }
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
   template <typename... Args>
   void operator()(ASIO_MOVE_ARG(Args)... args)
   {
     (promise_invoke_and_set)(*this->p_,
         function_, ASIO_MOVE_CAST(Args)(args)...);
   }
-
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-  void operator()()
-  {
-    (promise_invoke_and_set)(*this->p_, function_);
-  }
-
-#define ASIO_PRIVATE_CALL_OP_DEF(n) \
-  template <ASIO_VARIADIC_TPARAMS(n)> \
-  void operator()(ASIO_VARIADIC_MOVE_PARAMS(n)) \
-  {\
-    (promise_invoke_and_set)(*this->p_, \
-        function_, ASIO_VARIADIC_MOVE_ARGS(n)); \
-  } \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_CALL_OP_DEF)
-#undef ASIO_PRIVATE_CALL_OP_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 private:
   Function function_;
@@ -841,8 +628,6 @@ use_future_t<Allocator>::operator()(ASIO_MOVE_ARG(Function) f) const
 
 #if !defined(GENERATING_DOCUMENTATION)
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
 template <typename Allocator, typename Result, typename... Args>
 class async_result<use_future_t<Allocator>, Result(Args...)>
   : public detail::promise_async_result<
@@ -873,78 +658,6 @@ public:
   {
   }
 };
-
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-template <typename Allocator, typename Result>
-class async_result<use_future_t<Allocator>, Result()>
-  : public detail::promise_async_result<void(), Allocator>
-{
-public:
-  explicit async_result(
-    typename detail::promise_async_result<
-      void(), Allocator>::completion_handler_type& h)
-    : detail::promise_async_result<void(), Allocator>(h)
-  {
-  }
-};
-
-template <typename Function, typename Allocator, typename Result>
-class async_result<detail::packaged_token<Function, Allocator>, Result()>
-  : public detail::packaged_async_result<Function, Allocator,
-      typename result_of<Function()>::type>
-{
-public:
-  explicit async_result(
-    typename detail::packaged_async_result<Function, Allocator,
-      typename result_of<Function()>::type>::completion_handler_type& h)
-    : detail::packaged_async_result<Function, Allocator,
-        typename result_of<Function()>::type>(h)
-  {
-  }
-};
-
-#define ASIO_PRIVATE_ASYNC_RESULT_DEF(n) \
-  template <typename Allocator, \
-      typename Result, ASIO_VARIADIC_TPARAMS(n)> \
-  class async_result<use_future_t<Allocator>, \
-      Result(ASIO_VARIADIC_TARGS(n))> \
-    : public detail::promise_async_result< \
-        void(ASIO_VARIADIC_DECAY(n)), Allocator> \
-  { \
-  public: \
-    explicit async_result( \
-      typename detail::promise_async_result< \
-        void(ASIO_VARIADIC_DECAY(n)), \
-        Allocator>::completion_handler_type& h) \
-      : detail::promise_async_result< \
-          void(ASIO_VARIADIC_DECAY(n)), Allocator>(h) \
-    { \
-    } \
-  }; \
-  \
-  template <typename Function, typename Allocator, \
-      typename Result, ASIO_VARIADIC_TPARAMS(n)> \
-  class async_result<detail::packaged_token<Function, Allocator>, \
-      Result(ASIO_VARIADIC_TARGS(n))> \
-    : public detail::packaged_async_result<Function, Allocator, \
-        typename result_of<Function(ASIO_VARIADIC_TARGS(n))>::type> \
-  { \
-  public: \
-    explicit async_result( \
-      typename detail::packaged_async_result<Function, Allocator, \
-        typename result_of<Function(ASIO_VARIADIC_TARGS(n))>::type \
-        >::completion_handler_type& h) \
-      : detail::packaged_async_result<Function, Allocator, \
-          typename result_of<Function(ASIO_VARIADIC_TARGS(n))>::type>(h) \
-    { \
-    } \
-  }; \
-  /**/
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_ASYNC_RESULT_DEF)
-#undef ASIO_PRIVATE_ASYNC_RESULT_DEF
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 namespace traits {
 

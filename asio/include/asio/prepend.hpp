@@ -17,8 +17,7 @@
 
 #include "asio/detail/config.hpp"
 
-#if (defined(ASIO_HAS_STD_TUPLE) \
-    && defined(ASIO_HAS_VARIADIC_TEMPLATES)) \
+#if defined(ASIO_HAS_STD_TUPLE) \
   || defined(GENERATING_DOCUMENTATION)
 
 #include <tuple>
@@ -71,8 +70,7 @@ prepend(ASIO_MOVE_ARG(CompletionToken) completion_token,
 
 #include "asio/impl/prepend.hpp"
 
-#endif // (defined(ASIO_HAS_STD_TUPLE)
-       //     && defined(ASIO_HAS_VARIADIC_TEMPLATES))
+#endif // defined(ASIO_HAS_STD_TUPLE)
        //   || defined(GENERATING_DOCUMENTATION)
 
 #endif // ASIO_PREPEND_HPP

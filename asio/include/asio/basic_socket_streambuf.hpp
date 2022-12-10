@@ -37,38 +37,6 @@
 #endif // defined(ASIO_HAS_BOOST_DATE_TIME)
        // && defined(ASIO_USE_BOOST_DATE_TIME_FOR_SOCKET_IOSTREAM)
 
-#if !defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-# include "asio/detail/variadic_templates.hpp"
-
-// A macro that should expand to:
-//   template <typename T1, ..., typename Tn>
-//   basic_socket_streambuf* connect(T1 x1, ..., Tn xn)
-//   {
-//     init_buffers();
-//     typedef typename Protocol::resolver resolver_type;
-//     resolver_type resolver(socket().get_executor());
-//     connect_to_endpoints(
-//         resolver.resolve(x1, ..., xn, ec_));
-//     return !ec_ ? this : 0;
-//   }
-// This macro should only persist within this file.
-
-# define ASIO_PRIVATE_CONNECT_DEF(n) \
-  template <ASIO_VARIADIC_TPARAMS(n)> \
-  basic_socket_streambuf* connect(ASIO_VARIADIC_BYVAL_PARAMS(n)) \
-  { \
-    init_buffers(); \
-    typedef typename Protocol::resolver resolver_type; \
-    resolver_type resolver(socket().get_executor()); \
-    connect_to_endpoints( \
-        resolver.resolve(ASIO_VARIADIC_BYVAL_ARGS(n), ec_)); \
-    return !ec_ ? this : 0; \
-  } \
-  /**/
-
-#endif // !defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
 #include "asio/detail/push_options.hpp"
 
 namespace asio {
@@ -277,7 +245,7 @@ public:
    */
   template <typename T1, ..., typename TN>
   basic_socket_streambuf* connect(T1 t1, ..., TN tn);
-#elif defined(ASIO_HAS_VARIADIC_TEMPLATES)
+#else // defined(GENERATING_DOCUMENTATION)
   template <typename... T>
   basic_socket_streambuf* connect(T... x)
   {
@@ -287,8 +255,6 @@ public:
     connect_to_endpoints(resolver.resolve(x..., ec_));
     return !ec_ ? this : 0;
   }
-#else
-  ASIO_VARIADIC_GENERATE(ASIO_PRIVATE_CONNECT_DEF)
 #endif
 
   /// Close the connection.
@@ -677,10 +643,6 @@ private:
 } // namespace asio
 
 #include "asio/detail/pop_options.hpp"
-
-#if !defined(ASIO_HAS_VARIADIC_TEMPLATES)
-# undef ASIO_PRIVATE_CONNECT_DEF
-#endif // !defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 #endif // !defined(ASIO_NO_IOSTREAM)
 
