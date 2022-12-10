@@ -19,11 +19,9 @@
 #include "asio/detail/type_traits.hpp"
 #include "asio/traits/static_query.hpp"
 
-#if defined(ASIO_HAS_DECLTYPE) \
-  && defined(ASIO_HAS_NOEXCEPT)
+#if defined(ASIO_HAS_NOEXCEPT)
 # define ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT 1
-#endif // defined(ASIO_HAS_DECLTYPE)
-       //   && defined(ASIO_HAS_NOEXCEPT)
+#endif // defined(ASIO_HAS_NOEXCEPT)
 
 #include "asio/detail/push_options.hpp"
 

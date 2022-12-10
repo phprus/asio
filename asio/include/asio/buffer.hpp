@@ -404,8 +404,6 @@ inline const const_buffer* buffer_sequence_begin(const ConstBuffer& b,
   return static_cast<const const_buffer*>(detail::addressof(b));
 }
 
-#if defined(ASIO_HAS_DECLTYPE) || defined(GENERATING_DOCUMENTATION)
-
 /// Get an iterator to the first element in a buffer sequence.
 template <typename C>
 inline auto buffer_sequence_begin(C& c,
@@ -427,30 +425,6 @@ inline auto buffer_sequence_begin(const C& c,
 {
   return c.begin();
 }
-
-#else // defined(ASIO_HAS_DECLTYPE) || defined(GENERATING_DOCUMENTATION)
-
-template <typename C>
-inline typename C::iterator buffer_sequence_begin(C& c,
-    typename constraint<
-      !is_convertible<const C*, const mutable_buffer*>::value
-        && !is_convertible<const C*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT
-{
-  return c.begin();
-}
-
-template <typename C>
-inline typename C::const_iterator buffer_sequence_begin(const C& c,
-    typename constraint<
-      !is_convertible<const C*, const mutable_buffer*>::value
-        && !is_convertible<const C*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT
-{
-  return c.begin();
-}
-
-#endif // defined(ASIO_HAS_DECLTYPE) || defined(GENERATING_DOCUMENTATION)
 
 /*@}*/
 
@@ -481,8 +455,6 @@ inline const const_buffer* buffer_sequence_end(const ConstBuffer& b,
   return static_cast<const const_buffer*>(detail::addressof(b)) + 1;
 }
 
-#if defined(ASIO_HAS_DECLTYPE) || defined(GENERATING_DOCUMENTATION)
-
 /// Get an iterator to one past the end element in a buffer sequence.
 template <typename C>
 inline auto buffer_sequence_end(C& c,
@@ -504,30 +476,6 @@ inline auto buffer_sequence_end(const C& c,
 {
   return c.end();
 }
-
-#else // defined(ASIO_HAS_DECLTYPE) || defined(GENERATING_DOCUMENTATION)
-
-template <typename C>
-inline typename C::iterator buffer_sequence_end(C& c,
-    typename constraint<
-      !is_convertible<const C*, const mutable_buffer*>::value
-        && !is_convertible<const C*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT
-{
-  return c.end();
-}
-
-template <typename C>
-inline typename C::const_iterator buffer_sequence_end(const C& c,
-    typename constraint<
-      !is_convertible<const C*, const mutable_buffer*>::value
-        && !is_convertible<const C*, const const_buffer*>::value
-    >::type = 0) ASIO_NOEXCEPT
-{
-  return c.end();
-}
-
-#endif // defined(ASIO_HAS_DECLTYPE) || defined(GENERATING_DOCUMENTATION)
 
 /*@}*/
 

@@ -103,8 +103,7 @@ struct prefer_only_property
   }
 };
 
-#if defined(ASIO_HAS_DECLTYPE) \
-  && defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
+#if defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 
 template <typename InnerProperty>
 struct prefer_only_property<InnerProperty,
@@ -128,8 +127,7 @@ struct prefer_only_property<InnerProperty,
   }
 };
 
-#else // defined(ASIO_HAS_DECLTYPE)
-      //   && defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
+#else // defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 
 struct prefer_only_memfns_base
 {
@@ -178,8 +176,7 @@ struct prefer_only_property<InnerProperty,
   }
 };
 
-#endif // defined(ASIO_HAS_DECLTYPE)
-       //   && defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
+#endif // defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 
 } // namespace detail
 

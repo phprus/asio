@@ -84,11 +84,6 @@ private:
 class mutable_registered_buffer
 {
 public:
-#if !defined(ASIO_HAS_DECLTYPE) \
-  && !defined(GENERATING_DOCUMENTATION)
-  typedef mutable_buffer value_type;
-#endif // !defined(ASIO_HAS_DECLTYPE)
-       //   && !defined(GENERATING_DOCUMENTATION)
 
   /// Default constructor creates an invalid registered buffer.
   mutable_registered_buffer() ASIO_NOEXCEPT
@@ -161,11 +156,6 @@ private:
 class const_registered_buffer
 {
 public:
-#if !defined(ASIO_HAS_DECLTYPE) \
-  && !defined(GENERATING_DOCUMENTATION)
-  typedef const_buffer value_type;
-#endif // !defined(ASIO_HAS_DECLTYPE)
-       //   && !defined(GENERATING_DOCUMENTATION)
 
   /// Default constructor creates an invalid registered buffer.
   const_registered_buffer() ASIO_NOEXCEPT
