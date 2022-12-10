@@ -140,13 +140,9 @@ struct use_coro_t
 
   /// Type alias to adapt an I/O object to use @c use_coro_t as its
   /// default completion token type.
-#if defined(ASIO_HAS_ALIAS_TEMPLATES) \
-  || defined(GENERATING_DOCUMENTATION)
   template <typename T>
   using as_default_on_t = typename T::template rebind_executor<
       executor_with_default<typename T::executor_type> >::other;
-#endif // defined(ASIO_HAS_ALIAS_TEMPLATES)
-       //   || defined(GENERATING_DOCUMENTATION)
 
   /// Function helper to adapt an I/O object to use @c use_coro_t as its
   /// default completion token type.
