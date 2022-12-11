@@ -1061,34 +1061,6 @@ struct static_query<T, execution::blocking_adaptation_t::allowed_t,
 #endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-#if !defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT)
-
-template <typename T>
-struct static_require<T, execution::blocking_adaptation_t::disallowed_t,
-  typename enable_if<
-    static_query<T, execution::blocking_adaptation_t::disallowed_t>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid =
-    (is_same<typename static_query<T,
-      execution::blocking_adaptation_t::disallowed_t>::result_type,
-        execution::blocking_adaptation_t::disallowed_t>::value));
-};
-
-template <typename T>
-struct static_require<T, execution::blocking_adaptation_t::allowed_t,
-  typename enable_if<
-    static_query<T, execution::blocking_adaptation_t::allowed_t>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid =
-    (is_same<typename static_query<T,
-      execution::blocking_adaptation_t::allowed_t>::result_type,
-        execution::blocking_adaptation_t::allowed_t>::value));
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT)
-
 #if !defined(ASIO_HAS_DEDUCED_REQUIRE_FREE_TRAIT)
 
 template <typename T>
