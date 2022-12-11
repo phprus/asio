@@ -19,7 +19,7 @@
 
 #if defined(ASIO_HAS_IOCP)
 
-#include "asio/detail/limits.hpp"
+#include <limits>
 #include "asio/detail/mutex.hpp"
 #include "asio/detail/op_queue.hpp"
 #include "asio/detail/scoped_ptr.hpp"

@@ -18,7 +18,7 @@
 #include "asio/detail/config.hpp"
 #include "asio/io_context.hpp"
 #include "asio/detail/concurrency_hint.hpp"
-#include "asio/detail/limits.hpp"
+#include <limits>
 #include "asio/detail/scoped_ptr.hpp"
 #include "asio/detail/service_registry.hpp"
 #include "asio/detail/throw_error.hpp"

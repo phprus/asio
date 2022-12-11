@@ -73,13 +73,6 @@ needs.
     [`ASIO_DISABLE_BOOST_DATE_TIME`]
   ]
   [
-    [`ASIO_HAS_BOOST_LIMITS`]
-    [
-      Boost limits header.
-    ]
-    [`ASIO_DISABLE_BOOST_LIMITS`]
-  ]
-  [
     [`ASIO_HAS_BOOST_REGEX`]
     [
       Boost regex library.
