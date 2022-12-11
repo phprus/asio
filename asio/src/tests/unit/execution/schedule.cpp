@@ -16,7 +16,7 @@
 // Test that header file is self-contained.
 #include "asio/execution/schedule.hpp"
 
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/execution/sender.hpp"
 #include "asio/execution/submit.hpp"
 #include "asio/traits/connect_member.hpp"

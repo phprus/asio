@@ -19,7 +19,7 @@
 #include "asio/detail/config.hpp"
 #include <string>
 #include "asio/detail/string_view.hpp"
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/ip/address_v6_range.hpp"
 
 #include "asio/detail/push_options.hpp"

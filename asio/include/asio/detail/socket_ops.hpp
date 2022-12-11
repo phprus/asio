@@ -17,7 +17,7 @@
 
 #include "asio/detail/config.hpp"
 
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/detail/memory.hpp"
 #include "asio/detail/socket_types.hpp"
 

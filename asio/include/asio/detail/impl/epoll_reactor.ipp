@@ -136,7 +136,7 @@ void epoll_reactor::notify_fork(
       if (result != 0)
       {
         std::error_code ec(errno,
-            asio::error::get_system_category());
+            std::system_category());
         asio::detail::throw_error(ec, "epoll re-registration");
       }
     }
@@ -288,7 +288,7 @@ void epoll_reactor::start_op(int op_type, socket_type descriptor,
           else
           {
             op->ec_ = std::error_code(errno,
-                asio::error::get_system_category());
+                std::system_category());
             scheduler_.post_immediate_completion(op, is_continuation);
             return;
           }
@@ -621,7 +621,7 @@ int epoll_reactor::do_epoll_create()
   if (fd == -1)
   {
     std::error_code ec(errno,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "epoll");
   }
 

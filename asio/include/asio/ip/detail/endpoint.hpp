@@ -19,7 +19,7 @@
 #include <string>
 #include "asio/detail/socket_types.hpp"
 #include "asio/detail/winsock_init.hpp"
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/ip/address.hpp"
 
 #include "asio/detail/push_options.hpp"

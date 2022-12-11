@@ -27,7 +27,7 @@
 #if defined(ASIO_HAS_STD_EXCEPTION_PTR)
 # include <exception>
 #else // defined(ASIO_HAS_STD_EXCEPTION_PTR)
-# include "asio/error_code.hpp"
+# include <system_error>
 #endif // defined(ASIO_HAS_STD_EXCEPTION_PTR)
 
 #if defined(ASIO_HAS_DEDUCED_SET_DONE_FREE_TRAIT) \

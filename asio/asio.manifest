@@ -5765,7 +5765,6 @@
 /include/asio/detail/is_executor.hpp
 /include/asio/detail/keyword_tss_ptr.hpp
 /include/asio/detail/kqueue_reactor.hpp
-/include/asio/detail/local_free_on_block_exit.hpp
 /include/asio/detail/memory.hpp
 /include/asio/detail/mutex.hpp
 /include/asio/detail/non_const_lvalue.hpp
@@ -5909,7 +5908,6 @@
 /include/asio/detail/work_dispatcher.hpp
 /include/asio/detail/wrapped_handler.hpp
 /include/asio/dispatch.hpp
-/include/asio/error_code.hpp
 /include/asio/error.hpp
 /include/asio/execution/
 /include/asio/execution/allocator.hpp
@@ -6033,7 +6031,6 @@
 /include/asio/impl/deferred.hpp
 /include/asio/impl/detached.hpp
 /include/asio/impl/dispatch.hpp
-/include/asio/impl/error_code.ipp
 /include/asio/impl/error.ipp
 /include/asio/impl/execution_context.hpp
 /include/asio/impl/execution_context.ipp

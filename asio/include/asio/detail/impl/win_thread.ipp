@@ -71,7 +71,7 @@ void win_thread::start_thread(func_base* arg, unsigned int stack_size)
     DWORD last_error = ::GetLastError();
     delete arg;
     std::error_code ec(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "thread.entry_event");
   }
 
@@ -81,7 +81,7 @@ void win_thread::start_thread(func_base* arg, unsigned int stack_size)
     DWORD last_error = ::GetLastError();
     delete arg;
     std::error_code ec(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "thread.exit_event");
   }
 
@@ -97,7 +97,7 @@ void win_thread::start_thread(func_base* arg, unsigned int stack_size)
     if (exit_event_)
       ::CloseHandle(exit_event_);
     std::error_code ec(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "thread");
   }
 

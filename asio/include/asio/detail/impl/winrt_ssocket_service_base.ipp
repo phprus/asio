@@ -222,7 +222,7 @@ std::size_t winrt_ssocket_service_base::do_get_endpoint(
   catch (Platform::Exception^ e)
   {
     ec = std::error_code(e->HResult,
-        asio::system_category());
+        std::system_category());
     return addr_len;
   }
 }
@@ -278,7 +278,7 @@ std::error_code winrt_ssocket_service_base::do_set_option(
   catch (Platform::Exception^ e)
   {
     ec = std::error_code(e->HResult,
-        asio::system_category());
+        std::system_category());
   }
 
   return ec;
@@ -335,7 +335,7 @@ void winrt_ssocket_service_base::do_get_option(
   catch (Platform::Exception^ e)
   {
     ec = std::error_code(e->HResult,
-        asio::system_category());
+        std::system_category());
   }
 }
 
@@ -382,7 +382,7 @@ std::error_code winrt_ssocket_service_base::do_connect(
   catch (Platform::Exception^ e)
   {
     ec = std::error_code(e->HResult,
-        asio::system_category());
+        std::system_category());
   }
 
   return ec;
@@ -438,7 +438,7 @@ void winrt_ssocket_service_base::start_connect_op(
   catch (Platform::Exception^ e)
   {
     op->ec_ = std::error_code(
-        e->HResult, asio::system_category());
+        e->HResult, std::system_category());
     scheduler_.post_immediate_completion(op, is_continuation);
   }
 }
@@ -477,7 +477,7 @@ std::size_t winrt_ssocket_service_base::do_send(
   catch (Platform::Exception^ e)
   {
     ec = std::error_code(e->HResult,
-        asio::system_category());
+        std::system_category());
     return 0;
   }
 }
@@ -518,7 +518,7 @@ void winrt_ssocket_service_base::start_send_op(
   catch (Platform::Exception^ e)
   {
     op->ec_ = std::error_code(e->HResult,
-        asio::system_category());
+        std::system_category());
     scheduler_.post_immediate_completion(op, is_continuation);
   }
 }
@@ -567,7 +567,7 @@ std::size_t winrt_ssocket_service_base::do_receive(
   catch (Platform::Exception^ e)
   {
     ec = std::error_code(e->HResult,
-        asio::system_category());
+        std::system_category());
     return 0;
   }
 }
@@ -611,7 +611,7 @@ void winrt_ssocket_service_base::start_receive_op(
   catch (Platform::Exception^ e)
   {
     op->ec_ = std::error_code(e->HResult,
-        asio::system_category());
+        std::system_category());
     scheduler_.post_immediate_completion(op, is_continuation);
   }
 }

@@ -20,7 +20,7 @@
 #include "asio/async_result.hpp"
 #include "asio/detail/memory.hpp"
 #include "asio/dispatch.hpp"
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/execution.hpp"
 #include "asio/packaged_task.hpp"
 #include <system_error>
