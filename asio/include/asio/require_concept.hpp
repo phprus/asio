@@ -245,7 +245,7 @@ struct impl
   operator()(
       ASIO_MOVE_ARG(T) t,
       ASIO_MOVE_ARG(Property)) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<impl, T, void(Property)>::is_noexcept))
   {
     return ASIO_MOVE_CAST(T)(t);
@@ -259,7 +259,7 @@ struct impl
   operator()(
       ASIO_MOVE_ARG(T) t,
       ASIO_MOVE_ARG(Property) p) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<impl, T, void(Property)>::is_noexcept))
   {
     return ASIO_MOVE_CAST(T)(t).require_concept(
@@ -274,7 +274,7 @@ struct impl
   operator()(
       ASIO_MOVE_ARG(T) t,
       ASIO_MOVE_ARG(Property) p) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<impl, T, void(Property)>::is_noexcept))
   {
     return require_concept(

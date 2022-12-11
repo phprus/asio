@@ -66,7 +66,7 @@ public:
   typedef typename composed_work_guard<
     typename Work::head_type>::executor_type io_executor_type;
 
-  io_executor_type get_io_executor() const ASIO_NOEXCEPT
+  io_executor_type get_io_executor() const noexcept(true)
   {
     return work_.head_.get_executor();
   }
@@ -74,7 +74,7 @@ public:
   typedef typename associated_executor<Handler, io_executor_type>::type
     executor_type;
 
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return (get_associated_executor)(handler_, work_.head_.get_executor());
   }
@@ -82,7 +82,7 @@ public:
   typedef typename associated_allocator<Handler,
     std::allocator<void> >::type allocator_type;
 
-  allocator_type get_allocator() const ASIO_NOEXCEPT
+  allocator_type get_allocator() const noexcept(true)
   {
     return (get_associated_allocator)(handler_, std::allocator<void>());
   }
@@ -124,7 +124,7 @@ public:
         ASIO_MOVE_CAST(OutFilter)(out_filter));
   }
 
-  cancellation_type_t cancelled() const ASIO_NOEXCEPT
+  cancellation_type_t cancelled() const noexcept(true)
   {
     return base_from_cancellation_state<Handler>::cancelled();
   }
@@ -209,7 +209,7 @@ public:
   {
   }
 
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return executors_.head_;
   }
@@ -251,7 +251,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type
   get(const detail::composed_op<Impl, Work, Handler, Signature>& h)
-    ASIO_NOEXCEPT
+    noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_);
   }
@@ -259,7 +259,7 @@ struct associator<Associator,
   static ASIO_AUTO_RETURN_TYPE_PREFIX2(
       typename Associator<Handler, DefaultCandidate>::type)
   get(const detail::composed_op<Impl, Work, Handler, Signature>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<Handler, DefaultCandidate>::get(h.handler_, c)))
   {

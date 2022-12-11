@@ -37,12 +37,12 @@ struct ex_nq_nr
   {
   }
 
-  friend bool operator==(const ex_nq_nr&, const ex_nq_nr&) ASIO_NOEXCEPT
+  friend bool operator==(const ex_nq_nr&, const ex_nq_nr&) noexcept(true)
   {
     return true;
   }
 
-  friend bool operator!=(const ex_nq_nr&, const ex_nq_nr&) ASIO_NOEXCEPT
+  friend bool operator!=(const ex_nq_nr&, const ex_nq_nr&) noexcept(true)
   {
     return false;
   }
@@ -66,7 +66,7 @@ struct is_executor<ex_nq_nr> : asio::true_type
 template <typename ResultType, typename ParamType, typename Result>
 struct ex_cq_nr
 {
-  static ASIO_CONSTEXPR ResultType query(ParamType) ASIO_NOEXCEPT
+  static ASIO_CONSTEXPR ResultType query(ParamType) noexcept(true)
   {
     return Result();
   }
@@ -76,12 +76,12 @@ struct ex_cq_nr
   {
   }
 
-  friend bool operator==(const ex_cq_nr&, const ex_cq_nr&) ASIO_NOEXCEPT
+  friend bool operator==(const ex_cq_nr&, const ex_cq_nr&) noexcept(true)
   {
     return true;
   }
 
-  friend bool operator!=(const ex_cq_nr&, const ex_cq_nr&) ASIO_NOEXCEPT
+  friend bool operator!=(const ex_cq_nr&, const ex_cq_nr&) noexcept(true)
   {
     return false;
   }
@@ -135,7 +135,7 @@ struct query_static_constexpr_member<
 template <typename ResultType, typename ParamType, typename Result>
 struct ex_mq_nr
 {
-  ResultType query(ParamType) const ASIO_NOEXCEPT
+  ResultType query(ParamType) const noexcept(true)
   {
     return Result();
   }
@@ -145,12 +145,12 @@ struct ex_mq_nr
   {
   }
 
-  friend bool operator==(const ex_mq_nr&, const ex_mq_nr&) ASIO_NOEXCEPT
+  friend bool operator==(const ex_mq_nr&, const ex_mq_nr&) noexcept(true)
   {
     return true;
   }
 
-  friend bool operator!=(const ex_mq_nr&, const ex_mq_nr&) ASIO_NOEXCEPT
+  friend bool operator!=(const ex_mq_nr&, const ex_mq_nr&) noexcept(true)
   {
     return false;
   }
@@ -199,7 +199,7 @@ struct query_member<
 template <typename ResultType, typename ParamType, typename Result>
 struct ex_fq_nr
 {
-  friend ResultType query(const ex_fq_nr&, ParamType) ASIO_NOEXCEPT
+  friend ResultType query(const ex_fq_nr&, ParamType) noexcept(true)
   {
     return Result();
   }
@@ -209,12 +209,12 @@ struct ex_fq_nr
   {
   }
 
-  friend bool operator==(const ex_fq_nr&, const ex_fq_nr&) ASIO_NOEXCEPT
+  friend bool operator==(const ex_fq_nr&, const ex_fq_nr&) noexcept(true)
   {
     return true;
   }
 
-  friend bool operator!=(const ex_fq_nr&, const ex_fq_nr&) ASIO_NOEXCEPT
+  friend bool operator!=(const ex_fq_nr&, const ex_fq_nr&) noexcept(true)
   {
     return false;
   }
@@ -263,24 +263,24 @@ struct query_free<
 template <typename CurrentType, typename OtherType>
 struct ex_mq_mr
 {
-  CurrentType query(CurrentType) const ASIO_NOEXCEPT
+  CurrentType query(CurrentType) const noexcept(true)
   {
     return CurrentType();
   }
 
-  CurrentType query(OtherType) const ASIO_NOEXCEPT
+  CurrentType query(OtherType) const noexcept(true)
   {
     return CurrentType();
   }
 
   ex_mq_mr<CurrentType, OtherType> require(
-      CurrentType) const ASIO_NOEXCEPT
+      CurrentType) const noexcept(true)
   {
     return ex_mq_mr<CurrentType, OtherType>();
   }
 
   ex_mq_mr<OtherType, CurrentType> require(
-      OtherType) const ASIO_NOEXCEPT
+      OtherType) const noexcept(true)
   {
     return ex_mq_mr<OtherType, CurrentType>();
   }
@@ -290,12 +290,12 @@ struct ex_mq_mr
   {
   }
 
-  friend bool operator==(const ex_mq_mr&, const ex_mq_mr&) ASIO_NOEXCEPT
+  friend bool operator==(const ex_mq_mr&, const ex_mq_mr&) noexcept(true)
   {
     return true;
   }
 
-  friend bool operator!=(const ex_mq_mr&, const ex_mq_mr&) ASIO_NOEXCEPT
+  friend bool operator!=(const ex_mq_mr&, const ex_mq_mr&) noexcept(true)
   {
     return false;
   }
@@ -304,13 +304,13 @@ struct ex_mq_mr
 template <typename CurrentType>
 struct ex_mq_mr<CurrentType, CurrentType>
 {
-  CurrentType query(CurrentType) const ASIO_NOEXCEPT
+  CurrentType query(CurrentType) const noexcept(true)
   {
     return CurrentType();
   }
 
   ex_mq_mr<CurrentType, CurrentType> require(
-      CurrentType) const ASIO_NOEXCEPT
+      CurrentType) const noexcept(true)
   {
     return ex_mq_mr<CurrentType, CurrentType>();
   }
@@ -320,12 +320,12 @@ struct ex_mq_mr<CurrentType, CurrentType>
   {
   }
 
-  friend bool operator==(const ex_mq_mr&, const ex_mq_mr&) ASIO_NOEXCEPT
+  friend bool operator==(const ex_mq_mr&, const ex_mq_mr&) noexcept(true)
   {
     return true;
   }
 
-  friend bool operator!=(const ex_mq_mr&, const ex_mq_mr&) ASIO_NOEXCEPT
+  friend bool operator!=(const ex_mq_mr&, const ex_mq_mr&) noexcept(true)
   {
     return false;
   }
@@ -405,36 +405,36 @@ struct require_member<
 template <typename CurrentType, typename OtherType>
 struct ex_fq_fr
 {
-  friend CurrentType query(const ex_fq_fr&, CurrentType) ASIO_NOEXCEPT
+  friend CurrentType query(const ex_fq_fr&, CurrentType) noexcept(true)
   {
     return CurrentType();
   }
 
-  friend CurrentType query(const ex_fq_fr&, OtherType) ASIO_NOEXCEPT
+  friend CurrentType query(const ex_fq_fr&, OtherType) noexcept(true)
   {
     return CurrentType();
   }
 
   friend ex_fq_fr<CurrentType, OtherType> require(
-      const ex_fq_fr&, CurrentType) ASIO_NOEXCEPT
+      const ex_fq_fr&, CurrentType) noexcept(true)
   {
     return ex_fq_fr<CurrentType, OtherType>();
   }
 
   friend ex_fq_fr<OtherType, CurrentType> require(
-      const ex_fq_fr&, OtherType) ASIO_NOEXCEPT
+      const ex_fq_fr&, OtherType) noexcept(true)
   {
     return ex_fq_fr<OtherType, CurrentType>();
   }
 
   friend ex_fq_fr<CurrentType, OtherType> prefer(
-      const ex_fq_fr&, CurrentType) ASIO_NOEXCEPT
+      const ex_fq_fr&, CurrentType) noexcept(true)
   {
     return ex_fq_fr<CurrentType, OtherType>();
   }
 
   friend ex_fq_fr<OtherType, CurrentType> prefer(
-      const ex_fq_fr&, OtherType) ASIO_NOEXCEPT
+      const ex_fq_fr&, OtherType) noexcept(true)
   {
     return ex_fq_fr<OtherType, CurrentType>();
   }
@@ -444,12 +444,12 @@ struct ex_fq_fr
   {
   }
 
-  friend bool operator==(const ex_fq_fr&, const ex_fq_fr&) ASIO_NOEXCEPT
+  friend bool operator==(const ex_fq_fr&, const ex_fq_fr&) noexcept(true)
   {
     return true;
   }
 
-  friend bool operator!=(const ex_fq_fr&, const ex_fq_fr&) ASIO_NOEXCEPT
+  friend bool operator!=(const ex_fq_fr&, const ex_fq_fr&) noexcept(true)
   {
     return false;
   }
@@ -458,19 +458,19 @@ struct ex_fq_fr
 template <typename CurrentType>
 struct ex_fq_fr<CurrentType, CurrentType>
 {
-  friend CurrentType query(const ex_fq_fr&, CurrentType) ASIO_NOEXCEPT
+  friend CurrentType query(const ex_fq_fr&, CurrentType) noexcept(true)
   {
     return CurrentType();
   }
 
   friend ex_fq_fr<CurrentType, CurrentType> require(
-      const ex_fq_fr&, CurrentType) ASIO_NOEXCEPT
+      const ex_fq_fr&, CurrentType) noexcept(true)
   {
     return ex_fq_fr<CurrentType, CurrentType>();
   }
 
   friend ex_fq_fr<CurrentType, CurrentType> prefer(
-      const ex_fq_fr&, CurrentType) ASIO_NOEXCEPT
+      const ex_fq_fr&, CurrentType) noexcept(true)
   {
     return ex_fq_fr<CurrentType, CurrentType>();
   }
@@ -480,12 +480,12 @@ struct ex_fq_fr<CurrentType, CurrentType>
   {
   }
 
-  friend bool operator==(const ex_fq_fr&, const ex_fq_fr&) ASIO_NOEXCEPT
+  friend bool operator==(const ex_fq_fr&, const ex_fq_fr&) noexcept(true)
   {
     return true;
   }
 
-  friend bool operator!=(const ex_fq_fr&, const ex_fq_fr&) ASIO_NOEXCEPT
+  friend bool operator!=(const ex_fq_fr&, const ex_fq_fr&) noexcept(true)
   {
     return false;
   }

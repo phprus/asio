@@ -25,49 +25,49 @@
 
 namespace asio {
 
-any_completion_executor::any_completion_executor() ASIO_NOEXCEPT
+any_completion_executor::any_completion_executor() noexcept(true)
   : base_type()
 {
 }
 
-any_completion_executor::any_completion_executor(nullptr_t) ASIO_NOEXCEPT
+any_completion_executor::any_completion_executor(nullptr_t) noexcept(true)
   : base_type(nullptr_t())
 {
 }
 
 any_completion_executor::any_completion_executor(
-    const any_completion_executor& e) ASIO_NOEXCEPT
+    const any_completion_executor& e) noexcept(true)
   : base_type(static_cast<const base_type&>(e))
 {
 }
 
 any_completion_executor::any_completion_executor(std::nothrow_t,
-    const any_completion_executor& e) ASIO_NOEXCEPT
+    const any_completion_executor& e) noexcept(true)
   : base_type(static_cast<const base_type&>(e))
 {
 }
 
 any_completion_executor::any_completion_executor(
-    any_completion_executor&& e) ASIO_NOEXCEPT
+    any_completion_executor&& e) noexcept(true)
   : base_type(static_cast<base_type&&>(e))
 {
 }
 
 any_completion_executor::any_completion_executor(std::nothrow_t,
-    any_completion_executor&& e) ASIO_NOEXCEPT
+    any_completion_executor&& e) noexcept(true)
   : base_type(static_cast<base_type&&>(e))
 {
 }
 
 any_completion_executor& any_completion_executor::operator=(
-    const any_completion_executor& e) ASIO_NOEXCEPT
+    const any_completion_executor& e) noexcept(true)
 {
   base_type::operator=(static_cast<const base_type&>(e));
   return *this;
 }
 
 any_completion_executor& any_completion_executor::operator=(
-    any_completion_executor&& e) ASIO_NOEXCEPT
+    any_completion_executor&& e) noexcept(true)
 {
   base_type::operator=(static_cast<base_type&&>(e));
   return *this;
@@ -84,7 +84,7 @@ any_completion_executor::~any_completion_executor()
 }
 
 void any_completion_executor::swap(
-    any_completion_executor& other) ASIO_NOEXCEPT
+    any_completion_executor& other) noexcept(true)
 {
   static_cast<base_type&>(*this).swap(static_cast<base_type&>(other));
 }

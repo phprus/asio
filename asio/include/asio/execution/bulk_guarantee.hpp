@@ -315,7 +315,7 @@ struct bulk_guarantee_t
   static ASIO_CONSTEXPR
   typename query_static_constexpr_member<T>::result_type
   static_query()
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       query_static_constexpr_member<T>::is_noexcept))
   {
     return query_static_constexpr_member<T>::value();
@@ -333,7 +333,7 @@ struct bulk_guarantee_t
       >::type* = 0,
       typename enable_if<
         traits::static_query<T, unsequenced_t>::is_valid
-      >::type* = 0) ASIO_NOEXCEPT
+      >::type* = 0) noexcept(true)
   {
     return traits::static_query<T, unsequenced_t>::value();
   }
@@ -353,7 +353,7 @@ struct bulk_guarantee_t
       >::type* = 0,
       typename enable_if<
         traits::static_query<T, sequenced_t>::is_valid
-      >::type* = 0) ASIO_NOEXCEPT
+      >::type* = 0) noexcept(true)
   {
     return traits::static_query<T, sequenced_t>::value();
   }
@@ -376,7 +376,7 @@ struct bulk_guarantee_t
       >::type* = 0,
       typename enable_if<
         traits::static_query<T, parallel_t>::is_valid
-      >::type* = 0) ASIO_NOEXCEPT
+      >::type* = 0) noexcept(true)
   {
     return traits::static_query<T, parallel_t>::value();
   }
@@ -413,11 +413,11 @@ struct bulk_guarantee_t
       >::type* = 0)
 #if !defined(__clang__) // Clang crashes if noexcept is used here.
 #if defined(ASIO_MSVC) // Visual C++ wants the type to be qualified.
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&,
         bulk_guarantee_t<>::unsequenced_t>::value))
 #else // defined(ASIO_MSVC)
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&, unsequenced_t>::value))
 #endif // defined(ASIO_MSVC)
 #endif // !defined(__clang__)
@@ -436,11 +436,11 @@ struct bulk_guarantee_t
       >::type* = 0)
 #if !defined(__clang__) // Clang crashes if noexcept is used here.
 #if defined(ASIO_MSVC) // Visual C++ wants the type to be qualified.
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&,
         bulk_guarantee_t<>::sequenced_t>::value))
 #else // defined(ASIO_MSVC)
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&, sequenced_t>::value))
 #endif // defined(ASIO_MSVC)
 #endif // !defined(__clang__)
@@ -462,10 +462,10 @@ struct bulk_guarantee_t
       >::type* = 0)
 #if !defined(__clang__) // Clang crashes if noexcept is used here.
 #if defined(ASIO_MSVC) // Visual C++ wants the type to be qualified.
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&, bulk_guarantee_t<>::parallel_t>::value))
 #else // defined(ASIO_MSVC)
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&, parallel_t>::value))
 #endif // defined(ASIO_MSVC)
 #endif // !defined(__clang__)
@@ -565,7 +565,7 @@ struct unsequenced_t
   static ASIO_CONSTEXPR
   typename query_static_constexpr_member<T>::result_type
   static_query()
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       query_static_constexpr_member<T>::is_noexcept))
   {
     return query_static_constexpr_member<T>::value();
@@ -587,7 +587,7 @@ struct unsequenced_t
       >::type* = 0,
       typename enable_if<
         !can_query<T, parallel_t<I> >::value
-      >::type* = 0) ASIO_NOEXCEPT
+      >::type* = 0) noexcept(true)
   {
     return unsequenced_t();
   }
@@ -701,7 +701,7 @@ struct sequenced_t
   static ASIO_CONSTEXPR
   typename query_static_constexpr_member<T>::result_type
   static_query()
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       query_static_constexpr_member<T>::is_noexcept))
   {
     return query_static_constexpr_member<T>::value();
@@ -816,7 +816,7 @@ struct parallel_t
   static ASIO_CONSTEXPR
   typename query_static_constexpr_member<T>::result_type
   static_query()
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       query_static_constexpr_member<T>::is_noexcept))
   {
     return query_static_constexpr_member<T>::value();

@@ -51,12 +51,12 @@ struct associated_executor_impl
 
   typedef E type;
 
-  static type get(const T&) ASIO_NOEXCEPT
+  static type get(const T&) noexcept(true)
   {
     return type();
   }
 
-  static const type& get(const T&, const E& e) ASIO_NOEXCEPT
+  static const type& get(const T&, const E& e) noexcept(true)
   {
     return e;
   }
@@ -69,14 +69,14 @@ struct associated_executor_impl<T, E,
   typedef typename T::executor_type type;
 
   static ASIO_AUTO_RETURN_TYPE_PREFIX(type) get(
-      const T& t) ASIO_NOEXCEPT
+      const T& t) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((t.get_executor()))
   {
     return t.get_executor();
   }
 
   static ASIO_AUTO_RETURN_TYPE_PREFIX(type) get(
-      const T& t, const E&) ASIO_NOEXCEPT
+      const T& t, const E&) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((t.get_executor()))
   {
     return t.get_executor();
@@ -130,11 +130,11 @@ struct associated_executor
 
   /// If @c T has a nested type @c executor_type, returns
   /// <tt>t.get_executor()</tt>. Otherwise returns @c type().
-  static decltype(auto) get(const T& t) ASIO_NOEXCEPT;
+  static decltype(auto) get(const T& t) noexcept(true);
 
   /// If @c T has a nested type @c executor_type, returns
   /// <tt>t.get_executor()</tt>. Otherwise returns @c ex.
-  static decltype(auto) get(const T& t, const Executor& ex) ASIO_NOEXCEPT;
+  static decltype(auto) get(const T& t, const Executor& ex) noexcept(true);
 #endif // defined(GENERATING_DOCUMENTATION)
 };
 
@@ -144,7 +144,7 @@ struct associated_executor
  */
 template <typename T>
 ASIO_NODISCARD inline typename associated_executor<T>::type
-get_associated_executor(const T& t) ASIO_NOEXCEPT
+get_associated_executor(const T& t) noexcept(true)
 {
   return associated_executor<T>::get(t);
 }
@@ -159,7 +159,7 @@ ASIO_NODISCARD inline ASIO_AUTO_RETURN_TYPE_PREFIX2(
 get_associated_executor(const T& t, const Executor& ex,
     typename constraint<
       is_executor<Executor>::value || execution::is_executor<Executor>::value
-    >::type = 0) ASIO_NOEXCEPT
+    >::type = 0) noexcept(true)
   ASIO_AUTO_RETURN_TYPE_SUFFIX((
     associated_executor<T, Executor>::get(t, ex)))
 {
@@ -177,7 +177,7 @@ ASIO_NODISCARD inline ASIO_AUTO_RETURN_TYPE_PREFIX2(
       typename ExecutionContext::executor_type>::type)
 get_associated_executor(const T& t, ExecutionContext& ctx,
     typename constraint<is_convertible<ExecutionContext&,
-      execution_context&>::value>::type = 0) ASIO_NOEXCEPT
+      execution_context&>::value>::type = 0) noexcept(true)
   ASIO_AUTO_RETURN_TYPE_SUFFIX((
     associated_executor<T,
       typename ExecutionContext::executor_type>::get(t, ctx.get_executor())))
@@ -227,7 +227,7 @@ struct associated_executor<reference_wrapper<T>, Executor>
 
   /// Forwards the request to get the executor to the associator specialisation
   /// for the unwrapped type @c T.
-  static type get(reference_wrapper<T> t) ASIO_NOEXCEPT
+  static type get(reference_wrapper<T> t) noexcept(true)
   {
     return associated_executor<T, Executor>::get(t.get());
   }
@@ -235,7 +235,7 @@ struct associated_executor<reference_wrapper<T>, Executor>
   /// Forwards the request to get the executor to the associator specialisation
   /// for the unwrapped type @c T.
   static ASIO_AUTO_RETURN_TYPE_PREFIX(type) get(
-      reference_wrapper<T> t, const Executor& ex) ASIO_NOEXCEPT
+      reference_wrapper<T> t, const Executor& ex) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       associated_executor<T, Executor>::get(t.get(), ex)))
   {

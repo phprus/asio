@@ -141,7 +141,7 @@ struct allocator_t
   static ASIO_CONSTEXPR
   typename query_static_constexpr_member<T>::result_type
   static_query()
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       query_static_constexpr_member<T>::is_noexcept))
   {
     return query_static_constexpr_member<T>::value();
@@ -247,7 +247,7 @@ struct allocator_t<void>
   static ASIO_CONSTEXPR
   typename query_static_constexpr_member<T>::result_type
   static_query()
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       query_static_constexpr_member<T>::is_noexcept))
   {
     return query_static_constexpr_member<T>::value();

@@ -1053,7 +1053,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type
   get(const experimental::detail::co_composed_handler<
-        Executors, Handler, Return, Signature>& h) ASIO_NOEXCEPT
+        Executors, Handler, Return, Signature>& h) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(
         h.promise().state().handler());
@@ -1063,7 +1063,7 @@ struct associator<Associator,
       typename Associator<Handler, DefaultCandidate>::type)
   get(const experimental::detail::co_composed_handler<
         Executors, Handler, Return, Signature>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<Handler, DefaultCandidate>::get(
         h.promise().state().handler(), c)))

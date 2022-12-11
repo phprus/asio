@@ -41,12 +41,12 @@ struct receiver
   }
 
   template <typename E>
-  void set_error(ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT
+  void set_error(ASIO_MOVE_ARG(E) e) noexcept(true)
   {
     (void)e;
   }
 
-  void set_done() ASIO_NOEXCEPT
+  void set_done() noexcept(true)
   {
   }
 };
@@ -95,12 +95,12 @@ struct receiver_of_0
   }
 
   template <typename E>
-  void set_error(ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT
+  void set_error(ASIO_MOVE_ARG(E) e) noexcept(true)
   {
     (void)e;
   }
 
-  void set_done() ASIO_NOEXCEPT
+  void set_done() noexcept(true)
   {
   }
 
@@ -164,16 +164,16 @@ struct receiver_of_1
   }
 
   template <typename E>
-  void set_error(ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT
+  void set_error(ASIO_MOVE_ARG(E) e) noexcept(true)
   {
     (void)e;
   }
 
-  void set_done() ASIO_NOEXCEPT
+  void set_done() noexcept(true)
   {
   }
 
-  void set_value(int) ASIO_NOEXCEPT
+  void set_value(int) noexcept(true)
   {
   }
 };
@@ -233,12 +233,12 @@ struct receiver_of_2
   }
 
   template <typename E>
-  void set_error(ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT
+  void set_error(ASIO_MOVE_ARG(E) e) noexcept(true)
   {
     (void)e;
   }
 
-  void set_done() ASIO_NOEXCEPT
+  void set_done() noexcept(true)
   {
   }
 

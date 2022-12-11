@@ -38,7 +38,7 @@ public:
   typedef basic_address_iterator<address_v4> iterator;
 
   /// Construct an empty range.
-  basic_address_range() ASIO_NOEXCEPT
+  basic_address_range() noexcept(true)
     : begin_(address_v4()),
       end_(address_v4())
   {
@@ -46,21 +46,21 @@ public:
 
   /// Construct an range that represents the given range of addresses.
   explicit basic_address_range(const iterator& first,
-      const iterator& last) ASIO_NOEXCEPT
+      const iterator& last) noexcept(true)
     : begin_(first),
       end_(last)
   {
   }
 
   /// Copy constructor.
-  basic_address_range(const basic_address_range& other) ASIO_NOEXCEPT
+  basic_address_range(const basic_address_range& other) noexcept(true)
     : begin_(other.begin_),
       end_(other.end_)
   {
   }
 
   /// Move constructor.
-  basic_address_range(basic_address_range&& other) ASIO_NOEXCEPT
+  basic_address_range(basic_address_range&& other) noexcept(true)
     : begin_(ASIO_MOVE_CAST(iterator)(other.begin_)),
       end_(ASIO_MOVE_CAST(iterator)(other.end_))
   {
@@ -68,7 +68,7 @@ public:
 
   /// Assignment operator.
   basic_address_range& operator=(
-      const basic_address_range& other) ASIO_NOEXCEPT
+      const basic_address_range& other) noexcept(true)
   {
     begin_ = other.begin_;
     end_ = other.end_;
@@ -77,7 +77,7 @@ public:
 
   /// Move assignment operator.
   basic_address_range& operator=(
-      basic_address_range&& other) ASIO_NOEXCEPT
+      basic_address_range&& other) noexcept(true)
   {
     begin_ = ASIO_MOVE_CAST(iterator)(other.begin_);
     end_ = ASIO_MOVE_CAST(iterator)(other.end_);
@@ -85,31 +85,31 @@ public:
   }
 
   /// Obtain an iterator that points to the start of the range.
-  iterator begin() const ASIO_NOEXCEPT
+  iterator begin() const noexcept(true)
   {
     return begin_;
   }
 
   /// Obtain an iterator that points to the end of the range.
-  iterator end() const ASIO_NOEXCEPT
+  iterator end() const noexcept(true)
   {
     return end_;
   }
 
   /// Determine whether the range is empty.
-  bool empty() const ASIO_NOEXCEPT
+  bool empty() const noexcept(true)
   {
     return size() == 0;
   }
 
   /// Return the size of the range.
-  std::size_t size() const ASIO_NOEXCEPT
+  std::size_t size() const noexcept(true)
   {
     return end_->to_uint() - begin_->to_uint();
   }
 
   /// Find an address in the range.
-  iterator find(const address_v4& addr) const ASIO_NOEXCEPT
+  iterator find(const address_v4& addr) const noexcept(true)
   {
     return addr >= *begin_ && addr < *end_ ? iterator(addr) : end_;
   }

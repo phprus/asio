@@ -365,7 +365,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return device_.get_executor();
     }
@@ -407,7 +407,7 @@ struct associator<Associator,
   static typename Associator<ReadHandler, DefaultCandidate>::type
   get(const detail::read_at_op<AsyncRandomAccessReadDevice,
         MutableBufferSequence, MutableBufferIterator,
-        CompletionCondition, ReadHandler>& h) ASIO_NOEXCEPT
+        CompletionCondition, ReadHandler>& h) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_);
   }
@@ -417,7 +417,7 @@ struct associator<Associator,
   get(const detail::read_at_op<AsyncRandomAccessReadDevice,
         MutableBufferSequence, MutableBufferIterator,
         CompletionCondition, ReadHandler>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c)))
   {
@@ -653,7 +653,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return device_.get_executor();
     }
@@ -695,7 +695,7 @@ struct associator<Associator,
 {
   static typename Associator<ReadHandler, DefaultCandidate>::type
   get(const detail::read_at_streambuf_op<AsyncRandomAccessReadDevice,
-        Executor, CompletionCondition, ReadHandler>& h) ASIO_NOEXCEPT
+        Executor, CompletionCondition, ReadHandler>& h) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_);
   }
@@ -704,7 +704,7 @@ struct associator<Associator,
       typename Associator<ReadHandler, DefaultCandidate>::type)
   get(const detail::read_at_streambuf_op<AsyncRandomAccessReadDevice,
         Executor, CompletionCondition, ReadHandler>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c)))
   {

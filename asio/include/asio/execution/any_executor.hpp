@@ -428,7 +428,7 @@ public:
 
   template <typename E>
   shared_target_executor(std::nothrow_t, ASIO_MOVE_ARG(E) e,
-      typename decay<E>::type*& target) ASIO_NOEXCEPT
+      typename decay<E>::type*& target) noexcept(true)
   {
     impl<typename decay<E>::type>* i =
       new (std::nothrow) impl<typename decay<E>::type>(
@@ -438,7 +438,7 @@ public:
   }
 
   shared_target_executor(
-      const shared_target_executor& other) ASIO_NOEXCEPT
+      const shared_target_executor& other) noexcept(true)
     : impl_(other.impl_)
   {
     if (impl_)
@@ -446,7 +446,7 @@ public:
   }
 
   shared_target_executor& operator=(
-      const shared_target_executor& other) ASIO_NOEXCEPT
+      const shared_target_executor& other) noexcept(true)
   {
     impl_ = other.impl_;
     if (impl_)
@@ -455,14 +455,14 @@ public:
   }
 
   shared_target_executor(
-      shared_target_executor&& other) ASIO_NOEXCEPT
+      shared_target_executor&& other) noexcept(true)
     : impl_(other.impl_)
   {
     other.impl_ = 0;
   }
 
   shared_target_executor& operator=(
-      shared_target_executor&& other) ASIO_NOEXCEPT
+      shared_target_executor&& other) noexcept(true)
   {
     impl_ = other.impl_;
     other.impl_ = 0;
@@ -476,7 +476,7 @@ public:
         delete impl_;
   }
 
-  void* get() const ASIO_NOEXCEPT
+  void* get() const noexcept(true)
   {
     return impl_ ? impl_->get() : 0;
   }
@@ -504,7 +504,7 @@ private:
 class any_executor_base
 {
 public:
-  any_executor_base() ASIO_NOEXCEPT
+  any_executor_base() noexcept(true)
     : object_fns_(0),
       target_(0),
       target_fns_(0)
@@ -526,7 +526,7 @@ public:
   }
 
   template <ASIO_EXECUTION_EXECUTOR Executor>
-  any_executor_base(std::nothrow_t, Executor ex, false_type) ASIO_NOEXCEPT
+  any_executor_base(std::nothrow_t, Executor ex, false_type) noexcept(true)
     : target_fns_(target_fns_table<Executor>(
           any_executor_base::query_blocking(ex,
             can_query<const Executor&, const execution::blocking_t&>())
@@ -557,7 +557,7 @@ public:
 
   template <ASIO_EXECUTION_EXECUTOR Executor>
   any_executor_base(std::nothrow_t,
-      Executor other, true_type) ASIO_NOEXCEPT
+      Executor other, true_type) noexcept(true)
     : object_fns_(object_fns_table<shared_target_executor>()),
       target_fns_(other.target_fns_)
   {
@@ -574,7 +574,7 @@ public:
     }
   }
 
-  any_executor_base(const any_executor_base& other) ASIO_NOEXCEPT
+  any_executor_base(const any_executor_base& other) noexcept(true)
   {
     if (!!other)
     {
@@ -590,14 +590,14 @@ public:
     }
   }
 
-  ~any_executor_base() ASIO_NOEXCEPT
+  ~any_executor_base() noexcept(true)
   {
     if (!!*this)
       object_fns_->destroy(*this);
   }
 
   any_executor_base& operator=(
-      const any_executor_base& other) ASIO_NOEXCEPT
+      const any_executor_base& other) noexcept(true)
   {
     if (this != &other)
     {
@@ -619,7 +619,7 @@ public:
     return *this;
   }
 
-  any_executor_base& operator=(nullptr_t) ASIO_NOEXCEPT
+  any_executor_base& operator=(nullptr_t) noexcept(true)
   {
     if (target_)
       object_fns_->destroy(*this);
@@ -629,7 +629,7 @@ public:
     return *this;
   }
 
-  any_executor_base(any_executor_base&& other) ASIO_NOEXCEPT
+  any_executor_base(any_executor_base&& other) noexcept(true)
   {
     if (other.target_)
     {
@@ -649,7 +649,7 @@ public:
   }
 
   any_executor_base& operator=(
-      any_executor_base&& other) ASIO_NOEXCEPT
+      any_executor_base&& other) noexcept(true)
   {
     if (this != &other)
     {
@@ -674,7 +674,7 @@ public:
     return *this;
   }
 
-  void swap(any_executor_base& other) ASIO_NOEXCEPT
+  void swap(any_executor_base& other) noexcept(true)
   {
     if (this != &other)
     {
@@ -739,18 +739,18 @@ public:
   typedef void (*unspecified_bool_type)(unspecified_bool_type_t);
   static void unspecified_bool_true(unspecified_bool_type_t) {}
 
-  operator unspecified_bool_type() const ASIO_NOEXCEPT
+  operator unspecified_bool_type() const noexcept(true)
   {
     return target_ ? &any_executor_base::unspecified_bool_true : 0;
   }
 
-  bool operator!() const ASIO_NOEXCEPT
+  bool operator!() const noexcept(true)
   {
     return target_ == 0;
   }
 
 protected:
-  bool equality_helper(const any_executor_base& other) const ASIO_NOEXCEPT
+  bool equality_helper(const any_executor_base& other) const noexcept(true)
   {
     if (target_ == other.target_)
       return true;
@@ -1192,7 +1192,7 @@ private:
 
   template <typename Executor>
   void construct_object(std::nothrow_t,
-      Executor& ex, true_type) ASIO_NOEXCEPT
+      Executor& ex, true_type) noexcept(true)
   {
     object_fns_ = object_fns_table<Executor>();
     target_ = new (&object_) Executor(ASIO_MOVE_CAST(Executor)(ex));
@@ -1200,7 +1200,7 @@ private:
 
   template <typename Executor>
   void construct_object(std::nothrow_t,
-      Executor& ex, false_type) ASIO_NOEXCEPT
+      Executor& ex, false_type) noexcept(true)
   {
     object_fns_ = object_fns_table<shared_target_executor>();
     Executor* p = 0;
@@ -1248,12 +1248,12 @@ template <>
 class any_executor<> : public detail::any_executor_base
 {
 public:
-  any_executor() ASIO_NOEXCEPT
+  any_executor() noexcept(true)
     : detail::any_executor_base()
   {
   }
 
-  any_executor(nullptr_t) ASIO_NOEXCEPT
+  any_executor(nullptr_t) noexcept(true)
     : detail::any_executor_base()
   {
   }
@@ -1282,7 +1282,7 @@ public:
           is_executor<Executor>,
           false_type
         >::type::value
-      >::type* = 0) ASIO_NOEXCEPT
+      >::type* = 0) noexcept(true)
     : detail::any_executor_base(std::nothrow,
         ASIO_MOVE_CAST(Executor)(ex), false_type())
   {
@@ -1297,25 +1297,25 @@ public:
 
   template <typename... OtherSupportableProperties>
   any_executor(std::nothrow_t,
-      any_executor<OtherSupportableProperties...> other) ASIO_NOEXCEPT
+      any_executor<OtherSupportableProperties...> other) noexcept(true)
     : detail::any_executor_base(
         static_cast<const detail::any_executor_base&>(other))
   {
   }
 
-  any_executor(const any_executor& other) ASIO_NOEXCEPT
+  any_executor(const any_executor& other) noexcept(true)
     : detail::any_executor_base(
         static_cast<const detail::any_executor_base&>(other))
   {
   }
 
-  any_executor(std::nothrow_t, const any_executor& other) ASIO_NOEXCEPT
+  any_executor(std::nothrow_t, const any_executor& other) noexcept(true)
     : detail::any_executor_base(
         static_cast<const detail::any_executor_base&>(other))
   {
   }
 
-  any_executor& operator=(const any_executor& other) ASIO_NOEXCEPT
+  any_executor& operator=(const any_executor& other) noexcept(true)
   {
     if (this != &other)
     {
@@ -1325,27 +1325,27 @@ public:
     return *this;
   }
 
-  any_executor& operator=(nullptr_t p) ASIO_NOEXCEPT
+  any_executor& operator=(nullptr_t p) noexcept(true)
   {
     detail::any_executor_base::operator=(p);
     return *this;
   }
 
-  any_executor(any_executor&& other) ASIO_NOEXCEPT
+  any_executor(any_executor&& other) noexcept(true)
     : detail::any_executor_base(
         static_cast<any_executor_base&&>(
           static_cast<any_executor_base&>(other)))
   {
   }
 
-  any_executor(std::nothrow_t, any_executor&& other) ASIO_NOEXCEPT
+  any_executor(std::nothrow_t, any_executor&& other) noexcept(true)
     : detail::any_executor_base(
         static_cast<any_executor_base&&>(
           static_cast<any_executor_base&>(other)))
   {
   }
 
-  any_executor& operator=(any_executor&& other) ASIO_NOEXCEPT
+  any_executor& operator=(any_executor&& other) noexcept(true)
   {
     if (this != &other)
     {
@@ -1356,7 +1356,7 @@ public:
     return *this;
   }
 
-  void swap(any_executor& other) ASIO_NOEXCEPT
+  void swap(any_executor& other) noexcept(true)
   {
     detail::any_executor_base::swap(
         static_cast<detail::any_executor_base&>(other));
@@ -1368,7 +1368,7 @@ public:
   using detail::any_executor_base::operator unspecified_bool_type;
   using detail::any_executor_base::operator!;
 
-  bool equality_helper(const any_executor& other) const ASIO_NOEXCEPT
+  bool equality_helper(const any_executor& other) const noexcept(true)
   {
     return any_executor_base::equality_helper(other);
   }
@@ -1379,7 +1379,7 @@ public:
       || is_base_of<any_executor, AnyExecutor2>::value,
     bool
   >::type operator==(const AnyExecutor1& a,
-      const AnyExecutor2& b) ASIO_NOEXCEPT
+      const AnyExecutor2& b) noexcept(true)
   {
     return static_cast<const any_executor&>(a).equality_helper(b);
   }
@@ -1388,7 +1388,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator==(const AnyExecutor& a, nullptr_t) ASIO_NOEXCEPT
+  >::type operator==(const AnyExecutor& a, nullptr_t) noexcept(true)
   {
     return !a;
   }
@@ -1397,7 +1397,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator==(nullptr_t, const AnyExecutor& b) ASIO_NOEXCEPT
+  >::type operator==(nullptr_t, const AnyExecutor& b) noexcept(true)
   {
     return !b;
   }
@@ -1408,7 +1408,7 @@ public:
       || is_base_of<any_executor, AnyExecutor2>::value,
     bool
   >::type operator!=(const AnyExecutor1& a,
-      const AnyExecutor2& b) ASIO_NOEXCEPT
+      const AnyExecutor2& b) noexcept(true)
   {
     return !static_cast<const any_executor&>(a).equality_helper(b);
   }
@@ -1417,7 +1417,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator!=(const AnyExecutor& a, nullptr_t) ASIO_NOEXCEPT
+  >::type operator!=(const AnyExecutor& a, nullptr_t) noexcept(true)
   {
     return !!a;
   }
@@ -1426,13 +1426,13 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator!=(nullptr_t, const AnyExecutor& b) ASIO_NOEXCEPT
+  >::type operator!=(nullptr_t, const AnyExecutor& b) noexcept(true)
   {
     return !!b;
   }
 };
 
-inline void swap(any_executor<>& a, any_executor<>& b) ASIO_NOEXCEPT
+inline void swap(any_executor<>& a, any_executor<>& b) noexcept(true)
 {
   return a.swap(b);
 }
@@ -1446,13 +1446,13 @@ class any_executor :
         0, void(SupportableProperties...)>::find_context_as_property>
 {
 public:
-  any_executor() ASIO_NOEXCEPT
+  any_executor() noexcept(true)
     : detail::any_executor_base(),
       prop_fns_(prop_fns_table<void>())
   {
   }
 
-  any_executor(nullptr_t) ASIO_NOEXCEPT
+  any_executor(nullptr_t) noexcept(true)
     : detail::any_executor_base(),
       prop_fns_(prop_fns_table<void>())
   {
@@ -1485,7 +1485,7 @@ public:
             Executor, void(SupportableProperties...)>,
           false_type
         >::type::value
-      >::type* = 0) ASIO_NOEXCEPT
+      >::type* = 0) noexcept(true)
     : detail::any_executor_base(std::nothrow,
         ASIO_MOVE_CAST(Executor)(ex), false_type()),
       prop_fns_(prop_fns_table<Executor>())
@@ -1528,7 +1528,7 @@ public:
               any_executor<OtherSupportableProperties...> >,
           false_type
         >::type::value
-      >::type* = 0) ASIO_NOEXCEPT
+      >::type* = 0) noexcept(true)
     : detail::any_executor_base(std::nothrow, ASIO_MOVE_CAST(
           any_executor<OtherSupportableProperties...>)(other), true_type()),
       prop_fns_(prop_fns_table<any_executor<OtherSupportableProperties...> >())
@@ -1537,21 +1537,21 @@ public:
       prop_fns_ = prop_fns_table<void>();
   }
 
-  any_executor(const any_executor& other) ASIO_NOEXCEPT
+  any_executor(const any_executor& other) noexcept(true)
     : detail::any_executor_base(
         static_cast<const detail::any_executor_base&>(other)),
       prop_fns_(other.prop_fns_)
   {
   }
 
-  any_executor(std::nothrow_t, const any_executor& other) ASIO_NOEXCEPT
+  any_executor(std::nothrow_t, const any_executor& other) noexcept(true)
     : detail::any_executor_base(
         static_cast<const detail::any_executor_base&>(other)),
       prop_fns_(other.prop_fns_)
   {
   }
 
-  any_executor& operator=(const any_executor& other) ASIO_NOEXCEPT
+  any_executor& operator=(const any_executor& other) noexcept(true)
   {
     if (this != &other)
     {
@@ -1562,14 +1562,14 @@ public:
     return *this;
   }
 
-  any_executor& operator=(nullptr_t p) ASIO_NOEXCEPT
+  any_executor& operator=(nullptr_t p) noexcept(true)
   {
     prop_fns_ = prop_fns_table<void>();
     detail::any_executor_base::operator=(p);
     return *this;
   }
 
-  any_executor(any_executor&& other) ASIO_NOEXCEPT
+  any_executor(any_executor&& other) noexcept(true)
     : detail::any_executor_base(
         static_cast<any_executor_base&&>(
           static_cast<any_executor_base&>(other))),
@@ -1578,7 +1578,7 @@ public:
     other.prop_fns_ = prop_fns_table<void>();
   }
 
-  any_executor(std::nothrow_t, any_executor&& other) ASIO_NOEXCEPT
+  any_executor(std::nothrow_t, any_executor&& other) noexcept(true)
     : detail::any_executor_base(
         static_cast<any_executor_base&&>(
           static_cast<any_executor_base&>(other))),
@@ -1587,7 +1587,7 @@ public:
     other.prop_fns_ = prop_fns_table<void>();
   }
 
-  any_executor& operator=(any_executor&& other) ASIO_NOEXCEPT
+  any_executor& operator=(any_executor&& other) noexcept(true)
   {
     if (this != &other)
     {
@@ -1599,7 +1599,7 @@ public:
     return *this;
   }
 
-  void swap(any_executor& other) ASIO_NOEXCEPT
+  void swap(any_executor& other) noexcept(true)
   {
     if (this != &other)
     {
@@ -1617,7 +1617,7 @@ public:
   using detail::any_executor_base::operator unspecified_bool_type;
   using detail::any_executor_base::operator!;
 
-  bool equality_helper(const any_executor& other) const ASIO_NOEXCEPT
+  bool equality_helper(const any_executor& other) const noexcept(true)
   {
     return any_executor_base::equality_helper(other);
   }
@@ -1628,7 +1628,7 @@ public:
       || is_base_of<any_executor, AnyExecutor2>::value,
     bool
   >::type operator==(const AnyExecutor1& a,
-      const AnyExecutor2& b) ASIO_NOEXCEPT
+      const AnyExecutor2& b) noexcept(true)
   {
     return static_cast<const any_executor&>(a).equality_helper(b);
   }
@@ -1637,7 +1637,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator==(const AnyExecutor& a, nullptr_t) ASIO_NOEXCEPT
+  >::type operator==(const AnyExecutor& a, nullptr_t) noexcept(true)
   {
     return !a;
   }
@@ -1646,7 +1646,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator==(nullptr_t, const AnyExecutor& b) ASIO_NOEXCEPT
+  >::type operator==(nullptr_t, const AnyExecutor& b) noexcept(true)
   {
     return !b;
   }
@@ -1657,7 +1657,7 @@ public:
       || is_base_of<any_executor, AnyExecutor2>::value,
     bool
   >::type operator!=(const AnyExecutor1& a,
-      const AnyExecutor2& b) ASIO_NOEXCEPT
+      const AnyExecutor2& b) noexcept(true)
   {
     return !static_cast<const any_executor&>(a).equality_helper(b);
   }
@@ -1666,7 +1666,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator!=(const AnyExecutor& a, nullptr_t) ASIO_NOEXCEPT
+  >::type operator!=(const AnyExecutor& a, nullptr_t) noexcept(true)
   {
     return !!a;
   }
@@ -1675,7 +1675,7 @@ public:
   friend typename enable_if<
     is_same<AnyExecutor, any_executor>::value,
     bool
-  >::type operator!=(nullptr_t, const AnyExecutor& b) ASIO_NOEXCEPT
+  >::type operator!=(nullptr_t, const AnyExecutor& b) noexcept(true)
   {
     return !!b;
   }
@@ -1826,7 +1826,7 @@ public:
 
 template <typename... SupportableProperties>
 inline void swap(any_executor<SupportableProperties...>& a,
-    any_executor<SupportableProperties...>& b) ASIO_NOEXCEPT
+    any_executor<SupportableProperties...>& b) noexcept(true)
 {
   return a.swap(b);
 }

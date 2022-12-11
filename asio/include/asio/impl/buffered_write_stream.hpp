@@ -153,7 +153,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return next_layer_.lowest_layer().get_executor();
     }
@@ -187,7 +187,7 @@ struct associator<Associator,
   : Associator<WriteHandler, DefaultCandidate>
 {
   static typename Associator<WriteHandler, DefaultCandidate>::type
-  get(const detail::buffered_flush_handler<WriteHandler>& h) ASIO_NOEXCEPT
+  get(const detail::buffered_flush_handler<WriteHandler>& h) noexcept(true)
   {
     return Associator<WriteHandler, DefaultCandidate>::get(h.handler_);
   }
@@ -195,7 +195,7 @@ struct associator<Associator,
   static ASIO_AUTO_RETURN_TYPE_PREFIX2(
       typename Associator<WriteHandler, DefaultCandidate>::type)
   get(const detail::buffered_flush_handler<WriteHandler>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<WriteHandler, DefaultCandidate>::get(h.handler_, c)))
   {
@@ -391,7 +391,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return next_layer_.lowest_layer().get_executor();
     }
@@ -441,7 +441,7 @@ struct associator<Associator,
 {
   static typename Associator<WriteHandler, DefaultCandidate>::type
   get(const detail::buffered_write_some_handler<
-        ConstBufferSequence, WriteHandler>& h) ASIO_NOEXCEPT
+        ConstBufferSequence, WriteHandler>& h) noexcept(true)
   {
     return Associator<WriteHandler, DefaultCandidate>::get(h.handler_);
   }
@@ -450,7 +450,7 @@ struct associator<Associator,
       typename Associator<WriteHandler, DefaultCandidate>::type)
   get(const detail::buffered_write_some_handler<
         ConstBufferSequence, WriteHandler>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<WriteHandler, DefaultCandidate>::get(h.handler_, c)))
   {

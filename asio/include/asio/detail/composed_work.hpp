@@ -47,7 +47,7 @@ public:
   {
   }
 
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return executor_;
   }
@@ -70,7 +70,7 @@ public:
   {
   }
 
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return system_executor();
   }
@@ -98,7 +98,7 @@ struct composed_io_executors;
 template <>
 struct composed_io_executors<void()>
 {
-  composed_io_executors() ASIO_NOEXCEPT
+  composed_io_executors() noexcept(true)
     : head_(system_executor())
   {
   }
@@ -115,7 +115,7 @@ inline composed_io_executors<void()> make_composed_io_executors()
 template <typename Head>
 struct composed_io_executors<void(Head)>
 {
-  explicit composed_io_executors(const Head& ex) ASIO_NOEXCEPT
+  explicit composed_io_executors(const Head& ex) noexcept(true)
     : head_(ex)
   {
   }
@@ -135,7 +135,7 @@ template <typename Head, typename... Tail>
 struct composed_io_executors<void(Head, Tail...)>
 {
   explicit composed_io_executors(const Head& head,
-      const Tail&... tail) ASIO_NOEXCEPT
+      const Tail&... tail) noexcept(true)
     : head_(head),
       tail_(tail...)
   {
@@ -167,7 +167,7 @@ struct composed_work<void()>
 {
   typedef composed_io_executors<void()> executors_type;
 
-  composed_work(const executors_type&) ASIO_NOEXCEPT
+  composed_work(const executors_type&) noexcept(true)
     : head_(system_executor())
   {
   }
@@ -186,7 +186,7 @@ struct composed_work<void(Head)>
 {
   typedef composed_io_executors<void(Head)> executors_type;
 
-  explicit composed_work(const executors_type& ex) ASIO_NOEXCEPT
+  explicit composed_work(const executors_type& ex) noexcept(true)
     : head_(ex.head_)
   {
   }
@@ -205,7 +205,7 @@ struct composed_work<void(Head, Tail...)>
 {
   typedef composed_io_executors<void(Head, Tail...)> executors_type;
 
-  explicit composed_work(const executors_type& ex) ASIO_NOEXCEPT
+  explicit composed_work(const executors_type& ex) noexcept(true)
     : head_(ex.head_),
       tail_(ex.tail_)
   {

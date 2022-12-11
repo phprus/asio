@@ -183,7 +183,7 @@ struct execute_free<const free_execute_non_const_executor&, F>
 
 struct operation_state
 {
-  void start() ASIO_NOEXCEPT
+  void start() noexcept(true)
   {
   }
 };

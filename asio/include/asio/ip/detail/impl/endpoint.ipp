@@ -31,7 +31,7 @@ namespace asio {
 namespace ip {
 namespace detail {
 
-endpoint::endpoint() ASIO_NOEXCEPT
+endpoint::endpoint() noexcept(true)
   : data_()
 {
   data_.v4.sin_family = ASIO_OS_DEF(AF_INET);
@@ -39,7 +39,7 @@ endpoint::endpoint() ASIO_NOEXCEPT
   data_.v4.sin_addr.s_addr = ASIO_OS_DEF(INADDR_ANY);
 }
 
-endpoint::endpoint(int family, unsigned short port_num) ASIO_NOEXCEPT
+endpoint::endpoint(int family, unsigned short port_num) noexcept(true)
   : data_()
 {
   using namespace std; // For memcpy.
@@ -69,7 +69,7 @@ endpoint::endpoint(int family, unsigned short port_num) ASIO_NOEXCEPT
 }
 
 endpoint::endpoint(const asio::ip::address& addr,
-    unsigned short port_num) ASIO_NOEXCEPT
+    unsigned short port_num) noexcept(true)
   : data_()
 {
   using namespace std; // For memcpy.
@@ -106,7 +106,7 @@ void endpoint::resize(std::size_t new_size)
   }
 }
 
-unsigned short endpoint::port() const ASIO_NOEXCEPT
+unsigned short endpoint::port() const noexcept(true)
 {
   if (is_v4())
   {
@@ -120,7 +120,7 @@ unsigned short endpoint::port() const ASIO_NOEXCEPT
   }
 }
 
-void endpoint::port(unsigned short port_num) ASIO_NOEXCEPT
+void endpoint::port(unsigned short port_num) noexcept(true)
 {
   if (is_v4())
   {
@@ -134,7 +134,7 @@ void endpoint::port(unsigned short port_num) ASIO_NOEXCEPT
   }
 }
 
-asio::ip::address endpoint::address() const ASIO_NOEXCEPT
+asio::ip::address endpoint::address() const noexcept(true)
 {
   using namespace std; // For memcpy.
   if (is_v4())
@@ -155,18 +155,18 @@ asio::ip::address endpoint::address() const ASIO_NOEXCEPT
   }
 }
 
-void endpoint::address(const asio::ip::address& addr) ASIO_NOEXCEPT
+void endpoint::address(const asio::ip::address& addr) noexcept(true)
 {
   endpoint tmp_endpoint(addr, port());
   data_ = tmp_endpoint.data_;
 }
 
-bool operator==(const endpoint& e1, const endpoint& e2) ASIO_NOEXCEPT
+bool operator==(const endpoint& e1, const endpoint& e2) noexcept(true)
 {
   return e1.address() == e2.address() && e1.port() == e2.port();
 }
 
-bool operator<(const endpoint& e1, const endpoint& e2) ASIO_NOEXCEPT
+bool operator<(const endpoint& e1, const endpoint& e2) noexcept(true)
 {
   if (e1.address() < e2.address())
     return true;

@@ -39,7 +39,7 @@ class basic_system_executor
 {
 public:
   /// Default constructor.
-  basic_system_executor() ASIO_NOEXCEPT
+  basic_system_executor() noexcept(true)
     : allocator_(Allocator())
   {
   }
@@ -196,7 +196,7 @@ private:
    *   ... @endcode
    */
   static ASIO_CONSTEXPR execution::mapping_t query(
-      execution::mapping_t) ASIO_NOEXCEPT
+      execution::mapping_t) noexcept(true)
   {
     return execution::mapping.thread;
   }
@@ -211,7 +211,7 @@ private:
    * asio::system_context& pool = asio::query(
    *     ex, asio::execution::context); @endcode
    */
-  static system_context& query(execution::context_t) ASIO_NOEXCEPT;
+  static system_context& query(execution::context_t) noexcept(true);
 
   /// Query the current value of the @c blocking property.
   /**
@@ -225,7 +225,7 @@ private:
    *   ... @endcode
    */
   static ASIO_CONSTEXPR execution::blocking_t query(
-      execution::blocking_t) ASIO_NOEXCEPT
+      execution::blocking_t) noexcept(true)
   {
     return Blocking();
   }
@@ -242,7 +242,7 @@ private:
    *   ... @endcode
    */
   static ASIO_CONSTEXPR execution::relationship_t query(
-      execution::relationship_t) ASIO_NOEXCEPT
+      execution::relationship_t) noexcept(true)
   {
     return Relationship();
   }
@@ -259,7 +259,7 @@ private:
    */
   template <typename OtherAllocator>
   ASIO_CONSTEXPR Allocator query(
-      execution::allocator_t<OtherAllocator>) const ASIO_NOEXCEPT
+      execution::allocator_t<OtherAllocator>) const noexcept(true)
   {
     return allocator_;
   }
@@ -275,7 +275,7 @@ private:
    *     asio::execution::allocator); @endcode
    */
   ASIO_CONSTEXPR Allocator query(
-      execution::allocator_t<void>) const ASIO_NOEXCEPT
+      execution::allocator_t<void>) const noexcept(true)
   {
     return allocator_;
   }
@@ -291,7 +291,7 @@ private:
    * std::size_t occupancy = asio::query(
    *     ex, asio::execution::occupancy); @endcode
    */
-  std::size_t query(execution::occupancy_t) const ASIO_NOEXCEPT;
+  std::size_t query(execution::occupancy_t) const noexcept(true);
 
 public:
   /// Compare two executors for equality.
@@ -299,7 +299,7 @@ public:
    * Two executors are equal if they refer to the same underlying io_context.
    */
   friend bool operator==(const basic_system_executor&,
-      const basic_system_executor&) ASIO_NOEXCEPT
+      const basic_system_executor&) noexcept(true)
   {
     return true;
   }
@@ -309,7 +309,7 @@ public:
    * Two executors are equal if they refer to the same underlying io_context.
    */
   friend bool operator!=(const basic_system_executor&,
-      const basic_system_executor&) ASIO_NOEXCEPT
+      const basic_system_executor&) noexcept(true)
   {
     return false;
   }
@@ -324,13 +324,13 @@ public:
 #if !defined(ASIO_NO_TS_EXECUTORS)
 public:
   /// Obtain the underlying execution context.
-  system_context& context() const ASIO_NOEXCEPT;
+  system_context& context() const noexcept(true);
 
   /// Inform the executor that it has some outstanding work to do.
   /**
    * For the system executor, this is a no-op.
    */
-  void on_work_started() const ASIO_NOEXCEPT
+  void on_work_started() const noexcept(true)
   {
   }
 
@@ -338,7 +338,7 @@ public:
   /**
    * For the system executor, this is a no-op.
    */
-  void on_work_finished() const ASIO_NOEXCEPT
+  void on_work_finished() const noexcept(true)
   {
   }
 
@@ -577,7 +577,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef asio::execution::mapping_t::thread_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() ASIO_NOEXCEPT
+  static ASIO_CONSTEXPR result_type value() noexcept(true)
   {
     return result_type();
   }

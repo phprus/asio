@@ -271,7 +271,7 @@ public:
    * @note Following the move, the moved-from object is in the same state as if
    * constructed using the @c basic_file(const executor_type&) constructor.
    */
-  basic_file(basic_file&& other) ASIO_NOEXCEPT
+  basic_file(basic_file&& other) noexcept(true)
     : impl_(std::move(other.impl_))
   {
   }
@@ -338,7 +338,7 @@ public:
   }
 
   /// Get the executor associated with the object.
-  const executor_type& get_executor() ASIO_NOEXCEPT
+  const executor_type& get_executor() noexcept(true)
   {
     return impl_.get_executor();
   }

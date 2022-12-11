@@ -350,7 +350,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return device_.get_executor();
     }
@@ -392,7 +392,7 @@ struct associator<Associator,
   static typename Associator<WriteHandler, DefaultCandidate>::type
   get(const detail::write_at_op<AsyncRandomAccessWriteDevice,
         ConstBufferSequence, ConstBufferIterator,
-        CompletionCondition, WriteHandler>& h) ASIO_NOEXCEPT
+        CompletionCondition, WriteHandler>& h) noexcept(true)
   {
     return Associator<WriteHandler, DefaultCandidate>::get(h.handler_);
   }
@@ -402,7 +402,7 @@ struct associator<Associator,
   get(const detail::write_at_op<AsyncRandomAccessWriteDevice,
         ConstBufferSequence, ConstBufferIterator,
         CompletionCondition, WriteHandler>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<WriteHandler, DefaultCandidate>::get(h.handler_, c)))
   {
@@ -569,7 +569,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return device_.get_executor();
     }
@@ -607,7 +607,7 @@ struct associator<Associator,
 {
   static typename Associator<WriteHandler, DefaultCandidate>::type
   get(const detail::write_at_streambuf_op<Executor, WriteHandler>& h)
-    ASIO_NOEXCEPT
+    noexcept(true)
   {
     return Associator<WriteHandler, DefaultCandidate>::get(h.handler_);
   }
@@ -615,7 +615,7 @@ struct associator<Associator,
   static ASIO_AUTO_RETURN_TYPE_PREFIX2(
       typename Associator<WriteHandler, DefaultCandidate>::type)
   get(const detail::write_at_streambuf_op<Executor, WriteHandler>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<WriteHandler, DefaultCandidate>::get(h.handler_, c)))
   {

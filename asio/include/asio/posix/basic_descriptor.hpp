@@ -177,7 +177,7 @@ public:
    * constructed using the @c basic_descriptor(const executor_type&)
    * constructor.
    */
-  basic_descriptor(basic_descriptor&& other) ASIO_NOEXCEPT
+  basic_descriptor(basic_descriptor&& other) noexcept(true)
     : impl_(std::move(other.impl_))
   {
   }
@@ -248,7 +248,7 @@ public:
   }
 
   /// Get the executor associated with the object.
-  const executor_type& get_executor() ASIO_NOEXCEPT
+  const executor_type& get_executor() noexcept(true)
   {
     return impl_.get_executor();
   }
@@ -743,7 +743,7 @@ private:
     {
     }
 
-    const executor_type& get_executor() const ASIO_NOEXCEPT
+    const executor_type& get_executor() const noexcept(true)
     {
       return self_->get_executor();
     }

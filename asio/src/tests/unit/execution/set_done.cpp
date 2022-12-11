@@ -31,7 +31,7 @@ struct no_set_done
 
 struct const_member_set_done
 {
-  void set_done() const ASIO_NOEXCEPT
+  void set_done() const noexcept(true)
   {
     ++call_count;
   }
@@ -57,7 +57,7 @@ struct set_done_member<const const_member_set_done>
 
 struct free_set_done_const_receiver
 {
-  friend void set_done(const free_set_done_const_receiver&) ASIO_NOEXCEPT
+  friend void set_done(const free_set_done_const_receiver&) noexcept(true)
   {
     ++call_count;
   }
@@ -83,7 +83,7 @@ struct set_done_free<const free_set_done_const_receiver>
 
 struct non_const_member_set_done
 {
-  void set_done() ASIO_NOEXCEPT
+  void set_done() noexcept(true)
   {
     ++call_count;
   }
@@ -109,7 +109,7 @@ struct set_done_member<non_const_member_set_done>
 
 struct free_set_done_non_const_receiver
 {
-  friend void set_done(free_set_done_non_const_receiver&) ASIO_NOEXCEPT
+  friend void set_done(free_set_done_non_const_receiver&) noexcept(true)
   {
     ++call_count;
   }
