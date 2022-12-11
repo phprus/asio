@@ -231,7 +231,6 @@ PREDEFINED             = GENERATING_DOCUMENTATION \
                          ASIO_UNUSED_VARIABLE= \
                          ASIO_UNSPECIFIED(e)=unspecified \
                          ASIO_EXECUTION_EXECUTOR=typename \
-                         ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT==std::exception_ptr \
                          ASIO_EXECUTION_RECEIVER_OF_0=typename \
                          ASIO_AUTO_RETURN_TYPE_PREFIX(t)=auto \
                          ASIO_AUTO_RETURN_TYPE_PREFIX2(t0,t1)=auto \
