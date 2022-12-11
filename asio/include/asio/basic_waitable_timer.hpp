@@ -26,10 +26,7 @@
 #include "asio/detail/throw_error.hpp"
 #include "asio/error.hpp"
 #include "asio/wait_traits.hpp"
-
-#if defined(ASIO_HAS_MOVE)
-# include <utility>
-#endif // defined(ASIO_HAS_MOVE)
+#include <utility>
 
 #include "asio/detail/push_options.hpp"
 
@@ -287,7 +284,6 @@ public:
     asio::detail::throw_error(ec, "expires_after");
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-construct a basic_waitable_timer from another.
   /**
    * This constructor moves a timer from one object to another.
@@ -369,7 +365,6 @@ public:
     impl_ = std::move(tmp.impl_);
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destroys the timer.
   /**

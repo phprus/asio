@@ -13,8 +13,7 @@
 
 #include "asio/detail/config.hpp"
 
-#if (defined(ASIO_HAS_STD_TUPLE) \
-    && defined(ASIO_HAS_MOVE)) \
+#if defined(ASIO_HAS_STD_TUPLE) \
   || defined(GENERATING_DOCUMENTATION)
 
 #include <cstring>
@@ -675,8 +674,7 @@ struct associated_executor<any_completion_handler<Signatures...>, Candidate>
 
 #include "asio/detail/pop_options.hpp"
 
-#endif // (defined(ASIO_HAS_STD_TUPLE)
-       //     && defined(ASIO_HAS_MOVE))
+#endif // defined(ASIO_HAS_STD_TUPLE)
        //   || defined(GENERATING_DOCUMENTATION)
 
 #endif // ASIO_ANY_COMPLETION_HANDLER_HPP

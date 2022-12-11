@@ -31,9 +31,7 @@
 # include "asio/detail/io_uring_service.hpp"
 #endif // defined(ASIO_HAS_IO_URING)
 
-#if defined(ASIO_HAS_MOVE)
-# include <utility>
-#endif // defined(ASIO_HAS_MOVE)
+#include <utility>
 
 #include "asio/detail/push_options.hpp"
 
@@ -113,7 +111,6 @@ public:
         asio::buffer_sequence_end(buffer_sequence_));
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move constructor.
   buffer_registration(buffer_registration&& other) ASIO_NOEXCEPT
     : buffer_sequence_(std::move(other.buffer_sequence_)),
@@ -124,7 +121,6 @@ public:
     other.service_ = 0;
 #endif // defined(ASIO_HAS_IO_URING)
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Unregisters the buffers.
   ~buffer_registration()
@@ -135,7 +131,6 @@ public:
 #endif // defined(ASIO_HAS_IO_URING)
   }
   
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move assignment.
   buffer_registration& operator=(
       buffer_registration&& other) ASIO_NOEXCEPT
@@ -153,7 +148,6 @@ public:
     }
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Get the number of registered buffers.
   std::size_t size() const ASIO_NOEXCEPT
@@ -264,7 +258,6 @@ private:
 #endif // defined(ASIO_HAS_IO_URING)
 };
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 /// Register buffers with an execution context.
 template <typename Executor, typename MutableBufferSequence>
 ASIO_NODISCARD inline
@@ -319,7 +312,6 @@ register_buffers(ExecutionContext& ctx,
   return buffer_registration<MutableBufferSequence, Allocator>(
       ctx, buffer_sequence, alloc);
 }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
 } // namespace asio
 

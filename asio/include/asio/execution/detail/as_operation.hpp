@@ -34,17 +34,11 @@ struct as_operation
 {
   typename remove_cvref<Executor>::type ex_;
   typename remove_cvref<Receiver>::type receiver_;
-#if !defined(ASIO_HAS_MOVE)
-  asio::detail::shared_ptr<asio::detail::atomic_count> ref_count_;
-#endif // !defined(ASIO_HAS_MOVE)
 
   template <typename E, typename R>
   explicit as_operation(ASIO_MOVE_ARG(E) e, ASIO_MOVE_ARG(R) r)
     : ex_(ASIO_MOVE_CAST(E)(e)),
       receiver_(ASIO_MOVE_CAST(R)(r))
-#if !defined(ASIO_HAS_MOVE)
-      , ref_count_(new asio::detail::atomic_count(1))
-#endif // !defined(ASIO_HAS_MOVE)
   {
   }
 
@@ -62,9 +56,6 @@ struct as_operation
 #endif // defined(ASIO_NO_DEPRECATED)
           as_invocable<typename remove_cvref<Receiver>::type,
               Executor>(receiver_
-#if !defined(ASIO_HAS_MOVE)
-                , ref_count_
-#endif // !defined(ASIO_HAS_MOVE)
               ));
 #if !defined(ASIO_NO_EXCEPTIONS)
     }

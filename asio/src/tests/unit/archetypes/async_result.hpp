@@ -33,11 +33,9 @@ struct concrete_handler<R(Arg1)>
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   concrete_handler(concrete_handler&&) {}
 private:
   concrete_handler(const concrete_handler&);
-#endif // defined(ASIO_HAS_MOVE)
 };
 
 template <typename R, typename Arg1, typename Arg2>
@@ -51,11 +49,9 @@ struct concrete_handler<R(Arg1, Arg2)>
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   concrete_handler(concrete_handler&&) {}
 private:
   concrete_handler(const concrete_handler&);
-#endif // defined(ASIO_HAS_MOVE)
 };
 
 } // namespace archetypes

@@ -282,7 +282,6 @@ public:
         this->impl_.get_implementation(), true);
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-construct a basic_stream_file from another.
   /**
    * This constructor moves a stream file from one object to another.
@@ -358,7 +357,6 @@ public:
     basic_file<Executor>::operator=(std::move(other));
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destroys the file.
   /**

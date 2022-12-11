@@ -70,7 +70,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     buffered_fill_handler(const buffered_fill_handler& other)
       : storage_(other.storage_),
         previous_size_(other.previous_size_),
@@ -84,7 +83,6 @@ namespace detail
         handler_(ASIO_MOVE_CAST(ReadHandler)(other.handler_))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec,
         const std::size_t bytes_transferred)
@@ -293,7 +291,6 @@ namespace detail
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
       buffered_read_some_handler(const buffered_read_some_handler& other)
         : storage_(other.storage_),
           buffers_(other.buffers_),
@@ -307,7 +304,6 @@ namespace detail
           handler_(ASIO_MOVE_CAST(ReadHandler)(other.handler_))
       {
       }
-#endif // defined(ASIO_HAS_MOVE)
 
     void operator()(const asio::error_code& ec, std::size_t)
     {

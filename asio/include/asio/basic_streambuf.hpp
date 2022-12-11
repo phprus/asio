@@ -388,13 +388,11 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move construct a basic_streambuf_ref.
   basic_streambuf_ref(basic_streambuf_ref&& other) ASIO_NOEXCEPT
     : sb_(other.sb_)
   {
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Get the size of the input sequence.
   std::size_t size() const ASIO_NOEXCEPT

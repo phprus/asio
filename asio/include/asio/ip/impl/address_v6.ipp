@@ -62,13 +62,11 @@ address_v6::address_v6(const address_v6& other) ASIO_NOEXCEPT
 {
 }
 
-#if defined(ASIO_HAS_MOVE)
 address_v6::address_v6(address_v6&& other) ASIO_NOEXCEPT
   : addr_(other.addr_),
     scope_id_(other.scope_id_)
 {
 }
-#endif // defined(ASIO_HAS_MOVE)
 
 address_v6& address_v6::operator=(const address_v6& other) ASIO_NOEXCEPT
 {
@@ -77,14 +75,12 @@ address_v6& address_v6::operator=(const address_v6& other) ASIO_NOEXCEPT
   return *this;
 }
 
-#if defined(ASIO_HAS_MOVE)
 address_v6& address_v6::operator=(address_v6&& other) ASIO_NOEXCEPT
 {
   addr_ = other.addr_;
   scope_id_ = other.scope_id_;
   return *this;
 }
-#endif // defined(ASIO_HAS_MOVE)
 
 address_v6::bytes_type address_v6::to_bytes() const ASIO_NOEXCEPT
 {

@@ -79,7 +79,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move constructor.
   basic_resolver_iterator(basic_resolver_iterator&& other)
     : values_(ASIO_MOVE_CAST(values_ptr_type)(other.values_)),
@@ -87,7 +86,6 @@ public:
   {
     other.index_ = 0;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Assignment operator.
   basic_resolver_iterator& operator=(const basic_resolver_iterator& other)
@@ -97,7 +95,6 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-assignment operator.
   basic_resolver_iterator& operator=(basic_resolver_iterator&& other)
   {
@@ -110,7 +107,6 @@ public:
 
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Dereference an iterator.
   const basic_resolver_entry<InternetProtocol>& operator*() const

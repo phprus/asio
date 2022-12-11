@@ -253,7 +253,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-construct a basic_stream_socket from another.
   /**
    * This constructor moves a stream socket from one object to another.
@@ -330,7 +329,6 @@ public:
     basic_socket<Protocol, Executor>::operator=(std::move(other));
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destroys the socket.
   /**

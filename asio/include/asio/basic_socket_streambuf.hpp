@@ -165,7 +165,6 @@ public:
     init_buffers();
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Construct a basic_socket_streambuf from the supplied socket.
   explicit basic_socket_streambuf(basic_stream_socket<protocol_type> s)
     : detail::socket_streambuf_io_context(0),
@@ -209,7 +208,6 @@ public:
     other.init_buffers();
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destructor flushes buffered data.
   virtual ~basic_socket_streambuf()

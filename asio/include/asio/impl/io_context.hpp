@@ -240,7 +240,6 @@ io_context::basic_executor_type<Allocator, Bits>::operator=(
   return *this;
 }
 
-#if defined(ASIO_HAS_MOVE)
 template <typename Allocator, uintptr_t Bits>
 io_context::basic_executor_type<Allocator, Bits>&
 io_context::basic_executor_type<Allocator, Bits>::operator=(
@@ -260,7 +259,6 @@ io_context::basic_executor_type<Allocator, Bits>::operator=(
   }
   return *this;
 }
-#endif // defined(ASIO_HAS_MOVE)
 
 template <typename Allocator, uintptr_t Bits>
 inline bool io_context::basic_executor_type<Allocator,

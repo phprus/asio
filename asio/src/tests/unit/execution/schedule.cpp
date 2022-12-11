@@ -224,11 +224,9 @@ struct executor
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   executor(executor&&) ASIO_NOEXCEPT
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   template <typename F>
   void execute(ASIO_MOVE_ARG(F) f) const ASIO_NOEXCEPT
@@ -341,13 +339,11 @@ struct receiver
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   receiver(receiver&& other) ASIO_NOEXCEPT
     : count_(other.count_)
   {
     other.count_ = 0;
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   void set_value() ASIO_NOEXCEPT
   {

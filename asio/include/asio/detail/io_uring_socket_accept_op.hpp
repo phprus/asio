@@ -189,8 +189,6 @@ private:
   handler_work<Handler, IoExecutor> work_;
 };
 
-#if defined(ASIO_HAS_MOVE)
-
 template <typename Protocol, typename PeerIoExecutor,
     typename Handler, typename IoExecutor>
 class io_uring_socket_move_accept_op :
@@ -268,8 +266,6 @@ private:
   Handler handler_;
   handler_work<Handler, IoExecutor> work_;
 };
-
-#endif // defined(ASIO_HAS_MOVE)
 
 } // namespace detail
 } // namespace asio
