@@ -591,53 +591,11 @@
 # endif // !defined(ASIO_DISABLE_STD_ARRAY)
 #endif // !defined(ASIO_HAS_STD_ARRAY)
 
-// Standard library support for shared_ptr and weak_ptr.
-#if !defined(ASIO_HAS_STD_SHARED_PTR)
-# if !defined(ASIO_DISABLE_STD_SHARED_PTR)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_SHARED_PTR 1
-#   elif (__cplusplus >= 201103)
-#    define ASIO_HAS_STD_SHARED_PTR 1
-#   endif // (__cplusplus >= 201103)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 3)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_SHARED_PTR 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 3)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1600)
-#    define ASIO_HAS_STD_SHARED_PTR 1
-#   endif // (_MSC_VER >= 1600)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_SHARED_PTR)
-#endif // !defined(ASIO_HAS_STD_SHARED_PTR)
+// C++17: Standard library support for shared_ptr and weak_ptr.
+#define ASIO_HAS_STD_SHARED_PTR 1
 
-// Standard library support for allocator_arg_t.
-#if !defined(ASIO_HAS_STD_ALLOCATOR_ARG)
-# if !defined(ASIO_DISABLE_STD_ALLOCATOR_ARG)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_ALLOCATOR_ARG 1
-#   elif (__cplusplus >= 201103)
-#    define ASIO_HAS_STD_ALLOCATOR_ARG 1
-#   endif // (__cplusplus >= 201103)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_ALLOCATOR_ARG 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1600)
-#    define ASIO_HAS_STD_ALLOCATOR_ARG 1
-#   endif // (_MSC_VER >= 1600)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_ALLOCATOR_ARG)
-#endif // !defined(ASIO_HAS_STD_ALLOCATOR_ARG)
+// C++17: Standard library support for allocator_arg_t.
+#define ASIO_HAS_STD_ALLOCATOR_ARG 1
 
 // Standard library support for atomic operations.
 #if !defined(ASIO_HAS_STD_ATOMIC)
@@ -727,29 +685,8 @@
 # endif // !defined(ASIO_DISABLE_BOOST_DATE_TIME)
 #endif // !defined(ASIO_HAS_BOOST_DATE_TIME)
 
-// Standard library support for addressof.
-#if !defined(ASIO_HAS_STD_ADDRESSOF)
-# if !defined(ASIO_DISABLE_STD_ADDRESSOF)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_ADDRESSOF 1
-#   elif (__cplusplus >= 201103)
-#    define ASIO_HAS_STD_ADDRESSOF 1
-#   endif // (__cplusplus >= 201103)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_ADDRESSOF 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1700)
-#    define ASIO_HAS_STD_ADDRESSOF 1
-#   endif // (_MSC_VER >= 1700)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_ADDRESSOF)
-#endif // !defined(ASIO_HAS_STD_ADDRESSOF)
+// C++17: Standard library support for addressof.
+#define ASIO_HAS_STD_ADDRESSOF 1
 
 // C++17: Standard library support for the function class.
 #define ASIO_HAS_STD_FUNCTION 1
@@ -782,29 +719,8 @@
 # endif // !defined(ASIO_DISABLE_NULLPTR)
 #endif // !defined(ASIO_HAS_NULLPTR)
 
-// Standard library support for the C++11 allocator additions.
-#if !defined(ASIO_HAS_CXX11_ALLOCATORS)
-# if !defined(ASIO_DISABLE_CXX11_ALLOCATORS)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_CXX11_ALLOCATORS 1
-#   elif (__cplusplus >= 201103)
-#    define ASIO_HAS_CXX11_ALLOCATORS 1
-#   endif // (__cplusplus >= 201103)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_CXX11_ALLOCATORS 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1800)
-#    define ASIO_HAS_CXX11_ALLOCATORS 1
-#   endif // (_MSC_VER >= 1800)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_CXX11_ALLOCATORS)
-#endif // !defined(ASIO_HAS_CXX11_ALLOCATORS)
+// C++17: Standard library support for the C++11 allocator additions.
+#define ASIO_HAS_CXX11_ALLOCATORS 1
 
 // Standard library support for the cstdint header.
 #if !defined(ASIO_HAS_CSTDINT)
