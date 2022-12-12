@@ -87,13 +87,6 @@ needs.
     [`ASIO_DISABLE_DEV_POLL`]
   ]
   [
-    [`ASIO_HAS_ENUM_CLASS`]
-    [
-      Support enum classes on compilers known to allow them.
-    ]
-    [`ASIO_DISABLE_ENUM_CLASS`]
-  ]
-  [
     [`ASIO_HAS_EPOLL`]
     [
       Linux: epoll, eventfd and timerfd.
