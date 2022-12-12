@@ -274,24 +274,8 @@
 // C++17: Support ref-qualified functions on compilers known to allow it.
 #define ASIO_HAS_REF_QUALIFIED_FUNCTIONS 1
 
-// Support for capturing parameter packs in lambdas.
-#if !defined(ASIO_HAS_VARIADIC_LAMBDA_CAPTURES)
-# if !defined(ASIO_DISABLE_VARIADIC_LAMBDA_CAPTURES)
-#  if defined(__GNUC__)
-#   if (__GNUC__ >= 6)
-#    define ASIO_HAS_VARIADIC_LAMBDA_CAPTURES 1
-#   endif // (__GNUC__ >= 6)
-#  elif defined(ASIO_MSVC)
-#   if (_MSVC_LANG >= 201103)
-#    define ASIO_HAS_VARIADIC_LAMBDA_CAPTURES 1
-#   endif // (_MSC_LANG >= 201103)
-#  else // defined(ASIO_MSVC)
-#   if (__cplusplus >= 201103)
-#    define ASIO_HAS_VARIADIC_LAMBDA_CAPTURES 1
-#   endif // (__cplusplus >= 201103)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_VARIADIC_LAMBDA_CAPTURES)
-#endif // !defined(ASIO_HAS_VARIADIC_LAMBDA_CAPTURES)
+// C++17: Support for capturing parameter packs in lambdas.
+#define ASIO_HAS_VARIADIC_LAMBDA_CAPTURES 1
 
 // C++17: Support for the alignof operator.
 #define ASIO_HAS_ALIGNOF 1
