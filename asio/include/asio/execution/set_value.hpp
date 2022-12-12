@@ -174,12 +174,8 @@ struct can_set_value :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename R, typename... Vs>
 constexpr bool can_set_value_v = can_set_value<R, Vs...>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename R, typename... Vs>
 struct is_nothrow_set_value :
@@ -188,13 +184,9 @@ struct is_nothrow_set_value :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename R, typename... Vs>
 constexpr bool is_nothrow_set_value_v
   = is_nothrow_set_value<R, Vs...>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 } // namespace execution
 } // namespace asio

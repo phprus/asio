@@ -300,12 +300,8 @@ struct can_connect :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename S, typename R>
 constexpr bool can_connect_v = can_connect<S, R>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename S, typename R>
 struct is_nothrow_connect :
@@ -314,13 +310,9 @@ struct is_nothrow_connect :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename S, typename R>
 constexpr bool is_nothrow_connect_v
   = is_nothrow_connect<S, R>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename S, typename R>
 struct connect_result

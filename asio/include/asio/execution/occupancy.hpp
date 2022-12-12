@@ -64,13 +64,12 @@ namespace detail {
 template <int I = 0>
 struct occupancy_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-# if defined(ASIO_NO_DEPRECATED)
+#if defined(ASIO_NO_DEPRECATED)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
       is_executor<T>::value));
-# else // defined(ASIO_NO_DEPRECATED)
+#else // defined(ASIO_NO_DEPRECATED)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
@@ -86,8 +85,7 @@ struct occupancy_t
             is_scheduler<T>
           >::type::value
       ));
-# endif // defined(ASIO_NO_DEPRECATED)
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
+#endif // defined(ASIO_NO_DEPRECATED)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = false);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = false);
@@ -161,30 +159,6 @@ typedef detail::occupancy_t<> occupancy_t;
 constexpr occupancy_t occupancy;
 
 } // namespace execution
-
-#if !defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
-template <typename T>
-struct is_applicable_property<T, execution::occupancy_t>
-  : integral_constant<bool,
-      execution::is_executor<T>::value
-#if !defined(ASIO_NO_DEPRECATED)
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_sender<T>
-          >::type::value
-        || conditional<
-            execution::is_executor<T>::value,
-            false_type,
-            execution::is_scheduler<T>
-          >::type::value
-#endif // !defined(ASIO_NO_DEPRECATED)
-    >
-{
-};
-
-#endif // !defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 namespace traits {
 

@@ -299,13 +299,6 @@ needs.
     []
   ]
   [
-    [`ASIO_HAS_VARIABLE_TEMPLATES`]
-    [
-      Support template variables on compilers known to allow it.
-    ]
-    [`ASIO_DISABLE_VARIABLE_TEMPLATES`]
-  ]
-  [
     [`ASIO_HAS_VARIADIC_LAMBDA_CAPTURES`]
     [
       Support for capturing parameter packs in lambdas.

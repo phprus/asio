@@ -420,13 +420,9 @@ struct can_require :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T, typename ... Properties>
 constexpr bool can_require_v
   = can_require<T, Properties ...>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T, typename... Properties>
 struct is_nothrow_require :
@@ -436,13 +432,9 @@ struct is_nothrow_require :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T, typename ... Properties>
 constexpr bool is_nothrow_require_v
   = is_nothrow_require<T, Properties ...>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T, typename... Properties>
 struct require_result
