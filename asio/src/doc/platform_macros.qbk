@@ -276,13 +276,6 @@ needs.
     [`ASIO_DISABLE_STD_TO_ADDRESS`]
   ]
   [
-    [`ASIO_HAS_STD_TUPLE`]
-    [
-      Standard library support for std::tuple.
-    ]
-    [`ASIO_DISABLE_STD_TUPLE`]
-  ]
-  [
     [`ASIO_HAS_THREADS`]
     [
       Threads.

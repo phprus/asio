@@ -17,9 +17,6 @@
 
 #include "asio/detail/config.hpp"
 
-#if defined(ASIO_HAS_STD_TUPLE) \
-  || defined(GENERATING_DOCUMENTATION)
-
 #include <tuple>
 #include "asio/associator.hpp"
 #include "asio/async_result.hpp"
@@ -640,8 +637,5 @@ constexpr deferred_t deferred;
 #include "asio/detail/pop_options.hpp"
 
 #include "asio/impl/deferred.hpp"
-
-#endif // defined(ASIO_HAS_STD_TUPLE)
-       //   || defined(GENERATING_DOCUMENTATION)
 
 #endif // ASIO_DEFERRED_HPP

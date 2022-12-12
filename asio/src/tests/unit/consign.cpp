@@ -24,7 +24,6 @@
 
 void consign_test()
 {
-#if defined(ASIO_HAS_STD_TUPLE)
   asio::io_context io1;
   asio::io_context io2;
   asio::system_timer timer1(io1);
@@ -48,7 +47,6 @@ void consign_test()
   io2.run();
 
   ASIO_CHECK(count == 1);
-#endif // defined(ASIO_HAS_STD_TUPLE)
 }
 
 ASIO_TEST_SUITE
