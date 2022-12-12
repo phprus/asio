@@ -290,13 +290,6 @@ needs.
     [`ASIO_DISABLE_STD_INDEX_SEQUENCE`]
   ]
   [
-    [`ASIO_HAS_STD_INVOKE_RESULT`]
-    [
-      Standard library has invoke_result (which supersedes result_of).
-    ]
-    [`ASIO_DISABLE_STD_INVOKE_RESULT`]
-  ]
-  [
     [`ASIO_HAS_STD_IOSTREAM_MOVE`]
     [
       Standard library support for iostream move construction and assignment.

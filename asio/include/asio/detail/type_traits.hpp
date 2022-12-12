@@ -57,13 +57,9 @@ template <typename T>
 struct remove_cvref : remove_cv<typename std::remove_reference<T>::type> {};
 using std::remove_pointer;
 using std::remove_reference;
-#if defined(ASIO_HAS_STD_INVOKE_RESULT)
 template <typename> struct result_of;
 template <typename F, typename... Args>
 struct result_of<F(Args...)> : std::invoke_result<F, Args...> {};
-#else // defined(ASIO_HAS_STD_INVOKE_RESULT)
-using std::result_of;
-#endif // defined(ASIO_HAS_STD_INVOKE_RESULT)
 using std::true_type;
 
 template <typename> struct void_type { typedef void type; };
