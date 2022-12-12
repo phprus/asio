@@ -307,8 +307,7 @@ struct bulk_guarantee_t
     traits::query_static_constexpr_member<
       typename static_proxy<T>::type, bulk_guarantee_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -384,7 +383,6 @@ struct bulk_guarantee_t
   static constexpr const T static_query_v
     = bulk_guarantee_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   friend constexpr bool operator==(
       const bulk_guarantee_t& a, const bulk_guarantee_t& b)
@@ -479,12 +477,10 @@ private:
   int value_;
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T bulk_guarantee_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 template <int I>
 const typename bulk_guarantee_t<I>::unsequenced_t
@@ -546,8 +542,7 @@ struct unsequenced_t
       typename bulk_guarantee_t<I>::template static_proxy<T>::type,
         unsequenced_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -583,7 +578,6 @@ struct unsequenced_t
   static constexpr const T static_query_v
     = unsequenced_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   static constexpr bulk_guarantee_t<I> value()
   {
@@ -627,12 +621,10 @@ struct unsequenced_t
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T unsequenced_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 template <int I = 0>
 struct sequenced_t
@@ -680,8 +672,7 @@ struct sequenced_t
       typename bulk_guarantee_t<I>::template static_proxy<T>::type,
         sequenced_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -696,7 +687,6 @@ struct sequenced_t
   static constexpr const T static_query_v
     = sequenced_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   static constexpr bulk_guarantee_t<I> value()
   {
@@ -740,12 +730,10 @@ struct sequenced_t
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T sequenced_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 template <int I>
 struct parallel_t
@@ -793,8 +781,7 @@ struct parallel_t
       typename bulk_guarantee_t<I>::template static_proxy<T>::type,
         parallel_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -809,7 +796,6 @@ struct parallel_t
   static constexpr const T static_query_v
     = parallel_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   static constexpr bulk_guarantee_t<I> value()
   {
@@ -853,12 +839,10 @@ struct parallel_t
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T parallel_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 } // namespace bulk_guarantee
 } // namespace detail
@@ -917,8 +901,7 @@ struct query_free_default<T, execution::bulk_guarantee_t,
 
 #endif // !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
 
-#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 template <typename T>
 struct static_query<T, execution::bulk_guarantee_t,
@@ -1103,7 +1086,6 @@ struct static_query<T, execution::bulk_guarantee_t::parallel_t,
 };
 
 #endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 } // namespace traits
 

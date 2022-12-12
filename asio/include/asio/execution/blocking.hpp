@@ -317,8 +317,7 @@ struct blocking_t
     traits::query_static_constexpr_member<
       typename static_proxy<T>::type, blocking_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -393,7 +392,6 @@ struct blocking_t
   static constexpr const T static_query_v
     = blocking_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   friend constexpr bool operator==(
       const blocking_t& a, const blocking_t& b)
@@ -486,12 +484,10 @@ private:
   int value_;
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T blocking_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 template <int I>
 const typename blocking_t<I>::possibly_t blocking_t<I>::possibly;
@@ -548,8 +544,7 @@ struct possibly_t
     traits::query_static_constexpr_member<
       typename blocking_t<I>::template static_proxy<T>::type, possibly_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -584,8 +579,7 @@ struct possibly_t
   template <typename E, typename T = decltype(possibly_t::static_query<E>())>
   static constexpr const T static_query_v
     = possibly_t::static_query<E>();
-#endif // defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
   static constexpr blocking_t<I> value()
   {
@@ -629,12 +623,10 @@ struct possibly_t
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T possibly_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 template <typename Executor>
 class adapter
@@ -813,8 +805,7 @@ struct always_t
     traits::query_static_constexpr_member<
       typename blocking_t<I>::template static_proxy<T>::type, always_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -828,8 +819,7 @@ struct always_t
   template <typename E, typename T = decltype(always_t::static_query<E>())>
   static constexpr const T static_query_v
     = always_t::static_query<E>();
-#endif // defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
   static constexpr blocking_t<I> value()
   {
@@ -889,12 +879,10 @@ struct always_t
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T always_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 template <int I>
 struct never_t
@@ -940,8 +928,7 @@ struct never_t
     traits::query_static_constexpr_member<
       typename blocking_t<I>::template static_proxy<T>::type, never_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -956,7 +943,6 @@ struct never_t
   static constexpr const T static_query_v
     = never_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   static constexpr blocking_t<I> value()
   {
@@ -1000,11 +986,10 @@ struct never_t
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T never_t<I>::static_query_v;
-#endif // defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 } // namespace blocking
 } // namespace detail
@@ -1063,8 +1048,7 @@ struct query_free_default<T, execution::blocking_t,
 
 #endif // !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
 
-#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 template <typename T>
 struct static_query<T, execution::blocking_t,
@@ -1238,7 +1222,6 @@ struct static_query<T, execution::blocking_t::never_t,
 };
 
 #endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 #if !defined(ASIO_HAS_DEDUCED_REQUIRE_FREE_TRAIT)
 

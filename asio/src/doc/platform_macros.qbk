@@ -199,13 +199,6 @@ needs.
     [`ASIO_DISABLE_SERIAL_PORT`]
   ]
   [
-    [`ASIO_HAS_SFINAE_VARIABLE_TEMPLATES`]
-    [
-      Support SFINAEd template variables on compilers known to allow it.
-    ]
-    [`ASIO_DISABLE_SFINAE_VARIABLE_TEMPLATES`]
-  ]
-  [
     [`ASIO_HAS_SIGACTION`]
     [
       Can use sigaction() instead of signal().

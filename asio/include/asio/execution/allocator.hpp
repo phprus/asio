@@ -133,8 +133,7 @@ struct allocator_t
     traits::query_static_constexpr_member<
       typename static_proxy<T>::type, allocator_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -149,7 +148,6 @@ struct allocator_t
   static constexpr const T static_query_v
     = allocator_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   constexpr ProtoAllocator value() const
   {
@@ -167,12 +165,10 @@ private:
   ProtoAllocator a_;
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <typename ProtoAllocator> template <typename E, typename T>
 const T allocator_t<ProtoAllocator>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 template <>
 struct allocator_t<void>
@@ -237,8 +233,7 @@ struct allocator_t<void>
     traits::query_static_constexpr_member<
       typename static_proxy<T>::type, allocator_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -253,7 +248,6 @@ struct allocator_t<void>
   static constexpr const T static_query_v
     = allocator_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   template <typename OtherProtoAllocator>
   constexpr allocator_t<OtherProtoAllocator> operator()(
@@ -263,12 +257,10 @@ struct allocator_t<void>
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <typename E, typename T>
 const T allocator_t<void>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 constexpr allocator_t<void> allocator;
 
@@ -276,8 +268,7 @@ constexpr allocator_t<void> allocator;
 
 namespace traits {
 
-#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 template <typename T, typename ProtoAllocator>
 struct static_query<T, execution::allocator_t<ProtoAllocator>,
@@ -300,7 +291,6 @@ struct static_query<T, execution::allocator_t<ProtoAllocator>,
 };
 
 #endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 } // namespace traits
 

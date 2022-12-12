@@ -103,8 +103,7 @@ struct context_as_t
   {
   }
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename E>
   static constexpr
   typename context_t::query_static_constexpr_member<E>::result_type
@@ -119,7 +118,6 @@ struct context_as_t
   static constexpr const U static_query_v
     = context_as_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   template <typename Executor, typename U>
   friend constexpr U query(
@@ -144,12 +142,10 @@ struct context_as_t
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <typename T> template <typename E, typename U>
 const U context_as_t<T>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 template <typename T>
 constexpr context_as_t<T> context_as{};
@@ -158,8 +154,7 @@ constexpr context_as_t<T> context_as{};
 
 namespace traits {
 
-#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 template <typename T, typename U>
 struct static_query<T, execution::context_as_t<U>,
@@ -170,7 +165,6 @@ struct static_query<T, execution::context_as_t<U>,
 };
 
 #endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 #if !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
 
