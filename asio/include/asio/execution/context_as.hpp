@@ -97,18 +97,18 @@ struct context_as_t
 
   typedef T polymorphic_query_result_type;
 
-  ASIO_CONSTEXPR context_as_t()
+  constexpr context_as_t()
   {
   }
 
-  ASIO_CONSTEXPR context_as_t(context_t)
+  constexpr context_as_t(context_t)
   {
   }
 
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename E>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename context_t::query_static_constexpr_member<E>::result_type
   static_query()
     noexcept((
@@ -118,13 +118,13 @@ struct context_as_t
   }
 
   template <typename E, typename U = decltype(context_as_t::static_query<E>())>
-  static ASIO_CONSTEXPR const U static_query_v
+  static constexpr const U static_query_v
     = context_as_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   template <typename Executor, typename U>
-  friend ASIO_CONSTEXPR U query(
+  friend constexpr U query(
       const Executor& ex, const context_as_t<U>&,
       typename enable_if<
         is_same<T, U>::value
@@ -153,13 +153,11 @@ const U context_as_t<T>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-#if (defined(ASIO_HAS_VARIABLE_TEMPLATES) \
-    && defined(ASIO_HAS_CONSTEXPR)) \
+#if defined(ASIO_HAS_VARIABLE_TEMPLATES) \
   || defined(GENERATING_DOCUMENTATION)
 template <typename T>
 constexpr context_as_t<T> context_as{};
-#endif // (defined(ASIO_HAS_VARIABLE_TEMPLATES)
-       //     && defined(ASIO_HAS_CONSTEXPR))
+#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
        //   || defined(GENERATING_DOCUMENTATION)
 
 } // namespace execution

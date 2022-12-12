@@ -231,22 +231,22 @@ struct bulk_guarantee_t
   typedef detail::bulk_guarantee::sequenced_t<I> sequenced_t;
   typedef detail::bulk_guarantee::parallel_t<I> parallel_t;
 
-  ASIO_CONSTEXPR bulk_guarantee_t()
+  constexpr bulk_guarantee_t()
     : value_(-1)
   {
   }
 
-  ASIO_CONSTEXPR bulk_guarantee_t(unsequenced_t)
+  constexpr bulk_guarantee_t(unsequenced_t)
     : value_(0)
   {
   }
 
-  ASIO_CONSTEXPR bulk_guarantee_t(sequenced_t)
+  constexpr bulk_guarantee_t(sequenced_t)
     : value_(1)
   {
   }
 
-  ASIO_CONSTEXPR bulk_guarantee_t(parallel_t)
+  constexpr bulk_guarantee_t(parallel_t)
     : value_(2)
   {
   }
@@ -312,7 +312,7 @@ struct bulk_guarantee_t
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename query_static_constexpr_member<T>::result_type
   static_query()
     noexcept((
@@ -322,7 +322,7 @@ struct bulk_guarantee_t
   }
 
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename traits::static_query<T, unsequenced_t>::result_type
   static_query(
       typename enable_if<
@@ -339,7 +339,7 @@ struct bulk_guarantee_t
   }
 
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename traits::static_query<T, sequenced_t>::result_type
   static_query(
       typename enable_if<
@@ -359,7 +359,7 @@ struct bulk_guarantee_t
   }
 
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename traits::static_query<T, parallel_t>::result_type
   static_query(
       typename enable_if<
@@ -383,18 +383,18 @@ struct bulk_guarantee_t
 
   template <typename E,
       typename T = decltype(bulk_guarantee_t::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = bulk_guarantee_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const bulk_guarantee_t& a, const bulk_guarantee_t& b)
   {
     return a.value_ == b.value_;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const bulk_guarantee_t& a, const bulk_guarantee_t& b)
   {
     return a.value_ != b.value_;
@@ -402,11 +402,11 @@ struct bulk_guarantee_t
 
   struct convertible_from_bulk_guarantee_t
   {
-    ASIO_CONSTEXPR convertible_from_bulk_guarantee_t(bulk_guarantee_t) {}
+    constexpr convertible_from_bulk_guarantee_t(bulk_guarantee_t) {}
   };
 
   template <typename Executor>
-  friend ASIO_CONSTEXPR bulk_guarantee_t query(
+  friend constexpr bulk_guarantee_t query(
       const Executor& ex, convertible_from_bulk_guarantee_t,
       typename enable_if<
         can_query<const Executor&, unsequenced_t>::value
@@ -426,7 +426,7 @@ struct bulk_guarantee_t
   }
 
   template <typename Executor>
-  friend ASIO_CONSTEXPR bulk_guarantee_t query(
+  friend constexpr bulk_guarantee_t query(
       const Executor& ex, convertible_from_bulk_guarantee_t,
       typename enable_if<
         !can_query<const Executor&, unsequenced_t>::value
@@ -449,7 +449,7 @@ struct bulk_guarantee_t
   }
 
   template <typename Executor>
-  friend ASIO_CONSTEXPR bulk_guarantee_t query(
+  friend constexpr bulk_guarantee_t query(
       const Executor& ex, convertible_from_bulk_guarantee_t,
       typename enable_if<
         !can_query<const Executor&, unsequenced_t>::value
@@ -477,10 +477,6 @@ struct bulk_guarantee_t
   ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(sequenced_t, sequenced);
   ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(parallel_t, parallel);
 
-#if !defined(ASIO_HAS_CONSTEXPR)
-  static const bulk_guarantee_t instance;
-#endif // !defined(ASIO_HAS_CONSTEXPR)
-
 private:
   int value_;
 };
@@ -491,11 +487,6 @@ template <int I> template <typename E, typename T>
 const T bulk_guarantee_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
-
-#if !defined(ASIO_HAS_CONSTEXPR)
-template <int I>
-const bulk_guarantee_t<I> bulk_guarantee_t<I>::instance;
-#endif
 
 template <int I>
 const typename bulk_guarantee_t<I>::unsequenced_t
@@ -543,7 +534,7 @@ struct unsequenced_t
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = true);
   typedef bulk_guarantee_t<I> polymorphic_query_result_type;
 
-  ASIO_CONSTEXPR unsequenced_t()
+  constexpr unsequenced_t()
   {
   }
 
@@ -562,7 +553,7 @@ struct unsequenced_t
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename query_static_constexpr_member<T>::result_type
   static_query()
     noexcept((
@@ -572,7 +563,7 @@ struct unsequenced_t
   }
 
   template <typename T>
-  static ASIO_CONSTEXPR unsequenced_t static_query(
+  static constexpr unsequenced_t static_query(
       typename enable_if<
         !query_static_constexpr_member<T>::is_valid
       >::type* = 0,
@@ -593,47 +584,47 @@ struct unsequenced_t
   }
 
   template <typename E, typename T = decltype(unsequenced_t::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = unsequenced_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-  static ASIO_CONSTEXPR bulk_guarantee_t<I> value()
+  static constexpr bulk_guarantee_t<I> value()
   {
     return unsequenced_t();
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const unsequenced_t&, const unsequenced_t&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const unsequenced_t&, const unsequenced_t&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const unsequenced_t&, const sequenced_t<I>&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const unsequenced_t&, const sequenced_t<I>&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const unsequenced_t&, const parallel_t<I>&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const unsequenced_t&, const parallel_t<I>&)
   {
     return true;
@@ -679,7 +670,7 @@ struct sequenced_t
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = true);
   typedef bulk_guarantee_t<I> polymorphic_query_result_type;
 
-  ASIO_CONSTEXPR sequenced_t()
+  constexpr sequenced_t()
   {
   }
 
@@ -698,7 +689,7 @@ struct sequenced_t
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename query_static_constexpr_member<T>::result_type
   static_query()
     noexcept((
@@ -708,47 +699,47 @@ struct sequenced_t
   }
 
   template <typename E, typename T = decltype(sequenced_t::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = sequenced_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-  static ASIO_CONSTEXPR bulk_guarantee_t<I> value()
+  static constexpr bulk_guarantee_t<I> value()
   {
     return sequenced_t();
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const sequenced_t&, const sequenced_t&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const sequenced_t&, const sequenced_t&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const sequenced_t&, const unsequenced_t<I>&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const sequenced_t&, const unsequenced_t<I>&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const sequenced_t&, const parallel_t<I>&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const sequenced_t&, const parallel_t<I>&)
   {
     return true;
@@ -794,7 +785,7 @@ struct parallel_t
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = true);
   typedef bulk_guarantee_t<I> polymorphic_query_result_type;
 
-  ASIO_CONSTEXPR parallel_t()
+  constexpr parallel_t()
   {
   }
 
@@ -813,7 +804,7 @@ struct parallel_t
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename query_static_constexpr_member<T>::result_type
   static_query()
     noexcept((
@@ -823,47 +814,47 @@ struct parallel_t
   }
 
   template <typename E, typename T = decltype(parallel_t::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = parallel_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-  static ASIO_CONSTEXPR bulk_guarantee_t<I> value()
+  static constexpr bulk_guarantee_t<I> value()
   {
     return parallel_t();
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const parallel_t&, const parallel_t&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const parallel_t&, const parallel_t&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const parallel_t&, const unsequenced_t<I>&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const parallel_t&, const unsequenced_t<I>&)
   {
     return true;
   }
 
-  friend ASIO_CONSTEXPR bool operator==(
+  friend constexpr bool operator==(
       const parallel_t&, const sequenced_t<I>&)
   {
     return false;
   }
 
-  friend ASIO_CONSTEXPR bool operator!=(
+  friend constexpr bool operator!=(
       const parallel_t&, const sequenced_t<I>&)
   {
     return true;
@@ -882,12 +873,7 @@ const T parallel_t<I>::static_query_v;
 
 typedef detail::bulk_guarantee_t<> bulk_guarantee_t;
 
-#if defined(ASIO_HAS_CONSTEXPR) || defined(GENERATING_DOCUMENTATION)
 constexpr bulk_guarantee_t bulk_guarantee;
-#else // defined(ASIO_HAS_CONSTEXPR) || defined(GENERATING_DOCUMENTATION)
-namespace { static const bulk_guarantee_t&
-  bulk_guarantee = bulk_guarantee_t::instance; }
-#endif
 
 } // namespace execution
 
@@ -1027,7 +1013,7 @@ struct static_query<T, execution::bulk_guarantee_t,
   typedef typename execution::detail::bulk_guarantee_t<0>::
     query_static_constexpr_member<T>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return execution::detail::bulk_guarantee_t<0>::
       query_static_constexpr_member<T>::value();
@@ -1051,7 +1037,7 @@ struct static_query<T, execution::bulk_guarantee_t,
   typedef typename traits::static_query<T,
     execution::bulk_guarantee_t::unsequenced_t>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return traits::static_query<T,
         execution::bulk_guarantee_t::unsequenced_t>::value();
@@ -1077,7 +1063,7 @@ struct static_query<T, execution::bulk_guarantee_t,
   typedef typename traits::static_query<T,
     execution::bulk_guarantee_t::sequenced_t>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return traits::static_query<T,
         execution::bulk_guarantee_t::sequenced_t>::value();
@@ -1105,7 +1091,7 @@ struct static_query<T, execution::bulk_guarantee_t,
   typedef typename traits::static_query<T,
     execution::bulk_guarantee_t::parallel_t>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return traits::static_query<T,
         execution::bulk_guarantee_t::parallel_t>::value();
@@ -1125,7 +1111,7 @@ struct static_query<T, execution::bulk_guarantee_t::unsequenced_t,
   typedef typename execution::detail::bulk_guarantee::unsequenced_t<0>::
     query_static_constexpr_member<T>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return execution::detail::bulk_guarantee::unsequenced_t<0>::
       query_static_constexpr_member<T>::value();
@@ -1150,7 +1136,7 @@ struct static_query<T, execution::bulk_guarantee_t::unsequenced_t,
 
   typedef execution::bulk_guarantee_t::unsequenced_t result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return result_type();
   }
@@ -1169,7 +1155,7 @@ struct static_query<T, execution::bulk_guarantee_t::sequenced_t,
   typedef typename execution::detail::bulk_guarantee::sequenced_t<0>::
     query_static_constexpr_member<T>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return execution::detail::bulk_guarantee::sequenced_t<0>::
       query_static_constexpr_member<T>::value();
@@ -1189,7 +1175,7 @@ struct static_query<T, execution::bulk_guarantee_t::parallel_t,
   typedef typename execution::detail::bulk_guarantee::parallel_t<0>::
     query_static_constexpr_member<T>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return execution::detail::bulk_guarantee::parallel_t<0>::
       query_static_constexpr_member<T>::value();

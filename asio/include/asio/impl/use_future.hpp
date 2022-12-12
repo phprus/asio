@@ -117,7 +117,7 @@ public:
     return asio::query(system_executor(), execution::context);
   }
 
-  static ASIO_CONSTEXPR Blocking query(execution::blocking_t)
+  static constexpr Blocking query(execution::blocking_t)
   {
     return Blocking();
   }
@@ -704,7 +704,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef Blocking result_type;
 
-  static ASIO_CONSTEXPR result_type value() noexcept(true)
+  static constexpr result_type value() noexcept(true)
   {
     return Blocking();
   }

@@ -135,43 +135,43 @@ struct start_free<free_start_non_const_receiver>
 
 void test_can_start()
 {
-  ASIO_CONSTEXPR bool b1 = exec::can_start<
+  constexpr bool b1 = exec::can_start<
       no_start&>::value;
   ASIO_CHECK(b1 == false);
 
-  ASIO_CONSTEXPR bool b2 = exec::can_start<
+  constexpr bool b2 = exec::can_start<
       const no_start&>::value;
   ASIO_CHECK(b2 == false);
 
-  ASIO_CONSTEXPR bool b3 = exec::can_start<
+  constexpr bool b3 = exec::can_start<
       const_member_start&>::value;
   ASIO_CHECK(b3 == true);
 
-  ASIO_CONSTEXPR bool b4 = exec::can_start<
+  constexpr bool b4 = exec::can_start<
       const const_member_start&>::value;
   ASIO_CHECK(b4 == true);
 
-  ASIO_CONSTEXPR bool b5 = exec::can_start<
+  constexpr bool b5 = exec::can_start<
       free_start_const_receiver&>::value;
   ASIO_CHECK(b5 == true);
 
-  ASIO_CONSTEXPR bool b6 = exec::can_start<
+  constexpr bool b6 = exec::can_start<
       const free_start_const_receiver&>::value;
   ASIO_CHECK(b6 == true);
 
-  ASIO_CONSTEXPR bool b7 = exec::can_start<
+  constexpr bool b7 = exec::can_start<
       non_const_member_start&>::value;
   ASIO_CHECK(b7 == true);
 
-  ASIO_CONSTEXPR bool b8 = exec::can_start<
+  constexpr bool b8 = exec::can_start<
       const non_const_member_start&>::value;
   ASIO_CHECK(b8 == false);
 
-  ASIO_CONSTEXPR bool b9 = exec::can_start<
+  constexpr bool b9 = exec::can_start<
       free_start_non_const_receiver&>::value;
   ASIO_CHECK(b9 == true);
 
-  ASIO_CONSTEXPR bool b10 = exec::can_start<
+  constexpr bool b10 = exec::can_start<
       const free_start_non_const_receiver&>::value;
   ASIO_CHECK(b10 == false);
 }

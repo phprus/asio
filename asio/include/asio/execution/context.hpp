@@ -100,7 +100,7 @@ struct context_t
   typedef std::any polymorphic_query_result_type;
 #endif // defined(ASIO_HAS_STD_ANY)
 
-  ASIO_CONSTEXPR context_t()
+  constexpr context_t()
   {
   }
 
@@ -137,7 +137,7 @@ struct context_t
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
   template <typename T>
-  static ASIO_CONSTEXPR
+  static constexpr
   typename query_static_constexpr_member<T>::result_type
   static_query()
     noexcept((
@@ -147,14 +147,10 @@ struct context_t
   }
 
   template <typename E, typename T = decltype(context_t::static_query<E>())>
-  static ASIO_CONSTEXPR const T static_query_v
+  static constexpr const T static_query_v
     = context_t::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
-
-#if !defined(ASIO_HAS_CONSTEXPR)
-  static const context_t instance;
-#endif // !defined(ASIO_HAS_CONSTEXPR)
 };
 
 #if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
@@ -164,20 +160,11 @@ const T context_t<I>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-#if !defined(ASIO_HAS_CONSTEXPR)
-template <int I>
-const context_t<I> context_t<I>::instance;
-#endif
-
 } // namespace detail
 
 typedef detail::context_t<> context_t;
 
-#if defined(ASIO_HAS_CONSTEXPR) || defined(GENERATING_DOCUMENTATION)
 constexpr context_t context;
-#else // defined(ASIO_HAS_CONSTEXPR) || defined(GENERATING_DOCUMENTATION)
-namespace { static const context_t& context = context_t::instance; }
-#endif
 
 } // namespace execution
 
@@ -223,7 +210,7 @@ struct static_query<T, execution::context_t,
   typedef typename execution::detail::context_t<0>::
     query_static_constexpr_member<T>::result_type result_type;
 
-  static ASIO_CONSTEXPR result_type value()
+  static constexpr result_type value()
   {
     return execution::detail::context_t<0>::
       query_static_constexpr_member<T>::value();

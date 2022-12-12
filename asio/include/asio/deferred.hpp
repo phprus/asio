@@ -117,7 +117,7 @@ class deferred_function
 public:
   /// Constructor. 
   template <typename F>
-  ASIO_CONSTEXPR explicit deferred_function(
+  constexpr explicit deferred_function(
       deferred_init_tag, ASIO_MOVE_ARG(F) function)
     : function_(ASIO_MOVE_CAST(F)(function))
   {
@@ -202,7 +202,7 @@ public:
   /// Construct a deferred asynchronous operation from the arguments to an
   /// initiation function object.
   template <typename... V>
-  ASIO_CONSTEXPR explicit deferred_values(
+  constexpr explicit deferred_values(
       deferred_init_tag, ASIO_MOVE_ARG(V)... values)
     : values_(ASIO_MOVE_CAST(V)(values)...)
   {
@@ -283,7 +283,7 @@ public:
   /// Construct a deferred asynchronous operation from the arguments to an
   /// initiation function object.
   template <typename I, typename... A>
-  ASIO_CONSTEXPR explicit deferred_async_operation(
+  constexpr explicit deferred_async_operation(
       deferred_init_tag, ASIO_MOVE_ARG(I) initiation,
       ASIO_MOVE_ARG(A)... init_args)
     : initiation_(ASIO_MOVE_CAST(I)(initiation)),
@@ -356,7 +356,7 @@ private:
 
 public:
   template <typename H, typename T>
-  ASIO_CONSTEXPR explicit deferred_sequence(deferred_init_tag,
+  constexpr explicit deferred_sequence(deferred_init_tag,
       ASIO_MOVE_ARG(H) head, ASIO_MOVE_ARG(T) tail)
     : head_(ASIO_MOVE_CAST(H)(head)),
       tail_(ASIO_MOVE_CAST(T)(tail))
@@ -422,7 +422,7 @@ private:
 public:
   /// Construct a deferred conditional with the value to determine which branch
   /// will be executed.
-  ASIO_CONSTEXPR explicit deferred_conditional(bool b)
+  constexpr explicit deferred_conditional(bool b)
     : on_true_(),
       on_false_(),
       bool_(b)
@@ -532,7 +532,7 @@ class deferred_t
 {
 public:
   /// Default constructor.
-  ASIO_CONSTEXPR deferred_t()
+  constexpr deferred_t()
   {
   }
 
@@ -601,7 +601,7 @@ public:
 
   /// Returns a deferred operation that returns the provided values.
   template <typename... Args>
-  static ASIO_CONSTEXPR deferred_values<typename decay<Args>::type...>
+  static constexpr deferred_values<typename decay<Args>::type...>
   values(ASIO_MOVE_ARG(Args)... args)
   {
     return deferred_values<typename decay<Args>::type...>(
@@ -609,7 +609,7 @@ public:
   }
 
   /// Creates a conditional object for branching deferred operations.
-  static ASIO_CONSTEXPR deferred_conditional<> when(bool b)
+  static constexpr deferred_conditional<> when(bool b)
   {
     return deferred_conditional<>(b);
   }
@@ -633,11 +633,7 @@ inline auto operator|(Head head, ASIO_MOVE_ARG(Tail) tail)
 /**
  * See the documentation for asio::deferred_t for a usage example.
  */
-#if defined(ASIO_HAS_CONSTEXPR) || defined(GENERATING_DOCUMENTATION)
 constexpr deferred_t deferred;
-#elif defined(ASIO_MSVC)
-__declspec(selectany) deferred_t deferred;
-#endif
 
 } // namespace asio
 

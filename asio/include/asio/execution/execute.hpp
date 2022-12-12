@@ -196,7 +196,7 @@ struct impl
   };
 
   template <typename T, typename F>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<impl, T, void(F)>::overload == call_member,
     typename call_traits<impl, T, void(F)>::result_type
   >::type
@@ -210,7 +210,7 @@ struct impl
   }
 
   template <typename T, typename F>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<impl, T, void(F)>::overload == call_free,
     typename call_traits<impl, T, void(F)>::result_type
   >::type
@@ -224,7 +224,7 @@ struct impl
   }
 
   template <typename T, typename F>
-  ASIO_CONSTEXPR typename enable_if<
+  constexpr typename enable_if<
     call_traits<impl, T, void(F)>::overload == adapter,
     typename call_traits<impl, T, void(F)>::result_type
   >::type
@@ -255,7 +255,7 @@ namespace asio {
 namespace execution {
 namespace {
 
-static ASIO_CONSTEXPR const asio_execution_execute_fn::impl&
+static constexpr const asio_execution_execute_fn::impl&
   execute = asio_execution_execute_fn::static_instance<>::instance;
 
 } // namespace

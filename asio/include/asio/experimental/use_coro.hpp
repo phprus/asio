@@ -59,7 +59,7 @@ struct use_coro_t
   typedef Allocator allocator_type;
 
   /// Default constructor.
-  ASIO_CONSTEXPR use_coro_t(
+  constexpr use_coro_t(
       allocator_type allocator = allocator_type{}
 #if defined(ASIO_ENABLE_HANDLER_TRACKING)
 # if defined(ASIO_HAS_SOURCE_LOCATION)
@@ -98,7 +98,7 @@ struct use_coro_t
   }
 
   /// Constructor used to specify file name, line, and function name.
-  ASIO_CONSTEXPR use_coro_t(const char* file_name,
+  constexpr use_coro_t(const char* file_name,
       int line, const char* function_name,
       allocator_type allocator = allocator_type{}) :
 #if defined(ASIO_ENABLE_HANDLER_TRACKING)
@@ -174,10 +174,8 @@ private:
  */
 #if defined(GENERATING_DOCUMENTATION)
 constexpr use_coro_t<> use_coro;
-#elif defined(ASIO_HAS_CONSTEXPR)
+#else
 constexpr use_coro_t<> use_coro(0, 0, 0);
-#elif defined(ASIO_MSVC)
-__declspec(selectany) use_coro_t<> use_coro(0, 0, 0);
 #endif
 
 } // namespace experimental

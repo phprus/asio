@@ -33,7 +33,7 @@ struct use_promise_t
   typedef Allocator allocator_type;
 
   /// Construct using default-constructed allocator.
-  ASIO_CONSTEXPR use_promise_t()
+  constexpr use_promise_t()
   {
   }
 

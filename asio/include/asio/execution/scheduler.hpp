@@ -64,7 +64,7 @@ struct is_scheduler :
 #if defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T>
-ASIO_CONSTEXPR const bool is_scheduler_v = is_scheduler<T>::value;
+constexpr const bool is_scheduler_v = is_scheduler<T>::value;
 
 #endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 

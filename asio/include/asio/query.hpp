@@ -212,7 +212,7 @@ struct impl
   };
 
   template <typename T, typename Property>
-  ASIO_NODISCARD ASIO_CONSTEXPR typename enable_if<
+  ASIO_NODISCARD constexpr typename enable_if<
     call_traits<impl, T, void(Property)>::overload == static_value,
     typename call_traits<impl, T, void(Property)>::result_type
   >::type
@@ -229,7 +229,7 @@ struct impl
   }
 
   template <typename T, typename Property>
-  ASIO_NODISCARD ASIO_CONSTEXPR typename enable_if<
+  ASIO_NODISCARD constexpr typename enable_if<
     call_traits<impl, T, void(Property)>::overload == call_member,
     typename call_traits<impl, T, void(Property)>::result_type
   >::type
@@ -243,7 +243,7 @@ struct impl
   }
 
   template <typename T, typename Property>
-  ASIO_NODISCARD ASIO_CONSTEXPR typename enable_if<
+  ASIO_NODISCARD constexpr typename enable_if<
     call_traits<impl, T, void(Property)>::overload == call_free,
     typename call_traits<impl, T, void(Property)>::result_type
   >::type
@@ -270,7 +270,7 @@ const T static_instance<T>::instance = {};
 namespace asio {
 namespace {
 
-static ASIO_CONSTEXPR const asio_query_fn::impl&
+static constexpr const asio_query_fn::impl&
   query = asio_query_fn::static_instance<>::instance;
 
 } // namespace

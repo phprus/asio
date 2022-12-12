@@ -40,7 +40,7 @@ class consign_t
 public:
   /// Constructor.
   template <typename T, typename... V>
-  ASIO_CONSTEXPR explicit consign_t(
+  constexpr explicit consign_t(
       ASIO_MOVE_ARG(T) completion_token,
       ASIO_MOVE_ARG(V)... values)
     : token_(ASIO_MOVE_CAST(T)(completion_token)),
@@ -63,7 +63,7 @@ private:
  * called.
  */
 template <typename CompletionToken, typename... Values>
-ASIO_NODISCARD inline ASIO_CONSTEXPR consign_t<
+ASIO_NODISCARD inline constexpr consign_t<
   typename decay<CompletionToken>::type, typename decay<Values>::type...>
 consign(ASIO_MOVE_ARG(CompletionToken) completion_token,
     ASIO_MOVE_ARG(Values)... values)
