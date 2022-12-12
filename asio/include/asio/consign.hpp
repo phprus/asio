@@ -60,7 +60,7 @@ private:
  * called.
  */
 template <typename CompletionToken, typename... Values>
-ASIO_NODISCARD inline constexpr consign_t<
+[[nodiscard]] inline constexpr consign_t<
   typename decay<CompletionToken>::type, typename decay<Values>::type...>
 consign(ASIO_MOVE_ARG(CompletionToken) completion_token,
     ASIO_MOVE_ARG(Values)... values)
