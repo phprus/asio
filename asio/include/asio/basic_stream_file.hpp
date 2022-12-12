@@ -672,8 +672,8 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_stream_file(const basic_stream_file&) ASIO_DELETED;
-  basic_stream_file& operator=(const basic_stream_file&) ASIO_DELETED;
+  basic_stream_file(const basic_stream_file&) = delete;
+  basic_stream_file& operator=(const basic_stream_file&) = delete;
 
   class initiate_async_write_some
   {

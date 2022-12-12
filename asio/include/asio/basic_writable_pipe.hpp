@@ -571,8 +571,8 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_writable_pipe(const basic_writable_pipe&) ASIO_DELETED;
-  basic_writable_pipe& operator=(const basic_writable_pipe&) ASIO_DELETED;
+  basic_writable_pipe(const basic_writable_pipe&) = delete;
+  basic_writable_pipe& operator=(const basic_writable_pipe&) = delete;
 
   class initiate_async_write_some
   {
