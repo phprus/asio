@@ -68,11 +68,7 @@ void test()
     serial_port port1(ioc);
     serial_port port2(ioc, "null");
     serial_port::native_handle_type native_port1 = port1.native_handle();
-#if defined(ASIO_MSVC) && (_MSC_VER < 1910)
-    // Skip this on older MSVC due to mysterious ambiguous overload errors.
-#else
     serial_port port3(ioc, native_port1);
-#endif
 
     serial_port port4(ioc_ex);
     serial_port port5(ioc_ex, "null");
