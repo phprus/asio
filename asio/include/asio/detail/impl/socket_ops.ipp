@@ -17,6 +17,8 @@
 
 #include "asio/detail/config.hpp"
 
+#include <charconv>
+#include <iterator>
 #include <cctype>
 #include <cstdio>
 #include <cstdlib>
@@ -2510,7 +2512,7 @@ const char* inet_ntop(int af, const void* src, char* dest, size_t length,
     ec = asio::error::invalid_argument;
   if (result != 0 && af == ASIO_OS_DEF(AF_INET6) && scope_id != 0)
   {
-    using namespace std; // For strcat and sprintf.
+    using namespace std; // For strcat.
     char if_name[(IF_NAMESIZE > 21 ? IF_NAMESIZE : 21) + 1] = "%";
     const in6_addr_type* ipv6_address = static_cast<const in6_addr_type*>(src);
     bool is_link_local = ((ipv6_address->s6_addr[0] == 0xfe)
@@ -2519,11 +2521,11 @@ const char* inet_ntop(int af, const void* src, char* dest, size_t length,
         && ((ipv6_address->s6_addr[1] & 0x0f) == 0x02));
     if ((!is_link_local && !is_multicast_link_local)
         || if_indextoname(static_cast<unsigned>(scope_id), if_name + 1) == 0)
-#if defined(ASIO_HAS_SNPRINTF)
-      snprintf(if_name + 1, sizeof(if_name) - 1, "%lu", scope_id);
-#else // defined(ASIO_HAS_SNPRINTF)
-      sprintf(if_name + 1, "%lu", scope_id);
-#endif // defined(ASIO_HAS_SNPRINTF)
+    {
+      // "%lu"
+      auto ret = std::to_chars(if_name + 1, std::end(if_name), scope_id);
+      *ret.ptr = '\0';
+    }
     strcat(dest, if_name);
   }
   return result;
@@ -3627,17 +3629,13 @@ inline std::error_code getnameinfo_emulation(
   {
     if (flags & NI_NUMERICSERV)
     {
-      if (servlen < 6)
+      // "%u"
+      auto ret = std::to_chars(serv, serv + servlen, ntohs(port));
+      if (ret.ec != std::errc())
       {
         return ec = asio::error::no_buffer_space;
       }
-#if defined(ASIO_HAS_SNPRINTF)
-      snprintf(serv, servlen, "%u", ntohs(port));
-#elif defined(ASIO_HAS_SECURE_RTL)
-      sprintf_s(serv, servlen, "%u", ntohs(port));
-#else // defined(ASIO_HAS_SECURE_RTL)
-      sprintf(serv, "%u", ntohs(port));
-#endif // defined(ASIO_HAS_SECURE_RTL)
+      *ret.ptr = '\0';
     }
     else
     {
@@ -3652,17 +3650,13 @@ inline std::error_code getnameinfo_emulation(
       }
       else
       {
-        if (servlen < 6)
+        // "%u"
+        auto ret = std::to_chars(serv, serv + servlen, ntohs(port));
+        if (ret.ec != std::errc())
         {
           return ec = asio::error::no_buffer_space;
         }
-#if defined(ASIO_HAS_SNPRINTF)
-        snprintf(serv, servlen, "%u", ntohs(port));
-#elif defined(ASIO_HAS_SECURE_RTL)
-        sprintf_s(serv, servlen, "%u", ntohs(port));
-#else // defined(ASIO_HAS_SECURE_RTL)
-        sprintf(serv, "%u", ntohs(port));
-#endif // defined(ASIO_HAS_SECURE_RTL)
+        *ret.ptr = '\0';
       }
 #if defined(ASIO_HAS_PTHREADS)
       ::pthread_mutex_unlock(&mutex);
