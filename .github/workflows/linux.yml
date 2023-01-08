@@ -11,33 +11,27 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-20.04]
-        compiler: [g++-9, g++-10, g++-11, clang++-10]
-        cxx-std: ['c++17', 'c++2a', 'c++20']
+        compiler: [g++-10, g++-11, clang++-10]
+        cxx-std: ['c++17', 'c++20']
         separate-compilation: ['']
         #separate-compilation: ['', '--enable-separate-compilation']
         optim-level: ['-O0']
         no-deprecated: ['']
         select-reactor: ['', '-DASIO_DISABLE_EPOLL']
         handler-tracking: ['']
-        exclude:
+        #exclude:
           # Older compilers don't support newer std variants
-          - compiler: g++-9
-            cxx-std: c++20
-          - compiler: g++-10
-            cxx-std: c++2a
-          - compiler: g++-11
-            cxx-std: c++2a
-          - compiler: clang++-10
-            cxx-std: c++2a
+          #- compiler: g++-11
+          #  cxx-std: c++2a
           # Trim builds that use separate compilation
           #- compiler: g++-9
           #  separate-compilation: --enable-separate-compilation
         include:
           #
-          # Linux / g++-9 / -O0 / standalone / handler tracking
+          # Linux / g++-10 / -O0 / standalone / handler tracking
           #
           - os: ubuntu-20.04
-            compiler: g++-9
+            compiler: g++-10
             cxx-std: c++17
             optim-level: -O0
             handler-tracking: -DASIO_ENABLE_HANDLER_TRACKING
