@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-20.04]
-        compiler: [g++-9, g++-10, clang++-10]
+        compiler: [g++-9, g++-10, g++-11, clang++-10]
         cxx-std: ['c++17', 'c++2a', 'c++20']
         separate-compilation: ['']
         #separate-compilation: ['', '--enable-separate-compilation']
@@ -24,6 +24,8 @@ jobs:
           - compiler: g++-9
             cxx-std: c++20
           - compiler: g++-10
+            cxx-std: c++2a
+          - compiler: g++-11
             cxx-std: c++2a
           - compiler: clang++-10
             cxx-std: c++2a
@@ -60,6 +62,10 @@ jobs:
       CXXFLAGS: -std=${{ matrix.cxx-std }} ${{ matrix.optim-level }} -Wall -Wextra ${{ matrix.no-deprecated }} ${{ matrix.select-reactor }} ${{ matrix.handler-tracking }}
     steps:
     - uses: actions/checkout@v3
+    - name: Add repositories for GCC 11
+      run: |
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+      if: ${{ matrix.cxx == 'g++-11' }}
     - name: Install compiler
       run: sudo apt-get install -y ${{ matrix.compiler }}
     - name: Configure
