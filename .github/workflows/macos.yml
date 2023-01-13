@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-11]
+        os: [macos-12]
         cxx-std: ['c++17', 'c++20']
         separate-compilation: ['']
         #separate-compilation: ['', '--enable-separate-compilation']
@@ -24,6 +24,8 @@ jobs:
       CXXFLAGS: -std=${{ matrix.cxx-std }} ${{ matrix.optim-level }} -Wall -Wextra ${{ matrix.no-deprecated }} ${{ matrix.select-reactor }} ${{ matrix.handler-tracking }}
     steps:
     - uses: actions/checkout@v3
+    - name: Select Xcode
+      run: sudo xcode-select -s "/Applications/Xcode_13.3.1.app"
     - name: Install autotools
       run: brew install automake
     - name: Configure
