@@ -34,6 +34,12 @@ struct promise;
 
 namespace detail {
 
+// MSVC error C2027
+template<typename... Ts>
+struct result_workaround : std::tuple<Ts...>
+{
+};
+
 template<typename Signature, typename Executor, typename Allocator>
 struct promise_impl;
 
@@ -58,7 +64,7 @@ struct promise_impl<void(Ts...), Executor, Allocator>
       reinterpret_cast<result_type*>(&result)->~result_type();
   }
 
-  aligned_storage_t<sizeof(result_type), alignof(result_type)> result;
+  aligned_storage_t<sizeof(result_workaround<Ts...>), alignof(result_workaround<Ts...>)> result;
   std::atomic<bool> done{false};
   cancellation_signal cancel;
   Allocator allocator;
