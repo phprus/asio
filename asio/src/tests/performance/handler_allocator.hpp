@@ -54,7 +54,7 @@ public:
 private:
   // Storage space used for handler-based custom memory allocation.
   static constexpr std::size_t storage_size_ = 1024;
-  std::aligned_storage<storage_size_> storage_;
+  std::aligned_storage_t<storage_size_> storage_;
 
   // Whether the handler-based custom allocation storage has been used.
   bool in_use_;
