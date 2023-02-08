@@ -373,7 +373,24 @@ public:
    */
   native_handle_type release()
   {
-    return impl_.get_service().release(impl_.get_implementation());
+    std::error_code ec;
+    return impl_.get_service().release(impl_.get_implementation(), ec);
+    asio::detail::throw_error(ec, "release");
+  }
+
+  /// Release ownership of the native descriptor implementation.
+  /**
+   * This function may be used to obtain the underlying representation of the
+   * descriptor. After calling this function, @c is_open() returns false. The
+   * caller is responsible for closing the descriptor.
+   *
+   * All outstanding asynchronous read or write operations will finish
+   * immediately, and the handlers for cancelled operations will be passed the
+   * asio::error::operation_aborted error.
+   */
+  native_handle_type release(std::error_code& ec)
+  {
+    return impl_.get_service().release(impl_.get_implementation(), ec);
   }
 
   /// Cancel all asynchronous operations associated with the descriptor.
