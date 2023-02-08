@@ -43,9 +43,15 @@ jobs:
       run: sudo xcode-select -s "/Applications/Xcode_13.3.1.app"
     - name: Install autotools
       run: brew install automake
+    # Корутины отключены из-за ошибки:
+    #   fatal error: error in backend: Cannot select: intrinsic %llvm.coro.size
+    #   clang: error: clang frontend command failed with exit code 70 (use -v to see invocation)
+    #   Apple clang version 13.1.6 (clang-1316.0.21.2.3)
     - name: Configure
       working-directory: asio
       run: |
+        sed -i .bak 's/HAVE_COROUTINES=yes/HAVE_COROUTINES=no/' configure.ac
+        rm configure.ac.bak
         ./autogen.sh
         ./configure ${{ matrix.separate-compilation }}
     - name: Build And Test
