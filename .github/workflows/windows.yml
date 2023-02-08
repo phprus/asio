@@ -5,19 +5,20 @@ on: [push, pull_request]
 permissions:
   contents: read
 
+
+# windows-2019 has MSVC 2019 installed;
+# windows-2022 has MSVC 2022 installed:
+# https://github.com/actions/virtual-environments
+
 jobs:
-  msvc:
+  msvc-debug:
     strategy:
       fail-fast: false
       matrix:
-        # windows-2019 has MSVC 2019 installed;
-        # windows-2022 has MSVC 2022 installed:
-        # https://github.com/actions/virtual-environments.
         os: [windows-2019]
-        #os: [windows-2019, windows-2022]
         arch: [x86, x64]
     runs-on: '${{ matrix.os }}'
-    name: '${{ matrix.os }} (${{ matrix.arch }})'
+    name: '${{ matrix.os }} (${{ matrix.arch }}, Debug)'
     steps:
     - uses: actions/checkout@v3
     - uses: ilammy/msvc-dev-cmd@v1
@@ -27,6 +28,31 @@ jobs:
     - name: Build And Test
       env:
         DEBUG: 1
+        WARNINGS: 1
+        _WIN32_WINNT: '0x0601'
+        STANDALONE: 1
+        #SEPARATE_COMPILATION: 1
+      run: |
+        cd asio/src
+        nmake -f Makefile.msc
+        nmake -f Makefile.msc check
+
+  msvc-release:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2019]
+        arch: [x86, x64]
+    runs-on: '${{ matrix.os }}'
+    name: '${{ matrix.os }} (${{ matrix.arch }}, Release)'
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: ${{ matrix.arch }}
+        sdk: '10.0.19041.0'
+    - name: Build And Test
+      env:
         WARNINGS: 1
         _WIN32_WINNT: '0x0601'
         STANDALONE: 1

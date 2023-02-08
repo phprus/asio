@@ -14,14 +14,29 @@ jobs:
         cxx-std: ['c++17', 'c++20']
         separate-compilation: ['']
         #separate-compilation: ['', '--enable-separate-compilation']
-        optim-level: ['-O0']
-        no-deprecated: ['']
-        select-reactor: ['', '-DASIO_DISABLE_KQUEUE']
+        optim-level: ['-O0', '-O3']
+        select-reactor: ['']
         handler-tracking: ['']
+        include:
+          #
+          # macos-12 / -O0 / handler tracking
+          #
+          - os: macos-12
+            cxx-std: c++17
+            optim-level: -O0
+            handler-tracking: -DASIO_ENABLE_HANDLER_TRACKING
+          #
+          # macos-12 / -O0 / without kqueue
+          #
+          - os: macos-12
+            cxx-std: c++17
+            optim-level: -O0
+            select-reactor: -DASIO_DISABLE_KQUEUE
+
     runs-on: ${{ matrix.os }}
     env:
       CXX: clang++
-      CXXFLAGS: -std=${{ matrix.cxx-std }} ${{ matrix.optim-level }} -Wall -Wextra ${{ matrix.no-deprecated }} ${{ matrix.select-reactor }} ${{ matrix.handler-tracking }}
+      CXXFLAGS: -std=${{ matrix.cxx-std }} ${{ matrix.optim-level }} -Wall -Wextra ${{ matrix.select-reactor }} ${{ matrix.handler-tracking }}
     steps:
     - uses: actions/checkout@v3
     - name: Select Xcode
