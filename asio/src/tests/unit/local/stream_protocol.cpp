@@ -73,13 +73,13 @@ void test()
     sp::socket socket1(ioc);
     sp::socket socket2(ioc, sp());
     sp::socket socket3(ioc, sp::endpoint(""));
-    int native_socket1 = ::socket(AF_UNIX, SOCK_STREAM, 0);
+    auto native_socket1 = ::socket(AF_UNIX, SOCK_STREAM, 0);
     sp::socket socket4(ioc, sp(), native_socket1);
 
     sp::socket socket5(ioc_ex);
     sp::socket socket6(ioc_ex, sp());
     sp::socket socket7(ioc_ex, sp::endpoint(""));
-    int native_socket2 = ::socket(AF_UNIX, SOCK_STREAM, 0);
+    auto native_socket2 = ::socket(AF_UNIX, SOCK_STREAM, 0);
     sp::socket socket8(ioc_ex, sp(), native_socket2);
 
     // basic_io_object functions.
@@ -95,9 +95,9 @@ void test()
     socket1.open(sp());
     socket1.open(sp(), ec);
 
-    int native_socket3 = ::socket(AF_UNIX, SOCK_STREAM, 0);
+    auto native_socket3 = ::socket(AF_UNIX, SOCK_STREAM, 0);
     socket1.assign(sp(), native_socket3);
-    int native_socket4 = ::socket(AF_UNIX, SOCK_STREAM, 0);
+    auto native_socket4 = ::socket(AF_UNIX, SOCK_STREAM, 0);
     socket1.assign(sp(), native_socket4, ec);
 
     bool is_open = socket1.is_open();
