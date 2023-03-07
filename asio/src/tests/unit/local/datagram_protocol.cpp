@@ -60,13 +60,13 @@ void test()
     dp::socket socket1(ioc);
     dp::socket socket2(ioc, dp());
     dp::socket socket3(ioc, dp::endpoint(""));
-    int native_socket1 = ::socket(AF_UNIX, SOCK_DGRAM, 0);
+    auto native_socket1 = ::socket(AF_UNIX, SOCK_DGRAM, 0);
     dp::socket socket4(ioc, dp(), native_socket1);
 
     dp::socket socket5(ioc_ex);
     dp::socket socket6(ioc_ex, dp());
     dp::socket socket7(ioc_ex, dp::endpoint(""));
-    int native_socket2 = ::socket(AF_UNIX, SOCK_DGRAM, 0);
+    auto native_socket2 = ::socket(AF_UNIX, SOCK_DGRAM, 0);
     dp::socket socket8(ioc_ex, dp(), native_socket2);
 
     // basic_io_object functions.
@@ -82,9 +82,9 @@ void test()
     socket1.open(dp());
     socket1.open(dp(), ec);
 
-    int native_socket3 = ::socket(AF_UNIX, SOCK_DGRAM, 0);
+    auto native_socket3 = ::socket(AF_UNIX, SOCK_DGRAM, 0);
     socket1.assign(dp(), native_socket3);
-    int native_socket4 = ::socket(AF_UNIX, SOCK_DGRAM, 0);
+    auto native_socket4 = ::socket(AF_UNIX, SOCK_DGRAM, 0);
     socket1.assign(dp(), native_socket4, ec);
 
     bool is_open = socket1.is_open();
