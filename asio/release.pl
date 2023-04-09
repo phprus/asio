@@ -15,11 +15,14 @@ our $asio_name;
 sub print_usage_and_exit
 {
   print("usage: ./release.pl <version>\n");
+  print("   or: ./release.pl <version> --version-only\n");
   print("   or: ./release.pl --package-asio\n");
   print("\n");
   print("examples:\n");
   print("  create new version and build packages for asio:\n");
   print("    ./release.pl 1.2.0\n");
+  print("  create new version:\n");
+  print("    ./release.pl 1.2.0 --version-only\n");
   print("  create packages for asio only:\n");
   print("    ./release.pl --package-asio\n");
   exit(1);
@@ -173,12 +176,16 @@ sub make_asio_packages
   system("tar tfz $asio_name.tar.gz | sed -e 's/^[^\\/]*//' | sort -df > asio.manifest");
 }
 
-(scalar(@ARGV) == 1) or print_usage_and_exit();
+(scalar(@ARGV) == 1 || scalar(@ARGV) == 2) or print_usage_and_exit();
 my $new_version = 1;
 my $package_asio = 1;
 if ($ARGV[0] eq "--package-asio")
 {
   $new_version = 0;
+}
+if (scalar(@ARGV) == 2 && $ARGV[1] eq "--version-only")
+{
+  $package_asio = 0;
 }
 
 if ($new_version)
