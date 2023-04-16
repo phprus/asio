@@ -80,13 +80,6 @@ needs.
     []
   ]
   [
-    [`ASIO_HAS_BOOST_CONTEXT_FIBER`]
-    [
-      Boost support for the Context library's fibers.
-    ]
-    [`ASIO_DISABLE_BOOST_CONTEXT_FIBER`]
-  ]
-  [
     [`ASIO_HAS_BOOST_DATE_TIME`]
     [
       Boost support for the DateTime library.
