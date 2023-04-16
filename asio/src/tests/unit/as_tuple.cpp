@@ -26,8 +26,7 @@
 
 void as_tuple_test()
 {
-#if defined(ASIO_HAS_STD_TUPLE) \
-  && defined(ASIO_HAS_VARIADIC_TEMPLATES)
+#if defined(ASIO_HAS_STD_TUPLE)
   asio::io_context io1;
   asio::io_context io2;
   asio::system_timer timer1(io1);
@@ -97,13 +96,11 @@ void as_tuple_test()
       == std::future_status::ready);
 # endif // defined(ASIO_HAS_STD_FUTURE_CLASS)
 #endif // defined(ASIO_HAS_STD_TUPLE)
-       //   && defined(ASIO_HAS_VARIADIC_TEMPLATES)
 }
 
 void as_tuple_constness_test()
 {
-#if defined(ASIO_HAS_STD_TUPLE) \
-  && defined(ASIO_HAS_VARIADIC_TEMPLATES)
+#if defined(ASIO_HAS_STD_TUPLE)
 # if defined(ASIO_HAS_STD_FUTURE_CLASS)
   asio::io_context io1;
   asio::system_timer timer1(io1);
@@ -123,7 +120,6 @@ void as_tuple_constness_test()
 #  endif // defined(ASIO_HAS_CONSTEXPR)
 # endif // defined(ASIO_HAS_STD_FUTURE_CLASS)
 #endif // defined(ASIO_HAS_STD_TUPLE)
-       //   && defined(ASIO_HAS_VARIADIC_TEMPLATES)
 }
 
 ASIO_TEST_SUITE

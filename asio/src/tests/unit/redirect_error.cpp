@@ -67,8 +67,7 @@ void redirect_error_test()
   ASIO_CHECK(count == 1);
 
 #if defined(ASIO_HAS_STD_TUPLE) \
-  && defined(ASIO_HAS_DECLTYPE) \
-  && defined(ASIO_HAS_VARIADIC_TEMPLATES)
+  && defined(ASIO_HAS_DECLTYPE)
   ec = asio::error::would_block;
   timer1.async_wait(
       asio::redirect_error(
@@ -91,7 +90,6 @@ void redirect_error_test()
   ASIO_CHECK(count == 2);
 #endif // defined(ASIO_HAS_STD_TUPLE)
        //   && defined(ASIO_HAS_DECLTYPE)
-       //   && defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 #if defined(ASIO_HAS_STD_FUTURE_CLASS)
   ec = asio::error::would_block;
