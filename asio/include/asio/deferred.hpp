@@ -118,7 +118,7 @@ public:
 
   template <ASIO_COMPLETION_TOKEN_FOR(Signatures...) CompletionToken>
   auto operator()(
-      ASIO_MOVE_ARG(CompletionToken) token) ASIO_RVALUE_REF_QUAL
+      ASIO_MOVE_ARG(CompletionToken) token) &&
     -> decltype(
         asio::async_initiate<CompletionToken, Signatures...>(
           declval<initiate>(), token,
@@ -131,7 +131,6 @@ public:
         ASIO_MOVE_OR_LVALUE(Tail)(tail_));
   }
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
   template <ASIO_COMPLETION_TOKEN_FOR(Signatures...) CompletionToken>
   auto operator()(
       ASIO_MOVE_ARG(CompletionToken) token) const &
@@ -142,7 +141,6 @@ public:
     return asio::async_initiate<CompletionToken, Signatures...>(
         initiate(), token, head_, tail_);
   }
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
 };
 
 // Two-step application of variadic Signatures to determine correct base type.
@@ -174,17 +172,15 @@ struct deferred_noop
 {
   /// No effect.
   template <typename... Args>
-  void operator()(ASIO_MOVE_ARG(Args)...) ASIO_RVALUE_REF_QUAL
+  void operator()(ASIO_MOVE_ARG(Args)...) &&
   {
   }
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
   /// No effect.
   template <typename... Args>
   void operator()(ASIO_MOVE_ARG(Args)...) const &
   {
   }
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
 };
 
 #if !defined(GENERATING_DOCUMENTATION)
@@ -217,7 +213,7 @@ public:
 public:
   template <typename... Args>
   auto operator()(
-      ASIO_MOVE_ARG(Args)... args) ASIO_RVALUE_REF_QUAL
+      ASIO_MOVE_ARG(Args)... args) &&
     -> decltype(
         ASIO_MOVE_CAST(Function)(this->function_)(
           ASIO_MOVE_CAST(Args)(args)...))
@@ -226,7 +222,6 @@ public:
         ASIO_MOVE_CAST(Args)(args)...);
   }
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
   template <typename... Args>
   auto operator()(
       ASIO_MOVE_ARG(Args)... args) const &
@@ -234,7 +229,6 @@ public:
   {
     return Function(function_)(ASIO_MOVE_CAST(Args)(args)...);
   }
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
 };
 
 #if !defined(GENERATING_DOCUMENTATION)
@@ -276,7 +270,6 @@ private:
         std::get<I>(ASIO_MOVE_CAST(std::tuple<Values...>)(values_))...);
   }
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
   template <typename CompletionToken, std::size_t... I>
   auto const_invoke_helper(
       ASIO_MOVE_ARG(CompletionToken) token,
@@ -288,7 +281,6 @@ private:
     return asio::async_initiate<CompletionToken, void(Values...)>(
         initiate(), token, std::get<I>(values_)...);
   }
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
 
 public:
   /// Construct a deferred asynchronous operation from the arguments to an
@@ -303,7 +295,7 @@ public:
   /// Initiate the deferred operation using the supplied completion token.
   template <ASIO_COMPLETION_TOKEN_FOR(void(Values...)) CompletionToken>
   auto operator()(
-      ASIO_MOVE_ARG(CompletionToken) token) ASIO_RVALUE_REF_QUAL
+      ASIO_MOVE_ARG(CompletionToken) token) &&
     -> decltype(
         this->invoke_helper(
           ASIO_MOVE_CAST(CompletionToken)(token),
@@ -314,7 +306,6 @@ public:
         detail::index_sequence_for<Values...>());
   }
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
   template <ASIO_COMPLETION_TOKEN_FOR(void(Values...)) CompletionToken>
   auto operator()(
       ASIO_MOVE_ARG(CompletionToken) token) const &
@@ -327,7 +318,6 @@ public:
         ASIO_MOVE_CAST(CompletionToken)(token),
         detail::index_sequence_for<Values...>());
   }
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
 };
 
 #if !defined(GENERATING_DOCUMENTATION)
@@ -361,7 +351,6 @@ private:
         std::get<I>(ASIO_MOVE_CAST(init_args_t)(init_args_))...);
   }
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
   template <typename CompletionToken, std::size_t... I>
   auto const_invoke_helper(
       ASIO_MOVE_ARG(CompletionToken) token,
@@ -373,7 +362,6 @@ private:
     return asio::async_initiate<CompletionToken, Signature>(
         initiation_t(initiation_), token, std::get<I>(init_args_)...);
   }
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
 
 public:
   /// Construct a deferred asynchronous operation from the arguments to an
@@ -390,7 +378,7 @@ public:
   /// Initiate the asynchronous operation using the supplied completion token.
   template <ASIO_COMPLETION_TOKEN_FOR(Signature) CompletionToken>
   auto operator()(
-      ASIO_MOVE_ARG(CompletionToken) token) ASIO_RVALUE_REF_QUAL
+      ASIO_MOVE_ARG(CompletionToken) token) &&
     -> decltype(
         this->invoke_helper(
           ASIO_MOVE_CAST(CompletionToken)(token),
@@ -401,7 +389,6 @@ public:
         detail::index_sequence_for<InitArgs...>());
   }
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
   template <ASIO_COMPLETION_TOKEN_FOR(Signature) CompletionToken>
   auto operator()(
       ASIO_MOVE_ARG(CompletionToken) token) const &
@@ -414,7 +401,6 @@ public:
         ASIO_MOVE_CAST(CompletionToken)(token),
         detail::index_sequence_for<InitArgs...>());
   }
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
 };
 
 /// Encapsulates a deferred asynchronous operation thas has multiple completion
@@ -443,7 +429,6 @@ private:
         std::get<I>(ASIO_MOVE_CAST(init_args_t)(init_args_))...);
   }
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
   template <typename CompletionToken, std::size_t... I>
   auto const_invoke_helper(
       ASIO_MOVE_ARG(CompletionToken) token,
@@ -455,7 +440,6 @@ private:
     return asio::async_initiate<CompletionToken, Signatures...>(
         initiation_t(initiation_), token, std::get<I>(init_args_)...);
   }
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
 
 public:
   /// Construct a deferred asynchronous operation from the arguments to an
@@ -472,7 +456,7 @@ public:
   /// Initiate the asynchronous operation using the supplied completion token.
   template <ASIO_COMPLETION_TOKEN_FOR(Signatures...) CompletionToken>
   auto operator()(
-      ASIO_MOVE_ARG(CompletionToken) token) ASIO_RVALUE_REF_QUAL
+      ASIO_MOVE_ARG(CompletionToken) token) &&
     -> decltype(
         this->invoke_helper(
           ASIO_MOVE_CAST(CompletionToken)(token),
@@ -483,7 +467,6 @@ public:
         detail::index_sequence_for<InitArgs...>());
   }
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
   template <ASIO_COMPLETION_TOKEN_FOR(Signatures...) CompletionToken>
   auto operator()(
       ASIO_MOVE_ARG(CompletionToken) token) const &
@@ -496,7 +479,6 @@ public:
         ASIO_MOVE_CAST(CompletionToken)(token),
         detail::index_sequence_for<InitArgs...>());
   }
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
 };
 
 #if !defined(GENERATING_DOCUMENTATION)
@@ -524,11 +506,11 @@ public:
 #if defined(GENERATING_DOCUMENTATION)
   template <typename CompletionToken>
   auto operator()(ASIO_MOVE_ARG(CompletionToken) token)
-    ASIO_RVALUE_REF_QUAL;
+    &&;
 
   template <typename CompletionToken>
   auto operator()(ASIO_MOVE_ARG(CompletionToken) token) const &;
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
+#endif // defined(GENERATING_DOCUMENTATION)
 };
 
 #if !defined(GENERATING_DOCUMENTATION)
@@ -572,7 +554,7 @@ public:
 
   /// Invoke the conditional branch bsaed on the stored alue.
   template <typename... Args>
-  auto operator()(ASIO_MOVE_ARG(Args)... args) ASIO_RVALUE_REF_QUAL
+  auto operator()(ASIO_MOVE_ARG(Args)... args) &&
     -> decltype(
         ASIO_MOVE_OR_LVALUE(OnTrue)(on_true_)(
           ASIO_MOVE_CAST(Args)(args)...))
@@ -589,7 +571,6 @@ public:
     }
   }
 
-#if defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
   template <typename... Args>
   auto operator()(ASIO_MOVE_ARG(Args)... args) const &
     -> decltype(on_true_(ASIO_MOVE_CAST(Args)(args)...))
@@ -603,7 +584,6 @@ public:
       return on_false_(ASIO_MOVE_CAST(Args)(args)...);
     }
   }
-#endif // defined(ASIO_HAS_REF_QUALIFIED_FUNCTIONS)
 
   /// Set the true branch of the conditional.
   template <typename T>
@@ -616,7 +596,7 @@ public:
           typename conditional<true, OnTrue, T>::type,
           deferred_noop
         >::value
-      >::type* = 0) ASIO_RVALUE_REF_QUAL
+      >::type* = 0) &&
   {
     return deferred_conditional<T, OnFalse>(
         bool_, ASIO_MOVE_CAST(T)(on_true),
@@ -640,7 +620,7 @@ public:
           typename conditional<true, OnFalse, T>::type,
           deferred_noop
         >::value
-      >::type* = 0) ASIO_RVALUE_REF_QUAL
+      >::type* = 0) &&
   {
     return deferred_conditional<OnTrue, T>(
         bool_, ASIO_MOVE_CAST(OnTrue)(on_true_),

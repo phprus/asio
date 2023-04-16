@@ -54,7 +54,7 @@ struct as_invocable
       execution::set_done(ASIO_MOVE_OR_LVALUE(Receiver)(*receiver_));
   }
 
-  void operator()() ASIO_LVALUE_REF_QUAL ASIO_NOEXCEPT
+  void operator()() & ASIO_NOEXCEPT
   {
 #if !defined(ASIO_NO_EXCEPTIONS)
     try
@@ -107,7 +107,7 @@ struct as_invocable
       execution::set_done(*receiver_);
   }
 
-  void operator()() ASIO_LVALUE_REF_QUAL ASIO_NOEXCEPT
+  void operator()() & ASIO_NOEXCEPT
   {
 #if !defined(ASIO_NO_EXCEPTIONS)
     try

@@ -311,13 +311,6 @@ needs.
     []
   ]
   [
-    [`ASIO_HAS_REF_QUALIFIED_FUNCTIONS`]
-    [
-      Support ref-qualified functions on compilers known to allow it.
-    ]
-    [`ASIO_DISABLE_REF_QUALIFIED_FUNCTIONS`]
-  ]
-  [
     [`ASIO_HAS_RETURN_TYPE_DEDUCTION`]
     [
       Support return type deduction on compilers known to allow it.
