@@ -19,8 +19,7 @@
 #include "unit_test.hpp"
 
 #if defined(ASIO_HAS_STD_TUPLE) \
-  && defined(ASIO_HAS_MOVE) \
-  && defined(ASIO_HAS_VARIADIC_TEMPLATES)
+  && defined(ASIO_HAS_MOVE)
 
 #include "asio/bind_allocator.hpp"
 #include "asio/bind_cancellation_slot.hpp"
@@ -266,7 +265,6 @@ ASIO_TEST_SUITE
 
 #else // defined(ASIO_HAS_STD_TUPLE)
       //   && defined(ASIO_HAS_MOVE)
-      //   && defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 ASIO_TEST_SUITE
 (
@@ -276,4 +274,3 @@ ASIO_TEST_SUITE
 
 #endif // defined(ASIO_HAS_STD_TUPLE)
        //   && defined(ASIO_HAS_MOVE)
-       //   && defined(ASIO_HAS_VARIADIC_TEMPLATES)

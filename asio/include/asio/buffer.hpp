@@ -2736,8 +2736,7 @@ struct is_dynamic_buffer
 {
 };
 
-#if (defined(ASIO_HAS_USER_DEFINED_LITERALS) \
-    && defined(ASIO_HAS_VARIADIC_TEMPLATES)) \
+#if defined(ASIO_HAS_USER_DEFINED_LITERALS) \
   || defined(GENERATING_DOCUMENTATION)
 
 namespace buffer_literals {
@@ -2898,8 +2897,7 @@ inline ASIO_CONST_BUFFER operator"" _buf()
 
 } // namespace buffer_literals
 
-#endif // (defined(ASIO_HAS_USER_DEFINED_LITERALS)
-       //     && defined(ASIO_HAS_VARIADIC_TEMPLATES))
+#endif // defined(ASIO_HAS_USER_DEFINED_LITERALS)
        //   || defined(GENERATING_DOCUMENTATION)
 
 } // namespace asio

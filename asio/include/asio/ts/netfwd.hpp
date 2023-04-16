@@ -66,19 +66,8 @@ namespace execution {
 #if !defined(ASIO_EXECUTION_ANY_EXECUTOR_FWD_DECL)
 #define ASIO_EXECUTION_ANY_EXECUTOR_FWD_DECL
 
-#if defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
 template <typename... SupportableProperties>
 class any_executor;
-
-#else // defined(ASIO_HAS_VARIADIC_TEMPLATES)
-
-template <typename = void, typename = void, typename = void,
-    typename = void, typename = void, typename = void,
-    typename = void, typename = void, typename = void>
-class any_executor;
-
-#endif // defined(ASIO_HAS_VARIADIC_TEMPLATES)
 
 #endif // !defined(ASIO_EXECUTION_ANY_EXECUTOR_FWD_DECL)
 

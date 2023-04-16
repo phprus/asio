@@ -872,8 +872,7 @@ namespace buffer_literals {
 
 void test()
 {
-#if (defined(ASIO_HAS_USER_DEFINED_LITERALS) \
-    && defined(ASIO_HAS_VARIADIC_TEMPLATES))
+#if defined(ASIO_HAS_USER_DEFINED_LITERALS)
   using namespace asio::buffer_literals;
   using namespace std; // For memcmp.
 
@@ -920,8 +919,7 @@ void test()
   asio::const_buffer b11 = 0b1111000000001111_buf;
   ASIO_CHECK(b11.size() == 2);
   ASIO_CHECK(memcmp(b11.data(), "\xF0\x0F", 2) == 0);
-#endif // (defined(ASIO_HAS_USER_DEFINED_LITERALS)
-       //   && defined(ASIO_HAS_VARIADIC_TEMPLATES))
+#endif // defined(ASIO_HAS_USER_DEFINED_LITERALS)
 }
 
 } // namespace buffer_literals
