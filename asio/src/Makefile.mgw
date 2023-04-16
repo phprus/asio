@@ -28,8 +28,8 @@ CXXFLAGS = -g -Wall -Wextra -mthreads -I../include \
 	$(BOOST_CXXFLAGS) \
 	$(SEPARATE_COMPILATION_CXXFLAGS)
 LDFLAGS = -g -mthreads $(OPTIM_LDFLAGS)
-LIBS = $(SEPARATE_COMPILATION_LIB) -lws2_32 -lmswsock
-DEFINES = -D_WIN32_WINNT=0x0501
+LIBS = $(SEPARATE_COMPILATION_LIB) -lws2_32 -lmswsock -lbcrypt
+DEFINES = -D_WIN32_WINNT=0x0601
 
 PERFORMANCE_TEST_EXES = \
 	tests/performance/client.exe \
