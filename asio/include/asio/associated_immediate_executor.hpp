@@ -231,13 +231,9 @@ get_associated_immediate_executor(const T& t, ExecutionContext& ctx,
     typename ExecutionContext::executor_type>::get(t, ctx.get_executor());
 }
 
-#if defined(ASIO_HAS_ALIAS_TEMPLATES)
-
 template <typename T, typename Executor>
 using associated_immediate_executor_t =
   typename associated_immediate_executor<T, Executor>::type;
-
-#endif // defined(ASIO_HAS_ALIAS_TEMPLATES)
 
 namespace detail {
 
