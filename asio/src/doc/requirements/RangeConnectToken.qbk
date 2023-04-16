@@ -63,7 +63,7 @@ A non-static class member function adapted to a range connect token using
         std::placeholders::_2));
 
 A non-static class member function adapted to a range connect token using
-`boost::bind()`:
+`std::bind()`:
 
   void my_class::connect_handler(
       const asio::error_code& ec,
@@ -73,7 +73,7 @@ A non-static class member function adapted to a range connect token using
   }
   ...
   asio::async_connect(...,
-      boost::bind(&my_class::connect_handler,
+      std::bind(&my_class::connect_handler,
         this, asio::placeholders::error,
         asio::placeholders::endpoint));
 

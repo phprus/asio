@@ -55,7 +55,7 @@ A non-static class member function adapted to a shutdown token using
         this, std::placeholders::_1));
 
 A non-static class member function adapted to a shutdown token using
-`boost::bind()`:
+`std::bind()`:
 
   void my_class::shutdown_handler(
       const asio::error_code& ec)
@@ -64,7 +64,7 @@ A non-static class member function adapted to a shutdown token using
   }
   ...
   ssl_stream.async_shutdown(...,
-      boost::bind(&my_class::shutdown_handler,
+      std::bind(&my_class::shutdown_handler,
         this, asio::placeholders::error));
 
 Using [link asio.reference.use_future use_future] as a shutdown token:

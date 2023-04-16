@@ -23,11 +23,7 @@
 #include "asio/streambuf.hpp"
 #include "unit_test.hpp"
 
-#if defined(ASIO_HAS_BOOST_BIND)
-# include <boost/bind/bind.hpp>
-#else // defined(ASIO_HAS_BOOST_BIND)
-# include <functional>
-#endif // defined(ASIO_HAS_BOOST_BIND)
+#include <functional>
 
 class test_stream
 {
@@ -673,11 +669,7 @@ void async_read_handler(
 
 void test_dynamic_string_async_read_until_char()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -836,11 +828,7 @@ void test_dynamic_string_async_read_until_char()
 void test_streambuf_async_read_until_char()
 {
 #if !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -996,11 +984,7 @@ void test_streambuf_async_read_until_char()
 
 void test_dynamic_string_async_read_until_string()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -1159,11 +1143,7 @@ void test_dynamic_string_async_read_until_string()
 void test_streambuf_async_read_until_string()
 {
 #if !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -1319,11 +1299,7 @@ void test_streambuf_async_read_until_string()
 
 void test_dynamic_string_async_read_until_match_condition()
 {
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
@@ -1482,11 +1458,7 @@ void test_dynamic_string_async_read_until_match_condition()
 void test_streambuf_async_read_until_match_condition()
 {
 #if !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
-#if defined(ASIO_HAS_BOOST_BIND)
-  namespace bindns = boost;
-#else // defined(ASIO_HAS_BOOST_BIND)
   namespace bindns = std;
-#endif // defined(ASIO_HAS_BOOST_BIND)
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 

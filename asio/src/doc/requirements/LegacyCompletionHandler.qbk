@@ -53,13 +53,13 @@ A non-static class member function adapted to a completion handler using
   my_io_service.post(std::bind(&my_class::completion_handler, this));
 
 A non-static class member function adapted to a completion handler using
-`boost::bind()`:
+`std::bind()`:
 
   void my_class::completion_handler()
   {
     ...
   }
   ...
-  my_io_service.post(boost::bind(&my_class::completion_handler, this));
+  my_io_service.post(std::bind(&my_class::completion_handler, this));
 
 [endsect]

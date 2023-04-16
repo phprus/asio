@@ -51,7 +51,7 @@ A non-static class member function adapted to a nullary token using
       std::bind(&my_class::nullary_handler, this));
 
 A non-static class member function adapted to a nullary token using
-`boost::bind()`:
+`std::bind()`:
 
   void my_class::nullary_handler()
   {
@@ -59,7 +59,7 @@ A non-static class member function adapted to a nullary token using
   }
   ...
   asio::post(...,
-      boost::bind(&my_class::nullary_handler, this));
+      std::bind(&my_class::nullary_handler, this));
 
 Using [link asio.reference.use_future use_future] as a nullary token:
 
