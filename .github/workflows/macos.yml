@@ -1,0 +1,54 @@
+name: macos
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-13]
+        cxx-std: ['c++20']
+        separate-compilation: ['']
+        #separate-compilation: ['', '--enable-separate-compilation']
+        optim-level: ['-O0', '-O3']
+        select-reactor: ['']
+        handler-tracking: ['']
+        include:
+          #
+          # macos-13 / -O0 / handler tracking
+          #
+          - os: macos-13
+            cxx-std: c++20
+            optim-level: -O0
+            handler-tracking: -DASIO_ENABLE_HANDLER_TRACKING
+          #
+          # macos-13 / -O0 / without kqueue
+          #
+          - os: macos-13
+            cxx-std: c++20
+            optim-level: -O0
+            select-reactor: -DASIO_DISABLE_KQUEUE
+
+    runs-on: ${{ matrix.os }}
+    env:
+      CXX: clang++
+      CXXFLAGS: -std=${{ matrix.cxx-std }} ${{ matrix.optim-level }} -Wall -Wextra ${{ matrix.select-reactor }} ${{ matrix.handler-tracking }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Select Xcode
+      run: sudo xcode-select -s "/Applications/Xcode_14.3.1.app"
+      #run: sudo xcode-select -s "/Applications/Xcode_15.0.app"
+    - name: Install autotools
+      run: brew install automake
+    - name: Configure
+      working-directory: asio
+      run: |
+        ./autogen.sh
+        ./configure ${{ matrix.separate-compilation }}
+    - name: Build And Test
+      working-directory: asio
+      run: make && make check || (cat ./src/tests/test-suite.log; false)
