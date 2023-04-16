@@ -94,8 +94,6 @@ struct equality_comparable<executor>
 } // namespace traits
 } // namespace asio
 
-#if defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
-
 struct operation_state
 {
   void start() noexcept(true)
@@ -163,8 +161,6 @@ struct connect_member<const typed_sender, R>
 } // namespace traits
 } // namespace asio
 
-#endif // defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
-
 template <typename T>
 bool is_unspecialised(T*, ...)
 {
@@ -192,10 +188,8 @@ void test_sender_traits()
   executor s3;
   ASIO_CHECK(!is_unspecialised(&s3, static_cast<void*>(0)));
 
-#if defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
   typed_sender s4;
   ASIO_CHECK(!is_unspecialised(&s4, static_cast<void*>(0)));
-#endif // defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
 }
 
 void test_is_sender()
@@ -205,9 +199,7 @@ void test_is_sender()
   ASIO_CHECK(exec::is_sender<sender_using_base>::value);
   ASIO_CHECK(exec::is_sender<executor>::value);
 
-#if defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
   ASIO_CHECK(exec::is_sender<typed_sender>::value);
-#endif // defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
 }
 
 void test_is_typed_sender()
@@ -216,10 +208,8 @@ void test_is_typed_sender()
   ASIO_CHECK(!exec::is_typed_sender<not_a_sender>::value);
   ASIO_CHECK(!exec::is_typed_sender<sender_using_base>::value);
 
-#if defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
   ASIO_CHECK(exec::is_typed_sender<executor>::value);
   ASIO_CHECK(exec::is_typed_sender<typed_sender>::value);
-#endif // defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
 }
 
 ASIO_TEST_SUITE

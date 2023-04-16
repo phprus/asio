@@ -53,8 +53,6 @@ struct static_require_trait :
 {
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT)
-
 #if defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 
 template <typename T, typename Property>
@@ -95,8 +93,6 @@ struct static_require_trait<T, Property,
 };
 
 #endif // defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
-
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_TRAIT)
 
 } // namespace detail
 namespace traits {

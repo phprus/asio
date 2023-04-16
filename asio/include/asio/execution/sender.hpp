@@ -27,9 +27,7 @@
 
 #include "asio/detail/push_options.hpp"
 
-#if !defined(ASIO_MSVC) || (_MSC_VER >= 1910)
-# define ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT 1
-#endif // !defined(ASIO_MSVC) || (_MSC_VER >= 1910)
+#define ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT 1
 
 namespace asio {
 namespace execution {
@@ -55,8 +53,6 @@ template <typename S, typename = void, typename = void, typename = void>
 struct has_sender_types : false_type
 {
 };
-
-#if defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
 
 template <
     template <
@@ -102,8 +98,6 @@ struct sender_traits_base<S,
   ASIO_STATIC_CONSTEXPR(bool, sends_done = S::sends_done);
 };
 
-#endif // defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
-
 template <typename S>
 struct sender_traits_base<S,
     typename enable_if<
@@ -112,8 +106,7 @@ struct sender_traits_base<S,
           as_invocable<void_receiver, S> >::value
     >::type>
 {
-#if defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT) \
-  && defined(ASIO_HAS_STD_EXCEPTION_PTR)
+#if defined(ASIO_HAS_STD_EXCEPTION_PTR)
 
   template <
       template <typename...> class Tuple,
@@ -125,8 +118,7 @@ struct sender_traits_base<S,
 
   ASIO_STATIC_CONSTEXPR(bool, sends_done = true);
 
-#endif // defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
-       //   && defined(ASIO_HAS_STD_EXCEPTION_PTR)
+#endif // defined(ASIO_HAS_STD_EXCEPTION_PTR)
 };
 
 } // namespace detail
