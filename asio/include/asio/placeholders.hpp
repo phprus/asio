@@ -19,6 +19,8 @@
 
 #if defined(ASIO_HAS_BOOST_BIND)
 # include <boost/bind/arg.hpp>
+#else // defined(ASIO_HAS_BOOST_BIND)
+# include <functional>
 #endif // defined(ASIO_HAS_BOOST_BIND)
 
 #include "asio/detail/push_options.hpp"
@@ -141,6 +143,15 @@ namespace
 
 #  endif
 # endif
+#else
+
+constexpr decltype(std::placeholders::_1) error{};
+constexpr decltype(std::placeholders::_2) bytes_transferred{};
+constexpr decltype(std::placeholders::_2) iterator{};
+constexpr decltype(std::placeholders::_2) results{};
+constexpr decltype(std::placeholders::_2) endpoint{};
+constexpr decltype(std::placeholders::_2) signal_number{};
+
 #endif
 
 } // namespace placeholders
