@@ -267,7 +267,7 @@ struct relationship_t
   static ASIO_CONSTEXPR
   typename query_static_constexpr_member<T>::result_type
   static_query()
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       query_static_constexpr_member<T>::is_noexcept))
   {
     return query_static_constexpr_member<T>::value();
@@ -285,7 +285,7 @@ struct relationship_t
       >::type* = 0,
       typename enable_if<
         traits::static_query<T, fork_t>::is_valid
-      >::type* = 0) ASIO_NOEXCEPT
+      >::type* = 0) noexcept(true)
   {
     return traits::static_query<T, fork_t>::value();
   }
@@ -305,7 +305,7 @@ struct relationship_t
       >::type* = 0,
       typename enable_if<
         traits::static_query<T, continuation_t>::is_valid
-      >::type* = 0) ASIO_NOEXCEPT
+      >::type* = 0) noexcept(true)
   {
     return traits::static_query<T, continuation_t>::value();
   }
@@ -344,10 +344,10 @@ struct relationship_t
       >::type* = 0)
 #if !defined(__clang__) // Clang crashes if noexcept is used here.
 #if defined(ASIO_MSVC) // Visual C++ wants the type to be qualified.
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&, relationship_t<>::fork_t>::value))
 #else // defined(ASIO_MSVC)
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&, fork_t>::value))
 #endif // defined(ASIO_MSVC)
 #endif // !defined(__clang__)
@@ -366,11 +366,11 @@ struct relationship_t
       >::type* = 0)
 #if !defined(__clang__) // Clang crashes if noexcept is used here.
 #if defined(ASIO_MSVC) // Visual C++ wants the type to be qualified.
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&,
         relationship_t<>::continuation_t>::value))
 #else // defined(ASIO_MSVC)
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       is_nothrow_query<const Executor&, continuation_t>::value))
 #endif // defined(ASIO_MSVC)
 #endif // !defined(__clang__)
@@ -463,7 +463,7 @@ struct fork_t
   static ASIO_CONSTEXPR
   typename query_static_constexpr_member<T>::result_type
   static_query()
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       query_static_constexpr_member<T>::is_noexcept))
   {
     return query_static_constexpr_member<T>::value();
@@ -482,7 +482,7 @@ struct fork_t
       >::type* = 0,
       typename enable_if<
         !can_query<T, continuation_t<I> >::value
-      >::type* = 0) ASIO_NOEXCEPT
+      >::type* = 0) noexcept(true)
   {
     return fork_t();
   }
@@ -571,7 +571,7 @@ struct continuation_t
   static ASIO_CONSTEXPR
   typename query_static_constexpr_member<T>::result_type
   static_query()
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       query_static_constexpr_member<T>::is_noexcept))
   {
     return query_static_constexpr_member<T>::value();

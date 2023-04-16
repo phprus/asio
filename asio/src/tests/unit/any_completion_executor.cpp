@@ -30,7 +30,7 @@ namespace bindns = std;
 static bool next_nothrow_new_fails = false;
 
 void* operator new(std::size_t n,
-    const std::nothrow_t&) ASIO_NOEXCEPT_OR_NOTHROW
+    const std::nothrow_t&) noexcept(true)
 {
   if (next_nothrow_new_fails)
   {
@@ -54,13 +54,13 @@ struct fat_executor
   }
 
   friend bool operator==(const fat_executor& a,
-      const fat_executor& b) ASIO_NOEXCEPT
+      const fat_executor& b) noexcept(true)
   {
     return a.id_ == b.id_;
   }
 
   friend bool operator!=(const fat_executor& a,
-      const fat_executor& b) ASIO_NOEXCEPT
+      const fat_executor& b) noexcept(true)
   {
     return a.id_ != b.id_;
   }

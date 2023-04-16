@@ -32,7 +32,7 @@ struct no_set_error
 struct const_member_set_error
 {
   template <typename E>
-  void set_error(ASIO_MOVE_ARG(E) e) const ASIO_NOEXCEPT
+  void set_error(ASIO_MOVE_ARG(E) e) const noexcept(true)
   {
     typename asio::decay<E>::type tmp(ASIO_MOVE_CAST(E)(e));
     (void)tmp;
@@ -62,7 +62,7 @@ struct free_set_error_const_receiver
 {
   template <typename E>
   friend void set_error(const free_set_error_const_receiver&,
-      ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT
+      ASIO_MOVE_ARG(E) e) noexcept(true)
   {
     typename asio::decay<E>::type tmp(ASIO_MOVE_CAST(E)(e));
     (void)tmp;
@@ -91,7 +91,7 @@ struct set_error_free<const free_set_error_const_receiver, E>
 struct non_const_member_set_error
 {
   template <typename E>
-  void set_error(ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT
+  void set_error(ASIO_MOVE_ARG(E) e) noexcept(true)
   {
     typename asio::decay<E>::type tmp(ASIO_MOVE_CAST(E)(e));
     (void)tmp;
@@ -121,7 +121,7 @@ struct free_set_error_non_const_receiver
 {
   template <typename E>
   friend void set_error(free_set_error_non_const_receiver&,
-      ASIO_MOVE_ARG(E) e) ASIO_NOEXCEPT
+      ASIO_MOVE_ARG(E) e) noexcept(true)
   {
     typename asio::decay<E>::type tmp(ASIO_MOVE_CAST(E)(e));
     (void)tmp;

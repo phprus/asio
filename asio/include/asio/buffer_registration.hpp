@@ -42,7 +42,7 @@ class buffer_registration_base
 {
 protected:
   static mutable_registered_buffer make_buffer(const mutable_buffer& b,
-      const void* scope, int index) ASIO_NOEXCEPT
+      const void* scope, int index) noexcept(true)
   {
     return mutable_registered_buffer(b, registered_buffer_id(scope, index));
   }
@@ -112,7 +112,7 @@ public:
   }
 
   /// Move constructor.
-  buffer_registration(buffer_registration&& other) ASIO_NOEXCEPT
+  buffer_registration(buffer_registration&& other) noexcept(true)
     : buffer_sequence_(std::move(other.buffer_sequence_)),
       buffers_(std::move(other.buffers_))
   {
@@ -133,7 +133,7 @@ public:
   
   /// Move assignment.
   buffer_registration& operator=(
-      buffer_registration&& other) ASIO_NOEXCEPT
+      buffer_registration&& other) noexcept(true)
   {
     if (this != &other)
     {
@@ -150,43 +150,43 @@ public:
   }
 
   /// Get the number of registered buffers.
-  std::size_t size() const ASIO_NOEXCEPT
+  std::size_t size() const noexcept(true)
   {
     return buffers_.size();
   }
 
   /// Get the begin iterator for the sequence of registered buffers.
-  const_iterator begin() const ASIO_NOEXCEPT
+  const_iterator begin() const noexcept(true)
   {
     return buffers_.begin();
   }
 
   /// Get the begin iterator for the sequence of registered buffers.
-  const_iterator cbegin() const ASIO_NOEXCEPT
+  const_iterator cbegin() const noexcept(true)
   {
     return buffers_.cbegin();
   }
 
   /// Get the end iterator for the sequence of registered buffers.
-  const_iterator end() const ASIO_NOEXCEPT
+  const_iterator end() const noexcept(true)
   {
     return buffers_.end();
   }
 
   /// Get the end iterator for the sequence of registered buffers.
-  const_iterator cend() const ASIO_NOEXCEPT
+  const_iterator cend() const noexcept(true)
   {
     return buffers_.cend();
   }
 
   /// Get the buffer at the specified index.
-  const mutable_registered_buffer& operator[](std::size_t i) ASIO_NOEXCEPT
+  const mutable_registered_buffer& operator[](std::size_t i) noexcept(true)
   {
     return buffers_[i];
   }
 
   /// Get the buffer at the specified index.
-  const mutable_registered_buffer& at(std::size_t i) ASIO_NOEXCEPT
+  const mutable_registered_buffer& at(std::size_t i) noexcept(true)
   {
     return buffers_.at(i);
   }

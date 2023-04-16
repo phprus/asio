@@ -341,19 +341,19 @@ public:
   }
 
   /// Obtain a reference to the target object.
-  target_type& get() ASIO_NOEXCEPT
+  target_type& get() noexcept(true)
   {
     return target_;
   }
 
   /// Obtain a reference to the target object.
-  const target_type& get() const ASIO_NOEXCEPT
+  const target_type& get() const noexcept(true)
   {
     return target_;
   }
 
   /// Obtain the associated immediate executor.
-  immediate_executor_type get_immediate_executor() const ASIO_NOEXCEPT
+  immediate_executor_type get_immediate_executor() const noexcept(true)
   {
     return executor_;
   }
@@ -544,7 +544,7 @@ struct associator<Associator,
 {
   static typename Associator<T, DefaultCandidate>::type
   get(const immediate_executor_binder<T, Executor>& b)
-    ASIO_NOEXCEPT
+    noexcept(true)
   {
     return Associator<T, DefaultCandidate>::get(b.get());
   }
@@ -552,7 +552,7 @@ struct associator<Associator,
   static ASIO_AUTO_RETURN_TYPE_PREFIX2(
       typename Associator<T, DefaultCandidate>::type)
   get(const immediate_executor_binder<T, Executor>& b,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<T, DefaultCandidate>::get(b.get(), c)))
   {
@@ -569,7 +569,7 @@ struct associated_immediate_executor<
 
   static ASIO_AUTO_RETURN_TYPE_PREFIX(type) get(
       const immediate_executor_binder<T, Executor>& b,
-      const Executor1& = Executor1()) ASIO_NOEXCEPT
+      const Executor1& = Executor1()) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((b.get_immediate_executor()))
   {
     return b.get_immediate_executor();

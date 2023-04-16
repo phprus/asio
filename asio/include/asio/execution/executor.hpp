@@ -66,21 +66,12 @@ struct is_executor_of_impl<T, F,
   typename enable_if<
     is_move_constructible<typename decay<F>::type>::value
   >::type,
-#if defined(ASIO_HAS_NOEXCEPT)
   typename enable_if<
     is_nothrow_copy_constructible<T>::value
   >::type,
   typename enable_if<
     is_nothrow_destructible<T>::value
   >::type,
-#else // defined(ASIO_HAS_NOEXCEPT)
-  typename enable_if<
-    is_copy_constructible<T>::value
-  >::type,
-  typename enable_if<
-    is_destructible<T>::value
-  >::type,
-#endif // defined(ASIO_HAS_NOEXCEPT)
   typename enable_if<
     traits::equality_comparable<T>::is_valid
   >::type,

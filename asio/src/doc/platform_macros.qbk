@@ -248,13 +248,6 @@ needs.
     []
   ]
   [
-    [`ASIO_HAS_NOEXCEPT`]
-    [
-      Support noexcept on compilers known to allow it.
-    ]
-    [`ASIO_DISABLE_NOEXCEPT`]
-  ]
-  [
     [`ASIO_HAS_NOEXCEPT_FUNCTION_TYPE`]
     [
       Support noexcept on function types on compilers known to allow it.

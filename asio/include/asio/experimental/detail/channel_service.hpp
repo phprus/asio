@@ -108,10 +108,10 @@ public:
 
   // Get the capacity of the channel.
   std::size_t capacity(
-      const base_implementation_type& impl) const ASIO_NOEXCEPT;
+      const base_implementation_type& impl) const noexcept(true);
 
   // Determine whether the channel is open.
-  bool is_open(const base_implementation_type& impl) const ASIO_NOEXCEPT;
+  bool is_open(const base_implementation_type& impl) const noexcept(true);
 
   // Reset the channel to its initial state.
   template <typename Traits, typename... Signatures>
@@ -131,7 +131,7 @@ public:
       void* cancellation_key);
 
   // Determine whether a value can be read from the channel without blocking.
-  bool ready(const base_implementation_type& impl) const ASIO_NOEXCEPT;
+  bool ready(const base_implementation_type& impl) const noexcept(true);
 
   // Synchronously send a new value into the channel.
   template <typename Message, typename Traits,

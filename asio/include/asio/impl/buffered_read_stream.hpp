@@ -168,7 +168,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return next_layer_.lowest_layer().get_executor();
     }
@@ -207,7 +207,7 @@ struct associator<Associator,
   : Associator<ReadHandler, DefaultCandidate>
 {
   static typename Associator<ReadHandler, DefaultCandidate>::type
-  get(const detail::buffered_fill_handler<ReadHandler>& h) ASIO_NOEXCEPT
+  get(const detail::buffered_fill_handler<ReadHandler>& h) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_);
   }
@@ -215,7 +215,7 @@ struct associator<Associator,
   static ASIO_AUTO_RETURN_TYPE_PREFIX2(
       typename Associator<ReadHandler, DefaultCandidate>::type)
   get(const detail::buffered_fill_handler<ReadHandler>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c)))
   {
@@ -405,7 +405,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return next_layer_.lowest_layer().get_executor();
     }
@@ -455,7 +455,7 @@ struct associator<Associator,
 {
   static typename Associator<ReadHandler, DefaultCandidate>::type
   get(const detail::buffered_read_some_handler<
-        MutableBufferSequence, ReadHandler>& h) ASIO_NOEXCEPT
+        MutableBufferSequence, ReadHandler>& h) noexcept(true)
   {
     return Associator<ReadHandler, DefaultCandidate>::get(h.handler_);
   }
@@ -464,7 +464,7 @@ struct associator<Associator,
       typename Associator<ReadHandler, DefaultCandidate>::type)
   get(const detail::buffered_read_some_handler<
         MutableBufferSequence, ReadHandler>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<ReadHandler, DefaultCandidate>::get(h.handler_, c)))
   {

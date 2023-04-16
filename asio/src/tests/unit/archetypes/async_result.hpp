@@ -65,7 +65,7 @@ struct immediate_concrete_handler : concrete_handler<Signature>
   {
   }
 
-  immediate_executor_type get_immediate_executor() const ASIO_NOEXCEPT
+  immediate_executor_type get_immediate_executor() const noexcept(true)
   {
     return immediate_executor_type();
   }

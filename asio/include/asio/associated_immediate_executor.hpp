@@ -51,7 +51,7 @@ struct default_immediate_executor
 {
   typedef typename require_result<E, execution::blocking_t::never_t>::type type;
 
-  static type get(const E& e) ASIO_NOEXCEPT
+  static type get(const E& e) noexcept(true)
   {
     return asio::require(e, execution::blocking.never);
   }
@@ -77,17 +77,17 @@ struct default_immediate_executor<E,
             is_convertible<Executor1, E>,
             false_type
           >::type::value
-        >::type = 0) ASIO_NOEXCEPT
+        >::type = 0) noexcept(true)
       : E(e)
     {
     }
 
-    type(const type& other) ASIO_NOEXCEPT
+    type(const type& other) noexcept(true)
       : E(static_cast<const E&>(other))
     {
     }
 
-    type(type&& other) ASIO_NOEXCEPT
+    type(type&& other) noexcept(true)
       : E(ASIO_MOVE_CAST(E)(other))
     {
     }
@@ -98,18 +98,18 @@ struct default_immediate_executor<E,
       this->post(ASIO_MOVE_CAST(Function)(f), a);
     }
 
-    friend bool operator==(const type& a, const type& b) ASIO_NOEXCEPT
+    friend bool operator==(const type& a, const type& b) noexcept(true)
     {
       return static_cast<const E&>(a) == static_cast<const E&>(b);
     }
 
-    friend bool operator!=(const type& a, const type& b) ASIO_NOEXCEPT
+    friend bool operator!=(const type& a, const type& b) noexcept(true)
     {
       return static_cast<const E&>(a) != static_cast<const E&>(b);
     }
   };
 
-  static type get(const E& e) ASIO_NOEXCEPT
+  static type get(const E& e) noexcept(true)
   {
     return type(e);
   }
@@ -123,7 +123,7 @@ struct associated_immediate_executor_impl
   typedef typename default_immediate_executor<E>::type type;
 
   static ASIO_AUTO_RETURN_TYPE_PREFIX(type) get(
-      const T&, const E& e) ASIO_NOEXCEPT
+      const T&, const E& e) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((default_immediate_executor<E>::get(e)))
   {
     return default_immediate_executor<E>::get(e);
@@ -137,7 +137,7 @@ struct associated_immediate_executor_impl<T, E,
   typedef typename T::immediate_executor_type type;
 
   static ASIO_AUTO_RETURN_TYPE_PREFIX(type) get(
-      const T& t, const E&) ASIO_NOEXCEPT
+      const T& t, const E&) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((t.get_immediate_executor()))
   {
     return t.get_immediate_executor();
@@ -192,7 +192,7 @@ struct associated_immediate_executor
   /// If @c T has a nested type @c immediate_executor_type, returns
   /// <tt>t.get_immediate_executor()</tt>. Otherwise returns
   /// <tt>asio::require(ex, asio::execution::blocking.never)</tt>.
-  static decltype(auto) get(const T& t, const Executor& ex) ASIO_NOEXCEPT;
+  static decltype(auto) get(const T& t, const Executor& ex) noexcept(true);
 #endif // defined(GENERATING_DOCUMENTATION)
 };
 
@@ -206,7 +206,7 @@ ASIO_NODISCARD inline ASIO_AUTO_RETURN_TYPE_PREFIX2(
 get_associated_immediate_executor(const T& t, const Executor& ex,
     typename constraint<
       is_executor<Executor>::value || execution::is_executor<Executor>::value
-    >::type = 0) ASIO_NOEXCEPT
+    >::type = 0) noexcept(true)
   ASIO_AUTO_RETURN_TYPE_SUFFIX((
     associated_immediate_executor<T, Executor>::get(t, ex)))
 {
@@ -223,7 +223,7 @@ ASIO_NODISCARD inline typename associated_immediate_executor<T,
     typename ExecutionContext::executor_type>::type
 get_associated_immediate_executor(const T& t, ExecutionContext& ctx,
     typename constraint<is_convertible<ExecutionContext&,
-      execution_context&>::value>::type = 0) ASIO_NOEXCEPT
+      execution_context&>::value>::type = 0) noexcept(true)
 {
   return associated_immediate_executor<T,
     typename ExecutionContext::executor_type>::get(t, ctx.get_executor());
@@ -273,7 +273,7 @@ struct associated_immediate_executor<reference_wrapper<T>, Executor>
   /// Forwards the request to get the executor to the associator specialisation
   /// for the unwrapped type @c T.
   static ASIO_AUTO_RETURN_TYPE_PREFIX(type) get(
-      reference_wrapper<T> t, const Executor& ex) ASIO_NOEXCEPT
+      reference_wrapper<T> t, const Executor& ex) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       associated_immediate_executor<T, Executor>::get(t.get(), ex)))
   {

@@ -340,19 +340,19 @@ public:
   }
 
   /// Obtain a reference to the target object.
-  target_type& get() ASIO_NOEXCEPT
+  target_type& get() noexcept(true)
   {
     return target_;
   }
 
   /// Obtain a reference to the target object.
-  const target_type& get() const ASIO_NOEXCEPT
+  const target_type& get() const noexcept(true)
   {
     return target_;
   }
 
   /// Obtain the associated allocator.
-  allocator_type get_allocator() const ASIO_NOEXCEPT
+  allocator_type get_allocator() const noexcept(true)
   {
     return allocator_;
   }
@@ -542,7 +542,7 @@ struct associator<Associator,
   : Associator<T, DefaultCandidate>
 {
   static typename Associator<T, DefaultCandidate>::type
-  get(const allocator_binder<T, Allocator>& b) ASIO_NOEXCEPT
+  get(const allocator_binder<T, Allocator>& b) noexcept(true)
   {
     return Associator<T, DefaultCandidate>::get(b.get());
   }
@@ -550,7 +550,7 @@ struct associator<Associator,
   static ASIO_AUTO_RETURN_TYPE_PREFIX2(
       typename Associator<T, DefaultCandidate>::type)
   get(const allocator_binder<T, Allocator>& b,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<T, DefaultCandidate>::get(b.get(), c)))
   {
@@ -567,7 +567,7 @@ struct associated_allocator<
 
   static ASIO_AUTO_RETURN_TYPE_PREFIX(type) get(
       const allocator_binder<T, Allocator>& b,
-      const Allocator1& = Allocator1()) ASIO_NOEXCEPT
+      const Allocator1& = Allocator1()) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((b.get_allocator()))
   {
     return b.get_allocator();

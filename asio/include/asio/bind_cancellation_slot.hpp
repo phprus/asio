@@ -341,19 +341,19 @@ public:
   }
 
   /// Obtain a reference to the target object.
-  target_type& get() ASIO_NOEXCEPT
+  target_type& get() noexcept(true)
   {
     return target_;
   }
 
   /// Obtain a reference to the target object.
-  const target_type& get() const ASIO_NOEXCEPT
+  const target_type& get() const noexcept(true)
   {
     return target_;
   }
 
   /// Obtain the associated cancellation slot.
-  cancellation_slot_type get_cancellation_slot() const ASIO_NOEXCEPT
+  cancellation_slot_type get_cancellation_slot() const noexcept(true)
   {
     return slot_;
   }
@@ -545,7 +545,7 @@ struct associator<Associator,
 {
   static typename Associator<T, DefaultCandidate>::type
   get(const cancellation_slot_binder<T, CancellationSlot>& b)
-    ASIO_NOEXCEPT
+    noexcept(true)
   {
     return Associator<T, DefaultCandidate>::get(b.get());
   }
@@ -553,7 +553,7 @@ struct associator<Associator,
   static ASIO_AUTO_RETURN_TYPE_PREFIX2(
       typename Associator<T, DefaultCandidate>::type)
   get(const cancellation_slot_binder<T, CancellationSlot>& b,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<T, DefaultCandidate>::get(b.get(), c)))
   {
@@ -570,7 +570,7 @@ struct associated_cancellation_slot<
 
   static ASIO_AUTO_RETURN_TYPE_PREFIX(type) get(
       const cancellation_slot_binder<T, CancellationSlot>& b,
-      const CancellationSlot1& = CancellationSlot1()) ASIO_NOEXCEPT
+      const CancellationSlot1& = CancellationSlot1()) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((b.get_cancellation_slot()))
   {
     return b.get_cancellation_slot();

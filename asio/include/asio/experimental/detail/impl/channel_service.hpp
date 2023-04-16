@@ -155,7 +155,7 @@ inline void channel_service<Mutex>::base_destroy(
 template <typename Mutex>
 inline std::size_t channel_service<Mutex>::capacity(
     const channel_service<Mutex>::base_implementation_type& impl)
-  const ASIO_NOEXCEPT
+  const noexcept(true)
 {
   typename Mutex::scoped_lock lock(impl.mutex_);
 
@@ -165,7 +165,7 @@ inline std::size_t channel_service<Mutex>::capacity(
 template <typename Mutex>
 inline bool channel_service<Mutex>::is_open(
     const channel_service<Mutex>::base_implementation_type& impl)
-  const ASIO_NOEXCEPT
+  const noexcept(true)
 {
   typename Mutex::scoped_lock lock(impl.mutex_);
 
@@ -302,7 +302,7 @@ void channel_service<Mutex>::cancel_by_key(
 template <typename Mutex>
 inline bool channel_service<Mutex>::ready(
     const channel_service<Mutex>::base_implementation_type& impl)
-  const ASIO_NOEXCEPT
+  const noexcept(true)
 {
   typename Mutex::scoped_lock lock(impl.mutex_);
 

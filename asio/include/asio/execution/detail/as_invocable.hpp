@@ -35,12 +35,12 @@ struct as_invocable
 {
   Receiver* receiver_;
 
-  explicit as_invocable(Receiver& r) ASIO_NOEXCEPT
+  explicit as_invocable(Receiver& r) noexcept(true)
     : receiver_(asio::detail::addressof(r))
   {
   }
 
-  as_invocable(as_invocable&& other) ASIO_NOEXCEPT
+  as_invocable(as_invocable&& other) noexcept(true)
     : receiver_(other.receiver_)
   {
     other.receiver_ = 0;
@@ -52,7 +52,7 @@ struct as_invocable
       execution::set_done(ASIO_MOVE_OR_LVALUE(Receiver)(*receiver_));
   }
 
-  void operator()() & ASIO_NOEXCEPT
+  void operator()() & noexcept(true)
   {
 #if !defined(ASIO_NO_EXCEPTIONS)
     try

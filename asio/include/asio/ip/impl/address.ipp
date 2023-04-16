@@ -29,7 +29,7 @@
 namespace asio {
 namespace ip {
 
-address::address() ASIO_NOEXCEPT
+address::address() noexcept(true)
   : type_(ipv4),
     ipv4_address_(),
     ipv6_address_()
@@ -37,7 +37,7 @@ address::address() ASIO_NOEXCEPT
 }
 
 address::address(
-    const asio::ip::address_v4& ipv4_address) ASIO_NOEXCEPT
+    const asio::ip::address_v4& ipv4_address) noexcept(true)
   : type_(ipv4),
     ipv4_address_(ipv4_address),
     ipv6_address_()
@@ -45,28 +45,28 @@ address::address(
 }
 
 address::address(
-    const asio::ip::address_v6& ipv6_address) ASIO_NOEXCEPT
+    const asio::ip::address_v6& ipv6_address) noexcept(true)
   : type_(ipv6),
     ipv4_address_(),
     ipv6_address_(ipv6_address)
 {
 }
 
-address::address(const address& other) ASIO_NOEXCEPT
+address::address(const address& other) noexcept(true)
   : type_(other.type_),
     ipv4_address_(other.ipv4_address_),
     ipv6_address_(other.ipv6_address_)
 {
 }
 
-address::address(address&& other) ASIO_NOEXCEPT
+address::address(address&& other) noexcept(true)
   : type_(other.type_),
     ipv4_address_(other.ipv4_address_),
     ipv6_address_(other.ipv6_address_)
 {
 }
 
-address& address::operator=(const address& other) ASIO_NOEXCEPT
+address& address::operator=(const address& other) noexcept(true)
 {
   type_ = other.type_;
   ipv4_address_ = other.ipv4_address_;
@@ -74,7 +74,7 @@ address& address::operator=(const address& other) ASIO_NOEXCEPT
   return *this;
 }
 
-address& address::operator=(address&& other) ASIO_NOEXCEPT
+address& address::operator=(address&& other) noexcept(true)
 {
   type_ = other.type_;
   ipv4_address_ = other.ipv4_address_;
@@ -83,7 +83,7 @@ address& address::operator=(address&& other) ASIO_NOEXCEPT
 }
 
 address& address::operator=(
-    const asio::ip::address_v4& ipv4_address) ASIO_NOEXCEPT
+    const asio::ip::address_v4& ipv4_address) noexcept(true)
 {
   type_ = ipv4;
   ipv4_address_ = ipv4_address;
@@ -92,7 +92,7 @@ address& address::operator=(
 }
 
 address& address::operator=(
-    const asio::ip::address_v6& ipv6_address) ASIO_NOEXCEPT
+    const asio::ip::address_v6& ipv6_address) noexcept(true)
 {
   type_ = ipv6;
   ipv4_address_ = asio::ip::address_v4();
@@ -109,7 +109,7 @@ address make_address(const char* str)
 }
 
 address make_address(const char* str,
-    asio::error_code& ec) ASIO_NOEXCEPT
+    asio::error_code& ec) noexcept(true)
 {
   asio::ip::address_v6 ipv6_address =
     asio::ip::make_address_v6(str, ec);
@@ -130,7 +130,7 @@ address make_address(const std::string& str)
 }
 
 address make_address(const std::string& str,
-    asio::error_code& ec) ASIO_NOEXCEPT
+    asio::error_code& ec) noexcept(true)
 {
   return make_address(str.c_str(), ec);
 }
@@ -143,7 +143,7 @@ address make_address(string_view str)
 }
 
 address make_address(string_view str,
-    asio::error_code& ec) ASIO_NOEXCEPT
+    asio::error_code& ec) noexcept(true)
 {
   return make_address(static_cast<std::string>(str), ec);
 }
@@ -186,28 +186,28 @@ std::string address::to_string(asio::error_code& ec) const
 }
 #endif // !defined(ASIO_NO_DEPRECATED)
 
-bool address::is_loopback() const ASIO_NOEXCEPT
+bool address::is_loopback() const noexcept(true)
 {
   return (type_ == ipv4)
     ? ipv4_address_.is_loopback()
     : ipv6_address_.is_loopback();
 }
 
-bool address::is_unspecified() const ASIO_NOEXCEPT
+bool address::is_unspecified() const noexcept(true)
 {
   return (type_ == ipv4)
     ? ipv4_address_.is_unspecified()
     : ipv6_address_.is_unspecified();
 }
 
-bool address::is_multicast() const ASIO_NOEXCEPT
+bool address::is_multicast() const noexcept(true)
 {
   return (type_ == ipv4)
     ? ipv4_address_.is_multicast()
     : ipv6_address_.is_multicast();
 }
 
-bool operator==(const address& a1, const address& a2) ASIO_NOEXCEPT
+bool operator==(const address& a1, const address& a2) noexcept(true)
 {
   if (a1.type_ != a2.type_)
     return false;
@@ -216,7 +216,7 @@ bool operator==(const address& a1, const address& a2) ASIO_NOEXCEPT
   return a1.ipv4_address_ == a2.ipv4_address_;
 }
 
-bool operator<(const address& a1, const address& a2) ASIO_NOEXCEPT
+bool operator<(const address& a1, const address& a2) noexcept(true)
 {
   if (a1.type_ < a2.type_)
     return true;

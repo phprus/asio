@@ -30,7 +30,7 @@ namespace bindns = std;
 static bool next_nothrow_new_fails = false;
 
 void* operator new(std::size_t n,
-    const std::nothrow_t&) ASIO_NOEXCEPT_OR_NOTHROW
+    const std::nothrow_t&) noexcept(true)
 {
   if (next_nothrow_new_fails)
   {
@@ -53,25 +53,25 @@ struct fat_executor
   {
   }
 
-  execution_context& query(execution::context_t) const ASIO_NOEXCEPT
+  execution_context& query(execution::context_t) const noexcept(true)
   {
     return asio::query(system_executor(), execution::context);
   }
 
   ASIO_CONSTEXPR static execution::blocking_t::never_t query(
-      execution::blocking_t) ASIO_NOEXCEPT
+      execution::blocking_t) noexcept(true)
   {
     return execution::blocking.never;
   }
 
   friend bool operator==(const fat_executor& a,
-      const fat_executor& b) ASIO_NOEXCEPT
+      const fat_executor& b) noexcept(true)
   {
     return a.id_ == b.id_;
   }
 
   friend bool operator!=(const fat_executor& a,
-      const fat_executor& b) ASIO_NOEXCEPT
+      const fat_executor& b) noexcept(true)
   {
     return a.id_ != b.id_;
   }
@@ -123,7 +123,7 @@ struct query_static_constexpr_member<fat_executor, Property,
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef execution::blocking_t::never_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() ASIO_NOEXCEPT
+  static ASIO_CONSTEXPR result_type value() noexcept(true)
   {
     return result_type();
   }
