@@ -52,7 +52,7 @@ public:
   {
   }
 
-  allocator_type get_allocator() const ASIO_NOEXCEPT
+  allocator_type get_allocator() const noexcept(true)
   {
     return allocator_;
   }

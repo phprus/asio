@@ -500,7 +500,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return socket_.get_executor();
     }
@@ -720,7 +720,7 @@ namespace detail
     {
     }
 
-    executor_type get_executor() const ASIO_NOEXCEPT
+    executor_type get_executor() const noexcept(true)
     {
       return socket_.get_executor();
     }
@@ -762,7 +762,7 @@ struct associator<Associator,
 {
   static typename Associator<RangeConnectHandler, DefaultCandidate>::type
   get(const detail::range_connect_op<Protocol, Executor, EndpointSequence,
-        ConnectCondition, RangeConnectHandler>& h) ASIO_NOEXCEPT
+        ConnectCondition, RangeConnectHandler>& h) noexcept(true)
   {
     return Associator<RangeConnectHandler, DefaultCandidate>::get(h.handler_);
   }
@@ -771,7 +771,7 @@ struct associator<Associator,
       typename Associator<RangeConnectHandler, DefaultCandidate>::type)
   get(const detail::range_connect_op<Protocol, Executor,
         EndpointSequence, ConnectCondition, RangeConnectHandler>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<RangeConnectHandler, DefaultCandidate>::get(
         h.handler_, c)))
@@ -793,7 +793,7 @@ struct associator<Associator,
 {
   static typename Associator<IteratorConnectHandler, DefaultCandidate>::type
   get(const detail::iterator_connect_op<Protocol, Executor, Iterator,
-        ConnectCondition, IteratorConnectHandler>& h) ASIO_NOEXCEPT
+        ConnectCondition, IteratorConnectHandler>& h) noexcept(true)
   {
     return Associator<IteratorConnectHandler, DefaultCandidate>::get(
         h.handler_);
@@ -803,7 +803,7 @@ struct associator<Associator,
       typename Associator<IteratorConnectHandler, DefaultCandidate>::type)
   get(const detail::iterator_connect_op<Protocol, Executor,
         Iterator, ConnectCondition, IteratorConnectHandler>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<IteratorConnectHandler, DefaultCandidate>::get(
         h.handler_, c)))

@@ -278,7 +278,7 @@ public:
   ASIO_DECL ~io_context();
 
   /// Obtains the executor associated with the io_context.
-  executor_type get_executor() ASIO_NOEXCEPT;
+  executor_type get_executor() noexcept(true);
 
   /// Run the io_context object's event processing loop.
   /**
@@ -663,7 +663,7 @@ class io_context::basic_executor_type :
 public:
   /// Copy constructor.
   basic_executor_type(
-      const basic_executor_type& other) ASIO_NOEXCEPT
+      const basic_executor_type& other) noexcept(true)
     : Allocator(static_cast<const Allocator&>(other)),
       target_(other.target_)
   {
@@ -673,7 +673,7 @@ public:
   }
 
   /// Move constructor.
-  basic_executor_type(basic_executor_type&& other) ASIO_NOEXCEPT
+  basic_executor_type(basic_executor_type&& other) noexcept(true)
     : Allocator(ASIO_MOVE_CAST(Allocator)(other)),
       target_(other.target_)
   {
@@ -682,7 +682,7 @@ public:
   }
 
   /// Destructor.
-  ~basic_executor_type() ASIO_NOEXCEPT
+  ~basic_executor_type() noexcept(true)
   {
     if (Bits & outstanding_work_tracked)
       if (context_ptr())
@@ -691,11 +691,11 @@ public:
 
   /// Assignment operator.
   basic_executor_type& operator=(
-      const basic_executor_type& other) ASIO_NOEXCEPT;
+      const basic_executor_type& other) noexcept(true);
 
   /// Move assignment operator.
   basic_executor_type& operator=(
-      basic_executor_type&& other) ASIO_NOEXCEPT;
+      basic_executor_type&& other) noexcept(true);
 
 #if !defined(GENERATING_DOCUMENTATION)
 private:
@@ -861,7 +861,7 @@ private:
    *   ... @endcode
    */
   static ASIO_CONSTEXPR execution::mapping_t query(
-      execution::mapping_t) ASIO_NOEXCEPT
+      execution::mapping_t) noexcept(true)
   {
     return execution::mapping.thread;
   }
@@ -876,7 +876,7 @@ private:
    * asio::io_context& ctx = asio::query(
    *     ex, asio::execution::context); @endcode
    */
-  io_context& query(execution::context_t) const ASIO_NOEXCEPT
+  io_context& query(execution::context_t) const noexcept(true)
   {
     return *context_ptr();
   }
@@ -893,7 +893,7 @@ private:
    *   ... @endcode
    */
   ASIO_CONSTEXPR execution::blocking_t query(
-      execution::blocking_t) const ASIO_NOEXCEPT
+      execution::blocking_t) const noexcept(true)
   {
     return (bits() & blocking_never)
       ? execution::blocking_t(execution::blocking.never)
@@ -912,7 +912,7 @@ private:
    *   ... @endcode
    */
   ASIO_CONSTEXPR execution::relationship_t query(
-      execution::relationship_t) const ASIO_NOEXCEPT
+      execution::relationship_t) const noexcept(true)
   {
     return (bits() & relationship_continuation)
       ? execution::relationship_t(execution::relationship.continuation)
@@ -931,7 +931,7 @@ private:
    *   ... @endcode
    */
   static ASIO_CONSTEXPR execution::outstanding_work_t query(
-      execution::outstanding_work_t) ASIO_NOEXCEPT
+      execution::outstanding_work_t) noexcept(true)
   {
     return (Bits & outstanding_work_tracked)
       ? execution::outstanding_work_t(execution::outstanding_work.tracked)
@@ -950,7 +950,7 @@ private:
    */
   template <typename OtherAllocator>
   ASIO_CONSTEXPR Allocator query(
-      execution::allocator_t<OtherAllocator>) const ASIO_NOEXCEPT
+      execution::allocator_t<OtherAllocator>) const noexcept(true)
   {
     return static_cast<const Allocator&>(*this);
   }
@@ -966,7 +966,7 @@ private:
    *     asio::execution::allocator); @endcode
    */
   ASIO_CONSTEXPR Allocator query(
-      execution::allocator_t<void>) const ASIO_NOEXCEPT
+      execution::allocator_t<void>) const noexcept(true)
   {
     return static_cast<const Allocator&>(*this);
   }
@@ -977,14 +977,14 @@ public:
    * @return @c true if the current thread is running the io_context. Otherwise
    * returns @c false.
    */
-  bool running_in_this_thread() const ASIO_NOEXCEPT;
+  bool running_in_this_thread() const noexcept(true);
 
   /// Compare two executors for equality.
   /**
    * Two executors are equal if they refer to the same underlying io_context.
    */
   friend bool operator==(const basic_executor_type& a,
-      const basic_executor_type& b) ASIO_NOEXCEPT
+      const basic_executor_type& b) noexcept(true)
   {
     return a.target_ == b.target_
       && static_cast<const Allocator&>(a) == static_cast<const Allocator&>(b);
@@ -995,7 +995,7 @@ public:
    * Two executors are equal if they refer to the same underlying io_context.
    */
   friend bool operator!=(const basic_executor_type& a,
-      const basic_executor_type& b) ASIO_NOEXCEPT
+      const basic_executor_type& b) noexcept(true)
   {
     return a.target_ != b.target_
       || static_cast<const Allocator&>(a) != static_cast<const Allocator&>(b);
@@ -1008,7 +1008,7 @@ public:
 #if !defined(ASIO_NO_TS_EXECUTORS)
 public:
   /// Obtain the underlying execution context.
-  io_context& context() const ASIO_NOEXCEPT;
+  io_context& context() const noexcept(true);
 
   /// Inform the io_context that it has some outstanding work to do.
   /**
@@ -1016,7 +1016,7 @@ public:
    * This ensures that the io_context's run() and run_one() functions do not
    * exit while the work is underway.
    */
-  void on_work_started() const ASIO_NOEXCEPT;
+  void on_work_started() const noexcept(true);
 
   /// Inform the io_context that some work is no longer outstanding.
   /**
@@ -1024,7 +1024,7 @@ public:
    * finished. Once the count of unfinished work reaches zero, the io_context
    * is stopped and the run() and run_one() functions may exit.
    */
-  void on_work_finished() const ASIO_NOEXCEPT;
+  void on_work_finished() const noexcept(true);
 
   /// Request the io_context to invoke the given function object.
   /**
@@ -1088,7 +1088,7 @@ private:
   template <typename, uintptr_t> friend class basic_executor_type;
 
   // Constructor used by io_context::get_executor().
-  explicit basic_executor_type(io_context& i) ASIO_NOEXCEPT
+  explicit basic_executor_type(io_context& i) noexcept(true)
     : Allocator(),
       target_(reinterpret_cast<uintptr_t>(&i))
   {
@@ -1098,7 +1098,7 @@ private:
 
   // Constructor used by require().
   basic_executor_type(io_context* i,
-      const Allocator& a, uintptr_t bits) ASIO_NOEXCEPT
+      const Allocator& a, uintptr_t bits) noexcept(true)
     : Allocator(a),
       target_(reinterpret_cast<uintptr_t>(i) | bits)
   {
@@ -1107,12 +1107,12 @@ private:
         context_ptr()->impl_.work_started();
   }
 
-  io_context* context_ptr() const ASIO_NOEXCEPT
+  io_context* context_ptr() const noexcept(true)
   {
     return reinterpret_cast<io_context*>(target_ & ~runtime_bits);
   }
 
-  uintptr_t bits() const ASIO_NOEXCEPT
+  uintptr_t bits() const noexcept(true)
   {
     return target_ & runtime_bits;
   }
@@ -1394,7 +1394,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef asio::execution::outstanding_work_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() ASIO_NOEXCEPT
+  static ASIO_CONSTEXPR result_type value() noexcept(true)
   {
     return (Bits & outstanding_work_tracked)
       ? execution::outstanding_work_t(execution::outstanding_work.tracked)
@@ -1418,7 +1418,7 @@ struct query_static_constexpr_member<
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef asio::execution::mapping_t::thread_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() ASIO_NOEXCEPT
+  static ASIO_CONSTEXPR result_type value() noexcept(true)
   {
     return result_type();
   }

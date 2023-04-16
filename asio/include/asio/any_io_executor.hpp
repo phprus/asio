@@ -87,16 +87,16 @@ public:
 #endif // !defined(GENERATING_DOCUMENTATION)
 
   /// Default constructor.
-  ASIO_DECL any_io_executor() ASIO_NOEXCEPT;
+  ASIO_DECL any_io_executor() noexcept(true);
 
   /// Construct in an empty state. Equivalent effects to default constructor.
-  ASIO_DECL any_io_executor(nullptr_t) ASIO_NOEXCEPT;
+  ASIO_DECL any_io_executor(nullptr_t) noexcept(true);
 
   /// Copy constructor.
-  ASIO_DECL any_io_executor(const any_io_executor& e) ASIO_NOEXCEPT;
+  ASIO_DECL any_io_executor(const any_io_executor& e) noexcept(true);
 
   /// Move constructor.
-  ASIO_DECL any_io_executor(any_io_executor&& e) ASIO_NOEXCEPT;
+  ASIO_DECL any_io_executor(any_io_executor&& e) noexcept(true);
 
   /// Construct to point to the same target as another any_executor.
 #if defined(GENERATING_DOCUMENTATION)
@@ -139,7 +139,7 @@ public:
               is_valid_target<OtherAnyExecutor>,
           false_type
         >::type::value
-      >::type = 0) ASIO_NOEXCEPT
+      >::type = 0) noexcept(true)
     : base_type(std::nothrow, ASIO_MOVE_CAST(OtherAnyExecutor)(e))
   {
   }
@@ -147,11 +147,11 @@ public:
 
   /// Construct to point to the same target as another any_executor.
   ASIO_DECL any_io_executor(std::nothrow_t,
-      const any_io_executor& e) ASIO_NOEXCEPT;
+      const any_io_executor& e) noexcept(true);
 
   /// Construct to point to the same target as another any_executor.
   ASIO_DECL any_io_executor(std::nothrow_t,
-      any_io_executor&& e) ASIO_NOEXCEPT;
+      any_io_executor&& e) noexcept(true);
 
   /// Construct a polymorphic wrapper for the specified executor.
 #if defined(GENERATING_DOCUMENTATION)
@@ -191,7 +191,7 @@ public:
             Executor, supportable_properties_type>,
           false_type
         >::type::value
-      >::type = 0) ASIO_NOEXCEPT
+      >::type = 0) noexcept(true)
     : base_type(std::nothrow, ASIO_MOVE_CAST(Executor)(e))
   {
   }
@@ -199,11 +199,11 @@ public:
 
   /// Assignment operator.
   ASIO_DECL any_io_executor& operator=(
-      const any_io_executor& e) ASIO_NOEXCEPT;
+      const any_io_executor& e) noexcept(true);
 
   /// Move assignment operator.
   ASIO_DECL any_io_executor& operator=(
-      any_io_executor&& e) ASIO_NOEXCEPT;
+      any_io_executor&& e) noexcept(true);
 
   /// Assignment operator that sets the polymorphic wrapper to the empty state.
   ASIO_DECL any_io_executor& operator=(nullptr_t);
@@ -212,7 +212,7 @@ public:
   ASIO_DECL ~any_io_executor();
 
   /// Swap targets with another polymorphic wrapper.
-  ASIO_DECL void swap(any_io_executor& other) ASIO_NOEXCEPT;
+  ASIO_DECL void swap(any_io_executor& other) noexcept(true);
 
   /// Obtain a polymorphic wrapper with the specified property.
   /**

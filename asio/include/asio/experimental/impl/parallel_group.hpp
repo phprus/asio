@@ -741,7 +741,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type
   get(const experimental::detail::parallel_group_completion_handler<
-        Handler, Ops...>& h) ASIO_NOEXCEPT
+        Handler, Ops...>& h) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_);
   }
@@ -750,7 +750,7 @@ struct associator<Associator,
       typename Associator<Handler, DefaultCandidate>::type)
   get(const experimental::detail::parallel_group_completion_handler<
         Handler, Ops...>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<Handler, DefaultCandidate>::get(h.handler_, c)))
   {
@@ -768,7 +768,7 @@ struct associator<Associator,
 {
   static typename Associator<Handler, DefaultCandidate>::type
   get(const experimental::detail::ranged_parallel_group_completion_handler<
-        Handler, Op, Allocator>& h) ASIO_NOEXCEPT
+        Handler, Op, Allocator>& h) noexcept(true)
   {
     return Associator<Handler, DefaultCandidate>::get(h.handler_);
   }
@@ -777,7 +777,7 @@ struct associator<Associator,
       typename Associator<Handler, DefaultCandidate>::type)
   get(const experimental::detail::ranged_parallel_group_completion_handler<
         Handler, Op, Allocator>& h,
-      const DefaultCandidate& c) ASIO_NOEXCEPT
+      const DefaultCandidate& c) noexcept(true)
     ASIO_AUTO_RETURN_TYPE_SUFFIX((
       Associator<Handler, DefaultCandidate>::get(h.handler_, c)))
   {

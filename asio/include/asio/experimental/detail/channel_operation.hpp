@@ -98,7 +98,7 @@ public:
   {
   }
 
-  const executor_type& get_executor() const ASIO_NOEXCEPT
+  const executor_type& get_executor() const noexcept(true)
   {
     return executor_;
   }
@@ -143,7 +143,7 @@ public:
   {
   }
 
-  executor_type get_executor() const ASIO_NOEXCEPT
+  executor_type get_executor() const noexcept(true)
   {
     return work_.get_executor();
   }
@@ -177,7 +177,7 @@ public:
       typename associated_executor<Handler, IoExecutor>::type, IoExecutor>
     base2_type;
 
-  handler_work(Handler& handler, const IoExecutor& io_ex) ASIO_NOEXCEPT
+  handler_work(Handler& handler, const IoExecutor& io_ex) noexcept(true)
     : base1_type(0, io_ex),
       base2_type(0, (get_associated_executor)(handler, io_ex))
   {
@@ -235,7 +235,7 @@ class channel_operation::handler_work<
 public:
   typedef channel_operation::handler_work_base<IoExecutor> base1_type;
 
-  handler_work(Handler&, const IoExecutor& io_ex) ASIO_NOEXCEPT
+  handler_work(Handler&, const IoExecutor& io_ex) noexcept(true)
     : base1_type(0, io_ex)
   {
   }

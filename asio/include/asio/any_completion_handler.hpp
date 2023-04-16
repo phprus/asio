@@ -41,7 +41,7 @@ public:
   {
   }
 
-  cancellation_slot get_cancellation_slot() const ASIO_NOEXCEPT
+  cancellation_slot get_cancellation_slot() const noexcept(true)
   {
     return cancel_state_.slot();
   }
@@ -117,7 +117,7 @@ public:
   }
 
   any_completion_executor executor(
-      const any_completion_executor& candidate) const ASIO_NOEXCEPT
+      const any_completion_executor& candidate) const noexcept(true)
   {
     return any_completion_executor(std::nothrow,
         (get_associated_executor)(handler_, candidate));
@@ -429,7 +429,7 @@ private:
   detail::any_completion_handler_impl_base* impl_;
 
   constexpr any_completion_handler_allocator(int,
-      const any_completion_handler<Signatures...>& h) ASIO_NOEXCEPT
+      const any_completion_handler<Signatures...>& h) noexcept(true)
     : fn_table_(h.fn_table_),
       impl_(h.impl_)
   {
@@ -451,7 +451,7 @@ public:
   template <typename U>
   constexpr any_completion_handler_allocator(
       const any_completion_handler_allocator<U, Signatures...>& a)
-    ASIO_NOEXCEPT
+    noexcept(true)
     : fn_table_(a.fn_table_),
       impl_(a.impl_)
   {
@@ -459,14 +459,14 @@ public:
 
   /// Equality operator.
   constexpr bool operator==(
-      const any_completion_handler_allocator& other) const ASIO_NOEXCEPT
+      const any_completion_handler_allocator& other) const noexcept(true)
   {
     return fn_table_ == other.fn_table_ && impl_ == other.impl_;
   }
 
   /// Inequality operator.
   constexpr bool operator!=(
-      const any_completion_handler_allocator& other) const ASIO_NOEXCEPT
+      const any_completion_handler_allocator& other) const noexcept(true)
   {
     return fn_table_ != other.fn_table_ || impl_ != other.impl_;
   }
@@ -503,7 +503,7 @@ private:
   detail::any_completion_handler_impl_base* impl_;
 
   constexpr any_completion_handler_allocator(int,
-      const any_completion_handler<Signatures...>& h) ASIO_NOEXCEPT
+      const any_completion_handler<Signatures...>& h) noexcept(true)
     : fn_table_(h.fn_table_),
       impl_(h.impl_)
   {
@@ -525,7 +525,7 @@ public:
   template <typename U>
   constexpr any_completion_handler_allocator(
       const any_completion_handler_allocator<U, Signatures...>& a)
-    ASIO_NOEXCEPT
+    noexcept(true)
     : fn_table_(a.fn_table_),
       impl_(a.impl_)
   {
@@ -533,14 +533,14 @@ public:
 
   /// Equality operator.
   constexpr bool operator==(
-      const any_completion_handler_allocator& other) const ASIO_NOEXCEPT
+      const any_completion_handler_allocator& other) const noexcept(true)
   {
     return fn_table_ == other.fn_table_ && impl_ == other.impl_;
   }
 
   /// Inequality operator.
   constexpr bool operator!=(
-      const any_completion_handler_allocator& other) const ASIO_NOEXCEPT
+      const any_completion_handler_allocator& other) const noexcept(true)
   {
     return fn_table_ != other.fn_table_ || impl_ != other.impl_;
   }
@@ -619,7 +619,7 @@ public:
   /**
    * After the operation, the moved-from object @c other has no target.
    */
-  any_completion_handler(any_completion_handler&& other) ASIO_NOEXCEPT
+  any_completion_handler(any_completion_handler&& other) noexcept(true)
     : fn_table_(other.fn_table_),
       impl_(other.impl_)
   {
@@ -632,7 +632,7 @@ public:
    * After the operation, the moved-from object @c other has no target.
    */
   any_completion_handler& operator=(
-      any_completion_handler&& other) ASIO_NOEXCEPT
+      any_completion_handler&& other) noexcept(true)
   {
     any_completion_handler(
         ASIO_MOVE_CAST(any_completion_handler)(other)).swap(*this);
@@ -640,7 +640,7 @@ public:
   }
 
   /// Assignment operator that sets the polymorphic wrapper to the empty state.
-  any_completion_handler& operator=(nullptr_t) ASIO_NOEXCEPT
+  any_completion_handler& operator=(nullptr_t) noexcept(true)
   {
     any_completion_handler().swap(*this);
     return *this;
@@ -654,32 +654,32 @@ public:
   }
 
   /// Test if the polymorphic wrapper is empty.
-  constexpr explicit operator bool() const ASIO_NOEXCEPT
+  constexpr explicit operator bool() const noexcept(true)
   {
     return impl_ != nullptr;
   }
 
   /// Test if the polymorphic wrapper is non-empty.
-  constexpr bool operator!() const ASIO_NOEXCEPT
+  constexpr bool operator!() const noexcept(true)
   {
     return impl_ == nullptr;
   }
 
   /// Swap the content of an @c any_completion_handler with another.
-  void swap(any_completion_handler& other) ASIO_NOEXCEPT
+  void swap(any_completion_handler& other) noexcept(true)
   {
     std::swap(fn_table_, other.fn_table_);
     std::swap(impl_, other.impl_);
   }
 
   /// Get the associated allocator.
-  allocator_type get_allocator() const ASIO_NOEXCEPT
+  allocator_type get_allocator() const noexcept(true)
   {
     return allocator_type(0, *this);
   }
 
   /// Get the associated cancellation slot.
-  cancellation_slot_type get_cancellation_slot() const ASIO_NOEXCEPT
+  cancellation_slot_type get_cancellation_slot() const noexcept(true)
   {
     return impl_->get_cancellation_slot();
   }
@@ -708,28 +708,28 @@ public:
 
   /// Equality operator.
   friend constexpr bool operator==(
-      const any_completion_handler& a, nullptr_t) ASIO_NOEXCEPT
+      const any_completion_handler& a, nullptr_t) noexcept(true)
   {
     return a.impl_ == nullptr;
   }
 
   /// Equality operator.
   friend constexpr bool operator==(
-      nullptr_t, const any_completion_handler& b) ASIO_NOEXCEPT
+      nullptr_t, const any_completion_handler& b) noexcept(true)
   {
     return nullptr == b.impl_;
   }
 
   /// Inequality operator.
   friend constexpr bool operator!=(
-      const any_completion_handler& a, nullptr_t) ASIO_NOEXCEPT
+      const any_completion_handler& a, nullptr_t) noexcept(true)
   {
     return a.impl_ != nullptr;
   }
 
   /// Inequality operator.
   friend constexpr bool operator!=(
-      nullptr_t, const any_completion_handler& b) ASIO_NOEXCEPT
+      nullptr_t, const any_completion_handler& b) noexcept(true)
   {
     return nullptr != b.impl_;
   }
@@ -741,7 +741,7 @@ struct associated_executor<any_completion_handler<Signatures...>, Candidate>
   using type = any_completion_executor;
 
   static type get(const any_completion_handler<Signatures...>& handler,
-      const Candidate& candidate = Candidate()) ASIO_NOEXCEPT
+      const Candidate& candidate = Candidate()) noexcept(true)
   {
     return handler.fn_table_->executor(handler.impl_,
         any_completion_executor(std::nothrow, candidate));

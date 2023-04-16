@@ -89,7 +89,7 @@ public:
 
   // Move-construct a new descriptor implementation.
   ASIO_DECL void move_construct(implementation_type& impl,
-      implementation_type& other_impl) ASIO_NOEXCEPT;
+      implementation_type& other_impl) noexcept(true);
 
   // Move-assign from another descriptor implementation.
   ASIO_DECL void move_assign(implementation_type& impl,

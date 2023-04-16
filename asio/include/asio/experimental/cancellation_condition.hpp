@@ -32,7 +32,7 @@ class wait_for_all
 public:
   template <typename... Args>
   ASIO_CONSTEXPR cancellation_type_t operator()(
-      Args&&...) const ASIO_NOEXCEPT
+      Args&&...) const noexcept(true)
   {
     return cancellation_type::none;
   }
@@ -50,7 +50,7 @@ public:
 
   template <typename... Args>
   ASIO_CONSTEXPR cancellation_type_t operator()(
-      Args&&...) const ASIO_NOEXCEPT
+      Args&&...) const noexcept(true)
   {
     return cancel_type_;
   }
@@ -74,7 +74,7 @@ public:
   }
 
   ASIO_CONSTEXPR cancellation_type_t
-  operator()() const ASIO_NOEXCEPT
+  operator()() const noexcept(true)
   {
     return cancel_type_;
   }
@@ -84,7 +84,7 @@ public:
     !is_same<typename decay<E>::type, asio::error_code>::value
       && !is_same<typename decay<E>::type, std::exception_ptr>::value,
     cancellation_type_t
-  >::type operator()(const E&, Args&&...) const ASIO_NOEXCEPT
+  >::type operator()(const E&, Args&&...) const noexcept(true)
   {
     return cancel_type_;
   }
@@ -94,7 +94,7 @@ public:
       is_same<typename decay<E>::type, asio::error_code>::value
         || is_same<typename decay<E>::type, std::exception_ptr>::value,
       cancellation_type_t
-  >::type operator()(const E& e, Args&&...) const ASIO_NOEXCEPT
+  >::type operator()(const E& e, Args&&...) const noexcept(true)
   {
     return !!e ? cancellation_type::none : cancel_type_;
   }
@@ -118,7 +118,7 @@ public:
   }
 
   ASIO_CONSTEXPR cancellation_type_t
-  operator()() const ASIO_NOEXCEPT
+  operator()() const noexcept(true)
   {
     return cancellation_type::none;
   }
@@ -128,7 +128,7 @@ public:
     !is_same<typename decay<E>::type, asio::error_code>::value
       && !is_same<typename decay<E>::type, std::exception_ptr>::value,
     cancellation_type_t
-  >::type operator()(const E&, Args&&...) const ASIO_NOEXCEPT
+  >::type operator()(const E&, Args&&...) const noexcept(true)
   {
     return cancellation_type::none;
   }
@@ -138,7 +138,7 @@ public:
       is_same<typename decay<E>::type, asio::error_code>::value
         || is_same<typename decay<E>::type, std::exception_ptr>::value,
       cancellation_type_t
-  >::type operator()(const E& e, Args&&...) const ASIO_NOEXCEPT
+  >::type operator()(const E& e, Args&&...) const noexcept(true)
   {
     return !!e ? cancel_type_ : cancellation_type::none;
   }

@@ -36,10 +36,10 @@ public:
   bad_address_cast() {}
 
   /// Destructor.
-  virtual ~bad_address_cast() ASIO_NOEXCEPT_OR_NOTHROW {}
+  virtual ~bad_address_cast() noexcept(true) {}
 
   /// Get the message associated with the exception.
-  virtual const char* what() const ASIO_NOEXCEPT_OR_NOTHROW
+  virtual const char* what() const noexcept(true)
   {
     return "bad address cast";
   }

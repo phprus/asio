@@ -40,7 +40,7 @@ public:
     p.v = 0;
   }
 
-  executor_function(executor_function&& other) ASIO_NOEXCEPT
+  executor_function(executor_function&& other) noexcept(true)
     : impl_(other.impl_)
   {
     other.impl_ = 0;
@@ -122,7 +122,7 @@ class executor_function_view
 {
 public:
   template <typename F>
-  explicit executor_function_view(F& f) ASIO_NOEXCEPT
+  explicit executor_function_view(F& f) noexcept(true)
     : complete_(&executor_function_view::complete<F>),
       function_(&f)
   {

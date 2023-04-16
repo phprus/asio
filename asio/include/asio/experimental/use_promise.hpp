@@ -44,7 +44,7 @@ struct use_promise_t
   }
 
   /// Obtain allocator.
-  allocator_type get_allocator() const ASIO_NOEXCEPT
+  allocator_type get_allocator() const noexcept(true)
   {
     return allocator_;
   }
@@ -58,7 +58,7 @@ struct use_promise_t
     typedef use_promise_t<Allocator> default_completion_token_type;
 
     /// Construct the adapted executor from the inner executor type.
-    executor_with_default(const InnerExecutor& ex) ASIO_NOEXCEPT
+    executor_with_default(const InnerExecutor& ex) noexcept(true)
       : InnerExecutor(ex)
     {
     }
@@ -69,7 +69,7 @@ struct use_promise_t
     executor_with_default(const OtherExecutor& ex,
         typename constraint<
           is_convertible<OtherExecutor, InnerExecutor>::value
-        >::type = 0) ASIO_NOEXCEPT
+        >::type = 0) noexcept(true)
       : InnerExecutor(ex)
     {
     }

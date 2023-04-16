@@ -28,11 +28,11 @@ class bad_executor
 {
 public:
   /// Constructor.
-  ASIO_DECL bad_executor() ASIO_NOEXCEPT;
+  ASIO_DECL bad_executor() noexcept(true);
 
   /// Obtain message associated with exception.
   ASIO_DECL virtual const char* what() const
-    ASIO_NOEXCEPT_OR_NOTHROW;
+    noexcept(true);
 };
 
 } // namespace execution

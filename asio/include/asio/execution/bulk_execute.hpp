@@ -216,7 +216,7 @@ struct impl
     typename call_traits<S, void(F, N)>::result_type
   >::type
   operator()(S&& s, F&& f, N&& n) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<S, void(F, N)>::is_noexcept))
   {
     return ASIO_MOVE_CAST(S)(s).bulk_execute(
@@ -229,7 +229,7 @@ struct impl
     typename call_traits<S, void(F, N)>::result_type
   >::type
   operator()(S&& s, F&& f, N&& n) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<S, void(F, N)>::is_noexcept))
   {
     return bulk_execute(ASIO_MOVE_CAST(S)(s),
@@ -242,7 +242,7 @@ struct impl
     typename call_traits<S, void(F, N)>::result_type
   >::type
   operator()(S&& s, F&& f, N&& n) const
-    ASIO_NOEXCEPT_IF((
+    noexcept((
       call_traits<S, void(F, N)>::is_noexcept))
   {
     return typename call_traits<S, void(F, N)>::result_type(

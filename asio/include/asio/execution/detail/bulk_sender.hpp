@@ -59,7 +59,7 @@ struct bulk_receiver
   }
 
   template <typename Error>
-  void set_error(ASIO_MOVE_ARG(Error) e) ASIO_NOEXCEPT
+  void set_error(ASIO_MOVE_ARG(Error) e) noexcept(true)
   {
     execution::set_error(
         ASIO_MOVE_OR_LVALUE(
@@ -67,7 +67,7 @@ struct bulk_receiver
         ASIO_MOVE_CAST(Error)(e));
   }
 
-  void set_done() ASIO_NOEXCEPT
+  void set_done() noexcept(true)
   {
     execution::set_done(
         ASIO_MOVE_OR_LVALUE(
@@ -119,7 +119,7 @@ struct bulk_sender : sender_base
             Sender, Receiver, Function, Number
           >::arg_type
         >::value
-      >::type* = 0) && ASIO_NOEXCEPT
+      >::type* = 0) && noexcept(true)
   {
     return execution::connect(
         ASIO_MOVE_OR_LVALUE(typename remove_cvref<Sender>::type)(sender_),
@@ -143,7 +143,7 @@ struct bulk_sender : sender_base
             Sender, Receiver, Function, Number
           >::arg_type
         >::value
-      >::type* = 0) const & ASIO_NOEXCEPT
+      >::type* = 0) const & noexcept(true)
   {
     return execution::connect(sender_,
         typename bulk_receiver_traits<Sender, Receiver, Function, Number>::type(
