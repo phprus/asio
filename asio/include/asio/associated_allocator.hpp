@@ -161,13 +161,9 @@ get_associated_allocator(const T& t, const Allocator& a) ASIO_NOEXCEPT
   return associated_allocator<T, Allocator>::get(t, a);
 }
 
-#if defined(ASIO_HAS_ALIAS_TEMPLATES)
-
 template <typename T, typename Allocator = std::allocator<void> >
 using associated_allocator_t
   = typename associated_allocator<T, Allocator>::type;
-
-#endif // defined(ASIO_HAS_ALIAS_TEMPLATES)
 
 namespace detail {
 
