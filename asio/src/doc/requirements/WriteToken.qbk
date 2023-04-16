@@ -60,7 +60,7 @@ A non-static class member function adapted to a write token using
         std::placeholders::_2));
 
 A non-static class member function adapted to a write token using
-`boost::bind()`:
+`std::bind()`:
 
   void my_class::write_handler(
       const asio::error_code& ec,
@@ -70,7 +70,7 @@ A non-static class member function adapted to a write token using
   }
   ...
   socket.async_write_some(...,
-      boost::bind(&my_class::write_handler,
+      std::bind(&my_class::write_handler,
         this, asio::placeholders::error,
         asio::placeholders::bytes_transferred));
 

@@ -279,7 +279,7 @@ In this tutorial we will modify the program from tutorial Timer.2 so that the ti
 
   ``''''''``#include <iostream>
   ``''''''``#include <asio.hpp>
-  ``''''''``#include <boost/bind/bind.hpp>
+  ``''''''``#include <functional>
 
 
 
@@ -320,14 +320,12 @@ Next we move the expiry time for the timer along by one second from the previous
 
 
 
-Then we start a new asynchronous wait on the timer. As you can see, the [link asio.tutorial.boost_bind boost::bind] function is used to associate the extra parameters with your completion handler. The [link asio.reference.basic_waitable_timer.async_wait steady_timer::async_wait()] function expects a handler function (or function object) with the signature `void(const asio::error_code&)`. Binding the additional parameters converts your `print` function into a function object that matches the signature correctly.
+Then we start a new asynchronous wait on the timer. As you can see, the std::bind function is used to associate the extra parameters with your completion handler. The [link asio.reference.basic_waitable_timer.async_wait steady_timer::async_wait()] function expects a handler function (or function object) with the signature `void(const asio::error_code&)`. Binding the additional parameters converts your `print` function into a function object that matches the signature correctly.
 
-See the [@http://www.boost.org/libs/bind/bind.html Boost.Bind documentation] for more information on how to use [link asio.tutorial.boost_bind boost::bind].
-
-In this example, the asio::placeholders::error argument to [link asio.tutorial.boost_bind boost::bind] is a named placeholder for the error object passed to the handler. When initiating the asynchronous operation, and if using [link asio.tutorial.boost_bind boost::bind], you must specify only the arguments that match the handler's parameter list. In tutorial Timer.4 you will see that this placeholder may be elided if the parameter is not needed by the completion handler.
+In this example, the asio::placeholders::error argument to std::bind is a named placeholder for the error object passed to the handler. When initiating the asynchronous operation, and if using std::bind, you must specify only the arguments that match the handler's parameter list. In tutorial Timer.4 you will see that this placeholder may be elided if the parameter is not needed by the completion handler.
 
 
-  ``''''''``    t->async_wait(boost::bind(print,
+  ``''''''``    t->async_wait(std::bind(print,
   ``''''''``          asio::placeholders::error, t, count));
   ``''''''``  }
   ``''''''``}
@@ -350,7 +348,7 @@ A new `count` variable is added so that we can stop the program when the timer f
 As in Step 4, when making the call to [link asio.reference.basic_waitable_timer.async_wait steady_timer::async_wait()] from `main` we bind the additional parameters needed for the `print` function.
 
 
-  ``''''''``  t.async_wait(boost::bind(print,
+  ``''''''``  t.async_wait(std::bind(print,
   ``''''''``        asio::placeholders::error, &t, &count));
 
   ``''''''``  io.run();
@@ -393,7 +391,7 @@ Next: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a compl
 
   ``''''''``#include <iostream>
   ``''''''``#include <asio.hpp>
-  ``''''''``#include <boost/bind/bind.hpp>
+  ``''''''``#include <functional>
 
   ``''''''``void print(const asio::error_code& /*e*/,
   ``''''''``    asio::steady_timer* t, int* count)
@@ -404,7 +402,7 @@ Next: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a compl
   ``''''''``    ++(*count);
 
   ``''''''``    t->expires_at(t->expiry() + asio::chrono::seconds(1));
-  ``''''''``    t->async_wait(boost::bind(print,
+  ``''''''``    t->async_wait(std::bind(print,
   ``''''''``          asio::placeholders::error, t, count));
   ``''''''``  }
   ``''''''``}
@@ -415,7 +413,7 @@ Next: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a compl
 
   ``''''''``  int count = 0;
   ``''''''``  asio::steady_timer t(io, asio::chrono::seconds(1));
-  ``''''''``  t.async_wait(boost::bind(print,
+  ``''''''``  t.async_wait(std::bind(print,
   ``''''''``        asio::placeholders::error, &t, &count));
 
   ``''''''``  io.run();
@@ -442,7 +440,7 @@ In this tutorial we will see how to use a class member function as a completion 
 
   ``''''''``#include <iostream>
   ``''''''``#include <asio.hpp>
-  ``''''''``#include <boost/bind/bind.hpp>
+  ``''''''``#include <functional>
 
 
 
@@ -466,12 +464,12 @@ The constructor of this class will take a reference to the io\_context object an
 
 
 
-The [link asio.tutorial.boost_bind boost::bind] function works just as well with class member functions as with free functions. Since all non-static class member functions have an implicit `this` parameter, we need to bind `this` to the function. As in tutorial Timer.3, [link asio.tutorial.boost_bind boost::bind] converts our completion handler (now a member function) into a function object that can be invoked as though it has the signature `void(const asio::error_code&)`.
+The std::bind function works just as well with class member functions as with free functions. Since all non-static class member functions have an implicit `this` parameter, we need to bind `this` to the function. As in tutorial Timer.3, std::bind converts our completion handler (now a member function) into a function object that can be invoked as though it has the signature `void(const asio::error_code&)`.
 
 You will note that the asio::placeholders::error placeholder is not specified here, as the `print` member function does not accept an error object as a parameter.
 
 
-  ``''''''``    timer_.async_wait(boost::bind(&printer::print, this));
+  ``''''''``    timer_.async_wait(std::bind(&printer::print, this));
   ``''''''``  }
 
 
@@ -499,7 +497,7 @@ The `print` member function is very similar to the `print` function from tutoria
   ``''''''``      ++count_;
 
   ``''''''``      timer_.expires_at(timer_.expiry() + asio::chrono::seconds(1));
-  ``''''''``      timer_.async_wait(boost::bind(&printer::print, this));
+  ``''''''``      timer_.async_wait(std::bind(&printer::print, this));
   ``''''''``    }
   ``''''''``  }
 
@@ -552,7 +550,7 @@ Next: [link asio.tutorial.tuttimer5 Timer.5 - Synchronising completion handlers 
 
   ``''''''``#include <iostream>
   ``''''''``#include <asio.hpp>
-  ``''''''``#include <boost/bind/bind.hpp>
+  ``''''''``#include <functional>
 
   ``''''''``class printer
   ``''''''``{
@@ -561,7 +559,7 @@ Next: [link asio.tutorial.tuttimer5 Timer.5 - Synchronising completion handlers 
   ``''''''``    : timer_(io, asio::chrono::seconds(1)),
   ``''''''``      count_(0)
   ``''''''``  {
-  ``''''''``    timer_.async_wait(boost::bind(&printer::print, this));
+  ``''''''``    timer_.async_wait(std::bind(&printer::print, this));
   ``''''''``  }
 
   ``''''''``  ~printer()
@@ -577,7 +575,7 @@ Next: [link asio.tutorial.tuttimer5 Timer.5 - Synchronising completion handlers 
   ``''''''``      ++count_;
 
   ``''''''``      timer_.expires_at(timer_.expiry() + asio::chrono::seconds(1));
-  ``''''''``      timer_.async_wait(boost::bind(&printer::print, this));
+  ``''''''``      timer_.async_wait(std::bind(&printer::print, this));
   ``''''''``    }
   ``''''''``  }
 
@@ -627,7 +625,7 @@ If you find yourself running into these limitations, an alternative approach is 
 
   ``''''''``#include <iostream>
   ``''''''``#include <asio.hpp>
-  ``''''''``#include <boost/bind/bind.hpp>
+  ``''''''``#include <functional>
 
 
 
@@ -664,10 +662,10 @@ When initiating the asynchronous operations, each completion handler is "bound" 
 
 
   ``''''''``    timer1_.async_wait(asio::bind_executor(strand_,
-  ``''''''``          boost::bind(&printer::print1, this)));
+  ``''''''``          std::bind(&printer::print1, this)));
 
   ``''''''``    timer2_.async_wait(asio::bind_executor(strand_,
-  ``''''''``          boost::bind(&printer::print2, this)));
+  ``''''''``          std::bind(&printer::print2, this)));
   ``''''''``  }
 
   ``''''''``  ~printer()
@@ -691,7 +689,7 @@ In a multithreaded program, the handlers for asynchronous operations should be s
   ``''''''``      timer1_.expires_at(timer1_.expiry() + asio::chrono::seconds(1));
 
   ``''''''``      timer1_.async_wait(asio::bind_executor(strand_,
-  ``''''''``            boost::bind(&printer::print1, this)));
+  ``''''''``            std::bind(&printer::print1, this)));
   ``''''''``    }
   ``''''''``  }
 
@@ -705,7 +703,7 @@ In a multithreaded program, the handlers for asynchronous operations should be s
   ``''''''``      timer2_.expires_at(timer2_.expiry() + asio::chrono::seconds(1));
 
   ``''''''``      timer2_.async_wait(asio::bind_executor(strand_,
-  ``''''''``            boost::bind(&printer::print2, this)));
+  ``''''''``            std::bind(&printer::print2, this)));
   ``''''''``    }
   ``''''''``  }
 
@@ -729,7 +727,7 @@ Just as it would with a call from a single thread, concurrent calls to [link asi
   ``''''''``{
   ``''''''``  asio::io_context io;
   ``''''''``  printer p(io);
-  ``''''''``  asio::thread t(boost::bind(&asio::io_context::run, &io));
+  ``''''''``  asio::thread t(std::bind(&asio::io_context::run, &io));
   ``''''''``  io.run();
   ``''''''``  t.join();
 
@@ -763,7 +761,7 @@ Previous: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a c
 
   ``''''''``#include <iostream>
   ``''''''``#include <asio.hpp>
-  ``''''''``#include <boost/bind/bind.hpp>
+  ``''''''``#include <functional>
 
   ``''''''``class printer
   ``''''''``{
@@ -775,10 +773,10 @@ Previous: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a c
   ``''''''``      count_(0)
   ``''''''``  {
   ``''''''``    timer1_.async_wait(asio::bind_executor(strand_,
-  ``''''''``          boost::bind(&printer::print1, this)));
+  ``''''''``          std::bind(&printer::print1, this)));
 
   ``''''''``    timer2_.async_wait(asio::bind_executor(strand_,
-  ``''''''``          boost::bind(&printer::print2, this)));
+  ``''''''``          std::bind(&printer::print2, this)));
   ``''''''``  }
 
   ``''''''``  ~printer()
@@ -796,7 +794,7 @@ Previous: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a c
   ``''''''``      timer1_.expires_at(timer1_.expiry() + asio::chrono::seconds(1));
 
   ``''''''``      timer1_.async_wait(asio::bind_executor(strand_,
-  ``''''''``            boost::bind(&printer::print1, this)));
+  ``''''''``            std::bind(&printer::print1, this)));
   ``''''''``    }
   ``''''''``  }
 
@@ -810,7 +808,7 @@ Previous: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a c
   ``''''''``      timer2_.expires_at(timer2_.expiry() + asio::chrono::seconds(1));
 
   ``''''''``      timer2_.async_wait(asio::bind_executor(strand_,
-  ``''''''``            boost::bind(&printer::print2, this)));
+  ``''''''``            std::bind(&printer::print2, this)));
   ``''''''``    }
   ``''''''``  }
 
@@ -825,7 +823,7 @@ Previous: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a c
   ``''''''``{
   ``''''''``  asio::io_context io;
   ``''''''``  printer p(io);
-  ``''''''``  asio::thread t(boost::bind(&asio::io_context::run, &io));
+  ``''''''``  asio::thread t(std::bind(&asio::io_context::run, &io));
   ``''''''``  io.run();
   ``''''''``  t.join();
 
@@ -1245,7 +1243,7 @@ The function `start_accept()` creates a socket and initiates an asynchronous acc
   ``''''''``      tcp_connection::create(io_context_);
 
   ``''''''``    acceptor_.async_accept(new_connection->socket(),
-  ``''''''``        boost::bind(&tcp_server::handle_accept, this, new_connection,
+  ``''''''``        std::bind(&tcp_server::handle_accept, this, new_connection,
   ``''''''``          asio::placeholders::error));
   ``''''''``  }
 
@@ -1307,12 +1305,12 @@ The data to be sent is stored in the class member `message_` as we need to keep 
 
 
 
-When initiating the asynchronous operation, and if using [link asio.tutorial.boost_bind boost::bind], you must specify only the arguments that match the handler's parameter list. In this program, both of the argument placeholders (asio::placeholders::error and asio::placeholders::bytes\_transferred) could potentially have been removed, since they are not being used in `handle_write()`.
+When initiating the asynchronous operation, and if using std::bind, you must specify only the arguments that match the handler's parameter list. In this program, both of the argument placeholders (asio::placeholders::error and asio::placeholders::bytes\_transferred) could potentially have been removed, since they are not being used in `handle_write()`.
 
 
 
   ``''''''``    asio::async_write(socket_, asio::buffer(message_),
-  ``''''''``        boost::bind(&tcp_connection::handle_write, shared_from_this(),
+  ``''''''``        std::bind(&tcp_connection::handle_write, shared_from_this(),
   ``''''''``          asio::placeholders::error,
   ``''''''``          asio::placeholders::bytes_transferred));
 
@@ -1355,7 +1353,7 @@ The asio::async\_write() call used to initiate the call can then be changed to j
 
 
   ``''''''``  asio::async_write(socket_, asio::buffer(message_),
-  ``''''''``      boost::bind(&tcp_connection::handle_write, shared_from_this()));
+  ``''''''``      std::bind(&tcp_connection::handle_write, shared_from_this()));
 
 
 
@@ -1385,7 +1383,7 @@ Next: [link asio.tutorial.tutdaytime4 Daytime.4 - A synchronous UDP daytime clie
   ``''''''``#include <ctime>
   ``''''''``#include <iostream>
   ``''''''``#include <string>
-  ``''''''``#include <boost/bind/bind.hpp>
+  ``''''''``#include <functional>
   ``''''''``#include <boost/shared_ptr.hpp>
   ``''''''``#include <boost/enable_shared_from_this.hpp>
   ``''''''``#include <asio.hpp>
@@ -1420,7 +1418,7 @@ Next: [link asio.tutorial.tutdaytime4 Daytime.4 - A synchronous UDP daytime clie
   ``''''''``    message_ = make_daytime_string();
 
   ``''''''``    asio::async_write(socket_, asio::buffer(message_),
-  ``''''''``        boost::bind(&tcp_connection::handle_write, shared_from_this(),
+  ``''''''``        std::bind(&tcp_connection::handle_write, shared_from_this(),
   ``''''''``          asio::placeholders::error,
   ``''''''``          asio::placeholders::bytes_transferred));
   ``''''''``  }
@@ -1457,7 +1455,7 @@ Next: [link asio.tutorial.tutdaytime4 Daytime.4 - A synchronous UDP daytime clie
   ``''''''``      tcp_connection::create(io_context_);
 
   ``''''''``    acceptor_.async_accept(new_connection->socket(),
-  ``''''''``        boost::bind(&tcp_server::handle_accept, this, new_connection,
+  ``''''''``        std::bind(&tcp_server::handle_accept, this, new_connection,
   ``''''''``          asio::placeholders::error));
   ``''''''``  }
 
@@ -1850,7 +1848,7 @@ The function [link asio.reference.basic_datagram_socket.async_receive_from ip::u
 
   ``''''''``    socket_.async_receive_from(
   ``''''''``        asio::buffer(recv_buffer_), remote_endpoint_,
-  ``''''''``        boost::bind(&udp_server::handle_receive, this,
+  ``''''''``        std::bind(&udp_server::handle_receive, this,
   ``''''''``          asio::placeholders::error,
   ``''''''``          asio::placeholders::bytes_transferred));
   ``''''''``  }
@@ -1889,13 +1887,13 @@ We now call [link asio.reference.basic_datagram_socket.async_send_to ip::udp::so
 
 
   ``''''''``      socket_.async_send_to(asio::buffer(*message), remote_endpoint_,
-  ``''''''``          boost::bind(&udp_server::handle_send, this, message,
+  ``''''''``          std::bind(&udp_server::handle_send, this, message,
   ``''''''``            asio::placeholders::error,
   ``''''''``            asio::placeholders::bytes_transferred));
 
 
 
-When initiating the asynchronous operation, and if using [link asio.tutorial.boost_bind boost::bind], you must specify only the arguments that match the handler's parameter list. In this program, both of the argument placeholders (asio::placeholders::error and asio::placeholders::bytes\_transferred) could potentially have been removed.
+When initiating the asynchronous operation, and if using std::bind, you must specify only the arguments that match the handler's parameter list. In this program, both of the argument placeholders (asio::placeholders::error and asio::placeholders::bytes\_transferred) could potentially have been removed.
 
 Start listening for the next client request.
 
@@ -1957,7 +1955,7 @@ Next: [link asio.tutorial.tutdaytime7 Daytime.7 - A combined TCP/UDP asynchronou
   ``''''''``#include <iostream>
   ``''''''``#include <string>
   ``''''''``#include <boost/array.hpp>
-  ``''''''``#include <boost/bind/bind.hpp>
+  ``''''''``#include <functional>
   ``''''''``#include <boost/shared_ptr.hpp>
   ``''''''``#include <asio.hpp>
 
@@ -1984,7 +1982,7 @@ Next: [link asio.tutorial.tutdaytime7 Daytime.7 - A combined TCP/UDP asynchronou
   ``''''''``  {
   ``''''''``    socket_.async_receive_from(
   ``''''''``        asio::buffer(recv_buffer_), remote_endpoint_,
-  ``''''''``        boost::bind(&udp_server::handle_receive, this,
+  ``''''''``        std::bind(&udp_server::handle_receive, this,
   ``''''''``          asio::placeholders::error,
   ``''''''``          asio::placeholders::bytes_transferred));
   ``''''''``  }
@@ -1998,7 +1996,7 @@ Next: [link asio.tutorial.tutdaytime7 Daytime.7 - A combined TCP/UDP asynchronou
   ``''''''``          new std::string(make_daytime_string()));
 
   ``''''''``      socket_.async_send_to(asio::buffer(*message), remote_endpoint_,
-  ``''''''``          boost::bind(&udp_server::handle_send, this, message,
+  ``''''''``          std::bind(&udp_server::handle_send, this, message,
   ``''''''``            asio::placeholders::error,
   ``''''''``            asio::placeholders::bytes_transferred));
 
@@ -2110,7 +2108,7 @@ The following two classes are taken from [link asio.tutorial.tutdaytime3 Daytime
   ``''''''``    message_ = make_daytime_string();
 
   ``''''''``    asio::async_write(socket_, asio::buffer(message_),
-  ``''''''``        boost::bind(&tcp_connection::handle_write, shared_from_this()));
+  ``''''''``        std::bind(&tcp_connection::handle_write, shared_from_this()));
   ``''''''``  }
 
   ``''''''``private:
@@ -2144,7 +2142,7 @@ The following two classes are taken from [link asio.tutorial.tutdaytime3 Daytime
   ``''''''``      tcp_connection::create(io_context_);
 
   ``''''''``    acceptor_.async_accept(new_connection->socket(),
-  ``''''''``        boost::bind(&tcp_server::handle_accept, this, new_connection,
+  ``''''''``        std::bind(&tcp_server::handle_accept, this, new_connection,
   ``''''''``          asio::placeholders::error));
   ``''''''``  }
 
@@ -2184,7 +2182,7 @@ Similarly, this next class is taken from the [link asio.tutorial.tutdaytime6 pre
   ``''''''``  {
   ``''''''``    socket_.async_receive_from(
   ``''''''``        asio::buffer(recv_buffer_), remote_endpoint_,
-  ``''''''``        boost::bind(&udp_server::handle_receive, this,
+  ``''''''``        std::bind(&udp_server::handle_receive, this,
   ``''''''``          asio::placeholders::error));
   ``''''''``  }
 
@@ -2196,7 +2194,7 @@ Similarly, this next class is taken from the [link asio.tutorial.tutdaytime6 pre
   ``''''''``          new std::string(make_daytime_string()));
 
   ``''''''``      socket_.async_send_to(asio::buffer(*message), remote_endpoint_,
-  ``''''''``          boost::bind(&udp_server::handle_send, this, message));
+  ``''''''``          std::bind(&udp_server::handle_send, this, message));
 
   ``''''''``      start_receive();
   ``''''''``    }
@@ -2238,7 +2236,7 @@ Previous: [link asio.tutorial.tutdaytime6 Daytime.6 - An asynchronous UDP daytim
   ``''''''``#include <iostream>
   ``''''''``#include <string>
   ``''''''``#include <boost/array.hpp>
-  ``''''''``#include <boost/bind/bind.hpp>
+  ``''''''``#include <functional>
   ``''''''``#include <boost/shared_ptr.hpp>
   ``''''''``#include <boost/enable_shared_from_this.hpp>
   ``''''''``#include <asio.hpp>
@@ -2274,7 +2272,7 @@ Previous: [link asio.tutorial.tutdaytime6 Daytime.6 - An asynchronous UDP daytim
   ``''''''``    message_ = make_daytime_string();
 
   ``''''''``    asio::async_write(socket_, asio::buffer(message_),
-  ``''''''``        boost::bind(&tcp_connection::handle_write, shared_from_this()));
+  ``''''''``        std::bind(&tcp_connection::handle_write, shared_from_this()));
   ``''''''``  }
 
   ``''''''``private:
@@ -2308,7 +2306,7 @@ Previous: [link asio.tutorial.tutdaytime6 Daytime.6 - An asynchronous UDP daytim
   ``''''''``      tcp_connection::create(io_context_);
 
   ``''''''``    acceptor_.async_accept(new_connection->socket(),
-  ``''''''``        boost::bind(&tcp_server::handle_accept, this, new_connection,
+  ``''''''``        std::bind(&tcp_server::handle_accept, this, new_connection,
   ``''''''``          asio::placeholders::error));
   ``''''''``  }
 
@@ -2341,7 +2339,7 @@ Previous: [link asio.tutorial.tutdaytime6 Daytime.6 - An asynchronous UDP daytim
   ``''''''``  {
   ``''''''``    socket_.async_receive_from(
   ``''''''``        asio::buffer(recv_buffer_), remote_endpoint_,
-  ``''''''``        boost::bind(&udp_server::handle_receive, this,
+  ``''''''``        std::bind(&udp_server::handle_receive, this,
   ``''''''``          asio::placeholders::error));
   ``''''''``  }
 
@@ -2353,7 +2351,7 @@ Previous: [link asio.tutorial.tutdaytime6 Daytime.6 - An asynchronous UDP daytim
   ``''''''``          new std::string(make_daytime_string()));
 
   ``''''''``      socket_.async_send_to(asio::buffer(*message), remote_endpoint_,
-  ``''''''``          boost::bind(&udp_server::handle_send, this, message));
+  ``''''''``          std::bind(&udp_server::handle_send, this, message));
 
   ``''''''``      start_receive();
   ``''''''``    }
@@ -2388,12 +2386,6 @@ Previous: [link asio.tutorial.tutdaytime6 Daytime.6 - An asynchronous UDP daytim
 Return to [link asio.tutorial.tutdaytime7 Daytime.7 - A combined TCP/UDP asynchronous server]
 
 [endsect]
-
-[endsect]
-
-[section:boost_bind boost::bind]
-
-See the [@http://www.boost.org/libs/bind/bind.html Boost: bind.hpp documentation] for more information on how to use `boost::bind`. 
 
 [endsect]
 
