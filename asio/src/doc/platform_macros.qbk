@@ -87,13 +87,6 @@ needs.
     [`ASIO_DISABLE_BOOST_CONTEXT_FIBER`]
   ]
   [
-    [`ASIO_HAS_BOOST_COROUTINE`]
-    [
-      Boost support for the Coroutine library.
-    ]
-    [`ASIO_DISABLE_BOOST_COROUTINE`]
-  ]
-  [
     [`ASIO_HAS_BOOST_DATE_TIME`]
     [
       Boost support for the DateTime library.
