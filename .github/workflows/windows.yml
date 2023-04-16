@@ -1,0 +1,87 @@
+name: windows
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+
+# windows-2019 has MSVC 2019 installed;
+# windows-2022 has MSVC 2022 installed:
+# https://github.com/actions/virtual-environments
+
+jobs:
+  msvc-debug:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2019]
+        arch: [x86, x64]
+    runs-on: '${{ matrix.os }}'
+    name: '${{ matrix.os }} (${{ matrix.arch }}, Debug)'
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: ${{ matrix.arch }}
+        sdk: '10.0.19041.0'
+    - name: Build And Test
+      env:
+        DEBUG: 1
+        WARNINGS: 1
+        _WIN32_WINNT: '0x0601'
+        STANDALONE: 1
+        #SEPARATE_COMPILATION: 1
+      run: |
+        cd asio/src
+        nmake -f Makefile.msc
+        nmake -f Makefile.msc check
+
+  msvc-release:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2019]
+        arch: [x86, x64]
+    runs-on: '${{ matrix.os }}'
+    name: '${{ matrix.os }} (${{ matrix.arch }}, Release)'
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: ${{ matrix.arch }}
+        sdk: '10.0.19041.0'
+    - name: Build And Test
+      env:
+        WARNINGS: 1
+        _WIN32_WINNT: '0x0601'
+        STANDALONE: 1
+        #SEPARATE_COMPILATION: 1
+      run: |
+        cd asio/src
+        nmake -f Makefile.msc
+        nmake -f Makefile.msc check
+
+  mingw:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    strategy:
+      fail-fast: false
+      matrix:
+        sys: [ mingw32, mingw64, ucrt64 ]
+    steps:
+    - uses: msys2/setup-msys2@v2
+      with:
+        release: false
+        msystem: ${{matrix.sys}}
+        pacboy: cc:p make:p
+    - uses: actions/checkout@v3
+    - name: Build And Test
+      env:
+        STANDALONE: 1
+      run: |
+        cd asio/src
+        mingw32-make -f Makefile.mgw
+        mingw32-make -f Makefile.mgw check
