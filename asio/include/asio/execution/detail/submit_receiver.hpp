@@ -81,15 +81,9 @@ template <typename Sender, typename Receiver>
 struct submit_receiver
 {
   typename remove_cvref<Receiver>::type r_;
-#if defined(ASIO_HAS_MOVE)
   typename connect_result<Sender,
       submit_receiver_wrapper<Sender, Receiver> >::type state_;
-#else // defined(ASIO_HAS_MOVE)
-  typename connect_result<Sender,
-      const submit_receiver_wrapper<Sender, Receiver>& >::type state_;
-#endif // defined(ASIO_HAS_MOVE)
 
-#if defined(ASIO_HAS_MOVE)
   template <typename S, typename R>
   explicit submit_receiver(ASIO_MOVE_ARG(S) s, ASIO_MOVE_ARG(R) r)
     : r_(ASIO_MOVE_CAST(R)(r)),
@@ -97,14 +91,6 @@ struct submit_receiver
             submit_receiver_wrapper<Sender, Receiver>(this)))
   {
   }
-#else // defined(ASIO_HAS_MOVE)
-  explicit submit_receiver(Sender s, Receiver r)
-    : r_(r),
-      state_(execution::connect(s,
-            submit_receiver_wrapper<Sender, Receiver>(this)))
-  {
-  }
-#endif // defined(ASIO_HAS_MOVE)
 };
 
 } // namespace detail

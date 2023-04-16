@@ -454,7 +454,6 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE)
   shared_target_executor(
       shared_target_executor&& other) ASIO_NOEXCEPT
     : impl_(other.impl_)
@@ -469,7 +468,6 @@ public:
     other.impl_ = 0;
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   ~shared_target_executor()
   {
@@ -646,8 +644,6 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE)
-
   any_executor_base(any_executor_base&& other) ASIO_NOEXCEPT
   {
     if (other.target_)
@@ -692,8 +688,6 @@ public:
     }
     return *this;
   }
-
-#endif // defined(ASIO_HAS_MOVE)
 
   void swap(any_executor_base& other) ASIO_NOEXCEPT
   {
@@ -1359,8 +1353,6 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE)
-
   any_executor(any_executor&& other) ASIO_NOEXCEPT
     : detail::any_executor_base(
         static_cast<any_executor_base&&>(
@@ -1385,8 +1377,6 @@ public:
     }
     return *this;
   }
-
-#endif // defined(ASIO_HAS_MOVE)
 
   void swap(any_executor& other) ASIO_NOEXCEPT
   {
@@ -1601,8 +1591,6 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE)
-
   any_executor(any_executor&& other) ASIO_NOEXCEPT
     : detail::any_executor_base(
         static_cast<any_executor_base&&>(
@@ -1632,8 +1620,6 @@ public:
     }
     return *this;
   }
-
-#endif // defined(ASIO_HAS_MOVE)
 
   void swap(any_executor& other) ASIO_NOEXCEPT
   {

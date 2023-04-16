@@ -167,7 +167,6 @@ void any_completion_executor_construction_test()
   ASIO_CHECK(ex9 == ex7);
   ASIO_CHECK(ex9 != ex8);
 
-#if defined(ASIO_HAS_MOVE)
   asio::any_completion_executor ex10(std::move(ex1));
 
   ASIO_CHECK(ex10.target<void>() == 0);
@@ -191,7 +190,6 @@ void any_completion_executor_construction_test()
   ASIO_CHECK(ex7 == null_ptr);
   ASIO_CHECK(ex12 == ex6);
   ASIO_CHECK(ex12 != ex8);
-#endif // defined(ASIO_HAS_MOVE)
 }
 
 void any_completion_executor_nothrow_construction_test()
@@ -258,7 +256,6 @@ void any_completion_executor_nothrow_construction_test()
   ASIO_CHECK(ex9 == ex7);
   ASIO_CHECK(ex9 != ex8);
 
-#if defined(ASIO_HAS_MOVE)
   asio::any_completion_executor ex10(std::nothrow, std::move(ex1));
 
   ASIO_CHECK(ex10.target<void>() == 0);
@@ -282,7 +279,6 @@ void any_completion_executor_nothrow_construction_test()
   ASIO_CHECK(ex7 == null_ptr);
   ASIO_CHECK(ex12 == ex6);
   ASIO_CHECK(ex12 != ex8);
-#endif // defined(ASIO_HAS_MOVE)
 
   next_nothrow_new_fails = true;
   asio::any_completion_executor ex13(std::nothrow, fat_executor(3));
@@ -351,7 +347,6 @@ void any_completion_executor_assignment_test()
   ASIO_CHECK(ex7 == ex5);
   ASIO_CHECK(ex7 != ex6);
 
-#if defined(ASIO_HAS_MOVE)
   asio::any_completion_executor ex8;
   ex8 = std::move(ex1);
 
@@ -369,7 +364,6 @@ void any_completion_executor_assignment_test()
   ASIO_CHECK(ex8.target<void>() != 0);
   ASIO_CHECK(ex5.target<void>() == 0);
   ASIO_CHECK(ex8 == ex7);
-#endif // defined(ASIO_HAS_MOVE)
 }
 
 void any_completion_executor_swap_test()

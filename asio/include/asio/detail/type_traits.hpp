@@ -115,13 +115,8 @@ using boost::is_convertible;
 using boost::is_copy_constructible;
 using boost::is_destructible;
 using boost::is_function;
-#if defined(ASIO_HAS_MOVE)
 template <typename T>
 struct is_move_constructible : false_type {};
-#else // defined(ASIO_HAS_MOVE)
-template <typename T>
-struct is_move_constructible : is_copy_constructible<T> {};
-#endif // defined(ASIO_HAS_MOVE)
 template <typename T>
 struct is_nothrow_copy_constructible : boost::has_nothrow_copy<T> {};
 template <typename T>

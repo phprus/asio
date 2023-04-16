@@ -18,8 +18,7 @@
 
 #include "unit_test.hpp"
 
-#if defined(ASIO_HAS_STD_TUPLE) \
-  && defined(ASIO_HAS_MOVE)
+#if defined(ASIO_HAS_STD_TUPLE)
 
 #include "asio/bind_allocator.hpp"
 #include "asio/bind_cancellation_slot.hpp"
@@ -264,7 +263,6 @@ ASIO_TEST_SUITE
 )
 
 #else // defined(ASIO_HAS_STD_TUPLE)
-      //   && defined(ASIO_HAS_MOVE)
 
 ASIO_TEST_SUITE
 (
@@ -273,4 +271,3 @@ ASIO_TEST_SUITE
 )
 
 #endif // defined(ASIO_HAS_STD_TUPLE)
-       //   && defined(ASIO_HAS_MOVE)

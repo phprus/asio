@@ -75,12 +75,10 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   handler_work_base(handler_work_base&& other) ASIO_NOEXCEPT
     : executor_(ASIO_MOVE_CAST(executor_type)(other.executor_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   bool owns_work() const ASIO_NOEXCEPT
   {
@@ -156,14 +154,12 @@ public:
       executor_.on_work_started();
   }
 
-#if defined(ASIO_HAS_MOVE)
   handler_work_base(handler_work_base&& other) ASIO_NOEXCEPT
     : executor_(ASIO_MOVE_CAST(Executor)(other.executor_)),
       owns_work_(other.owns_work_)
   {
     other.owns_work_ = false;
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   ~handler_work_base()
   {
@@ -257,12 +253,10 @@ public:
       executor_.on_work_started();
   }
 
-#if defined(ASIO_HAS_MOVE)
   handler_work_base(handler_work_base&& other) ASIO_NOEXCEPT
     : executor_(ASIO_MOVE_CAST(Executor)(other.executor_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   ~handler_work_base()
   {
@@ -333,12 +327,10 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   handler_work_base(handler_work_base&& other) ASIO_NOEXCEPT
     : executor_(ASIO_MOVE_CAST(executor_type)(other.executor_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   bool owns_work() const ASIO_NOEXCEPT
   {
@@ -408,12 +400,10 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   handler_work_base(handler_work_base&& other) ASIO_NOEXCEPT
     : executor_(ASIO_MOVE_CAST(executor_type)(other.executor_))
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   bool owns_work() const ASIO_NOEXCEPT
   {

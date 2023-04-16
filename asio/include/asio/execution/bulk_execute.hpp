@@ -210,7 +210,6 @@ struct call_traits<S, void(F, N),
 
 struct impl
 {
-#if defined(ASIO_HAS_MOVE)
   template <typename S, typename F, typename N>
   ASIO_CONSTEXPR typename enable_if<
     call_traits<S, void(F, N)>::overload == call_member,
@@ -250,85 +249,6 @@ struct impl
         ASIO_MOVE_CAST(S)(s), ASIO_MOVE_CAST(F)(f),
         ASIO_MOVE_CAST(N)(n));
   }
-#else // defined(ASIO_HAS_MOVE)
-  template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<S, void(const F&, const N&)>::overload == call_member,
-    typename call_traits<S, void(const F&, const N&)>::result_type
-  >::type
-  operator()(S& s, const F& f, const N& n) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<S, void(const F&, const N&)>::is_noexcept))
-  {
-    return s.bulk_execute(ASIO_MOVE_CAST(F)(f),
-        ASIO_MOVE_CAST(N)(n));
-  }
-
-  template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<S, void(const F&, const N&)>::overload == call_member,
-    typename call_traits<S, void(const F&, const N&)>::result_type
-  >::type
-  operator()(const S& s, const F& f, const N& n) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<S, void(const F&, const N&)>::is_noexcept))
-  {
-    return s.bulk_execute(ASIO_MOVE_CAST(F)(f),
-        ASIO_MOVE_CAST(N)(n));
-  }
-
-  template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<S, void(const F&, const N&)>::overload == call_free,
-    typename call_traits<S, void(const F&, const N&)>::result_type
-  >::type
-  operator()(S& s, const F& f, const N& n) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<S, void(const F&, const N&)>::is_noexcept))
-  {
-    return bulk_execute(s, ASIO_MOVE_CAST(F)(f),
-        ASIO_MOVE_CAST(N)(n));
-  }
-
-  template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<S, void(const F&, const N&)>::overload == call_free,
-    typename call_traits<S, void(const F&, const N&)>::result_type
-  >::type
-  operator()(const S& s, const F& f, const N& n) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<S, void(const F&, const N&)>::is_noexcept))
-  {
-    return bulk_execute(s, ASIO_MOVE_CAST(F)(f),
-        ASIO_MOVE_CAST(N)(n));
-  }
-
-  template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<S, void(const F&, const N&)>::overload == adapter,
-    typename call_traits<S, void(const F&, const N&)>::result_type
-  >::type
-  operator()(S& s, const F& f, const N& n) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<S, void(const F&, const N&)>::is_noexcept))
-  {
-    return typename call_traits<S, void(const F&, const N&)>::result_type(
-        s, ASIO_MOVE_CAST(F)(f), ASIO_MOVE_CAST(N)(n));
-  }
-
-  template <typename S, typename F, typename N>
-  ASIO_CONSTEXPR typename enable_if<
-    call_traits<S, void(const F&, const N&)>::overload == adapter,
-    typename call_traits<S, void(const F&, const N&)>::result_type
-  >::type
-  operator()(const S& s, const F& f, const N& n) const
-    ASIO_NOEXCEPT_IF((
-      call_traits<S, void(const F&, const N&)>::is_noexcept))
-  {
-    return typename call_traits<S, void(const F&, const N&)>::result_type(
-        s, ASIO_MOVE_CAST(F)(f), ASIO_MOVE_CAST(N)(n));
-  }
-#endif // defined(ASIO_HAS_MOVE)
 };
 
 template <typename T = impl>

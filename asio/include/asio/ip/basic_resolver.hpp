@@ -36,9 +36,7 @@
 # include "asio/detail/resolver_service.hpp"
 #endif
 
-#if defined(ASIO_HAS_MOVE)
-# include <utility>
-#endif // defined(ASIO_HAS_MOVE)
+#include <utility>
 
 #include "asio/detail/push_options.hpp"
 
@@ -129,7 +127,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-construct a basic_resolver from another.
   /**
    * This constructor moves a resolver from one object to another.
@@ -208,7 +205,6 @@ public:
     impl_ = std::move(tmp.impl_);
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destroys the resolver.
   /**

@@ -229,11 +229,9 @@ struct timer_handler
 {
   timer_handler() {}
   void operator()(const asio::error_code&) {}
-#if defined(ASIO_HAS_MOVE)
   timer_handler(timer_handler&&) {}
 private:
   timer_handler(const timer_handler&);
-#endif // defined(ASIO_HAS_MOVE)
 };
 
 void system_timer_cancel_test()
@@ -398,7 +396,6 @@ void system_timer_thread_test()
   ASIO_CHECK(count == 1);
 }
 
-#if defined(ASIO_HAS_MOVE)
 asio::system_timer make_timer(asio::io_context& ioc, int* count)
 {
   asio::system_timer t(ioc);
@@ -419,11 +416,9 @@ io_context_system_timer make_convertible_timer(asio::io_context& ioc, int* count
   t.async_wait(bindns::bind(increment, count));
   return t;
 }
-#endif
 
 void system_timer_move_test()
 {
-#if defined(ASIO_HAS_MOVE)
   asio::io_context io_context1;
   asio::io_context io_context2;
   int count = 0;
@@ -457,7 +452,6 @@ void system_timer_move_test()
   io_context1.run();
 
   ASIO_CHECK(count == 4);
-#endif // defined(ASIO_HAS_MOVE)
 }
 
 void system_timer_op_cancel_test()

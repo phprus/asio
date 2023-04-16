@@ -95,10 +95,8 @@ public:
   /// Copy constructor.
   ASIO_DECL any_io_executor(const any_io_executor& e) ASIO_NOEXCEPT;
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move constructor.
   ASIO_DECL any_io_executor(any_io_executor&& e) ASIO_NOEXCEPT;
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Construct to point to the same target as another any_executor.
 #if defined(GENERATING_DOCUMENTATION)
@@ -151,11 +149,9 @@ public:
   ASIO_DECL any_io_executor(std::nothrow_t,
       const any_io_executor& e) ASIO_NOEXCEPT;
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Construct to point to the same target as another any_executor.
   ASIO_DECL any_io_executor(std::nothrow_t,
       any_io_executor&& e) ASIO_NOEXCEPT;
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Construct a polymorphic wrapper for the specified executor.
 #if defined(GENERATING_DOCUMENTATION)
@@ -205,11 +201,9 @@ public:
   ASIO_DECL any_io_executor& operator=(
       const any_io_executor& e) ASIO_NOEXCEPT;
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move assignment operator.
   ASIO_DECL any_io_executor& operator=(
       any_io_executor&& e) ASIO_NOEXCEPT;
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Assignment operator that sets the polymorphic wrapper to the empty state.
   ASIO_DECL any_io_executor& operator=(nullptr_t);

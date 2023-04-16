@@ -97,13 +97,11 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   /// Move constructor.
   address_v4(address_v4&& other) ASIO_NOEXCEPT
     : addr_(other.addr_)
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   /// Assign from another address.
   address_v4& operator=(const address_v4& other) ASIO_NOEXCEPT
@@ -112,14 +110,12 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE)
   /// Move-assign from another address.
   address_v4& operator=(address_v4&& other) ASIO_NOEXCEPT
   {
     addr_ = other.addr_;
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   /// Get the address in bytes, in network byte order.
   ASIO_DECL bytes_type to_bytes() const ASIO_NOEXCEPT;

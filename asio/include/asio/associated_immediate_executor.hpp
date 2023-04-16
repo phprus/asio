@@ -87,12 +87,10 @@ struct default_immediate_executor<E,
     {
     }
 
-#if defined(ASIO_HAS_MOVE)
     type(type&& other) ASIO_NOEXCEPT
       : E(ASIO_MOVE_CAST(E)(other))
     {
     }
-#endif // defined(ASIO_HAS_MOVE)
 
     template <typename Function, typename Allocator>
     void dispatch(ASIO_MOVE_ARG(Function) f, const Allocator& a) const

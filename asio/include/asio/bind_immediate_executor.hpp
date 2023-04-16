@@ -296,7 +296,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Move constructor.
   immediate_executor_binder(immediate_executor_binder&& other)
@@ -335,7 +334,6 @@ public:
   {
   }
 
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destructor.
   ~immediate_executor_binder()
