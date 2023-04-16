@@ -117,8 +117,6 @@ cpp11_can_prefer_not_preferable_member_require_SOURCES = cpp11/can_prefer_not_pr
 cpp11_can_prefer_not_preferable_static_SOURCES = cpp11/can_prefer_not_preferable_static.cpp
 cpp11_can_prefer_not_preferable_unsupported_SOURCES = cpp11/can_prefer_not_preferable_unsupported.cpp
 
-if HAVE_CXX14
-
 check_PROGRAMS += \
 	cpp14/query_free \
 	cpp14/query_member \
@@ -235,8 +233,6 @@ cpp14_can_prefer_not_preferable_member_prefer_SOURCES = cpp14/can_prefer_not_pre
 cpp14_can_prefer_not_preferable_member_require_SOURCES = cpp14/can_prefer_not_preferable_member_require.cpp
 cpp14_can_prefer_not_preferable_static_SOURCES = cpp14/can_prefer_not_preferable_static.cpp
 cpp14_can_prefer_not_preferable_unsupported_SOURCES = cpp14/can_prefer_not_preferable_unsupported.cpp
-
-endif
 
 TESTS = $(check_PROGRAMS)
 
