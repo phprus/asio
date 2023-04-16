@@ -39,9 +39,7 @@
 # include "asio/detail/io_uring_file_service.hpp"
 #endif
 
-#if defined(ASIO_HAS_MOVE)
-# include <utility>
-#endif // defined(ASIO_HAS_MOVE)
+#include <utility>
 
 #include "asio/detail/push_options.hpp"
 
@@ -264,7 +262,6 @@ public:
     asio::detail::throw_error(ec, "assign");
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-construct a basic_file from another.
   /**
    * This constructor moves a file from one object to another.
@@ -340,7 +337,6 @@ public:
     impl_ = std::move(tmp.impl_);
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Get the executor associated with the object.
   const executor_type& get_executor() ASIO_NOEXCEPT

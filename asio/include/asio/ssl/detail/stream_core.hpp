@@ -65,7 +65,6 @@ struct stream_core
     pending_write_.expires_at(neg_infin());
   }
 
-#if defined(ASIO_HAS_MOVE)
   stream_core(stream_core&& other)
     : engine_(ASIO_MOVE_CAST(engine)(other.engine_)),
 #if defined(ASIO_HAS_BOOST_DATE_TIME)
@@ -97,13 +96,11 @@ struct stream_core
     other.input_buffer_ = asio::mutable_buffer(0, 0);
     other.input_ = asio::const_buffer(0, 0);
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   ~stream_core()
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   stream_core& operator=(stream_core&& other)
   {
     if (this != &other)
@@ -139,7 +136,6 @@ struct stream_core
     }
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   // The SSL engine.
   engine engine_;

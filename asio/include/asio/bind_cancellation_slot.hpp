@@ -296,7 +296,6 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Move constructor.
   cancellation_slot_binder(cancellation_slot_binder&& other)
@@ -335,7 +334,6 @@ public:
   {
   }
 
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destructor.
   ~cancellation_slot_binder()

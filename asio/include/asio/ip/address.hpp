@@ -64,18 +64,14 @@ public:
   /// Copy constructor.
   ASIO_DECL address(const address& other) ASIO_NOEXCEPT;
 
-#if defined(ASIO_HAS_MOVE)
   /// Move constructor.
   ASIO_DECL address(address&& other) ASIO_NOEXCEPT;
-#endif // defined(ASIO_HAS_MOVE)
 
   /// Assign from another address.
   ASIO_DECL address& operator=(const address& other) ASIO_NOEXCEPT;
 
-#if defined(ASIO_HAS_MOVE)
   /// Move-assign from another address.
   ASIO_DECL address& operator=(address&& other) ASIO_NOEXCEPT;
-#endif // defined(ASIO_HAS_MOVE)
 
   /// Assign from an IPv4 address.
   ASIO_DECL address& operator=(

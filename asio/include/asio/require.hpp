@@ -155,11 +155,7 @@ struct call_traits<Impl, T, void(Property),
   ASIO_STATIC_CONSTEXPR(overload_type, overload = identity);
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
 
-#if defined(ASIO_HAS_MOVE)
   typedef ASIO_MOVE_ARG(T) result_type;
-#else // defined(ASIO_HAS_MOVE)
-  typedef ASIO_MOVE_ARG(typename decay<T>::type) result_type;
-#endif // defined(ASIO_HAS_MOVE)
 };
 
 template <typename Impl, typename T, typename Property>

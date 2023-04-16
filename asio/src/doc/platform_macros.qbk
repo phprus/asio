@@ -241,13 +241,6 @@ needs.
     [`ASIO_DISABLE_LOCAL_SOCKETS`]
   ]
   [
-    [`ASIO_HAS_MOVE`]
-    [
-      Support move construction and assignment on compilers known to allow it.
-    ]
-    [`ASIO_DISABLE_MOVE`]
-  ]
-  [
     [`ASIO_HAS_MSG_NOSIGNAL`]
     [
       Kernel support for MSG_NOSIGNAL.

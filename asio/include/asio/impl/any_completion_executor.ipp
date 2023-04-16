@@ -47,7 +47,6 @@ any_completion_executor::any_completion_executor(std::nothrow_t,
 {
 }
 
-#if defined(ASIO_HAS_MOVE)
 any_completion_executor::any_completion_executor(
     any_completion_executor&& e) ASIO_NOEXCEPT
   : base_type(static_cast<base_type&&>(e))
@@ -59,7 +58,6 @@ any_completion_executor::any_completion_executor(std::nothrow_t,
   : base_type(static_cast<base_type&&>(e))
 {
 }
-#endif // defined(ASIO_HAS_MOVE)
 
 any_completion_executor& any_completion_executor::operator=(
     const any_completion_executor& e) ASIO_NOEXCEPT
@@ -68,14 +66,12 @@ any_completion_executor& any_completion_executor::operator=(
   return *this;
 }
 
-#if defined(ASIO_HAS_MOVE)
 any_completion_executor& any_completion_executor::operator=(
     any_completion_executor&& e) ASIO_NOEXCEPT
 {
   base_type::operator=(static_cast<base_type&&>(e));
   return *this;
 }
-#endif // defined(ASIO_HAS_MOVE)
 
 any_completion_executor& any_completion_executor::operator=(nullptr_t)
 {

@@ -38,9 +38,7 @@
 # include "asio/detail/reactive_descriptor_service.hpp"
 #endif
 
-#if defined(ASIO_HAS_MOVE)
-# include <utility>
-#endif // defined(ASIO_HAS_MOVE)
+#include <utility>
 
 #include "asio/detail/push_options.hpp"
 
@@ -170,7 +168,6 @@ public:
     asio::detail::throw_error(ec, "assign");
   }
 
-#if defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
   /// Move-construct a basic_writable_pipe from another.
   /**
    * This constructor moves a pipe from one object to another.
@@ -250,7 +247,6 @@ public:
     impl_ = std::move(tmp.impl_);
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Destroys the pipe.
   /**

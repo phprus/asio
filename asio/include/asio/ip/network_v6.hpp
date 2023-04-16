@@ -57,14 +57,12 @@ public:
   {
   }
 
-#if defined(ASIO_HAS_MOVE)
   /// Move constructor.
   network_v6(network_v6&& other) ASIO_NOEXCEPT
     : address_(ASIO_MOVE_CAST(address_v6)(other.address_)),
       prefix_length_(other.prefix_length_)
   {
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   /// Assign from another network.
   network_v6& operator=(const network_v6& other) ASIO_NOEXCEPT
@@ -74,7 +72,6 @@ public:
     return *this;
   }
 
-#if defined(ASIO_HAS_MOVE)
   /// Move-assign from another network.
   network_v6& operator=(network_v6&& other) ASIO_NOEXCEPT
   {
@@ -82,7 +79,6 @@ public:
     prefix_length_ = other.prefix_length_;
     return *this;
   }
-#endif // defined(ASIO_HAS_MOVE)
 
   /// Obtain the address object specified when the network object was created.
   address_v6 address() const ASIO_NOEXCEPT
