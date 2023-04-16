@@ -199,16 +199,15 @@ noinst_PROGRAMS += \
 	latency/udp_server
 endif
 
-if HAVE_CXX11
+# C++11
 check_PROGRAMS += \
 	unit/experimental/basic_channel \
 	unit/experimental/basic_concurrent_channel \
 	unit/experimental/channel \
 	unit/experimental/channel_traits \
 	unit/experimental/concurrent_channel
-endif
 
-if HAVE_CXX20
+# C++20
 check_PROGRAMS += \
 	unit/experimental/promise
 
@@ -225,7 +224,6 @@ check_PROGRAMS += \
 	unit/experimental/coro/simple_test \
 	unit/experimental/coro/stack_test \
 	unit/experimental/coro/use_coro
-endif
 endif
 
 if HAVE_OPENSSL
@@ -409,16 +407,15 @@ TESTS = \
 	unit/write \
 	unit/write_at
 
-if HAVE_CXX11
+# C++11
 TESTS += \
 	unit/experimental/basic_channel \
 	unit/experimental/basic_concurrent_channel \
 	unit/experimental/channel \
 	unit/experimental/channel_traits \
 	unit/experimental/concurrent_channel
-endif
 
-if HAVE_CXX20
+# C++20
 TESTS += \
 	unit/experimental/promise
 
@@ -435,7 +432,6 @@ TESTS += \
 	unit/experimental/coro/simple_test \
 	unit/experimental/coro/stack_test \
 	unit/experimental/coro/use_coro
-endif
 endif
 
 if HAVE_OPENSSL
@@ -640,15 +636,14 @@ unit_writable_pipe_SOURCES = unit/writable_pipe.cpp
 unit_write_SOURCES = unit/write.cpp
 unit_write_at_SOURCES = unit/write_at.cpp
 
-if HAVE_CXX11
+# C++11
 unit_experimental_basic_channel_SOURCES = unit/experimental/basic_channel.cpp
 unit_experimental_basic_concurrent_channel_SOURCES = unit/experimental/basic_concurrent_channel.cpp
 unit_experimental_channel_SOURCES = unit/experimental/channel.cpp
 unit_experimental_channel_traits_SOURCES = unit/experimental/channel_traits.cpp
 unit_experimental_concurrent_channel_SOURCES = unit/experimental/concurrent_channel.cpp
-endif
 
-if HAVE_CXX20
+# C++20
 unit_experimental_promise_SOURCES = unit/experimental/promise.cpp
 
 if HAVE_COROUTINES
@@ -663,7 +658,6 @@ unit_experimental_coro_partial_SOURCES = unit/experimental/coro/partial.cpp
 unit_experimental_coro_simple_test_SOURCES = unit/experimental/coro/simple_test.cpp
 unit_experimental_coro_stack_test_SOURCES = unit/experimental/coro/stack_test.cpp
 unit_experimental_coro_use_coro_SOURCES = unit/experimental/coro/use_coro.cpp
-endif
 endif
 
 if HAVE_OPENSSL
