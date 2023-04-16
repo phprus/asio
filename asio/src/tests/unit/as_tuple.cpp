@@ -51,7 +51,6 @@ void as_tuple_test()
 
   ASIO_CHECK(count == 1);
 
-# if defined(ASIO_HAS_DECLTYPE)
   timer1.async_wait(
       asio::as_tuple(
         asio::bind_executor(io2.get_executor(),
@@ -72,7 +71,6 @@ void as_tuple_test()
   io2.run();
 
   ASIO_CHECK(count == 2);
-# endif // defined(ASIO_HAS_DECLTYPE)
 
 # if defined(ASIO_HAS_STD_FUTURE_CLASS)
   std::future<std::tuple<asio::error_code> > f = timer1.async_wait(
