@@ -24,9 +24,7 @@
 #include "asio/detail/winsock_init.hpp"
 #include "asio/error_code.hpp"
 
-#if defined(ASIO_HAS_STD_HASH)
-# include <functional>
-#endif // defined(ASIO_HAS_STD_HASH)
+#include <functional>
 
 #if !defined(ASIO_NO_IOSTREAM)
 # include <iosfwd>
@@ -400,7 +398,6 @@ std::basic_ostream<Elem, Traits>& operator<<(
 } // namespace ip
 } // namespace asio
 
-#if defined(ASIO_HAS_STD_HASH)
 namespace std {
 
 template <>
@@ -414,7 +411,6 @@ struct hash<asio::ip::address_v4>
 };
 
 } // namespace std
-#endif // defined(ASIO_HAS_STD_HASH)
 
 #include "asio/detail/pop_options.hpp"
 
