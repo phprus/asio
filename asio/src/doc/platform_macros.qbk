@@ -441,13 +441,6 @@ needs.
     [`ASIO_DISABLE_STD_SYSTEM_ERROR`]
   ]
   [
-    [`ASIO_HAS_STD_THREAD`]
-    [
-      Standard library support for the thread class.
-    ]
-    [`ASIO_DISABLE_STD_THREAD`]
-  ]
-  [
     [`ASIO_HAS_STD_TUPLE`]
     [
       Standard library support for std::tuple.
