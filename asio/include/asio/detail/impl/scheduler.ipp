@@ -19,7 +19,7 @@
 
 #include "asio/detail/concurrency_hint.hpp"
 #include "asio/detail/event.hpp"
-#include "asio/detail/limits.hpp"
+#include <limits>
 #include "asio/detail/scheduler.hpp"
 #include "asio/detail/scheduler_thread_info.hpp"
 #include "asio/detail/signal_blocker.hpp"

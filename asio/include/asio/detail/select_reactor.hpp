@@ -25,7 +25,7 @@
 
 #include <cstddef>
 #include "asio/detail/fd_set_adapter.hpp"
-#include "asio/detail/limits.hpp"
+#include <limits>
 #include "asio/detail/mutex.hpp"
 #include "asio/detail/op_queue.hpp"
 #include "asio/detail/reactor_op.hpp"
