@@ -24,10 +24,10 @@
 #include "asio/detail/throw_exception.hpp"
 
 #if !defined(ASIO_HAS_STD_ALIGNED_ALLOC) \
-  && defined(ASIO_HAS_BOOST_ALIGN)
-# include <boost/align/aligned_alloc.hpp>
+  && defined(ASIO_WINDOWS)
+# include <malloc.h>
 #endif // !defined(ASIO_HAS_STD_ALIGNED_ALLOC)
-       //   && defined(ASIO_HAS_BOOST_ALIGN)
+       //   && defined(ASIO_WINDOWS)
 
 namespace asio {
 namespace detail {
@@ -80,16 +80,6 @@ inline void* aligned_new(std::size_t align, std::size_t size)
     asio::detail::throw_exception(ex);
   }
   return ptr;
-#elif defined(ASIO_HAS_BOOST_ALIGN)
-  align = (align < ASIO_DEFAULT_ALIGN) ? ASIO_DEFAULT_ALIGN : align;
-  size = (size % align == 0) ? size : size + (align - size % align);
-  void* ptr = boost::alignment::aligned_alloc(align, size);
-  if (!ptr)
-  {
-    std::bad_alloc ex;
-    asio::detail::throw_exception(ex);
-  }
-  return ptr;
 #elif defined(ASIO_MSVC)
   align = (align < ASIO_DEFAULT_ALIGN) ? ASIO_DEFAULT_ALIGN : align;
   size = (size % align == 0) ? size : size + (align - size % align);
@@ -110,8 +100,6 @@ inline void aligned_delete(void* ptr)
 {
 #if defined(ASIO_HAS_STD_ALIGNED_ALLOC)
   std::free(ptr);
-#elif defined(ASIO_HAS_BOOST_ALIGN)
-  boost::alignment::aligned_free(ptr);
 #elif defined(ASIO_MSVC)
   _aligned_free(ptr);
 #else // defined(ASIO_MSVC)

@@ -37,7 +37,6 @@
 
 // boostify: non-boost code ends here
 #if defined(ASIO_STANDALONE)
-# define ASIO_DISABLE_BOOST_ALIGN 1
 # define ASIO_DISABLE_BOOST_ARRAY 1
 # define ASIO_DISABLE_BOOST_ASSERT 1
 # define ASIO_DISABLE_BOOST_CHRONO 1
@@ -1551,15 +1550,6 @@
     static const type assignment
 # endif // !defined(ASIO_DISABLE_BOOST_STATIC_CONSTANT)
 #endif // !defined(ASIO_STATIC_CONSTANT)
-
-// Boost align library.
-#if !defined(ASIO_HAS_BOOST_ALIGN)
-# if !defined(ASIO_DISABLE_BOOST_ALIGN)
-#  if defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 105600)
-#   define ASIO_HAS_BOOST_ALIGN 1
-#  endif // defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 105600)
-# endif // !defined(ASIO_DISABLE_BOOST_ALIGN)
-#endif // !defined(ASIO_HAS_BOOST_ALIGN)
 
 // Boost array library.
 #if !defined(ASIO_HAS_BOOST_ARRAY)
