@@ -23,16 +23,6 @@
 #include "asio/detail/cstdint.hpp"
 #include "asio/detail/throw_exception.hpp"
 
-#if !defined(ASIO_HAS_STD_SHARED_PTR)
-# include <boost/make_shared.hpp>
-# include <boost/shared_ptr.hpp>
-# include <boost/weak_ptr.hpp>
-#endif // !defined(ASIO_HAS_STD_SHARED_PTR)
-
-#if !defined(ASIO_HAS_STD_ADDRESSOF)
-# include <boost/utility/addressof.hpp>
-#endif // !defined(ASIO_HAS_STD_ADDRESSOF)
-
 #if !defined(ASIO_HAS_STD_ALIGNED_ALLOC) \
   && defined(ASIO_HAS_BOOST_ALIGN) \
   && defined(ASIO_HAS_ALIGNOF)
@@ -44,36 +34,12 @@
 namespace asio {
 namespace detail {
 
-#if defined(ASIO_HAS_STD_SHARED_PTR)
 using std::allocate_shared;
 using std::make_shared;
 using std::shared_ptr;
 using std::weak_ptr;
-#else // defined(ASIO_HAS_STD_SHARED_PTR)
-using boost::allocate_shared;
-using boost::make_shared;
-using boost::shared_ptr;
-using boost::weak_ptr;
-#endif // defined(ASIO_HAS_STD_SHARED_PTR)
-
-#if defined(ASIO_HAS_STD_ADDRESSOF)
 using std::addressof;
-#else // defined(ASIO_HAS_STD_ADDRESSOF)
-using boost::addressof;
-#endif // defined(ASIO_HAS_STD_ADDRESSOF)
-
-#if defined(ASIO_HAS_STD_TO_ADDRESS)
 using std::to_address;
-#else // defined(ASIO_HAS_STD_TO_ADDRESS)
-template <typename T>
-inline T* to_address(T* p) { return p; }
-template <typename T>
-inline const T* to_address(const T* p) { return p; }
-template <typename T>
-inline volatile T* to_address(volatile T* p) { return p; }
-template <typename T>
-inline const volatile T* to_address(const volatile T* p) { return p; }
-#endif // defined(ASIO_HAS_STD_TO_ADDRESS)
 
 inline void* align(std::size_t alignment,
     std::size_t size, void*& ptr, std::size_t& space)
@@ -94,7 +60,6 @@ inline void* align(std::size_t alignment,
 
 } // namespace detail
 
-#if defined(ASIO_HAS_CXX11_ALLOCATORS)
 using std::allocator_arg_t;
 # define ASIO_USES_ALLOCATOR(t) \
   namespace std { \
@@ -105,13 +70,6 @@ using std::allocator_arg_t;
 # define ASIO_REBIND_ALLOC(alloc, t) \
   typename std::allocator_traits<alloc>::template rebind_alloc<t>
   /**/
-#else // defined(ASIO_HAS_CXX11_ALLOCATORS)
-struct allocator_arg_t {};
-# define ASIO_USES_ALLOCATOR(t)
-# define ASIO_REBIND_ALLOC(alloc, t) \
-  typename alloc::template rebind<t>::other
-  /**/
-#endif // defined(ASIO_HAS_CXX11_ALLOCATORS)
 
 inline void* aligned_new(std::size_t align, std::size_t size)
 {
