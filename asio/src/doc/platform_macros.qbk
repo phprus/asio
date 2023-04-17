@@ -24,13 +24,6 @@ needs.
 [table
   [[Macro][Description][Macro to disable feature]]
   [
-    [`ASIO_HAS_ALIGNOF`]
-    [
-      Support for the alignof operator.
-    ]
-    [`ASIO_DISABLE_ALIGNOF`]
-  ]
-  [
     [`ASIO_HAS_BOOST_ALIGN`]
     [
       Boost align library.

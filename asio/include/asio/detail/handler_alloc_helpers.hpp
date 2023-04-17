@@ -128,7 +128,7 @@ public:
   {
     return static_cast<T*>(
         asio_handler_alloc_helpers::allocate(
-          sizeof(T) * n, handler_, ASIO_ALIGNOF(T)));
+          sizeof(T) * n, handler_, alignof(T)));
   }
 
   void deallocate(T* p, std::size_t n)
