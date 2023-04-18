@@ -25,14 +25,7 @@
 #include "unit_test.hpp"
 
 #include <functional>
-
-#if defined(ASIO_HAS_BOOST_ARRAY)
-#include <boost/array.hpp>
-#endif // defined(ASIO_HAS_BOOST_ARRAY)
-
-#if defined(ASIO_HAS_STD_ARRAY)
-# include <array>
-#endif // defined(ASIO_HAS_STD_ARRAY)
+#include <array>
 
 using namespace std; // For memcmp, memcpy and memset.
 
@@ -2521,72 +2514,12 @@ void test_3_arg_mutable_buffer_async_read()
   ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
 }
 
-void test_3_arg_boost_array_buffers_async_read()
-{
-  namespace bindns = std;
-  using bindns::placeholders::_1;
-  using bindns::placeholders::_2;
-
-#if defined(ASIO_HAS_BOOST_ARRAY)
-  asio::io_context ioc;
-  test_stream s(ioc);
-  char read_buf[sizeof(read_data)];
-  boost::array<asio::mutable_buffer, 2> buffers = { {
-    asio::buffer(read_buf, 32),
-    asio::buffer(read_buf) + 32 } };
-
-  s.reset(read_data, sizeof(read_data));
-  memset(read_buf, 0, sizeof(read_buf));
-  bool called = false;
-  asio::async_read(s, buffers,
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(1);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers,
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(10);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers,
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  memset(read_buf, 0, sizeof(read_buf));
-  int i = asio::async_read(s, buffers, archetypes::lazy_handler());
-  ASIO_CHECK(i == 42);
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-#endif // defined(ASIO_HAS_BOOST_ARRAY)
-}
-
 void test_3_arg_std_array_buffers_async_read()
 {
   namespace bindns = std;
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
-#if defined(ASIO_HAS_STD_ARRAY)
   asio::io_context ioc;
   test_stream s(ioc);
   char read_buf[sizeof(read_data)];
@@ -2636,7 +2569,6 @@ void test_3_arg_std_array_buffers_async_read()
   ioc.restart();
   ioc.run();
   ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-#endif // defined(ASIO_HAS_STD_ARRAY)
 }
 
 void test_3_arg_vector_buffers_async_read()
@@ -3155,353 +3087,12 @@ void test_4_arg_mutable_buffer_async_read()
   ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
 }
 
-void test_4_arg_boost_array_buffers_async_read()
-{
-  namespace bindns = std;
-  using bindns::placeholders::_1;
-  using bindns::placeholders::_2;
-
-#if defined(ASIO_HAS_BOOST_ARRAY)
-  asio::io_context ioc;
-  test_stream s(ioc);
-  char read_buf[sizeof(read_data)];
-  boost::array<asio::mutable_buffer, 2> buffers = { {
-    asio::buffer(read_buf, 32),
-    asio::buffer(read_buf) + 32 } };
-
-  s.reset(read_data, sizeof(read_data));
-  memset(read_buf, 0, sizeof(read_buf));
-  bool called = false;
-  asio::async_read(s, buffers, asio::transfer_all(),
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(1);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_all(),
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(10);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_all(),
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_at_least(1),
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(1);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_at_least(1),
-      bindns::bind(async_read_handler,
-        _1, _2, 1, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 1));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(10);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_at_least(1),
-      bindns::bind(async_read_handler,
-        _1, _2, 10, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 10));
-
-  s.reset(read_data, sizeof(read_data));
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_at_least(10),
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(1);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_at_least(10),
-      bindns::bind(async_read_handler,
-        _1, _2, 10, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 10));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(10);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_at_least(10),
-      bindns::bind(async_read_handler,
-        _1, _2, 10, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 10));
-
-  s.reset(read_data, sizeof(read_data));
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_at_least(42),
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(1);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_at_least(42),
-      bindns::bind(async_read_handler,
-        _1, _2, 42, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 42));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(10);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_at_least(42),
-      bindns::bind(async_read_handler,
-        _1, _2, 50, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 50));
-
-  s.reset(read_data, sizeof(read_data));
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_exactly(1),
-      bindns::bind(async_read_handler,
-        _1, _2, 1, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 1));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(1);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_exactly(1),
-      bindns::bind(async_read_handler,
-        _1, _2, 1, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 1));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(10);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_exactly(1),
-      bindns::bind(async_read_handler,
-        _1, _2, 1, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 1));
-
-  s.reset(read_data, sizeof(read_data));
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_exactly(10),
-      bindns::bind(async_read_handler,
-        _1, _2, 10, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 10));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(1);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_exactly(10),
-      bindns::bind(async_read_handler,
-        _1, _2, 10, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 10));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(10);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_exactly(10),
-      bindns::bind(async_read_handler,
-        _1, _2, 10, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 10));
-
-  s.reset(read_data, sizeof(read_data));
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_exactly(42),
-      bindns::bind(async_read_handler,
-        _1, _2, 42, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 42));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(1);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_exactly(42),
-      bindns::bind(async_read_handler,
-        _1, _2, 42, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 42));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(10);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, asio::transfer_exactly(42),
-      bindns::bind(async_read_handler,
-        _1, _2, 42, &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, 42));
-
-  s.reset(read_data, sizeof(read_data));
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, old_style_transfer_all,
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(1);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, old_style_transfer_all,
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(10);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, old_style_transfer_all,
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, short_transfer(),
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(1);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, short_transfer(),
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  s.next_read_length(10);
-  memset(read_buf, 0, sizeof(read_buf));
-  called = false;
-  asio::async_read(s, buffers, short_transfer(),
-      bindns::bind(async_read_handler,
-        _1, _2, sizeof(read_data), &called));
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(called);
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-
-  s.reset(read_data, sizeof(read_data));
-  memset(read_buf, 0, sizeof(read_buf));
-  int i = asio::async_read(s, buffers,
-      short_transfer(), archetypes::lazy_handler());
-  ASIO_CHECK(i == 42);
-  ioc.restart();
-  ioc.run();
-  ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-#endif // defined(ASIO_HAS_BOOST_ARRAY)
-}
-
 void test_4_arg_std_array_buffers_async_read()
 {
   namespace bindns = std;
   using bindns::placeholders::_1;
   using bindns::placeholders::_2;
 
-#if defined(ASIO_HAS_STD_ARRAY)
   asio::io_context ioc;
   test_stream s(ioc);
   char read_buf[sizeof(read_data)];
@@ -3832,7 +3423,6 @@ void test_4_arg_std_array_buffers_async_read()
   ioc.restart();
   ioc.run();
   ASIO_CHECK(s.check_buffers(buffers, sizeof(read_data)));
-#endif // defined(ASIO_HAS_STD_ARRAY)
 }
 
 void test_4_arg_vector_buffers_async_read()
@@ -4927,14 +4517,12 @@ ASIO_TEST_SUITE
   ASIO_TEST_CASE(test_4_arg_dynamic_string_read)
   ASIO_TEST_CASE(test_4_arg_streambuf_read)
   ASIO_TEST_CASE(test_3_arg_mutable_buffer_async_read)
-  ASIO_TEST_CASE(test_3_arg_boost_array_buffers_async_read)
   ASIO_TEST_CASE(test_3_arg_std_array_buffers_async_read)
   ASIO_TEST_CASE(test_3_arg_vector_buffers_async_read)
   ASIO_TEST_CASE(test_3_arg_dynamic_string_async_read)
   ASIO_TEST_CASE(test_3_arg_streambuf_async_read)
   ASIO_TEST_CASE(test_4_arg_mutable_buffer_async_read)
   ASIO_TEST_CASE(test_4_arg_vector_buffers_async_read)
-  ASIO_TEST_CASE(test_4_arg_boost_array_buffers_async_read)
   ASIO_TEST_CASE(test_4_arg_std_array_buffers_async_read)
   ASIO_TEST_CASE(test_4_arg_dynamic_string_async_read)
   ASIO_TEST_CASE(test_4_arg_streambuf_async_read)
