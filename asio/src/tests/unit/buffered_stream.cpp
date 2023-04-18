@@ -24,11 +24,7 @@
 #include "asio/system_error.hpp"
 #include "unit_test.hpp"
 
-#if defined(ASIO_HAS_BOOST_ARRAY)
-# include <boost/array.hpp>
-#else // defined(ASIO_HAS_BOOST_ARRAY)
-# include <array>
-#endif // defined(ASIO_HAS_BOOST_ARRAY)
+#include <array>
 
 #include <functional>
 
@@ -53,11 +49,7 @@ void read_some_handler(const asio::error_code&, std::size_t)
 
 void test_compile()
 {
-#if defined(ASIO_HAS_BOOST_ARRAY)
-  using boost::array;
-#else // defined(ASIO_HAS_BOOST_ARRAY)
   using std::array;
-#endif // defined(ASIO_HAS_BOOST_ARRAY)
 
   using namespace asio;
 
