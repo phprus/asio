@@ -297,13 +297,6 @@ needs.
     [`ASIO_DISABLE_STD_ANY`]
   ]
   [
-    [`ASIO_HAS_STD_ATOMIC`]
-    [
-      Standard library support for atomic operations.
-    ]
-    [`ASIO_DISABLE_STD_ATOMIC`]
-  ]
-  [
     [`ASIO_HAS_STD_CHRONO`]
     [
       Standard library support for chrono. Some standard libraries (such as the
