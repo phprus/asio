@@ -22,7 +22,7 @@
 #include "asio/detail/handler_tracking.hpp"
 #include "asio/detail/op_queue.hpp"
 #include "asio/detail/socket_types.hpp"
-#include "asio/error_code.hpp"
+#include <system_error>
 
 #include "asio/detail/push_options.hpp"
 

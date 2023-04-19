@@ -32,7 +32,7 @@ posix_mutex::posix_mutex()
 {
   int error = ::pthread_mutex_init(&mutex_, 0);
   std::error_code ec(error,
-      asio::error::get_system_category());
+      std::system_category());
   asio::detail::throw_error(ec, "mutex");
 }
 
