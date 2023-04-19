@@ -41,7 +41,7 @@ void test()
   try
   {
     asio::io_context io_context;
-    asio::error_code ec1;
+    std::error_code ec1;
 
     dp::socket s1(io_context);
     dp::socket s2(io_context);

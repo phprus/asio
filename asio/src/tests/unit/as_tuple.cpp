@@ -36,7 +36,7 @@ void as_tuple_test()
   timer1.async_wait(
       asio::as_tuple(
         asio::bind_executor(io2.get_executor(),
-          [&count](std::tuple<asio::error_code>)
+          [&count](std::tuple<std::error_code>)
           {
             ++count;
           })));
@@ -55,7 +55,7 @@ void as_tuple_test()
       asio::as_tuple(
         asio::bind_executor(io2.get_executor(),
           asio::deferred)))(
-            [&count](std::tuple<asio::error_code>)
+            [&count](std::tuple<std::error_code>)
             {
               ++count;
             });
@@ -73,7 +73,7 @@ void as_tuple_test()
   ASIO_CHECK(count == 2);
 
 # if defined(ASIO_HAS_STD_FUTURE_CLASS)
-  std::future<std::tuple<asio::error_code> > f = timer1.async_wait(
+  std::future<std::tuple<std::error_code> > f = timer1.async_wait(
       asio::as_tuple(
         asio::bind_executor(io2.get_executor(),
           asio::use_future)));

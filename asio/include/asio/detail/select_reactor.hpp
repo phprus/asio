@@ -209,7 +209,7 @@ private:
   // Cancel all operations associated with the given descriptor. This function
   // does not acquire the select_reactor's mutex.
   ASIO_DECL void cancel_ops_unlocked(socket_type descriptor,
-      const asio::error_code& ec);
+      const std::error_code& ec);
 
   // The scheduler implementation used to post completions.
 # if defined(ASIO_HAS_IOCP)
@@ -256,7 +256,7 @@ private:
     }
 
     ASIO_DECL static void do_complete(void* owner, operation* base,
-        const asio::error_code& ec, std::size_t bytes_transferred);
+        const std::error_code& ec, std::size_t bytes_transferred);
 
   private:
     select_reactor* reactor_;

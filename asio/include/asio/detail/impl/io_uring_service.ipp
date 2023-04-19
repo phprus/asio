@@ -231,7 +231,7 @@ void io_uring_service::register_internal_io_object(
   }
   else
   {
-    asio::error_code ec(ENOBUFS,
+    std::error_code ec(ENOBUFS,
         asio::error::get_system_category());
     asio::detail::throw_error(ec, "io_uring_get_sqe");
   }
@@ -242,7 +242,7 @@ void io_uring_service::register_buffers(const ::iovec* v, unsigned n)
   int result = ::io_uring_register_buffers(&ring_, v, n);
   if (result < 0)
   {
-    asio::error_code ec(-result,
+    std::error_code ec(-result,
         asio::error::get_system_category());
     asio::detail::throw_error(ec, "io_uring_register_buffers");
   }
@@ -521,7 +521,7 @@ void io_uring_service::init_ring()
   if (result < 0)
   {
     ring_.ring_fd = -1;
-    asio::error_code ec(-result,
+    std::error_code ec(-result,
         asio::error::get_system_category());
     asio::detail::throw_error(ec, "io_uring_queue_init");
   }
@@ -530,7 +530,7 @@ void io_uring_service::init_ring()
   event_fd_ = ::eventfd(0, EFD_CLOEXEC | EFD_NONBLOCK);
   if (event_fd_ < 0)
   {
-    asio::error_code ec(-result,
+    std::error_code ec(-result,
         asio::error::get_system_category());
     ::io_uring_queue_exit(&ring_);
     asio::detail::throw_error(ec, "eventfd");
@@ -541,7 +541,7 @@ void io_uring_service::init_ring()
   {
     ::close(event_fd_);
     ::io_uring_queue_exit(&ring_);
-    asio::error_code ec(-result,
+    std::error_code ec(-result,
         asio::error::get_system_category());
     asio::detail::throw_error(ec, "io_uring_queue_init");
   }
@@ -554,7 +554,7 @@ class io_uring_service::event_fd_read_op :
 {
 public:
   event_fd_read_op(io_uring_service* s)
-    : reactor_op(asio::error_code(),
+    : reactor_op(std::error_code(),
         &event_fd_read_op::do_perform, event_fd_read_op::do_complete),
       service_(s)
   {
@@ -584,7 +584,7 @@ public:
   }
 
   static void do_complete(void* /*owner*/, operation* base,
-      const asio::error_code& /*ec*/,
+      const std::error_code& /*ec*/,
       std::size_t /*bytes_transferred*/)
   {
     event_fd_read_op* o(static_cast<event_fd_read_op*>(base));
@@ -748,7 +748,7 @@ io_uring_service::submit_sqes_op::submit_sqes_op(io_uring_service* s)
 }
 
 void io_uring_service::submit_sqes_op::do_complete(void* owner, operation* base,
-    const asio::error_code& /*ec*/, std::size_t /*bytes_transferred*/)
+    const std::error_code& /*ec*/, std::size_t /*bytes_transferred*/)
 {
   if (owner)
   {
@@ -881,7 +881,7 @@ operation* io_uring_service::io_queue::perform_io(int result)
 }
 
 void io_uring_service::io_queue::do_complete(void* owner, operation* base,
-    const asio::error_code& ec, std::size_t bytes_transferred)
+    const std::error_code& ec, std::size_t bytes_transferred)
 {
   if (owner)
   {

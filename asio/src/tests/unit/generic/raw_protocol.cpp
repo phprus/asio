@@ -36,15 +36,15 @@
 
 namespace generic_raw_protocol_socket_compile {
 
-void connect_handler(const asio::error_code&)
+void connect_handler(const std::error_code&)
 {
 }
 
-void send_handler(const asio::error_code&, std::size_t)
+void send_handler(const std::error_code&, std::size_t)
 {
 }
 
-void receive_handler(const asio::error_code&, std::size_t)
+void receive_handler(const std::error_code&, std::size_t)
 {
 }
 
@@ -67,7 +67,7 @@ void test()
     socket_base::send_buffer_size socket_option;
     socket_base::bytes_readable io_control_command;
     archetypes::immediate_handler immediate;
-    asio::error_code ec;
+    std::error_code ec;
 
     // basic_raw_socket constructors.
 

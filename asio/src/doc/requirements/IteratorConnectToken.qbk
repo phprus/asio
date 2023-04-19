@@ -16,7 +16,7 @@ the type `Iterator` is used in the corresponding `async_connect()` function.
 A free function as an iterator connect token:
 
   void connect_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       asio::ip::tcp::resolver::iterator iterator)
   {
     ...
@@ -29,7 +29,7 @@ An iterator connect token function object:
     ...
     template <typename Iterator>
     void operator()(
-        const asio::error_code& ec,
+        const std::error_code& ec,
         Iterator iterator)
     {
       ...
@@ -40,7 +40,7 @@ An iterator connect token function object:
 A lambda as an iterator connect token:
 
   asio::async_connect(...,
-      [](const asio::error_code& ec,
+      [](const std::error_code& ec,
         asio::ip::tcp::resolver::iterator iterator)
       {
         ...
@@ -50,7 +50,7 @@ A non-static class member function adapted to an iterator connect token using
 `std::bind()`:
 
   void my_class::connect_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       asio::ip::tcp::resolver::iterator iterator)
   {
     ...
@@ -65,7 +65,7 @@ A non-static class member function adapted to an iterator connect token using
 `std::bind()`:
 
   void my_class::connect_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       asio::ip::tcp::resolver::iterator iterator)
   {
     ...

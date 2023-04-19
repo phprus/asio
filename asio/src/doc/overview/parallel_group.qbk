@@ -28,8 +28,8 @@ operations. For example:
       experimental::wait_for_one(),
       [](
           std::array<std::size_t, 2> completion_order,
-          asio::error_code ec1, std::size_t n1,
-          asio::error_code ec2
+          std::error_code ec1, std::size_t n1,
+          std::error_code ec2
       )
       {
         // ...

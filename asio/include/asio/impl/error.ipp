@@ -28,10 +28,10 @@ namespace error {
 
 namespace detail {
 
-class netdb_category : public asio::error_category
+class netdb_category : public std::error_category
 {
 public:
-  const char* name() const ASIO_ERROR_CATEGORY_NOEXCEPT
+  const char* name() const noexcept(true)
   {
     return "asio.netdb";
   }
@@ -52,7 +52,7 @@ public:
 
 } // namespace detail
 
-const asio::error_category& get_netdb_category()
+const std::error_category& get_netdb_category()
 {
   static detail::netdb_category instance;
   return instance;
@@ -60,10 +60,10 @@ const asio::error_category& get_netdb_category()
 
 namespace detail {
 
-class addrinfo_category : public asio::error_category
+class addrinfo_category : public std::error_category
 {
 public:
-  const char* name() const ASIO_ERROR_CATEGORY_NOEXCEPT
+  const char* name() const noexcept(true)
   {
     return "asio.addrinfo";
   }
@@ -80,7 +80,7 @@ public:
 
 } // namespace detail
 
-const asio::error_category& get_addrinfo_category()
+const std::error_category& get_addrinfo_category()
 {
   static detail::addrinfo_category instance;
   return instance;
@@ -90,10 +90,10 @@ const asio::error_category& get_addrinfo_category()
 
 namespace detail {
 
-class misc_category : public asio::error_category
+class misc_category : public std::error_category
 {
 public:
-  const char* name() const ASIO_ERROR_CATEGORY_NOEXCEPT
+  const char* name() const noexcept(true)
   {
     return "asio.misc";
   }
@@ -114,7 +114,7 @@ public:
 
 } // namespace detail
 
-const asio::error_category& get_misc_category()
+const std::error_category& get_misc_category()
 {
   static detail::misc_category instance;
   return instance;

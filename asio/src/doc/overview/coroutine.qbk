@@ -23,7 +23,7 @@ the following example:
     {
     }
 
-    void operator()(asio::error_code ec = asio::error_code(), std::size_t n = 0)
+    void operator()(std::error_code ec = std::error_code(), std::size_t n = 0)
     {
       if (!ec) reenter (this)
       {

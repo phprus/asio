@@ -31,7 +31,7 @@ class win_iocp_handle_service::overlapped_wrapper
   : public OVERLAPPED
 {
 public:
-  explicit overlapped_wrapper(asio::error_code& ec)
+  explicit overlapped_wrapper(std::error_code& ec)
   {
     Internal = 0;
     InternalHigh = 0;
@@ -51,7 +51,7 @@ public:
     else
     {
       DWORD last_error = ::GetLastError();
-      ec = asio::error_code(last_error,
+      ec = std::error_code(last_error,
           asio::error::get_system_category());
     }
   }
@@ -176,9 +176,9 @@ void win_iocp_handle_service::destroy(
   impl.prev_ = 0;
 }
 
-asio::error_code win_iocp_handle_service::assign(
+std::error_code win_iocp_handle_service::assign(
     win_iocp_handle_service::implementation_type& impl,
-    const native_handle_type& handle, asio::error_code& ec)
+    const native_handle_type& handle, std::error_code& ec)
 {
   if (is_open(impl))
   {
@@ -194,13 +194,13 @@ asio::error_code win_iocp_handle_service::assign(
   }
 
   impl.handle_ = handle;
-  ec = asio::error_code();
+  ec = std::error_code();
   return ec;
 }
 
-asio::error_code win_iocp_handle_service::close(
+std::error_code win_iocp_handle_service::close(
     win_iocp_handle_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (is_open(impl))
   {
@@ -210,12 +210,12 @@ asio::error_code win_iocp_handle_service::close(
     if (!::CloseHandle(impl.handle_))
     {
       DWORD last_error = ::GetLastError();
-      ec = asio::error_code(last_error,
+      ec = std::error_code(last_error,
           asio::error::get_system_category());
     }
     else
     {
-      ec = asio::error_code();
+      ec = std::error_code();
     }
 
     impl.handle_ = INVALID_HANDLE_VALUE;
@@ -223,7 +223,7 @@ asio::error_code win_iocp_handle_service::close(
   }
   else
   {
-    ec = asio::error_code();
+    ec = std::error_code();
   }
 
   ASIO_ERROR_LOCATION(ec);
@@ -232,7 +232,7 @@ asio::error_code win_iocp_handle_service::close(
 
 win_iocp_handle_service::native_handle_type win_iocp_handle_service::release(
     win_iocp_handle_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (!is_open(impl))
     return INVALID_HANDLE_VALUE;
@@ -267,9 +267,9 @@ win_iocp_handle_service::native_handle_type win_iocp_handle_service::release(
   return tmp;
 }
 
-asio::error_code win_iocp_handle_service::cancel(
+std::error_code win_iocp_handle_service::cancel(
     win_iocp_handle_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (!is_open(impl))
   {
@@ -296,23 +296,23 @@ asio::error_code win_iocp_handle_service::cancel(
         // ERROR_NOT_FOUND means that there were no operations to be
         // cancelled. We swallow this error to match the behaviour on other
         // platforms.
-        ec = asio::error_code();
+        ec = std::error_code();
       }
       else
       {
-        ec = asio::error_code(last_error,
+        ec = std::error_code(last_error,
             asio::error::get_system_category());
       }
     }
     else
     {
-      ec = asio::error_code();
+      ec = std::error_code();
     }
   }
   else if (impl.safe_cancellation_thread_id_ == 0)
   {
     // No operations have been started, so there's nothing to cancel.
-    ec = asio::error_code();
+    ec = std::error_code();
   }
   else if (impl.safe_cancellation_thread_id_ == ::GetCurrentThreadId())
   {
@@ -321,12 +321,12 @@ asio::error_code win_iocp_handle_service::cancel(
     if (!::CancelIo(impl.handle_))
     {
       DWORD last_error = ::GetLastError();
-      ec = asio::error_code(last_error,
+      ec = std::error_code(last_error,
           asio::error::get_system_category());
     }
     else
     {
-      ec = asio::error_code();
+      ec = std::error_code();
     }
   }
   else
@@ -342,7 +342,7 @@ asio::error_code win_iocp_handle_service::cancel(
 
 size_t win_iocp_handle_service::do_write(
     win_iocp_handle_service::implementation_type& impl, uint64_t offset,
-    const asio::const_buffer& buffer, asio::error_code& ec)
+    const asio::const_buffer& buffer, std::error_code& ec)
 {
   if (!is_open(impl))
   {
@@ -354,7 +354,7 @@ size_t win_iocp_handle_service::do_write(
   // A request to write 0 bytes on a handle is a no-op.
   if (buffer.size() == 0)
   {
-    ec = asio::error_code();
+    ec = std::error_code();
     return 0;
   }
 
@@ -375,7 +375,7 @@ size_t win_iocp_handle_service::do_write(
     DWORD last_error = ::GetLastError();
     if (last_error != ERROR_IO_PENDING)
     {
-      ec = asio::error_code(last_error,
+      ec = std::error_code(last_error,
           asio::error::get_system_category());
       ASIO_ERROR_LOCATION(ec);
       return 0;
@@ -389,13 +389,13 @@ size_t win_iocp_handle_service::do_write(
   if (!ok)
   {
     DWORD last_error = ::GetLastError();
-    ec = asio::error_code(last_error,
+    ec = std::error_code(last_error,
         asio::error::get_system_category());
     ASIO_ERROR_LOCATION(ec);
     return 0;
   }
 
-  ec = asio::error_code();
+  ec = std::error_code();
   return bytes_transferred;
 }
 
@@ -438,7 +438,7 @@ void win_iocp_handle_service::start_write_op(
 
 size_t win_iocp_handle_service::do_read(
     win_iocp_handle_service::implementation_type& impl, uint64_t offset,
-    const asio::mutable_buffer& buffer, asio::error_code& ec)
+    const asio::mutable_buffer& buffer, std::error_code& ec)
 {
   if (!is_open(impl))
   {
@@ -450,7 +450,7 @@ size_t win_iocp_handle_service::do_read(
   // A request to read 0 bytes on a stream handle is a no-op.
   if (buffer.size() == 0)
   {
-    ec = asio::error_code();
+    ec = std::error_code();
     return 0;
   }
 
@@ -477,7 +477,7 @@ size_t win_iocp_handle_service::do_read(
       }
       else
       {
-        ec = asio::error_code(last_error,
+        ec = std::error_code(last_error,
             asio::error::get_system_category());
       }
       ASIO_ERROR_LOCATION(ec);
@@ -498,14 +498,14 @@ size_t win_iocp_handle_service::do_read(
     }
     else
     {
-      ec = asio::error_code(last_error,
+      ec = std::error_code(last_error,
           asio::error::get_system_category());
     }
     ASIO_ERROR_LOCATION(ec);
     return (last_error == ERROR_MORE_DATA) ? bytes_transferred : 0;
   }
 
-  ec = asio::error_code();
+  ec = std::error_code();
   return bytes_transferred;
 }
 

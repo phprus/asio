@@ -38,7 +38,7 @@ class win_iocp_socket_connect_op_base : public reactor_op
 {
 public:
   win_iocp_socket_connect_op_base(socket_type socket, func_type complete_func)
-    : reactor_op(asio::error_code(),
+    : reactor_op(std::error_code(),
         &win_iocp_socket_connect_op_base::do_perform, complete_func),
       socket_(socket),
       connect_ex_(false)
@@ -75,10 +75,10 @@ public:
   }
 
   static void do_complete(void* owner, operation* base,
-      const asio::error_code& result_ec,
+      const std::error_code& result_ec,
       std::size_t /*bytes_transferred*/)
   {
-    asio::error_code ec(result_ec);
+    std::error_code ec(result_ec);
 
     // Take ownership of the operation object.
     ASIO_ASSUME(base != 0);
@@ -109,7 +109,7 @@ public:
     // with the handler. Consequently, a local copy of the handler is required
     // to ensure that any owning sub-object remains valid until after we have
     // deallocated the memory here.
-    detail::binder1<Handler, asio::error_code>
+    detail::binder1<Handler, std::error_code>
       handler(o->handler_, ec);
     p.h = asio::detail::addressof(handler.handler_);
     p.reset();

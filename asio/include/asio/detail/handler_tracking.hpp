@@ -129,19 +129,19 @@ public:
     ASIO_DECL void invocation_begin();
 
     // Records that handler is to be invoked with one arguments.
-    ASIO_DECL void invocation_begin(const asio::error_code& ec);
+    ASIO_DECL void invocation_begin(const std::error_code& ec);
 
     // Constructor records that handler is to be invoked with two arguments.
     ASIO_DECL void invocation_begin(
-        const asio::error_code& ec, std::size_t bytes_transferred);
+        const std::error_code& ec, std::size_t bytes_transferred);
 
     // Constructor records that handler is to be invoked with two arguments.
     ASIO_DECL void invocation_begin(
-        const asio::error_code& ec, int signal_number);
+        const std::error_code& ec, int signal_number);
 
     // Constructor records that handler is to be invoked with two arguments.
     ASIO_DECL void invocation_begin(
-        const asio::error_code& ec, const char* arg);
+        const std::error_code& ec, const char* arg);
 
     // Record that handler invocation has ended.
     ASIO_DECL void invocation_end();
@@ -173,12 +173,12 @@ public:
   // Record a reactor-based operation that is associated with a handler.
   ASIO_DECL static void reactor_operation(
       const tracked_handler& h, const char* op_name,
-      const asio::error_code& ec);
+      const std::error_code& ec);
 
   // Record a reactor-based operation that is associated with a handler.
   ASIO_DECL static void reactor_operation(
       const tracked_handler& h, const char* op_name,
-      const asio::error_code& ec, std::size_t bytes_transferred);
+      const std::error_code& ec, std::size_t bytes_transferred);
 
   // Write a line of output.
   ASIO_DECL static void write_line(const char* format, ...);
