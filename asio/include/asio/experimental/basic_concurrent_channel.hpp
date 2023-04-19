@@ -47,7 +47,7 @@ namespace detail {
  * {
  *   if (i < 10)
  *   {
- *     timer.expires_after(chrono::seconds(1));
+ *     timer.expires_after(std::chrono::seconds(1));
  *     timer.async_wait(
  *         [i, &timer, &ch](error_code error)
  *         {

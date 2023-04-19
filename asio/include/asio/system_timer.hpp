@@ -18,7 +18,7 @@
 #include "asio/detail/config.hpp"
 
 #include "asio/basic_waitable_timer.hpp"
-#include "asio/detail/chrono.hpp"
+#include <chrono>
 
 namespace asio {
 
@@ -28,10 +28,10 @@ namespace asio {
  * available. Otherwise, it may use the Boost.Chrono library. To explicitly
  * utilise Boost.Chrono, use the basic_waitable_timer template directly:
  * @code
- * typedef basic_waitable_timer<boost::chrono::system_clock> timer;
+ * typedef basic_waitable_timer<std::chrono::system_clock> timer;
  * @endcode
  */
-typedef basic_waitable_timer<chrono::system_clock> system_timer;
+typedef basic_waitable_timer<std::chrono::system_clock> system_timer;
 
 } // namespace asio
 
