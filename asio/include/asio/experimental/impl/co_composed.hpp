@@ -188,10 +188,10 @@ struct co_composed_state_default_cancellation_on_suspend_impl<
 template <typename Executors, typename Handler, typename Return,
     typename R, typename... Args, typename... Signatures>
 struct co_composed_state_default_cancellation_on_suspend_impl<Executors,
-    Handler, Return, R(asio::error_code, Args...), Signatures...>
+    Handler, Return, R(std::error_code, Args...), Signatures...>
 {
   using promise_type = co_composed_promise<Executors, Handler, Return>;
-  using return_type = std::tuple<asio::error_code, Args...>;
+  using return_type = std::tuple<std::error_code, Args...>;
 
   static constexpr void (*fn())(void*)
   {
@@ -210,7 +210,7 @@ struct co_composed_state_default_cancellation_on_suspend_impl<Executors,
           Return>(std::move(composed_handler));
 
         std::move(handler)(
-            asio::error_code(asio::error::operation_aborted),
+            std::error_code(asio::error::operation_aborted),
             Args{}...);
       };
     }
@@ -248,7 +248,7 @@ struct co_composed_state_default_cancellation_on_suspend_impl<Executors,
 
         std::move(handler)(
             std::make_exception_ptr(
-              asio::system_error(
+              std::system_error(
                 asio::error::operation_aborted, "co_await")),
             Args{}...);
       };
@@ -611,7 +611,7 @@ public:
 template <typename Executors, typename Handler,
     typename Return, typename R, typename... Args>
 class co_composed_handler<Executors, Handler,
-    Return, R(asio::error_code, Args...)>
+    Return, R(std::error_code, Args...)>
   : public co_composed_handler_base<Executors, Handler, Return>
 {
 public:
@@ -619,10 +619,10 @@ public:
     Handler, Return>::co_composed_handler_base;
 
   using args_type = std::tuple<typename decay<Args>::type...>;
-  using result_type = std::tuple<asio::error_code, args_type>;
+  using result_type = std::tuple<std::error_code, args_type>;
 
   template <typename... T>
-  void operator()(const asio::error_code& ec, T&&... args)
+  void operator()(const std::error_code& ec, T&&... args)
   {
     result_type result(ec, args_type(std::forward<T>(args)...));
     this->resume(&result);

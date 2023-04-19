@@ -24,7 +24,7 @@ public:
   template <typename CompletionToken>
   auto async_read_line(std::string prompt, CompletionToken&& token)
   {
-    return asio::async_initiate<CompletionToken, void(asio::error_code, std::string)>(
+    return asio::async_initiate<CompletionToken, void(std::error_code, std::string)>(
         [](auto handler, line_reader* self, std::string prompt)
         {
           self->async_read_line_impl(std::move(prompt), std::move(handler));
@@ -33,7 +33,7 @@ public:
 
 private:
   virtual void async_read_line_impl(std::string prompt,
-      asio::any_completion_handler<void(asio::error_code, std::string)> handler) = 0;
+      asio::any_completion_handler<void(std::error_code, std::string)> handler) = 0;
 };
 
 #endif // LINE_READER_HPP

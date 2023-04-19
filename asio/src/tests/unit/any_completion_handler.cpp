@@ -219,8 +219,8 @@ void any_completion_handler_associator_test()
   ASIO_CHECK(ex2 == asio::system_executor());
 }
 
-void increment_with_error(asio::error_code ec,
-    asio::error_code* out_ec, int* count)
+void increment_with_error(std::error_code ec,
+    std::error_code* out_ec, int* count)
 {
   *out_ec = ec;
   ++(*count);
@@ -229,7 +229,7 @@ void increment_with_error(asio::error_code ec,
 void any_completion_handler_invocation_test()
 {
   int count = 0;
-  asio::error_code ec;
+  std::error_code ec;
 
   asio::any_completion_handler<void()> h1(
       bindns::bind(&increment, &count));
@@ -240,7 +240,7 @@ void any_completion_handler_invocation_test()
 
   ASIO_CHECK(count == 1);
 
-  asio::any_completion_handler<void(asio::error_code)> h2(
+  asio::any_completion_handler<void(std::error_code)> h2(
       bindns::bind(&increment_with_error,
         bindns::placeholders::_1, &ec, &count));
 

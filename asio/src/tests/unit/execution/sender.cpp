@@ -129,7 +129,7 @@ struct typed_sender
   using value_types = Variant<Tuple<int>>;
 
   template <template <typename...> class Variant>
-  using error_types = Variant<asio::error_code>;
+  using error_types = Variant<std::error_code>;
 
   ASIO_STATIC_CONSTEXPR(bool, sends_done = true);
 

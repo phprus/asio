@@ -113,7 +113,7 @@ void win_object_handle_service::move_assign(
     win_object_handle_service& other_service,
     win_object_handle_service::implementation_type& other_impl)
 {
-  asio::error_code ignored_ec;
+  std::error_code ignored_ec;
   close(impl, ignored_ec);
 
   mutex::scoped_lock lock(mutex_);
@@ -206,9 +206,9 @@ void win_object_handle_service::destroy(
   }
 }
 
-asio::error_code win_object_handle_service::assign(
+std::error_code win_object_handle_service::assign(
     win_object_handle_service::implementation_type& impl,
-    const native_handle_type& handle, asio::error_code& ec)
+    const native_handle_type& handle, std::error_code& ec)
 {
   if (is_open(impl))
   {
@@ -218,13 +218,13 @@ asio::error_code win_object_handle_service::assign(
   }
 
   impl.handle_ = handle;
-  ec = asio::error_code();
+  ec = std::error_code();
   return ec;
 }
 
-asio::error_code win_object_handle_service::close(
+std::error_code win_object_handle_service::close(
     win_object_handle_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (is_open(impl))
   {
@@ -255,12 +255,12 @@ asio::error_code win_object_handle_service::close(
     if (::CloseHandle(impl.handle_))
     {
       impl.handle_ = INVALID_HANDLE_VALUE;
-      ec = asio::error_code();
+      ec = std::error_code();
     }
     else
     {
       DWORD last_error = ::GetLastError();
-      ec = asio::error_code(last_error,
+      ec = std::error_code(last_error,
           asio::error::get_system_category());
     }
 
@@ -268,16 +268,16 @@ asio::error_code win_object_handle_service::close(
   }
   else
   {
-    ec = asio::error_code();
+    ec = std::error_code();
   }
 
   ASIO_ERROR_LOCATION(ec);
   return ec;
 }
 
-asio::error_code win_object_handle_service::cancel(
+std::error_code win_object_handle_service::cancel(
     win_object_handle_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (is_open(impl))
   {
@@ -305,7 +305,7 @@ asio::error_code win_object_handle_service::cancel(
     if (wait_handle != INVALID_HANDLE_VALUE)
       ::UnregisterWaitEx(wait_handle, INVALID_HANDLE_VALUE);
 
-    ec = asio::error_code();
+    ec = std::error_code();
 
     scheduler_.post_deferred_completions(completed_ops);
   }
@@ -320,14 +320,14 @@ asio::error_code win_object_handle_service::cancel(
 
 void win_object_handle_service::wait(
     win_object_handle_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   switch (::WaitForSingleObject(impl.handle_, INFINITE))
   {
   case WAIT_FAILED:
     {
       DWORD last_error = ::GetLastError();
-      ec = asio::error_code(last_error,
+      ec = std::error_code(last_error,
           asio::error::get_system_category());
       ASIO_ERROR_LOCATION(ec);
       break;
@@ -335,7 +335,7 @@ void win_object_handle_service::wait(
   case WAIT_OBJECT_0:
   case WAIT_ABANDONED:
   default:
-    ec = asio::error_code();
+    ec = std::error_code();
     break;
   }
 }
@@ -382,7 +382,7 @@ void win_object_handle_service::register_wait_callback(
         &impl, INFINITE, WT_EXECUTEONLYONCE))
   {
     DWORD last_error = ::GetLastError();
-    asio::error_code ec(last_error,
+    std::error_code ec(last_error,
         asio::error::get_system_category());
 
     op_queue<operation> completed_ops;
@@ -413,7 +413,7 @@ void win_object_handle_service::wait_callback(PVOID param, BOOLEAN)
   {
     op_queue<operation> completed_ops;
 
-    op->ec_ = asio::error_code();
+    op->ec_ = std::error_code();
     impl->op_queue_.pop();
     completed_ops.push(op);
 
@@ -424,7 +424,7 @@ void win_object_handle_service::wait_callback(PVOID param, BOOLEAN)
             param, INFINITE, WT_EXECUTEONLYONCE))
       {
         DWORD last_error = ::GetLastError();
-        asio::error_code ec(last_error,
+        std::error_code ec(last_error,
             asio::error::get_system_category());
 
         while ((op = impl->op_queue_.front()) != 0)

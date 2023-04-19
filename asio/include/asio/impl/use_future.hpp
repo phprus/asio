@@ -23,7 +23,7 @@
 #include "asio/error_code.hpp"
 #include "asio/execution.hpp"
 #include "asio/packaged_task.hpp"
-#include "asio/system_error.hpp"
+#include <system_error>
 #include "asio/system_executor.hpp"
 
 #include "asio/detail/push_options.hpp"
@@ -239,13 +239,13 @@ class promise_handler_ec_0
   : public promise_creator<void>
 {
 public:
-  void operator()(const asio::error_code& ec)
+  void operator()(const std::error_code& ec)
   {
     if (ec)
     {
       this->p_->set_exception(
           std::make_exception_ptr(
-            asio::system_error(ec)));
+            std::system_error(ec)));
     }
     else
     {
@@ -292,14 +292,14 @@ class promise_handler_ec_1
 {
 public:
   template <typename Arg>
-  void operator()(const asio::error_code& ec,
+  void operator()(const std::error_code& ec,
       ASIO_MOVE_ARG(Arg) arg)
   {
     if (ec)
     {
       this->p_->set_exception(
           std::make_exception_ptr(
-            asio::system_error(ec)));
+            std::system_error(ec)));
     }
     else
       this->p_->set_value(ASIO_MOVE_CAST(Arg)(arg));
@@ -345,14 +345,14 @@ class promise_handler_ec_n
 {
 public:
   template <typename... Args>
-  void operator()(const asio::error_code& ec,
+  void operator()(const std::error_code& ec,
       ASIO_MOVE_ARG(Args)... args)
   {
     if (ec)
     {
       this->p_->set_exception(
           std::make_exception_ptr(
-            asio::system_error(ec)));
+            std::system_error(ec)));
     }
     else
     {
@@ -393,7 +393,7 @@ class promise_handler_selector<void()>
   : public promise_handler_0 {};
 
 template <>
-class promise_handler_selector<void(asio::error_code)>
+class promise_handler_selector<void(std::error_code)>
   : public promise_handler_ec_0 {};
 
 template <>
@@ -405,7 +405,7 @@ class promise_handler_selector<void(Arg)>
   : public promise_handler_1<Arg> {};
 
 template <typename Arg>
-class promise_handler_selector<void(asio::error_code, Arg)>
+class promise_handler_selector<void(std::error_code, Arg)>
   : public promise_handler_ec_1<Arg> {};
 
 template <typename Arg>
@@ -417,7 +417,7 @@ class promise_handler_selector<void(Arg...)>
   : public promise_handler_n<std::tuple<Arg...> > {};
 
 template <typename... Arg>
-class promise_handler_selector<void(asio::error_code, Arg...)>
+class promise_handler_selector<void(std::error_code, Arg...)>
   : public promise_handler_ec_n<std::tuple<Arg...> > {};
 
 template <typename... Arg>

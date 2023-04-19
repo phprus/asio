@@ -141,7 +141,7 @@ private:
       {
         if (write_msgs_.empty())
         {
-          asio::error_code ec;
+          std::error_code ec;
           co_await timer_.async_wait(redirect_error(use_awaitable, ec));
         }
         else

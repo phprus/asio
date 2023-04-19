@@ -55,7 +55,7 @@ void decrement_to_zero(asio::system_timer* t, int* count)
 }
 
 void increment_if_not_cancelled(int* count,
-    const asio::error_code& ec)
+    const std::error_code& ec)
 {
   if (!ec)
     ++(*count);
@@ -226,7 +226,7 @@ void system_timer_test()
 struct timer_handler
 {
   timer_handler() {}
-  void operator()(const asio::error_code&) {}
+  void operator()(const std::error_code&) {}
   timer_handler(timer_handler&&) {}
 private:
   timer_handler(const timer_handler&);
@@ -258,7 +258,7 @@ void system_timer_cancel_test()
 struct custom_allocation_timer_handler
 {
   custom_allocation_timer_handler(int* count) : count_(count) {}
-  void operator()(const asio::error_code&) {}
+  void operator()(const std::error_code&) {}
   int* count_;
 
   template <typename T>

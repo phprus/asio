@@ -78,7 +78,7 @@ void connection::do_write()
         if (!ec)
         {
           // Initiate graceful connection closure.
-          asio::error_code ignored_ec;
+          std::error_code ignored_ec;
           socket_.shutdown(asio::ip::tcp::socket::shutdown_both,
             ignored_ec);
         }

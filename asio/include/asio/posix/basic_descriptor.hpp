@@ -127,13 +127,13 @@ public:
    *
    * @param native_descriptor A native descriptor.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   basic_descriptor(const executor_type& ex,
       const native_handle_type& native_descriptor)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(impl_.get_implementation(),
         native_descriptor, ec);
     asio::detail::throw_error(ec, "assign");
@@ -150,7 +150,7 @@ public:
    *
    * @param native_descriptor A native descriptor.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ExecutionContext>
   basic_descriptor(ExecutionContext& context,
@@ -160,7 +160,7 @@ public:
       >::type = 0)
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(impl_.get_implementation(),
         native_descriptor, ec);
     asio::detail::throw_error(ec, "assign");
@@ -287,11 +287,11 @@ public:
    *
    * @param native_descriptor A native descriptor.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void assign(const native_handle_type& native_descriptor)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(impl_.get_implementation(),
         native_descriptor, ec);
     asio::detail::throw_error(ec, "assign");
@@ -306,7 +306,7 @@ public:
    * @param ec Set to indicate what error occurred, if any.
    */
   ASIO_SYNC_OP_VOID assign(const native_handle_type& native_descriptor,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     impl_.get_service().assign(
         impl_.get_implementation(), native_descriptor, ec);
@@ -325,12 +325,12 @@ public:
    * write operations will be cancelled immediately, and will complete with the
    * asio::error::operation_aborted error.
    *
-   * @throws asio::system_error Thrown on failure. Note that, even if
+   * @throws std::system_error Thrown on failure. Note that, even if
    * the function indicates an error, the underlying descriptor is closed.
    */
   void close()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().close(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "close");
   }
@@ -344,7 +344,7 @@ public:
    * @param ec Set to indicate what error occurred, if any. Note that, even if
    * the function indicates an error, the underlying descriptor is closed.
    */
-  ASIO_SYNC_OP_VOID close(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID close(std::error_code& ec)
   {
     impl_.get_service().close(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -382,11 +382,11 @@ public:
    * to finish immediately, and the handlers for cancelled operations will be
    * passed the asio::error::operation_aborted error.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void cancel()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().cancel(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "cancel");
   }
@@ -399,7 +399,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID cancel(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID cancel(std::error_code& ec)
   {
     impl_.get_service().cancel(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -411,7 +411,7 @@ public:
    *
    * @param command The IO control command to be performed on the descriptor.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @sa IoControlCommand @n
    * asio::posix::descriptor_base::bytes_readable @n
@@ -430,7 +430,7 @@ public:
   template <typename IoControlCommand>
   void io_control(IoControlCommand& command)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().io_control(impl_.get_implementation(), command, ec);
     asio::detail::throw_error(ec, "io_control");
   }
@@ -453,7 +453,7 @@ public:
    * asio::posix::stream_descriptor descriptor(my_context);
    * ...
    * asio::posix::stream_descriptor::bytes_readable command;
-   * asio::error_code ec;
+   * std::error_code ec;
    * descriptor.io_control(command, ec);
    * if (ec)
    * {
@@ -464,7 +464,7 @@ public:
    */
   template <typename IoControlCommand>
   ASIO_SYNC_OP_VOID io_control(IoControlCommand& command,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     impl_.get_service().io_control(impl_.get_implementation(), command, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -493,7 +493,7 @@ public:
    * requested operation immediately. If @c false, synchronous operations will
    * block until complete.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note The non-blocking mode has no effect on the behaviour of asynchronous
    * operations. Asynchronous operations will never fail with the error
@@ -501,7 +501,7 @@ public:
    */
   void non_blocking(bool mode)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().non_blocking(impl_.get_implementation(), mode, ec);
     asio::detail::throw_error(ec, "non_blocking");
   }
@@ -520,7 +520,7 @@ public:
    * asio::error::would_block.
    */
   ASIO_SYNC_OP_VOID non_blocking(
-      bool mode, asio::error_code& ec)
+      bool mode, std::error_code& ec)
   {
     impl_.get_service().non_blocking(impl_.get_implementation(), mode, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -556,14 +556,14 @@ public:
    * mode and direct system calls may fail with asio::error::would_block
    * (or the equivalent system error).
    *
-   * @throws asio::system_error Thrown on failure. If the @c mode is
+   * @throws std::system_error Thrown on failure. If the @c mode is
    * @c false, but the current value of @c non_blocking() is @c true, this
    * function fails with asio::error::invalid_argument, as the
    * combination does not make sense.
    */
   void native_non_blocking(bool mode)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().native_non_blocking(
         impl_.get_implementation(), mode, ec);
     asio::detail::throw_error(ec, "native_non_blocking");
@@ -585,7 +585,7 @@ public:
    * combination does not make sense.
    */
   ASIO_SYNC_OP_VOID native_non_blocking(
-      bool mode, asio::error_code& ec)
+      bool mode, std::error_code& ec)
   {
     impl_.get_service().native_non_blocking(
         impl_.get_implementation(), mode, ec);
@@ -610,7 +610,7 @@ public:
    */
   void wait(wait_type w)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().wait(impl_.get_implementation(), w, ec);
     asio::detail::throw_error(ec, "wait");
   }
@@ -630,11 +630,11 @@ public:
    * @code
    * asio::posix::stream_descriptor descriptor(my_context);
    * ...
-   * asio::error_code ec;
+   * std::error_code ec;
    * descriptor.wait(asio::posix::stream_descriptor::wait_read, ec);
    * @endcode
    */
-  ASIO_SYNC_OP_VOID wait(wait_type w, asio::error_code& ec)
+  ASIO_SYNC_OP_VOID wait(wait_type w, std::error_code& ec)
   {
     impl_.get_service().wait(impl_.get_implementation(), w, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -656,7 +656,7 @@ public:
    * @ref yield_context, or a function object with the correct completion
    * signature. The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error // Result of operation.
+   *   const std::error_code& error // Result of operation.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
    * not, the completion handler will not be invoked from within this function.
@@ -664,11 +664,11 @@ public:
    * manner equivalent to using asio::post().
    *
    * @par Completion Signature
-   * @code void(asio::error_code) @endcode
+   * @code void(std::error_code) @endcode
    *
    * @par Example
    * @code
-   * void wait_handler(const asio::error_code& error)
+   * void wait_handler(const std::error_code& error)
    * {
    *   if (!error)
    *   {
@@ -696,18 +696,18 @@ public:
    * @li @c cancellation_type::total
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code))
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code))
         WaitToken ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX(WaitToken,
-      void (asio::error_code))
+      void (std::error_code))
   async_wait(wait_type w,
       ASIO_MOVE_ARG(WaitToken) token
         ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
     ASIO_INITFN_AUTO_RESULT_TYPE_SUFFIX((
-      async_initiate<WaitToken, void (asio::error_code)>(
+      async_initiate<WaitToken, void (std::error_code)>(
           declval<initiate_async_wait>(), token, w)))
   {
-    return async_initiate<WaitToken, void (asio::error_code)>(
+    return async_initiate<WaitToken, void (std::error_code)>(
         initiate_async_wait(this), token, w);
   }
 

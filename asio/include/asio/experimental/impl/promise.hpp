@@ -161,13 +161,13 @@ struct promise_impl<void(Ts...), Executor, Allocator>
   {
     complete(
         std::make_exception_ptr(
-          asio::system_error(
+          std::system_error(
             asio::error::operation_aborted)),
         T_{}...);
   }
 
   template<typename... T_>
-  void cancel_impl_(asio::error_code*, T_*...)
+  void cancel_impl_(std::error_code*, T_*...)
   {
     complete(asio::error::operation_aborted, T_{}...);
   }

@@ -108,8 +108,8 @@ public:
   }
 
   // Open a new socket implementation.
-  asio::error_code open(implementation_type& impl,
-      const protocol_type& protocol, asio::error_code& ec)
+  std::error_code open(implementation_type& impl,
+      const protocol_type& protocol, std::error_code& ec)
   {
     if (is_open(impl))
     {
@@ -121,11 +121,11 @@ public:
     {
       impl.socket_ = ref new Windows::Networking::Sockets::StreamSocket;
       impl.protocol_ = protocol;
-      ec = asio::error_code();
+      ec = std::error_code();
     }
     catch (Platform::Exception^ e)
     {
-      ec = asio::error_code(e->HResult,
+      ec = std::error_code(e->HResult,
             asio::system_category());
     }
 
@@ -133,9 +133,9 @@ public:
   }
 
   // Assign a native socket to a socket implementation.
-  asio::error_code assign(implementation_type& impl,
+  std::error_code assign(implementation_type& impl,
       const protocol_type& protocol, const native_handle_type& native_socket,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     if (is_open(impl))
     {
@@ -145,14 +145,14 @@ public:
 
     impl.socket_ = native_socket;
     impl.protocol_ = protocol;
-    ec = asio::error_code();
+    ec = std::error_code();
 
     return ec;
   }
 
   // Bind the socket to the specified local endpoint.
-  asio::error_code bind(implementation_type&,
-      const endpoint_type&, asio::error_code& ec)
+  std::error_code bind(implementation_type&,
+      const endpoint_type&, std::error_code& ec)
   {
     ec = asio::error::operation_not_supported;
     return ec;
@@ -160,7 +160,7 @@ public:
 
   // Get the local endpoint.
   endpoint_type local_endpoint(const implementation_type& impl,
-      asio::error_code& ec) const
+      std::error_code& ec) const
   {
     endpoint_type endpoint;
     endpoint.resize(do_get_endpoint(impl, true,
@@ -170,7 +170,7 @@ public:
 
   // Get the remote endpoint.
   endpoint_type remote_endpoint(const implementation_type& impl,
-      asio::error_code& ec) const
+      std::error_code& ec) const
   {
     endpoint_type endpoint;
     endpoint.resize(do_get_endpoint(impl, false,
@@ -179,8 +179,8 @@ public:
   }
 
   // Disable sends or receives on the socket.
-  asio::error_code shutdown(implementation_type&,
-      socket_base::shutdown_type, asio::error_code& ec)
+  std::error_code shutdown(implementation_type&,
+      socket_base::shutdown_type, std::error_code& ec)
   {
     ec = asio::error::operation_not_supported;
     return ec;
@@ -188,8 +188,8 @@ public:
 
   // Set a socket option.
   template <typename Option>
-  asio::error_code set_option(implementation_type& impl,
-      const Option& option, asio::error_code& ec)
+  std::error_code set_option(implementation_type& impl,
+      const Option& option, std::error_code& ec)
   {
     return do_set_option(impl, option.level(impl.protocol_),
         option.name(impl.protocol_), option.data(impl.protocol_),
@@ -198,8 +198,8 @@ public:
 
   // Get a socket option.
   template <typename Option>
-  asio::error_code get_option(const implementation_type& impl,
-      Option& option, asio::error_code& ec) const
+  std::error_code get_option(const implementation_type& impl,
+      Option& option, std::error_code& ec) const
   {
     std::size_t size = option.size(impl.protocol_);
     do_get_option(impl, option.level(impl.protocol_),
@@ -211,8 +211,8 @@ public:
   }
 
   // Connect the socket to the specified endpoint.
-  asio::error_code connect(implementation_type& impl,
-      const endpoint_type& peer_endpoint, asio::error_code& ec)
+  std::error_code connect(implementation_type& impl,
+      const endpoint_type& peer_endpoint, std::error_code& ec)
   {
     return do_connect(impl, peer_endpoint.data(), ec);
   }

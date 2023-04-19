@@ -51,7 +51,7 @@ class packaged_handler;
  *
  * The initiating function (async_read_some in the above example) returns a
  * future that will receive the result of the operation. If the operation
- * completes with an error_code indicating failure, it is converted into a
+ * completes with an std::error_code indicating failure, it is converted into a
  * system_error and passed back to the caller via the future.
  */
 template <typename Allocator = std::allocator<void> >
@@ -105,7 +105,7 @@ public:
    *
    * @code std::future<std::size_t> fut =
    *   my_socket.async_read_some(buffer,
-   *     use_future([](asio::error_code ec, std::size_t n)
+   *     use_future([](std::error_code ec, std::size_t n)
    *       {
    *         return ec ? 0 : n;
    *       }));

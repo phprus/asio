@@ -74,7 +74,7 @@ public:
   }
 
   static void do_complete(void* owner, operation* base,
-      const asio::error_code& /*ec*/,
+      const std::error_code& /*ec*/,
       std::size_t /*bytes_transferred*/)
   {
     // Take ownership of the operation object.
@@ -114,7 +114,7 @@ public:
       // associated with the handler. Consequently, a local copy of the handler
       // is required to ensure that any owning sub-object remains valid until
       // after we have deallocated the memory here.
-      detail::binder2<Handler, asio::error_code, results_type>
+      detail::binder2<Handler, std::error_code, results_type>
         handler(o->handler_, o->ec_, results_type());
       p.h = asio::detail::addressof(handler.handler_);
       if (o->addrinfo_)

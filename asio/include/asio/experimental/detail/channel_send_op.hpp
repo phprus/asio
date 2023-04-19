@@ -98,7 +98,7 @@ public:
         ASIO_MOVE_CAST2(channel_operation::handler_work<
           Handler, IoExecutor>)(o->work_));
 
-    asio::error_code ec;
+    std::error_code ec;
     switch (a)
     {
     case channel_operation::cancel_op:
@@ -117,7 +117,7 @@ public:
     // with the handler. Consequently, a local copy of the handler is required
     // to ensure that any owning sub-object remains valid until after we have
     // deallocated the memory here.
-    asio::detail::binder1<Handler, asio::error_code>
+    asio::detail::binder1<Handler, std::error_code>
       handler(o->handler_, ec);
     p.h = asio::detail::addressof(handler.handler_);
     p.reset();

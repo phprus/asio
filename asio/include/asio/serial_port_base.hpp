@@ -56,10 +56,10 @@ public:
     unsigned int value() const;
     ASIO_DECL ASIO_SYNC_OP_VOID store(
         ASIO_OPTION_STORAGE& storage,
-        asio::error_code& ec) const;
+        std::error_code& ec) const;
     ASIO_DECL ASIO_SYNC_OP_VOID load(
         const ASIO_OPTION_STORAGE& storage,
-        asio::error_code& ec);
+        std::error_code& ec);
   private:
     unsigned int value_;
   };
@@ -76,10 +76,10 @@ public:
     type value() const;
     ASIO_DECL ASIO_SYNC_OP_VOID store(
         ASIO_OPTION_STORAGE& storage,
-        asio::error_code& ec) const;
+        std::error_code& ec) const;
     ASIO_DECL ASIO_SYNC_OP_VOID load(
         const ASIO_OPTION_STORAGE& storage,
-        asio::error_code& ec);
+        std::error_code& ec);
   private:
     type value_;
   };
@@ -96,10 +96,10 @@ public:
     type value() const;
     ASIO_DECL ASIO_SYNC_OP_VOID store(
         ASIO_OPTION_STORAGE& storage,
-        asio::error_code& ec) const;
+        std::error_code& ec) const;
     ASIO_DECL ASIO_SYNC_OP_VOID load(
         const ASIO_OPTION_STORAGE& storage,
-        asio::error_code& ec);
+        std::error_code& ec);
   private:
     type value_;
   };
@@ -116,10 +116,10 @@ public:
     type value() const;
     ASIO_DECL ASIO_SYNC_OP_VOID store(
         ASIO_OPTION_STORAGE& storage,
-        asio::error_code& ec) const;
+        std::error_code& ec) const;
     ASIO_DECL ASIO_SYNC_OP_VOID load(
         const ASIO_OPTION_STORAGE& storage,
-        asio::error_code& ec);
+        std::error_code& ec);
   private:
     type value_;
   };
@@ -135,10 +135,10 @@ public:
     unsigned int value() const;
     ASIO_DECL ASIO_SYNC_OP_VOID store(
         ASIO_OPTION_STORAGE& storage,
-        asio::error_code& ec) const;
+        std::error_code& ec) const;
     ASIO_DECL ASIO_SYNC_OP_VOID load(
         const ASIO_OPTION_STORAGE& storage,
-        asio::error_code& ec);
+        std::error_code& ec);
   private:
     unsigned int value_;
   };

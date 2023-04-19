@@ -66,7 +66,7 @@ void winsock_init_base::throw_on_error(data& d)
   long result = ::InterlockedExchangeAdd(&d.result_, 0);
   if (result != 0)
   {
-    asio::error_code ec(result,
+    std::error_code ec(result,
         asio::error::get_system_category());
     asio::detail::throw_error(ec, "winsock");
   }

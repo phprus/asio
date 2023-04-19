@@ -96,24 +96,24 @@ template <typename T>
 struct coro_error;
 
 template <>
-struct coro_error<asio::error_code>
+struct coro_error<std::error_code>
 {
-  static asio::error_code invalid()
+  static std::error_code invalid()
   {
     return asio::error::fault;
   }
 
-  static asio::error_code cancelled()
+  static std::error_code cancelled()
   {
     return asio::error::operation_aborted;
   }
 
-  static asio::error_code interrupted()
+  static std::error_code interrupted()
   {
     return asio::error::interrupted;
   }
 
-  static asio::error_code done()
+  static std::error_code done()
   {
     return asio::error::broken_pipe;
   }
@@ -125,29 +125,29 @@ struct coro_error<std::exception_ptr>
   static std::exception_ptr invalid()
   {
     return std::make_exception_ptr(
-        asio::system_error(
-          coro_error<asio::error_code>::invalid()));
+        std::system_error(
+          coro_error<std::error_code>::invalid()));
   }
 
   static std::exception_ptr cancelled()
   {
     return std::make_exception_ptr(
-        asio::system_error(
-          coro_error<asio::error_code>::cancelled()));
+        std::system_error(
+          coro_error<std::error_code>::cancelled()));
   }
 
   static std::exception_ptr interrupted()
   {
     return std::make_exception_ptr(
-        asio::system_error(
-          coro_error<asio::error_code>::interrupted()));
+        std::system_error(
+          coro_error<std::error_code>::interrupted()));
   }
 
   static std::exception_ptr done()
   {
     return std::make_exception_ptr(
-        asio::system_error(
-          coro_error<asio::error_code>::done()));
+        std::system_error(
+          coro_error<std::error_code>::done()));
   }
 };
 

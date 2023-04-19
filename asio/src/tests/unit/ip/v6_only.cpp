@@ -73,7 +73,7 @@ void test()
   namespace ip = asio::ip;
 
   io_context ioc;
-  asio::error_code ec;
+  std::error_code ec;
 
   ip::tcp::endpoint ep_v6(ip::address_v6::loopback(), 0);
   ip::tcp::acceptor acceptor_v6(ioc);

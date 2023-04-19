@@ -104,7 +104,7 @@ class signal_set_service::pipe_read_op :
 public:
 # if defined(ASIO_HAS_IO_URING_AS_DEFAULT)
   pipe_read_op()
-    : io_uring_operation(asio::error_code(), &pipe_read_op::do_prepare,
+    : io_uring_operation(std::error_code(), &pipe_read_op::do_prepare,
         &pipe_read_op::do_perform, pipe_read_op::do_complete)
   {
   }
@@ -131,7 +131,7 @@ public:
   }
 # else // defined(ASIO_HAS_IO_URING_AS_DEFAULT)
   pipe_read_op()
-    : reactor_op(asio::error_code(),
+    : reactor_op(std::error_code(),
         &pipe_read_op::do_perform, pipe_read_op::do_complete)
   {
   }
@@ -151,7 +151,7 @@ public:
 # endif // defined(ASIO_HAS_IO_URING_AS_DEFAULT)
 
   static void do_complete(void* /*owner*/, operation* base,
-      const asio::error_code& /*ec*/,
+      const std::error_code& /*ec*/,
       std::size_t /*bytes_transferred*/)
   {
     pipe_read_op* o(static_cast<pipe_read_op*>(base));
@@ -304,14 +304,14 @@ void signal_set_service::construct(
 void signal_set_service::destroy(
     signal_set_service::implementation_type& impl)
 {
-  asio::error_code ignored_ec;
+  std::error_code ignored_ec;
   clear(impl, ignored_ec);
   cancel(impl, ignored_ec);
 }
 
-asio::error_code signal_set_service::add(
+std::error_code signal_set_service::add(
     signal_set_service::implementation_type& impl, int signal_number,
-    signal_set_base::flags_t f, asio::error_code& ec)
+    signal_set_base::flags_t f, std::error_code& ec)
 {
   // Check that the signal number is valid.
   if (signal_number < 0 || signal_number >= max_signal_number)
@@ -366,7 +366,7 @@ asio::error_code signal_set_service::add(
 # if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
         ec = asio::error::invalid_argument;
 # else // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
-        ec = asio::error_code(errno,
+        ec = std::error_code(errno,
             asio::error::get_system_category());
 # endif // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
         delete new_registration;
@@ -396,7 +396,7 @@ asio::error_code signal_set_service::add(
         sa.sa_flags = static_cast<int>(f);
         if (::sigaction(signal_number, &sa, 0) == -1)
         {
-          ec = asio::error_code(errno,
+          ec = std::error_code(errno,
               asio::error::get_system_category());
           delete new_registration;
           return ec;
@@ -422,13 +422,13 @@ asio::error_code signal_set_service::add(
     ++state->registration_count_[signal_number];
   }
 
-  ec = asio::error_code();
+  ec = std::error_code();
   return ec;
 }
 
-asio::error_code signal_set_service::remove(
+std::error_code signal_set_service::remove(
     signal_set_service::implementation_type& impl,
-    int signal_number, asio::error_code& ec)
+    int signal_number, std::error_code& ec)
 {
   // Check that the signal number is valid.
   if (signal_number < 0 || signal_number >= max_signal_number)
@@ -468,7 +468,7 @@ asio::error_code signal_set_service::remove(
 # if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
         ec = asio::error::invalid_argument;
 # else // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
-        ec = asio::error_code(errno,
+        ec = std::error_code(errno,
             asio::error::get_system_category());
 # endif // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
         return ec;
@@ -495,13 +495,13 @@ asio::error_code signal_set_service::remove(
     delete reg;
   }
 
-  ec = asio::error_code();
+  ec = std::error_code();
   return ec;
 }
 
-asio::error_code signal_set_service::clear(
+std::error_code signal_set_service::clear(
     signal_set_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   signal_state* state = get_signal_state();
   static_mutex::scoped_lock lock(state->mutex_);
@@ -525,7 +525,7 @@ asio::error_code signal_set_service::clear(
 # if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
         ec = asio::error::invalid_argument;
 # else // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
-        ec = asio::error_code(errno,
+        ec = std::error_code(errno,
             asio::error::get_system_category());
 # endif // defined(ASIO_WINDOWS) || defined(__CYGWIN__)
         return ec;
@@ -550,13 +550,13 @@ asio::error_code signal_set_service::clear(
     delete reg;
   }
 
-  ec = asio::error_code();
+  ec = std::error_code();
   return ec;
 }
 
-asio::error_code signal_set_service::cancel(
+std::error_code signal_set_service::cancel(
     signal_set_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   ASIO_HANDLER_OPERATION((scheduler_.context(),
         "signal_set", &impl, 0, "cancel"));
@@ -576,7 +576,7 @@ asio::error_code signal_set_service::cancel(
 
   scheduler_.post_deferred_completions(ops);
 
-  ec = asio::error_code();
+  ec = std::error_code();
   return ec;
 }
 
@@ -765,7 +765,7 @@ void signal_set_service::open_descriptors()
   }
   else
   {
-    asio::error_code ec(errno,
+    std::error_code ec(errno,
         asio::error::get_system_category());
     asio::detail::throw_error(ec, "signal_set_service pipe");
   }

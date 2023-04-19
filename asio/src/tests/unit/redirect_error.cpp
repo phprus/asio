@@ -44,7 +44,7 @@ void redirect_error_test()
   asio::io_context io1;
   asio::io_context io2;
   asio::system_timer timer1(io1);
-  asio::error_code ec = asio::error::would_block;
+  std::error_code ec = asio::error::would_block;
   int count = 0;
 
   timer1.expires_after(std::chrono::seconds(0));

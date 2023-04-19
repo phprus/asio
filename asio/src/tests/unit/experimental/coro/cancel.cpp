@@ -30,7 +30,7 @@ namespace coro {
 
 
 auto coro_simple_cancel_impl(asio::io_context& ) noexcept
-  -> asio::experimental::coro<void() noexcept, asio::error_code>
+  -> asio::experimental::coro<void() noexcept, std::error_code>
 {
     ASIO_CHECK(
         !(co_await this_coro::cancellation_state).cancelled());
@@ -57,10 +57,10 @@ void coro_simple_cancel()
 
   auto k = coro_simple_cancel_impl(ctx);
 
-  asio::error_code res_ec;
+  std::error_code res_ec;
   k.async_resume(
       asio::bind_cancellation_slot(sig.slot(),
-        [&](asio::error_code ec) {res_ec = ec;}));
+        [&](std::error_code ec) {res_ec = ec;}));
   asio::post(ctx, [&]{sig.emit(asio::cancellation_type::all);});
 
   ASIO_CHECK(!res_ec);
@@ -102,7 +102,7 @@ void coro_throw_cancel()
     if (res_ex)
       std::rethrow_exception(res_ex);
   }
-  catch (asio::system_error& se)
+  catch (std::system_error& se)
   {
     ASIO_CHECK(se.code() == asio::error::operation_aborted);
   }
@@ -111,7 +111,7 @@ void coro_throw_cancel()
 auto coro_simple_cancel_nested_k(asio::io_context&, int& cnt) noexcept
   -> asio::experimental::coro<
       void() noexcept,
-      asio::error_code>
+      std::error_code>
 {
   asio::steady_timer timer{
           co_await this_coro::executor,
@@ -128,8 +128,8 @@ auto coro_simple_cancel_nested_k(asio::io_context&, int& cnt) noexcept
 auto coro_simple_cancel_nested_kouter(
     asio::io_context& ctx, int& cnt) noexcept
   -> asio::experimental::coro<
-      asio::error_code() noexcept,
-      asio::error_code>
+      std::error_code() noexcept,
+      std::error_code>
 {
     ASIO_CHECK(cnt == 0);
     co_yield co_await coro_simple_cancel_nested_k(ctx, cnt);
@@ -147,10 +147,10 @@ void coro_simple_cancel_nested()
   int cnt = 0;
   auto kouter = coro_simple_cancel_nested_kouter(ctx, cnt);
 
-  asio::error_code res_ec;
+  std::error_code res_ec;
   kouter.async_resume(
       asio::bind_cancellation_slot(sig.slot(),
-        [&](asio::error_code ec) {res_ec = ec;}));
+        [&](std::error_code ec) {res_ec = ec;}));
   asio::post(ctx, [&]{sig.emit(asio::cancellation_type::all);});
   ASIO_CHECK(!res_ec);
   ctx.run();
@@ -160,7 +160,7 @@ void coro_simple_cancel_nested()
   res_ec = {};
   kouter.async_resume(
       asio::bind_cancellation_slot(sig.slot(),
-        [&](asio::error_code ec) {res_ec = ec;}));
+        [&](std::error_code ec) {res_ec = ec;}));
   asio::post(ctx, [&]{sig.emit(asio::cancellation_type::all);});
   ASIO_CHECK(!res_ec);
   ctx.run();
