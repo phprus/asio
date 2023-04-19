@@ -41,7 +41,7 @@ DWORD win_tss_ptr_create()
   {
     DWORD last_error = ::GetLastError();
     std::error_code ec(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "tss");
   }
   return tss_key;

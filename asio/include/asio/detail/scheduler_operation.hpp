@@ -15,7 +15,7 @@
 # pragma once
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/detail/handler_tracking.hpp"
 #include "asio/detail/op_queue.hpp"
 

@@ -261,7 +261,7 @@ std::error_code win_object_handle_service::close(
     {
       DWORD last_error = ::GetLastError();
       ec = std::error_code(last_error,
-          asio::error::get_system_category());
+          std::system_category());
     }
 
     scheduler_.post_deferred_completions(completed_ops);
@@ -328,7 +328,7 @@ void win_object_handle_service::wait(
     {
       DWORD last_error = ::GetLastError();
       ec = std::error_code(last_error,
-          asio::error::get_system_category());
+          std::system_category());
       ASIO_ERROR_LOCATION(ec);
       break;
     }
@@ -383,7 +383,7 @@ void win_object_handle_service::register_wait_callback(
   {
     DWORD last_error = ::GetLastError();
     std::error_code ec(last_error,
-        asio::error::get_system_category());
+        std::system_category());
 
     op_queue<operation> completed_ops;
     while (wait_op* op = impl.op_queue_.front())
@@ -425,7 +425,7 @@ void win_object_handle_service::wait_callback(PVOID param, BOOLEAN)
       {
         DWORD last_error = ::GetLastError();
         std::error_code ec(last_error,
-            asio::error::get_system_category());
+            std::system_category());
 
         while ((op = impl->op_queue_.front()) != 0)
         {

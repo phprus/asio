@@ -61,7 +61,7 @@ std::error_code win_iocp_serial_port_service::open(
   {
     DWORD last_error = ::GetLastError();
     ec = std::error_code(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     ASIO_ERROR_LOCATION(ec);
     return ec;
   }
@@ -76,7 +76,7 @@ std::error_code win_iocp_serial_port_service::open(
     DWORD last_error = ::GetLastError();
     ::CloseHandle(handle);
     ec = std::error_code(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     ASIO_ERROR_LOCATION(ec);
     return ec;
   }
@@ -103,7 +103,7 @@ std::error_code win_iocp_serial_port_service::open(
     DWORD last_error = ::GetLastError();
     ::CloseHandle(handle);
     ec = std::error_code(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     ASIO_ERROR_LOCATION(ec);
     return ec;
   }
@@ -122,7 +122,7 @@ std::error_code win_iocp_serial_port_service::open(
     DWORD last_error = ::GetLastError();
     ::CloseHandle(handle);
     ec = std::error_code(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     ASIO_ERROR_LOCATION(ec);
     return ec;
   }
@@ -147,7 +147,7 @@ std::error_code win_iocp_serial_port_service::do_set_option(
   {
     DWORD last_error = ::GetLastError();
     ec = std::error_code(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     ASIO_ERROR_LOCATION(ec);
     return ec;
   }
@@ -159,7 +159,7 @@ std::error_code win_iocp_serial_port_service::do_set_option(
   {
     DWORD last_error = ::GetLastError();
     ec = std::error_code(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     ASIO_ERROR_LOCATION(ec);
     return ec;
   }
@@ -182,7 +182,7 @@ std::error_code win_iocp_serial_port_service::do_get_option(
   {
     DWORD last_error = ::GetLastError();
     ec = std::error_code(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     ASIO_ERROR_LOCATION(ec);
     return ec;
   }

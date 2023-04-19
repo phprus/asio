@@ -232,7 +232,7 @@ void io_uring_service::register_internal_io_object(
   else
   {
     std::error_code ec(ENOBUFS,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "io_uring_get_sqe");
   }
 }
@@ -243,7 +243,7 @@ void io_uring_service::register_buffers(const ::iovec* v, unsigned n)
   if (result < 0)
   {
     std::error_code ec(-result,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "io_uring_register_buffers");
   }
 }
@@ -527,7 +527,7 @@ void io_uring_service::init_ring()
   {
     ring_.ring_fd = -1;
     std::error_code ec(-result,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "io_uring_queue_init");
   }
 
@@ -536,7 +536,7 @@ void io_uring_service::init_ring()
   if (event_fd_ < 0)
   {
     std::error_code ec(-result,
-        asio::error::get_system_category());
+        std::system_category());
     ::io_uring_queue_exit(&ring_);
     asio::detail::throw_error(ec, "eventfd");
   }
@@ -547,7 +547,7 @@ void io_uring_service::init_ring()
     ::close(event_fd_);
     ::io_uring_queue_exit(&ring_);
     std::error_code ec(-result,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "io_uring_queue_init");
   }
 #endif // !defined(ASIO_HAS_IO_URING_AS_DEFAULT)
@@ -823,7 +823,7 @@ operation* io_uring_service::io_queue::perform_io(int result)
     {
       if (result < 0)
       {
-        op->ec_.assign(-result, asio::error::get_system_category());
+        op->ec_.assign(-result, std::system_category());
         op->bytes_transferred_ = 0;
       }
       else
