@@ -17,7 +17,7 @@
 
 #include "asio/detail/config.hpp"
 
-#include "asio/detail/chrono.hpp"
+#include <chrono>
 
 #if !defined(ASIO_USE_TS_EXECUTOR_AS_DEFAULT)
 #include "asio/execution/blocking.hpp"
@@ -95,11 +95,11 @@ class basic_waitable_timer;
 
 #endif // !defined(ASIO_BASIC_WAITABLE_TIMER_FWD_DECL)
 
-typedef basic_waitable_timer<chrono::system_clock> system_timer;
+typedef basic_waitable_timer<std::chrono::system_clock> system_timer;
 
-typedef basic_waitable_timer<chrono::steady_clock> steady_timer;
+typedef basic_waitable_timer<std::chrono::steady_clock> steady_timer;
 
-typedef basic_waitable_timer<chrono::high_resolution_clock>
+typedef basic_waitable_timer<std::chrono::high_resolution_clock>
   high_resolution_timer;
 
 #if !defined(ASIO_BASIC_SOCKET_FWD_DECL)
@@ -140,7 +140,7 @@ class basic_socket_acceptor;
 
 // Forward declaration with defaulted arguments.
 template <typename Protocol,
-    typename Clock = chrono::steady_clock,
+    typename Clock = std::chrono::steady_clock,
     typename WaitTraits = wait_traits<Clock> >
 class basic_socket_streambuf;
 
@@ -151,7 +151,7 @@ class basic_socket_streambuf;
 
 // Forward declaration with defaulted arguments.
 template <typename Protocol,
-    typename Clock = chrono::steady_clock,
+    typename Clock = std::chrono::steady_clock,
     typename WaitTraits = wait_traits<Clock> >
 class basic_socket_iostream;
 
