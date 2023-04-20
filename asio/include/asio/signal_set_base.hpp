@@ -94,7 +94,7 @@ protected:
 /**
  * @relates signal_set_base::flags
  */
-inline ASIO_CONSTEXPR bool operator!(signal_set_base::flags_t x)
+inline constexpr bool operator!(signal_set_base::flags_t x)
 {
   return static_cast<int>(x) == 0;
 }
@@ -103,7 +103,7 @@ inline ASIO_CONSTEXPR bool operator!(signal_set_base::flags_t x)
 /**
  * @relates signal_set_base::flags
  */
-inline ASIO_CONSTEXPR signal_set_base::flags_t operator&(
+inline constexpr signal_set_base::flags_t operator&(
     signal_set_base::flags_t x, signal_set_base::flags_t y)
 {
   return static_cast<signal_set_base::flags_t>(
@@ -114,7 +114,7 @@ inline ASIO_CONSTEXPR signal_set_base::flags_t operator&(
 /**
  * @relates signal_set_base::flags
  */
-inline ASIO_CONSTEXPR signal_set_base::flags_t operator|(
+inline constexpr signal_set_base::flags_t operator|(
     signal_set_base::flags_t x, signal_set_base::flags_t y)
 {
   return static_cast<signal_set_base::flags_t>(
@@ -125,7 +125,7 @@ inline ASIO_CONSTEXPR signal_set_base::flags_t operator|(
 /**
  * @relates signal_set_base::flags
  */
-inline ASIO_CONSTEXPR signal_set_base::flags_t operator^(
+inline constexpr signal_set_base::flags_t operator^(
     signal_set_base::flags_t x, signal_set_base::flags_t y)
 {
   return static_cast<signal_set_base::flags_t>(
@@ -136,7 +136,7 @@ inline ASIO_CONSTEXPR signal_set_base::flags_t operator^(
 /**
  * @relates signal_set_base::flags
  */
-inline ASIO_CONSTEXPR signal_set_base::flags_t operator~(
+inline constexpr signal_set_base::flags_t operator~(
     signal_set_base::flags_t x)
 {
   return static_cast<signal_set_base::flags_t>(~static_cast<int>(x));

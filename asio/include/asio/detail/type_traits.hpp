@@ -67,7 +67,7 @@ template <typename Head, typename... Tail> struct conjunction<Head, Tail...> :
 
 struct defaulted_constraint
 {
-  ASIO_CONSTEXPR defaulted_constraint() {}
+  constexpr defaulted_constraint() {}
 };
 
 template <bool Condition, typename Type = int>
