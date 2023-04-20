@@ -111,11 +111,9 @@ void as_tuple_constness_test()
   (void)timer1.async_wait(tok2);
   (void)timer1.async_wait(std::move(tok2));
 
-#  if defined(ASIO_HAS_CONSTEXPR)
   constexpr auto tok3 = asio::as_tuple(asio::use_future);
   (void)timer1.async_wait(tok3);
   (void)timer1.async_wait(std::move(tok3));
-#  endif // defined(ASIO_HAS_CONSTEXPR)
 # endif // defined(ASIO_HAS_STD_FUTURE_CLASS)
 #endif // defined(ASIO_HAS_STD_TUPLE)
 }

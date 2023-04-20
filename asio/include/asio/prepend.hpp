@@ -36,7 +36,7 @@ class prepend_t
 public:
   /// Constructor.
   template <typename T, typename... V>
-  ASIO_CONSTEXPR explicit prepend_t(
+  constexpr explicit prepend_t(
       ASIO_MOVE_ARG(T) completion_token,
       ASIO_MOVE_ARG(V)... values)
     : token_(ASIO_MOVE_CAST(T)(completion_token)),
@@ -53,7 +53,7 @@ public:
 /// arguments should be passed additional values before the results of the
 /// operation.
 template <typename CompletionToken, typename... Values>
-ASIO_NODISCARD inline ASIO_CONSTEXPR prepend_t<
+ASIO_NODISCARD inline constexpr prepend_t<
   typename decay<CompletionToken>::type, typename decay<Values>::type...>
 prepend(ASIO_MOVE_ARG(CompletionToken) completion_token,
     ASIO_MOVE_ARG(Values)... values)

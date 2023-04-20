@@ -80,7 +80,7 @@ class cancellation_state
 {
 public:
   /// Construct a disconnected cancellation state.
-  ASIO_CONSTEXPR cancellation_state() noexcept(true)
+  constexpr cancellation_state() noexcept(true)
     : impl_(0)
   {
   }
@@ -95,7 +95,7 @@ public:
    * attached.
    */
   template <typename CancellationSlot>
-  ASIO_CONSTEXPR explicit cancellation_state(CancellationSlot slot)
+  constexpr explicit cancellation_state(CancellationSlot slot)
     : impl_(slot.is_connected() ? &slot.template emplace<impl<> >() : 0)
   {
   }
@@ -119,7 +119,7 @@ public:
    * @li asio::enable_total_cancellation
    */
   template <typename CancellationSlot, typename Filter>
-  ASIO_CONSTEXPR cancellation_state(CancellationSlot slot, Filter filter)
+  constexpr cancellation_state(CancellationSlot slot, Filter filter)
     : impl_(slot.is_connected()
         ? &slot.template emplace<impl<Filter, Filter> >(filter, filter)
         : 0)
@@ -151,7 +151,7 @@ public:
    * @li asio::enable_total_cancellation
    */
   template <typename CancellationSlot, typename InFilter, typename OutFilter>
-  ASIO_CONSTEXPR cancellation_state(CancellationSlot slot,
+  constexpr cancellation_state(CancellationSlot slot,
       InFilter in_filter, OutFilter out_filter)
     : impl_(slot.is_connected()
         ? &slot.template emplace<impl<InFilter, OutFilter> >(
@@ -165,7 +165,7 @@ public:
   /**
    * This sub-slot is used with the operations that are being composed.
    */
-  ASIO_CONSTEXPR cancellation_slot slot() const noexcept(true)
+  constexpr cancellation_slot slot() const noexcept(true)
   {
     return impl_ ? impl_->signal_.slot() : cancellation_slot();
   }

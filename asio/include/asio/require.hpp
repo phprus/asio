@@ -303,7 +303,7 @@ struct impl
   };
 
   template <typename T, typename Property>
-  ASIO_NODISCARD ASIO_CONSTEXPR typename enable_if<
+  ASIO_NODISCARD constexpr typename enable_if<
     call_traits<impl, T, void(Property)>::overload == identity,
     typename call_traits<impl, T, void(Property)>::result_type
   >::type
@@ -317,7 +317,7 @@ struct impl
   }
 
   template <typename T, typename Property>
-  ASIO_NODISCARD ASIO_CONSTEXPR typename enable_if<
+  ASIO_NODISCARD constexpr typename enable_if<
     call_traits<impl, T, void(Property)>::overload == call_member,
     typename call_traits<impl, T, void(Property)>::result_type
   >::type
@@ -332,7 +332,7 @@ struct impl
   }
 
   template <typename T, typename Property>
-  ASIO_NODISCARD ASIO_CONSTEXPR typename enable_if<
+  ASIO_NODISCARD constexpr typename enable_if<
     call_traits<impl, T, void(Property)>::overload == call_free,
     typename call_traits<impl, T, void(Property)>::result_type
   >::type
@@ -348,7 +348,7 @@ struct impl
   }
 
   template <typename T, typename P0, typename P1>
-  ASIO_NODISCARD ASIO_CONSTEXPR typename enable_if<
+  ASIO_NODISCARD constexpr typename enable_if<
     call_traits<impl, T, void(P0, P1)>::overload == two_props,
     typename call_traits<impl, T, void(P0, P1)>::result_type
   >::type
@@ -368,7 +368,7 @@ struct impl
 
   template <typename T, typename P0, typename P1,
     typename ... PN>
-  ASIO_NODISCARD ASIO_CONSTEXPR typename enable_if<
+  ASIO_NODISCARD constexpr typename enable_if<
     call_traits<impl, T,
       void(P0, P1, PN ...)>::overload == n_props,
     typename call_traits<impl, T,
@@ -404,7 +404,7 @@ const T static_instance<T>::instance = {};
 namespace asio {
 namespace {
 
-static ASIO_CONSTEXPR const asio_require_fn::impl&
+static constexpr const asio_require_fn::impl&
   require = asio_require_fn::static_instance<>::instance;
 
 } // namespace

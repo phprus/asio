@@ -331,67 +331,67 @@ struct equality_comparable<executor>
 
 void test_can_connect()
 {
-  ASIO_CONSTEXPR bool b1 = exec::can_connect<
+  constexpr bool b1 = exec::can_connect<
       no_connect_1&, receiver>::value;
   ASIO_CHECK(b1 == false);
 
-  ASIO_CONSTEXPR bool b2 = exec::can_connect<
+  constexpr bool b2 = exec::can_connect<
       const no_connect_1&, receiver>::value;
   ASIO_CHECK(b2 == false);
 
-  ASIO_CONSTEXPR bool b3 = exec::can_connect<
+  constexpr bool b3 = exec::can_connect<
       no_connect_2&, receiver>::value;
   ASIO_CHECK(b3 == false);
 
-  ASIO_CONSTEXPR bool b4 = exec::can_connect<
+  constexpr bool b4 = exec::can_connect<
       const no_connect_2&, receiver>::value;
   ASIO_CHECK(b4 == false);
 
-  ASIO_CONSTEXPR bool b5 = exec::can_connect<
+  constexpr bool b5 = exec::can_connect<
       no_connect_3&, receiver>::value;
   ASIO_CHECK(b5 == false);
 
-  ASIO_CONSTEXPR bool b6 = exec::can_connect<
+  constexpr bool b6 = exec::can_connect<
       const no_connect_3&, receiver>::value;
   ASIO_CHECK(b6 == false);
 
-  ASIO_CONSTEXPR bool b7 = exec::can_connect<
+  constexpr bool b7 = exec::can_connect<
       const_member_connect&, receiver>::value;
   ASIO_CHECK(b7 == true);
 
-  ASIO_CONSTEXPR bool b8 = exec::can_connect<
+  constexpr bool b8 = exec::can_connect<
       const const_member_connect&, receiver>::value;
   ASIO_CHECK(b8 == true);
 
-  ASIO_CONSTEXPR bool b9 = exec::can_connect<
+  constexpr bool b9 = exec::can_connect<
       free_connect_const_receiver&, receiver>::value;
   ASIO_CHECK(b9 == true);
 
-  ASIO_CONSTEXPR bool b10 = exec::can_connect<
+  constexpr bool b10 = exec::can_connect<
       const free_connect_const_receiver&, receiver>::value;
   ASIO_CHECK(b10 == true);
 
-  ASIO_CONSTEXPR bool b11 = exec::can_connect<
+  constexpr bool b11 = exec::can_connect<
       non_const_member_connect&, receiver>::value;
   ASIO_CHECK(b11 == true);
 
-  ASIO_CONSTEXPR bool b12 = exec::can_connect<
+  constexpr bool b12 = exec::can_connect<
       const non_const_member_connect&, receiver>::value;
   ASIO_CHECK(b12 == false);
 
-  ASIO_CONSTEXPR bool b13 = exec::can_connect<
+  constexpr bool b13 = exec::can_connect<
       free_connect_non_const_receiver&, receiver>::value;
   ASIO_CHECK(b13 == true);
 
-  ASIO_CONSTEXPR bool b14 = exec::can_connect<
+  constexpr bool b14 = exec::can_connect<
       const free_connect_non_const_receiver&, receiver>::value;
   ASIO_CHECK(b14 == false);
 
-  ASIO_CONSTEXPR bool b15 = exec::can_connect<
+  constexpr bool b15 = exec::can_connect<
       executor&, receiver>::value;
   ASIO_CHECK(b15 == true);
 
-  ASIO_CONSTEXPR bool b16 = exec::can_connect<
+  constexpr bool b16 = exec::can_connect<
       const executor&, receiver>::value;
   ASIO_CHECK(b16 == true);
 }

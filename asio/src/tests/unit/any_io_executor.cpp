@@ -58,7 +58,7 @@ struct fat_executor
     return asio::query(system_executor(), execution::context);
   }
 
-  ASIO_CONSTEXPR static execution::blocking_t::never_t query(
+  constexpr static execution::blocking_t::never_t query(
       execution::blocking_t) noexcept(true)
   {
     return execution::blocking.never;
@@ -123,7 +123,7 @@ struct query_static_constexpr_member<fat_executor, Property,
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
   typedef execution::blocking_t::never_t result_type;
 
-  static ASIO_CONSTEXPR result_type value() noexcept(true)
+  static constexpr result_type value() noexcept(true)
   {
     return result_type();
   }
