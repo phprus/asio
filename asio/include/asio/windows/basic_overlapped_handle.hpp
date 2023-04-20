@@ -439,9 +439,9 @@ protected:
 
 private:
   // Disallow copying and assignment.
-  basic_overlapped_handle(const basic_overlapped_handle&) ASIO_DELETED;
+  basic_overlapped_handle(const basic_overlapped_handle&) = delete;
   basic_overlapped_handle& operator=(
-      const basic_overlapped_handle&) ASIO_DELETED;
+      const basic_overlapped_handle&) = delete;
 };
 
 } // namespace windows

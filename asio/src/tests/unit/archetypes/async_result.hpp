@@ -114,8 +114,8 @@ public:
 
 private:
   // Disallow copying and assignment.
-  async_result(const async_result&) ASIO_DELETED;
-  async_result& operator=(const async_result&) ASIO_DELETED;
+  async_result(const async_result&) = delete;
+  async_result& operator=(const async_result&) = delete;
 };
 
 template <typename Signature>
@@ -141,8 +141,8 @@ public:
 
 private:
   // Disallow copying and assignment.
-  async_result(const async_result&) ASIO_DELETED;
-  async_result& operator=(const async_result&) ASIO_DELETED;
+  async_result(const async_result&) = delete;
+  async_result& operator=(const async_result&) = delete;
 };
 
 } // namespace asio
