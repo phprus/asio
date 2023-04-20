@@ -24,11 +24,7 @@
 #include "asio/execution/set_error.hpp"
 #include "asio/execution/set_value.hpp"
 
-#if defined(ASIO_HAS_STD_EXCEPTION_PTR)
-# include <exception>
-#else // defined(ASIO_HAS_STD_EXCEPTION_PTR)
-# include <system_error>
-#endif // defined(ASIO_HAS_STD_EXCEPTION_PTR)
+#include <exception>
 
 #if defined(ASIO_HAS_DEDUCED_SET_DONE_FREE_TRAIT) \
   && defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT) \
@@ -65,13 +61,6 @@ struct is_receiver_base :
 
 } // namespace detail
 
-#if defined(ASIO_HAS_STD_EXCEPTION_PTR)
-# define ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT = std::exception_ptr
-#else // defined(ASIO_HAS_STD_EXCEPTION_PTR)
-# define ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT \
-  = std::error_code
-#endif // defined(ASIO_HAS_STD_EXCEPTION_PTR)
-
 /// The is_receiver trait detects whether a type T satisfies the
 /// execution::receiver concept.
 /**
@@ -79,7 +68,7 @@ struct is_receiver_base :
  * true_type if the type @c T meets the concept definition for a receiver for
  * error type @c E, otherwise @c false_type.
  */
-template <typename T, typename E ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT>
+template <typename T, typename E = std::exception_ptr>
 struct is_receiver :
 #if defined(GENERATING_DOCUMENTATION)
   integral_constant<bool, automatically_determined>
@@ -98,14 +87,14 @@ struct is_receiver :
 
 #if defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
-template <typename T, typename E ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT>
+template <typename T, typename E = std::exception_ptr>
 ASIO_CONSTEXPR const bool is_receiver_v = is_receiver<T, E>::value;
 
 #endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 #if defined(ASIO_HAS_CONCEPTS)
 
-template <typename T, typename E ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT>
+template <typename T, typename E = std::exception_ptr>
 ASIO_CONCEPT receiver = is_receiver<T, E>::value;
 
 #define ASIO_EXECUTION_RECEIVER ::asio::execution::receiver

@@ -176,8 +176,7 @@ public:
   /// The bulk execution index type.
   typedef std::size_t index_type;
 
-#if defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT) \
-  && defined(ASIO_HAS_STD_EXCEPTION_PTR)
+#if defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
   template <
       template <typename...> class Tuple,
       template <typename...> class Variant>
@@ -188,7 +187,6 @@ public:
 
   ASIO_STATIC_CONSTEXPR(bool, sends_done = true);
 #endif // defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
-       //   && defined(ASIO_HAS_STD_EXCEPTION_PTR)
 
   /// Copy constructor.
   basic_executor_type(
