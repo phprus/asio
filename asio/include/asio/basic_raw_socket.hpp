@@ -1238,8 +1238,8 @@ public:
 
 private:
   // Disallow copying and assignment.
-  basic_raw_socket(const basic_raw_socket&) ASIO_DELETED;
-  basic_raw_socket& operator=(const basic_raw_socket&) ASIO_DELETED;
+  basic_raw_socket(const basic_raw_socket&) = delete;
+  basic_raw_socket& operator=(const basic_raw_socket&) = delete;
 
   class initiate_async_send
   {

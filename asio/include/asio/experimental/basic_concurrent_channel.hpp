@@ -391,9 +391,9 @@ public:
 private:
   // Disallow copying and assignment.
   basic_concurrent_channel(
-      const basic_concurrent_channel&) ASIO_DELETED;
+      const basic_concurrent_channel&) = delete;
   basic_concurrent_channel& operator=(
-      const basic_concurrent_channel&) ASIO_DELETED;
+      const basic_concurrent_channel&) = delete;
 
   template <typename, typename, typename...>
   friend class detail::channel_send_functions;
