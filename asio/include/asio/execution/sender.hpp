@@ -106,8 +106,6 @@ struct sender_traits_base<S,
           as_invocable<void_receiver, S> >::value
     >::type>
 {
-#if defined(ASIO_HAS_STD_EXCEPTION_PTR)
-
   template <
       template <typename...> class Tuple,
       template <typename...> class Variant>
@@ -117,8 +115,6 @@ struct sender_traits_base<S,
   using error_types = Variant<std::exception_ptr>;
 
   ASIO_STATIC_CONSTEXPR(bool, sends_done = true);
-
-#endif // defined(ASIO_HAS_STD_EXCEPTION_PTR)
 };
 
 } // namespace detail

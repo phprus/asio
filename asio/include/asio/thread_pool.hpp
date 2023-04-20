@@ -176,7 +176,6 @@ public:
   /// The bulk execution index type.
   typedef std::size_t index_type;
 
-#if defined(ASIO_HAS_STD_EXCEPTION_PTR)
   template <
       template <typename...> class Tuple,
       template <typename...> class Variant>
@@ -186,7 +185,6 @@ public:
   using error_types = Variant<std::exception_ptr>;
 
   ASIO_STATIC_CONSTEXPR(bool, sends_done = true);
-#endif // defined(ASIO_HAS_STD_EXCEPTION_PTR)
 
   /// Copy constructor.
   basic_executor_type(
