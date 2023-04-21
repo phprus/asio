@@ -21,7 +21,7 @@
 #include "asio/async_result.hpp"
 #include "asio/buffer.hpp"
 #include "asio/detail/regex_fwd.hpp"
-#include "asio/detail/string_view.hpp"
+#include <string_view>
 #include "asio/detail/type_traits.hpp"
 #include "asio/error.hpp"
 
@@ -254,7 +254,7 @@ std::size_t read_until(SyncReadStream& s,
 template <typename SyncReadStream, typename DynamicBuffer_v1>
 std::size_t read_until(SyncReadStream& s,
     ASIO_MOVE_ARG(DynamicBuffer_v1) buffers,
-    ASIO_STRING_VIEW_PARAM delim,
+    std::string_view delim,
     typename constraint<
       is_dynamic_buffer_v1<typename decay<DynamicBuffer_v1>::type>::value
     >::type = 0,
@@ -299,7 +299,7 @@ std::size_t read_until(SyncReadStream& s,
 template <typename SyncReadStream, typename DynamicBuffer_v1>
 std::size_t read_until(SyncReadStream& s,
     ASIO_MOVE_ARG(DynamicBuffer_v1) buffers,
-    ASIO_STRING_VIEW_PARAM delim,
+    std::string_view delim,
     std::error_code& ec,
     typename constraint<
       is_dynamic_buffer_v1<typename decay<DynamicBuffer_v1>::type>::value
@@ -752,7 +752,7 @@ std::size_t read_until(SyncReadStream& s,
 template <typename SyncReadStream, typename Allocator>
 std::size_t read_until(SyncReadStream& s,
     asio::basic_streambuf<Allocator>& b,
-    ASIO_STRING_VIEW_PARAM delim);
+    std::string_view delim);
 
 /// Read data into a streambuf until it contains a specified delimiter.
 /**
@@ -787,7 +787,7 @@ std::size_t read_until(SyncReadStream& s,
 template <typename SyncReadStream, typename Allocator>
 std::size_t read_until(SyncReadStream& s,
     asio::basic_streambuf<Allocator>& b,
-    ASIO_STRING_VIEW_PARAM delim, std::error_code& ec);
+    std::string_view delim, std::error_code& ec);
 
 #if defined(ASIO_HAS_BOOST_REGEX) \
   || defined(GENERATING_DOCUMENTATION)
@@ -1206,7 +1206,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
  */
 template <typename SyncReadStream, typename DynamicBuffer_v2>
 std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
-    ASIO_STRING_VIEW_PARAM delim,
+    std::string_view delim,
     typename constraint<
       is_dynamic_buffer_v2<DynamicBuffer_v2>::value
     >::type = 0);
@@ -1247,7 +1247,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
  */
 template <typename SyncReadStream, typename DynamicBuffer_v2>
 std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
-    ASIO_STRING_VIEW_PARAM delim, std::error_code& ec,
+    std::string_view delim, std::error_code& ec,
     typename constraint<
       is_dynamic_buffer_v2<DynamicBuffer_v2>::value
     >::type = 0);
@@ -1782,7 +1782,7 @@ ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX(ReadToken,
     void (std::error_code, std::size_t))
 async_read_until(AsyncReadStream& s,
     ASIO_MOVE_ARG(DynamicBuffer_v1) buffers,
-    ASIO_STRING_VIEW_PARAM delim,
+    std::string_view delim,
     ASIO_MOVE_ARG(ReadToken) token
       ASIO_DEFAULT_COMPLETION_TOKEN(
         typename AsyncReadStream::executor_type),
@@ -2325,7 +2325,7 @@ ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX(ReadToken,
     void (std::error_code, std::size_t))
 async_read_until(AsyncReadStream& s,
     asio::basic_streambuf<Allocator>& b,
-    ASIO_STRING_VIEW_PARAM delim,
+    std::string_view delim,
     ASIO_MOVE_ARG(ReadToken) token
       ASIO_DEFAULT_COMPLETION_TOKEN(
         typename AsyncReadStream::executor_type))
@@ -2838,7 +2838,7 @@ template <typename AsyncReadStream, typename DynamicBuffer_v2,
 ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX(ReadToken,
     void (std::error_code, std::size_t))
 async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
-    ASIO_STRING_VIEW_PARAM delim,
+    std::string_view delim,
     ASIO_MOVE_ARG(ReadToken) token
       ASIO_DEFAULT_COMPLETION_TOKEN(
         typename AsyncReadStream::executor_type),

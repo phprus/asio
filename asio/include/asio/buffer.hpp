@@ -24,7 +24,7 @@
 #include <vector>
 #include <array>
 #include "asio/detail/memory.hpp"
-#include "asio/detail/string_view.hpp"
+#include <string_view>
 #include "asio/detail/throw_exception.hpp"
 #include "asio/detail/type_traits.hpp"
 #include "asio/is_contiguous_iterator.hpp"
@@ -1285,9 +1285,6 @@ ASIO_NODISCARD inline ASIO_CONST_BUFFER buffer(
       );
 }
 
-#if defined(ASIO_HAS_STRING_VIEW) \
-  || defined(GENERATING_DOCUMENTATION)
-
 /// Create a new non-modifiable buffer that represents the given string_view.
 /**
  * @returns <tt>mutable_buffer(data.size() ? &data[0] : 0,
@@ -1295,13 +1292,13 @@ ASIO_NODISCARD inline ASIO_CONST_BUFFER buffer(
  */
 template <typename Elem, typename Traits>
 ASIO_NODISCARD inline ASIO_CONST_BUFFER buffer(
-    basic_string_view<Elem, Traits> data) noexcept(true)
+    std::basic_string_view<Elem, Traits> data) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.size() ? &data[0] : 0,
       data.size() * sizeof(Elem)
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
       , detail::buffer_debug_check<
-          typename basic_string_view<Elem, Traits>::iterator
+          typename std::basic_string_view<Elem, Traits>::iterator
         >(data.begin())
 #endif // ASIO_ENABLE_BUFFER_DEBUGGING
       );
@@ -1316,7 +1313,7 @@ ASIO_NODISCARD inline ASIO_CONST_BUFFER buffer(
  */
 template <typename Elem, typename Traits>
 ASIO_NODISCARD inline ASIO_CONST_BUFFER buffer(
-    basic_string_view<Elem, Traits> data,
+    std::basic_string_view<Elem, Traits> data,
     std::size_t max_size_in_bytes) noexcept(true)
 {
   return ASIO_CONST_BUFFER(data.size() ? &data[0] : 0,
@@ -1324,14 +1321,11 @@ ASIO_NODISCARD inline ASIO_CONST_BUFFER buffer(
       ? data.size() * sizeof(Elem) : max_size_in_bytes
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
       , detail::buffer_debug_check<
-          typename basic_string_view<Elem, Traits>::iterator
+          typename std::basic_string_view<Elem, Traits>::iterator
         >(data.begin())
 #endif // ASIO_ENABLE_BUFFER_DEBUGGING
       );
 }
-
-#endif // defined(ASIO_HAS_STRING_VIEW)
-       //  || defined(GENERATING_DOCUMENTATION)
 
 /// Create a new modifiable buffer from a contiguous container.
 /**
