@@ -17,9 +17,6 @@
 
 #include "asio/detail/config.hpp"
 
-#if defined(ASIO_HAS_STD_TUPLE) \
-  || defined(GENERATING_DOCUMENTATION)
-
 #include "asio/detail/type_traits.hpp"
 
 #include "asio/detail/push_options.hpp"
@@ -126,8 +123,5 @@ as_tuple(ASIO_MOVE_ARG(CompletionToken) completion_token)
 #include "asio/detail/pop_options.hpp"
 
 #include "asio/impl/as_tuple.hpp"
-
-#endif // defined(ASIO_HAS_STD_TUPLE)
-       //   || defined(GENERATING_DOCUMENTATION)
 
 #endif // ASIO_AS_TUPLE_HPP

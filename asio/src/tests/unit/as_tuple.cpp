@@ -26,7 +26,6 @@
 
 void as_tuple_test()
 {
-#if defined(ASIO_HAS_STD_TUPLE)
   asio::io_context io1;
   asio::io_context io2;
   asio::system_timer timer1(io1);
@@ -72,7 +71,7 @@ void as_tuple_test()
 
   ASIO_CHECK(count == 2);
 
-# if defined(ASIO_HAS_STD_FUTURE_CLASS)
+#if defined(ASIO_HAS_STD_FUTURE_CLASS)
   std::future<std::tuple<std::error_code> > f = timer1.async_wait(
       asio::as_tuple(
         asio::bind_executor(io2.get_executor(),
@@ -92,14 +91,12 @@ void as_tuple_test()
 
   ASIO_CHECK(f.wait_for(std::chrono::seconds(0))
       == std::future_status::ready);
-# endif // defined(ASIO_HAS_STD_FUTURE_CLASS)
-#endif // defined(ASIO_HAS_STD_TUPLE)
+#endif // defined(ASIO_HAS_STD_FUTURE_CLASS)
 }
 
 void as_tuple_constness_test()
 {
-#if defined(ASIO_HAS_STD_TUPLE)
-# if defined(ASIO_HAS_STD_FUTURE_CLASS)
+#if defined(ASIO_HAS_STD_FUTURE_CLASS)
   asio::io_context io1;
   asio::system_timer timer1(io1);
 
@@ -114,8 +111,7 @@ void as_tuple_constness_test()
   constexpr auto tok3 = asio::as_tuple(asio::use_future);
   (void)timer1.async_wait(tok3);
   (void)timer1.async_wait(std::move(tok3));
-# endif // defined(ASIO_HAS_STD_FUTURE_CLASS)
-#endif // defined(ASIO_HAS_STD_TUPLE)
+#endif // defined(ASIO_HAS_STD_FUTURE_CLASS)
 }
 
 ASIO_TEST_SUITE
