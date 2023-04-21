@@ -17,7 +17,7 @@
 
 #include "asio/detail/config.hpp"
 #include "asio/cancellation_signal.hpp"
-#include "asio/detail/utility.hpp"
+#include <utility>
 #include <tuple>
 
 #include "asio/detail/push_options.hpp"
@@ -64,7 +64,7 @@ struct promise_impl<void(Ts...), Executor, Allocator>
   Executor executor;
 
   template<typename Func, std::size_t... Idx>
-  void apply_impl(Func f, asio::detail::index_sequence<Idx...>)
+  void apply_impl(Func f, std::index_sequence<Idx...>)
   {
     auto& result_type = *reinterpret_cast<promise_impl::result_type*>(&result);
     f(std::get<Idx>(std::move(result_type))...);
@@ -80,7 +80,7 @@ struct promise_impl<void(Ts...), Executor, Allocator>
   void apply(Func f)
   {
     apply_impl(std::forward<Func>(f),
-        asio::detail::make_index_sequence<sizeof...(Ts)>{});
+        std::make_index_sequence<sizeof...(Ts)>{});
   }
 
   struct completion_base
@@ -144,7 +144,7 @@ struct promise_impl<void(Ts...), Executor, Allocator>
   }
 
   template<std::size_t... Idx>
-  void complete_with_result_impl(asio::detail::index_sequence<Idx...>)
+  void complete_with_result_impl(std::index_sequence<Idx...>)
   {
     auto& result_type = *reinterpret_cast<promise_impl::result_type*>(&result);
     this->complete(std::get<Idx>(std::move(result_type))...);
@@ -153,7 +153,7 @@ struct promise_impl<void(Ts...), Executor, Allocator>
   void complete_with_result()
   {
     complete_with_result_impl(
-        asio::detail::make_index_sequence<sizeof...(Ts)>{});
+        std::make_index_sequence<sizeof...(Ts)>{});
   }
 
   template<typename... T_>

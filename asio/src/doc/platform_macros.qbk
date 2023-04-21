@@ -269,13 +269,6 @@ needs.
     [`ASIO_DISABLE_STD_EXPERIMENTAL_SOURCE_LOCATION`]
   ]
   [
-    [`ASIO_HAS_STD_INDEX_SEQUENCE`]
-    [
-      Standard library support for std::index_sequence.
-    ]
-    [`ASIO_DISABLE_STD_INDEX_SEQUENCE`]
-  ]
-  [
     [`ASIO_HAS_STD_TUPLE`]
     [
       Standard library support for std::tuple.
