@@ -217,20 +217,8 @@
 // C++20: Support SFINAE use of constant expressions on compilers known to allow it.
 #define ASIO_HAS_CONSTANT_EXPRESSION_SFINAE 1
 
-// Enable workarounds for lack of working expression SFINAE.
-#if !defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
-# if !defined(ASIO_DISABLE_WORKING_EXPRESSION_SFINAE)
-#  if !defined(ASIO_MSVC) && !defined(__INTEL_COMPILER)
-#   if (__cplusplus >= 201103)
-#    define ASIO_HAS_WORKING_EXPRESSION_SFINAE 1
-#   endif // (__cplusplus >= 201103)
-#  elif defined(ASIO_MSVC) && (_MSC_VER >= 1929)
-#   if (_MSVC_LANG >= 202000)
-#    define ASIO_HAS_WORKING_EXPRESSION_SFINAE 1
-#   endif // (_MSVC_LANG >= 202000)
-#  endif // defined(ASIO_MSVC) && (_MSC_VER >= 1929)
-# endif // !defined(ASIO_DISABLE_WORKING_EXPRESSION_SFINAE)
-#endif // !defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
+// C++20: Enable workarounds for lack of working expression SFINAE.
+#define ASIO_HAS_WORKING_EXPRESSION_SFINAE 1
 
 // C++20: Support ref-qualified functions on compilers known to allow it.
 #define ASIO_HAS_REF_QUALIFIED_FUNCTIONS 1
