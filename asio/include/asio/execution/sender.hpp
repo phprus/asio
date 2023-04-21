@@ -188,12 +188,8 @@ struct is_sender :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T>
 constexpr const bool is_sender_v = is_sender<T>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 #if defined(ASIO_HAS_CONCEPTS)
 
@@ -232,13 +228,9 @@ struct is_sender_to :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T, typename R>
 constexpr const bool is_sender_to_v =
   is_sender_to<T, R>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 #if defined(ASIO_HAS_CONCEPTS)
 
@@ -275,12 +267,8 @@ struct is_typed_sender :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T>
 constexpr const bool is_typed_sender_v = is_typed_sender<T>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 #if defined(ASIO_HAS_CONCEPTS)
 

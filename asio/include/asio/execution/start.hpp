@@ -168,12 +168,8 @@ struct can_start :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename R>
 constexpr bool can_start_v = can_start<R>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename R>
 struct is_nothrow_start :
@@ -182,13 +178,9 @@ struct is_nothrow_start :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename R>
 constexpr bool is_nothrow_start_v
   = is_nothrow_start<R>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 } // namespace execution
 } // namespace asio

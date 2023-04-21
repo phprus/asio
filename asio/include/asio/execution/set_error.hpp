@@ -171,12 +171,8 @@ struct can_set_error :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename R, typename E>
 constexpr bool can_set_error_v = can_set_error<R, E>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename R, typename E>
 struct is_nothrow_set_error :
@@ -185,13 +181,9 @@ struct is_nothrow_set_error :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename R, typename E>
 constexpr bool is_nothrow_set_error_v
   = is_nothrow_set_error<R, E>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 } // namespace execution
 } // namespace asio

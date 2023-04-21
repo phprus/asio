@@ -26,8 +26,6 @@ struct is_applicable_property_trait : false_type
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T, typename Property>
 struct is_applicable_property_trait<T, Property,
   typename void_type<
@@ -38,8 +36,6 @@ struct is_applicable_property_trait<T, Property,
 {
 };
 
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 } // namespace detail
 
 template <typename T, typename Property, typename = void>
@@ -48,13 +44,9 @@ struct is_applicable_property :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T, typename Property>
 constexpr const bool is_applicable_property_v
   = is_applicable_property<T, Property>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 } // namespace asio
 
