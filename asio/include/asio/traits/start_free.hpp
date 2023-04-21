@@ -40,8 +40,6 @@ struct no_start_free
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_START_FREE_TRAIT)
-
 template <typename T, typename = void>
 struct start_free_trait : no_start_free
 {
@@ -60,24 +58,6 @@ struct start_free_trait<T,
   ASIO_STATIC_CONSTEXPR(bool,
     is_noexcept = noexcept(start(declval<T>())));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_START_FREE_TRAIT)
-
-template <typename T, typename = void>
-struct start_free_trait :
-  conditional<
-    is_same<T, typename remove_reference<T>::type>::value,
-    typename conditional<
-      is_same<T, typename add_const<T>::type>::value,
-      no_start_free,
-      traits::start_free<typename add_const<T>::type>
-    >::type,
-    traits::start_free<typename remove_reference<T>::type>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_START_FREE_TRAIT)
 
 } // namespace detail
 namespace traits {

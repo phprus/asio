@@ -40,8 +40,6 @@ struct no_start_member
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
 template <typename T, typename = void>
 struct start_member_trait : no_start_member
 {
@@ -60,24 +58,6 @@ struct start_member_trait<T,
   ASIO_STATIC_CONSTEXPR(bool,
     is_noexcept = noexcept(declval<T>().start()));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
-template <typename T, typename = void>
-struct start_member_trait :
-  conditional<
-    is_same<T, typename remove_reference<T>::type>::value,
-    typename conditional<
-      is_same<T, typename add_const<T>::type>::value,
-      no_start_member,
-      traits::start_member<typename add_const<T>::type>
-    >::type,
-    traits::start_member<typename remove_reference<T>::type>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
 
 } // namespace detail
 namespace traits {

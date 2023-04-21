@@ -40,8 +40,6 @@ struct no_bulk_execute_member
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_BULK_EXECUTE_MEMBER_TRAIT)
-
 template <typename T, typename F, typename N, typename = void>
 struct bulk_execute_member_trait : no_bulk_execute_member
 {
@@ -61,29 +59,6 @@ struct bulk_execute_member_trait<T, F, N,
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = noexcept(
     declval<T>().bulk_execute(declval<F>(), declval<N>())));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_BULK_EXECUTE_MEMBER_TRAIT)
-
-template <typename T, typename F, typename N, typename = void>
-struct bulk_execute_member_trait :
-  conditional<
-    is_same<T, typename remove_reference<T>::type>::value
-      && is_same<F, typename decay<F>::type>::value
-      && is_same<N, typename decay<N>::type>::value,
-    typename conditional<
-      is_same<T, typename add_const<T>::type>::value,
-      no_bulk_execute_member,
-      traits::bulk_execute_member<typename add_const<T>::type, F, N>
-    >::type,
-    traits::bulk_execute_member<
-      typename remove_reference<T>::type,
-      typename decay<F>::type,
-      typename decay<N>::type>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_BULK_EXECUTE_MEMBER_TRAIT)
 
 } // namespace detail
 namespace traits {

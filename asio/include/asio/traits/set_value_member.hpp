@@ -40,8 +40,6 @@ struct no_set_value_member
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
 template <typename T, typename Vs, typename = void>
 struct set_value_member_trait : no_set_value_member
 {
@@ -61,30 +59,6 @@ struct set_value_member_trait<T, void(Vs...),
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = noexcept(
     declval<T>().set_value(declval<Vs>()...)));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
-template <typename T, typename Vs, typename = void>
-struct set_value_member_trait;
-
-template <typename T, typename... Vs>
-struct set_value_member_trait<T, void(Vs...)> :
-  conditional<
-    is_same<T, typename remove_reference<T>::type>::value
-      && conjunction<is_same<Vs, typename decay<Vs>::type>...>::value,
-    typename conditional<
-      is_same<T, typename add_const<T>::type>::value,
-      no_set_value_member,
-      traits::set_value_member<typename add_const<T>::type, void(Vs...)>
-    >::type,
-    traits::set_value_member<
-      typename remove_reference<T>::type,
-      void(typename decay<Vs>::type...)>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
 
 } // namespace detail
 namespace traits {

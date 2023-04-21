@@ -73,47 +73,6 @@ struct fat_executor
   unsigned char data_[1024];
 };
 
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-template <typename F>
-struct execute_member<fat_executor, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
-
-template <>
-struct query_member<fat_executor, execution::occupancy_t>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef std::size_t result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-template <>
-struct equality_comparable<fat_executor>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-} // namespace traits
-} // namespace asio
-
 void increment(int* count)
 {
   ++(*count);

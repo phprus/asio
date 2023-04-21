@@ -40,8 +40,6 @@ struct no_set_error_member
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
 template <typename T, typename E, typename = void>
 struct set_error_member_trait : no_set_error_member
 {
@@ -61,27 +59,6 @@ struct set_error_member_trait<T, E,
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = noexcept(
     declval<T>().set_error(declval<E>())));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
-template <typename T, typename E, typename = void>
-struct set_error_member_trait :
-  conditional<
-    is_same<T, typename remove_reference<T>::type>::value
-      && is_same<E, typename decay<E>::type>::value,
-    typename conditional<
-      is_same<T, typename add_const<T>::type>::value,
-      no_set_error_member,
-      traits::set_error_member<typename add_const<T>::type, E>
-    >::type,
-    traits::set_error_member<
-      typename remove_reference<T>::type,
-      typename decay<E>::type>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
 
 } // namespace detail
 namespace traits {

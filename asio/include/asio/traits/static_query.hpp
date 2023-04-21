@@ -53,8 +53,6 @@ struct static_query_trait :
 {
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-
 template <typename T, typename Property>
 struct static_query_trait<T, Property,
   typename void_type<
@@ -74,8 +72,6 @@ struct static_query_trait<T, Property,
     return decay<Property>::type::template static_query_v<T>;
   }
 };
-
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 } // namespace detail
 namespace traits {

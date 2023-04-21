@@ -32,24 +32,6 @@ struct operation_state
   }
 };
 
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
-template <>
-struct start_member<operation_state>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
-
 struct sender : exec::sender_base
 {
   sender()
@@ -63,24 +45,6 @@ struct sender : exec::sender_base
     return operation_state();
   }
 };
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
-
-template <typename R>
-struct connect_member<const sender, R>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef operation_state result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 struct no_bulk_execute
 {
@@ -100,24 +64,6 @@ struct const_member_bulk_execute
   }
 };
 
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_SUBMIT_MEMBER_TRAIT)
-
-template <typename F, typename N>
-struct bulk_execute_member<const const_member_bulk_execute, F, N>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef sender result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SUBMIT_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
-
 struct free_bulk_execute
 {
   free_bulk_execute()
@@ -132,24 +78,6 @@ struct free_bulk_execute
     return sender();
   }
 };
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_SUBMIT_FREE_TRAIT)
-
-template <typename F, typename N>
-struct bulk_execute_free<const free_bulk_execute, F, N>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef sender result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SUBMIT_FREE_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 struct executor
 {
@@ -182,34 +110,6 @@ struct executor
     return false;
   }
 };
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-template <typename F>
-struct execute_member<executor, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-#if !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-template <>
-struct equality_comparable<executor>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 void test_can_bulk_execute()
 {

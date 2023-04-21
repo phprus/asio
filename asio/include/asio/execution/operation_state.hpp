@@ -22,11 +22,7 @@
 #include "asio/detail/type_traits.hpp"
 #include "asio/execution/start.hpp"
 
-#if defined(ASIO_HAS_DEDUCED_START_FREE_TRAIT) \
-  && defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-# define ASIO_HAS_DEDUCED_EXECUTION_IS_OPERATION_STATE_TRAIT 1
-#endif // defined(ASIO_HAS_DEDUCED_START_FREE_TRAIT)
-       //   && defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
+#define ASIO_HAS_DEDUCED_EXECUTION_IS_OPERATION_STATE_TRAIT 1
 
 #include "asio/detail/push_options.hpp"
 

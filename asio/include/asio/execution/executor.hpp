@@ -25,13 +25,7 @@
 # include "asio/execution/execute.hpp"
 #endif // !defined(ASIO_NO_DEPRECATED)
 
-#if defined(ASIO_HAS_DEDUCED_EXECUTE_FREE_TRAIT) \
-  && defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT) \
-  && defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-# define ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT 1
-#endif // defined(ASIO_HAS_DEDUCED_EXECUTE_FREE_TRAIT)
-       //   && defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-       //   && defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
+#define ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT 1
 
 #include "asio/detail/push_options.hpp"
 

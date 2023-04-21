@@ -49,35 +49,6 @@ struct possibly_blocking_executor
   }
 };
 
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-template <typename F>
-struct execute_member<possibly_blocking_executor, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-template <>
-struct equality_comparable<possibly_blocking_executor>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-} // namespace traits
-} // namespace asio
-
 struct never_blocking_executor
 {
   static constexpr execution::blocking_t::never_t
@@ -104,57 +75,6 @@ struct never_blocking_executor
     return false;
   }
 };
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-template <typename F>
-struct execute_member<never_blocking_executor, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-template <>
-struct equality_comparable<never_blocking_executor>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
-
-template <typename Param>
-struct query_static_constexpr_member<
-  never_blocking_executor, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, execution::blocking_t>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef execution::blocking_t::never_t result_type;
-
-  static constexpr result_type value()
-  {
-    return result_type();
-  }
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 struct either_blocking_executor
 {
@@ -201,69 +121,6 @@ struct either_blocking_executor
     return a.blocking_ != b.blocking_;
   }
 };
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-template <typename F>
-struct execute_member<either_blocking_executor, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-template <>
-struct equality_comparable<either_blocking_executor>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
-
-template <typename Param>
-struct query_member<
-  either_blocking_executor, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, execution::blocking_t>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef execution::blocking_t result_type;
-};
-
-#if !defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
-
-#endif // !defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
-
-template <typename Param>
-struct require_member<
-  either_blocking_executor, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, execution::blocking_t>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-
-  typedef either_blocking_executor result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 void prefer_only_executor_query_test()
 {

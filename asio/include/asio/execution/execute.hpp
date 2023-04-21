@@ -174,7 +174,6 @@ struct impl
   template <typename T>
   struct proxy
   {
-#if defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
     struct type
     {
       template <typename F>
@@ -190,9 +189,6 @@ struct impl
             ASIO_MOVE_CAST(F)(f))
         );
     };
-#else // defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-    typedef T type;
-#endif // defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
   };
 
   template <typename T, typename F>

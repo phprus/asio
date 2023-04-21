@@ -51,35 +51,6 @@ struct receiver
   }
 };
 
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
-template <typename E>
-struct set_error_member<receiver, E>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-template <>
-struct set_done_member<receiver>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
-
 struct receiver_of_0
 {
   receiver_of_0()
@@ -108,46 +79,6 @@ struct receiver_of_0
   {
   }
 };
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
-template <typename E>
-struct set_error_member<receiver_of_0, E>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-template <>
-struct set_done_member<receiver_of_0>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-template <>
-struct set_value_member<receiver_of_0, void()>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 struct receiver_of_1
 {
@@ -178,46 +109,6 @@ struct receiver_of_1
   }
 };
 
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
-template <typename E>
-struct set_error_member<receiver_of_1, E>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-template <>
-struct set_done_member<receiver_of_1>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-template <>
-struct set_value_member<receiver_of_1, void(int)>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
-
 struct receiver_of_2
 {
   receiver_of_2()
@@ -246,46 +137,6 @@ struct receiver_of_2
   {
   }
 };
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
-template <typename E>
-struct set_error_member<receiver_of_2, E>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-template <>
-struct set_done_member<receiver_of_2>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-template <>
-struct set_value_member<receiver_of_2, void(int, std::string)>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 void is_receiver_test()
 {

@@ -245,7 +245,6 @@ struct mapping_t
   template <typename T>
   struct proxy
   {
-#if defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
     struct type
     {
       template <typename P>
@@ -261,15 +260,11 @@ struct mapping_t
             ASIO_MOVE_CAST(P)(p))
         );
     };
-#else // defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
-    typedef T type;
-#endif // defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
   };
 
   template <typename T>
   struct static_proxy
   {
-#if defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
     struct type
     {
       template <typename P>
@@ -286,9 +281,6 @@ struct mapping_t
         return T::query(ASIO_MOVE_CAST(P)(p));
       }
     };
-#else // defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
-    typedef T type;
-#endif // defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
   };
 
   template <typename T>
@@ -300,7 +292,6 @@ struct mapping_t
     traits::query_static_constexpr_member<
       typename static_proxy<T>::type, mapping_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -374,7 +365,6 @@ struct mapping_t
   template <typename E, typename T = decltype(mapping_t::static_query<E>())>
   static constexpr const T static_query_v
     = mapping_t::static_query<E>();
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
   friend constexpr bool operator==(
       const mapping_t& a, const mapping_t& b)
@@ -467,10 +457,8 @@ private:
   int value_;
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T mapping_t<I>::static_query_v;
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 template <int I>
 const typename mapping_t<I>::thread_t mapping_t<I>::thread;
@@ -527,7 +515,6 @@ struct thread_t
     traits::query_static_constexpr_member<
       typename mapping_t<I>::template static_proxy<T>::type, thread_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -562,7 +549,6 @@ struct thread_t
   template <typename E, typename T = decltype(thread_t::static_query<E>())>
   static constexpr const T static_query_v
     = thread_t::static_query<E>();
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
   static constexpr mapping_t<I> value()
   {
@@ -582,10 +568,8 @@ struct thread_t
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T thread_t<I>::static_query_v;
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 template <int I = 0>
 struct new_thread_t
@@ -631,7 +615,6 @@ struct new_thread_t
     traits::query_static_constexpr_member<
       typename mapping_t<I>::template static_proxy<T>::type, new_thread_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -645,7 +628,6 @@ struct new_thread_t
   template <typename E, typename T = decltype(new_thread_t::static_query<E>())>
   static constexpr const T static_query_v
     = new_thread_t::static_query<E>();
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
   static constexpr mapping_t<I> value()
   {
@@ -665,10 +647,8 @@ struct new_thread_t
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T new_thread_t<I>::static_query_v;
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 template <int I>
 struct other_t
@@ -714,7 +694,6 @@ struct other_t
     traits::query_static_constexpr_member<
       typename mapping_t<I>::template static_proxy<T>::type, other_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -728,7 +707,6 @@ struct other_t
   template <typename E, typename T = decltype(other_t::static_query<E>())>
   static constexpr const T static_query_v
     = other_t::static_query<E>();
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
   static constexpr mapping_t<I> value()
   {
@@ -748,10 +726,8 @@ struct other_t
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T other_t<I>::static_query_v;
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 } // namespace mapping
 } // namespace detail
@@ -761,232 +737,6 @@ typedef detail::mapping_t<> mapping_t;
 constexpr mapping_t mapping;
 
 } // namespace execution
-
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
-
-template <typename T>
-struct query_free_default<T, execution::mapping_t,
-  typename enable_if<
-    can_query<T, execution::mapping_t::thread_t>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept =
-    (is_nothrow_query<T, execution::mapping_t::thread_t>::value));
-
-  typedef execution::mapping_t result_type;
-};
-
-template <typename T>
-struct query_free_default<T, execution::mapping_t,
-  typename enable_if<
-    !can_query<T, execution::mapping_t::thread_t>::value
-      && can_query<T, execution::mapping_t::new_thread_t>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept =
-    (is_nothrow_query<T, execution::mapping_t::new_thread_t>::value));
-
-  typedef execution::mapping_t result_type;
-};
-
-template <typename T>
-struct query_free_default<T, execution::mapping_t,
-  typename enable_if<
-    !can_query<T, execution::mapping_t::thread_t>::value
-      && !can_query<T, execution::mapping_t::new_thread_t>::value
-      && can_query<T, execution::mapping_t::other_t>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept =
-    (is_nothrow_query<T, execution::mapping_t::other_t>::value));
-
-  typedef execution::mapping_t result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-
-template <typename T>
-struct static_query<T, execution::mapping_t,
-  typename enable_if<
-    execution::detail::mapping_t<0>::
-      query_static_constexpr_member<T>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef typename execution::detail::mapping_t<0>::
-    query_static_constexpr_member<T>::result_type result_type;
-
-  static constexpr result_type value()
-  {
-    return execution::detail::mapping_t<0>::
-      query_static_constexpr_member<T>::value();
-  }
-};
-
-template <typename T>
-struct static_query<T, execution::mapping_t,
-  typename enable_if<
-    !execution::detail::mapping_t<0>::
-        query_static_constexpr_member<T>::is_valid
-      && !execution::detail::mapping_t<0>::
-        query_member<T>::is_valid
-      && traits::static_query<T, execution::mapping_t::thread_t>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef typename traits::static_query<T,
-    execution::mapping_t::thread_t>::result_type result_type;
-
-  static constexpr result_type value()
-  {
-    return traits::static_query<T, execution::mapping_t::thread_t>::value();
-  }
-};
-
-template <typename T>
-struct static_query<T, execution::mapping_t,
-  typename enable_if<
-    !execution::detail::mapping_t<0>::
-        query_static_constexpr_member<T>::is_valid
-      && !execution::detail::mapping_t<0>::
-        query_member<T>::is_valid
-      && !traits::static_query<T, execution::mapping_t::thread_t>::is_valid
-      && traits::static_query<T, execution::mapping_t::new_thread_t>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef typename traits::static_query<T,
-    execution::mapping_t::new_thread_t>::result_type result_type;
-
-  static constexpr result_type value()
-  {
-    return traits::static_query<T, execution::mapping_t::new_thread_t>::value();
-  }
-};
-
-template <typename T>
-struct static_query<T, execution::mapping_t,
-  typename enable_if<
-    !execution::detail::mapping_t<0>::
-        query_static_constexpr_member<T>::is_valid
-      && !execution::detail::mapping_t<0>::
-        query_member<T>::is_valid
-      && !traits::static_query<T, execution::mapping_t::thread_t>::is_valid
-      && !traits::static_query<T, execution::mapping_t::new_thread_t>::is_valid
-      && traits::static_query<T, execution::mapping_t::other_t>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef typename traits::static_query<T,
-    execution::mapping_t::other_t>::result_type result_type;
-
-  static constexpr result_type value()
-  {
-    return traits::static_query<T, execution::mapping_t::other_t>::value();
-  }
-};
-
-template <typename T>
-struct static_query<T, execution::mapping_t::thread_t,
-  typename enable_if<
-    execution::detail::mapping::thread_t<0>::
-      query_static_constexpr_member<T>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef typename execution::detail::mapping::thread_t<0>::
-    query_static_constexpr_member<T>::result_type result_type;
-
-  static constexpr result_type value()
-  {
-    return execution::detail::mapping::thread_t<0>::
-      query_static_constexpr_member<T>::value();
-  }
-};
-
-template <typename T>
-struct static_query<T, execution::mapping_t::thread_t,
-  typename enable_if<
-    !execution::detail::mapping::thread_t<0>::
-        query_static_constexpr_member<T>::is_valid
-      && !execution::detail::mapping::thread_t<0>::
-        query_member<T>::is_valid
-      && !traits::query_free<T, execution::mapping_t::thread_t>::is_valid
-      && !can_query<T, execution::mapping_t::new_thread_t>::value
-      && !can_query<T, execution::mapping_t::other_t>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef execution::mapping_t::thread_t result_type;
-
-  static constexpr result_type value()
-  {
-    return result_type();
-  }
-};
-
-template <typename T>
-struct static_query<T, execution::mapping_t::new_thread_t,
-  typename enable_if<
-    execution::detail::mapping::new_thread_t<0>::
-      query_static_constexpr_member<T>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef typename execution::detail::mapping::new_thread_t<0>::
-    query_static_constexpr_member<T>::result_type result_type;
-
-  static constexpr result_type value()
-  {
-    return execution::detail::mapping::new_thread_t<0>::
-      query_static_constexpr_member<T>::value();
-  }
-};
-
-template <typename T>
-struct static_query<T, execution::mapping_t::other_t,
-  typename enable_if<
-    execution::detail::mapping::other_t<0>::
-      query_static_constexpr_member<T>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef typename execution::detail::mapping::other_t<0>::
-    query_static_constexpr_member<T>::result_type result_type;
-
-  static constexpr result_type value()
-  {
-    return execution::detail::mapping::other_t<0>::
-      query_static_constexpr_member<T>::value();
-  }
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-
-} // namespace traits
 
 #endif // defined(GENERATING_DOCUMENTATION)
 

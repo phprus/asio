@@ -37,24 +37,6 @@ struct const_member_set_value_0
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct set_value_member<const const_member_set_value_0, void()>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
 struct const_member_set_value_1
 {
   template <typename V1>
@@ -65,24 +47,6 @@ struct const_member_set_value_1
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename V1>
-struct set_value_member<const const_member_set_value_1, void(V1)>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
 
 struct const_member_set_value_2
 {
@@ -97,24 +61,6 @@ struct const_member_set_value_2
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename V1, typename V2>
-struct set_value_member<const const_member_set_value_2, void(V1, V2)>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
 struct free_set_value_const_receiver_0
 {
   friend void set_value(const free_set_value_const_receiver_0&)
@@ -122,24 +68,6 @@ struct free_set_value_const_receiver_0
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct set_value_free<const free_set_value_const_receiver_0, void()>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_FREE_TRAIT)
 
 struct free_set_value_const_receiver_1
 {
@@ -152,24 +80,6 @@ struct free_set_value_const_receiver_1
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename V1>
-struct set_value_free<const free_set_value_const_receiver_1, void(V1)>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_FREE_TRAIT)
 
 struct free_set_value_const_receiver_2
 {
@@ -185,24 +95,6 @@ struct free_set_value_const_receiver_2
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename V1, typename V2>
-struct set_value_free<const free_set_value_const_receiver_2, void(V1, V2)>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_FREE_TRAIT)
-
 struct non_const_member_set_value_0
 {
   void set_value()
@@ -210,24 +102,6 @@ struct non_const_member_set_value_0
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct set_value_member<non_const_member_set_value_0, void()>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
 
 struct non_const_member_set_value_1
 {
@@ -239,24 +113,6 @@ struct non_const_member_set_value_1
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename V1>
-struct set_value_member<non_const_member_set_value_1, void(V1)>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
 
 struct non_const_member_set_value_2
 {
@@ -271,24 +127,6 @@ struct non_const_member_set_value_2
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename V1, typename V2>
-struct set_value_member<non_const_member_set_value_2, void(V1, V2)>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
 struct free_set_value_non_const_receiver_0
 {
   friend void set_value(free_set_value_non_const_receiver_0&)
@@ -296,24 +134,6 @@ struct free_set_value_non_const_receiver_0
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct set_value_free<free_set_value_non_const_receiver_0, void()>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_FREE_TRAIT)
 
 struct free_set_value_non_const_receiver_1
 {
@@ -326,24 +146,6 @@ struct free_set_value_non_const_receiver_1
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename V1>
-struct set_value_free<free_set_value_non_const_receiver_1, void(V1)>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_FREE_TRAIT)
 
 struct free_set_value_non_const_receiver_2
 {
@@ -358,24 +160,6 @@ struct free_set_value_non_const_receiver_2
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename V1, typename V2>
-struct set_value_free<free_set_value_non_const_receiver_2, void(V1, V2)>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_FREE_TRAIT)
 
 void test_can_set_value()
 {

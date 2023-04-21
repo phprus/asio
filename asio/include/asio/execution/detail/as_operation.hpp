@@ -73,22 +73,6 @@ struct as_operation
 
 } // namespace detail
 } // namespace execution
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
-template <typename Executor, typename Receiver>
-struct start_member<
-    asio::execution::detail::as_operation<Executor, Receiver> >
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
-} // namespace traits
 } // namespace asio
 
 #include "asio/detail/pop_options.hpp"

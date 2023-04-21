@@ -40,8 +40,6 @@ struct no_connect_free
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_CONNECT_FREE_TRAIT)
-
 template <typename S, typename R, typename = void>
 struct connect_free_trait : no_connect_free
 {
@@ -61,27 +59,6 @@ struct connect_free_trait<S, R,
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = noexcept(
     connect(declval<S>(), declval<R>())));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_CONNECT_FREE_TRAIT)
-
-template <typename S, typename R, typename = void>
-struct connect_free_trait :
-  conditional<
-    is_same<S, typename remove_reference<S>::type>::value
-      && is_same<R, typename decay<R>::type>::value,
-    typename conditional<
-      is_same<S, typename add_const<S>::type>::value,
-      no_connect_free,
-      traits::connect_free<typename add_const<S>::type, R>
-    >::type,
-    traits::connect_free<
-      typename remove_reference<S>::type,
-      typename decay<R>::type>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_CONNECT_FREE_TRAIT)
 
 } // namespace detail
 namespace traits {

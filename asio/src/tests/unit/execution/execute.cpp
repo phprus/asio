@@ -41,24 +41,6 @@ struct const_member_execute
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename F>
-struct execute_member<const_member_execute, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
 struct free_execute_const_executor
 {
   template <typename F>
@@ -69,24 +51,6 @@ struct free_execute_const_executor
     tmp();
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_EXECUTE_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename F>
-struct execute_free<free_execute_const_executor, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTE_FREE_TRAIT)
 
 
 // Support for rvalue references is required in order to use the execute
@@ -103,40 +67,6 @@ struct non_const_member_execute
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename F>
-struct execute_member<non_const_member_execute, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-template <typename F>
-struct execute_member<const non_const_member_execute, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = false);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-template <typename F>
-struct execute_member<const non_const_member_execute&, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = false);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
 struct free_execute_non_const_executor
 {
   template <typename F>
@@ -148,40 +78,6 @@ struct free_execute_non_const_executor
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_EXECUTE_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename F>
-struct execute_free<free_execute_non_const_executor, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-template <typename F>
-struct execute_free<const free_execute_non_const_executor, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = false);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-template <typename F>
-struct execute_free<const free_execute_non_const_executor&, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = false);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTE_FREE_TRAIT)
-
 
 struct operation_state
 {
@@ -189,24 +85,6 @@ struct operation_state
   {
   }
 };
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
-template <>
-struct start_member<operation_state>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 struct sender : exec::sender_base
 {
@@ -227,36 +105,6 @@ struct sender : exec::sender_base
     exec::set_value(ASIO_MOVE_CAST(R)(r));
   }
 };
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
-
-template <typename R>
-struct connect_member<const sender, R>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef operation_state result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_SUBMIT_MEMBER_TRAIT)
-
-template <typename R>
-struct submit_member<const sender, R>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SUBMIT_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 void test_can_execute()
 {

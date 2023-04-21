@@ -40,8 +40,6 @@ struct no_execute_member
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
 template <typename T, typename F, typename = void>
 struct execute_member_trait : no_execute_member
 {
@@ -61,23 +59,6 @@ struct execute_member_trait<T, F,
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = noexcept(
     declval<T>().execute(declval<F>())));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-template <typename T, typename F, typename = void>
-struct execute_member_trait :
-  conditional<
-    is_same<T, typename decay<T>::type>::value
-      && is_same<F, typename decay<F>::type>::value,
-    no_execute_member,
-    traits::execute_member<
-      typename decay<T>::type,
-      typename decay<F>::type>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
 
 } // namespace detail
 namespace traits {

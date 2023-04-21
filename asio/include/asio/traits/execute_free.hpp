@@ -40,8 +40,6 @@ struct no_execute_free
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_EXECUTE_FREE_TRAIT)
-
 template <typename T, typename F, typename = void>
 struct execute_free_trait : no_execute_free
 {
@@ -61,23 +59,6 @@ struct execute_free_trait<T, F,
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = noexcept(
     execute(declval<T>(), declval<F>())));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_EXECUTE_FREE_TRAIT)
-
-template <typename T, typename F, typename = void>
-struct execute_free_trait :
-  conditional<
-    is_same<T, typename decay<T>::type>::value
-      && is_same<F, typename decay<F>::type>::value,
-    no_execute_free,
-    traits::execute_free<
-      typename decay<T>::type,
-      typename decay<F>::type>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_EXECUTE_FREE_TRAIT)
 
 } // namespace detail
 namespace traits {

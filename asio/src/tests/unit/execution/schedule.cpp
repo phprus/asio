@@ -35,24 +35,6 @@ struct operation_state
   }
 };
 
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
-template <>
-struct start_member<operation_state>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
-
 struct sender : exec::sender_base
 {
   sender()
@@ -74,36 +56,6 @@ struct sender : exec::sender_base
   }
 };
 
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
-
-template <typename R>
-struct connect_member<const sender, R>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef operation_state result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_SUBMIT_MEMBER_TRAIT)
-
-template <typename R>
-struct submit_member<const sender, R>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SUBMIT_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
-
 struct no_schedule
 {
 };
@@ -116,24 +68,6 @@ struct const_member_schedule
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_SCHEDULE_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct schedule_member<const const_member_schedule>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef sender result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SCHEDULE_MEMBER_TRAIT)
-
 struct free_schedule_const_receiver
 {
   friend sender schedule(
@@ -143,24 +77,6 @@ struct free_schedule_const_receiver
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_SCHEDULE_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct schedule_free<const free_schedule_const_receiver>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef sender result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SCHEDULE_FREE_TRAIT)
-
 struct non_const_member_schedule
 {
   sender schedule() noexcept(true)
@@ -168,24 +84,6 @@ struct non_const_member_schedule
     return sender();
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SCHEDULE_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct schedule_member<non_const_member_schedule>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef sender result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SCHEDULE_MEMBER_TRAIT)
 
 struct free_schedule_non_const_receiver
 {
@@ -195,24 +93,6 @@ struct free_schedule_non_const_receiver
     return sender();
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SCHEDULE_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct schedule_free<free_schedule_non_const_receiver>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef sender result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SCHEDULE_FREE_TRAIT)
 
 struct executor
 {
@@ -245,34 +125,6 @@ struct executor
     return false;
   }
 };
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-template <typename F>
-struct execute_member<executor, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-#if !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-template <>
-struct equality_comparable<executor>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 void test_can_schedule()
 {
@@ -360,48 +212,6 @@ struct receiver
   {
   }
 };
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
-template <>
-struct set_value_member<receiver, void()>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
-template <typename E>
-struct set_error_member<receiver, E>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-template <>
-struct set_done_member<receiver>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 void test_schedule()
 {

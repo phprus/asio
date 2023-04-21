@@ -32,24 +32,6 @@ struct operation_state
   }
 };
 
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
-template <>
-struct start_member<operation_state>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
-
 struct no_connect_1
 {
 };
@@ -68,24 +50,6 @@ struct no_connect_3
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename R>
-struct connect_member<no_connect_3, R>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef operation_state result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
-
 struct const_member_connect : exec::sender_base
 {
   const_member_connect()
@@ -100,24 +64,6 @@ struct const_member_connect : exec::sender_base
     return operation_state();
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename R>
-struct connect_member<const const_member_connect, R>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef operation_state result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
 
 struct free_connect_const_receiver : exec::sender_base
 {
@@ -135,24 +81,6 @@ struct free_connect_const_receiver : exec::sender_base
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_CONNECT_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename R>
-struct connect_free<const free_connect_const_receiver, R>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef operation_state result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_CONNECT_FREE_TRAIT)
-
 struct non_const_member_connect : exec::sender_base
 {
   template <typename R>
@@ -163,24 +91,6 @@ struct non_const_member_connect : exec::sender_base
     return operation_state();
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename R>
-struct connect_member<non_const_member_connect, R>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef operation_state result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
 
 struct free_connect_non_const_receiver : exec::sender_base
 {
@@ -197,24 +107,6 @@ struct free_connect_non_const_receiver : exec::sender_base
     return operation_state();
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_CONNECT_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename R>
-struct connect_free<free_connect_non_const_receiver, R>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef operation_state result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_CONNECT_FREE_TRAIT)
 
 struct receiver
 {
@@ -240,35 +132,6 @@ struct receiver
   {
   }
 };
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
-template <typename E>
-struct set_error_member<receiver, E>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-template <>
-struct set_done_member<receiver>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 struct executor
 {
@@ -300,34 +163,6 @@ struct executor
     return false;
   }
 };
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-template <typename F>
-struct execute_member<executor, F>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-#if !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-template <>
-struct equality_comparable<executor>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 void test_can_connect()
 {

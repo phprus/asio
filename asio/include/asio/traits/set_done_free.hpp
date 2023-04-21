@@ -40,8 +40,6 @@ struct no_set_done_free
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_SET_DONE_FREE_TRAIT)
-
 template <typename T, typename = void>
 struct set_done_free_trait : no_set_done_free
 {
@@ -60,24 +58,6 @@ struct set_done_free_trait<T,
   ASIO_STATIC_CONSTEXPR(bool,
     is_noexcept = noexcept(set_done(declval<T>())));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_SET_DONE_FREE_TRAIT)
-
-template <typename T, typename = void>
-struct set_done_free_trait :
-  conditional<
-    is_same<T, typename remove_reference<T>::type>::value,
-    typename conditional<
-      is_same<T, typename add_const<T>::type>::value,
-      no_set_done_free,
-      traits::set_done_free<typename add_const<T>::type>
-    >::type,
-    traits::set_done_free<typename remove_reference<T>::type>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_SET_DONE_FREE_TRAIT)
 
 } // namespace detail
 namespace traits {

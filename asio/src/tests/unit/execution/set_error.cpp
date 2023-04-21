@@ -40,24 +40,6 @@ struct const_member_set_error
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename E>
-struct set_error_member<const const_member_set_error, E>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
 struct free_set_error_const_receiver
 {
   template <typename E>
@@ -70,24 +52,6 @@ struct free_set_error_const_receiver
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_SET_ERROR_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename E>
-struct set_error_free<const free_set_error_const_receiver, E>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_FREE_TRAIT)
-
 struct non_const_member_set_error
 {
   template <typename E>
@@ -98,24 +62,6 @@ struct non_const_member_set_error
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename E>
-struct set_error_member<non_const_member_set_error, E>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
 
 struct free_set_error_non_const_receiver
 {
@@ -128,24 +74,6 @@ struct free_set_error_non_const_receiver
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SET_ERROR_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <typename E>
-struct set_error_free<free_set_error_non_const_receiver, E>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_FREE_TRAIT)
 
 void test_can_set_error()
 {

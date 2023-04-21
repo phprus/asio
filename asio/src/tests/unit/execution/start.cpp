@@ -37,24 +37,6 @@ struct const_member_start
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct start_member<const const_member_start>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
 struct free_start_const_receiver
 {
   friend void start(const free_start_const_receiver&) noexcept(true)
@@ -62,24 +44,6 @@ struct free_start_const_receiver
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_START_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct start_free<const free_start_const_receiver>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_START_FREE_TRAIT)
 
 struct non_const_member_start
 {
@@ -89,24 +53,6 @@ struct non_const_member_start
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct start_member<non_const_member_start>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_START_MEMBER_TRAIT)
-
 struct free_start_non_const_receiver
 {
   friend void start(free_start_non_const_receiver&) noexcept(true)
@@ -114,24 +60,6 @@ struct free_start_non_const_receiver
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_START_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct start_free<free_start_non_const_receiver>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_START_FREE_TRAIT)
 
 void test_can_start()
 {

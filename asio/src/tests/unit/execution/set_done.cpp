@@ -37,24 +37,6 @@ struct const_member_set_done
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct set_done_member<const const_member_set_done>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
 struct free_set_done_const_receiver
 {
   friend void set_done(const free_set_done_const_receiver&) noexcept(true)
@@ -62,24 +44,6 @@ struct free_set_done_const_receiver
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct set_done_free<const free_set_done_const_receiver>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_FREE_TRAIT)
 
 struct non_const_member_set_done
 {
@@ -89,24 +53,6 @@ struct non_const_member_set_done
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct set_done_member<non_const_member_set_done>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
 struct free_set_done_non_const_receiver
 {
   friend void set_done(free_set_done_non_const_receiver&) noexcept(true)
@@ -114,24 +60,6 @@ struct free_set_done_non_const_receiver
     ++call_count;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_FREE_TRAIT)
-
-namespace asio {
-namespace traits {
-
-template <>
-struct set_done_free<free_set_done_non_const_receiver>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-} // namespace traits
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_FREE_TRAIT)
 
 void test_can_set_done()
 {

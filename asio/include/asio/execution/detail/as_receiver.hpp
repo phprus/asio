@@ -74,49 +74,6 @@ struct is_as_receiver<as_receiver<Function, T> > : true_type
 
 } // namespace detail
 } // namespace execution
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
-template <typename Function, typename T>
-struct set_value_member<
-    asio::execution::detail::as_receiver<Function, T>, void()>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool,
-      is_noexcept = noexcept(declval<Function&>()()));
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_VALUE_MEMBER_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
-template <typename Function, typename T, typename E>
-struct set_error_member<
-    asio::execution::detail::as_receiver<Function, T>, E>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-template <typename Function, typename T>
-struct set_done_member<
-    asio::execution::detail::as_receiver<Function, T> >
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef void result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT)
-
-} // namespace traits
 } // namespace asio
 
 #include "asio/detail/pop_options.hpp"

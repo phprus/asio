@@ -38,8 +38,6 @@ struct no_equality_comparable
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
 template <typename T, typename = void>
 struct equality_comparable_trait : no_equality_comparable
 {
@@ -64,20 +62,6 @@ struct equality_comparable_trait<T,
     noexcept(declval<const T>() == declval<const T>())
       && noexcept(declval<const T>() != declval<const T>()));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
-template <typename T, typename = void>
-struct equality_comparable_trait :
-  conditional<
-    is_same<T, typename decay<T>::type>::value,
-    no_equality_comparable,
-    traits::equality_comparable<typename decay<T>::type>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
 
 } // namespace detail
 namespace traits {

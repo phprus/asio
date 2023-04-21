@@ -52,8 +52,6 @@ struct query_static_constexpr_member_trait :
 {
 };
 
-#if defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
-
 template <typename T, typename Property>
 struct query_static_constexpr_member_trait<T, Property,
   typename enable_if<
@@ -72,8 +70,6 @@ struct query_static_constexpr_member_trait<T, Property,
     return T::query(Property{});
   }
 };
-
-#endif // defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
 
 } // namespace detail
 namespace traits {

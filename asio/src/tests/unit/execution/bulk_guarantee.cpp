@@ -48,21 +48,6 @@ struct ex_nq_nr
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT)
-
-namespace asio {
-namespace execution {
-
-template <>
-struct is_executor<ex_nq_nr> : asio::true_type
-{
-};
-
-} // namespace execution
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT)
-
 template <typename ResultType, typename ParamType, typename Result>
 struct ex_cq_nr
 {
@@ -86,51 +71,6 @@ struct ex_cq_nr
     return false;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT)
-
-namespace asio {
-namespace execution {
-
-template <typename ResultType, typename ParamType, typename Result>
-struct is_executor<ex_cq_nr<ResultType, ParamType, Result> >
-  : asio::true_type
-{
-};
-
-} // namespace execution
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT)
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
-
-template <typename ResultType, typename ParamType,
-  typename Result, typename Param>
-struct query_static_constexpr_member<
-  ex_cq_nr<ResultType, ParamType, Result>, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, ParamType>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef Result result_type; // Must return raw result type.
-
-  static constexpr result_type value()
-  {
-    return Result();
-  }
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 template <typename ResultType, typename ParamType, typename Result>
 struct ex_mq_nr
@@ -156,46 +96,6 @@ struct ex_mq_nr
   }
 };
 
-#if !defined(ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT)
-
-namespace asio {
-namespace execution {
-
-template <typename ResultType, typename ParamType, typename Result>
-struct is_executor<ex_mq_nr<ResultType, ParamType, Result> >
-  : asio::true_type
-{
-};
-
-} // namespace execution
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT)
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
-
-template <typename ResultType, typename ParamType,
-  typename Result, typename Param>
-struct query_member<
-  ex_mq_nr<ResultType, ParamType, Result>, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, ParamType>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef ResultType result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
-
 template <typename ResultType, typename ParamType, typename Result>
 struct ex_fq_nr
 {
@@ -219,46 +119,6 @@ struct ex_fq_nr
     return false;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT)
-
-namespace asio {
-namespace execution {
-
-template <typename ResultType, typename ParamType, typename Result>
-struct is_executor<ex_fq_nr<ResultType, ParamType, Result> >
-  : asio::true_type
-{
-};
-
-} // namespace execution
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT)
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
-
-template <typename ResultType, typename ParamType,
-  typename Result, typename Param>
-struct query_free<
-  ex_fq_nr<ResultType, ParamType, Result>, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, ParamType>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef ResultType result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 template <typename CurrentType, typename OtherType>
 struct ex_mq_mr
@@ -330,77 +190,6 @@ struct ex_mq_mr<CurrentType, CurrentType>
     return false;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT)
-
-namespace asio {
-namespace execution {
-
-template <typename CurrentType, typename OtherType>
-struct is_executor<ex_mq_mr<CurrentType, OtherType> >
-  : asio::true_type
-{
-};
-
-} // namespace execution
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT)
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
-
-template <typename CurrentType, typename OtherType, typename Param>
-struct query_member<
-  ex_mq_mr<CurrentType, OtherType>, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, CurrentType>::value
-      || asio::is_convertible<Param, OtherType>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef CurrentType result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
-
-template <typename CurrentType, typename OtherType, typename Param>
-struct require_member<
-  ex_mq_mr<CurrentType, OtherType>, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, CurrentType>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef ex_mq_mr<CurrentType, OtherType> result_type;
-};
-
-template <typename CurrentType, typename OtherType, typename Param>
-struct require_member<
-  ex_mq_mr<CurrentType, OtherType>, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, OtherType>::value
-      && !asio::is_same<CurrentType, OtherType>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef ex_mq_mr<OtherType, CurrentType> result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 template <typename CurrentType, typename OtherType>
 struct ex_fq_fr
@@ -490,108 +279,6 @@ struct ex_fq_fr<CurrentType, CurrentType>
     return false;
   }
 };
-
-#if !defined(ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT)
-
-namespace asio {
-namespace execution {
-
-template <typename CurrentType, typename OtherType>
-struct is_executor<ex_fq_fr<CurrentType, OtherType> >
-  : asio::true_type
-{
-};
-
-} // namespace execution
-} // namespace asio
-
-#endif // !defined(ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT)
-
-namespace asio {
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
-
-template <typename CurrentType, typename OtherType, typename Param>
-struct query_free<
-  ex_fq_fr<CurrentType, OtherType>, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, CurrentType>::value
-      || asio::is_convertible<Param, OtherType>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef CurrentType result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_REQUIRE_FREE_TRAIT)
-
-template <typename CurrentType, typename OtherType, typename Param>
-struct require_free<
-  ex_fq_fr<CurrentType, OtherType>, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, CurrentType>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef ex_fq_fr<CurrentType, OtherType> result_type;
-};
-
-template <typename CurrentType, typename OtherType, typename Param>
-struct require_free<
-  ex_fq_fr<CurrentType, OtherType>, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, OtherType>::value
-      && !asio::is_same<CurrentType, OtherType>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef ex_fq_fr<OtherType, CurrentType> result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_REQUIRE_FREE_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_PREFER_FREE_TRAIT)
-
-template <typename CurrentType, typename OtherType, typename Param>
-struct prefer_free<
-  ex_fq_fr<CurrentType, OtherType>, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, CurrentType>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef ex_fq_fr<CurrentType, OtherType> result_type;
-};
-
-template <typename CurrentType, typename OtherType, typename Param>
-struct prefer_free<
-  ex_fq_fr<CurrentType, OtherType>, Param,
-  typename asio::enable_if<
-    asio::is_convertible<Param, OtherType>::value
-      && !asio::is_same<CurrentType, OtherType>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef ex_fq_fr<OtherType, CurrentType> result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_PREFER_FREE_TRAIT)
-
-} // namespace traits
-} // namespace asio
 
 template <typename Executor, typename Param, bool ExpectedResult>
 void test_can_query()
