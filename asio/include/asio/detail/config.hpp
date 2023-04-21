@@ -455,31 +455,8 @@
 // C++20: Standard library support for futures.
 #define ASIO_HAS_STD_FUTURE 1
 
-// Standard library support for std::tuple.
-#if !defined(ASIO_HAS_STD_TUPLE)
-# if !defined(ASIO_DISABLE_STD_TUPLE)
-#  if defined(__clang__)
-#   if defined(ASIO_HAS_CLANG_LIBCXX)
-#    define ASIO_HAS_STD_TUPLE 1
-#   elif (__cplusplus >= 201103)
-#    if __has_include(<tuple>)
-#     define ASIO_HAS_STD_TUPLE 1
-#    endif // __has_include(<tuple>)
-#   endif // (__cplusplus >= 201103)
-#  elif defined(__GNUC__)
-#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 8)) || (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_TUPLE 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 8)) || (__GNUC__ > 4)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1700)
-#    define ASIO_HAS_STD_TUPLE 1
-#   endif // (_MSC_VER >= 1700)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_TUPLE)
-#endif // !defined(ASIO_HAS_STD_TUPLE)
+// C++20: Standard library support for std::tuple.
+#define ASIO_HAS_STD_TUPLE 1
 
 // C++20: Standard library support for std::string_view.
 #define ASIO_HAS_STD_STRING_VIEW 1

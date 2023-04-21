@@ -18,8 +18,6 @@
 
 #include "unit_test.hpp"
 
-#if defined(ASIO_HAS_STD_TUPLE)
-
 #include "asio/bind_allocator.hpp"
 #include "asio/bind_cancellation_slot.hpp"
 #include "asio/bind_executor.hpp"
@@ -261,13 +259,3 @@ ASIO_TEST_SUITE
   ASIO_TEST_CASE(any_completion_handler_associator_test)
   ASIO_TEST_CASE(any_completion_handler_invocation_test)
 )
-
-#else // defined(ASIO_HAS_STD_TUPLE)
-
-ASIO_TEST_SUITE
-(
-  "any_completion_handler",
-  ASIO_TEST_CASE(null_test)
-)
-
-#endif // defined(ASIO_HAS_STD_TUPLE)

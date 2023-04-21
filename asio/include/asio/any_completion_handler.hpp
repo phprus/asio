@@ -13,9 +13,6 @@
 
 #include "asio/detail/config.hpp"
 
-#if defined(ASIO_HAS_STD_TUPLE) \
-  || defined(GENERATING_DOCUMENTATION)
-
 #include <cstring>
 #include <functional>
 #include <memory>
@@ -812,8 +809,5 @@ struct associated_immediate_executor<
 } // namespace asio
 
 #include "asio/detail/pop_options.hpp"
-
-#endif // defined(ASIO_HAS_STD_TUPLE)
-       //   || defined(GENERATING_DOCUMENTATION)
 
 #endif // ASIO_ANY_COMPLETION_HANDLER_HPP
