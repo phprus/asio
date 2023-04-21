@@ -552,26 +552,8 @@
 # endif // !defined(ASIO_DISABLE_STRING_VIEW)
 #endif // !defined(ASIO_HAS_STRING_VIEW)
 
-// Standard library support for iostream move construction and assignment.
-#if !defined(ASIO_HAS_STD_IOSTREAM_MOVE)
-# if !defined(ASIO_DISABLE_STD_IOSTREAM_MOVE)
-#  if defined(__clang__)
-#   if (__cplusplus >= 201103)
-#    define ASIO_HAS_STD_IOSTREAM_MOVE 1
-#   endif // (__cplusplus >= 201103)
-#  elif defined(__GNUC__)
-#   if (__GNUC__ > 4)
-#    if (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#     define ASIO_HAS_STD_IOSTREAM_MOVE 1
-#    endif // (__cplusplus >= 201103) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   endif // (__GNUC__ > 4)
-#  elif defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1700)
-#    define ASIO_HAS_STD_IOSTREAM_MOVE 1
-#   endif // (_MSC_VER >= 1700)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_IOSTREAM_MOVE)
-#endif // !defined(ASIO_HAS_STD_IOSTREAM_MOVE)
+// C++20: Standard library support for iostream move construction and assignment.
+#define ASIO_HAS_STD_IOSTREAM_MOVE 1
 
 // C++20: Standard library has invoke_result (which supersedes result_of).
 #define ASIO_HAS_STD_INVOKE_RESULT 1
