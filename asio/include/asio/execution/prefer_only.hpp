@@ -103,8 +103,6 @@ struct prefer_only_property
   }
 };
 
-#if defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
-
 template <typename InnerProperty>
 struct prefer_only_property<InnerProperty,
     typename void_type<
@@ -126,57 +124,6 @@ struct prefer_only_property<InnerProperty,
     return property.value();
   }
 };
-
-#else // defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
-
-struct prefer_only_memfns_base
-{
-  void value();
-};
-
-template <typename T>
-struct prefer_only_memfns_derived
-  : T, prefer_only_memfns_base
-{
-};
-
-template <typename T, T>
-struct prefer_only_memfns_check
-{
-};
-
-template <typename>
-char (&prefer_only_value_memfn_helper(...))[2];
-
-template <typename T>
-char prefer_only_value_memfn_helper(
-    prefer_only_memfns_check<
-      void (prefer_only_memfns_base::*)(),
-      &prefer_only_memfns_derived<T>::value>*);
-
-template <typename InnerProperty>
-struct prefer_only_property<InnerProperty,
-    typename enable_if<
-      sizeof(prefer_only_value_memfn_helper<InnerProperty>(0)) != 1
-        && !is_same<typename InnerProperty::polymorphic_query_result_type,
-          void>::value
-    >::type>
-{
-  InnerProperty property;
-
-  prefer_only_property(const InnerProperty& p)
-    : property(p)
-  {
-  }
-
-  constexpr typename InnerProperty::polymorphic_query_result_type
-  value() const
-  {
-    return property.value();
-  }
-};
-
-#endif // defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 
 } // namespace detail
 

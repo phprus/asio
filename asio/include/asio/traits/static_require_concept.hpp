@@ -53,8 +53,6 @@ struct static_require_concept_trait :
 {
 };
 
-#if defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
-
 template <typename T, typename Property>
 struct static_require_concept_trait<T, Property,
   typename enable_if<
@@ -63,36 +61,6 @@ struct static_require_concept_trait<T, Property,
 {
   ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
 };
-
-#else // defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
-
-false_type static_require_concept_test(...);
-
-template <typename T, typename Property>
-true_type static_require_concept_test(T*, Property*,
-    typename enable_if<
-      Property::value() == traits::static_query<T, Property>::value()
-    >::type* = 0);
-
-template <typename T, typename Property>
-struct has_static_require_concept
-{
-  ASIO_STATIC_CONSTEXPR(bool, value =
-    decltype((static_require_concept_test)(
-      static_cast<T*>(0), static_cast<Property*>(0)))::value);
-};
-
-template <typename T, typename Property>
-struct static_require_concept_trait<T, Property,
-  typename enable_if<
-    has_static_require_concept<typename decay<T>::type,
-      typename decay<Property>::type>::value
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-};
-
-#endif // defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
 
 } // namespace detail
 namespace traits {

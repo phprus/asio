@@ -18,9 +18,7 @@
 #include "asio/detail/config.hpp"
 #include "asio/detail/type_traits.hpp"
 
-#if defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
-# define ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT 1
-#endif // defined(ASIO_HAS_WORKING_EXPRESSION_SFINAE)
+#define ASIO_HAS_DEDUCED_SET_DONE_MEMBER_TRAIT 1
 
 #include "asio/detail/push_options.hpp"
 
