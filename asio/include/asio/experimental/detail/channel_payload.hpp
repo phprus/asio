@@ -20,9 +20,7 @@
 #include <system_error>
 #include "asio/experimental/detail/channel_message.hpp"
 
-#if defined(ASIO_HAS_STD_VARIANT)
-# include <variant>
-#endif // defined(ASIO_HAS_STD_VARIANT)
+#include <variant>
 
 #include "asio/detail/push_options.hpp"
 
@@ -67,8 +65,6 @@ private:
   channel_message<Signature> message_;
 };
 
-#if defined(ASIO_HAS_STD_VARIANT)
-
 template <typename... Signatures>
 class channel_payload
 {
@@ -92,43 +88,6 @@ public:
 private:
   std::variant<channel_message<Signatures>...> message_;
 };
-
-#else // defined(ASIO_HAS_STD_VARIANT)
-
-template <typename R1, typename R2>
-class channel_payload<R1(), R2(std::error_code)>
-{
-public:
-  typedef channel_message<R1()> void_message_type;
-  typedef channel_message<R2(std::error_code)> error_message_type;
-
-  channel_payload(ASIO_MOVE_ARG(void_message_type))
-    : message_(0, std::error_code()),
-      empty_(true)
-  {
-  }
-
-  channel_payload(ASIO_MOVE_ARG(error_message_type) m)
-    : message_(ASIO_MOVE_CAST(error_message_type)(m)),
-      empty_(false)
-  {
-  }
-
-  template <typename Handler>
-  void receive(Handler& handler)
-  {
-    if (empty_)
-      channel_message<R1()>(0).receive(handler);
-    else
-      message_.receive(handler);
-  }
-
-private:
-  error_message_type message_;
-  bool empty_;
-};
-
-#endif // defined(ASIO_HAS_STD_VARIANT)
 
 } // namespace detail
 } // namespace experimental
