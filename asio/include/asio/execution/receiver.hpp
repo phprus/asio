@@ -26,12 +26,6 @@
 
 #include <exception>
 
-#if defined(ASIO_HAS_DEDUCED_RECEIVER_OF_FREE_TRAIT) \
-  && defined(ASIO_HAS_DEDUCED_RECEIVER_OF_MEMBER_TRAIT)
-# define ASIO_HAS_DEDUCED_EXECUTION_IS_RECEIVER_TRAIT 1
-#endif // defined(ASIO_HAS_DEDUCED_RECEIVER_OF_FREE_TRAIT)
-       //   && defined(ASIO_HAS_DEDUCED_RECEIVER_OF_MEMBER_TRAIT)
-
 #include "asio/detail/push_options.hpp"
 
 namespace asio {
