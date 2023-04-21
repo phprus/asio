@@ -237,7 +237,7 @@ struct is_deferred<deferred_function<Function> > : true_type
 
 /// Encapsulates deferred values.
 template <typename... Values>
-class ASIO_NODISCARD deferred_values
+class [[nodiscard]] deferred_values
 {
 private:
   std::tuple<Values...> values_;
@@ -326,7 +326,7 @@ struct is_deferred<deferred_values<Values...> > : true_type
 
 /// Encapsulates a deferred asynchronous operation.
 template <typename Signature, typename Initiation, typename... InitArgs>
-class ASIO_NODISCARD deferred_async_operation
+class [[nodiscard]] deferred_async_operation
 {
 private:
   typedef typename decay<Initiation>::type initiation_t;
@@ -403,7 +403,7 @@ public:
 /// Encapsulates a deferred asynchronous operation thas has multiple completion
 /// signatures.
 template <typename... Signatures, typename Initiation, typename... InitArgs>
-class ASIO_NODISCARD deferred_async_operation<
+class [[nodiscard]] deferred_async_operation<
     deferred_signatures<Signatures...>, Initiation, InitArgs...>
 {
 private:
@@ -488,7 +488,7 @@ struct is_deferred<
 
 /// Defines a link between two consecutive operations in a sequence.
 template <typename Head, typename Tail>
-class ASIO_NODISCARD deferred_sequence :
+class [[nodiscard]] deferred_sequence :
   public detail::deferred_sequence_types<Head, Tail>::base
 {
 public:
@@ -520,7 +520,7 @@ struct is_deferred<deferred_sequence<Head, Tail> > : true_type
 /// Used to represent a deferred conditional branch.
 template <typename OnTrue = deferred_noop,
     typename OnFalse = deferred_noop>
-class ASIO_NODISCARD deferred_conditional
+class [[nodiscard]] deferred_conditional
 {
 private:
   template <typename T, typename F> friend class deferred_conditional;

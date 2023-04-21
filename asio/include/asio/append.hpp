@@ -50,7 +50,7 @@ public:
 /// arguments should be passed additional values after the results of the
 /// operation.
 template <typename CompletionToken, typename... Values>
-ASIO_NODISCARD inline constexpr append_t<
+[[nodiscard]] inline constexpr append_t<
   typename decay<CompletionToken>::type, typename decay<Values>::type...>
 append(ASIO_MOVE_ARG(CompletionToken) completion_token,
     ASIO_MOVE_ARG(Values)... values)
