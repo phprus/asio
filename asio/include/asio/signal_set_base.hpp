@@ -27,7 +27,7 @@ namespace asio {
 class signal_set_base
 {
 public:
-# if defined(GENERATING_DOCUMENTATION)
+#if defined(GENERATING_DOCUMENTATION)
   /// Enumeration representing the different types of flags that may specified
   /// when adding a signal to a set.
   enum flags
@@ -56,7 +56,7 @@ public:
 
   /// Portability typedef.
   typedef flags flags_t;
-#elif defined(ASIO_HAS_ENUM_CLASS)
+#else // defined(GENERATING_DOCUMENTATION)
   enum class flags : int
   {
     none = 0,
@@ -67,21 +67,7 @@ public:
   };
 
   typedef flags flags_t;
-#else // defined(ASIO_HAS_ENUM_CLASS)
-  struct flags
-  {
-    enum flags_t
-    {
-      none = 0,
-      restart = ASIO_OS_DEF(SA_RESTART),
-      no_child_stop = ASIO_OS_DEF(SA_NOCLDSTOP),
-      no_child_wait = ASIO_OS_DEF(SA_NOCLDWAIT),
-      dont_care = -1
-    };
-  };
-
-  typedef flags::flags_t flags_t;
-#endif // defined(ASIO_HAS_ENUM_CLASS)
+#endif // defined(GENERATING_DOCUMENTATION)
 
 protected:
   /// Protected destructor to prevent deletion through this type.
