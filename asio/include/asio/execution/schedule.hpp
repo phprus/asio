@@ -204,12 +204,8 @@ struct can_schedule :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename S>
 constexpr bool can_schedule_v = can_schedule<S>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename S>
 struct is_nothrow_schedule :
@@ -218,13 +214,9 @@ struct is_nothrow_schedule :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename S>
 constexpr bool is_nothrow_schedule_v
   = is_nothrow_schedule<S>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 } // namespace execution
 } // namespace asio
