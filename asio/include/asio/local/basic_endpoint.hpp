@@ -76,13 +76,11 @@ public:
   {
   }
 
-  #if defined(ASIO_HAS_STRING_VIEW)
   /// Construct an endpoint using the specified path name.
-  basic_endpoint(string_view path_name)
+  basic_endpoint(std::string_view path_name)
     : impl_(path_name)
   {
   }
-  #endif // defined(ASIO_HAS_STRING_VIEW)
 
   /// Copy constructor.
   basic_endpoint(const basic_endpoint& other)

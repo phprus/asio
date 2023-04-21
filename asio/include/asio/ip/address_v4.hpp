@@ -20,7 +20,7 @@
 #include <array>
 #include "asio/detail/cstdint.hpp"
 #include "asio/detail/socket_types.hpp"
-#include "asio/detail/string_view.hpp"
+#include <string_view>
 #include "asio/detail/winsock_init.hpp"
 #include <system_error>
 
@@ -352,24 +352,18 @@ ASIO_DECL address_v4 make_address_v4(const std::string& str);
 ASIO_DECL address_v4 make_address_v4(const std::string& str,
     std::error_code& ec) noexcept(true);
 
-#if defined(ASIO_HAS_STRING_VIEW) \
-  || defined(GENERATING_DOCUMENTATION)
+/// Create an IPv4 address from an IP address string in dotted decimal form.
+/**
+ * @relates address_v4
+ */
+ASIO_DECL address_v4 make_address_v4(std::string_view str);
 
 /// Create an IPv4 address from an IP address string in dotted decimal form.
 /**
  * @relates address_v4
  */
-ASIO_DECL address_v4 make_address_v4(string_view str);
-
-/// Create an IPv4 address from an IP address string in dotted decimal form.
-/**
- * @relates address_v4
- */
-ASIO_DECL address_v4 make_address_v4(string_view str,
+ASIO_DECL address_v4 make_address_v4(std::string_view str,
     std::error_code& ec) noexcept(true);
-
-#endif // defined(ASIO_HAS_STRING_VIEW)
-       //  || defined(GENERATING_DOCUMENTATION)
 
 #if !defined(ASIO_NO_IOSTREAM)
 
