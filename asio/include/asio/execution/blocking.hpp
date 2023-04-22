@@ -17,10 +17,7 @@
 
 #include "asio/detail/config.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/execution/execute.hpp"
 #include "asio/execution/executor.hpp"
-#include "asio/execution/scheduler.hpp"
-#include "asio/execution/sender.hpp"
 #include "asio/is_applicable_property.hpp"
 #include "asio/prefer.hpp"
 #include "asio/query.hpp"
@@ -208,28 +205,10 @@ void blocking_execute(
 template <int I = 0>
 struct blocking_t
 {
-#if defined(ASIO_NO_DEPRECATED)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
       is_executor<T>::value));
-#else // defined(ASIO_NO_DEPRECATED)
-  template <typename T>
-  ASIO_STATIC_CONSTEXPR(bool,
-    is_applicable_property_v = (
-      is_executor<T>::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_sender<T>
-          >::type::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_scheduler<T>
-          >::type::value
-      ));
-#endif // defined(ASIO_NO_DEPRECATED)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = false);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = false);
@@ -491,28 +470,10 @@ namespace blocking {
 template <int I = 0>
 struct possibly_t
 {
-#if defined(ASIO_NO_DEPRECATED)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
       is_executor<T>::value));
-#else // defined(ASIO_NO_DEPRECATED)
-  template <typename T>
-  ASIO_STATIC_CONSTEXPR(bool,
-    is_applicable_property_v = (
-      is_executor<T>::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_sender<T>
-          >::type::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_scheduler<T>
-          >::type::value
-      ));
-#endif // defined(ASIO_NO_DEPRECATED)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = true);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = true);
@@ -720,11 +681,7 @@ public:
 
   template <typename Function>
   typename enable_if<
-#if defined(ASIO_NO_DEPRECATED)
     traits::execute_member<const Executor&, Function>::is_valid
-#else // defined(ASIO_NO_DEPRECATED)
-    execution::can_execute<const Executor&, Function>::value
-#endif // defined(ASIO_NO_DEPRECATED)
   >::type execute(ASIO_MOVE_ARG(Function) f) const
   {
     blocking_adaptation::blocking_execute(
@@ -748,28 +705,10 @@ private:
 template <int I = 0>
 struct always_t
 {
-#if defined(ASIO_NO_DEPRECATED)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
       is_executor<T>::value));
-#else // defined(ASIO_NO_DEPRECATED)
-  template <typename T>
-  ASIO_STATIC_CONSTEXPR(bool,
-    is_applicable_property_v = (
-      is_executor<T>::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_sender<T>
-          >::type::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_scheduler<T>
-          >::type::value
-      ));
-#endif // defined(ASIO_NO_DEPRECATED)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = true);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = false);
@@ -867,28 +806,10 @@ const T always_t<I>::static_query_v;
 template <int I>
 struct never_t
 {
-#if defined(ASIO_NO_DEPRECATED)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
       is_executor<T>::value));
-#else // defined(ASIO_NO_DEPRECATED)
-  template <typename T>
-  ASIO_STATIC_CONSTEXPR(bool,
-    is_applicable_property_v = (
-      is_executor<T>::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_sender<T>
-          >::type::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_scheduler<T>
-          >::type::value
-      ));
-#endif // defined(ASIO_NO_DEPRECATED)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = true);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = true);

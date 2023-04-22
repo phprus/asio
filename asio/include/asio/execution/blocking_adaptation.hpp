@@ -19,10 +19,7 @@
 #include "asio/detail/event.hpp"
 #include "asio/detail/mutex.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/execution/execute.hpp"
 #include "asio/execution/executor.hpp"
-#include "asio/execution/scheduler.hpp"
-#include "asio/execution/sender.hpp"
 #include "asio/is_applicable_property.hpp"
 #include "asio/prefer.hpp"
 #include "asio/query.hpp"
@@ -163,28 +160,10 @@ template <int I> struct allowed_t;
 template <int I = 0>
 struct blocking_adaptation_t
 {
-#if defined(ASIO_NO_DEPRECATED)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
       is_executor<T>::value));
-#else // defined(ASIO_NO_DEPRECATED)
-  template <typename T>
-  ASIO_STATIC_CONSTEXPR(bool,
-    is_applicable_property_v = (
-      is_executor<T>::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_sender<T>
-          >::type::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_scheduler<T>
-          >::type::value
-      ));
-#endif // defined(ASIO_NO_DEPRECATED)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = false);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = false);
@@ -396,28 +375,10 @@ namespace blocking_adaptation {
 template <int I = 0>
 struct disallowed_t
 {
-#if defined(ASIO_NO_DEPRECATED)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
       is_executor<T>::value));
-#else // defined(ASIO_NO_DEPRECATED)
-  template <typename T>
-  ASIO_STATIC_CONSTEXPR(bool,
-    is_applicable_property_v = (
-      is_executor<T>::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_sender<T>
-          >::type::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_scheduler<T>
-          >::type::value
-      ));
-#endif // defined(ASIO_NO_DEPRECATED)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = true);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = true);
@@ -581,18 +542,10 @@ public:
 
   template <typename Function>
   typename enable_if<
-#if defined(ASIO_NO_DEPRECATED)
     traits::execute_member<const Executor&, Function>::is_valid
-#else // defined(ASIO_NO_DEPRECATED)
-    execution::can_execute<const Executor&, Function>::value
-#endif // defined(ASIO_NO_DEPRECATED)
   >::type execute(ASIO_MOVE_ARG(Function) f) const
   {
-#if defined(ASIO_NO_DEPRECATED)
     executor_.execute(ASIO_MOVE_CAST(Function)(f));
-#else // defined(ASIO_NO_DEPRECATED)
-    execution::execute(executor_, ASIO_MOVE_CAST(Function)(f));
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   friend bool operator==(const adapter& a, const adapter& b) noexcept(true)
@@ -612,28 +565,10 @@ private:
 template <int I = 0>
 struct allowed_t
 {
-#if defined(ASIO_NO_DEPRECATED)
   template <typename T>
   ASIO_STATIC_CONSTEXPR(bool,
     is_applicable_property_v = (
       is_executor<T>::value));
-#else // defined(ASIO_NO_DEPRECATED)
-  template <typename T>
-  ASIO_STATIC_CONSTEXPR(bool,
-    is_applicable_property_v = (
-      is_executor<T>::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_sender<T>
-          >::type::value
-        || conditional<
-            is_executor<T>::value,
-            false_type,
-            is_scheduler<T>
-          >::type::value
-      ));
-#endif // defined(ASIO_NO_DEPRECATED)
 
   ASIO_STATIC_CONSTEXPR(bool, is_requirable = true);
   ASIO_STATIC_CONSTEXPR(bool, is_preferable = false);
@@ -715,11 +650,7 @@ public:
   void execute_and_wait(ASIO_MOVE_ARG(Executor) ex)
   {
     handler h = { this };
-#if defined(ASIO_NO_DEPRECATED)
     ex.execute(h);
-#else // defined(ASIO_NO_DEPRECATED)
-    execution::execute(ASIO_MOVE_CAST(Executor)(ex), h);
-#endif // defined(ASIO_NO_DEPRECATED)
     asio::detail::mutex::scoped_lock lock(mutex_);
     while (!is_complete_)
       event_.wait(lock);

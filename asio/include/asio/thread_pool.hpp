@@ -165,11 +165,6 @@ template <typename Allocator, unsigned int Bits>
 class thread_pool::basic_executor_type : detail::thread_pool_bits
 {
 public:
-#if !defined(ASIO_NO_DEPRECATED)
-  /// (Deprecated.) The sender type, when this type is used as a scheduler.
-  typedef basic_executor_type sender_type;
-#endif // !defined(ASIO_NO_DEPRECATED)
-
   /// The bulk execution shape type.
   typedef std::size_t shape_type;
 
@@ -397,25 +392,6 @@ private:
   friend struct asio::execution::detail::outstanding_work_t<0>;
 #endif // !defined(GENERATING_DOCUMENTATION)
 
-#if !defined(ASIO_NO_DEPRECATED)
-  /// (Deprecated.) Query the current value of the @c bulk_guarantee property.
-  /**
-   * Do not call this function directly. It is intended for use with the
-   * asio::query customisation point.
-   *
-   * For example:
-   * @code auto ex = my_thread_pool.executor();
-   * if (asio::query(ex, asio::execution::bulk_guarantee)
-   *       == asio::execution::bulk_guarantee.parallel)
-   *   ... @endcode
-   */
-  static constexpr execution::bulk_guarantee_t query(
-      execution::bulk_guarantee_t) noexcept(true)
-  {
-    return execution::bulk_guarantee.parallel;
-  }
-#endif // !defined(ASIO_NO_DEPRECATED)
-
   /// Query the current value of the @c mapping property.
   /**
    * Do not call this function directly. It is intended for use with the
@@ -596,48 +572,6 @@ public:
   }
 
 public:
-#if !defined(ASIO_NO_DEPRECATED)
-  /// (Deprecated.) Bulk execution function.
-  template <typename Function>
-  void bulk_execute(ASIO_MOVE_ARG(Function) f, std::size_t n) const
-  {
-    this->do_bulk_execute(ASIO_MOVE_CAST(Function)(f), n,
-        integral_constant<bool, (Bits & blocking_always) != 0>());
-  }
-
-  /// (Deprecated.) Schedule function.
-  /**
-   * Do not call this function directly. It is intended for use with the
-   * execution::schedule customisation point.
-   *
-   * @return An object that satisfies the sender concept.
-   */
-  sender_type schedule() const noexcept(true)
-  {
-    return *this;
-  }
-
-  /// (Deprecated.) Connect function.
-  /**
-   * Do not call this function directly. It is intended for use with the
-   * execution::connect customisation point.
-   *
-   * @return An object of an unspecified type that satisfies the @c
-   * operation_state concept.
-   */
-  template <ASIO_EXECUTION_RECEIVER_OF_0 Receiver>
-#if defined(GENERATING_DOCUMENTATION)
-  unspecified
-#else // defined(GENERATING_DOCUMENTATION)
-  execution::detail::as_operation<basic_executor_type, Receiver>
-#endif // defined(GENERATING_DOCUMENTATION)
-  connect(ASIO_MOVE_ARG(Receiver) r) const
-  {
-    return execution::detail::as_operation<basic_executor_type, Receiver>(
-        *this, ASIO_MOVE_CAST(Receiver)(r));
-  }
-#endif // !defined(ASIO_NO_DEPRECATED)
-
 #if !defined(ASIO_NO_TS_EXECUTORS)
   /// Obtain the underlying execution context.
   thread_pool& context() const noexcept(true);

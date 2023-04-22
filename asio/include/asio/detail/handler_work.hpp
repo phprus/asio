@@ -25,7 +25,6 @@
 #include "asio/detail/work_dispatcher.hpp"
 #include "asio/execution/allocator.hpp"
 #include "asio/execution/blocking.hpp"
-#include "asio/execution/execute.hpp"
 #include "asio/execution/executor.hpp"
 #include "asio/execution/outstanding_work.hpp"
 #include "asio/executor_work_guard.hpp"
@@ -88,16 +87,9 @@ public:
   template <typename Function, typename Handler>
   void dispatch(Function& function, Handler& handler)
   {
-#if defined(ASIO_NO_DEPRECATED)
     asio::prefer(executor_,
         execution::allocator((get_associated_allocator)(handler))
       ).execute(ASIO_MOVE_CAST(Function)(function));
-#else // defined(ASIO_NO_DEPRECATED)
-    execution::execute(
-        asio::prefer(executor_,
-          execution::allocator((get_associated_allocator)(handler))),
-        ASIO_MOVE_CAST(Function)(function));
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
 private:
@@ -340,11 +332,7 @@ public:
   template <typename Function, typename Handler>
   void dispatch(Function& function, Handler&)
   {
-#if defined(ASIO_NO_DEPRECATED)
     executor_.execute(ASIO_MOVE_CAST(Function)(function));
-#else // defined(ASIO_NO_DEPRECATED)
-    execution::execute(executor_, ASIO_MOVE_CAST(Function)(function));
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
 private:
@@ -413,11 +401,7 @@ public:
   template <typename Function, typename Handler>
   void dispatch(Function& function, Handler&)
   {
-#if defined(ASIO_NO_DEPRECATED)
     executor_.execute(ASIO_MOVE_CAST(Function)(function));
-#else // defined(ASIO_NO_DEPRECATED)
-    execution::execute(executor_, ASIO_MOVE_CAST(Function)(function));
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
 private:

@@ -270,14 +270,7 @@ public:
    */
   template <typename Function>
   typename constraint<
-#if defined(ASIO_NO_DEPRECATED) \
-  || defined(GENERATING_DOCUMENTATION)
     traits::execute_member<const Executor&, Function>::is_valid,
-#else // defined(ASIO_NO_DEPRECATED)
-      //   || defined(GENERATING_DOCUMENTATION)
-    execution::can_execute<const Executor&, Function>::value,
-#endif // defined(ASIO_NO_DEPRECATED)
-       //   || defined(GENERATING_DOCUMENTATION)
     void
   >::type execute(ASIO_MOVE_ARG(Function) f) const
   {
@@ -471,10 +464,6 @@ make_strand(ExecutionContext& ctx,
 }
 
 /*@}*/
-
-#if !defined(GENERATING_DOCUMENTATION)
-
-#endif // !defined(GENERATING_DOCUMENTATION)
 
 } // namespace asio
 

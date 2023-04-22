@@ -71,13 +71,8 @@ inline asio_handler_allocate_is_deprecated
 asio_handler_allocate(std::size_t size,
     binder0<Handler>* this_handler)
 {
-#if defined(ASIO_NO_DEPRECATED)
   asio_handler_alloc_helpers::allocate(size, this_handler->handler_);
   return asio_handler_allocate_is_no_longer_used();
-#else // defined(ASIO_NO_DEPRECATED)
-  return asio_handler_alloc_helpers::allocate(
-      size, this_handler->handler_);
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler>
@@ -87,9 +82,7 @@ asio_handler_deallocate(void* pointer, std::size_t size,
 {
   asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_deallocate_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler>
@@ -107,9 +100,7 @@ asio_handler_invoke(Function& function,
 {
   asio_handler_invoke_helpers::invoke(
       function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Function, typename Handler>
@@ -119,9 +110,7 @@ asio_handler_invoke(const Function& function,
 {
   asio_handler_invoke_helpers::invoke(
       function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler>
@@ -182,13 +171,8 @@ inline asio_handler_allocate_is_deprecated
 asio_handler_allocate(std::size_t size,
     binder1<Handler, Arg1>* this_handler)
 {
-#if defined(ASIO_NO_DEPRECATED)
   asio_handler_alloc_helpers::allocate(size, this_handler->handler_);
   return asio_handler_allocate_is_no_longer_used();
-#else // defined(ASIO_NO_DEPRECATED)
-  return asio_handler_alloc_helpers::allocate(
-      size, this_handler->handler_);
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1>
@@ -198,9 +182,7 @@ asio_handler_deallocate(void* pointer, std::size_t size,
 {
   asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_deallocate_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1>
@@ -218,9 +200,7 @@ asio_handler_invoke(Function& function,
 {
   asio_handler_invoke_helpers::invoke(
       function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Function, typename Handler, typename Arg1>
@@ -230,9 +210,7 @@ asio_handler_invoke(const Function& function,
 {
   asio_handler_invoke_helpers::invoke(
       function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1>
@@ -300,13 +278,8 @@ inline asio_handler_allocate_is_deprecated
 asio_handler_allocate(std::size_t size,
     binder2<Handler, Arg1, Arg2>* this_handler)
 {
-#if defined(ASIO_NO_DEPRECATED)
   asio_handler_alloc_helpers::allocate(size, this_handler->handler_);
   return asio_handler_allocate_is_no_longer_used();
-#else // defined(ASIO_NO_DEPRECATED)
-  return asio_handler_alloc_helpers::allocate(
-      size, this_handler->handler_);
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1, typename Arg2>
@@ -316,9 +289,7 @@ asio_handler_deallocate(void* pointer, std::size_t size,
 {
   asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_deallocate_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1, typename Arg2>
@@ -336,9 +307,7 @@ asio_handler_invoke(Function& function,
 {
   asio_handler_invoke_helpers::invoke(
       function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Function, typename Handler, typename Arg1, typename Arg2>
@@ -348,9 +317,7 @@ asio_handler_invoke(const Function& function,
 {
   asio_handler_invoke_helpers::invoke(
       function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1, typename Arg2>
@@ -425,13 +392,8 @@ inline asio_handler_allocate_is_deprecated
 asio_handler_allocate(std::size_t size,
     binder3<Handler, Arg1, Arg2, Arg3>* this_handler)
 {
-#if defined(ASIO_NO_DEPRECATED)
   asio_handler_alloc_helpers::allocate(size, this_handler->handler_);
   return asio_handler_allocate_is_no_longer_used();
-#else // defined(ASIO_NO_DEPRECATED)
-  return asio_handler_alloc_helpers::allocate(
-      size, this_handler->handler_);
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1, typename Arg2, typename Arg3>
@@ -441,9 +403,7 @@ asio_handler_deallocate(void* pointer, std::size_t size,
 {
   asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_deallocate_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1, typename Arg2, typename Arg3>
@@ -462,9 +422,7 @@ asio_handler_invoke(Function& function,
 {
   asio_handler_invoke_helpers::invoke(
       function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Function, typename Handler,
@@ -475,9 +433,7 @@ asio_handler_invoke(const Function& function,
 {
   asio_handler_invoke_helpers::invoke(
       function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1, typename Arg2, typename Arg3>
@@ -561,13 +517,8 @@ inline asio_handler_allocate_is_deprecated
 asio_handler_allocate(std::size_t size,
     binder4<Handler, Arg1, Arg2, Arg3, Arg4>* this_handler)
 {
-#if defined(ASIO_NO_DEPRECATED)
   asio_handler_alloc_helpers::allocate(size, this_handler->handler_);
   return asio_handler_allocate_is_no_longer_used();
-#else // defined(ASIO_NO_DEPRECATED)
-  return asio_handler_alloc_helpers::allocate(
-      size, this_handler->handler_);
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1,
@@ -578,9 +529,7 @@ asio_handler_deallocate(void* pointer, std::size_t size,
 {
   asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_deallocate_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1,
@@ -600,9 +549,7 @@ asio_handler_invoke(Function& function,
 {
   asio_handler_invoke_helpers::invoke(
       function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Function, typename Handler, typename Arg1,
@@ -613,9 +560,7 @@ asio_handler_invoke(const Function& function,
 {
   asio_handler_invoke_helpers::invoke(
       function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1,
@@ -706,13 +651,8 @@ inline asio_handler_allocate_is_deprecated
 asio_handler_allocate(std::size_t size,
     binder5<Handler, Arg1, Arg2, Arg3, Arg4, Arg5>* this_handler)
 {
-#if defined(ASIO_NO_DEPRECATED)
   asio_handler_alloc_helpers::allocate(size, this_handler->handler_);
   return asio_handler_allocate_is_no_longer_used();
-#else // defined(ASIO_NO_DEPRECATED)
-  return asio_handler_alloc_helpers::allocate(
-      size, this_handler->handler_);
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1, typename Arg2,
@@ -723,9 +663,7 @@ asio_handler_deallocate(void* pointer, std::size_t size,
 {
   asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_deallocate_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1, typename Arg2,
@@ -745,9 +683,7 @@ asio_handler_invoke(Function& function,
 {
   asio_handler_invoke_helpers::invoke(
       function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Function, typename Handler, typename Arg1,
@@ -758,9 +694,7 @@ asio_handler_invoke(const Function& function,
 {
   asio_handler_invoke_helpers::invoke(
       function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1, typename Arg2,
@@ -806,13 +740,8 @@ inline asio_handler_allocate_is_deprecated
 asio_handler_allocate(std::size_t size,
     move_binder1<Handler, Arg1>* this_handler)
 {
-#if defined(ASIO_NO_DEPRECATED)
   asio_handler_alloc_helpers::allocate(size, this_handler->handler_);
   return asio_handler_allocate_is_no_longer_used();
-#else // defined(ASIO_NO_DEPRECATED)
-  return asio_handler_alloc_helpers::allocate(
-      size, this_handler->handler_);
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1>
@@ -822,9 +751,7 @@ asio_handler_deallocate(void* pointer, std::size_t size,
 {
   asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_deallocate_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1>
@@ -842,9 +769,7 @@ asio_handler_invoke(ASIO_MOVE_ARG(Function) function,
 {
   asio_handler_invoke_helpers::invoke(
       ASIO_MOVE_CAST(Function)(function), this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1, typename Arg2>
@@ -884,13 +809,8 @@ inline asio_handler_allocate_is_deprecated
 asio_handler_allocate(std::size_t size,
     move_binder2<Handler, Arg1, Arg2>* this_handler)
 {
-#if defined(ASIO_NO_DEPRECATED)
   asio_handler_alloc_helpers::allocate(size, this_handler->handler_);
   return asio_handler_allocate_is_no_longer_used();
-#else // defined(ASIO_NO_DEPRECATED)
-  return asio_handler_alloc_helpers::allocate(
-      size, this_handler->handler_);
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1, typename Arg2>
@@ -900,9 +820,7 @@ asio_handler_deallocate(void* pointer, std::size_t size,
 {
   asio_handler_alloc_helpers::deallocate(
       pointer, size, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_deallocate_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 template <typename Handler, typename Arg1, typename Arg2>
@@ -920,9 +838,7 @@ asio_handler_invoke(ASIO_MOVE_ARG(Function) function,
 {
   asio_handler_invoke_helpers::invoke(
       ASIO_MOVE_CAST(Function)(function), this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
   return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
 }
 
 } // namespace detail
