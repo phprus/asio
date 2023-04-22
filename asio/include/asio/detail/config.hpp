@@ -710,9 +710,6 @@
 # endif // !defined(ASIO_DISABLE_GETADDRINFO)
 #endif // !defined(ASIO_HAS_GETADDRINFO)
 
-// Whether exception handling is disabled.
-//#define ASIO_NO_EXCEPTIONS 1
-
 // Threads.
 #if !defined(ASIO_HAS_THREADS)
 # if !defined(ASIO_DISABLE_THREADS)
