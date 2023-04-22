@@ -29,13 +29,13 @@
 #include "asio/detail/type_traits.hpp"
 #include "asio/is_contiguous_iterator.hpp"
 
-#if defined(ASIO_MSVC) && (ASIO_MSVC >= 1700)
+#if defined(ASIO_MSVC)
 # if defined(_HAS_ITERATOR_DEBUGGING) && (_HAS_ITERATOR_DEBUGGING != 0)
 #  if !defined(ASIO_DISABLE_BUFFER_DEBUGGING)
 #   define ASIO_ENABLE_BUFFER_DEBUGGING
 #  endif // !defined(ASIO_DISABLE_BUFFER_DEBUGGING)
 # endif // defined(_HAS_ITERATOR_DEBUGGING)
-#endif // defined(ASIO_MSVC) && (ASIO_MSVC >= 1700)
+#endif // defined(ASIO_MSVC)
 
 #if defined(__GNUC__)
 # if defined(_GLIBCXX_DEBUG)
@@ -645,12 +645,6 @@ public:
 
   ~buffer_debug_check()
   {
-#if defined(ASIO_MSVC) && (ASIO_MSVC == 1400)
-    // MSVC 8's string iterator checking may crash in a std::string::iterator
-    // object's destructor when the iterator points to an already-destroyed
-    // std::string object, unless the iterator is cleared first.
-    iter_ = Iterator();
-#endif // defined(ASIO_MSVC) && (ASIO_MSVC == 1400)
   }
 
   void operator()()

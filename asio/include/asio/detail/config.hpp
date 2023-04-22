@@ -812,10 +812,8 @@
 #  endif // defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__))
 # endif // defined(__linux__)
 # if defined(ASIO_MSVC) && defined(ASIO_WINDOWS_RUNTIME)
-#  if (_MSC_VER >= 1700)
-#   define ASIO_HAS_THREAD_KEYWORD_EXTENSION 1
-#   define ASIO_THREAD_KEYWORD __declspec(thread)
-#  endif // (_MSC_VER >= 1700)
+#  define ASIO_HAS_THREAD_KEYWORD_EXTENSION 1
+#  define ASIO_THREAD_KEYWORD __declspec(thread)
 # endif // defined(ASIO_MSVC) && defined(ASIO_WINDOWS_RUNTIME)
 # if defined(__APPLE__)
 #  if defined(__clang__)

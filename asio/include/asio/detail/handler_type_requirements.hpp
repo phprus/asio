@@ -38,9 +38,7 @@
 #  endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
 # endif // defined(__GNUC__)
 # if defined(ASIO_MSVC)
-#  if (_MSC_VER >= 1600)
-#   define ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS_ASSERT 1
-#  endif // (_MSC_VER >= 1600)
+#  define ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS_ASSERT 1
 # endif // defined(ASIO_MSVC)
 # if defined(__clang__)
 #  if __has_feature(__cxx_static_assert__)

@@ -345,7 +345,7 @@ public:
    * 8.1, and will fail with asio::error::operation_not_supported on
    * these platforms.
    */
-#if defined(ASIO_MSVC) && (ASIO_MSVC >= 1400) \
+#if defined(ASIO_MSVC) \
   && (!defined(_WIN32_WINNT) || _WIN32_WINNT < 0x0603)
   __declspec(deprecated("This function always fails with "
         "operation_not_supported when used on Windows versions "
@@ -373,7 +373,7 @@ public:
    * 8.1, and will fail with asio::error::operation_not_supported on
    * these platforms.
    */
-#if defined(ASIO_MSVC) && (ASIO_MSVC >= 1400) \
+#if defined(ASIO_MSVC) \
   && (!defined(_WIN32_WINNT) || _WIN32_WINNT < 0x0603)
   __declspec(deprecated("This function always fails with "
         "operation_not_supported when used on Windows versions "
