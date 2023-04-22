@@ -31,13 +31,6 @@ needs.
     []
   ]
   [
-    [`ASIO_HAS_CONCEPTS`]
-    [
-      Support concepts on compilers known to allow them.
-    ]
-    [`ASIO_DISABLE_CONCEPTS`]
-  ]
-  [
     [`ASIO_HAS_CO_AWAIT`]
     [
       Support the co_await keyword on compilers known to allow it.
@@ -197,13 +190,6 @@ needs.
       Standard library support for aligned allocation.
     ]
     [`ASIO_DISABLE_STD_ALIGNED_ALLOC`]
-  ]
-  [
-    [`ASIO_HAS_STD_CONCEPTS`]
-    [
-      Support concepts on compilers known to allow them.
-    ]
-    [`ASIO_DISABLE_STD_CONCEPTS`]
   ]
   [
     [`ASIO_HAS_STD_COROUTINE`]

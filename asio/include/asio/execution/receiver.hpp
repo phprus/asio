@@ -88,18 +88,10 @@ struct is_receiver :
 template <typename T, typename E = std::exception_ptr>
 constexpr const bool is_receiver_v = is_receiver<T, E>::value;
 
-#if defined(ASIO_HAS_CONCEPTS)
-
 template <typename T, typename E = std::exception_ptr>
-ASIO_CONCEPT receiver = is_receiver<T, E>::value;
+concept receiver = is_receiver<T, E>::value;
 
 #define ASIO_EXECUTION_RECEIVER ::asio::execution::receiver
-
-#else // defined(ASIO_HAS_CONCEPTS)
-
-#define ASIO_EXECUTION_RECEIVER typename
-
-#endif // defined(ASIO_HAS_CONCEPTS)
 
 /// The is_receiver_of trait detects whether a type T satisfies the
 /// execution::receiver_of concept for some set of value arguments.
@@ -126,23 +118,14 @@ template <typename T, typename... Vs>
 constexpr const bool is_receiver_of_v =
   is_receiver_of<T, Vs...>::value;
 
-#if defined(ASIO_HAS_CONCEPTS)
-
 template <typename T, typename... Vs>
-ASIO_CONCEPT receiver_of = is_receiver_of<T, Vs...>::value;
+concept receiver_of = is_receiver_of<T, Vs...>::value;
 
 #define ASIO_EXECUTION_RECEIVER_OF_0 \
   ::asio::execution::receiver_of
 
 #define ASIO_EXECUTION_RECEIVER_OF_1(v) \
   ::asio::execution::receiver_of<v>
-
-#else // defined(ASIO_HAS_CONCEPTS)
-
-#define ASIO_EXECUTION_RECEIVER_OF_0 typename
-#define ASIO_EXECUTION_RECEIVER_OF_1(v) typename
-
-#endif // defined(ASIO_HAS_CONCEPTS)
 
 /// The is_nothrow_receiver_of trait detects whether a type T satisfies the
 /// execution::receiver_of concept for some set of value arguments, with a

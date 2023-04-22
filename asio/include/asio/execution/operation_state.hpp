@@ -71,19 +71,11 @@ template <typename T>
 constexpr const bool is_operation_state_v =
   is_operation_state<T>::value;
 
-#if defined(ASIO_HAS_CONCEPTS)
-
 template <typename T>
-ASIO_CONCEPT operation_state = is_operation_state<T>::value;
+concept operation_state = is_operation_state<T>::value;
 
 #define ASIO_EXECUTION_OPERATION_STATE \
   ::asio::execution::operation_state
-
-#else // defined(ASIO_HAS_CONCEPTS)
-
-#define ASIO_EXECUTION_OPERATION_STATE typename
-
-#endif // defined(ASIO_HAS_CONCEPTS)
 
 } // namespace execution
 } // namespace asio

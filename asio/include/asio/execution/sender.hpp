@@ -189,18 +189,10 @@ struct is_sender :
 template <typename T>
 constexpr const bool is_sender_v = is_sender<T>::value;
 
-#if defined(ASIO_HAS_CONCEPTS)
-
 template <typename T>
-ASIO_CONCEPT sender = is_sender<T>::value;
+concept sender = is_sender<T>::value;
 
 #define ASIO_EXECUTION_SENDER ::asio::execution::sender
-
-#else // defined(ASIO_HAS_CONCEPTS)
-
-#define ASIO_EXECUTION_SENDER typename
-
-#endif // defined(ASIO_HAS_CONCEPTS)
 
 template <typename S, typename R>
 struct can_connect;
@@ -230,19 +222,11 @@ template <typename T, typename R>
 constexpr const bool is_sender_to_v =
   is_sender_to<T, R>::value;
 
-#if defined(ASIO_HAS_CONCEPTS)
-
 template <typename T, typename R>
-ASIO_CONCEPT sender_to = is_sender_to<T, R>::value;
+concept sender_to = is_sender_to<T, R>::value;
 
 #define ASIO_EXECUTION_SENDER_TO(r) \
   ::asio::execution::sender_to<r>
-
-#else // defined(ASIO_HAS_CONCEPTS)
-
-#define ASIO_EXECUTION_SENDER_TO(r) typename
-
-#endif // defined(ASIO_HAS_CONCEPTS)
 
 /// The is_typed_sender trait detects whether a type T satisfies the
 /// execution::typed_sender concept.
@@ -268,19 +252,11 @@ struct is_typed_sender :
 template <typename T>
 constexpr const bool is_typed_sender_v = is_typed_sender<T>::value;
 
-#if defined(ASIO_HAS_CONCEPTS)
-
 template <typename T>
-ASIO_CONCEPT typed_sender = is_typed_sender<T>::value;
+concept typed_sender = is_typed_sender<T>::value;
 
 #define ASIO_EXECUTION_TYPED_SENDER \
   ::asio::execution::typed_sender
-
-#else // defined(ASIO_HAS_CONCEPTS)
-
-#define ASIO_EXECUTION_TYPED_SENDER typename
-
-#endif // defined(ASIO_HAS_CONCEPTS)
 
 } // namespace execution
 } // namespace asio

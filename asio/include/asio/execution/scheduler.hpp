@@ -64,18 +64,8 @@ struct is_scheduler :
 template <typename T>
 constexpr const bool is_scheduler_v = is_scheduler<T>::value;
 
-#if defined(ASIO_HAS_CONCEPTS)
-
 template <typename T>
-ASIO_CONCEPT scheduler = is_scheduler<T>::value;
-
-#define ASIO_EXECUTION_SCHEDULER ::asio::execution::scheduler
-
-#else // defined(ASIO_HAS_CONCEPTS)
-
-#define ASIO_EXECUTION_SCHEDULER typename
-
-#endif // defined(ASIO_HAS_CONCEPTS)
+concept scheduler = is_scheduler<T>::value;
 
 } // namespace execution
 } // namespace asio

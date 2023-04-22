@@ -149,30 +149,11 @@
 // C++20: Support enum classes on compilers known to allow them.
 #define ASIO_HAS_ENUM_CLASS 1
 
-// Support concepts on compilers known to allow them.
-#if !defined(ASIO_HAS_CONCEPTS)
-# if !defined(ASIO_DISABLE_CONCEPTS)
-#  if defined(__cpp_concepts)
-#   define ASIO_HAS_CONCEPTS 1
-#   if (__cpp_concepts >= 201707)
-#    define ASIO_CONCEPT concept
-#   else // (__cpp_concepts >= 201707)
-#    define ASIO_CONCEPT concept bool
-#   endif // (__cpp_concepts >= 201707)
-#  endif // defined(__cpp_concepts)
-# endif // !defined(ASIO_DISABLE_CONCEPTS)
-#endif // !defined(ASIO_HAS_CONCEPTS)
+// C++20: Support concepts on compilers known to allow them.
+#define ASIO_HAS_CONCEPTS 1
 
-// Support concepts on compilers known to allow them.
-#if !defined(ASIO_HAS_STD_CONCEPTS)
-# if !defined(ASIO_DISABLE_STD_CONCEPTS)
-#  if defined(ASIO_HAS_CONCEPTS)
-#   if (__cpp_lib_concepts >= 202002L)
-#    define ASIO_HAS_STD_CONCEPTS 1
-#   endif // (__cpp_concepts >= 202002L)
-#  endif // defined(ASIO_HAS_CONCEPTS)
-# endif // !defined(ASIO_DISABLE_STD_CONCEPTS)
-#endif // !defined(ASIO_HAS_STD_CONCEPTS)
+// C++20: Support concepts on compilers known to allow them.
+#define ASIO_HAS_STD_CONCEPTS 1
 
 // C++20: Support template variables on compilers known to allow it.
 #define ASIO_HAS_VARIABLE_TEMPLATES 1
