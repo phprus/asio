@@ -54,13 +54,10 @@ struct as_invocable
 
   void operator()() & noexcept(true)
   {
-#if !defined(ASIO_NO_EXCEPTIONS)
     try
     {
-#endif // !defined(ASIO_NO_EXCEPTIONS)
       execution::set_value(ASIO_MOVE_CAST(Receiver)(*receiver_));
       receiver_ = 0;
-#if !defined(ASIO_NO_EXCEPTIONS)
     }
     catch (...)
     {
@@ -68,7 +65,6 @@ struct as_invocable
           std::make_exception_ptr(receiver_invocation_error()));
       receiver_ = 0;
     }
-#endif // !defined(ASIO_NO_EXCEPTIONS)
   }
 };
 

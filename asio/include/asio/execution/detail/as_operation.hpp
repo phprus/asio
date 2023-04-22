@@ -44,10 +44,8 @@ struct as_operation
 
   void start() noexcept(true)
   {
-#if !defined(ASIO_NO_EXCEPTIONS)
     try
     {
-#endif // !defined(ASIO_NO_EXCEPTIONS)
 #if defined(ASIO_NO_DEPRECATED)
       ex_.execute(
 #else // defined(ASIO_NO_DEPRECATED)
@@ -57,7 +55,6 @@ struct as_operation
           as_invocable<typename remove_cvref<Receiver>::type,
               Executor>(receiver_
               ));
-#if !defined(ASIO_NO_EXCEPTIONS)
     }
     catch (...)
     {
@@ -67,7 +64,6 @@ struct as_operation
               receiver_),
           std::current_exception());
     }
-#endif // !defined(ASIO_NO_EXCEPTIONS)
   }
 };
 

@@ -30,19 +30,15 @@ struct thread_pool::thread_function
 
   void operator()()
   {
-#if !defined(ASIO_NO_EXCEPTIONS)
     try
     {
-#endif// !defined(ASIO_NO_EXCEPTIONS)
       std::error_code ec;
       scheduler_->run(ec);
-#if !defined(ASIO_NO_EXCEPTIONS)
     }
     catch (...)
     {
       std::terminate();
     }
-#endif// !defined(ASIO_NO_EXCEPTIONS)
   }
 };
 
