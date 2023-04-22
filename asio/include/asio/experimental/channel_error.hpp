@@ -37,7 +37,7 @@ extern ASIO_DECL
 const std::error_category& get_channel_category();
 
 static const std::error_category&
-  channel_category ASIO_UNUSED_VARIABLE
+  channel_category [[maybe_unused]]
   = asio::experimental::error::get_channel_category();
 
 } // namespace error
