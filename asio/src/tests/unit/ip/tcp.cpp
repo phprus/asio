@@ -1202,7 +1202,6 @@ namespace ip_tcp_iostream_compile {
 
 void test()
 {
-#if !defined(ASIO_NO_IOSTREAM)
   using namespace asio;
   namespace ip = asio::ip;
 
@@ -1259,7 +1258,6 @@ void test()
   int i = 0;
   ios1 >> i;
   ios1 << i;
-#endif // !defined(ASIO_NO_IOSTREAM)
 }
 
 } // namespace ip_tcp_iostream_compile

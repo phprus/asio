@@ -17,8 +17,6 @@
 
 #include "asio/detail/config.hpp"
 
-#if !defined(ASIO_NO_IOSTREAM)
-
 #include <algorithm>
 #include <cstring>
 #include <stdexcept>
@@ -444,7 +442,5 @@ private:
 } // namespace asio
 
 #include "asio/detail/pop_options.hpp"
-
-#endif // !defined(ASIO_NO_IOSTREAM)
 
 #endif // ASIO_BASIC_STREAMBUF_HPP

@@ -710,9 +710,6 @@
 # endif // !defined(ASIO_DISABLE_GETADDRINFO)
 #endif // !defined(ASIO_HAS_GETADDRINFO)
 
-// Whether standard iostreams are disabled.
-//#define ASIO_NO_IOSTREAM 1
-
 // Whether exception handling is disabled.
 //#define ASIO_NO_EXCEPTIONS 1
 
