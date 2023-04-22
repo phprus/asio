@@ -283,13 +283,13 @@ extern ASIO_DECL
 const std::error_category& get_misc_category();
 
 static const std::error_category&
-  netdb_category ASIO_UNUSED_VARIABLE
+  netdb_category [[maybe_unused]]
   = asio::error::get_netdb_category();
 static const std::error_category&
-  addrinfo_category ASIO_UNUSED_VARIABLE
+  addrinfo_category [[maybe_unused]]
   = asio::error::get_addrinfo_category();
 static const std::error_category&
-  misc_category ASIO_UNUSED_VARIABLE
+  misc_category [[maybe_unused]]
   = asio::error::get_misc_category();
 
 } // namespace error
