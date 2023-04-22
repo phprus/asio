@@ -387,7 +387,7 @@ namespace detail
       non_const_lvalue<WriteHandler> handler2(handler);
       if (buffer_size(buffers) == 0 || storage->size() < storage->capacity())
       {
-        next_layer_.async_write_some(ASIO_CONST_BUFFER(0, 0),
+        next_layer_.async_write_some(const_buffer(0, 0),
             buffered_write_some_handler<ConstBufferSequence,
               typename decay<WriteHandler>::type>(
                 *storage, buffers, handler2.value));
