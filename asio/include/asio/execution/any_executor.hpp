@@ -738,17 +738,10 @@ public:
       ? static_cast<const Executor*>(target_) : 0;
   }
 
-#if !defined(ASIO_NO_TYPEID)
   const std::type_info& target_type() const
   {
     return target_ ? target_fns_->target_type() : typeid(void);
   }
-#else // !defined(ASIO_NO_TYPEID)
-  const void* target_type() const
-  {
-    return target_ ? target_fns_->target_type() : 0;
-  }
-#endif // !defined(ASIO_NO_TYPEID)
 
   struct unspecified_bool_type_t {};
   typedef void (*unspecified_bool_type)(unspecified_bool_type_t);
@@ -890,30 +883,17 @@ protected:
 
   struct target_fns
   {
-#if !defined(ASIO_NO_TYPEID)
     const std::type_info& (*target_type)();
-#else // !defined(ASIO_NO_TYPEID)
-    const void* (*target_type)();
-#endif // !defined(ASIO_NO_TYPEID)
     bool (*equal)(const any_executor_base&, const any_executor_base&);
     void (*execute)(const any_executor_base&, ASIO_MOVE_ARG(function));
     void (*blocking_execute)(const any_executor_base&, function_view);
   };
 
-#if !defined(ASIO_NO_TYPEID)
   template <typename Ex>
   static const std::type_info& target_type_ex()
   {
     return typeid(Ex);
   }
-#else // !defined(ASIO_NO_TYPEID)
-  template <typename Ex>
-  static const void* target_type_ex()
-  {
-    static int unique_id;
-    return &unique_id;
-  }
-#endif // !defined(ASIO_NO_TYPEID)
 
   template <typename Ex>
   static bool equal_ex(const any_executor_base& ex1,
