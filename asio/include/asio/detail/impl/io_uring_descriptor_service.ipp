@@ -144,7 +144,8 @@ std::error_code io_uring_descriptor_service::close(
 
 io_uring_descriptor_service::native_handle_type
 io_uring_descriptor_service::release(
-    io_uring_descriptor_service::implementation_type& impl)
+    io_uring_descriptor_service::implementation_type& impl,
+    std::error_code& ec)
 {
   native_handle_type descriptor = impl.descriptor_;
 
@@ -156,6 +157,11 @@ io_uring_descriptor_service::release(
     io_uring_service_.deregister_io_object(impl.io_object_data_);
     io_uring_service_.cleanup_io_object(impl.io_object_data_);
     construct(impl);
+    ec = success_ec_;
+  }
+  else
+  {
+    ec = asio::error::bad_descriptor;
   }
 
   return descriptor;
