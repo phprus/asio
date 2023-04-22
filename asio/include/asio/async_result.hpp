@@ -425,13 +425,6 @@ struct async_completion
 
 namespace detail {
 
-template <typename CompletionToken, ASIO_COMPLETION_SIGNATURES_TPARAMS>
-struct async_result_helper
-  : async_result<typename decay<CompletionToken>::type,
-      ASIO_COMPLETION_SIGNATURES_TARGS>
-{
-};
-
 struct async_result_memfns_base
 {
   void initiate();
@@ -475,25 +468,6 @@ struct async_result_has_initiate_memfn
   void_or_deduced
 # define ASIO_INITFN_RESULT_TYPE3(ct, sig0, sig1, sig2) \
   void_or_deduced
-#elif defined(_MSC_VER) && (_MSC_VER < 1500)
-# define ASIO_INITFN_RESULT_TYPE(ct, sig) \
-  typename ::asio::detail::async_result_helper< \
-    ct, sig>::return_type
-# define ASIO_INITFN_RESULT_TYPE2(ct, sig0, sig1) \
-  typename ::asio::detail::async_result_helper< \
-    ct, sig0, sig1>::return_type
-# define ASIO_INITFN_RESULT_TYPE3(ct, sig0, sig1, sig2) \
-  typename ::asio::detail::async_result_helper< \
-    ct, sig0, sig1, sig2>::return_type
-#define ASIO_HANDLER_TYPE(ct, sig) \
-  typename ::asio::detail::async_result_helper< \
-    ct, sig>::completion_handler_type
-#define ASIO_HANDLER_TYPE2(ct, sig0, sig1) \
-  typename ::asio::detail::async_result_helper< \
-    ct, sig0, sig1>::completion_handler_type
-#define ASIO_HANDLER_TYPE3(ct, sig0, sig1, sig2) \
-  typename ::asio::detail::async_result_helper< \
-    ct, sig0, sig1, sig2>::completion_handler_type
 #else
 # define ASIO_INITFN_RESULT_TYPE(ct, sig) \
   typename ::asio::async_result< \
