@@ -117,18 +117,10 @@ struct is_executor :
 template <typename T>
 constexpr const bool is_executor_v = is_executor<T>::value;
 
-#if defined(ASIO_HAS_CONCEPTS)
-
 template <typename T>
-ASIO_CONCEPT executor = is_executor<T>::value;
+concept executor = is_executor<T>::value;
 
 #define ASIO_EXECUTION_EXECUTOR ::asio::execution::executor
-
-#else // defined(ASIO_HAS_CONCEPTS)
-
-#define ASIO_EXECUTION_EXECUTOR typename
-
-#endif // defined(ASIO_HAS_CONCEPTS)
 
 /// The is_executor_of trait detects whether a type T satisfies the
 /// execution::executor_of concept for some set of value arguments.
@@ -154,19 +146,11 @@ template <typename T, typename F>
 constexpr const bool is_executor_of_v =
   is_executor_of<T, F>::value;
 
-#if defined(ASIO_HAS_CONCEPTS)
-
 template <typename T, typename F>
-ASIO_CONCEPT executor_of = is_executor_of<T, F>::value;
+concept executor_of = is_executor_of<T, F>::value;
 
 #define ASIO_EXECUTION_EXECUTOR_OF(f) \
   ::asio::execution::executor_of<f>
-
-#else // defined(ASIO_HAS_CONCEPTS)
-
-#define ASIO_EXECUTION_EXECUTOR_OF typename
-
-#endif // defined(ASIO_HAS_CONCEPTS)
 
 /// The executor_shape trait detects the type used by an executor to represent
 /// the shape of a bulk operation.
