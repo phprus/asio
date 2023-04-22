@@ -111,24 +111,8 @@
 // C++20: Support noexcept on compilers known to allow it.
 #define ASIO_HAS_NOEXCEPT 1
 
-// Support noexcept on function types on compilers known to allow it.
-#if !defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
-# if !defined(ASIO_DISABLE_NOEXCEPT_FUNCTION_TYPE)
-#  if defined(__clang__)
-#   if (__cplusplus >= 202002)
-#    define ASIO_HAS_NOEXCEPT_FUNCTION_TYPE 1
-#   endif // (__cplusplus >= 202002)
-#  elif defined(__GNUC__)
-#   if (__cplusplus >= 202002)
-#    define ASIO_HAS_NOEXCEPT_FUNCTION_TYPE 1
-#   endif // (__cplusplus >= 202002)
-#  elif defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1900 && _MSVC_LANG >= 202002)
-#    define ASIO_HAS_NOEXCEPT_FUNCTION_TYPE 1
-#   endif // (_MSC_VER >= 1900 && _MSVC_LANG >= 202002)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_NOEXCEPT_FUNCTION_TYPE)
-#endif // !defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
+// C++20: Support noexcept on function types on compilers known to allow it.
+#define ASIO_HAS_NOEXCEPT_FUNCTION_TYPE 1
 
 // C++20: Support automatic type deduction on compilers known to support it.
 #define ASIO_HAS_DECLTYPE 1

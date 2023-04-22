@@ -44,8 +44,6 @@ struct is_completion_signature<R(Args...) &&> : true_type
 {
 };
 
-#if defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
-
 template <typename R, typename... Args>
 struct is_completion_signature<R(Args...) noexcept> : true_type
 {
@@ -60,8 +58,6 @@ template <typename R, typename... Args>
 struct is_completion_signature<R(Args...) && noexcept> : true_type
 {
 };
-
-#endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
 
 template <typename... T>
 struct are_completion_signatures : false_type
@@ -111,8 +107,6 @@ struct is_completion_handler_for<T, R(Args...) &&>
 {
 };
 
-#if defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
-
 template <typename T, typename R, typename... Args>
 struct is_completion_handler_for<T, R(Args...) noexcept>
   : integral_constant<bool, (callable_with<T, Args...>)>
@@ -130,8 +124,6 @@ struct is_completion_handler_for<T, R(Args...) && noexcept>
   : integral_constant<bool, (callable_with<T&&, Args...>)>
 {
 };
-
-#endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
 
 template <typename T, typename Signature0, typename... SignatureN>
 struct is_completion_handler_for<T, Signature0, SignatureN...>
@@ -214,8 +206,6 @@ struct simple_completion_signature<R(Args...) &&>
   typedef R type(Args...);
 };
 
-#if defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
-
 template <typename R, typename... Args>
 struct simple_completion_signature<R(Args...) noexcept>
 {
@@ -233,8 +223,6 @@ struct simple_completion_signature<R(Args...) && noexcept>
 {
   typedef R type(Args...);
 };
-
-#endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
 
 # define ASIO_COMPLETION_SIGNATURES_TPARAMS \
     ASIO_COMPLETION_SIGNATURE... Signatures
