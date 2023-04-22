@@ -201,7 +201,6 @@ inline std::size_t read(SyncReadStream& s,
 }
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 template <typename SyncReadStream, typename Allocator,
     typename CompletionCondition>
@@ -238,7 +237,6 @@ inline std::size_t read(SyncReadStream& s,
       ASIO_MOVE_CAST(CompletionCondition)(completion_condition));
 }
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 #endif // !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
 
@@ -921,7 +919,6 @@ async_read(AsyncReadStream& s,
 }
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 template <typename AsyncReadStream, typename Allocator,
     ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
@@ -957,7 +954,6 @@ async_read(AsyncReadStream& s, basic_streambuf<Allocator>& b,
       ASIO_MOVE_CAST(ReadToken)(token));
 }
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 #endif // !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
 
