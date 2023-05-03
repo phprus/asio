@@ -17,14 +17,7 @@
 
 #include "asio/detail/config.hpp"
 
-#if defined(ASIO_HAS_CO_AWAIT) || defined(GENERATING_DOCUMENTATION)
-
-#if defined(ASIO_HAS_STD_COROUTINE)
-# include <coroutine>
-#else // defined(ASIO_HAS_STD_COROUTINE)
-# include <experimental/coroutine>
-#endif // defined(ASIO_HAS_STD_COROUTINE)
-
+#include <coroutine>
 #include <utility>
 #include "asio/any_io_executor.hpp"
 
@@ -33,13 +26,8 @@
 namespace asio {
 namespace detail {
 
-#if defined(ASIO_HAS_STD_COROUTINE)
 using std::coroutine_handle;
 using std::suspend_always;
-#else // defined(ASIO_HAS_STD_COROUTINE)
-using std::experimental::coroutine_handle;
-using std::experimental::suspend_always;
-#endif // defined(ASIO_HAS_STD_COROUTINE)
 
 template <typename> class awaitable_thread;
 template <typename, typename> class awaitable_frame;
@@ -136,7 +124,5 @@ private:
 #include "asio/detail/pop_options.hpp"
 
 #include "asio/impl/awaitable.hpp"
-
-#endif // defined(ASIO_HAS_CO_AWAIT) || defined(GENERATING_DOCUMENTATION)
 
 #endif // ASIO_AWAITABLE_HPP

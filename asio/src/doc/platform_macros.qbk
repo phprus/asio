@@ -31,13 +31,6 @@ needs.
     []
   ]
   [
-    [`ASIO_HAS_CO_AWAIT`]
-    [
-      Support the co_await keyword on compilers known to allow it.
-    ]
-    [`ASIO_DISABLE_CO_AWAIT`]
-  ]
-  [
     [`ASIO_HAS_DEV_POLL`]
     [
       Solaris: /dev/poll.
@@ -183,13 +176,6 @@ needs.
       Standard library support for aligned allocation.
     ]
     [`ASIO_DISABLE_STD_ALIGNED_ALLOC`]
-  ]
-  [
-    [`ASIO_HAS_STD_COROUTINE`]
-    [
-      Standard library support for coroutines.
-    ]
-    [`ASIO_DISABLE_STD_COROUTINE`]
   ]
   [
     [`ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION`]

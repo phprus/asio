@@ -17,8 +17,6 @@
 
 #include "asio/detail/config.hpp"
 
-#if defined(ASIO_HAS_CO_AWAIT) || defined(GENERATING_DOCUMENTATION)
-
 #include "asio/awaitable.hpp"
 #include "asio/execution/executor.hpp"
 #include "asio/execution_context.hpp"
@@ -517,7 +515,5 @@ co_spawn(ExecutionContext& ctx, F&& f,
 #include "asio/detail/pop_options.hpp"
 
 #include "asio/impl/co_spawn.hpp"
-
-#endif // defined(ASIO_HAS_CO_AWAIT) || defined(GENERATING_DOCUMENTATION)
 
 #endif // ASIO_CO_SPAWN_HPP

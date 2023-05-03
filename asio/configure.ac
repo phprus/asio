@@ -132,42 +132,6 @@ AC_COMPILE_IFELSE(
   [AC_MSG_RESULT([no])
     HAVE_CXX20=no;])
 
-AC_MSG_CHECKING([whether coroutines are enabled])
-AC_COMPILE_IFELSE(
-  [AC_LANG_PROGRAM(
-    [[#if defined(__clang__)]]
-    [[# if (__clang_major__ >= 14)]]
-    [[#  if (__cplusplus >= 202002) && (__cpp_impl_coroutine >= 201902)]]
-    [[#   if __has_include(<coroutine>)]]
-    [[#    define ASIO_HAS_CO_AWAIT 1]]
-    [[#   endif]]
-    [[#  elif (__cplusplus >= 201703) && (__cpp_coroutines >= 201703)]]
-    [[#   if __has_include(<experimental/coroutine>)]]
-    [[#    define ASIO_HAS_CO_AWAIT 1]]
-    [[#   endif]]
-    [[#  endif]]
-    [[# else]]
-    [[#  if (__cplusplus >= 201703) && (__cpp_coroutines >= 201703)]]
-    [[#   if __has_include(<experimental/coroutine>)]]
-    [[#    define ASIO_HAS_CO_AWAIT 1]]
-    [[#   endif]]
-    [[#  endif]]
-    [[# endif]]
-    [[#elif defined(__GNUC__)]]
-    [[# if (__cplusplus >= 201709) && (__cpp_impl_coroutine >= 201902)]]
-    [[#  if __has_include(<coroutine>)]]
-    [[#   define ASIO_HAS_CO_AWAIT 1]]
-    [[#  endif]]
-    [[# endif]]
-    [[#endif]]
-    [[#ifndef ASIO_HAS_CO_AWAIT]]
-    [[# error coroutines not available]]
-    [[#endif]])],
-  [AC_MSG_RESULT([yes])
-    HAVE_COROUTINES=yes;],
-  [AC_MSG_RESULT([no])
-    HAVE_COROUTINES=no;])
-
 if test "$GXX" = yes; then
   if test "$STANDALONE" = yes; then
     if test "$HAVE_CXX20" = no; then
@@ -183,8 +147,6 @@ AM_CONDITIONAL(SEPARATE_COMPILATION,test x$SEPARATE_COMPILATION = xyes)
 
 AM_CONDITIONAL(WINDOWS_TARGET,test x$WINDOWS != xno)
 
-AM_CONDITIONAL(HAVE_COROUTINES,test x$HAVE_COROUTINES = xyes)
-
 AC_CONFIG_FILES([asio.pc])
 
 AC_OUTPUT([
@@ -195,5 +157,4 @@ AC_OUTPUT([
   src/tests/properties/Makefile
   src/examples/cpp11/Makefile
   src/examples/cpp14/Makefile
-  src/examples/cpp17/Makefile
   src/examples/cpp20/Makefile])
