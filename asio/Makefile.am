@@ -1,5 +1,6 @@
 AUTOMAKE_OPTIONS = foreign dist-bzip2 dist-zip
 
+pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = asio.pc
 
 SUBDIRS = include src
