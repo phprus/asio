@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-12]
+        os: [macos-13]
         cxx-std: ['c++20']
         separate-compilation: ['']
         #separate-compilation: ['', '--enable-separate-compilation']
@@ -19,16 +19,16 @@ jobs:
         handler-tracking: ['']
         include:
           #
-          # macos-12 / -O0 / handler tracking
+          # macos-13 / -O0 / handler tracking
           #
-          - os: macos-12
+          - os: macos-13
             cxx-std: c++20
             optim-level: -O0
             handler-tracking: -DASIO_ENABLE_HANDLER_TRACKING
           #
-          # macos-12 / -O0 / without kqueue
+          # macos-13 / -O0 / without kqueue
           #
-          - os: macos-12
+          - os: macos-13
             cxx-std: c++20
             optim-level: -O0
             select-reactor: -DASIO_DISABLE_KQUEUE
@@ -40,18 +40,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Select Xcode
-      run: sudo xcode-select -s "/Applications/Xcode_13.3.1.app"
+      run: sudo xcode-select -s "/Applications/Xcode_14.3.app"
     - name: Install autotools
       run: brew install automake
-    # Корутины отключены из-за ошибки:
-    #   fatal error: error in backend: Cannot select: intrinsic %llvm.coro.size
-    #   clang: error: clang frontend command failed with exit code 70 (use -v to see invocation)
-    #   Apple clang version 13.1.6 (clang-1316.0.21.2.3)
     - name: Configure
       working-directory: asio
       run: |
-        sed -i .bak 's/HAVE_COROUTINES=yes/HAVE_COROUTINES=no/' configure.ac
-        rm configure.ac.bak
         ./autogen.sh
         ./configure ${{ matrix.separate-compilation }}
     - name: Build And Test
