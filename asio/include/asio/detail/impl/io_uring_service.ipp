@@ -423,9 +423,8 @@ void io_uring_service::run(long usec, op_queue<operation>& ops)
     mutex::scoped_lock lock(mutex_);
     if (::io_uring_sqe* sqe = get_sqe())
     {
-      ++local_ops;
       ::io_uring_prep_timeout(sqe, &ts, 0, 0);
-      ::io_uring_sqe_set_data(sqe, &ts);
+      ::io_uring_sqe_set_data(sqe, nullptr);
       submit_sqes();
     }
   }
@@ -434,21 +433,6 @@ void io_uring_service::run(long usec, op_queue<operation>& ops)
   int result = (usec == 0)
     ? ::io_uring_peek_cqe(&ring_, &cqe)
     : ::io_uring_wait_cqe(&ring_, &cqe);
-
-  if (local_ops > 0)
-  {
-    if (result != 0 || ::io_uring_cqe_get_data(cqe) != &ts)
-    {
-      mutex::scoped_lock lock(mutex_);
-      if (::io_uring_sqe* sqe = get_sqe())
-      {
-        ++local_ops;
-        ::io_uring_prep_timeout_remove(sqe, reinterpret_cast<__u64>(&ts), 0);
-        ::io_uring_sqe_set_data(sqe, &ts);
-        submit_sqes();
-      }
-    }
-  }
 
   bool check_timers = false;
   int count = 0;
