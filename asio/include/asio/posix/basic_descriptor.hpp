@@ -374,8 +374,10 @@ public:
   native_handle_type release()
   {
     std::error_code ec;
-    return impl_.get_service().release(impl_.get_implementation(), ec);
+    native_handle_type s = impl_.get_service().release(
+        impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "release");
+    return s;
   }
 
   /// Release ownership of the native descriptor implementation.
