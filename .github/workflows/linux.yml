@@ -77,7 +77,7 @@ jobs:
         ./configure ${{ matrix.separate-compilation }}
     - name: Build And Test
       working-directory: asio
-      run: make && make check
+      run: make && make check || (cat ./src/tests/test-suite.log; false)
 
 
   ubuntu2204:
@@ -176,4 +176,4 @@ jobs:
         ./configure ${{ matrix.separate-compilation }}
     - name: Build And Test
       working-directory: asio
-      run: make && make check
+      run: make && make check || (cat ./src/tests/test-suite.log; false)
