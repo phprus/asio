@@ -86,6 +86,7 @@ jobs:
       matrix:
         compiler: [g++-11, g++-12]
         cxx-std: ['c++20']
+        cxxflags: ['']
         separate-compilation: ['']
         #separate-compilation: ['', '--enable-separate-compilation']
         optim-level: ['-O0', '-O3']
@@ -94,6 +95,13 @@ jobs:
         install: ['']
         libs: ['']
         include:
+          #
+          # Linux / g++-11 / -O0 / ASAN
+          #
+          - compiler: g++-11
+            cxx-std: c++20
+            cxxflags: -fsanitize=address -g
+            optim-level: -O0
           #
           # Linux / g++-11 / -O0 / handler tracking
           #
@@ -118,6 +126,16 @@ jobs:
             select-reactor: -DASIO_HAS_IO_URING -DASIO_DISABLE_EPOLL
             libs: -luring
           #
+          # Linux / g++-11 / -O0 / io_uring / ASAN
+          #
+          - compiler: g++-11
+            optim-level: -O0
+            cxx-std: c++20
+            cxxflags: -fsanitize=address -g
+            install: sudo apt-get install -y g++ liburing-dev
+            select-reactor: -DASIO_HAS_IO_URING -DASIO_DISABLE_EPOLL
+            libs: -luring
+          #
           # Linux / g++-12 / -O0 / io_uring
           #
           - compiler: g++-12
@@ -130,7 +148,7 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       CXX: ${{ matrix.compiler }}
-      CXXFLAGS: -std=${{ matrix.cxx-std }} ${{ matrix.optim-level }} -Wall -Wextra ${{ matrix.select-reactor }} ${{ matrix.handler-tracking }}
+      CXXFLAGS: -std=${{ matrix.cxx-std }} ${{ matrix.cxxflags }} ${{ matrix.optim-level }} -Wall -Wextra ${{ matrix.select-reactor }} ${{ matrix.handler-tracking }}
       LIBS: ${{ matrix.libs }}
     steps:
     - uses: actions/checkout@v3
