@@ -504,6 +504,12 @@ public:
           sizeof(Executor) <= sizeof(object_type)
             && alignment_of<Executor>::value <= alignment_of<object_type>::value
         >());
+    if (target_ == 0)
+    {
+      object_fns_->destroy(*this);
+      object_fns_ = 0;
+      target_fns_ = 0;
+    }
   }
 
   template <ASIO_EXECUTION_EXECUTOR Executor>
@@ -520,6 +526,7 @@ public:
         >());
     if (target_ == 0)
     {
+      object_fns_->destroy(*this);
       object_fns_ = 0;
       target_fns_ = 0;
     }
@@ -534,6 +541,12 @@ public:
     new (&object_) shared_target_executor(
         static_cast<Executor&&>(other), p);
     target_ = p->template target<void>();
+    if (target_ == 0)
+    {
+      object_fns_->destroy(*this);
+      object_fns_ = 0;
+      target_fns_ = 0;
+    }
   }
 
   template <ASIO_EXECUTION_EXECUTOR Executor>
@@ -548,8 +561,10 @@ public:
     if (p)
       target_ = p->template target<void>();
     else
-    {
       target_ = 0;
+    if (target_ == 0)
+    {
+      object_fns_->destroy(*this);
       object_fns_ = 0;
       target_fns_ = 0;
     }
