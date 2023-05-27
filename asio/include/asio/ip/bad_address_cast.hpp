@@ -35,6 +35,9 @@ public:
   /// Default constructor.
   bad_address_cast() {}
 
+  /// Copy constructor.
+  bad_address_cast(const bad_address_cast&) noexcept(true) = default;
+
   /// Destructor.
   virtual ~bad_address_cast() noexcept(true) {}
 
