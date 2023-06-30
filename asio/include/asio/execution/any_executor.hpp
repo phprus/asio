@@ -1688,9 +1688,17 @@ public:
         >::value
       >::type* = 0) const
   {
-    typedef find_convertible_property<Property> found;
-    prop_fns_[found::index].query(0, object_fns_->target(*this),
-        &static_cast<const typename found::type&>(p));
+    if (target_)
+    {
+      typedef find_convertible_property<Property> found;
+      prop_fns_[found::index].query(0, object_fns_->target(*this),
+          &static_cast<const typename found::type&>(p));
+    }
+    else
+    {
+      bad_executor ex;
+      asio::detail::throw_exception(ex);
+    }
   }
 
   template <typename Property>
@@ -1707,12 +1715,20 @@ public:
         >::value
       >::type* = 0) const
   {
-    typedef find_convertible_property<Property> found;
-    typename remove_reference<
-      typename found::query_result_type>::type* result = 0;
-    prop_fns_[found::index].query(&result, object_fns_->target(*this),
-        &static_cast<const typename found::type&>(p));
-    return *result;
+    if (target_)
+    {
+      typedef find_convertible_property<Property> found;
+      typename remove_reference<
+        typename found::query_result_type>::type* result = 0;
+      prop_fns_[found::index].query(&result, object_fns_->target(*this),
+          &static_cast<const typename found::type&>(p));
+      return *result;
+    }
+    else
+    {
+      bad_executor ex;
+      asio::detail::throw_exception(ex);
+    }
   }
 
   template <typename Property>
@@ -1729,11 +1745,19 @@ public:
         >::value
       >::type* = 0) const
   {
-    typedef find_convertible_property<Property> found;
-    typename found::query_result_type result;
-    prop_fns_[found::index].query(&result, object_fns_->target(*this),
-        &static_cast<const typename found::type&>(p));
-    return result;
+    if (target_)
+    {
+      typedef find_convertible_property<Property> found;
+      typename found::query_result_type result;
+      prop_fns_[found::index].query(&result, object_fns_->target(*this),
+          &static_cast<const typename found::type&>(p));
+      return result;
+    }
+    else
+    {
+      bad_executor ex;
+      asio::detail::throw_exception(ex);
+    }
   }
 
   template <typename Property>
@@ -1754,12 +1778,20 @@ public:
         >::value
       >::type* = 0) const
   {
-    typedef find_convertible_property<Property> found;
-    typename found::query_result_type* result;
-    prop_fns_[found::index].query(&result, object_fns_->target(*this),
-        &static_cast<const typename found::type&>(p));
-    return *asio::detail::scoped_ptr<
-      typename found::query_result_type>(result);
+    if (target_)
+    {
+      typedef find_convertible_property<Property> found;
+      typename found::query_result_type* result;
+      prop_fns_[found::index].query(&result, object_fns_->target(*this),
+          &static_cast<const typename found::type&>(p));
+      return *asio::detail::scoped_ptr<
+        typename found::query_result_type>(result);
+    }
+    else
+    {
+      bad_executor ex;
+      asio::detail::throw_exception(ex);
+    }
   }
 
   template <typename T>
@@ -1774,9 +1806,17 @@ public:
         find_convertible_requirable_property<Property>::value
       >::type* = 0) const
   {
-    typedef find_convertible_requirable_property<Property> found;
-    return prop_fns_[found::index].require(object_fns_->target(*this),
-        &static_cast<const typename found::type&>(p));
+    if (target_)
+    {
+      typedef find_convertible_requirable_property<Property> found;
+      return prop_fns_[found::index].require(object_fns_->target(*this),
+          &static_cast<const typename found::type&>(p));
+    }
+    else
+    {
+      bad_executor ex;
+      asio::detail::throw_exception(ex);
+    }
   }
 
   template <typename T>
@@ -1791,9 +1831,17 @@ public:
         find_convertible_preferable_property<Property>::value
       >::type* = 0) const
   {
-    typedef find_convertible_preferable_property<Property> found;
-    return prop_fns_[found::index].prefer(object_fns_->target(*this),
-        &static_cast<const typename found::type&>(p));
+    if (target_)
+    {
+      typedef find_convertible_preferable_property<Property> found;
+      return prop_fns_[found::index].prefer(object_fns_->target(*this),
+          &static_cast<const typename found::type&>(p));
+    }
+    else
+    {
+      bad_executor ex;
+      asio::detail::throw_exception(ex);
+    }
   }
 
 //private:
