@@ -40,8 +40,6 @@ struct no_prefer_member
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_PREFER_MEMBER_TRAIT)
-
 template <typename T, typename Property, typename = void>
 struct prefer_member_trait : no_prefer_member
 {
@@ -61,23 +59,6 @@ struct prefer_member_trait<T, Property,
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = noexcept(
     declval<T>().prefer(declval<Property>())));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_PREFER_MEMBER_TRAIT)
-
-template <typename T, typename Property, typename = void>
-struct prefer_member_trait :
-  conditional<
-    is_same<T, typename decay<T>::type>::value
-      && is_same<Property, typename decay<Property>::type>::value,
-    no_prefer_member,
-    traits::prefer_member<
-      typename decay<T>::type,
-      typename decay<Property>::type>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_PREFER_MEMBER_TRAIT)
 
 } // namespace detail
 namespace traits {

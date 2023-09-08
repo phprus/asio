@@ -86,7 +86,6 @@ struct allocator_t
   template <typename T>
   struct static_proxy
   {
-#if defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
     struct type
     {
       template <typename P>
@@ -103,9 +102,6 @@ struct allocator_t
         return T::query(ASIO_MOVE_CAST(P)(p));
       }
     };
-#else // defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
-    typedef T type;
-#endif // defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
   };
 
   template <typename T>
@@ -113,7 +109,6 @@ struct allocator_t
     traits::query_static_constexpr_member<
       typename static_proxy<T>::type, allocator_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -127,7 +122,6 @@ struct allocator_t
   template <typename E, typename T = decltype(allocator_t::static_query<E>())>
   static constexpr const T static_query_v
     = allocator_t::static_query<E>();
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
   constexpr ProtoAllocator value() const
   {
@@ -145,10 +139,8 @@ private:
   ProtoAllocator a_;
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <typename ProtoAllocator> template <typename E, typename T>
 const T allocator_t<ProtoAllocator>::static_query_v;
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 template <>
 struct allocator_t<void>
@@ -168,7 +160,6 @@ struct allocator_t<void>
   template <typename T>
   struct static_proxy
   {
-#if defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
     struct type
     {
       template <typename P>
@@ -185,9 +176,6 @@ struct allocator_t<void>
         return T::query(ASIO_MOVE_CAST(P)(p));
       }
     };
-#else // defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
-    typedef T type;
-#endif // defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
   };
 
   template <typename T>
@@ -195,7 +183,6 @@ struct allocator_t<void>
     traits::query_static_constexpr_member<
       typename static_proxy<T>::type, allocator_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -209,7 +196,6 @@ struct allocator_t<void>
   template <typename E, typename T = decltype(allocator_t::static_query<E>())>
   static constexpr const T static_query_v
     = allocator_t::static_query<E>();
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
   template <typename OtherProtoAllocator>
   constexpr allocator_t<OtherProtoAllocator> operator()(
@@ -219,42 +205,12 @@ struct allocator_t<void>
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <typename E, typename T>
 const T allocator_t<void>::static_query_v;
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 constexpr allocator_t<void> allocator;
 
 } // namespace execution
-
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-
-template <typename T, typename ProtoAllocator>
-struct static_query<T, execution::allocator_t<ProtoAllocator>,
-  typename enable_if<
-    execution::allocator_t<ProtoAllocator>::template
-      query_static_constexpr_member<T>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef typename execution::allocator_t<ProtoAllocator>::template
-    query_static_constexpr_member<T>::result_type result_type;
-
-  static constexpr result_type value()
-  {
-    return execution::allocator_t<ProtoAllocator>::template
-      query_static_constexpr_member<T>::value();
-  }
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-
-} // namespace traits
 
 #endif // defined(GENERATING_DOCUMENTATION)
 

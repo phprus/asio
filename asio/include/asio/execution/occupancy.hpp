@@ -78,7 +78,6 @@ struct occupancy_t
   template <typename T>
   struct static_proxy
   {
-#if defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
     struct type
     {
       template <typename P>
@@ -95,9 +94,6 @@ struct occupancy_t
         return T::query(ASIO_MOVE_CAST(P)(p));
       }
     };
-#else // defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
-    typedef T type;
-#endif // defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
   };
 
   template <typename T>
@@ -105,7 +101,6 @@ struct occupancy_t
     traits::query_static_constexpr_member<
       typename static_proxy<T>::type, occupancy_t> {};
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename query_static_constexpr_member<T>::result_type
@@ -119,13 +114,10 @@ struct occupancy_t
   template <typename E, typename T = decltype(occupancy_t::static_query<E>())>
   static constexpr const T static_query_v
     = occupancy_t::static_query<E>();
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <int I> template <typename E, typename T>
 const T occupancy_t<I>::static_query_v;
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 } // namespace detail
 
@@ -134,34 +126,6 @@ typedef detail::occupancy_t<> occupancy_t;
 constexpr occupancy_t occupancy;
 
 } // namespace execution
-
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-
-template <typename T>
-struct static_query<T, execution::occupancy_t,
-  typename enable_if<
-    execution::detail::occupancy_t<0>::
-      query_static_constexpr_member<T>::is_valid
-  >::type>
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-
-  typedef typename execution::detail::occupancy_t<0>::
-    query_static_constexpr_member<T>::result_type result_type;
-
-  static constexpr result_type value()
-  {
-    return execution::detail::occupancy_t<0>::
-      query_static_constexpr_member<T>::value();
-  }
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-
-} // namespace traits
 
 #endif // defined(GENERATING_DOCUMENTATION)
 

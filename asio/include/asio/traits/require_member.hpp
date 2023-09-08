@@ -40,8 +40,6 @@ struct no_require_member
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
-
 template <typename T, typename Property, typename = void>
 struct require_member_trait : no_require_member
 {
@@ -61,23 +59,6 @@ struct require_member_trait<T, Property,
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = noexcept(
     declval<T>().require(declval<Property>())));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
-
-template <typename T, typename Property, typename = void>
-struct require_member_trait :
-  conditional<
-    is_same<T, typename decay<T>::type>::value
-      && is_same<Property, typename decay<Property>::type>::value,
-    no_require_member,
-    traits::require_member<
-      typename decay<T>::type,
-      typename decay<Property>::type>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
 
 } // namespace detail
 namespace traits {

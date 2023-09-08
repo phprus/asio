@@ -190,7 +190,6 @@ struct impl
   template <typename T>
   struct proxy
   {
-#if defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
     struct type
     {
       template <typename P>
@@ -206,9 +205,6 @@ struct impl
             ASIO_MOVE_CAST(P)(p))
         );
     };
-#else // defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
-    typedef T type;
-#endif // defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
   };
 
   template <typename T, typename Property>

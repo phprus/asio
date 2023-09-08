@@ -53,8 +53,6 @@ struct static_require_concept_trait :
 {
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_CONCEPT_TRAIT)
-
 template <typename T, typename Property>
 struct static_require_concept_trait<T, Property,
   typename enable_if<
@@ -63,8 +61,6 @@ struct static_require_concept_trait<T, Property,
 {
   ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
 };
-
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_REQUIRE_CONCEPT_TRAIT)
 
 } // namespace detail
 namespace traits {

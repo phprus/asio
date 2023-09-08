@@ -40,8 +40,6 @@ struct no_query_free
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
-
 template <typename T, typename Property, typename = void>
 struct query_free_trait : no_query_free
 {
@@ -61,23 +59,6 @@ struct query_free_trait<T, Property,
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = noexcept(
     query(declval<T>(), declval<Property>())));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
-
-template <typename T, typename Property, typename = void>
-struct query_free_trait :
-  conditional<
-    is_same<T, typename decay<T>::type>::value
-      && is_same<Property, typename decay<Property>::type>::value,
-    no_query_free,
-    traits::query_free<
-      typename decay<T>::type,
-      typename decay<Property>::type>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
 
 } // namespace detail
 namespace traits {

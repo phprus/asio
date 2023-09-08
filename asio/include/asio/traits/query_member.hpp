@@ -40,8 +40,6 @@ struct no_query_member
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
 };
 
-#if defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
-
 template <typename T, typename Property, typename = void>
 struct query_member_trait : no_query_member
 {
@@ -61,23 +59,6 @@ struct query_member_trait<T, Property,
   ASIO_STATIC_CONSTEXPR(bool, is_noexcept = noexcept(
     declval<T>().query(declval<Property>())));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
-
-template <typename T, typename Property, typename = void>
-struct query_member_trait :
-  conditional<
-    is_same<T, typename decay<T>::type>::value
-      && is_same<Property, typename decay<Property>::type>::value,
-    no_query_member,
-    traits::query_member<
-      typename decay<T>::type,
-      typename decay<Property>::type>
-  >::type
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT)
 
 } // namespace detail
 namespace traits {
