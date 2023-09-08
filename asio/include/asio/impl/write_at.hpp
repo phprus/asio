@@ -257,13 +257,8 @@ namespace detail
       write_at_op<AsyncRandomAccessWriteDevice, ConstBufferSequence,
         ConstBufferIterator, CompletionCondition, WriteHandler>* this_handler)
   {
-#if defined(ASIO_NO_DEPRECATED)
     asio_handler_alloc_helpers::allocate(size, this_handler->handler_);
     return asio_handler_allocate_is_no_longer_used();
-#else // defined(ASIO_NO_DEPRECATED)
-    return asio_handler_alloc_helpers::allocate(
-        size, this_handler->handler_);
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename AsyncRandomAccessWriteDevice,
@@ -276,9 +271,7 @@ namespace detail
   {
     asio_handler_alloc_helpers::deallocate(
         pointer, size, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
     return asio_handler_deallocate_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename AsyncRandomAccessWriteDevice,
@@ -303,9 +296,7 @@ namespace detail
   {
     asio_handler_invoke_helpers::invoke(
         function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
     return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename Function, typename AsyncRandomAccessWriteDevice,
@@ -318,9 +309,7 @@ namespace detail
   {
     asio_handler_invoke_helpers::invoke(
         function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
     return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename AsyncRandomAccessWriteDevice,
@@ -501,13 +490,8 @@ namespace detail
   asio_handler_allocate(std::size_t size,
       write_at_streambuf_op<Allocator, WriteHandler>* this_handler)
   {
-#if defined(ASIO_NO_DEPRECATED)
     asio_handler_alloc_helpers::allocate(size, this_handler->handler_);
     return asio_handler_allocate_is_no_longer_used();
-#else // defined(ASIO_NO_DEPRECATED)
-    return asio_handler_alloc_helpers::allocate(
-        size, this_handler->handler_);
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename Allocator, typename WriteHandler>
@@ -517,9 +501,7 @@ namespace detail
   {
     asio_handler_alloc_helpers::deallocate(
         pointer, size, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
     return asio_handler_deallocate_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename Allocator, typename WriteHandler>
@@ -537,9 +519,7 @@ namespace detail
   {
     asio_handler_invoke_helpers::invoke(
         function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
     return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename Function, typename Allocator, typename WriteHandler>
@@ -549,9 +529,7 @@ namespace detail
   {
     asio_handler_invoke_helpers::invoke(
         function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
     return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename AsyncRandomAccessWriteDevice>

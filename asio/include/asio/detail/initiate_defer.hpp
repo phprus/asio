@@ -51,7 +51,6 @@ public:
     typename associated_allocator<handler_t>::type alloc(
         (get_associated_allocator)(handler));
 
-#if defined(ASIO_NO_DEPRECATED)
     asio::prefer(
         asio::require(ex, execution::blocking.never),
         execution::relationship.continuation,
@@ -59,15 +58,6 @@ public:
       ).execute(
         asio::detail::bind_handler(
           ASIO_MOVE_CAST(CompletionHandler)(handler)));
-#else // defined(ASIO_NO_DEPRECATED)
-    execution::execute(
-        asio::prefer(
-          asio::require(ex, execution::blocking.never),
-          execution::relationship.continuation,
-          execution::allocator(alloc)),
-        asio::detail::bind_handler(
-          ASIO_MOVE_CAST(CompletionHandler)(handler)));
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename CompletionHandler>
@@ -128,7 +118,6 @@ public:
     typename associated_allocator<handler_t>::type alloc(
         (get_associated_allocator)(handler));
 
-#if defined(ASIO_NO_DEPRECATED)
     asio::prefer(
         asio::require(ex_, execution::blocking.never),
         execution::relationship.continuation,
@@ -136,15 +125,6 @@ public:
       ).execute(
         asio::detail::bind_handler(
           ASIO_MOVE_CAST(CompletionHandler)(handler)));
-#else // defined(ASIO_NO_DEPRECATED)
-    execution::execute(
-        asio::prefer(
-          asio::require(ex_, execution::blocking.never),
-          execution::relationship.continuation,
-          execution::allocator(alloc)),
-        asio::detail::bind_handler(
-          ASIO_MOVE_CAST(CompletionHandler)(handler)));
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename CompletionHandler>
@@ -170,7 +150,6 @@ public:
     typename associated_allocator<handler_t>::type alloc(
         (get_associated_allocator)(handler));
 
-#if defined(ASIO_NO_DEPRECATED)
     asio::prefer(
         asio::require(ex_, execution::blocking.never),
         execution::relationship.continuation,
@@ -178,15 +157,6 @@ public:
       ).execute(
         detail::work_dispatcher<handler_t, handler_ex_t>(
           ASIO_MOVE_CAST(CompletionHandler)(handler), handler_ex));
-#else // defined(ASIO_NO_DEPRECATED)
-    execution::execute(
-        asio::prefer(
-          asio::require(ex_, execution::blocking.never),
-          execution::relationship.continuation,
-          execution::allocator(alloc)),
-        detail::work_dispatcher<handler_t, handler_ex_t>(
-          ASIO_MOVE_CAST(CompletionHandler)(handler), handler_ex));
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename CompletionHandler>

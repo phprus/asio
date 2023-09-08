@@ -272,13 +272,8 @@ namespace detail
       read_at_op<AsyncRandomAccessReadDevice, MutableBufferSequence,
         MutableBufferIterator, CompletionCondition, ReadHandler>* this_handler)
   {
-#if defined(ASIO_NO_DEPRECATED)
     asio_handler_alloc_helpers::allocate(size, this_handler->handler_);
     return asio_handler_allocate_is_no_longer_used();
-#else // defined(ASIO_NO_DEPRECATED)
-    return asio_handler_alloc_helpers::allocate(
-        size, this_handler->handler_);
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename AsyncRandomAccessReadDevice,
@@ -291,9 +286,7 @@ namespace detail
   {
     asio_handler_alloc_helpers::deallocate(
         pointer, size, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
     return asio_handler_deallocate_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename AsyncRandomAccessReadDevice,
@@ -318,9 +311,7 @@ namespace detail
   {
     asio_handler_invoke_helpers::invoke(
         function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
     return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename Function, typename AsyncRandomAccessReadDevice,
@@ -333,9 +324,7 @@ namespace detail
   {
     asio_handler_invoke_helpers::invoke(
         function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
     return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename AsyncRandomAccessReadDevice,
@@ -576,13 +565,8 @@ namespace detail
       read_at_streambuf_op<AsyncRandomAccessReadDevice, Allocator,
         CompletionCondition, ReadHandler>* this_handler)
   {
-#if defined(ASIO_NO_DEPRECATED)
     asio_handler_alloc_helpers::allocate(size, this_handler->handler_);
     return asio_handler_allocate_is_no_longer_used();
-#else // defined(ASIO_NO_DEPRECATED)
-    return asio_handler_alloc_helpers::allocate(
-        size, this_handler->handler_);
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename AsyncRandomAccessReadDevice, typename Allocator,
@@ -594,9 +578,7 @@ namespace detail
   {
     asio_handler_alloc_helpers::deallocate(
         pointer, size, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
     return asio_handler_deallocate_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename AsyncRandomAccessReadDevice, typename Allocator,
@@ -619,9 +601,7 @@ namespace detail
   {
     asio_handler_invoke_helpers::invoke(
         function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
     return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename Function, typename AsyncRandomAccessReadDevice,
@@ -633,9 +613,7 @@ namespace detail
   {
     asio_handler_invoke_helpers::invoke(
         function, this_handler->handler_);
-#if defined(ASIO_NO_DEPRECATED)
     return asio_handler_invoke_is_no_longer_used();
-#endif // defined(ASIO_NO_DEPRECATED)
   }
 
   template <typename AsyncRandomAccessReadDevice>

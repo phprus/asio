@@ -165,28 +165,11 @@ template <typename Allocator, unsigned int Bits>
 class thread_pool::basic_executor_type : detail::thread_pool_bits
 {
 public:
-#if !defined(ASIO_NO_DEPRECATED)
-  /// (Deprecated.) The sender type, when this type is used as a scheduler.
-  typedef basic_executor_type sender_type;
-#endif // !defined(ASIO_NO_DEPRECATED)
-
   /// The bulk execution shape type.
   typedef std::size_t shape_type;
 
   /// The bulk execution index type.
   typedef std::size_t index_type;
-
-#if defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
-  template <
-      template <typename...> class Tuple,
-      template <typename...> class Variant>
-  using value_types = Variant<Tuple<>>;
-
-  template <template <typename...> class Variant>
-  using error_types = Variant<std::exception_ptr>;
-
-  ASIO_STATIC_CONSTEXPR(bool, sends_done = true);
-#endif // defined(ASIO_HAS_DEDUCED_EXECUTION_IS_TYPED_SENDER_TRAIT)
 
   /// Copy constructor.
   basic_executor_type(
@@ -399,25 +382,6 @@ private:
   friend struct asio::execution::detail::outstanding_work_t<0>;
 #endif // !defined(GENERATING_DOCUMENTATION)
 
-#if !defined(ASIO_NO_DEPRECATED)
-  /// (Deprecated.) Query the current value of the @c bulk_guarantee property.
-  /**
-   * Do not call this function directly. It is intended for use with the
-   * asio::query customisation point.
-   *
-   * For example:
-   * @code auto ex = my_thread_pool.executor();
-   * if (asio::query(ex, asio::execution::bulk_guarantee)
-   *       == asio::execution::bulk_guarantee.parallel)
-   *   ... @endcode
-   */
-  static constexpr execution::bulk_guarantee_t query(
-      execution::bulk_guarantee_t) noexcept(true)
-  {
-    return execution::bulk_guarantee.parallel;
-  }
-#endif // !defined(ASIO_NO_DEPRECATED)
-
   /// Query the current value of the @c mapping property.
   /**
    * Do not call this function directly. It is intended for use with the
@@ -598,48 +562,6 @@ public:
   }
 
 public:
-#if !defined(ASIO_NO_DEPRECATED)
-  /// (Deprecated.) Bulk execution function.
-  template <typename Function>
-  void bulk_execute(ASIO_MOVE_ARG(Function) f, std::size_t n) const
-  {
-    this->do_bulk_execute(ASIO_MOVE_CAST(Function)(f), n,
-        integral_constant<bool, (Bits & blocking_always) != 0>());
-  }
-
-  /// (Deprecated.) Schedule function.
-  /**
-   * Do not call this function directly. It is intended for use with the
-   * execution::schedule customisation point.
-   *
-   * @return An object that satisfies the sender concept.
-   */
-  sender_type schedule() const noexcept(true)
-  {
-    return *this;
-  }
-
-  /// (Deprecated.) Connect function.
-  /**
-   * Do not call this function directly. It is intended for use with the
-   * execution::connect customisation point.
-   *
-   * @return An object of an unspecified type that satisfies the @c
-   * operation_state concept.
-   */
-  template <ASIO_EXECUTION_RECEIVER_OF_0 Receiver>
-#if defined(GENERATING_DOCUMENTATION)
-  unspecified
-#else // defined(GENERATING_DOCUMENTATION)
-  execution::detail::as_operation<basic_executor_type, Receiver>
-#endif // defined(GENERATING_DOCUMENTATION)
-  connect(ASIO_MOVE_ARG(Receiver) r) const
-  {
-    return execution::detail::as_operation<basic_executor_type, Receiver>(
-        *this, ASIO_MOVE_CAST(Receiver)(r));
-  }
-#endif // !defined(ASIO_NO_DEPRECATED)
-
 #if !defined(ASIO_NO_TS_EXECUTORS)
   /// Obtain the underlying execution context.
   thread_pool& context() const noexcept(true);
@@ -803,46 +725,6 @@ struct execute_member<
 
 #endif // !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
 
-#if !defined(ASIO_HAS_DEDUCED_SCHEDULE_MEMBER_TRAIT)
-
-#if !defined(ASIO_NO_DEPRECATED)
-
-template <typename Allocator, unsigned int Bits>
-struct schedule_member<
-    const asio::thread_pool::basic_executor_type<Allocator, Bits>
-  >
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef asio::thread_pool::basic_executor_type<
-      Allocator, Bits> result_type;
-};
-
-#endif // !defined(ASIO_NO_DEPRECATED)
-
-#endif // !defined(ASIO_HAS_DEDUCED_SCHEDULE_MEMBER_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
-
-#if !defined(ASIO_NO_DEPRECATED)
-
-template <typename Allocator, unsigned int Bits, typename Receiver>
-struct connect_member<
-    const asio::thread_pool::basic_executor_type<Allocator, Bits>,
-    Receiver
-  >
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = false);
-  typedef asio::execution::detail::as_operation<
-      asio::thread_pool::basic_executor_type<Allocator, Bits>,
-      Receiver> result_type;
-};
-
-#endif // !defined(ASIO_NO_DEPRECATED)
-
-#endif // !defined(ASIO_HAS_DEDUCED_CONNECT_MEMBER_TRAIT)
-
 #if !defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
 
 template <typename Allocator, unsigned int Bits>
@@ -957,32 +839,6 @@ struct require_member<
 #endif // !defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
 
 #if !defined(ASIO_HAS_DEDUCED_QUERY_STATIC_CONSTEXPR_MEMBER_TRAIT)
-
-#if !defined(ASIO_NO_DEPRECATED)
-
-template <typename Allocator, unsigned int Bits, typename Property>
-struct query_static_constexpr_member<
-    asio::thread_pool::basic_executor_type<Allocator, Bits>,
-    Property,
-    typename asio::enable_if<
-      asio::is_convertible<
-        Property,
-        asio::execution::bulk_guarantee_t
-      >::value
-    >::type
-  >
-{
-  ASIO_STATIC_CONSTEXPR(bool, is_valid = true);
-  ASIO_STATIC_CONSTEXPR(bool, is_noexcept = true);
-  typedef asio::execution::bulk_guarantee_t::parallel_t result_type;
-
-  static constexpr result_type value() noexcept(true)
-  {
-    return result_type();
-  }
-};
-
-#endif // !defined(ASIO_NO_DEPRECATED)
 
 template <typename Allocator, unsigned int Bits, typename Property>
 struct query_static_constexpr_member<

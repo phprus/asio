@@ -138,15 +138,6 @@ functionality, and behaviour of Asio.
 [table
   [[Macro][Description]]
   [
-    [`ASIO_NO_DEPRECATED`]
-    [
-      Disables Asio's deprecated interfaces and functionality.
-
-      See [link asio.net_ts Networking TS Compatibility] for a list of older
-      interfaces that have been deprecated, and their replacements.
-    ]
-  ]
-  [
     [`ASIO_NO_TS_EXECUTORS`]
     [
       Disables Asio's support for the Networking TS executor model.

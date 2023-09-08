@@ -23,7 +23,7 @@
 #include "asio/awaitable.hpp"
 #include "asio/co_spawn.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/experimental/deferred.hpp"
+#include "asio/deferred.hpp"
 #include "asio/experimental/parallel_group.hpp"
 #include "asio/multiple_exceptions.hpp"
 #include "asio/this_coro.hpp"
@@ -78,11 +78,11 @@ awaitable<void, Executor> operator&&(
 
   auto [order, ex0, ex1] =
     co_await make_parallel_group(
-      co_spawn(ex, std::move(t), deferred),
-      co_spawn(ex, std::move(u), deferred)
+      co_spawn(ex, std::move(t), asio::deferred),
+      co_spawn(ex, std::move(u), asio::deferred)
     ).async_wait(
       wait_for_one_error(),
-      deferred
+      asio::deferred
     );
 
   if (ex0 && ex1)
@@ -107,11 +107,11 @@ awaitable<U, Executor> operator&&(
 
   auto [order, ex0, ex1, r1] =
     co_await make_parallel_group(
-      co_spawn(ex, std::move(t), deferred),
-      co_spawn(ex, detail::awaitable_wrap(std::move(u)), deferred)
+      co_spawn(ex, std::move(t), asio::deferred),
+      co_spawn(ex, detail::awaitable_wrap(std::move(u)), asio::deferred)
     ).async_wait(
       wait_for_one_error(),
-      deferred
+      asio::deferred
     );
 
   if (ex0 && ex1)
@@ -136,11 +136,11 @@ awaitable<T, Executor> operator&&(
 
   auto [order, ex0, r0, ex1] =
     co_await make_parallel_group(
-      co_spawn(ex, detail::awaitable_wrap(std::move(t)), deferred),
-      co_spawn(ex, std::move(u), deferred)
+      co_spawn(ex, detail::awaitable_wrap(std::move(t)), asio::deferred),
+      co_spawn(ex, std::move(u), asio::deferred)
     ).async_wait(
       wait_for_one_error(),
-      deferred
+      asio::deferred
     );
 
   if (ex0 && ex1)
@@ -165,11 +165,11 @@ awaitable<std::tuple<T, U>, Executor> operator&&(
 
   auto [order, ex0, r0, ex1, r1] =
     co_await make_parallel_group(
-      co_spawn(ex, detail::awaitable_wrap(std::move(t)), deferred),
-      co_spawn(ex, detail::awaitable_wrap(std::move(u)), deferred)
+      co_spawn(ex, detail::awaitable_wrap(std::move(t)), asio::deferred),
+      co_spawn(ex, detail::awaitable_wrap(std::move(u)), asio::deferred)
     ).async_wait(
       wait_for_one_error(),
-      deferred
+      asio::deferred
     );
 
   if (ex0 && ex1)
@@ -196,11 +196,11 @@ awaitable<std::tuple<T..., std::monostate>, Executor> operator&&(
 
   auto [order, ex0, r0, ex1, r1] =
     co_await make_parallel_group(
-      co_spawn(ex, detail::awaitable_wrap(std::move(t)), deferred),
-      co_spawn(ex, std::move(u), deferred)
+      co_spawn(ex, detail::awaitable_wrap(std::move(t)), asio::deferred),
+      co_spawn(ex, std::move(u), asio::deferred)
     ).async_wait(
       wait_for_one_error(),
-      deferred
+      asio::deferred
     );
 
   if (ex0 && ex1)
@@ -225,11 +225,11 @@ awaitable<std::tuple<T..., U>, Executor> operator&&(
 
   auto [order, ex0, r0, ex1, r1] =
     co_await make_parallel_group(
-      co_spawn(ex, detail::awaitable_wrap(std::move(t)), deferred),
-      co_spawn(ex, detail::awaitable_wrap(std::move(u)), deferred)
+      co_spawn(ex, detail::awaitable_wrap(std::move(t)), asio::deferred),
+      co_spawn(ex, detail::awaitable_wrap(std::move(u)), asio::deferred)
     ).async_wait(
       wait_for_one_error(),
-      deferred
+      asio::deferred
     );
 
   if (ex0 && ex1)
@@ -256,11 +256,11 @@ awaitable<std::variant<std::monostate, std::monostate>, Executor> operator||(
 
   auto [order, ex0, ex1] =
     co_await make_parallel_group(
-      co_spawn(ex, std::move(t), deferred),
-      co_spawn(ex, std::move(u), deferred)
+      co_spawn(ex, std::move(t), asio::deferred),
+      co_spawn(ex, std::move(u), asio::deferred)
     ).async_wait(
       wait_for_one_success(),
-      deferred
+      asio::deferred
     );
 
   if (order[0] == 0)
@@ -298,11 +298,11 @@ awaitable<std::variant<std::monostate, U>, Executor> operator||(
 
   auto [order, ex0, ex1, r1] =
     co_await make_parallel_group(
-      co_spawn(ex, std::move(t), deferred),
-      co_spawn(ex, detail::awaitable_wrap(std::move(u)), deferred)
+      co_spawn(ex, std::move(t), asio::deferred),
+      co_spawn(ex, detail::awaitable_wrap(std::move(u)), asio::deferred)
     ).async_wait(
       wait_for_one_success(),
-      deferred
+      asio::deferred
     );
 
   if (order[0] == 0)
@@ -342,11 +342,11 @@ awaitable<std::variant<T, std::monostate>, Executor> operator||(
 
   auto [order, ex0, r0, ex1] =
     co_await make_parallel_group(
-      co_spawn(ex, detail::awaitable_wrap(std::move(t)), deferred),
-      co_spawn(ex, std::move(u), deferred)
+      co_spawn(ex, detail::awaitable_wrap(std::move(t)), asio::deferred),
+      co_spawn(ex, std::move(u), asio::deferred)
     ).async_wait(
       wait_for_one_success(),
-      deferred
+      asio::deferred
     );
 
   if (order[0] == 0)
@@ -386,11 +386,11 @@ awaitable<std::variant<T, U>, Executor> operator||(
 
   auto [order, ex0, r0, ex1, r1] =
     co_await make_parallel_group(
-      co_spawn(ex, detail::awaitable_wrap(std::move(t)), deferred),
-      co_spawn(ex, detail::awaitable_wrap(std::move(u)), deferred)
+      co_spawn(ex, detail::awaitable_wrap(std::move(t)), asio::deferred),
+      co_spawn(ex, detail::awaitable_wrap(std::move(u)), asio::deferred)
     ).async_wait(
       wait_for_one_success(),
-      deferred
+      asio::deferred
     );
 
   if (order[0] == 0)
@@ -452,11 +452,11 @@ awaitable<std::variant<T..., std::monostate>, Executor> operator||(
 
   auto [order, ex0, r0, ex1] =
     co_await make_parallel_group(
-      co_spawn(ex, detail::awaitable_wrap(std::move(t)), deferred),
-      co_spawn(ex, std::move(u), deferred)
+      co_spawn(ex, detail::awaitable_wrap(std::move(t)), asio::deferred),
+      co_spawn(ex, std::move(u), asio::deferred)
     ).async_wait(
       wait_for_one_success(),
-      deferred
+      asio::deferred
     );
 
   using widen = detail::widen_variant<T..., std::monostate>;
@@ -495,11 +495,11 @@ awaitable<std::variant<T..., U>, Executor> operator||(
 
   auto [order, ex0, r0, ex1, r1] =
     co_await make_parallel_group(
-      co_spawn(ex, detail::awaitable_wrap(std::move(t)), deferred),
-      co_spawn(ex, detail::awaitable_wrap(std::move(u)), deferred)
+      co_spawn(ex, detail::awaitable_wrap(std::move(t)), asio::deferred),
+      co_spawn(ex, detail::awaitable_wrap(std::move(u)), asio::deferred)
     ).async_wait(
       wait_for_one_success(),
-      deferred
+      asio::deferred
     );
 
   using widen = detail::widen_variant<T..., U>;
