@@ -6,7 +6,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  xcode:
     strategy:
       fail-fast: false
       matrix:
@@ -40,8 +40,20 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Select Xcode
-      run: sudo xcode-select -s "/Applications/Xcode_14.3.1.app"
+      #
+      # error: too few arguments to function call, expected 2, have 1
+      # note: 'operator delete' declared here
+      #
+      # Coroutine promise types don't support destroying operator delete
+      #   https://github.com/llvm/llvm-project/issues/47688
+      #   https://github.com/llvm/llvm-project/issues/60545
+      #   https://github.com/llvm/llvm-project/issues/61445
+      # Backport to Clang 16
+      #   https://github.com/llvm/llvm-project-release-prs/pull/365
+      #
       #run: sudo xcode-select -s "/Applications/Xcode_15.0.app"
+      #
+      run: sudo xcode-select -s "/Applications/Xcode_14.3.1.app"
     - name: Install autotools
       run: brew install automake
     - name: Configure
