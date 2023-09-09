@@ -294,58 +294,36 @@
 // C++20: Standard library support for std::variant.
 #define ASIO_HAS_STD_VARIANT 1
 
-// Standard library support for std::source_location.
+// C++20: Standard library support for std::source_location.
 #if !defined(ASIO_HAS_STD_SOURCE_LOCATION)
 # if !defined(ASIO_DISABLE_STD_SOURCE_LOCATION)
-// ...
+#  if defined(__cpp_lib_source_location)
+#   define ASIO_HAS_STD_SOURCE_LOCATION 1
+#  endif // defined(__cpp_lib_source_location)
 # endif // !defined(ASIO_DISABLE_STD_SOURCE_LOCATION)
 #endif // !defined(ASIO_HAS_STD_SOURCE_LOCATION)
-
-// Standard library support for std::experimental::source_location.
-#if !defined(ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION)
-# if !defined(ASIO_DISABLE_STD_EXPERIMENTAL_SOURCE_LOCATION)
-#  if defined(__GNUC__)
-#   if (__cplusplus >= 201709)
-#    if __has_include(<experimental/source_location>)
-#     define ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION 1
-#    endif // __has_include(<experimental/source_location>)
-#   endif // (__cplusplus >= 201709)
-#  endif // defined(__GNUC__)
-# endif // !defined(ASIO_DISABLE_STD_EXPERIMENTAL_SOURCE_LOCATION)
-#endif // !defined(ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION)
 
 // Standard library has a source_location that we can use.
 #if !defined(ASIO_HAS_SOURCE_LOCATION)
 # if !defined(ASIO_DISABLE_SOURCE_LOCATION)
 #  if defined(ASIO_HAS_STD_SOURCE_LOCATION)
 #   define ASIO_HAS_SOURCE_LOCATION 1
-#  elif defined(ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION)
-#   define ASIO_HAS_SOURCE_LOCATION 1
-#  endif // defined(ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION)
+#  endif // defined(ASIO_HAS_STD_SOURCE_LOCATION)
 # endif // !defined(ASIO_DISABLE_SOURCE_LOCATION)
 #endif // !defined(ASIO_HAS_SOURCE_LOCATION)
 
-// Boost support for source_location and system errors.
-#if !defined(ASIO_HAS_BOOST_SOURCE_LOCATION)
-# if !defined(ASIO_DISABLE_BOOST_SOURCE_LOCATION)
-#  if defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 107900)
-#   define ASIO_HAS_BOOST_SOURCE_LOCATION 1
-#  endif // defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 107900)
-# endif // !defined(ASIO_DISABLE_BOOST_SOURCE_LOCATION)
-#endif // !defined(ASIO_HAS_BOOST_SOURCE_LOCATION)
-
 // Helper macros for working with Boost source locations.
-#if defined(ASIO_HAS_BOOST_SOURCE_LOCATION)
+#if defined(ASIO_HAS_SOURCE_LOCATION) && defined(ASIO_HAS_STD_SOURCE_LOCATION)
 # define ASIO_SOURCE_LOCATION_PARAM \
-  , const boost::source_location& loc
+  , [[maybe_unused]] const std::source_location& loc
 # define ASIO_SOURCE_LOCATION_DEFAULTED_PARAM \
-  , const boost::source_location& loc = BOOST_CURRENT_LOCATION
+  , [[maybe_unused]] const std::source_location& loc = std::source_location::current()
 # define ASIO_SOURCE_LOCATION_ARG , loc
-#else // if defined(ASIO_HAS_BOOST_SOURCE_LOCATION)
+#else // if defined(ASIO_HAS_STD_SOURCE_LOCATION)
 # define ASIO_SOURCE_LOCATION_PARAM
 # define ASIO_SOURCE_LOCATION_DEFAULTED_PARAM
 # define ASIO_SOURCE_LOCATION_ARG
-#endif // if defined(ASIO_HAS_BOOST_SOURCE_LOCATION)
+#endif // if defined(ASIO_HAS_STD_SOURCE_LOCATION)
 
 // C++20: Standard library support for std::index_sequence.
 #define ASIO_HAS_STD_INDEX_SEQUENCE 1

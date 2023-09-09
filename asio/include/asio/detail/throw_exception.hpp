@@ -17,6 +17,10 @@
 
 #include "asio/detail/config.hpp"
 
+#if defined(ASIO_HAS_SOURCE_LOCATION) && defined(ASIO_HAS_STD_SOURCE_LOCATION)
+# include <source_location>
+#endif // defined(ASIO_HAS_SOURCE_LOCATION) && defined(ASIO_HAS_STD_SOURCE_LOCATION)
+
 namespace asio {
 namespace detail {
 

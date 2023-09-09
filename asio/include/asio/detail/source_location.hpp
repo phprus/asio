@@ -21,21 +21,17 @@
 
 #if defined(ASIO_HAS_STD_SOURCE_LOCATION)
 # include <source_location>
-#elif defined(ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION)
-# include <experimental/source_location>
-#else // defined(ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION)
+#else // defined(ASIO_HAS_STD_SOURCE_LOCATION)
 # error ASIO_HAS_SOURCE_LOCATION is set \
   but no source_location is available
-#endif // defined(ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION)
+#endif // defined(ASIO_HAS_STD_SOURCE_LOCATION)
 
 namespace asio {
 namespace detail {
 
 #if defined(ASIO_HAS_STD_SOURCE_LOCATION)
 using std::source_location;
-#elif defined(ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION)
-using std::experimental::source_location;
-#endif // defined(ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION)
+#endif // defined(ASIO_HAS_STD_SOURCE_LOCATION)
 
 } // namespace detail
 } // namespace asio
