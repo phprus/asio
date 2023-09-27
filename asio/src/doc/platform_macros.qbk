@@ -171,13 +171,6 @@ needs.
     [`ASIO_DISABLE_SSIZE_T`]
   ]
   [
-    [`ASIO_HAS_STD_ALIGNED_ALLOC`]
-    [
-      Standard library support for aligned allocation.
-    ]
-    [`ASIO_DISABLE_STD_ALIGNED_ALLOC`]
-  ]
-  [
     [`ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION`]
     [
       Standard library support for std::experimental::source_location.

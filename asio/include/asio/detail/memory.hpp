@@ -23,11 +23,9 @@
 #include "asio/detail/cstdint.hpp"
 #include "asio/detail/throw_exception.hpp"
 
-#if !defined(ASIO_HAS_STD_ALIGNED_ALLOC) \
-  && defined(ASIO_WINDOWS)
+#if defined(ASIO_WINDOWS)
 # include <malloc.h>
-#endif // !defined(ASIO_HAS_STD_ALIGNED_ALLOC)
-       //   && defined(ASIO_WINDOWS)
+#endif // defined(ASIO_WINDOWS)
 
 namespace asio {
 namespace detail {
@@ -55,17 +53,7 @@ using std::allocator_arg_t;
 
 inline void* aligned_new(std::size_t align, std::size_t size)
 {
-#if defined(ASIO_HAS_STD_ALIGNED_ALLOC)
-  align = (align < ASIO_DEFAULT_ALIGN) ? ASIO_DEFAULT_ALIGN : align;
-  size = (size % align == 0) ? size : size + (align - size % align);
-  void* ptr = std::aligned_alloc(align, size);
-  if (!ptr)
-  {
-    std::bad_alloc ex;
-    asio::detail::throw_exception(ex);
-  }
-  return ptr;
-#elif defined(ASIO_MSVC)
+#if defined(ASIO_WINDOWS)
   align = (align < ASIO_DEFAULT_ALIGN) ? ASIO_DEFAULT_ALIGN : align;
   size = (size % align == 0) ? size : size + (align - size % align);
   void* ptr = _aligned_malloc(size, align);
@@ -75,21 +63,34 @@ inline void* aligned_new(std::size_t align, std::size_t size)
     asio::detail::throw_exception(ex);
   }
   return ptr;
-#else // defined(ASIO_MSVC)
-  (void)align;
-  return ::operator new(size);
-#endif // defined(ASIO_MSVC)
+#else // defined(ASIO_WINDOWS)
+  align = (align < ASIO_DEFAULT_ALIGN) ? ASIO_DEFAULT_ALIGN : align;
+# if defined(__APPLE__)
+  // macOS aligned_alloc incorrectly has posix_memalign's requirement
+  // that alignment is a multiple of sizeof(void*).
+  if (align < sizeof(void*))
+  {
+    align = sizeof(void*);
+  }
+# endif
+  size = (size % align == 0) ? size : size + (align - size % align);
+  void* ptr = std::aligned_alloc(align, size);
+  if (!ptr)
+  {
+    std::bad_alloc ex;
+    asio::detail::throw_exception(ex);
+  }
+  return ptr;
+#endif // defined(ASIO_WINDOWS)
 }
 
 inline void aligned_delete(void* ptr)
 {
-#if defined(ASIO_HAS_STD_ALIGNED_ALLOC)
-  std::free(ptr);
-#elif defined(ASIO_MSVC)
+#if defined(ASIO_WINDOWS)
   _aligned_free(ptr);
-#else // defined(ASIO_MSVC)
-  ::operator delete(ptr);
-#endif // defined(ASIO_MSVC)
+#else // defined(ASIO_WINDOWS)
+  std::free(ptr);
+#endif // defined(ASIO_WINDOWS)
 }
 
 } // namespace asio
