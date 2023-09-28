@@ -159,12 +159,7 @@
 
 // C++20: Support for the alignof operator.
 #define ASIO_HAS_ALIGNOF 1
-
-#if defined(__STDCPP_DEFAULT_NEW_ALIGNMENT__)
-# define ASIO_DEFAULT_ALIGN __STDCPP_DEFAULT_NEW_ALIGNMENT__
-#else // defined(__STDCPP_DEFAULT_NEW_ALIGNMENT__)
-# define ASIO_DEFAULT_ALIGN alignof(std::max_align_t)
-#endif // defined(__STDCPP_DEFAULT_NEW_ALIGNMENT__)
+#define ASIO_DEFAULT_ALIGN __STDCPP_DEFAULT_NEW_ALIGNMENT__
 
 // C++20: Support for user-defined literals.
 #define ASIO_HAS_USER_DEFINED_LITERALS 1
