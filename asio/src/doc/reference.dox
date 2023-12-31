@@ -310,12 +310,7 @@ PREDEFINED             = GENERATING_DOCUMENTATION \
                          ASIO_NETDB_ERROR(e)=implementation_defined \
                          ASIO_EOF_ERROR(e)=implementation_defined \
                          "ASIO_OS_ERROR(e1,e2)=implementation_defined" \
-                         ASIO_MOVE_ARG(a)=a&& \
-                         ASIO_MOVE_OR_LVALUE_ARG(a)=a&& \
-                         ASIO_NONDEDUCED_MOVE_ARG(a)=a& \
                          ASIO_DECL= \
-                         ASIO_CONSTEXPR=constexpr \
-                         ASIO_NOEXCEPT=noexcept \
                          ASIO_NODISCARD= \
                          ASIO_COMPLETION_SIGNATURE=typename \
                          ASIO_COMPLETION_HANDLER_FOR(s)=typename \
@@ -346,12 +341,7 @@ PREDEFINED             = GENERATING_DOCUMENTATION \
                          ASIO_UNSPECIFIED(e)=unspecified \
                          ASIO_EXECUTION_EXECUTOR=typename \
                          ASIO_EXECUTION_RECEIVER_ERROR_DEFAULT==std::exception_ptr \
-                         ASIO_EXECUTION_RECEIVER_OF_0=typename \
-                         ASIO_NOEXCEPT_IF(c)= \
-                         ASIO_AUTO_RETURN_TYPE_PREFIX(t)=auto \
-                         "ASIO_AUTO_RETURN_TYPE_PREFIX2(t0,t1)=auto" \
-                         "ASIO_AUTO_RETURN_TYPE_PREFIX3(t0,t1,t2)=auto" \
-                         ASIO_AUTO_RETURN_TYPE_SUFFIX(t)=
+                         ASIO_EXECUTION_RECEIVER_OF_0=typename
 EXPAND_AS_DEFINED      =
 SKIP_FUNCTION_MACROS   = YES
 #---------------------------------------------------------------------------

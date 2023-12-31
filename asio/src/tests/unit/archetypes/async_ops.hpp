@@ -46,7 +46,7 @@ async_op_0(CompletionToken&& token)
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
   void(asio::error_code)>::return_type
-async_op_ec_0(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
+async_op_ec_0(bool ok, CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
     void(asio::error_code)>::completion_handler_type handler_type;
@@ -81,7 +81,7 @@ async_op_ec_0(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
   void(std::exception_ptr)>::return_type
-async_op_ex_0(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
+async_op_ex_0(bool ok, CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
     void(std::exception_ptr)>::completion_handler_type handler_type;
@@ -116,7 +116,7 @@ async_op_ex_0(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
   void(int)>::return_type
-async_op_1(ASIO_MOVE_ARG(CompletionToken) token)
+async_op_1(CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
     void(int)>::completion_handler_type handler_type;
@@ -141,7 +141,7 @@ async_op_1(ASIO_MOVE_ARG(CompletionToken) token)
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
   void(asio::error_code, int)>::return_type
-async_op_ec_1(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
+async_op_ec_1(bool ok, CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
     void(asio::error_code, int)>::completion_handler_type
@@ -178,7 +178,7 @@ async_op_ec_1(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
   void(std::exception_ptr, int)>::return_type
-async_op_ex_1(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
+async_op_ex_1(bool ok, CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
     void(std::exception_ptr, int)>::completion_handler_type
@@ -214,7 +214,7 @@ async_op_ex_1(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
   void(int, double)>::return_type
-async_op_2(ASIO_MOVE_ARG(CompletionToken) token)
+async_op_2(CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
     void(int, double)>::completion_handler_type handler_type;
@@ -239,7 +239,7 @@ async_op_2(ASIO_MOVE_ARG(CompletionToken) token)
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
   void(asio::error_code, int, double)>::return_type
-async_op_ec_2(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
+async_op_ec_2(bool ok, CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
     void(asio::error_code, int, double)>::completion_handler_type
@@ -276,7 +276,7 @@ async_op_ec_2(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
   void(std::exception_ptr, int, double)>::return_type
-async_op_ex_2(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
+async_op_ex_2(bool ok, CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
     void(std::exception_ptr, int, double)>::completion_handler_type
@@ -312,7 +312,7 @@ async_op_ex_2(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
   void(int, double, char)>::return_type
-async_op_3(ASIO_MOVE_ARG(CompletionToken) token)
+async_op_3(CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
     void(int, double, char)>::completion_handler_type handler_type;
@@ -337,7 +337,7 @@ async_op_3(ASIO_MOVE_ARG(CompletionToken) token)
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
   void(asio::error_code, int, double, char)>::return_type
-async_op_ec_3(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
+async_op_ec_3(bool ok, CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
     void(asio::error_code, int, double, char)>::completion_handler_type
@@ -374,7 +374,7 @@ async_op_ec_3(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
   void(std::exception_ptr, int, double, char)>::return_type
-async_op_ex_3(bool ok, ASIO_MOVE_ARG(CompletionToken) token)
+async_op_ex_3(bool ok, CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
     void(std::exception_ptr, int, double, char)>::completion_handler_type

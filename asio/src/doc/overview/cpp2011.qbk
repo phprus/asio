@@ -35,10 +35,7 @@ When available, Asio can use the `std::error_code` and `std::system_error`
 classes for reporting errors. In this case, the names `asio::error_code` and
 `asio::system_error` will be typedefs for these standard classes.
 
-System error support is automatically enabled for [^g++] 4.6 and later, when
-the [^-std=c++0x] or [^-std=gnu++0x] compiler options are used. It may be
-disabled by defining `ASIO_DISABLE_STD_SYSTEM_ERROR`, or explicitly enabled for
-other compilers by defining `ASIO_HAS_STD_SYSTEM_ERROR`.
+System error support is automatically enabled.
 
 [endsect]
 
@@ -99,10 +96,7 @@ asio.reference.async_read async_read()] store a reference to the stream object.
 Moving during the composed operation means that the composed operation may
 attempt to access a moved-from object.
 
-Move support is automatically enabled for [^g++] 4.5 and later, when the
-[^-std=c++0x] or [^-std=gnu++0x] compiler options are used. It may be disabled
-by defining `ASIO_DISABLE_MOVE`, or explicitly enabled for other compilers by
-defining `ASIO_HAS_MOVE`. Note that these macros also affect the availability
+Move support is automatically enabled. Note that these macros also affect the availability
 of [link asio.overview.cpp2011.move_handlers movable handlers].
 
 [endsect]
@@ -140,10 +134,7 @@ arguments to `async_XYZ()` are members of the handler. For example:
     }
   };
 
-Move support is automatically enabled for [^g++] 4.5 and later, when the
-[^-std=c++0x] or [^-std=gnu++0x] compiler options are used. It may be disabled
-by defining `ASIO_DISABLE_MOVE`, or explicitly enabled for other compilers by
-defining `ASIO_HAS_MOVE`. Note that these macros also affect the availability
+Move support is automatically enabled. Note that these macros also affect the availability
 of [link asio.overview.cpp2011.move_objects movable I/O objects].
 
 [endsect]
@@ -156,10 +147,7 @@ basic_socket_streambuf::connect()] and [link
 asio.reference.basic_socket_iostream.connect basic_socket_iostream::connect()]
 functions.
 
-Support for variadic templates is automatically enabled for [^g++] 4.3 and
-later, when the [^-std=c++0x] or [^-std=gnu++0x] compiler options are used. It
-may be disabled by defining `ASIO_DISABLE_VARIADIC_TEMPLATES`, or explicitly
-enabled for other compilers by defining `ASIO_HAS_VARIADIC_TEMPLATES`.
+Support for variadic templates is automatically enabled.
 
 [endsect]
 
@@ -177,11 +165,7 @@ Where the standard library provides `std::array<>`, Asio:
 * Uses it in preference to `boost::array<>` where a fixed size array type is
   needed in the implementation.
 
-Support for `std::array<>` is automatically enabled for [^g++] 4.3 and later,
-when the [^-std=c++0x] or [^-std=gnu++0x] compiler options are used, as well as
-for Microsoft Visual C++ 10. It may be disabled by defining
-`ASIO_DISABLE_STD_ARRAY`, or explicitly enabled for other compilers by
-defining `ASIO_HAS_STD_ARRAY`.
+Support for `std::array<>` is automatically enabled.
 
 [endsect]
 
@@ -190,10 +174,7 @@ defining `ASIO_HAS_STD_ARRAY`.
 Asio's implementation can use `std::atomic<>` in preference to
 `boost::detail::atomic_count`.
 
-Support for the standard atomic integer template is automatically enabled for
-[^g++] 4.5 and later, when the [^-std=c++0x] or [^-std=gnu++0x] compiler
-options are used. It may be disabled by defining `ASIO_DISABLE_STD_ATOMIC`, or
-explicitly enabled for other compilers by defining `ASIO_HAS_STD_ATOMIC`.
+Support for the standard atomic integer template is automatically enabled.
 
 [endsect]
 
@@ -202,11 +183,7 @@ explicitly enabled for other compilers by defining `ASIO_HAS_STD_ATOMIC`.
 Asio's implementation can use `std::shared_ptr<>` and `std::weak_ptr<>` in
 preference to the Boost equivalents.
 
-Support for the standard smart pointers is automatically enabled for [^g++] 4.3
-and later, when the [^-std=c++0x] or [^-std=gnu++0x] compiler options are used,
-as well as for Microsoft Visual C++ 10. It may be disabled by defining
-`ASIO_DISABLE_STD_SHARED_PTR`, or explicitly enabled for other compilers by
-defining `ASIO_HAS_STD_SHARED_PTR`.
+Support for the standard smart pointers is automatically enabled.
 
 [endsect]
 
@@ -220,12 +197,7 @@ asio.reference.high_resolution_timer high_resolution_timer] utilise the
 standard clocks `system_clock`, `steady_clock` and `high_resolution_clock`
 respectively.
 
-Support for the `std::chrono` facilities is automatically enabled for [^g++]
-4.6 and later, when the [^-std=c++0x] or [^-std=gnu++0x] compiler options are
-used. (Note that, for [^g++], the draft-standard `monotonic_clock` is used in
-place of `steady_clock`.) Support may be disabled by defining
-`ASIO_DISABLE_STD_CHRONO`, or explicitly enabled for other compilers by
-defining `ASIO_HAS_STD_CHRONO`.
+Support for the `std::chrono` facilities is automatically enabled.
 
 When standard `chrono` is unavailable, Asio will otherwise use the Boost.Chrono
 library. The [link asio.reference.basic_waitable_timer basic_waitable_timer]
