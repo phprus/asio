@@ -22,7 +22,7 @@
 #include "asio/error.hpp"
 #include "asio/detail/cstdint.hpp"
 #include "asio/detail/handler_alloc_helpers.hpp"
-#include "asio/detail/limits.hpp"
+#include <limits>
 #include "asio/detail/thread.hpp"
 #include "asio/detail/throw_error.hpp"
 #include "asio/detail/win_iocp_io_context.hpp"
