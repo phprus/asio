@@ -519,7 +519,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v1&& buffers,
  *
  * namespace asio {
  *   template <> struct is_match_condition<match_char>
- *     : public boost::true_type {};
+ *     : public std::true_type {};
  * } // namespace asio
  * ...
  * std::string data;
@@ -979,7 +979,7 @@ std::size_t read_until(SyncReadStream& s,
  *
  * namespace asio {
  *   template <> struct is_match_condition<match_char>
- *     : public boost::true_type {};
+ *     : public std::true_type {};
  * } // namespace asio
  * ...
  * asio::streambuf b;
@@ -1457,7 +1457,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
  *
  * namespace asio {
  *   template <> struct is_match_condition<match_char>
- *     : public boost::true_type {};
+ *     : public std::true_type {};
  * } // namespace asio
  * ...
  * std::string data;
@@ -2063,7 +2063,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v1&& buffers,
  *
  * namespace asio {
  *   template <> struct is_match_condition<match_char>
- *     : public boost::true_type {};
+ *     : public std::true_type {};
  * } // namespace asio
  * ...
  * void handler(const asio::error_code& e, std::size_t size);
@@ -2596,7 +2596,7 @@ inline auto async_read_until(AsyncReadStream& s,
  *
  * namespace asio {
  *   template <> struct is_match_condition<match_char>
- *     : public boost::true_type {};
+ *     : public std::true_type {};
  * } // namespace asio
  * ...
  * void handler(const asio::error_code& e, std::size_t size);
@@ -3141,7 +3141,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
  *
  * namespace asio {
  *   template <> struct is_match_condition<match_char>
- *     : public boost::true_type {};
+ *     : public std::true_type {};
  * } // namespace asio
  * ...
  * void handler(const asio::error_code& e, std::size_t size);
