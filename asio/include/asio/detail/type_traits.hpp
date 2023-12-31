@@ -86,8 +86,6 @@ using std::remove_pointer_t;
 
 using std::remove_reference_t;
 
-#if defined(ASIO_HAS_STD_INVOKE_RESULT)
-
 template <typename> struct result_of;
 
 template <typename F, typename... Args>
@@ -95,15 +93,6 @@ struct result_of<F(Args...)> : std::invoke_result<F, Args...> {};
 
 template <typename T>
 using result_of_t = typename result_of<T>::type;
-
-#else // defined(ASIO_HAS_STD_INVOKE_RESULT)
-
-using std::result_of;
-
-template <typename T>
-using result_of_t = typename std::result_of<T>::type;
-
-#endif // defined(ASIO_HAS_STD_INVOKE_RESULT)
 
 using std::true_type;
 

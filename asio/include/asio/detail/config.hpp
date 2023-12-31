@@ -449,21 +449,6 @@
 # endif // !defined(ASIO_DISABLE_STRING_VIEW)
 #endif // !defined(ASIO_HAS_STRING_VIEW)
 
-// Standard library has invoke_result (which supersedes result_of).
-#if !defined(ASIO_HAS_STD_INVOKE_RESULT)
-# if !defined(ASIO_DISABLE_STD_INVOKE_RESULT)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1911 && _MSVC_LANG >= 201703)
-#    define ASIO_HAS_STD_INVOKE_RESULT 1
-#   endif // (_MSC_VER >= 1911 && _MSVC_LANG >= 201703)
-#  else // defined(ASIO_MSVC)
-#   if (__cplusplus >= 201703)
-#    define ASIO_HAS_STD_INVOKE_RESULT 1
-#   endif // (__cplusplus >= 201703)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_INVOKE_RESULT)
-#endif // !defined(ASIO_HAS_STD_INVOKE_RESULT)
-
 // Standard library support for std::any.
 #if !defined(ASIO_HAS_STD_ANY)
 # if !defined(ASIO_DISABLE_STD_ANY)
