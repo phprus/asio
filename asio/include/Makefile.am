@@ -105,7 +105,6 @@ nobase_include_HEADERS = \
 	asio/detail/executor_op.hpp \
 	asio/detail/fd_set_adapter.hpp \
 	asio/detail/fenced_block.hpp \
-	asio/detail/functional.hpp \
 	asio/detail/future.hpp \
 	asio/detail/global.hpp \
 	asio/detail/handler_alloc_helpers.hpp \

@@ -17,7 +17,7 @@
 
 #include "asio/detail/config.hpp"
 #include "asio/associator.hpp"
-#include "asio/detail/functional.hpp"
+#include <functional>
 #include "asio/detail/type_traits.hpp"
 #include "asio/execution/blocking.hpp"
 #include "asio/execution/executor.hpp"
@@ -256,7 +256,7 @@ struct associated_immediate_executor_forwarding_base<T, E,
 /// Specialisation of associated_immediate_executor for
 /// @c std::reference_wrapper.
 template <typename T, typename Executor>
-struct associated_immediate_executor<reference_wrapper<T>, Executor>
+struct associated_immediate_executor<std::reference_wrapper<T>, Executor>
 #if !defined(GENERATING_DOCUMENTATION)
   : detail::associated_immediate_executor_forwarding_base<T, Executor>
 #endif // !defined(GENERATING_DOCUMENTATION)
@@ -267,7 +267,7 @@ struct associated_immediate_executor<reference_wrapper<T>, Executor>
 
   /// Forwards the request to get the executor to the associator specialisation
   /// for the unwrapped type @c T.
-  static auto get(reference_wrapper<T> t, const Executor& ex) noexcept
+  static auto get(std::reference_wrapper<T> t, const Executor& ex) noexcept
     -> decltype(associated_immediate_executor<T, Executor>::get(t.get(), ex))
   {
     return associated_immediate_executor<T, Executor>::get(t.get(), ex);
