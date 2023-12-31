@@ -55,7 +55,7 @@ A non-static class member function adapted to a connect token using
         this, std::placeholders::_1));
 
 A non-static class member function adapted to a connect token using
-`boost::bind()`:
+`std::bind()`:
 
   void my_class::connect_handler(
       const asio::error_code& ec)
@@ -64,7 +64,7 @@ A non-static class member function adapted to a connect token using
   }
   ...
   socket.async_connect(...,
-      boost::bind(&my_class::connect_handler,
+      std::bind(&my_class::connect_handler,
         this, asio::placeholders::error));
 
 Using [link asio.reference.use_future use_future] as a connect token:

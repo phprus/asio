@@ -2205,11 +2205,4 @@ Return to [link asio.tutorial.tutdaytime7 Daytime.7 - A combined TCP/UDP asynchr
 
 [endsect]
 
-[section:boost_bind boost::bind]
-
-See the [@http://www.boost.org/libs/bind/bind.html Boost: bind.hpp documentation] for more information on how to use `boost::bind`. 
-
-[endsect]
-
-
 [endsect]

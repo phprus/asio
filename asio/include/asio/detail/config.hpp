@@ -40,7 +40,6 @@
 # define ASIO_DISABLE_BOOST_ALIGN 1
 # define ASIO_DISABLE_BOOST_ARRAY 1
 # define ASIO_DISABLE_BOOST_ASSERT 1
-# define ASIO_DISABLE_BOOST_BIND 1
 # define ASIO_DISABLE_BOOST_CHRONO 1
 # define ASIO_DISABLE_BOOST_DATE_TIME 1
 # define ASIO_DISABLE_BOOST_LIMITS 1
@@ -1135,13 +1134,6 @@
 #  define ASIO_HAS_BOOST_REGEX 1
 # endif // !defined(ASIO_DISABLE_BOOST_REGEX)
 #endif // !defined(ASIO_HAS_BOOST_REGEX)
-
-// Boost bind function.
-#if !defined(ASIO_HAS_BOOST_BIND)
-# if !defined(ASIO_DISABLE_BOOST_BIND)
-#  define ASIO_HAS_BOOST_BIND 1
-# endif // !defined(ASIO_DISABLE_BOOST_BIND)
-#endif // !defined(ASIO_HAS_BOOST_BIND)
 
 // Boost's BOOST_WORKAROUND macro.
 #if !defined(ASIO_HAS_BOOST_WORKAROUND)
