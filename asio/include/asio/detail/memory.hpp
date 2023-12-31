@@ -36,12 +36,7 @@ using std::shared_ptr;
 using std::weak_ptr;
 using std::addressof;
 using std::to_address;
-
-inline void* align(std::size_t alignment,
-    std::size_t size, void*& ptr, std::size_t& space)
-{
-  return std::align(alignment, size, ptr, space);
-}
+using std::align;
 
 } // namespace detail
 
