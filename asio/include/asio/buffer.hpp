@@ -46,7 +46,7 @@
 #endif // defined(__GNUC__)
 
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
-# include "asio/detail/functional.hpp"
+# include <functional>
 #endif // ASIO_ENABLE_BUFFER_DEBUGGING
 
 #include "asio/detail/push_options.hpp"
@@ -94,14 +94,14 @@ public:
 
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
   mutable_buffer(void* data, std::size_t size,
-      asio::detail::function<void()> debug_check)
+      std::function<void()> debug_check)
     : data_(data),
       size_(size),
       debug_check_(debug_check)
   {
   }
 
-  const asio::detail::function<void()>& get_debug_check() const
+  const std::function<void()>& get_debug_check() const
   {
     return debug_check_;
   }
@@ -137,7 +137,7 @@ private:
   std::size_t size_;
 
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
-  asio::detail::function<void()> debug_check_;
+  std::function<void()> debug_check_;
 #endif // ASIO_ENABLE_BUFFER_DEBUGGING
 };
 
@@ -163,7 +163,7 @@ public:
 
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
   mutable_buffers_1(void* data, std::size_t size,
-      asio::detail::function<void()> debug_check)
+      std::function<void()> debug_check)
     : mutable_buffer(data, size, debug_check)
   {
   }
@@ -238,14 +238,14 @@ public:
 
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
   const_buffer(const void* data, std::size_t size,
-      asio::detail::function<void()> debug_check)
+      std::function<void()> debug_check)
     : data_(data),
       size_(size),
       debug_check_(debug_check)
   {
   }
 
-  const asio::detail::function<void()>& get_debug_check() const
+  const std::function<void()>& get_debug_check() const
   {
     return debug_check_;
   }
@@ -281,7 +281,7 @@ private:
   std::size_t size_;
 
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
-  asio::detail::function<void()> debug_check_;
+  std::function<void()> debug_check_;
 #endif // ASIO_ENABLE_BUFFER_DEBUGGING
 };
 
@@ -307,7 +307,7 @@ public:
 
 #if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
   const_buffers_1(const void* data, std::size_t size,
-      asio::detail::function<void()> debug_check)
+      std::function<void()> debug_check)
     : const_buffer(data, size, debug_check)
   {
   }

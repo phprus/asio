@@ -18,7 +18,7 @@
 #include "asio/detail/config.hpp"
 #include "asio/associator.hpp"
 #include "asio/cancellation_signal.hpp"
-#include "asio/detail/functional.hpp"
+#include <functional>
 #include "asio/detail/type_traits.hpp"
 
 #include "asio/detail/push_options.hpp"
@@ -188,7 +188,7 @@ struct associated_cancellation_slot_forwarding_base<T, S,
 /// Specialisation of associated_cancellation_slot for @c
 /// std::reference_wrapper.
 template <typename T, typename CancellationSlot>
-struct associated_cancellation_slot<reference_wrapper<T>, CancellationSlot>
+struct associated_cancellation_slot<std::reference_wrapper<T>, CancellationSlot>
 #if !defined(GENERATING_DOCUMENTATION)
   : detail::associated_cancellation_slot_forwarding_base<T, CancellationSlot>
 #endif // !defined(GENERATING_DOCUMENTATION)
@@ -199,14 +199,14 @@ struct associated_cancellation_slot<reference_wrapper<T>, CancellationSlot>
 
   /// Forwards the request to get the cancellation slot to the associator
   /// specialisation for the unwrapped type @c T.
-  static type get(reference_wrapper<T> t) noexcept
+  static type get(std::reference_wrapper<T> t) noexcept
   {
     return associated_cancellation_slot<T, CancellationSlot>::get(t.get());
   }
 
   /// Forwards the request to get the cancellation slot to the associator
   /// specialisation for the unwrapped type @c T.
-  static auto get(reference_wrapper<T> t, const CancellationSlot& s) noexcept
+  static auto get(std::reference_wrapper<T> t, const CancellationSlot& s) noexcept
     -> decltype(
       associated_cancellation_slot<T, CancellationSlot>::get(t.get(), s))
   {
