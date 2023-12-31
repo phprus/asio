@@ -25,7 +25,7 @@
 #include <sys/event.h>
 #include <sys/time.h>
 #include "asio/detail/conditionally_enabled_mutex.hpp"
-#include "asio/detail/limits.hpp"
+#include <limits>
 #include "asio/detail/object_pool.hpp"
 #include "asio/detail/op_queue.hpp"
 #include "asio/detail/reactor_op.hpp"
