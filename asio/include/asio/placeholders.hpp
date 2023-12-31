@@ -25,33 +25,33 @@ namespace placeholders {
 
 #if defined(GENERATING_DOCUMENTATION)
 
-/// An argument placeholder, for use with std::bind() or boost::bind(), that
+/// An argument placeholder, for use with std::bind(), that
 /// corresponds to the error argument of a handler for any of the asynchronous
 /// functions.
 unspecified error;
 
-/// An argument placeholder, for use with std::bind() or boost::bind(), that
+/// An argument placeholder, for use with std::bind(), that
 /// corresponds to the bytes_transferred argument of a handler for asynchronous
 /// functions such as asio::basic_stream_socket::async_write_some or
 /// asio::async_write.
 unspecified bytes_transferred;
 
-/// An argument placeholder, for use with std::bind() or boost::bind(), that
+/// An argument placeholder, for use with std::bind(), that
 /// corresponds to the iterator argument of a handler for asynchronous functions
 /// such as asio::async_connect.
 unspecified iterator;
 
-/// An argument placeholder, for use with std::bind() or boost::bind(), that
+/// An argument placeholder, for use with std::bind(), that
 /// corresponds to the results argument of a handler for asynchronous functions
 /// such as asio::basic_resolver::async_resolve.
 unspecified results;
 
-/// An argument placeholder, for use with std::bind() or boost::bind(), that
+/// An argument placeholder, for use with std::bind(), that
 /// corresponds to the results argument of a handler for asynchronous functions
 /// such as asio::async_connect.
 unspecified endpoint;
 
-/// An argument placeholder, for use with std::bind() or boost::bind(), that
+/// An argument placeholder, for use with std::bind(), that
 /// corresponds to the signal_number argument of a handler for asynchronous
 /// functions such as asio::signal_set::async_wait.
 unspecified signal_number;

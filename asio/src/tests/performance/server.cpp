@@ -10,7 +10,7 @@
 
 #include "asio.hpp"
 #include <algorithm>
-#include <boost/bind/bind.hpp>
+#include <functional>
 #include <iostream>
 #include <list>
 #include "handler_allocator.hpp"
@@ -53,13 +53,13 @@ public:
       socket_.async_read_some(asio::buffer(read_data_, block_size_),
           asio::bind_executor(strand_,
             make_custom_alloc_handler(read_allocator_,
-              boost::bind(&session::handle_read, this,
+              std::bind(&session::handle_read, this,
                 asio::placeholders::error,
                 asio::placeholders::bytes_transferred))));
     }
     else
     {
-      asio::post(io_context_, boost::bind(&session::destroy, this));
+      asio::post(io_context_, std::bind(&session::destroy, this));
     }
   }
 
@@ -78,19 +78,19 @@ public:
         async_write(socket_, asio::buffer(write_data_, read_data_length_),
             asio::bind_executor(strand_,
               make_custom_alloc_handler(write_allocator_,
-                boost::bind(&session::handle_write, this,
+                std::bind(&session::handle_write, this,
                   asio::placeholders::error))));
         socket_.async_read_some(asio::buffer(read_data_, block_size_),
             asio::bind_executor(strand_,
               make_custom_alloc_handler(read_allocator_,
-                boost::bind(&session::handle_read, this,
+                std::bind(&session::handle_read, this,
                   asio::placeholders::error,
                   asio::placeholders::bytes_transferred))));
       }
     }
 
     if (op_count_ == 0)
-      asio::post(io_context_, boost::bind(&session::destroy, this));
+      asio::post(io_context_, std::bind(&session::destroy, this));
   }
 
   void handle_write(const asio::error_code& err)
@@ -107,19 +107,19 @@ public:
         async_write(socket_, asio::buffer(write_data_, read_data_length_),
             asio::bind_executor(strand_,
               make_custom_alloc_handler(write_allocator_,
-                boost::bind(&session::handle_write, this,
+                std::bind(&session::handle_write, this,
                   asio::placeholders::error))));
         socket_.async_read_some(asio::buffer(read_data_, block_size_),
             asio::bind_executor(strand_,
               make_custom_alloc_handler(read_allocator_,
-                boost::bind(&session::handle_read, this,
+                std::bind(&session::handle_read, this,
                   asio::placeholders::error,
                   asio::placeholders::bytes_transferred))));
       }
     }
 
     if (op_count_ == 0)
-      asio::post(io_context_, boost::bind(&session::destroy, this));
+      asio::post(io_context_, std::bind(&session::destroy, this));
   }
 
   static void destroy(session* s)
@@ -162,7 +162,7 @@ public:
   {
     session* new_session = new session(io_context_, block_size_);
     acceptor_.async_accept(new_session->socket(),
-        boost::bind(&server::handle_accept, this, new_session,
+        std::bind(&server::handle_accept, this, new_session,
           asio::placeholders::error));
   }
 
@@ -211,7 +211,7 @@ int main(int argc, char* argv[])
     while (--thread_count > 0)
     {
       asio::thread* new_thread = new asio::thread(
-          boost::bind(&asio::io_context::run, &ioc));
+          std::bind(&asio::io_context::run, &ioc));
       threads.push_back(new_thread);
     }
 
