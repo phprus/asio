@@ -346,13 +346,6 @@ needs.
     [`ASIO_DISABLE_STD_STRING_VIEW`]
   ]
   [
-    [`ASIO_HAS_STD_TO_ADDRESS`]
-    [
-      Standard library support for std::to_address.
-    ]
-    [`ASIO_DISABLE_STD_TO_ADDRESS`]
-  ]
-  [
     [`ASIO_HAS_STD_VARIANT`]
     [
       Standard library support for std::variant.
