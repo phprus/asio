@@ -54,7 +54,7 @@ struct wrapped_executor
 
 template <typename Dispatcher>
 struct wrapped_executor<Dispatcher,
-    void_type<typename Dispatcher::executor_type>>
+    void_t<typename Dispatcher::executor_type>>
 {
   typedef typename Dispatcher::executor_type executor_type;
 

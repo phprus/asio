@@ -457,7 +457,7 @@ struct allocator_binder_async_result_return_type
 
 template <typename TargetAsyncResult>
 struct allocator_binder_async_result_return_type<
-    TargetAsyncResult, void_type<typename TargetAsyncResult::return_type>>
+    TargetAsyncResult, void_t<typename TargetAsyncResult::return_type>>
 {
   typedef typename TargetAsyncResult::return_type return_type;
 };
