@@ -55,7 +55,7 @@ A non-static class member function adapted to a accept token using
         this, std::placeholders::_1));
 
 A non-static class member function adapted to a accept token using
-`boost::bind()`:
+`std::bind()`:
 
   void my_class::accept_handler(
       const asio::error_code& ec)
@@ -64,7 +64,7 @@ A non-static class member function adapted to a accept token using
   }
   ...
   acceptor.async_accept(...,
-      boost::bind(&my_class::accept_handler,
+      std::bind(&my_class::accept_handler,
         this, asio::placeholders::error));
 
 Using [link asio.reference.use_future use_future] as a accept token:

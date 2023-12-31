@@ -42,7 +42,7 @@ will synchronously try all endpoints until one is successfully connected.
 Similarly, an asynchronous connect may be performed by writing:
 
   asio::async_connect(socket_, iter,
-      boost::bind(&client::handle_connect, this,
+      std::bind(&client::handle_connect, this,
         asio::placeholders::error));
 
   // ...
