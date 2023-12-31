@@ -182,10 +182,6 @@ CPP11_EXAMPLE_EXES = \
 	examples/cpp11/echo/blocking_udp_echo_server.exe \
 	examples/cpp11/http/client/async_client.exe \
 	examples/cpp11/http/client/sync_client.exe \
-	examples/cpp11/http/server/http_server.exe \
-	examples/cpp11/http/server2/http_server.exe \
-	examples/cpp11/http/server3/http_server.exe \
-	examples/cpp11/http/server4/http_server.exe \
 	examples/cpp11/icmp/ping.exe \
 	examples/cpp11/invocation/prioritised_handlers.exe \
 	examples/cpp11/iostreams/daytime_client.exe \
@@ -196,7 +192,6 @@ CPP11_EXAMPLE_EXES = \
 	examples/cpp11/nonblocking/third_party_lib.exe \
 	examples/cpp11/porthopper/client.exe \
 	examples/cpp11/porthopper/server.exe \
-	examples/cpp11/services/daytime_client.exe \
 	examples/cpp11/socks4/sync_client.exe \
 	examples/cpp11/timeouts/async_tcp_client.exe \
 	examples/cpp11/timeouts/blocking_tcp_client.exe \
@@ -218,17 +213,25 @@ CPP11_EXAMPLE_EXES = \
 	examples/cpp11/tutorial/daytime7/server.exe \
 	examples/cpp11/windows/transmit_file.exe
 
+OTHER_CPP11_EXAMPLE_EXES = \
+	examples/cpp11/http/server/http_server.exe \
+	examples/cpp11/http/server2/http_server.exe \
+	examples/cpp11/http/server3/http_server.exe \
+	examples/cpp11/http/server4/http_server.exe \
+	examples/cpp11/services/daytime_client.exe
+
 ifdef STANDALONE
 all: \
 	$(SEPARATE_COMPILATION_LIB) \
-	$(EXAMPLE_EXES) \
+	$(CPP11_EXAMPLE_EXES) \
+	$(OTHER_CPP11_EXAMPLE_EXES) \
 	$(UNIT_TEST_EXES)
 else
 all: \
 	$(SEPARATE_COMPILATION_LIB) \
 	$(PERFORMANCE_TEST_EXES) \
-	$(EXAMPLE_EXES) \
-	$(OTHER_EXAMPLE_EXES) \
+	$(CPP11_EXAMPLE_EXES) \
+	$(OTHER_CPP11_EXAMPLE_EXES) \
 	$(UNIT_TEST_EXES)
 endif
 
@@ -254,7 +257,7 @@ clean:
 $(UNIT_TEST_EXES): %.exe: %.o
 	g++ -o$@ $(LDFLAGS) $< $(LIBS)
 
-$(PERFORMANCE_TEST_EXES) $(EXAMPLE_EXES): %.exe: %.o
+$(PERFORMANCE_TEST_EXES) $(CPP11_EXAMPLE_EXES): %.exe: %.o
 	g++ -o$@ $(LDFLAGS) $< $(LIBS)
 
 examples/cpp11/http/server/http_server.exe: \
@@ -287,6 +290,16 @@ examples/cpp11/http/server3/http_server.exe: \
 		examples/cpp11/http/server3/request_handler.o \
 		examples/cpp11/http/server3/request_parser.o \
 		examples/cpp11/http/server3/server.o
+	g++ -o$@ $(LDFLAGS) $^ $(LIBS)
+
+examples/cpp11/http/server4/http_server.exe: \
+		examples/cpp11/http/server4/file_handler.o \
+		examples/cpp11/http/server4/main.o \
+		examples/cpp11/http/server4/mime_types.o \
+		examples/cpp11/http/server4/reply.o \
+		examples/cpp11/http/server4/request_handler.o \
+		examples/cpp11/http/server4/request_parser.o \
+		examples/cpp11/http/server4/server.o
 	g++ -o$@ $(LDFLAGS) $^ $(LIBS)
 
 examples/cpp11/services/daytime_client.exe: \
