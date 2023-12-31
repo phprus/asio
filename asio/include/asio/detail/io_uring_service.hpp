@@ -24,7 +24,7 @@
 #include "asio/detail/buffer_sequence_adapter.hpp"
 #include "asio/detail/conditionally_enabled_mutex.hpp"
 #include "asio/detail/io_uring_operation.hpp"
-#include "asio/detail/limits.hpp"
+#include <limits>
 #include "asio/detail/object_pool.hpp"
 #include "asio/detail/op_queue.hpp"
 #include "asio/detail/reactor.hpp"
