@@ -37,19 +37,7 @@ using std::make_shared;
 using std::shared_ptr;
 using std::weak_ptr;
 using std::addressof;
-
-#if defined(ASIO_HAS_STD_TO_ADDRESS)
 using std::to_address;
-#else // defined(ASIO_HAS_STD_TO_ADDRESS)
-template <typename T>
-inline T* to_address(T* p) { return p; }
-template <typename T>
-inline const T* to_address(const T* p) { return p; }
-template <typename T>
-inline volatile T* to_address(volatile T* p) { return p; }
-template <typename T>
-inline const volatile T* to_address(const volatile T* p) { return p; }
-#endif // defined(ASIO_HAS_STD_TO_ADDRESS)
 
 inline void* align(std::size_t alignment,
     std::size_t size, void*& ptr, std::size_t& space)

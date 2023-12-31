@@ -1262,28 +1262,6 @@
 # endif // defined(_POSIX_VERSION)
 #endif // !defined(ASIO_HAS_MSG_NOSIGNAL)
 
-// Standard library support for std::to_address.
-#if !defined(ASIO_HAS_STD_TO_ADDRESS)
-# if !defined(ASIO_DISABLE_STD_TO_ADDRESS)
-#  if defined(__clang__)
-#   if (__cplusplus >= 202002)
-#    define ASIO_HAS_STD_TO_ADDRESS 1
-#   endif // (__cplusplus >= 202002)
-#  elif defined(__GNUC__)
-#   if (__GNUC__ >= 8)
-#    if (__cplusplus >= 202002)
-#     define ASIO_HAS_STD_TO_ADDRESS 1
-#    endif // (__cplusplus >= 202002)
-#   endif // (__GNUC__ >= 8)
-#  endif // defined(__GNUC__)
-#  if defined(ASIO_MSVC)
-#   if (_MSC_VER >= 1922) && (_MSVC_LANG >= 202002)
-#    define ASIO_HAS_STD_TO_ADDRESS 1
-#   endif // (_MSC_VER >= 1922) && (_MSVC_LANG >= 202002)
-#  endif // defined(ASIO_MSVC)
-# endif // !defined(ASIO_DISABLE_STD_TO_ADDRESS)
-#endif // !defined(ASIO_HAS_STD_TO_ADDRESS)
-
 // Standard library support for snprintf.
 #if !defined(ASIO_HAS_SNPRINTF)
 # if !defined(ASIO_DISABLE_SNPRINTF)
