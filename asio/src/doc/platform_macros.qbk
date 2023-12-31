@@ -24,13 +24,6 @@ needs.
 [table
   [[Macro][Description][Macro to disable feature]]
   [
-    [`ASIO_HAS_BOOST_ALIGN`]
-    [
-      Boost align library.
-    ]
-    [`ASIO_DISABLE_BOOST_ALIGN`]
-  ]
-  [
     [`ASIO_HAS_BOOST_ARRAY`]
     [
       Boost array library.
@@ -288,13 +281,6 @@ needs.
       Support for POSIX ssize_t typedef.
     ]
     [`ASIO_DISABLE_SSIZE_T`]
-  ]
-  [
-    [`ASIO_HAS_STD_ALIGNED_ALLOC`]
-    [
-      Standard library support for aligned allocation.
-    ]
-    [`ASIO_DISABLE_STD_ALIGNED_ALLOC`]
   ]
   [
     [`ASIO_HAS_STD_ANY`]
