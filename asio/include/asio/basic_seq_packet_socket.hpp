@@ -365,7 +365,7 @@ public:
    * socket.send(asio::buffer(data, size), 0);
    * @endcode
    * See the @ref buffer documentation for information on sending multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    */
   template <typename ConstBufferSequence>
@@ -441,7 +441,7 @@ public:
    * socket.async_send(asio::buffer(data, size), 0, handler);
    * @endcode
    * See the @ref buffer documentation for information on sending multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    *
    * @par Per-Operation Cancellation
@@ -498,7 +498,7 @@ public:
    * socket.receive(asio::buffer(data, size), out_flags);
    * @endcode
    * See the @ref buffer documentation for information on receiving into
-   * multiple buffers in one go, and how to use it with arrays, boost::array or
+   * multiple buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    */
   template <typename MutableBufferSequence>
@@ -544,7 +544,7 @@ public:
    * socket.receive(asio::buffer(data, size), 0, out_flags);
    * @endcode
    * See the @ref buffer documentation for information on receiving into
-   * multiple buffers in one go, and how to use it with arrays, boost::array or
+   * multiple buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    */
   template <typename MutableBufferSequence>
@@ -632,7 +632,7 @@ public:
    * socket.async_receive(asio::buffer(data, size), out_flags, handler);
    * @endcode
    * See the @ref buffer documentation for information on receiving into
-   * multiple buffers in one go, and how to use it with arrays, boost::array or
+   * multiple buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    *
    * @par Per-Operation Cancellation
@@ -708,7 +708,7 @@ public:
    *     0, out_flags, handler);
    * @endcode
    * See the @ref buffer documentation for information on receiving into
-   * multiple buffers in one go, and how to use it with arrays, boost::array or
+   * multiple buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    *
    * @par Per-Operation Cancellation

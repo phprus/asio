@@ -664,7 +664,7 @@ public:
    * basic_serial_port.write_some(asio::buffer(data, size));
    * @endcode
    * See the @ref buffer documentation for information on writing multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    */
   template <typename ConstBufferSequence>
@@ -740,7 +740,7 @@ public:
    *     asio::buffer(data, size), handler);
    * @endcode
    * See the @ref buffer documentation for information on writing multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    *
    * @par Per-Operation Cancellation
@@ -793,7 +793,7 @@ public:
    * basic_serial_port.read_some(asio::buffer(data, size));
    * @endcode
    * See the @ref buffer documentation for information on reading into multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    */
   template <typename MutableBufferSequence>
@@ -871,7 +871,7 @@ public:
    *     asio::buffer(data, size), handler);
    * @endcode
    * See the @ref buffer documentation for information on reading into multiple
-   * buffers in one go, and how to use it with arrays, boost::array or
+   * buffers in one go, and how to use it with arrays, std::array or
    * std::vector.
    *
    * @par Per-Operation Cancellation

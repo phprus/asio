@@ -78,7 +78,7 @@ template <typename> class initiate_async_read_at_streambuf;
  * To read into a single data buffer use the @ref buffer function as follows:
  * @code asio::read_at(d, 42, asio::buffer(data, size)); @endcode
  * See the @ref buffer documentation for information on reading into multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  *
  * @note This overload is equivalent to calling:
@@ -123,7 +123,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
  * @code asio::read_at(d, 42,
  *     asio::buffer(data, size), ec); @endcode
  * See the @ref buffer documentation for information on reading into multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  *
  * @note This overload is equivalent to calling:
@@ -183,7 +183,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
  * @code asio::read_at(d, 42, asio::buffer(data, size),
  *     asio::transfer_at_least(32)); @endcode
  * See the @ref buffer documentation for information on reading into multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  */
 template <typename SyncRandomAccessReadDevice, typename MutableBufferSequence,
@@ -464,7 +464,7 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
  * asio::async_read_at(d, 42, asio::buffer(data, size), handler);
  * @endcode
  * See the @ref buffer documentation for information on reading into multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  *
  * @note This overload is equivalent to calling:
@@ -566,7 +566,7 @@ auto async_read_at(AsyncRandomAccessReadDevice& d,
  *     asio::transfer_at_least(32),
  *     handler); @endcode
  * See the @ref buffer documentation for information on reading into multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  *
  * @par Per-Operation Cancellation
