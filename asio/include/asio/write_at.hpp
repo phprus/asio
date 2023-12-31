@@ -77,7 +77,7 @@ template <typename> class initiate_async_write_at_streambuf;
  * To write a single data buffer use the @ref buffer function as follows:
  * @code asio::write_at(d, 42, asio::buffer(data, size)); @endcode
  * See the @ref buffer documentation for information on writing multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  *
  * @note This overload is equivalent to calling:
@@ -121,7 +121,7 @@ std::size_t write_at(SyncRandomAccessWriteDevice& d,
  * @code asio::write_at(d, 42,
  *     asio::buffer(data, size), ec); @endcode
  * See the @ref buffer documentation for information on writing multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  *
  * @note This overload is equivalent to calling:
@@ -180,7 +180,7 @@ std::size_t write_at(SyncRandomAccessWriteDevice& d,
  * @code asio::write_at(d, 42, asio::buffer(data, size),
  *     asio::transfer_at_least(32)); @endcode
  * See the @ref buffer documentation for information on writing multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  */
 template <typename SyncRandomAccessWriteDevice, typename ConstBufferSequence,
@@ -479,7 +479,7 @@ std::size_t write_at(SyncRandomAccessWriteDevice& d,
  * asio::async_write_at(d, 42, asio::buffer(data, size), handler);
  * @endcode
  * See the @ref buffer documentation for information on writing multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  *
  * @par Per-Operation Cancellation
@@ -591,7 +591,7 @@ inline auto async_write_at(AsyncRandomAccessWriteDevice& d,
  *     asio::transfer_at_least(32),
  *     handler); @endcode
  * See the @ref buffer documentation for information on writing multiple
- * buffers in one go, and how to use it with arrays, boost::array or
+ * buffers in one go, and how to use it with arrays, std::array or
  * std::vector.
  *
  * @par Per-Operation Cancellation

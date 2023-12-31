@@ -64,8 +64,6 @@ nobase_include_HEADERS = \
 	asio/deferred.hpp \
 	asio/default_completion_token.hpp \
 	asio/detached.hpp \
-	asio/detail/array_fwd.hpp \
-	asio/detail/array.hpp \
 	asio/detail/assert.hpp \
 	asio/detail/atomic_count.hpp \
 	asio/detail/base_from_cancellation_state.hpp \

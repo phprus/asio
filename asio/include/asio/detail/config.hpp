@@ -37,13 +37,11 @@
 
 // boostify: non-boost code ends here
 #if defined(ASIO_STANDALONE)
-# define ASIO_DISABLE_BOOST_ARRAY 1
 # define ASIO_DISABLE_BOOST_CHRONO 1
 # define ASIO_DISABLE_BOOST_DATE_TIME 1
 # define ASIO_DISABLE_BOOST_REGEX 1
 # define ASIO_DISABLE_BOOST_STATIC_CONSTANT 1
 # define ASIO_DISABLE_BOOST_THROW_EXCEPTION 1
-# define ASIO_DISABLE_BOOST_WORKAROUND 1
 #else // defined(ASIO_STANDALONE)
 // Boost.Config library is available.
 # include <boost/config.hpp>
@@ -934,13 +932,6 @@
 # endif // !defined(ASIO_DISABLE_BOOST_STATIC_CONSTANT)
 #endif // !defined(ASIO_STATIC_CONSTANT)
 
-// Boost array library.
-#if !defined(ASIO_HAS_BOOST_ARRAY)
-# if !defined(ASIO_DISABLE_BOOST_ARRAY)
-#  define ASIO_HAS_BOOST_ARRAY 1
-# endif // !defined(ASIO_DISABLE_BOOST_ARRAY)
-#endif // !defined(ASIO_HAS_BOOST_ARRAY)
-
 // Boost throw_exception function.
 #if !defined(ASIO_HAS_BOOST_THROW_EXCEPTION)
 # if !defined(ASIO_DISABLE_BOOST_THROW_EXCEPTION)
@@ -954,13 +945,6 @@
 #  define ASIO_HAS_BOOST_REGEX 1
 # endif // !defined(ASIO_DISABLE_BOOST_REGEX)
 #endif // !defined(ASIO_HAS_BOOST_REGEX)
-
-// Boost's BOOST_WORKAROUND macro.
-#if !defined(ASIO_HAS_BOOST_WORKAROUND)
-# if !defined(ASIO_DISABLE_BOOST_WORKAROUND)
-#  define ASIO_HAS_BOOST_WORKAROUND 1
-# endif // !defined(ASIO_DISABLE_BOOST_WORKAROUND)
-#endif // !defined(ASIO_HAS_BOOST_WORKAROUND)
 
 // Microsoft Visual C++'s secure C runtime library.
 #if !defined(ASIO_HAS_SECURE_RTL)
