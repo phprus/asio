@@ -17,7 +17,7 @@
 
 #include "asio/detail/config.hpp"
 #include <vector>
-#include "asio/detail/array.hpp"
+#include <array>
 #include "asio/detail/memory.hpp"
 #include "asio/detail/type_traits.hpp"
 #include "asio/detail/utility.hpp"
@@ -48,7 +48,7 @@ struct parallel_group_signature;
 template <std::size_t N, typename R0, typename... Args0>
 struct parallel_group_signature<N, R0(Args0...)>
 {
-  typedef asio::detail::array<std::size_t, N> order_type;
+  typedef std::array<std::size_t, N> order_type;
   typedef R0 raw_type(Args0...);
   typedef R0 type(order_type, Args0...);
 };
@@ -58,7 +58,7 @@ template <std::size_t N,
     typename R1, typename... Args1>
 struct parallel_group_signature<N, R0(Args0...), R1(Args1...)>
 {
-  typedef asio::detail::array<std::size_t, N> order_type;
+  typedef std::array<std::size_t, N> order_type;
   typedef R0 raw_type(Args0..., Args1...);
   typedef R0 type(order_type, Args0..., Args1...);
 };
@@ -67,7 +67,7 @@ template <std::size_t N, typename Sig0,
     typename Sig1, typename... SigN>
 struct parallel_group_signature<N, Sig0, Sig1, SigN...>
 {
-  typedef asio::detail::array<std::size_t, N> order_type;
+  typedef std::array<std::size_t, N> order_type;
   typedef typename parallel_group_signature<N,
     typename parallel_group_signature<N, Sig0, Sig1>::raw_type,
       SigN...>::raw_type raw_type;

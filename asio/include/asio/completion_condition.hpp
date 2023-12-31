@@ -117,7 +117,7 @@ private:
  * @par Example
  * Reading until a buffer is full:
  * @code
- * boost::array<char, 128> buf;
+ * std::array<char, 128> buf;
  * asio::error_code ec;
  * std::size_t n = asio::read(
  *     sock, asio::buffer(buf),
@@ -151,7 +151,7 @@ inline detail::transfer_all_t transfer_all()
  * @par Example
  * Reading until a buffer is full or contains at least 64 bytes:
  * @code
- * boost::array<char, 128> buf;
+ * std::array<char, 128> buf;
  * asio::error_code ec;
  * std::size_t n = asio::read(
  *     sock, asio::buffer(buf),
@@ -185,7 +185,7 @@ inline detail::transfer_at_least_t transfer_at_least(std::size_t minimum)
  * @par Example
  * Reading until a buffer is full or contains exactly 64 bytes:
  * @code
- * boost::array<char, 128> buf;
+ * std::array<char, 128> buf;
  * asio::error_code ec;
  * std::size_t n = asio::read(
  *     sock, asio::buffer(buf),

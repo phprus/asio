@@ -22,7 +22,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
-#include "asio/detail/array_fwd.hpp"
+#include <array>
 #include "asio/detail/memory.hpp"
 #include "asio/detail/string_view.hpp"
 #include "asio/detail/throw_exception.hpp"
@@ -691,7 +691,7 @@ private:
  * memory also meets the requirements of the MutableBufferSequence concept.
  *
  * An individual buffer may be created from a builtin array, std::vector,
- * std::array or boost::array of POD elements. This helps prevent buffer
+ * std::array of POD elements. This helps prevent buffer
  * overruns by automatically determining the size of the buffer:
  *
  * @code char d1[128];
@@ -703,7 +703,7 @@ private:
  * std::array<char, 128> d3;
  * bytes_transferred = sock.receive(asio::buffer(d3));
  *
- * boost::array<char, 128> d4;
+ * std::array<char, 128> d4;
  * bytes_transferred = sock.receive(asio::buffer(d4)); @endcode
  *
  * In all three cases above, the buffers created are exactly 128 bytes long.
@@ -772,7 +772,7 @@ private:
  * which helps prevent buffer overruns. Consider an array initialised as
  * follows:
  *
- * @code boost::array<char, 6> a = { 'a', 'b', 'c', 'd', 'e' }; @endcode
+ * @code std::array<char, 6> a = { 'a', 'b', 'c', 'd', 'e' }; @endcode
  *
  * A buffer object @c b1 created using:
  *
@@ -812,9 +812,9 @@ private:
  * @code
  * char d1[128];
  * std::vector<char> d2(128);
- * boost::array<char, 128> d3;
+ * std::array<char, 128> d3;
  *
- * boost::array<mutable_buffer, 3> bufs1 = {
+ * std::array<mutable_buffer, 3> bufs1 = {
  *   asio::buffer(d1),
  *   asio::buffer(d2),
  *   asio::buffer(d3) };
@@ -996,100 +996,6 @@ ASIO_NODISCARD inline ASIO_CONST_BUFFER buffer(
   return ASIO_CONST_BUFFER(data,
       N * sizeof(PodType) < max_size_in_bytes
       ? N * sizeof(PodType) : max_size_in_bytes);
-}
-
-/// Create a new modifiable buffer that represents the given POD array.
-/**
- * @returns A mutable_buffer value equivalent to:
- * @code mutable_buffer(
- *     data.data(),
- *     data.size() * sizeof(PodType)); @endcode
- */
-template <typename PodType, std::size_t N>
-ASIO_NODISCARD inline ASIO_MUTABLE_BUFFER buffer(
-    boost::array<PodType, N>& data) noexcept
-{
-  return ASIO_MUTABLE_BUFFER(
-      data.c_array(), data.size() * sizeof(PodType));
-}
-
-/// Create a new modifiable buffer that represents the given POD array.
-/**
- * @returns A mutable_buffer value equivalent to:
- * @code mutable_buffer(
- *     data.data(),
- *     min(data.size() * sizeof(PodType), max_size_in_bytes)); @endcode
- */
-template <typename PodType, std::size_t N>
-ASIO_NODISCARD inline ASIO_MUTABLE_BUFFER buffer(
-    boost::array<PodType, N>& data,
-    std::size_t max_size_in_bytes) noexcept
-{
-  return ASIO_MUTABLE_BUFFER(data.c_array(),
-      data.size() * sizeof(PodType) < max_size_in_bytes
-      ? data.size() * sizeof(PodType) : max_size_in_bytes);
-}
-
-/// Create a new non-modifiable buffer that represents the given POD array.
-/**
- * @returns A const_buffer value equivalent to:
- * @code const_buffer(
- *     data.data(),
- *     data.size() * sizeof(PodType)); @endcode
- */
-template <typename PodType, std::size_t N>
-ASIO_NODISCARD inline ASIO_CONST_BUFFER buffer(
-    boost::array<const PodType, N>& data) noexcept
-{
-  return ASIO_CONST_BUFFER(data.data(), data.size() * sizeof(PodType));
-}
-
-/// Create a new non-modifiable buffer that represents the given POD array.
-/**
- * @returns A const_buffer value equivalent to:
- * @code const_buffer(
- *     data.data(),
- *     min(data.size() * sizeof(PodType), max_size_in_bytes)); @endcode
- */
-template <typename PodType, std::size_t N>
-ASIO_NODISCARD inline ASIO_CONST_BUFFER buffer(
-    boost::array<const PodType, N>& data,
-    std::size_t max_size_in_bytes) noexcept
-{
-  return ASIO_CONST_BUFFER(data.data(),
-      data.size() * sizeof(PodType) < max_size_in_bytes
-      ? data.size() * sizeof(PodType) : max_size_in_bytes);
-}
-
-/// Create a new non-modifiable buffer that represents the given POD array.
-/**
- * @returns A const_buffer value equivalent to:
- * @code const_buffer(
- *     data.data(),
- *     data.size() * sizeof(PodType)); @endcode
- */
-template <typename PodType, std::size_t N>
-ASIO_NODISCARD inline ASIO_CONST_BUFFER buffer(
-    const boost::array<PodType, N>& data) noexcept
-{
-  return ASIO_CONST_BUFFER(data.data(), data.size() * sizeof(PodType));
-}
-
-/// Create a new non-modifiable buffer that represents the given POD array.
-/**
- * @returns A const_buffer value equivalent to:
- * @code const_buffer(
- *     data.data(),
- *     min(data.size() * sizeof(PodType), max_size_in_bytes)); @endcode
- */
-template <typename PodType, std::size_t N>
-ASIO_NODISCARD inline ASIO_CONST_BUFFER buffer(
-    const boost::array<PodType, N>& data,
-    std::size_t max_size_in_bytes) noexcept
-{
-  return ASIO_CONST_BUFFER(data.data(),
-      data.size() * sizeof(PodType) < max_size_in_bytes
-      ? data.size() * sizeof(PodType) : max_size_in_bytes);
 }
 
 /// Create a new modifiable buffer that represents the given POD array.
