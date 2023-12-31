@@ -117,66 +117,6 @@
 # include <android/api-level.h>
 #endif // defined(__ANDROID__)
 
-// Always enabled. Retained for backwards compatibility in user code.
-#if !defined(ASIO_DISABLE_CXX11_MACROS)
-# define ASIO_HAS_MOVE 1
-# define ASIO_MOVE_ARG(type) type&&
-# define ASIO_MOVE_ARG2(type1, type2) type1, type2&&
-# define ASIO_NONDEDUCED_MOVE_ARG(type) type&
-# define ASIO_MOVE_CAST(type) static_cast<type&&>
-# define ASIO_MOVE_CAST2(type1, type2) static_cast<type1, type2&&>
-# define ASIO_MOVE_OR_LVALUE(type) static_cast<type&&>
-# define ASIO_MOVE_OR_LVALUE_ARG(type) type&&
-# define ASIO_MOVE_OR_LVALUE_TYPE(type) type
-# define ASIO_DELETED = delete
-# define ASIO_HAS_VARIADIC_TEMPLATES 1
-# define ASIO_HAS_CONSTEXPR 1
-# define ASIO_STATIC_CONSTEXPR(type, assignment) \
-   static constexpr type assignment
-# define ASIO_HAS_NOEXCEPT 1
-# define ASIO_NOEXCEPT noexcept(true)
-# define ASIO_NOEXCEPT_OR_NOTHROW noexcept(true)
-# define ASIO_NOEXCEPT_IF(c) noexcept(c)
-# define ASIO_HAS_DECLTYPE 1
-# define ASIO_AUTO_RETURN_TYPE_PREFIX(t) auto
-# define ASIO_AUTO_RETURN_TYPE_PREFIX2(t0, t1) auto
-# define ASIO_AUTO_RETURN_TYPE_PREFIX3(t0, t1, t2) auto
-# define ASIO_AUTO_RETURN_TYPE_SUFFIX(expr) -> decltype expr
-# define ASIO_HAS_ALIAS_TEMPLATES 1
-# define ASIO_HAS_DEFAULT_FUNCTION_TEMPLATE_ARGUMENTS 1
-# define ASIO_HAS_ENUM_CLASS 1
-# define ASIO_HAS_REF_QUALIFIED_FUNCTIONS 1
-# define ASIO_LVALUE_REF_QUAL &
-# define ASIO_RVALUE_REF_QUAL &&
-# define ASIO_HAS_USER_DEFINED_LITERALS 1
-# define ASIO_HAS_ALIGNOF 1
-# define ASIO_ALIGNOF(T) alignof(T)
-# define ASIO_HAS_STD_ALIGN 1
-# define ASIO_HAS_STD_SYSTEM_ERROR 1
-# define ASIO_ERROR_CATEGORY_NOEXCEPT noexcept(true)
-# define ASIO_HAS_STD_ARRAY 1
-# define ASIO_HAS_STD_SHARED_PTR 1
-# define ASIO_HAS_STD_ALLOCATOR_ARG 1
-# define ASIO_HAS_STD_ATOMIC 1
-# define ASIO_HAS_STD_CHRONO 1
-# define ASIO_HAS_STD_ADDRESSOF 1
-# define ASIO_HAS_STD_FUNCTION 1
-# define ASIO_HAS_STD_REFERENCE_WRAPPER 1
-# define ASIO_HAS_STD_TYPE_TRAITS 1
-# define ASIO_HAS_NULLPTR 1
-# define ASIO_HAS_CXX11_ALLOCATORS 1
-# define ASIO_HAS_CSTDINT 1
-# define ASIO_HAS_STD_THREAD 1
-# define ASIO_HAS_STD_MUTEX_AND_CONDVAR 1
-# define ASIO_HAS_STD_CALL_ONCE 1
-# define ASIO_HAS_STD_FUTURE 1
-# define ASIO_HAS_STD_TUPLE 1
-# define ASIO_HAS_STD_IOSTREAM_MOVE 1
-# define ASIO_HAS_STD_EXCEPTION_PTR 1
-# define ASIO_HAS_STD_NESTED_EXCEPTION 1
-# define ASIO_HAS_STD_HASH 1
-#endif // !defined(ASIO_DISABLE_CXX11_MACROS)
-
 // Support for static constexpr with default initialisation.
 #if !defined(ASIO_STATIC_CONSTEXPR_DEFAULT_INIT)
 # if defined(__GNUC__)
@@ -431,15 +371,6 @@
 #  endif // defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 104700)
 # endif // !defined(ASIO_DISABLE_BOOST_CHRONO)
 #endif // !defined(ASIO_HAS_BOOST_CHRONO)
-
-// Some form of chrono library is available.
-#if !defined(ASIO_HAS_CHRONO)
-# if defined(ASIO_HAS_STD_CHRONO) \
-    || defined(ASIO_HAS_BOOST_CHRONO)
-#  define ASIO_HAS_CHRONO 1
-# endif // defined(ASIO_HAS_STD_CHRONO)
-        // || defined(ASIO_HAS_BOOST_CHRONO)
-#endif // !defined(ASIO_HAS_CHRONO)
 
 // Boost support for the DateTime library.
 #if !defined(ASIO_HAS_BOOST_DATE_TIME)
