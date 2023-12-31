@@ -37,7 +37,6 @@
 
 // boostify: non-boost code ends here
 #if defined(ASIO_STANDALONE)
-# define ASIO_DISABLE_BOOST_ALIGN 1
 # define ASIO_DISABLE_BOOST_ARRAY 1
 # define ASIO_DISABLE_BOOST_ASSERT 1
 # define ASIO_DISABLE_BOOST_CHRONO 1
@@ -306,51 +305,6 @@
 
 // Default alignment.
 #define ASIO_DEFAULT_ALIGN __STDCPP_DEFAULT_NEW_ALIGNMENT__
-
-// Standard library support for aligned allocation.
-#if !defined(ASIO_HAS_STD_ALIGNED_ALLOC)
-# if !defined(ASIO_DISABLE_STD_ALIGNED_ALLOC)
-#  if (__cplusplus >= 201703)
-#   if defined(__clang__)
-#    if defined(ASIO_HAS_CLANG_LIBCXX)
-#     if (_LIBCPP_STD_VER > 14) && defined(_LIBCPP_HAS_ALIGNED_ALLOC) \
-        && !defined(_LIBCPP_MSVCRT) && !defined(__MINGW32__)
-#      if defined(__APPLE__)
-#       if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
-#        if (__MAC_OS_X_VERSION_MIN_REQUIRED >= 101500)
-#         define ASIO_HAS_STD_ALIGNED_ALLOC 1
-#        endif // (__MAC_OS_X_VERSION_MIN_REQUIRED >= 101500)
-#       elif defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
-#        if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 130000)
-#         define ASIO_HAS_STD_ALIGNED_ALLOC 1
-#        endif // (__IPHONE_OS_VERSION_MIN_REQUIRED >= 130000)
-#       elif defined(__TV_OS_VERSION_MIN_REQUIRED)
-#        if (__TV_OS_VERSION_MIN_REQUIRED >= 130000)
-#         define ASIO_HAS_STD_ALIGNED_ALLOC 1
-#        endif // (__TV_OS_VERSION_MIN_REQUIRED >= 130000)
-#       elif defined(__WATCH_OS_VERSION_MIN_REQUIRED)
-#        if (__WATCH_OS_VERSION_MIN_REQUIRED >= 60000)
-#         define ASIO_HAS_STD_ALIGNED_ALLOC 1
-#        endif // (__WATCH_OS_VERSION_MIN_REQUIRED >= 60000)
-#       endif // defined(__WATCH_OS_X_VERSION_MIN_REQUIRED)
-#      else // defined(__APPLE__)
-#       define ASIO_HAS_STD_ALIGNED_ALLOC 1
-#      endif // defined(__APPLE__)
-#     endif // (_LIBCPP_STD_VER > 14) && defined(_LIBCPP_HAS_ALIGNED_ALLOC)
-            //   && !defined(_LIBCPP_MSVCRT) && !defined(__MINGW32__)
-#    elif defined(_GLIBCXX_HAVE_ALIGNED_ALLOC)
-#     define ASIO_HAS_STD_ALIGNED_ALLOC 1
-#    endif // defined(_GLIBCXX_HAVE_ALIGNED_ALLOC)
-#   elif defined(__GNUC__)
-#    if ((__GNUC__ == 7) && (__GNUC_MINOR__ >= 4)) || (__GNUC__ > 7)
-#     if defined(_GLIBCXX_HAVE_ALIGNED_ALLOC)
-#      define ASIO_HAS_STD_ALIGNED_ALLOC 1
-#     endif // defined(_GLIBCXX_HAVE_ALIGNED_ALLOC)
-#    endif // ((__GNUC__ == 7) && (__GNUC_MINOR__ >= 4)) || (__GNUC__ > 7)
-#   endif // defined(__GNUC__)
-#  endif // (__cplusplus >= 201703)
-# endif // !defined(ASIO_DISABLE_STD_ALIGNED_ALLOC)
-#endif // !defined(ASIO_HAS_STD_ALIGNED_ALLOC)
 
 // Boost support for chrono.
 #if !defined(ASIO_HAS_BOOST_CHRONO)
@@ -980,15 +934,6 @@
     static const type assignment
 # endif // !defined(ASIO_DISABLE_BOOST_STATIC_CONSTANT)
 #endif // !defined(ASIO_STATIC_CONSTANT)
-
-// Boost align library.
-#if !defined(ASIO_HAS_BOOST_ALIGN)
-# if !defined(ASIO_DISABLE_BOOST_ALIGN)
-#  if defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 105600)
-#   define ASIO_HAS_BOOST_ALIGN 1
-#  endif // defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 105600)
-# endif // !defined(ASIO_DISABLE_BOOST_ALIGN)
-#endif // !defined(ASIO_HAS_BOOST_ALIGN)
 
 // Boost array library.
 #if !defined(ASIO_HAS_BOOST_ARRAY)
