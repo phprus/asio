@@ -290,13 +290,6 @@ needs.
     [`ASIO_DISABLE_STD_STRING_VIEW`]
   ]
   [
-    [`ASIO_HAS_STD_VARIANT`]
-    [
-      Standard library support for std::variant.
-    ]
-    [`ASIO_DISABLE_STD_VARIANT`]
-  ]
-  [
     [`ASIO_HAS_STRING_VIEW`]
     [
       Standard library has a string_view that we can use.
