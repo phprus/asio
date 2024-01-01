@@ -154,10 +154,8 @@ template <int I> struct allowed_t;
 template <int I = 0>
 struct blocking_adaptation_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = false;
   static constexpr bool is_preferable = false;
@@ -377,10 +375,8 @@ namespace blocking_adaptation {
 template <int I = 0>
 struct disallowed_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = true;
@@ -570,10 +566,8 @@ private:
 template <int I = 0>
 struct allowed_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = false;
@@ -721,28 +715,6 @@ typedef detail::blocking_adaptation_t<> blocking_adaptation_t;
 constexpr inline blocking_adaptation_t blocking_adaptation;
 
 } // namespace execution
-
-#if !defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
-template <typename T>
-struct is_applicable_property<T, execution::blocking_adaptation_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::blocking_adaptation_t::disallowed_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::blocking_adaptation_t::allowed_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-#endif // !defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 namespace traits {
 

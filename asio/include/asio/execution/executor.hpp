@@ -88,12 +88,8 @@ struct is_executor :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T>
 constexpr const bool is_executor_v = is_executor<T>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 #if defined(ASIO_HAS_CONCEPTS)
 
