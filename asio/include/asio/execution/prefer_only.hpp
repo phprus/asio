@@ -196,8 +196,7 @@ struct prefer_only :
   {
   }
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename traits::static_query<T, InnerProperty>::result_type
@@ -211,7 +210,6 @@ struct prefer_only :
   static constexpr const T static_query_v
     = prefer_only::static_query<E>();
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
   template <typename Executor, typename Property>
   friend constexpr
@@ -252,12 +250,10 @@ struct prefer_only :
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <typename InnerProperty> template <typename E, typename T>
 const T prefer_only<InnerProperty>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 } // namespace execution
 
@@ -269,8 +265,7 @@ struct is_applicable_property<T, execution::prefer_only<InnerProperty>>
 
 namespace traits {
 
-#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT) \
-  || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
+#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 template <typename T, typename InnerProperty>
 struct static_query<T, execution::prefer_only<InnerProperty>> :
@@ -279,7 +274,6 @@ struct static_query<T, execution::prefer_only<InnerProperty>> :
 };
 
 #endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-       //   || !defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
 #if !defined(ASIO_HAS_DEDUCED_PREFER_FREE_TRAIT)
 
