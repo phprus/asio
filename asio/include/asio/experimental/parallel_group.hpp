@@ -20,7 +20,7 @@
 #include <array>
 #include "asio/detail/memory.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/detail/utility.hpp"
+#include <utility>
 #include "asio/experimental/cancellation_condition.hpp"
 
 #include "asio/detail/push_options.hpp"
@@ -79,7 +79,7 @@ struct parallel_group_signature<N, Sig0, Sig1, SigN...>
 template <typename Condition, typename Handler,
     typename... Ops, std::size_t... I>
 void parallel_group_launch(Condition cancellation_condition, Handler handler,
-    std::tuple<Ops...>& ops, asio::detail::index_sequence<I...>);
+    std::tuple<Ops...>& ops, std::index_sequence<I...>);
 
 // Helper trait for determining ranged parallel group completion signatures.
 
@@ -148,7 +148,7 @@ private:
     {
       detail::parallel_group_launch(
           std::forward<Condition>(c), std::forward<Handler>(h),
-          ops, asio::detail::index_sequence_for<Ops...>());
+          ops, std::index_sequence_for<Ops...>());
     }
   };
 
