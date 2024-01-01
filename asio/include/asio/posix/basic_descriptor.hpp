@@ -304,12 +304,12 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID assign(const native_handle_type& native_descriptor,
+  void assign(const native_handle_type& native_descriptor,
       std::error_code& ec)
   {
     impl_.get_service().assign(
         impl_.get_implementation(), native_descriptor, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Determine whether the descriptor is open.
@@ -343,10 +343,10 @@ public:
    * @param ec Set to indicate what error occurred, if any. Note that, even if
    * the function indicates an error, the underlying descriptor is closed.
    */
-  ASIO_SYNC_OP_VOID close(std::error_code& ec)
+  void close(std::error_code& ec)
   {
     impl_.get_service().close(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Get the native descriptor representation.
@@ -398,10 +398,10 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID cancel(std::error_code& ec)
+  void cancel(std::error_code& ec)
   {
     impl_.get_service().cancel(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Perform an IO control command on the descriptor.
@@ -462,11 +462,11 @@ public:
    * @endcode
    */
   template <typename IoControlCommand>
-  ASIO_SYNC_OP_VOID io_control(IoControlCommand& command,
+  void io_control(IoControlCommand& command,
       std::error_code& ec)
   {
     impl_.get_service().io_control(impl_.get_implementation(), command, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Gets the non-blocking mode of the descriptor.
@@ -518,11 +518,11 @@ public:
    * operations. Asynchronous operations will never fail with the error
    * asio::error::would_block.
    */
-  ASIO_SYNC_OP_VOID non_blocking(
+  void non_blocking(
       bool mode, std::error_code& ec)
   {
     impl_.get_service().non_blocking(impl_.get_implementation(), mode, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Gets the non-blocking mode of the native descriptor implementation.
@@ -583,12 +583,12 @@ public:
    * function fails with asio::error::invalid_argument, as the
    * combination does not make sense.
    */
-  ASIO_SYNC_OP_VOID native_non_blocking(
+  void native_non_blocking(
       bool mode, std::error_code& ec)
   {
     impl_.get_service().native_non_blocking(
         impl_.get_implementation(), mode, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Wait for the descriptor to become ready to read, ready to write, or to
@@ -633,10 +633,10 @@ public:
    * descriptor.wait(asio::posix::stream_descriptor::wait_read, ec);
    * @endcode
    */
-  ASIO_SYNC_OP_VOID wait(wait_type w, std::error_code& ec)
+  void wait(wait_type w, std::error_code& ec)
   {
     impl_.get_service().wait(impl_.get_implementation(), w, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Asynchronously wait for the descriptor to become ready to read, ready to

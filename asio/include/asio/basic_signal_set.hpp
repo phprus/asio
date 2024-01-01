@@ -364,11 +364,11 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID add(int signal_number,
+  void add(int signal_number,
       std::error_code& ec)
   {
     impl_.get_service().add(impl_.get_implementation(), signal_number, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Add a signal to a signal_set with the specified flags.
@@ -416,11 +416,11 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID add(int signal_number, flags_t f,
+  void add(int signal_number, flags_t f,
       std::error_code& ec)
   {
     impl_.get_service().add(impl_.get_implementation(), signal_number, f, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Remove a signal from a signal_set.
@@ -454,11 +454,11 @@ public:
    * @note Removes any notifications that have been queued for the specified
    * signal number.
    */
-  ASIO_SYNC_OP_VOID remove(int signal_number,
+  void remove(int signal_number,
       std::error_code& ec)
   {
     impl_.get_service().remove(impl_.get_implementation(), signal_number, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Remove all signals from a signal_set.
@@ -486,10 +486,10 @@ public:
    *
    * @note Removes all queued notifications.
    */
-  ASIO_SYNC_OP_VOID clear(std::error_code& ec)
+  void clear(std::error_code& ec)
   {
     impl_.get_service().clear(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Cancel all operations associated with the signal set.
@@ -541,10 +541,10 @@ public:
    * These handlers can no longer be cancelled, and therefore are passed an
    * error code that indicates the successful completion of the wait operation.
    */
-  ASIO_SYNC_OP_VOID cancel(std::error_code& ec)
+  void cancel(std::error_code& ec)
   {
     impl_.get_service().cancel(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Start an asynchronous operation to wait for a signal to be delivered.

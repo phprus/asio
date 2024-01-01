@@ -389,11 +389,11 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID open(const char* path,
+  void open(const char* path,
       file_base::flags open_flags, std::error_code& ec)
   {
     impl_.get_service().open(impl_.get_implementation(), path, open_flags, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Open the file using the specified path.
@@ -443,12 +443,12 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID open(const std::string& path,
+  void open(const std::string& path,
       file_base::flags open_flags, std::error_code& ec)
   {
     impl_.get_service().open(impl_.get_implementation(),
         path.c_str(), open_flags, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Assign an existing native file to the file.
@@ -475,12 +475,12 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID assign(const native_handle_type& native_file,
+  void assign(const native_handle_type& native_file,
       std::error_code& ec)
   {
     impl_.get_service().assign(
         impl_.get_implementation(), native_file, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Determine whether the file is open.
@@ -526,10 +526,10 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID close(std::error_code& ec)
+  void close(std::error_code& ec)
   {
     impl_.get_service().close(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Release ownership of the underlying native file.
@@ -672,10 +672,10 @@ public:
         "operation_not_supported when used on Windows XP, Windows Server 2003, "
         "or earlier. Consult documentation for details."))
 #endif
-  ASIO_SYNC_OP_VOID cancel(std::error_code& ec)
+  void cancel(std::error_code& ec)
   {
     impl_.get_service().cancel(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Get the size of the file.
@@ -732,10 +732,10 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID resize(uint64_t n, std::error_code& ec)
+  void resize(uint64_t n, std::error_code& ec)
   {
     impl_.get_service().resize(impl_.get_implementation(), n, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Synchronise the file to disk.
@@ -759,10 +759,10 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID sync_all(std::error_code& ec)
+  void sync_all(std::error_code& ec)
   {
     impl_.get_service().sync_all(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Synchronise the file data to disk.
@@ -786,10 +786,10 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID sync_data(std::error_code& ec)
+  void sync_data(std::error_code& ec)
   {
     impl_.get_service().sync_data(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
 protected:
