@@ -305,11 +305,4 @@ needs.
     ]
     [`ASIO_DISABLE_WINDOWS_STREAM_HANDLE`]
   ]
-  [
-    [`ASIO_HAS_WORKING_EXPRESSION_SFINAE`]
-    [
-      Enable workarounds for lack of working expression SFINAE.
-    ]
-    [`ASIO_DISABLE_WORKING_EXPRESSION_SFINAE`]
-  ]
 ]
