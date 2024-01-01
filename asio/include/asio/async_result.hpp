@@ -533,54 +533,20 @@ struct async_result_has_initiate_memfn
       sig0, sig1, sig2>::completion_handler_type
 #endif
 
-#if defined(GENERATING_DOCUMENTATION)
-# define ASIO_INITFN_AUTO_RESULT_TYPE(ct, sig) \
+#define ASIO_INITFN_AUTO_RESULT_TYPE(ct, sig) \
   auto
-# define ASIO_INITFN_AUTO_RESULT_TYPE2(ct, sig0, sig1) \
+#define ASIO_INITFN_AUTO_RESULT_TYPE2(ct, sig0, sig1) \
   auto
-# define ASIO_INITFN_AUTO_RESULT_TYPE3(ct, sig0, sig1, sig2) \
+#define ASIO_INITFN_AUTO_RESULT_TYPE3(ct, sig0, sig1, sig2) \
   auto
-#elif defined(ASIO_HAS_RETURN_TYPE_DEDUCTION)
-# define ASIO_INITFN_AUTO_RESULT_TYPE(ct, sig) \
-  auto
-# define ASIO_INITFN_AUTO_RESULT_TYPE2(ct, sig0, sig1) \
-  auto
-# define ASIO_INITFN_AUTO_RESULT_TYPE3(ct, sig0, sig1, sig2) \
-  auto
-#else
-# define ASIO_INITFN_AUTO_RESULT_TYPE(ct, sig) \
-  ASIO_INITFN_RESULT_TYPE(ct, sig)
-# define ASIO_INITFN_AUTO_RESULT_TYPE2(ct, sig0, sig1) \
-  ASIO_INITFN_RESULT_TYPE2(ct, sig0, sig1)
-# define ASIO_INITFN_AUTO_RESULT_TYPE3(ct, sig0, sig1, sig2) \
-  ASIO_INITFN_RESULT_TYPE3(ct, sig0, sig1, sig2)
-#endif
 
-#if defined(GENERATING_DOCUMENTATION)
-# define ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX(ct, sig) \
+#define ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX(ct, sig) \
   auto
-# define ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX2(ct, sig0, sig1) \
+#define ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX2(ct, sig0, sig1) \
   auto
-# define ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX3(ct, sig0, sig1, sig2) \
+#define ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX3(ct, sig0, sig1, sig2) \
   auto
-# define ASIO_INITFN_AUTO_RESULT_TYPE_SUFFIX(expr)
-#elif defined(ASIO_HAS_RETURN_TYPE_DEDUCTION)
-# define ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX(ct, sig) \
-  auto
-# define ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX2(ct, sig0, sig1) \
-  auto
-# define ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX3(ct, sig0, sig1, sig2) \
-  auto
-# define ASIO_INITFN_AUTO_RESULT_TYPE_SUFFIX(expr)
-#else
-# define ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX(ct, sig) \
-  auto
-# define ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX2(ct, sig0, sig1) \
-  auto
-# define ASIO_INITFN_AUTO_RESULT_TYPE_PREFIX3(ct, sig0, sig1, sig2) \
-  auto
-# define ASIO_INITFN_AUTO_RESULT_TYPE_SUFFIX(expr) -> decltype expr
-#endif
+#define ASIO_INITFN_AUTO_RESULT_TYPE_SUFFIX(expr)
 
 #if defined(GENERATING_DOCUMENTATION)
 # define ASIO_INITFN_DEDUCED_RESULT_TYPE(ct, sig, expr) \
