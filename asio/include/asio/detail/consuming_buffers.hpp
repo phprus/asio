@@ -191,33 +191,33 @@ private:
 
 template <>
 class consuming_buffers<mutable_buffer, mutable_buffer, const mutable_buffer*>
-  : public consuming_single_buffer<ASIO_MUTABLE_BUFFER>
+  : public consuming_single_buffer<mutable_buffer>
 {
 public:
   explicit consuming_buffers(const mutable_buffer& buffer)
-    : consuming_single_buffer<ASIO_MUTABLE_BUFFER>(buffer)
+    : consuming_single_buffer<mutable_buffer>(buffer)
   {
   }
 };
 
 template <>
 class consuming_buffers<const_buffer, mutable_buffer, const mutable_buffer*>
-  : public consuming_single_buffer<ASIO_CONST_BUFFER>
+  : public consuming_single_buffer<const_buffer>
 {
 public:
   explicit consuming_buffers(const mutable_buffer& buffer)
-    : consuming_single_buffer<ASIO_CONST_BUFFER>(buffer)
+    : consuming_single_buffer<const_buffer>(buffer)
   {
   }
 };
 
 template <>
 class consuming_buffers<const_buffer, const_buffer, const const_buffer*>
-  : public consuming_single_buffer<ASIO_CONST_BUFFER>
+  : public consuming_single_buffer<const_buffer>
 {
 public:
   explicit consuming_buffers(const const_buffer& buffer)
-    : consuming_single_buffer<ASIO_CONST_BUFFER>(buffer)
+    : consuming_single_buffer<const_buffer>(buffer)
   {
   }
 };
