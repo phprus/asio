@@ -21,7 +21,7 @@
 
 #include <new>
 #include <typeinfo>
-#include "asio/detail/cstddef.hpp"
+#include <cstddef>
 #include "asio/detail/executor_function.hpp"
 #include "asio/detail/memory.hpp"
 #include "asio/detail/throw_exception.hpp"
@@ -55,7 +55,7 @@ public:
   }
 
   /// Construct from nullptr.
-  executor(nullptr_t) noexcept
+  executor(std::nullptr_t) noexcept
     : impl_(0)
   {
   }
@@ -124,8 +124,8 @@ public:
     return *this;
   }
 
-  /// Assignment operator for nullptr_t.
-  executor& operator=(nullptr_t) noexcept
+  /// Assignment operator for std::nullptr_t.
+  executor& operator=(std::nullptr_t) noexcept
   {
     destroy();
     impl_ = 0;

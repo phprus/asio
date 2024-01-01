@@ -36,7 +36,7 @@ void increment(int* count)
 void any_completion_handler_construction_test()
 {
   int count = 0;
-  asio::nullptr_t null_ptr = asio::nullptr_t();
+  std::nullptr_t null_ptr = std::nullptr_t();
 
   asio::any_completion_handler<void()> h1;
 
@@ -79,7 +79,7 @@ void any_completion_handler_construction_test()
 void any_completion_handler_assignment_test()
 {
   int count = 0;
-  asio::nullptr_t null_ptr = asio::nullptr_t();
+  std::nullptr_t null_ptr = std::nullptr_t();
 
   asio::any_completion_handler<void()> h1;
 

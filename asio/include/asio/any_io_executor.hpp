@@ -90,7 +90,7 @@ public:
   ASIO_DECL any_io_executor() noexcept;
 
   /// Construct in an empty state. Equivalent effects to default constructor.
-  ASIO_DECL any_io_executor(nullptr_t) noexcept;
+  ASIO_DECL any_io_executor(std::nullptr_t) noexcept;
 
   /// Copy constructor.
   ASIO_DECL any_io_executor(const any_io_executor& e) noexcept;
@@ -204,7 +204,7 @@ public:
   ASIO_DECL any_io_executor& operator=(any_io_executor&& e) noexcept;
 
   /// Assignment operator that sets the polymorphic wrapper to the empty state.
-  ASIO_DECL any_io_executor& operator=(nullptr_t);
+  ASIO_DECL any_io_executor& operator=(std::nullptr_t);
 
   /// Destructor.
   ASIO_DECL ~any_io_executor();
