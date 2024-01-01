@@ -37,8 +37,6 @@
 
 // boostify: non-boost code ends here
 #if defined(ASIO_STANDALONE)
-# define ASIO_DISABLE_BOOST_CHRONO 1
-# define ASIO_DISABLE_BOOST_DATE_TIME 1
 # define ASIO_DISABLE_BOOST_REGEX 1
 # define ASIO_DISABLE_BOOST_STATIC_CONSTANT 1
 # define ASIO_DISABLE_BOOST_THROW_EXCEPTION 1
@@ -302,22 +300,6 @@
 
 // Default alignment.
 #define ASIO_DEFAULT_ALIGN __STDCPP_DEFAULT_NEW_ALIGNMENT__
-
-// Boost support for chrono.
-#if !defined(ASIO_HAS_BOOST_CHRONO)
-# if !defined(ASIO_DISABLE_BOOST_CHRONO)
-#  if defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 104700)
-#   define ASIO_HAS_BOOST_CHRONO 1
-#  endif // defined(ASIO_HAS_BOOST_CONFIG) && (BOOST_VERSION >= 104700)
-# endif // !defined(ASIO_DISABLE_BOOST_CHRONO)
-#endif // !defined(ASIO_HAS_BOOST_CHRONO)
-
-// Boost support for the DateTime library.
-#if !defined(ASIO_HAS_BOOST_DATE_TIME)
-# if !defined(ASIO_DISABLE_BOOST_DATE_TIME)
-#  define ASIO_HAS_BOOST_DATE_TIME 1
-# endif // !defined(ASIO_DISABLE_BOOST_DATE_TIME)
-#endif // !defined(ASIO_HAS_BOOST_DATE_TIME)
 
 // Standard library support for std::string_view.
 #if !defined(ASIO_HAS_STD_STRING_VIEW)
