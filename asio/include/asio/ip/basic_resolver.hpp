@@ -23,7 +23,7 @@
 #include "asio/detail/handler_type_requirements.hpp"
 #include "asio/detail/io_object_impl.hpp"
 #include "asio/detail/non_const_lvalue.hpp"
-#include "asio/detail/string_view.hpp"
+#include <string_view>
 #include "asio/detail/throw_error.hpp"
 #include "asio/error.hpp"
 #include "asio/execution_context.hpp"
@@ -307,8 +307,8 @@ public:
    * <tt>c:\\windows\\system32\\drivers\\etc\\services</tt>. Operating systems
    * may use additional locations when resolving service names.
    */
-  results_type resolve(ASIO_STRING_VIEW_PARAM host,
-      ASIO_STRING_VIEW_PARAM service)
+  results_type resolve(std::string_view host,
+      std::string_view service)
   {
     return resolve(host, service, resolver_base::flags());
   }
@@ -346,8 +346,8 @@ public:
    * <tt>c:\\windows\\system32\\drivers\\etc\\services</tt>. Operating systems
    * may use additional locations when resolving service names.
    */
-  results_type resolve(ASIO_STRING_VIEW_PARAM host,
-      ASIO_STRING_VIEW_PARAM service, std::error_code& ec)
+  results_type resolve(std::string_view host,
+      std::string_view service, std::error_code& ec)
   {
     return resolve(host, service, resolver_base::flags(), ec);
   }
@@ -390,8 +390,8 @@ public:
    * <tt>c:\\windows\\system32\\drivers\\etc\\services</tt>. Operating systems
    * may use additional locations when resolving service names.
    */
-  results_type resolve(ASIO_STRING_VIEW_PARAM host,
-      ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags)
+  results_type resolve(std::string_view host,
+      std::string_view service, resolver_base::flags resolve_flags)
   {
     std::error_code ec;
     basic_resolver_query<protocol_type> q(static_cast<std::string>(host),
@@ -440,8 +440,8 @@ public:
    * <tt>c:\\windows\\system32\\drivers\\etc\\services</tt>. Operating systems
    * may use additional locations when resolving service names.
    */
-  results_type resolve(ASIO_STRING_VIEW_PARAM host,
-      ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags,
+  results_type resolve(std::string_view host,
+      std::string_view service, resolver_base::flags resolve_flags,
       std::error_code& ec)
   {
     basic_resolver_query<protocol_type> q(static_cast<std::string>(host),
@@ -486,7 +486,7 @@ public:
    * may use additional locations when resolving service names.
    */
   results_type resolve(const protocol_type& protocol,
-      ASIO_STRING_VIEW_PARAM host, ASIO_STRING_VIEW_PARAM service)
+      std::string_view host, std::string_view service)
   {
     return resolve(protocol, host, service, resolver_base::flags());
   }
@@ -528,7 +528,7 @@ public:
    * may use additional locations when resolving service names.
    */
   results_type resolve(const protocol_type& protocol,
-      ASIO_STRING_VIEW_PARAM host, ASIO_STRING_VIEW_PARAM service,
+      std::string_view host, std::string_view service,
       std::error_code& ec)
   {
     return resolve(protocol, host, service, resolver_base::flags(), ec);
@@ -576,7 +576,7 @@ public:
    * may use additional locations when resolving service names.
    */
   results_type resolve(const protocol_type& protocol,
-      ASIO_STRING_VIEW_PARAM host, ASIO_STRING_VIEW_PARAM service,
+      std::string_view host, std::string_view service,
       resolver_base::flags resolve_flags)
   {
     std::error_code ec;
@@ -631,7 +631,7 @@ public:
    * may use additional locations when resolving service names.
    */
   results_type resolve(const protocol_type& protocol,
-      ASIO_STRING_VIEW_PARAM host, ASIO_STRING_VIEW_PARAM service,
+      std::string_view host, std::string_view service,
       resolver_base::flags resolve_flags, std::error_code& ec)
   {
     basic_resolver_query<protocol_type> q(
@@ -736,8 +736,8 @@ public:
   template <
       ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         results_type)) ResolveToken = default_completion_token_t<executor_type>>
-  auto async_resolve(ASIO_STRING_VIEW_PARAM host,
-      ASIO_STRING_VIEW_PARAM service,
+  auto async_resolve(std::string_view host,
+      std::string_view service,
       ResolveToken&& token = default_completion_token_t<executor_type>())
     -> decltype(
       asio::async_initiate<ResolveToken,
@@ -805,8 +805,8 @@ public:
   template <
       ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         results_type)) ResolveToken = default_completion_token_t<executor_type>>
-  auto async_resolve(ASIO_STRING_VIEW_PARAM host,
-      ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags,
+  auto async_resolve(std::string_view host,
+      std::string_view service, resolver_base::flags resolve_flags,
       ResolveToken&& token = default_completion_token_t<executor_type>())
     -> decltype(
       asio::async_initiate<ResolveToken,
@@ -877,7 +877,7 @@ public:
       ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         results_type)) ResolveToken = default_completion_token_t<executor_type>>
   auto async_resolve(const protocol_type& protocol,
-      ASIO_STRING_VIEW_PARAM host, ASIO_STRING_VIEW_PARAM service,
+      std::string_view host, std::string_view service,
       ResolveToken&& token = default_completion_token_t<executor_type>())
     -> decltype(
       asio::async_initiate<ResolveToken,
@@ -949,7 +949,7 @@ public:
       ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         results_type)) ResolveToken = default_completion_token_t<executor_type>>
   auto async_resolve(const protocol_type& protocol,
-      ASIO_STRING_VIEW_PARAM host, ASIO_STRING_VIEW_PARAM service,
+      std::string_view host, std::string_view service,
       resolver_base::flags resolve_flags,
       ResolveToken&& token = default_completion_token_t<executor_type>())
     -> decltype(

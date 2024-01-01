@@ -148,7 +148,7 @@ std::size_t read_until(SyncReadStream& s,
 template <typename SyncReadStream, typename DynamicBuffer_v1>
 inline std::size_t read_until(SyncReadStream& s,
     DynamicBuffer_v1&& buffers,
-    ASIO_STRING_VIEW_PARAM delim,
+    std::string_view delim,
     constraint_t<
       is_dynamic_buffer_v1<decay_t<DynamicBuffer_v1>>::value
     >,
@@ -166,7 +166,7 @@ inline std::size_t read_until(SyncReadStream& s,
 template <typename SyncReadStream, typename DynamicBuffer_v1>
 std::size_t read_until(SyncReadStream& s,
     DynamicBuffer_v1&& buffers,
-    ASIO_STRING_VIEW_PARAM delim, std::error_code& ec,
+    std::string_view delim, std::error_code& ec,
     constraint_t<
       is_dynamic_buffer_v1<decay_t<DynamicBuffer_v1>>::value
     >,
@@ -437,7 +437,7 @@ inline std::size_t read_until(SyncReadStream& s,
 template <typename SyncReadStream, typename Allocator>
 inline std::size_t read_until(SyncReadStream& s,
     asio::basic_streambuf<Allocator>& b,
-    ASIO_STRING_VIEW_PARAM delim)
+    std::string_view delim)
 {
   return read_until(s, basic_streambuf_ref<Allocator>(b), delim);
 }
@@ -445,7 +445,7 @@ inline std::size_t read_until(SyncReadStream& s,
 template <typename SyncReadStream, typename Allocator>
 inline std::size_t read_until(SyncReadStream& s,
     asio::basic_streambuf<Allocator>& b,
-    ASIO_STRING_VIEW_PARAM delim, std::error_code& ec)
+    std::string_view delim, std::error_code& ec)
 {
   return read_until(s, basic_streambuf_ref<Allocator>(b), delim, ec);
 }
@@ -563,7 +563,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
 
 template <typename SyncReadStream, typename DynamicBuffer_v2>
 inline std::size_t read_until(SyncReadStream& s,
-    DynamicBuffer_v2 buffers, ASIO_STRING_VIEW_PARAM delim,
+    DynamicBuffer_v2 buffers, std::string_view delim,
     constraint_t<
       is_dynamic_buffer_v2<DynamicBuffer_v2>::value
     >)
@@ -577,7 +577,7 @@ inline std::size_t read_until(SyncReadStream& s,
 
 template <typename SyncReadStream, typename DynamicBuffer_v2>
 std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
-    ASIO_STRING_VIEW_PARAM delim, std::error_code& ec,
+    std::string_view delim, std::error_code& ec,
     constraint_t<
       is_dynamic_buffer_v2<DynamicBuffer_v2>::value
     >)
@@ -1283,7 +1283,7 @@ template <typename AsyncReadStream, typename DynamicBuffer_v1,
     ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken>
 inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v1&& buffers,
-    ASIO_STRING_VIEW_PARAM delim, ReadToken&& token,
+    std::string_view delim, ReadToken&& token,
     constraint_t<
       is_dynamic_buffer_v1<decay_t<DynamicBuffer_v1>>::value
     >,
@@ -1843,7 +1843,7 @@ template <typename AsyncReadStream, typename Allocator,
       std::size_t)) ReadToken>
 inline auto async_read_until(AsyncReadStream& s,
     asio::basic_streambuf<Allocator>& b,
-    ASIO_STRING_VIEW_PARAM delim, ReadToken&& token)
+    std::string_view delim, ReadToken&& token)
   -> decltype(
     async_initiate<ReadToken,
       void (std::error_code, std::size_t)>(
@@ -2389,7 +2389,7 @@ template <typename AsyncReadStream,
     ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken>
 inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
-    ASIO_STRING_VIEW_PARAM delim, ReadToken&& token,
+    std::string_view delim, ReadToken&& token,
     constraint_t<
       is_dynamic_buffer_v2<DynamicBuffer_v2>::value
     >)

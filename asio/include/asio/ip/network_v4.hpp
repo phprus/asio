@@ -18,7 +18,7 @@
 
 #include "asio/detail/config.hpp"
 #include <string>
-#include "asio/detail/string_view.hpp"
+#include <string_view>
 #include <system_error>
 #include "asio/ip/address_v4_range.hpp"
 
@@ -203,15 +203,12 @@ ASIO_DECL network_v4 make_network_v4(const std::string& str);
 ASIO_DECL network_v4 make_network_v4(
     const std::string& str, std::error_code& ec);
 
-#if defined(ASIO_HAS_STRING_VIEW) \
-  || defined(GENERATING_DOCUMENTATION)
-
 /// Create an IPv4 network from a string containing IP address and prefix
 /// length.
 /**
  * @relates network_v4
  */
-ASIO_DECL network_v4 make_network_v4(string_view str);
+ASIO_DECL network_v4 make_network_v4(std::string_view str);
 
 /// Create an IPv4 network from a string containing IP address and prefix
 /// length.
@@ -219,10 +216,7 @@ ASIO_DECL network_v4 make_network_v4(string_view str);
  * @relates network_v4
  */
 ASIO_DECL network_v4 make_network_v4(
-    string_view str, std::error_code& ec);
-
-#endif // defined(ASIO_HAS_STRING_VIEW)
-       //  || defined(GENERATING_DOCUMENTATION)
+    std::string_view str, std::error_code& ec);
 
 #if !defined(ASIO_NO_IOSTREAM)
 

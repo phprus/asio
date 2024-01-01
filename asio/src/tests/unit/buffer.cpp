@@ -84,11 +84,7 @@ void test()
     const std::string const_string_data(1024, ' ');
     std::vector<mutable_buffer> mutable_buffer_sequence;
     std::vector<const_buffer> const_buffer_sequence;
-#if defined(ASIO_HAS_STD_STRING_VIEW)
     std::string_view string_view_data(string_data);
-#elif defined(ASIO_HAS_STD_EXPERIMENTAL_STRING_VIEW)
-    std::experimental::string_view string_view_data(string_data);
-#endif // defined(ASIO_HAS_STD_EXPERIMENTAL_STRING_VIEW)
     mutable_contiguous_container<char> mutable_contiguous_data;
     const mutable_contiguous_container<char> const_mutable_contiguous_data;
     const_contiguous_container<char> const_contiguous_data;
@@ -222,10 +218,8 @@ void test()
     mb1 = buffer(string_data, 1024);
     cb1 = buffer(const_string_data);
     cb1 = buffer(const_string_data, 1024);
-#if defined(ASIO_HAS_STRING_VIEW)
     cb1 = buffer(string_view_data);
     cb1 = buffer(string_view_data, 1024);
-#endif // defined(ASIO_HAS_STRING_VIEW)
     mb1 = buffer(mutable_contiguous_data);
     mb1 = buffer(mutable_contiguous_data, 1024);
     cb1 = buffer(const_mutable_contiguous_data);
