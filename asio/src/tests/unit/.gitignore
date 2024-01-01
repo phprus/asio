@@ -20,7 +20,6 @@ associator
 async_result
 awaitable
 basic_datagram_socket
-basic_deadline_timer
 basic_file
 basic_random_access_file
 basic_raw_socket
@@ -59,7 +58,6 @@ connect
 connect_pipe
 consign
 coroutine
-deadline_timer
 defer
 deferred
 detached
@@ -105,7 +103,6 @@ system_timer
 this_coro
 thread
 thread_pool
-time_traits
 use_awaitable
 use_future
 uses_executor
