@@ -127,8 +127,6 @@ struct redirect_error_signature<R(const std::error_code&, Args...) &&>
   typedef R type(Args...) &&;
 };
 
-#if defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
-
 template <typename R, typename... Args>
 struct redirect_error_signature<
   R(std::error_code, Args...) noexcept>
@@ -170,8 +168,6 @@ struct redirect_error_signature<
 {
   typedef R type(Args...) && noexcept;
 };
-
-#endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
 
 } // namespace detail
 

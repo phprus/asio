@@ -86,8 +86,6 @@ struct as_tuple_signature<R(Args...) &&>
   typedef R type(std::tuple<decay_t<Args>...>) &&;
 };
 
-#if defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
-
 template <typename R, typename... Args>
 struct as_tuple_signature<R(Args...) noexcept>
 {
@@ -105,8 +103,6 @@ struct as_tuple_signature<R(Args...) && noexcept>
 {
   typedef R type(std::tuple<decay_t<Args>...>) && noexcept;
 };
-
-#endif // defined(ASIO_HAS_NOEXCEPT_FUNCTION_TYPE)
 
 } // namespace detail
 
