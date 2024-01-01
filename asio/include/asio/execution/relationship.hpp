@@ -149,10 +149,8 @@ template <int I> struct continuation_t;
 template <int I = 0>
 struct relationship_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = false;
   static constexpr bool is_preferable = false;
@@ -370,10 +368,8 @@ namespace relationship {
 template <int I = 0>
 struct fork_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = true;
@@ -463,10 +459,8 @@ const T fork_t<I>::static_query_v;
 template <int I = 0>
 struct continuation_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = true;
@@ -545,28 +539,6 @@ typedef detail::relationship_t<> relationship_t;
 inline constexpr relationship_t relationship;
 
 } // namespace execution
-
-#if !defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
-template <typename T>
-struct is_applicable_property<T, execution::relationship_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::relationship_t::fork_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::relationship_t::continuation_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-#endif // !defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 namespace traits {
 

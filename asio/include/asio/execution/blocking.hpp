@@ -198,10 +198,8 @@ void blocking_execute(
 template <int I = 0>
 struct blocking_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = false;
   static constexpr bool is_preferable = false;
@@ -470,10 +468,8 @@ namespace blocking {
 template <int I = 0>
 struct possibly_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = true;
@@ -699,10 +695,8 @@ private:
 template <int I = 0>
 struct always_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = false;
@@ -805,10 +799,8 @@ const T always_t<I>::static_query_v;
 template <int I>
 struct never_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = true;
@@ -895,34 +887,6 @@ typedef detail::blocking_t<> blocking_t;
 inline constexpr blocking_t blocking;
 
 } // namespace execution
-
-#if !defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
-template <typename T>
-struct is_applicable_property<T, execution::blocking_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::blocking_t::possibly_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::blocking_t::always_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::blocking_t::never_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-#endif // !defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 namespace traits {
 

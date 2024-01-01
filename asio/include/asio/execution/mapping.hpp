@@ -182,10 +182,8 @@ template <int I> struct other_t;
 template <int I = 0>
 struct mapping_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = false;
   static constexpr bool is_preferable = false;
@@ -455,10 +453,8 @@ namespace mapping {
 template <int I = 0>
 struct thread_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = true;
@@ -562,10 +558,8 @@ const T thread_t<I>::static_query_v;
 template <int I = 0>
 struct new_thread_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = true;
@@ -646,10 +640,8 @@ const T new_thread_t<I>::static_query_v;
 template <int I>
 struct other_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = true;
@@ -736,34 +728,6 @@ typedef detail::mapping_t<> mapping_t;
 inline constexpr mapping_t mapping;
 
 } // namespace execution
-
-#if !defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
-template <typename T>
-struct is_applicable_property<T, execution::mapping_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::mapping_t::thread_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::mapping_t::new_thread_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::mapping_t::other_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-#endif // !defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 namespace traits {
 

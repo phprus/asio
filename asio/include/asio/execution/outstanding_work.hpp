@@ -149,10 +149,8 @@ template <int I> struct tracked_t;
 template <int I = 0>
 struct outstanding_work_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = false;
   static constexpr bool is_preferable = false;
@@ -372,10 +370,8 @@ namespace outstanding_work {
 template <int I = 0>
 struct untracked_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = true;
@@ -466,10 +462,8 @@ const T untracked_t<I>::static_query_v;
 template <int I = 0>
 struct tracked_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = true;
@@ -547,28 +541,6 @@ typedef detail::outstanding_work_t<> outstanding_work_t;
 inline constexpr outstanding_work_t outstanding_work;
 
 } // namespace execution
-
-#if !defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
-template <typename T>
-struct is_applicable_property<T, execution::outstanding_work_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::outstanding_work_t::untracked_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-template <typename T>
-struct is_applicable_property<T, execution::outstanding_work_t::tracked_t>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-#endif // !defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 namespace traits {
 
