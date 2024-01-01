@@ -21,7 +21,7 @@
 #include "asio/detail/handler_cont_helpers.hpp"
 #include "asio/detail/initiation_base.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/detail/utility.hpp"
+#include <utility>
 
 #include "asio/detail/push_options.hpp"
 

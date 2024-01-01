@@ -21,7 +21,7 @@
 #include "asio/detail/handler_cont_helpers.hpp"
 #include "asio/detail/initiation_base.hpp"
 #include "asio/detail/type_traits.hpp"
-#include "asio/detail/utility.hpp"
+#include <utility>
 
 #include "asio/detail/push_options.hpp"
 
@@ -46,12 +46,12 @@ public:
   void operator()(Args&&... args)
   {
     this->invoke(
-        index_sequence_for<Values...>{},
+        std::index_sequence_for<Values...>{},
         static_cast<Args&&>(args)...);
   }
 
   template <std::size_t... I, typename... Args>
-  void invoke(index_sequence<I...>, Args&&... args)
+  void invoke(std::index_sequence<I...>, Args&&... args)
   {
     static_cast<Handler&&>(handler_)(
         static_cast<Args&&>(args)...,
