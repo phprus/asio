@@ -74,10 +74,8 @@ namespace execution {
 template <typename ProtoAllocator>
 struct allocator_t
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = true;
@@ -153,10 +151,8 @@ const T allocator_t<ProtoAllocator>::static_query_v;
 template <>
 struct allocator_t<void>
 {
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
   template <typename T>
   static constexpr bool is_applicable_property_v = is_executor<T>::value;
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
   static constexpr bool is_requirable = true;
   static constexpr bool is_preferable = true;
@@ -228,16 +224,6 @@ const T allocator_t<void>::static_query_v;
 constexpr allocator_t<void> allocator;
 
 } // namespace execution
-
-#if !defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
-template <typename T, typename ProtoAllocator>
-struct is_applicable_property<T, execution::allocator_t<ProtoAllocator>>
-  : integral_constant<bool, execution::is_executor<T>::value>
-{
-};
-
-#endif // !defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 namespace traits {
 

@@ -300,12 +300,8 @@ struct can_require_concept :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T, typename Property>
 constexpr bool can_require_concept_v = can_require_concept<T, Property>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T, typename Property>
 struct is_nothrow_require_concept :
@@ -315,13 +311,9 @@ struct is_nothrow_require_concept :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T, typename Property>
 constexpr bool is_nothrow_require_concept_v
   = is_nothrow_require_concept<T, Property>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T, typename Property>
 struct require_concept_result

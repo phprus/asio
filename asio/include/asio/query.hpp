@@ -271,12 +271,8 @@ struct can_query :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T, typename Property>
 constexpr bool can_query_v = can_query<T, Property>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T, typename Property>
 struct is_nothrow_query :
@@ -285,12 +281,8 @@ struct is_nothrow_query :
 {
 };
 
-#if defined(ASIO_HAS_VARIABLE_TEMPLATES)
-
 template <typename T, typename Property>
 constexpr bool is_nothrow_query_v = is_nothrow_query<T, Property>::value;
-
-#endif // defined(ASIO_HAS_VARIABLE_TEMPLATES)
 
 template <typename T, typename Property>
 struct query_result
