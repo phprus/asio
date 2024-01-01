@@ -107,11 +107,11 @@ struct parallel_group_completion_handler
 
   void operator()()
   {
-    this->invoke(asio::detail::make_index_sequence<sizeof...(Ops)>());
+    this->invoke(std::make_index_sequence<sizeof...(Ops)>());
   }
 
   template <std::size_t... I>
-  void invoke(asio::detail::index_sequence<I...>)
+  void invoke(std::index_sequence<I...>)
   {
     this->invoke(std::tuple_cat(std::move(std::get<I>(args_).get())...));
   }
@@ -120,12 +120,12 @@ struct parallel_group_completion_handler
   void invoke(std::tuple<Args...>&& args)
   {
     this->invoke(std::move(args),
-        asio::detail::index_sequence_for<Args...>());
+        std::index_sequence_for<Args...>());
   }
 
   template <typename... Args, std::size_t... I>
   void invoke(std::tuple<Args...>&& args,
-      asio::detail::index_sequence<I...>)
+      std::index_sequence<I...>)
   {
     std::move(handler_)(completion_order_, std::move(std::get<I>(args))...);
   }
@@ -359,7 +359,7 @@ struct parallel_group_cancellation_handler
 template <typename Condition, typename Handler,
     typename... Ops, std::size_t... I>
 void parallel_group_launch(Condition cancellation_condition, Handler handler,
-    std::tuple<Ops...>& ops, asio::detail::index_sequence<I...>)
+    std::tuple<Ops...>& ops, std::index_sequence<I...>)
 {
   // Get the user's completion handler's cancellation slot, so that we can allow
   // cancellation of the entire group.
@@ -436,12 +436,12 @@ struct ranged_parallel_group_completion_handler
   void operator()()
   {
     this->invoke(
-        asio::detail::make_index_sequence<
+        std::make_index_sequence<
           std::tuple_size<op_tuple_type>::value>());
   }
 
   template <std::size_t... I>
-  void invoke(asio::detail::index_sequence<I...>)
+  void invoke(std::index_sequence<I...>)
   {
     typedef typename parallel_op_signature_as_tuple<
         typename ranged_parallel_group_signature<
