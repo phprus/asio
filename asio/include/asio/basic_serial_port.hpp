@@ -405,11 +405,11 @@ public:
    *
    * @param ec Set the indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID open(const std::string& device,
+  void open(const std::string& device,
       std::error_code& ec)
   {
     impl_.get_service().open(impl_.get_implementation(), device, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Assign an existing native serial port to the serial port.
@@ -436,12 +436,12 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID assign(const native_handle_type& native_serial_port,
+  void assign(const native_handle_type& native_serial_port,
       std::error_code& ec)
   {
     impl_.get_service().assign(impl_.get_implementation(),
         native_serial_port, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Determine whether the serial port is open.
@@ -473,10 +473,10 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID close(std::error_code& ec)
+  void close(std::error_code& ec)
   {
     impl_.get_service().close(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Get the native serial port representation.
@@ -513,10 +513,10 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID cancel(std::error_code& ec)
+  void cancel(std::error_code& ec)
   {
     impl_.get_service().cancel(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Send a break sequence to the serial port.
@@ -540,10 +540,10 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID send_break(std::error_code& ec)
+  void send_break(std::error_code& ec)
   {
     impl_.get_service().send_break(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Set an option on the serial port.
@@ -585,11 +585,11 @@ public:
    * asio::serial_port_base::character_size
    */
   template <typename SettableSerialPortOption>
-  ASIO_SYNC_OP_VOID set_option(const SettableSerialPortOption& option,
+  void set_option(const SettableSerialPortOption& option,
       std::error_code& ec)
   {
     impl_.get_service().set_option(impl_.get_implementation(), option, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Get an option from the serial port.
@@ -633,11 +633,11 @@ public:
    * asio::serial_port_base::character_size
    */
   template <typename GettableSerialPortOption>
-  ASIO_SYNC_OP_VOID get_option(GettableSerialPortOption& option,
+  void get_option(GettableSerialPortOption& option,
       std::error_code& ec) const
   {
     impl_.get_service().get_option(impl_.get_implementation(), option, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Write some data to the serial port.

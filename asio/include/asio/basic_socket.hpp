@@ -443,11 +443,11 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID open(const protocol_type& protocol,
+  void open(const protocol_type& protocol,
       std::error_code& ec)
   {
     impl_.get_service().open(impl_.get_implementation(), protocol, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Assign an existing native socket to the socket.
@@ -479,12 +479,12 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID assign(const protocol_type& protocol,
+  void assign(const protocol_type& protocol,
       const native_handle_type& native_socket, std::error_code& ec)
   {
     impl_.get_service().assign(impl_.get_implementation(),
         protocol, native_socket, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Determine whether the socket is open.
@@ -536,10 +536,10 @@ public:
    * @note For portable behaviour with respect to graceful closure of a
    * connected socket, call shutdown() before closing the socket.
    */
-  ASIO_SYNC_OP_VOID close(std::error_code& ec)
+  void close(std::error_code& ec)
   {
     impl_.get_service().close(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Release ownership of the underlying native socket.
@@ -694,10 +694,10 @@ public:
         "operation_not_supported when used on Windows XP, Windows Server 2003, "
         "or earlier. Consult documentation for details."))
 #endif
-  ASIO_SYNC_OP_VOID cancel(std::error_code& ec)
+  void cancel(std::error_code& ec)
   {
     impl_.get_service().cancel(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Determine whether the socket is at the out-of-band data mark.
@@ -815,11 +815,11 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID bind(const endpoint_type& endpoint,
+  void bind(const endpoint_type& endpoint,
       std::error_code& ec)
   {
     impl_.get_service().bind(impl_.get_implementation(), endpoint, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Connect the socket to the specified endpoint.
@@ -886,7 +886,7 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID connect(const endpoint_type& peer_endpoint,
+  void connect(const endpoint_type& peer_endpoint,
       std::error_code& ec)
   {
     if (!is_open())
@@ -895,12 +895,12 @@ public:
             peer_endpoint.protocol(), ec);
       if (ec)
       {
-        ASIO_SYNC_OP_VOID_RETURN(ec);
+        return;
       }
     }
 
     impl_.get_service().connect(impl_.get_implementation(), peer_endpoint, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Start an asynchronous connect.
@@ -1063,11 +1063,11 @@ public:
    * @endcode
    */
   template <typename SettableSocketOption>
-  ASIO_SYNC_OP_VOID set_option(const SettableSocketOption& option,
+  void set_option(const SettableSocketOption& option,
       std::error_code& ec)
   {
     impl_.get_service().set_option(impl_.get_implementation(), option, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Get an option from the socket.
@@ -1154,11 +1154,11 @@ public:
    * @endcode
    */
   template <typename GettableSocketOption>
-  ASIO_SYNC_OP_VOID get_option(GettableSocketOption& option,
+  void get_option(GettableSocketOption& option,
       std::error_code& ec) const
   {
     impl_.get_service().get_option(impl_.get_implementation(), option, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Perform an IO control command on the socket.
@@ -1219,11 +1219,11 @@ public:
    * @endcode
    */
   template <typename IoControlCommand>
-  ASIO_SYNC_OP_VOID io_control(IoControlCommand& command,
+  void io_control(IoControlCommand& command,
       std::error_code& ec)
   {
     impl_.get_service().io_control(impl_.get_implementation(), command, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Gets the non-blocking mode of the socket.
@@ -1275,11 +1275,11 @@ public:
    * operations. Asynchronous operations will never fail with the error
    * asio::error::would_block.
    */
-  ASIO_SYNC_OP_VOID non_blocking(
+  void non_blocking(
       bool mode, std::error_code& ec)
   {
     impl_.get_service().non_blocking(impl_.get_implementation(), mode, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Gets the non-blocking mode of the native socket implementation.
@@ -1549,12 +1549,12 @@ public:
    *   sock.async_wait(tcp::socket::wait_write, op);
    * } @endcode
    */
-  ASIO_SYNC_OP_VOID native_non_blocking(
+  void native_non_blocking(
       bool mode, std::error_code& ec)
   {
     impl_.get_service().native_non_blocking(
         impl_.get_implementation(), mode, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Get the local endpoint of the socket.
@@ -1703,11 +1703,11 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID shutdown(shutdown_type what,
+  void shutdown(shutdown_type what,
       std::error_code& ec)
   {
     impl_.get_service().shutdown(impl_.get_implementation(), what, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Wait for the socket to become ready to read, ready to write, or to have
@@ -1752,10 +1752,10 @@ public:
    * socket.wait(asio::ip::tcp::socket::wait_read, ec);
    * @endcode
    */
-  ASIO_SYNC_OP_VOID wait(wait_type w, std::error_code& ec)
+  void wait(wait_type w, std::error_code& ec)
   {
     impl_.get_service().wait(impl_.get_implementation(), w, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Asynchronously wait for the socket to become ready to read, ready to

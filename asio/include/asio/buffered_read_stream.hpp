@@ -118,10 +118,10 @@ public:
   }
 
   /// Close the stream.
-  ASIO_SYNC_OP_VOID close(std::error_code& ec)
+  void close(std::error_code& ec)
   {
     next_layer_.close(ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Write the given data to the stream. Returns the number of bytes written.

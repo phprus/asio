@@ -36,20 +36,20 @@ void connect_pipe(basic_readable_pipe<Executor1>& read_end,
 }
 
 template <typename Executor1, typename Executor2>
-ASIO_SYNC_OP_VOID connect_pipe(basic_readable_pipe<Executor1>& read_end,
+void connect_pipe(basic_readable_pipe<Executor1>& read_end,
     basic_writable_pipe<Executor2>& write_end, std::error_code& ec)
 {
   detail::native_pipe_handle p[2];
   detail::create_pipe(p, ec);
   if (ec)
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
 
   read_end.assign(p[0], ec);
   if (ec)
   {
     detail::close_pipe(p[0]);
     detail::close_pipe(p[1]);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   write_end.assign(p[1], ec);
@@ -58,10 +58,10 @@ ASIO_SYNC_OP_VOID connect_pipe(basic_readable_pipe<Executor1>& read_end,
     std::error_code temp_ec;
     read_end.close(temp_ec);
     detail::close_pipe(p[1]);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 } // namespace asio

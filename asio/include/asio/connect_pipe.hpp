@@ -65,7 +65,7 @@ void connect_pipe(basic_readable_pipe<Executor1>& read_end,
  * @param ec Set to indicate what error occurred, if any.
  */
 template <typename Executor1, typename Executor2>
-ASIO_SYNC_OP_VOID connect_pipe(basic_readable_pipe<Executor1>& read_end,
+void connect_pipe(basic_readable_pipe<Executor1>& read_end,
     basic_writable_pipe<Executor2>& write_end, std::error_code& ec);
 
 } // namespace asio
