@@ -141,55 +141,6 @@ private:
 #endif // ASIO_ENABLE_BUFFER_DEBUGGING
 };
 
-#if !defined(ASIO_NO_DEPRECATED)
-
-/// (Deprecated: Use mutable_buffer.) Adapts a single modifiable buffer so that
-/// it meets the requirements of the MutableBufferSequence concept.
-class mutable_buffers_1
-  : public mutable_buffer
-{
-public:
-  /// The type for each element in the list of buffers.
-  typedef mutable_buffer value_type;
-
-  /// A random-access iterator type that may be used to read elements.
-  typedef const mutable_buffer* const_iterator;
-
-  /// Construct to represent a given memory range.
-  mutable_buffers_1(void* data, std::size_t size) noexcept
-    : mutable_buffer(data, size)
-  {
-  }
-
-#if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
-  mutable_buffers_1(void* data, std::size_t size,
-      std::function<void()> debug_check)
-    : mutable_buffer(data, size, debug_check)
-  {
-  }
-#endif // ASIO_ENABLE_BUFFER_DEBUGGING
-
-  /// Construct to represent a single modifiable buffer.
-  explicit mutable_buffers_1(const mutable_buffer& b) noexcept
-    : mutable_buffer(b)
-  {
-  }
-
-  /// Get a random-access iterator to the first element.
-  const_iterator begin() const noexcept
-  {
-    return this;
-  }
-
-  /// Get a random-access iterator for one past the last element.
-  const_iterator end() const noexcept
-  {
-    return begin() + 1;
-  }
-};
-
-#endif // !defined(ASIO_NO_DEPRECATED)
-
 /// Holds a buffer that cannot be modified.
 /**
  * The const_buffer class provides a safe representation of a buffer that cannot
@@ -284,55 +235,6 @@ private:
   std::function<void()> debug_check_;
 #endif // ASIO_ENABLE_BUFFER_DEBUGGING
 };
-
-#if !defined(ASIO_NO_DEPRECATED)
-
-/// (Deprecated: Use const_buffer.) Adapts a single non-modifiable buffer so
-/// that it meets the requirements of the ConstBufferSequence concept.
-class const_buffers_1
-  : public const_buffer
-{
-public:
-  /// The type for each element in the list of buffers.
-  typedef const_buffer value_type;
-
-  /// A random-access iterator type that may be used to read elements.
-  typedef const const_buffer* const_iterator;
-
-  /// Construct to represent a given memory range.
-  const_buffers_1(const void* data, std::size_t size) noexcept
-    : const_buffer(data, size)
-  {
-  }
-
-#if defined(ASIO_ENABLE_BUFFER_DEBUGGING)
-  const_buffers_1(const void* data, std::size_t size,
-      std::function<void()> debug_check)
-    : const_buffer(data, size, debug_check)
-  {
-  }
-#endif // ASIO_ENABLE_BUFFER_DEBUGGING
-
-  /// Construct to represent a single non-modifiable buffer.
-  explicit const_buffers_1(const const_buffer& b) noexcept
-    : const_buffer(b)
-  {
-  }
-
-  /// Get a random-access iterator to the first element.
-  const_iterator begin() const noexcept
-  {
-    return this;
-  }
-
-  /// Get a random-access iterator for one past the last element.
-  const_iterator end() const noexcept
-  {
-    return begin() + 1;
-  }
-};
-
-#endif // !defined(ASIO_NO_DEPRECATED)
 
 /// (Deprecated: Use the socket/descriptor wait() and async_wait() member
 /// functions.) An implementation of both the ConstBufferSequence and
@@ -475,10 +377,6 @@ template <typename BufferSequence>
 struct buffer_sequence_cardinality :
   conditional_t<
     is_same<BufferSequence, mutable_buffer>::value
-#if !defined(ASIO_NO_DEPRECATED)
-      || is_same<BufferSequence, mutable_buffers_1>::value
-      || is_same<BufferSequence, const_buffers_1>::value
-#endif // !defined(ASIO_NO_DEPRECATED)
       || is_same<BufferSequence, const_buffer>::value,
     one_buffer, multiple_buffers> {};
 
@@ -533,49 +431,6 @@ inline std::size_t buffer_size(const BufferSequence& b) noexcept
       asio::buffer_sequence_begin(b),
       asio::buffer_sequence_end(b));
 }
-
-#if !defined(ASIO_NO_DEPRECATED)
-
-/** @defgroup buffer_cast asio::buffer_cast
- *
- * @brief (Deprecated: Use the @c data() member function.) The
- * asio::buffer_cast function is used to obtain a pointer to the
- * underlying memory region associated with a buffer.
- *
- * @par Examples:
- *
- * To access the memory of a non-modifiable buffer, use:
- * @code asio::const_buffer b1 = ...;
- * const unsigned char* p1 = asio::buffer_cast<const unsigned char*>(b1);
- * @endcode
- *
- * To access the memory of a modifiable buffer, use:
- * @code asio::mutable_buffer b2 = ...;
- * unsigned char* p2 = asio::buffer_cast<unsigned char*>(b2);
- * @endcode
- *
- * The asio::buffer_cast function permits violations of type safety, so
- * uses of it in application code should be carefully considered.
- */
-/*@{*/
-
-/// Cast a non-modifiable buffer to a specified pointer to POD type.
-template <typename PointerToPodType>
-inline PointerToPodType buffer_cast(const mutable_buffer& b) noexcept
-{
-  return static_cast<PointerToPodType>(b.data());
-}
-
-/// Cast a non-modifiable buffer to a specified pointer to POD type.
-template <typename PointerToPodType>
-inline PointerToPodType buffer_cast(const const_buffer& b) noexcept
-{
-  return static_cast<PointerToPodType>(b.data());
-}
-
-/*@}*/
-
-#endif // !defined(ASIO_NO_DEPRECATED)
 
 /// Create a new modifiable buffer that is offset from the start of another.
 /**
@@ -847,13 +702,8 @@ private:
  */
 /*@{*/
 
-#if defined(ASIO_NO_DEPRECATED) || defined(GENERATING_DOCUMENTATION)
-# define ASIO_MUTABLE_BUFFER mutable_buffer
-# define ASIO_CONST_BUFFER const_buffer
-#else // defined(ASIO_NO_DEPRECATED) || defined(GENERATING_DOCUMENTATION)
-# define ASIO_MUTABLE_BUFFER mutable_buffers_1
-# define ASIO_CONST_BUFFER const_buffers_1
-#endif // defined(ASIO_NO_DEPRECATED) || defined(GENERATING_DOCUMENTATION)
+#define ASIO_MUTABLE_BUFFER mutable_buffer
+#define ASIO_CONST_BUFFER const_buffer
 
 /// Create a new modifiable buffer from an existing buffer.
 /**
