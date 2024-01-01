@@ -42,7 +42,7 @@
 namespace asio {
 namespace detail {
 
-void create_pipe(native_pipe_handle p[2], asio::error_code& ec)
+void create_pipe(native_pipe_handle p[2], std::error_code& ec)
 {
 #if defined(ASIO_HAS_IOCP)
   using namespace std; // For sprintf and memcmp.
@@ -133,7 +133,7 @@ void close_pipe(native_pipe_handle p)
 #if defined(ASIO_HAS_IOCP)
   ::CloseHandle(p);
 #else // defined(ASIO_HAS_IOCP)
-  asio::error_code ignored_ec;
+  std::error_code ignored_ec;
   detail::descriptor_ops::state_type state = 0;
   detail::descriptor_ops::close(p, state, ignored_ec);
 #endif // defined(ASIO_HAS_IOCP)

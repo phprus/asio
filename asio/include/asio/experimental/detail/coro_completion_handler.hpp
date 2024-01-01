@@ -110,11 +110,11 @@ auto coro_interpret_result(std::tuple<std::exception_ptr, Args...>&& args)
 
 template <typename... Args>
 auto coro_interpret_result(
-    std::tuple<asio::error_code, Args...>&& args)
+    std::tuple<std::error_code, Args...>&& args)
 {
   if (std::get<0>(args))
     asio::detail::throw_exception(
-        asio::system_error(std::get<0>(args)));
+        std::system_error(std::get<0>(args)));
 
   return std::apply(
       [](auto, auto&&... rest)
@@ -138,11 +138,11 @@ auto coro_interpret_result(std::tuple<std::exception_ptr, Arg>&& args)
 }
 
 inline auto coro_interpret_result(
-    std::tuple<asio::error_code>&& args)
+    std::tuple<std::error_code>&& args)
 {
   if (std::get<0>(args))
     asio::detail::throw_exception(
-        asio::system_error(std::get<0>(args)));
+        std::system_error(std::get<0>(args)));
 }
 
 inline auto coro_interpret_result(std::tuple<std::exception_ptr>&& args)
@@ -152,11 +152,11 @@ inline auto coro_interpret_result(std::tuple<std::exception_ptr>&& args)
 }
 
 template <typename Arg>
-auto coro_interpret_result(std::tuple<asio::error_code, Arg>&& args)
+auto coro_interpret_result(std::tuple<std::error_code, Arg>&& args)
 {
   if (std::get<0>(args))
     asio::detail::throw_exception(
-        asio::system_error(std::get<0>(args)));
+        std::system_error(std::get<0>(args)));
   return std::get<1>(std::move(args));
 }
 

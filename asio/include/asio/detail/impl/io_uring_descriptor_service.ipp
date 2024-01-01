@@ -88,15 +88,15 @@ void io_uring_descriptor_service::destroy(
           "descriptor", &impl, impl.descriptor_, "close"));
 
     io_uring_service_.deregister_io_object(impl.io_object_data_);
-    asio::error_code ignored_ec;
+    std::error_code ignored_ec;
     descriptor_ops::close(impl.descriptor_, impl.state_, ignored_ec);
     io_uring_service_.cleanup_io_object(impl.io_object_data_);
   }
 }
 
-asio::error_code io_uring_descriptor_service::assign(
+std::error_code io_uring_descriptor_service::assign(
     io_uring_descriptor_service::implementation_type& impl,
-    const native_handle_type& native_descriptor, asio::error_code& ec)
+    const native_handle_type& native_descriptor, std::error_code& ec)
 {
   if (is_open(impl))
   {
@@ -113,9 +113,9 @@ asio::error_code io_uring_descriptor_service::assign(
   return ec;
 }
 
-asio::error_code io_uring_descriptor_service::close(
+std::error_code io_uring_descriptor_service::close(
     io_uring_descriptor_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (is_open(impl))
   {
@@ -161,9 +161,9 @@ io_uring_descriptor_service::release(
   return descriptor;
 }
 
-asio::error_code io_uring_descriptor_service::cancel(
+std::error_code io_uring_descriptor_service::cancel(
     io_uring_descriptor_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (!is_open(impl))
   {

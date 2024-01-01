@@ -87,16 +87,16 @@ bool network_v6::is_subnet_of(const network_v6& other) const
 
 std::string network_v6::to_string() const
 {
-  asio::error_code ec;
+  std::error_code ec;
   std::string addr = to_string(ec);
   asio::detail::throw_error(ec);
   return addr;
 }
 
-std::string network_v6::to_string(asio::error_code& ec) const
+std::string network_v6::to_string(std::error_code& ec) const
 {
   using namespace std; // For sprintf.
-  ec = asio::error_code();
+  ec = std::error_code();
   char prefix_len[16];
 #if defined(ASIO_HAS_SNPRINTF)
   snprintf(prefix_len, sizeof(prefix_len), "/%u", prefix_length_);
@@ -113,21 +113,21 @@ network_v6 make_network_v6(const char* str)
   return make_network_v6(std::string(str));
 }
 
-network_v6 make_network_v6(const char* str, asio::error_code& ec)
+network_v6 make_network_v6(const char* str, std::error_code& ec)
 {
   return make_network_v6(std::string(str), ec);
 }
 
 network_v6 make_network_v6(const std::string& str)
 {
-  asio::error_code ec;
+  std::error_code ec;
   network_v6 net = make_network_v6(str, ec);
   asio::detail::throw_error(ec);
   return net;
 }
 
 network_v6 make_network_v6(const std::string& str,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   std::string::size_type pos = str.find_first_of("/");
 
@@ -172,7 +172,7 @@ network_v6 make_network_v6(string_view str)
 }
 
 network_v6 make_network_v6(string_view str,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   return make_network_v6(static_cast<std::string>(str), ec);
 }

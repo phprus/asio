@@ -101,7 +101,7 @@ public:
 
 #if !defined(ASIO_NO_DEPRECATED)
   /// (Deprecated: Use other overload.) Get the address as a string.
-  ASIO_DECL std::string to_string(asio::error_code& ec) const;
+  ASIO_DECL std::string to_string(std::error_code& ec) const;
 
   /// (Deprecated: Use make_address().) Create an address from an IPv4 address
   /// string in dotted decimal form, or from an IPv6 address in hexadecimal
@@ -111,7 +111,7 @@ public:
   /// (Deprecated: Use make_address().) Create an address from an IPv4 address
   /// string in dotted decimal form, or from an IPv6 address in hexadecimal
   /// notation.
-  static address from_string(const char* str, asio::error_code& ec);
+  static address from_string(const char* str, std::error_code& ec);
 
   /// (Deprecated: Use make_address().) Create an address from an IPv4 address
   /// string in dotted decimal form, or from an IPv6 address in hexadecimal
@@ -122,7 +122,7 @@ public:
   /// string in dotted decimal form, or from an IPv6 address in hexadecimal
   /// notation.
   static address from_string(
-      const std::string& str, asio::error_code& ec);
+      const std::string& str, std::error_code& ec);
 #endif // !defined(ASIO_NO_DEPRECATED)
 
   /// Determine whether the address is a loopback address.
@@ -194,7 +194,7 @@ ASIO_DECL address make_address(const char* str);
  * @relates address
  */
 ASIO_DECL address make_address(const char* str,
-    asio::error_code& ec) noexcept;
+    std::error_code& ec) noexcept;
 
 /// Create an address from an IPv4 address string in dotted decimal form,
 /// or from an IPv6 address in hexadecimal notation.
@@ -209,7 +209,7 @@ ASIO_DECL address make_address(const std::string& str);
  * @relates address
  */
 ASIO_DECL address make_address(const std::string& str,
-    asio::error_code& ec) noexcept;
+    std::error_code& ec) noexcept;
 
 #if defined(ASIO_HAS_STRING_VIEW) \
   || defined(GENERATING_DOCUMENTATION)
@@ -227,7 +227,7 @@ ASIO_DECL address make_address(string_view str);
  * @relates address
  */
 ASIO_DECL address make_address(string_view str,
-    asio::error_code& ec) noexcept;
+    std::error_code& ec) noexcept;
 
 #endif // defined(ASIO_HAS_STRING_VIEW)
        //  || defined(GENERATING_DOCUMENTATION)

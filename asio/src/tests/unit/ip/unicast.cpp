@@ -70,7 +70,7 @@ void test()
   namespace ip = asio::ip;
 
   io_context ioc;
-  asio::error_code ec;
+  std::error_code ec;
 
   ip::udp::endpoint ep_v4(ip::address_v4::loopback(), 0);
   ip::udp::socket sock_v4(ioc);

@@ -45,7 +45,7 @@ void winrt_ssocket_service_base::base_shutdown()
   base_implementation_type* impl = impl_list_;
   while (impl)
   {
-    asio::error_code ignored_ec;
+    std::error_code ignored_ec;
     close(*impl, ignored_ec);
     impl = impl->next_;
   }
@@ -85,7 +85,7 @@ void winrt_ssocket_service_base::base_move_assign(
     winrt_ssocket_service_base& other_service,
     winrt_ssocket_service_base::base_implementation_type& other_impl)
 {
-  asio::error_code ignored_ec;
+  std::error_code ignored_ec;
   close(impl, ignored_ec);
 
   if (this != &other_service)
@@ -120,7 +120,7 @@ void winrt_ssocket_service_base::base_move_assign(
 void winrt_ssocket_service_base::destroy(
     winrt_ssocket_service_base::base_implementation_type& impl)
 {
-  asio::error_code ignored_ec;
+  std::error_code ignored_ec;
   close(impl, ignored_ec);
 
   // Remove implementation from linked list of all implementations.
@@ -135,20 +135,20 @@ void winrt_ssocket_service_base::destroy(
   impl.prev_ = 0;
 }
 
-asio::error_code winrt_ssocket_service_base::close(
+std::error_code winrt_ssocket_service_base::close(
     winrt_ssocket_service_base::base_implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   delete impl.socket_;
   impl.socket_ = nullptr;
-  ec = asio::error_code();
+  ec = std::error_code();
   return ec;
 }
 
 winrt_ssocket_service_base::native_handle_type
 winrt_ssocket_service_base::release(
     winrt_ssocket_service_base::base_implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (!is_open(impl))
     return nullptr;
@@ -164,7 +164,7 @@ winrt_ssocket_service_base::release(
 
 std::size_t winrt_ssocket_service_base::do_get_endpoint(
     const base_implementation_type& impl, bool local,
-    void* addr, std::size_t addr_len, asio::error_code& ec) const
+    void* addr, std::size_t addr_len, std::error_code& ec) const
 {
   if (!is_open(impl))
   {
@@ -196,7 +196,7 @@ std::size_t winrt_ssocket_service_base::do_get_endpoint(
             &reinterpret_cast<sockaddr_in4_type*>(addr)->sin_addr, &scope, ec);
         reinterpret_cast<sockaddr_in4_type*>(addr)->sin_port
           = socket_ops::host_to_network_short(port);
-        ec = asio::error_code();
+        ec = std::error_code();
         return sizeof(sockaddr_in4_type);
       }
     case ASIO_OS_DEF(AF_INET6):
@@ -211,7 +211,7 @@ std::size_t winrt_ssocket_service_base::do_get_endpoint(
             &reinterpret_cast<sockaddr_in6_type*>(addr)->sin6_addr, &scope, ec);
         reinterpret_cast<sockaddr_in6_type*>(addr)->sin6_port
           = socket_ops::host_to_network_short(port);
-        ec = asio::error_code();
+        ec = std::error_code();
         return sizeof(sockaddr_in6_type);
       }
     default:
@@ -221,16 +221,16 @@ std::size_t winrt_ssocket_service_base::do_get_endpoint(
   }
   catch (Platform::Exception^ e)
   {
-    ec = asio::error_code(e->HResult,
+    ec = std::error_code(e->HResult,
         asio::system_category());
     return addr_len;
   }
 }
 
-asio::error_code winrt_ssocket_service_base::do_set_option(
+std::error_code winrt_ssocket_service_base::do_set_option(
     winrt_ssocket_service_base::base_implementation_type& impl,
     int level, int optname, const void* optval,
-    std::size_t optlen, asio::error_code& ec)
+    std::size_t optlen, std::error_code& ec)
 {
   if (!is_open(impl))
   {
@@ -248,7 +248,7 @@ asio::error_code winrt_ssocket_service_base::do_set_option(
         int value = 0;
         std::memcpy(&value, optval, optlen);
         impl.socket_->Control->KeepAlive = !!value;
-        ec = asio::error_code();
+        ec = std::error_code();
       }
       else
       {
@@ -263,7 +263,7 @@ asio::error_code winrt_ssocket_service_base::do_set_option(
         int value = 0;
         std::memcpy(&value, optval, optlen);
         impl.socket_->Control->NoDelay = !!value;
-        ec = asio::error_code();
+        ec = std::error_code();
       }
       else
       {
@@ -277,7 +277,7 @@ asio::error_code winrt_ssocket_service_base::do_set_option(
   }
   catch (Platform::Exception^ e)
   {
-    ec = asio::error_code(e->HResult,
+    ec = std::error_code(e->HResult,
         asio::system_category());
   }
 
@@ -287,7 +287,7 @@ asio::error_code winrt_ssocket_service_base::do_set_option(
 void winrt_ssocket_service_base::do_get_option(
     const winrt_ssocket_service_base::base_implementation_type& impl,
     int level, int optname, void* optval,
-    std::size_t* optlen, asio::error_code& ec) const
+    std::size_t* optlen, std::error_code& ec) const
 {
   if (!is_open(impl))
   {
@@ -305,7 +305,7 @@ void winrt_ssocket_service_base::do_get_option(
         int value = impl.socket_->Control->KeepAlive ? 1 : 0;
         std::memcpy(optval, &value, sizeof(int));
         *optlen = sizeof(int);
-        ec = asio::error_code();
+        ec = std::error_code();
       }
       else
       {
@@ -320,7 +320,7 @@ void winrt_ssocket_service_base::do_get_option(
         int value = impl.socket_->Control->NoDelay ? 1 : 0;
         std::memcpy(optval, &value, sizeof(int));
         *optlen = sizeof(int);
-        ec = asio::error_code();
+        ec = std::error_code();
       }
       else
       {
@@ -334,14 +334,14 @@ void winrt_ssocket_service_base::do_get_option(
   }
   catch (Platform::Exception^ e)
   {
-    ec = asio::error_code(e->HResult,
+    ec = std::error_code(e->HResult,
         asio::system_category());
   }
 }
 
-asio::error_code winrt_ssocket_service_base::do_connect(
+std::error_code winrt_ssocket_service_base::do_connect(
     winrt_ssocket_service_base::base_implementation_type& impl,
-    const void* addr, asio::error_code& ec)
+    const void* addr, std::error_code& ec)
 {
   if (!is_open(impl))
   {
@@ -381,7 +381,7 @@ asio::error_code winrt_ssocket_service_base::do_connect(
   }
   catch (Platform::Exception^ e)
   {
-    ec = asio::error_code(e->HResult,
+    ec = std::error_code(e->HResult,
         asio::system_category());
   }
 
@@ -437,7 +437,7 @@ void winrt_ssocket_service_base::start_connect_op(
   }
   catch (Platform::Exception^ e)
   {
-    op->ec_ = asio::error_code(
+    op->ec_ = std::error_code(
         e->HResult, asio::system_category());
     scheduler_.post_immediate_completion(op, is_continuation);
   }
@@ -446,7 +446,7 @@ void winrt_ssocket_service_base::start_connect_op(
 std::size_t winrt_ssocket_service_base::do_send(
     winrt_ssocket_service_base::base_implementation_type& impl,
     const asio::const_buffer& data,
-    socket_base::message_flags flags, asio::error_code& ec)
+    socket_base::message_flags flags, std::error_code& ec)
 {
   if (flags)
   {
@@ -467,7 +467,7 @@ std::size_t winrt_ssocket_service_base::do_send(
 
     if (bufs.all_empty())
     {
-      ec = asio::error_code();
+      ec = std::error_code();
       return 0;
     }
 
@@ -476,7 +476,7 @@ std::size_t winrt_ssocket_service_base::do_send(
   }
   catch (Platform::Exception^ e)
   {
-    ec = asio::error_code(e->HResult,
+    ec = std::error_code(e->HResult,
         asio::system_category());
     return 0;
   }
@@ -517,7 +517,7 @@ void winrt_ssocket_service_base::start_send_op(
   }
   catch (Platform::Exception^ e)
   {
-    op->ec_ = asio::error_code(e->HResult,
+    op->ec_ = std::error_code(e->HResult,
         asio::system_category());
     scheduler_.post_immediate_completion(op, is_continuation);
   }
@@ -526,7 +526,7 @@ void winrt_ssocket_service_base::start_send_op(
 std::size_t winrt_ssocket_service_base::do_receive(
     winrt_ssocket_service_base::base_implementation_type& impl,
     const asio::mutable_buffer& data,
-    socket_base::message_flags flags, asio::error_code& ec)
+    socket_base::message_flags flags, std::error_code& ec)
 {
   if (flags)
   {
@@ -547,7 +547,7 @@ std::size_t winrt_ssocket_service_base::do_receive(
 
     if (bufs.all_empty())
     {
-      ec = asio::error_code();
+      ec = std::error_code();
       return 0;
     }
 
@@ -566,7 +566,7 @@ std::size_t winrt_ssocket_service_base::do_receive(
   }
   catch (Platform::Exception^ e)
   {
-    ec = asio::error_code(e->HResult,
+    ec = std::error_code(e->HResult,
         asio::system_category());
     return 0;
   }
@@ -610,7 +610,7 @@ void winrt_ssocket_service_base::start_receive_op(
   }
   catch (Platform::Exception^ e)
   {
-    op->ec_ = asio::error_code(e->HResult,
+    op->ec_ = std::error_code(e->HResult,
         asio::system_category());
     scheduler_.post_immediate_completion(op, is_continuation);
   }

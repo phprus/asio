@@ -16,13 +16,13 @@ connected pair of pipe objects:
   asio::connect_pipe(read_end, write_end);
 
   write_end.async_write_some(my_write_buffer,
-      [](asio::error_code e, size_t n)
+      [](std::error_code e, size_t n)
       {
         // ...
       });
 
   read_end.async_read_some(my_read_buffer,
-      [](asio::error_code e, size_t n)
+      [](std::error_code e, size_t n)
       {
         // ...
       });

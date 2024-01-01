@@ -65,12 +65,12 @@ public:
   }
 
   void sync(Windows::Foundation::IAsyncAction^ action,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     using namespace Windows::Foundation;
     using Windows::Foundation::AsyncStatus;
 
-    auto promise = std::make_shared<std::promise<asio::error_code>>();
+    auto promise = std::make_shared<std::promise<std::error_code>>();
     auto future = promise->get_future();
 
     action->Completed = ref new AsyncActionCompletedHandler(
@@ -84,7 +84,7 @@ public:
         case AsyncStatus::Error:
         case AsyncStatus::Completed:
         default:
-          asio::error_code ec(
+          std::error_code ec(
               action->ErrorCode.Value,
               asio::system_category());
           promise->set_value(ec);
@@ -97,12 +97,12 @@ public:
 
   template <typename TResult>
   TResult sync(Windows::Foundation::IAsyncOperation<TResult>^ operation,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     using namespace Windows::Foundation;
     using Windows::Foundation::AsyncStatus;
 
-    auto promise = std::make_shared<std::promise<asio::error_code>>();
+    auto promise = std::make_shared<std::promise<std::error_code>>();
     auto future = promise->get_future();
 
     operation->Completed = ref new AsyncOperationCompletedHandler<TResult>(
@@ -116,7 +116,7 @@ public:
         case AsyncStatus::Error:
         case AsyncStatus::Completed:
         default:
-          asio::error_code ec(
+          std::error_code ec(
               operation->ErrorCode.Value,
               asio::system_category());
           promise->set_value(ec);
@@ -132,12 +132,12 @@ public:
   TResult sync(
       Windows::Foundation::IAsyncOperationWithProgress<
         TResult, TProgress>^ operation,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     using namespace Windows::Foundation;
     using Windows::Foundation::AsyncStatus;
 
-    auto promise = std::make_shared<std::promise<asio::error_code>>();
+    auto promise = std::make_shared<std::promise<std::error_code>>();
     auto future = promise->get_future();
 
     operation->Completed
@@ -155,7 +155,7 @@ public:
           case AsyncStatus::Error:
           case AsyncStatus::Completed:
           default:
-            asio::error_code ec(
+            std::error_code ec(
                 operation->ErrorCode.Value,
                 asio::system_category());
             promise->set_value(ec);
@@ -186,7 +186,7 @@ public:
         case AsyncStatus::Completed:
         case AsyncStatus::Error:
         default:
-          handler->ec_ = asio::error_code(
+          handler->ec_ = std::error_code(
               action->ErrorCode.Value,
               asio::system_category());
           break;
@@ -223,7 +223,7 @@ public:
           // Fall through.
         case AsyncStatus::Error:
         default:
-          handler->ec_ = asio::error_code(
+          handler->ec_ = std::error_code(
               operation->ErrorCode.Value,
               asio::system_category());
           break;
@@ -264,7 +264,7 @@ public:
             // Fall through.
           case AsyncStatus::Error:
           default:
-            handler->ec_ = asio::error_code(
+            handler->ec_ = std::error_code(
                 operation->ErrorCode.Value,
                 asio::system_category());
             break;

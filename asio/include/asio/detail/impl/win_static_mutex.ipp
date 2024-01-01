@@ -32,7 +32,7 @@ namespace detail {
 void win_static_mutex::init()
 {
   int error = do_init();
-  asio::error_code ec(error,
+  std::error_code ec(error,
       asio::error::get_system_category());
   asio::detail::throw_error(ec, "static_mutex");
 }

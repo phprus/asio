@@ -30,11 +30,11 @@
 
 namespace windows_random_access_handle_compile {
 
-void write_some_handler(const asio::error_code&, std::size_t)
+void write_some_handler(const std::error_code&, std::size_t)
 {
 }
 
-void read_some_handler(const asio::error_code&, std::size_t)
+void read_some_handler(const std::error_code&, std::size_t)
 {
 }
 
@@ -52,7 +52,7 @@ void test()
     const char const_char_buffer[128] = "";
     asio::uint64_t offset = 0;
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
 
     // basic_random_access_handle constructors.
 

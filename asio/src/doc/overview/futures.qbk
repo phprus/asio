@@ -18,7 +18,7 @@ a completion handler. For example:
 
 Where a completion signature has the form:
 
-  void handler(asio::error_code ec, result_type result);
+  void handler(std::error_code ec, result_type result);
 
 the initiating function returns a `std::future` templated on `result_type`.
 In the above example, this is `std::size_t`. If the asynchronous operation
@@ -27,7 +27,7 @@ passed back to the caller through the future.
 
 Where a completion signature has the form:
 
-  void handler(asio::error_code ec);
+  void handler(std::error_code ec);
 
 the initiating function returns `std::future<void>`. As above, an error
 is passed back in the future as a `system_error` exception.

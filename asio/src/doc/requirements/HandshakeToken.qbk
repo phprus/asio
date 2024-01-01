@@ -8,14 +8,14 @@
 [section:HandshakeToken SSL handshake token requirements]
 
 A handshake token is a [link asio.overview.model.completion_tokens completion
-token] for completion signature `void(error_code)`.
+token] for completion signature `void(std::error_code)`.
 
 [heading Examples]
 
 A free function as a handshake token:
 
   void handshake_handler(
-      const asio::error_code& ec)
+      const std::error_code& ec)
   {
     ...
   }
@@ -26,7 +26,7 @@ A handshake token function object:
   {
     ...
     void operator()(
-        const asio::error_code& ec)
+        const std::error_code& ec)
     {
       ...
     }
@@ -36,7 +36,7 @@ A handshake token function object:
 A lambda as a handshake token:
 
   ssl_stream.async_handshake(...,
-      [](const asio::error_code& ec)
+      [](const std::error_code& ec)
       {
         ...
       });
@@ -45,7 +45,7 @@ A non-static class member function adapted to a handshake token using
 `std::bind()`:
 
   void my_class::handshake_handler(
-      const asio::error_code& ec)
+      const std::error_code& ec)
   {
     ...
   }
@@ -58,7 +58,7 @@ A non-static class member function adapted to a handshake token using
 `std::bind()`:
 
   void my_class::handshake_handler(
-      const asio::error_code& ec)
+      const std::error_code& ec)
   {
     ...
   }

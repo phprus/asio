@@ -72,7 +72,7 @@ public:
 
   // Resolve a query to a list of entries.
   results_type resolve(implementation_type&, const query_type& qry,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     asio::detail::addrinfo_type* address_info = 0;
 
@@ -105,7 +105,7 @@ public:
 
   // Resolve an endpoint to a list of entries.
   results_type resolve(implementation_type&,
-      const endpoint_type& endpoint, asio::error_code& ec)
+      const endpoint_type& endpoint, std::error_code& ec)
   {
     char host_name[NI_MAXHOST];
     char service_name[NI_MAXSERV];

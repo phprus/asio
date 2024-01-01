@@ -31,7 +31,7 @@ namespace detail {
 void posix_tss_ptr_create(pthread_key_t& key)
 {
   int error = ::pthread_key_create(&key, 0);
-  asio::error_code ec(error,
+  std::error_code ec(error,
       asio::error::get_system_category());
   asio::detail::throw_error(ec, "tss");
 }

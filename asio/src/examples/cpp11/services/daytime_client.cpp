@@ -17,7 +17,7 @@ using asio::ip::tcp;
 
 char read_buffer[1024];
 
-void read_handler(const asio::error_code& e,
+void read_handler(const std::error_code& e,
     std::size_t bytes_transferred, tcp::socket* s)
 {
   if (!e)
@@ -40,7 +40,7 @@ void read_handler(const asio::error_code& e,
   }
 }
 
-void connect_handler(const asio::error_code& e, tcp::socket* s)
+void connect_handler(const std::error_code& e, tcp::socket* s)
 {
   asio::execution_context& context = asio::query(
       s->get_executor(), asio::execution::context);

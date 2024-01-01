@@ -8,8 +8,8 @@
 [section:MoveAcceptToken Move accept token requirements]
 
 A move accept token is a [link asio.overview.model.completion_tokens completion
-token] for completion signature `void(error_code, typename Protocol::socket)`
-or completion signature `void(error_code, typename Protocol::socket::template
+token] for completion signature `void(std::error_code, typename Protocol::socket)`
+or completion signature `void(std::error_code, typename Protocol::socket::template
 rebind_executor<Executor>::other)`, for the type `Protocol` of the acceptor
 class template.
 
@@ -18,7 +18,7 @@ class template.
 A free function as a move accept token:
 
   void accept_handler(
-      const asio::error_code& ec, asio::ip::tcp::socket s)
+      const std::error_code& ec, asio::ip::tcp::socket s)
   {
     ...
   }
@@ -29,7 +29,7 @@ A move accept token function object:
   {
     ...
     void operator()(
-        const asio::error_code& ec, asio::ip::tcp::socket s)
+        const std::error_code& ec, asio::ip::tcp::socket s)
     {
       ...
     }
@@ -39,7 +39,7 @@ A move accept token function object:
 A lambda as a move accept token:
 
   acceptor.async_accept(...,
-      [](const asio::error_code& ec, asio::ip::tcp::socket s)
+      [](const std::error_code& ec, asio::ip::tcp::socket s)
       {
         ...
       });
@@ -48,7 +48,7 @@ A non-static class member function adapted to a move accept token using
 `std::bind()`:
 
   void my_class::accept_handler(
-      const asio::error_code& ec, asio::ip::tcp::socket socket)
+      const std::error_code& ec, asio::ip::tcp::socket socket)
   {
     ...
   }

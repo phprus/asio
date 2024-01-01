@@ -55,7 +55,7 @@ struct async_result<experimental::use_coro_t<Allocator>, R()>
 
 template <typename Allocator, typename R>
 struct async_result<
-    experimental::use_coro_t<Allocator>, R(asio::error_code)>
+    experimental::use_coro_t<Allocator>, R(std::error_code)>
 {
   template <typename Initiation, typename... InitArgs>
   static auto initiate_impl(Initiation initiation,
@@ -64,13 +64,13 @@ struct async_result<
       asio::associated_executor_t<Initiation>, Allocator>
   {
     co_await deferred_async_operation<
-      R(asio::error_code), Initiation, InitArgs...>(
+      R(std::error_code), Initiation, InitArgs...>(
         deferred_init_tag{}, std::move(initiation), std::move(args)...);
   }
 
   template <typename... InitArgs>
   static auto initiate_impl(
-      asio::detail::initiation_archetype<R(asio::error_code)>,
+      asio::detail::initiation_archetype<R(std::error_code)>,
       std::allocator_arg_t, Allocator, InitArgs... args)
     -> experimental::coro<void(), void,
       asio::any_io_executor, Allocator>;
@@ -146,7 +146,7 @@ struct async_result<experimental::use_coro_t<Allocator>, R(T)>
 
 template <typename Allocator, typename R, typename T>
 struct async_result<
-    experimental::use_coro_t<Allocator>, R(asio::error_code, T)>
+    experimental::use_coro_t<Allocator>, R(std::error_code, T)>
 {
   template <typename Initiation, typename... InitArgs>
   static auto initiate_impl(Initiation initiation,
@@ -155,14 +155,14 @@ struct async_result<
       asio::associated_executor_t<Initiation>, Allocator>
   {
     co_return co_await deferred_async_operation<
-      R(asio::error_code, T), Initiation, InitArgs...>(
+      R(std::error_code, T), Initiation, InitArgs...>(
         deferred_init_tag{}, std::move(initiation), std::move(args)...);
   }
 
   template <typename... InitArgs>
   static auto initiate_impl(
       asio::detail::initiation_archetype<
-        R(asio::error_code, T)>,
+        R(std::error_code, T)>,
       std::allocator_arg_t, Allocator, InitArgs... args)
     -> experimental::coro<void(), T, asio::any_io_executor, Allocator>;
 

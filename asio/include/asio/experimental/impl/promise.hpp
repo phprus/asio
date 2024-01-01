@@ -19,7 +19,7 @@
 #include "asio/cancellation_signal.hpp"
 #include "asio/detail/utility.hpp"
 #include "asio/error.hpp"
-#include "asio/system_error.hpp"
+#include <system_error>
 #include <tuple>
 
 #include "asio/detail/push_options.hpp"
@@ -162,13 +162,13 @@ struct promise_impl<void(Ts...), Executor, Allocator>
   {
     complete(
         std::make_exception_ptr(
-          asio::system_error(
+          std::system_error(
             asio::error::operation_aborted)),
         T_{}...);
   }
 
   template<typename... T_>
-  void cancel_impl_(asio::error_code*, T_*...)
+  void cancel_impl_(std::error_code*, T_*...)
   {
     complete(asio::error::operation_aborted, T_{}...);
   }

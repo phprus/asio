@@ -34,7 +34,7 @@ public:
   }
 
   engine::want operator()(engine& eng,
-      asio::error_code& ec,
+      std::error_code& ec,
       std::size_t& bytes_transferred) const
   {
     bytes_transferred = 0;
@@ -43,7 +43,7 @@ public:
 
   template <typename Handler>
   void call_handler(Handler& handler,
-      const asio::error_code& ec,
+      const std::error_code& ec,
       const std::size_t&) const
   {
     if (ec == asio::error::eof)
@@ -51,7 +51,7 @@ public:
       // The engine only generates an eof when the shutdown notification has
       // been received from the peer. This indicates that the shutdown has
       // completed successfully, and thus need not be passed on to the handler.
-      static_cast<Handler&&>(handler)(asio::error_code());
+      static_cast<Handler&&>(handler)(std::error_code());
     }
     else
     {

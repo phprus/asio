@@ -133,7 +133,7 @@ public:
       const char* path, file_base::flags open_flags)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(), path, open_flags, ec);
     asio::detail::throw_error(ec, "open");
   }
@@ -160,7 +160,7 @@ public:
       > = defaulted_constraint())
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(), path, open_flags, ec);
     asio::detail::throw_error(ec, "open");
   }
@@ -181,7 +181,7 @@ public:
       const std::string& path, file_base::flags open_flags)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(),
         path.c_str(), open_flags, ec);
     asio::detail::throw_error(ec, "open");
@@ -209,7 +209,7 @@ public:
       > = defaulted_constraint())
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(),
         path.c_str(), open_flags, ec);
     asio::detail::throw_error(ec, "open");
@@ -224,12 +224,12 @@ public:
    *
    * @param native_file A native file handle.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   basic_file(const executor_type& ex, const native_handle_type& native_file)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(
         impl_.get_implementation(), native_file, ec);
     asio::detail::throw_error(ec, "assign");
@@ -245,7 +245,7 @@ public:
    *
    * @param native_file A native file.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   template <typename ExecutionContext>
   basic_file(ExecutionContext& context, const native_handle_type& native_file,
@@ -255,7 +255,7 @@ public:
       > = defaulted_constraint())
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(
         impl_.get_implementation(), native_file, ec);
     asio::detail::throw_error(ec, "assign");
@@ -352,7 +352,7 @@ public:
    * @param open_flags A set of flags that determine how the file should be
    * opened.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * @code
@@ -362,7 +362,7 @@ public:
    */
   void open(const char* path, file_base::flags open_flags)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(), path, open_flags, ec);
     asio::detail::throw_error(ec, "open");
   }
@@ -381,7 +381,7 @@ public:
    * @par Example
    * @code
    * asio::stream_file file(my_context);
-   * asio::error_code ec;
+   * std::error_code ec;
    * file.open("/path/to/my/file", asio::stream_file::read_only, ec);
    * if (ec)
    * {
@@ -390,7 +390,7 @@ public:
    * @endcode
    */
   ASIO_SYNC_OP_VOID open(const char* path,
-      file_base::flags open_flags, asio::error_code& ec)
+      file_base::flags open_flags, std::error_code& ec)
   {
     impl_.get_service().open(impl_.get_implementation(), path, open_flags, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -405,7 +405,7 @@ public:
    * @param open_flags A set of flags that determine how the file should be
    * opened.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @par Example
    * @code
@@ -415,7 +415,7 @@ public:
    */
   void open(const std::string& path, file_base::flags open_flags)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().open(impl_.get_implementation(),
         path.c_str(), open_flags, ec);
     asio::detail::throw_error(ec, "open");
@@ -435,7 +435,7 @@ public:
    * @par Example
    * @code
    * asio::stream_file file(my_context);
-   * asio::error_code ec;
+   * std::error_code ec;
    * file.open("/path/to/my/file", asio::stream_file::read_only, ec);
    * if (ec)
    * {
@@ -444,7 +444,7 @@ public:
    * @endcode
    */
   ASIO_SYNC_OP_VOID open(const std::string& path,
-      file_base::flags open_flags, asio::error_code& ec)
+      file_base::flags open_flags, std::error_code& ec)
   {
     impl_.get_service().open(impl_.get_implementation(),
         path.c_str(), open_flags, ec);
@@ -457,11 +457,11 @@ public:
    *
    * @param native_file A native file.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void assign(const native_handle_type& native_file)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().assign(
         impl_.get_implementation(), native_file, ec);
     asio::detail::throw_error(ec, "assign");
@@ -476,7 +476,7 @@ public:
    * @param ec Set to indicate what error occurred, if any.
    */
   ASIO_SYNC_OP_VOID assign(const native_handle_type& native_file,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     impl_.get_service().assign(
         impl_.get_implementation(), native_file, ec);
@@ -495,12 +495,12 @@ public:
    * operations will be cancelled immediately, and will complete with the
    * asio::error::operation_aborted error.
    *
-   * @throws asio::system_error Thrown on failure. Note that, even if
+   * @throws std::system_error Thrown on failure. Note that, even if
    * the function indicates an error, the underlying descriptor is closed.
    */
   void close()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().close(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "close");
   }
@@ -518,7 +518,7 @@ public:
    * @code
    * asio::stream_file file(my_context);
    * ...
-   * asio::error_code ec;
+   * std::error_code ec;
    * file.close(ec);
    * if (ec)
    * {
@@ -526,7 +526,7 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID close(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID close(std::error_code& ec)
   {
     impl_.get_service().close(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -539,7 +539,7 @@ public:
    * operations will be passed the asio::error::operation_aborted error.
    * Ownership of the native file is then transferred to the caller.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note This function is unsupported on Windows versions prior to Windows
    * 8.1, and will fail with asio::error::operation_not_supported on
@@ -553,7 +553,7 @@ public:
 #endif
   native_handle_type release()
   {
-    asio::error_code ec;
+    std::error_code ec;
     native_handle_type s = impl_.get_service().release(
         impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "release");
@@ -579,7 +579,7 @@ public:
         "operation_not_supported when used on Windows versions "
         "prior to Windows 8.1."))
 #endif
-  native_handle_type release(asio::error_code& ec)
+  native_handle_type release(std::error_code& ec)
   {
     return impl_.get_service().release(impl_.get_implementation(), ec);
   }
@@ -601,7 +601,7 @@ public:
    * operations to finish immediately, and the handlers for cancelled
    * operations will be passed the asio::error::operation_aborted error.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note Calls to cancel() will always fail with
    * asio::error::operation_not_supported when run on Windows XP, Windows
@@ -632,7 +632,7 @@ public:
 #endif
   void cancel()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().cancel(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "cancel");
   }
@@ -672,7 +672,7 @@ public:
         "operation_not_supported when used on Windows XP, Windows Server 2003, "
         "or earlier. Consult documentation for details."))
 #endif
-  ASIO_SYNC_OP_VOID cancel(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID cancel(std::error_code& ec)
   {
     impl_.get_service().cancel(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -682,11 +682,11 @@ public:
   /**
    * This function determines the size of the file, in bytes.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   uint64_t size() const
   {
-    asio::error_code ec;
+    std::error_code ec;
     uint64_t s = impl_.get_service().size(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "size");
     return s;
@@ -698,7 +698,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  uint64_t size(asio::error_code& ec) const
+  uint64_t size(std::error_code& ec) const
   {
     return impl_.get_service().size(impl_.get_implementation(), ec);
   }
@@ -712,11 +712,11 @@ public:
    *
    * @param n The new size for the file.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void resize(uint64_t n)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().resize(impl_.get_implementation(), n, ec);
     asio::detail::throw_error(ec, "resize");
   }
@@ -732,7 +732,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID resize(uint64_t n, asio::error_code& ec)
+  ASIO_SYNC_OP_VOID resize(uint64_t n, std::error_code& ec)
   {
     impl_.get_service().resize(impl_.get_implementation(), n, ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -743,11 +743,11 @@ public:
    * This function synchronises the file data and metadata to disk. Note that
    * the semantics of this synchronisation vary between operation systems.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void sync_all()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().sync_all(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "sync_all");
   }
@@ -759,7 +759,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID sync_all(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID sync_all(std::error_code& ec)
   {
     impl_.get_service().sync_all(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -770,11 +770,11 @@ public:
    * This function synchronises the file data to disk. Note that the semantics
    * of this synchronisation vary between operation systems.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void sync_data()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().sync_data(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "sync_data");
   }
@@ -786,7 +786,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID sync_data(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID sync_data(std::error_code& ec)
   {
     impl_.get_service().sync_data(impl_.get_implementation(), ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);

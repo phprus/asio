@@ -30,7 +30,7 @@ const) value satisfying the [link asio.reference.ConstBufferSequence
     [
       Meets the requirements for a [link asio.reference.read_write_operations
       write operation] and an [link asio.reference.asynchronous_operations
-      asynchronous operation] with completion signature `void(error_code ec,
+      asynchronous operation] with completion signature `void(std::error_code ec,
       size_t n)`.[br]
       [br]
       If `buffer_size(cb) > 0`, initiates an asynchronous operation to write

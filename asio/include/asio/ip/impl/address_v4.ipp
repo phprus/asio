@@ -79,7 +79,7 @@ unsigned long address_v4::to_ulong() const
 
 std::string address_v4::to_string() const
 {
-  asio::error_code ec;
+  std::error_code ec;
   char addr_str[asio::detail::max_addr_v4_str_len];
   const char* addr =
     asio::detail::socket_ops::inet_ntop(
@@ -91,7 +91,7 @@ std::string address_v4::to_string() const
 }
 
 #if !defined(ASIO_NO_DEPRECATED)
-std::string address_v4::to_string(asio::error_code& ec) const
+std::string address_v4::to_string(std::error_code& ec) const
 {
   char addr_str[asio::detail::max_addr_v4_str_len];
   const char* addr =
@@ -156,14 +156,14 @@ address_v4 address_v4::netmask(const address_v4& addr)
 
 address_v4 make_address_v4(const char* str)
 {
-  asio::error_code ec;
+  std::error_code ec;
   address_v4 addr = make_address_v4(str, ec);
   asio::detail::throw_error(ec);
   return addr;
 }
 
 address_v4 make_address_v4(const char* str,
-    asio::error_code& ec) noexcept
+    std::error_code& ec) noexcept
 {
   address_v4::bytes_type bytes;
   if (asio::detail::socket_ops::inet_pton(
@@ -178,7 +178,7 @@ address_v4 make_address_v4(const std::string& str)
 }
 
 address_v4 make_address_v4(const std::string& str,
-    asio::error_code& ec) noexcept
+    std::error_code& ec) noexcept
 {
   return make_address_v4(str.c_str(), ec);
 }
@@ -191,7 +191,7 @@ address_v4 make_address_v4(string_view str)
 }
 
 address_v4 make_address_v4(string_view str,
-    asio::error_code& ec) noexcept
+    std::error_code& ec) noexcept
 {
   return make_address_v4(static_cast<std::string>(str), ec);
 }
