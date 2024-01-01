@@ -34,7 +34,7 @@ struct initiate_cancel_at : initiation_base<Initiation>
 
   template <typename Handler, typename Duration, typename... Args>
   void operator()(Handler&& handler,
-      const chrono::time_point<Clock, Duration>& expiry,
+      const std::chrono::time_point<Clock, Duration>& expiry,
       cancellation_type_t cancel_type, Args&&... args) &&
   {
     using op = detail::timed_cancel_op<decay_t<Handler>,
@@ -55,7 +55,7 @@ struct initiate_cancel_at : initiation_base<Initiation>
 
   template <typename Handler, typename Duration, typename... Args>
   void operator()(Handler&& handler,
-      const chrono::time_point<Clock, Duration>& expiry,
+      const std::chrono::time_point<Clock, Duration>& expiry,
       cancellation_type_t cancel_type, Args&&... args) const &
   {
     using op = detail::timed_cancel_op<decay_t<Handler>,
@@ -85,7 +85,7 @@ struct initiate_cancel_at_timer : initiation_base<Initiation>
   template <typename Handler, typename Duration, typename... Args>
   void operator()(Handler&& handler,
       basic_waitable_timer<Clock, WaitTraits, Executor>* timer,
-      const chrono::time_point<Clock, Duration>& expiry,
+      const std::chrono::time_point<Clock, Duration>& expiry,
       cancellation_type_t cancel_type, Args&&... args) &&
   {
     using op = detail::timed_cancel_op<decay_t<Handler>,
@@ -105,7 +105,7 @@ struct initiate_cancel_at_timer : initiation_base<Initiation>
   template <typename Handler, typename Duration, typename... Args>
   void operator()(Handler&& handler,
       basic_waitable_timer<Clock, WaitTraits, Executor>* timer,
-      const chrono::time_point<Clock, Duration>& expiry,
+      const std::chrono::time_point<Clock, Duration>& expiry,
       cancellation_type_t cancel_type, Args&&... args) const &
   {
     using op = detail::timed_cancel_op<decay_t<Handler>,

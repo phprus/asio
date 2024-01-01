@@ -47,7 +47,7 @@ void redirect_error_test()
   asio::error_code ec = asio::error::would_block;
   int count = 0;
 
-  timer1.expires_after(asio::chrono::seconds(0));
+  timer1.expires_after(std::chrono::seconds(0));
   timer1.async_wait(
       asio::redirect_error(
         asio::bind_executor(io2.get_executor(),
@@ -122,7 +122,7 @@ void partial_redirect_error_test()
   asio::error_code ec = asio::error::would_block;
   int count = 0;
 
-  timer1.expires_after(asio::chrono::seconds(0));
+  timer1.expires_after(std::chrono::seconds(0));
   timer1.async_wait(asio::redirect_error(ec))(
       asio::bind_executor(io2.get_executor(),
         redirect_error_handler(&count)));

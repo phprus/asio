@@ -18,7 +18,7 @@
 #include "asio/detail/config.hpp"
 #include "asio/basic_waitable_timer.hpp"
 #include "asio/cancellation_type.hpp"
-#include "asio/detail/chrono.hpp"
+#include <chrono>
 #include "asio/detail/type_traits.hpp"
 #include "asio/wait_traits.hpp"
 
@@ -174,11 +174,11 @@ public:
  * asynchronous operation is performed within an implicit or explicit strand.
  */
 template <typename Rep, typename Period>
-ASIO_NODISCARD inline partial_cancel_after<chrono::steady_clock>
-cancel_after(const chrono::duration<Rep, Period>& timeout,
+ASIO_NODISCARD inline partial_cancel_after<std::chrono::steady_clock>
+cancel_after(const std::chrono::duration<Rep, Period>& timeout,
     cancellation_type_t cancel_type = cancellation_type::terminal)
 {
-  return partial_cancel_after<chrono::steady_clock>(timeout, cancel_type);
+  return partial_cancel_after<std::chrono::steady_clock>(timeout, cancel_type);
 }
 
 /// Create a partial completion token adapter that cancels an operation if not
@@ -196,7 +196,7 @@ template <typename Clock, typename WaitTraits,
 ASIO_NODISCARD inline
 partial_cancel_after_timer<Clock, WaitTraits, Executor>
 cancel_after(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
-    const chrono::duration<Rep, Period>& timeout,
+    const std::chrono::duration<Rep, Period>& timeout,
     cancellation_type_t cancel_type = cancellation_type::terminal)
 {
   return partial_cancel_after_timer<Clock, WaitTraits, Executor>(
@@ -215,11 +215,11 @@ cancel_after(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
  */
 template <typename Rep, typename Period, typename CompletionToken>
 ASIO_NODISCARD inline
-cancel_after_t<decay_t<CompletionToken>, chrono::steady_clock>
-cancel_after(const chrono::duration<Rep, Period>& timeout,
+cancel_after_t<decay_t<CompletionToken>, std::chrono::steady_clock>
+cancel_after(const std::chrono::duration<Rep, Period>& timeout,
     CompletionToken&& completion_token)
 {
-  return cancel_after_t<decay_t<CompletionToken>, chrono::steady_clock>(
+  return cancel_after_t<decay_t<CompletionToken>, std::chrono::steady_clock>(
       static_cast<CompletionToken&&>(completion_token),
       timeout, cancellation_type::terminal);
 }
@@ -236,11 +236,11 @@ cancel_after(const chrono::duration<Rep, Period>& timeout,
  */
 template <typename Rep, typename Period, typename CompletionToken>
 ASIO_NODISCARD inline
-cancel_after_t<decay_t<CompletionToken>, chrono::steady_clock>
-cancel_after(const chrono::duration<Rep, Period>& timeout,
+cancel_after_t<decay_t<CompletionToken>, std::chrono::steady_clock>
+cancel_after(const std::chrono::duration<Rep, Period>& timeout,
     cancellation_type_t cancel_type, CompletionToken&& completion_token)
 {
-  return cancel_after_t<decay_t<CompletionToken>, chrono::steady_clock>(
+  return cancel_after_t<decay_t<CompletionToken>, std::chrono::steady_clock>(
       static_cast<CompletionToken&&>(completion_token), timeout, cancel_type);
 }
 
@@ -259,7 +259,7 @@ template <typename Clock, typename WaitTraits, typename Executor,
 ASIO_NODISCARD inline
 cancel_after_timer<decay_t<CompletionToken>, Clock, WaitTraits, Executor>
 cancel_after(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
-    const chrono::duration<Rep, Period>& timeout,
+    const std::chrono::duration<Rep, Period>& timeout,
     CompletionToken&& completion_token)
 {
   return cancel_after_timer<decay_t<CompletionToken>,
@@ -281,9 +281,9 @@ cancel_after(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
 template <typename Clock, typename WaitTraits, typename Executor,
     typename Rep, typename Period, typename CompletionToken>
 ASIO_NODISCARD inline
-cancel_after_timer<decay_t<CompletionToken>, chrono::steady_clock>
+cancel_after_timer<decay_t<CompletionToken>, std::chrono::steady_clock>
 cancel_after(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
-    const chrono::duration<Rep, Period>& timeout,
+    const std::chrono::duration<Rep, Period>& timeout,
     cancellation_type_t cancel_type, CompletionToken&& completion_token)
 {
   return cancel_after_timer<decay_t<CompletionToken>,

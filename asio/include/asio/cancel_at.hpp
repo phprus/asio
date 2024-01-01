@@ -18,7 +18,7 @@
 #include "asio/detail/config.hpp"
 #include "asio/basic_waitable_timer.hpp"
 #include "asio/cancellation_type.hpp"
-#include "asio/detail/chrono.hpp"
+#include <chrono>
 #include "asio/detail/type_traits.hpp"
 #include "asio/wait_traits.hpp"
 
@@ -173,7 +173,7 @@ public:
  */
 template <typename Clock, typename Duration>
 ASIO_NODISCARD inline partial_cancel_at<Clock>
-cancel_at(const chrono::time_point<Clock, Duration>& expiry,
+cancel_at(const std::chrono::time_point<Clock, Duration>& expiry,
     cancellation_type_t cancel_type = cancellation_type::terminal)
 {
   return partial_cancel_at<Clock>(expiry, cancel_type);
@@ -193,7 +193,7 @@ template <typename Clock, typename WaitTraits,
     typename Executor, typename Duration>
 ASIO_NODISCARD inline partial_cancel_at_timer<Clock, WaitTraits, Executor>
 cancel_at(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
-    const chrono::time_point<Clock, Duration>& expiry,
+    const std::chrono::time_point<Clock, Duration>& expiry,
     cancellation_type_t cancel_type = cancellation_type::terminal)
 {
   return partial_cancel_at_timer<Clock, WaitTraits, Executor>(
@@ -212,7 +212,7 @@ cancel_at(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
  */
 template <typename CompletionToken, typename Clock, typename Duration>
 ASIO_NODISCARD inline cancel_at_t<decay_t<CompletionToken>, Clock>
-cancel_at(const chrono::time_point<Clock, Duration>& expiry,
+cancel_at(const std::chrono::time_point<Clock, Duration>& expiry,
     CompletionToken&& completion_token)
 {
   return cancel_at_t<decay_t<CompletionToken>, Clock>(
@@ -232,7 +232,7 @@ cancel_at(const chrono::time_point<Clock, Duration>& expiry,
  */
 template <typename CompletionToken, typename Clock, typename Duration>
 ASIO_NODISCARD inline cancel_at_t<decay_t<CompletionToken>, Clock>
-cancel_at(const chrono::time_point<Clock, Duration>& expiry,
+cancel_at(const std::chrono::time_point<Clock, Duration>& expiry,
     cancellation_type_t cancel_type, CompletionToken&& completion_token)
 {
   return cancel_at_t<decay_t<CompletionToken>, Clock>(
@@ -254,7 +254,7 @@ template <typename CompletionToken, typename Clock,
 ASIO_NODISCARD inline
 cancel_at_timer<decay_t<CompletionToken>, Clock, WaitTraits, Executor>
 cancel_at(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
-    const chrono::time_point<Clock, Duration>& expiry,
+    const std::chrono::time_point<Clock, Duration>& expiry,
     CompletionToken&& completion_token)
 {
   return cancel_at_timer<decay_t<CompletionToken>, Clock, WaitTraits, Executor>(
@@ -277,7 +277,7 @@ template <typename CompletionToken, typename Clock,
 ASIO_NODISCARD inline
 cancel_at_timer<decay_t<CompletionToken>, Clock, WaitTraits, Executor>
 cancel_at(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
-    const chrono::time_point<Clock, Duration>& expiry,
+    const std::chrono::time_point<Clock, Duration>& expiry,
     cancellation_type_t cancel_type, CompletionToken&& completion_token)
 {
   return cancel_at_timer<decay_t<CompletionToken>, Clock, WaitTraits, Executor>(

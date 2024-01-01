@@ -17,7 +17,7 @@ relative time one may write:
   io_context i;
   ...
   steady_timer t(i);
-  t.expires_after(chrono::seconds(5));
+  t.expires_after(std::chrono::seconds(5));
   t.wait();
 
 More commonly, a program will perform an asynchronous wait operation on a
@@ -28,7 +28,7 @@ timer:
   io_context i;
   ...
   steady_timer t(i);
-  t.expires_after(chrono::milliseconds(400));
+  t.expires_after(std::chrono::milliseconds(400));
   t.async_wait(handler);
   ...
   i.run();
@@ -40,7 +40,7 @@ The deadline associated with a timer may also be obtained as an absolute time:
 which allows composition of timers:
 
   steady_timer t2(i);
-  t2.expires_at(t.expiry() + chrono::seconds(30));
+  t2.expires_at(t.expiry() + std::chrono::seconds(30));
 
 [heading See Also]
 
