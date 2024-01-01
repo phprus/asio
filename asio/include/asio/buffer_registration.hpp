@@ -258,7 +258,7 @@ private:
 
 /// Register buffers with an execution context.
 template <typename Executor, typename MutableBufferSequence>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 buffer_registration<MutableBufferSequence>
 register_buffers(const Executor& ex,
     const MutableBufferSequence& buffer_sequence,
@@ -271,7 +271,7 @@ register_buffers(const Executor& ex,
 
 /// Register buffers with an execution context.
 template <typename Executor, typename MutableBufferSequence, typename Allocator>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 buffer_registration<MutableBufferSequence, Allocator>
 register_buffers(const Executor& ex,
     const MutableBufferSequence& buffer_sequence, const Allocator& alloc,
@@ -285,7 +285,7 @@ register_buffers(const Executor& ex,
 
 /// Register buffers with an execution context.
 template <typename ExecutionContext, typename MutableBufferSequence>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 buffer_registration<MutableBufferSequence>
 register_buffers(ExecutionContext& ctx,
     const MutableBufferSequence& buffer_sequence,
@@ -299,7 +299,7 @@ register_buffers(ExecutionContext& ctx,
 /// Register buffers with an execution context.
 template <typename ExecutionContext,
     typename MutableBufferSequence, typename Allocator>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 buffer_registration<MutableBufferSequence, Allocator>
 register_buffers(ExecutionContext& ctx,
     const MutableBufferSequence& buffer_sequence, const Allocator& alloc,

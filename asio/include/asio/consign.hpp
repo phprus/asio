@@ -57,7 +57,7 @@ private:
  * called.
  */
 template <typename CompletionToken, typename... Values>
-ASIO_NODISCARD inline constexpr
+[[nodiscard]] inline constexpr
 consign_t<decay_t<CompletionToken>, decay_t<Values>...>
 consign(CompletionToken&& completion_token, Values&&... values)
 {

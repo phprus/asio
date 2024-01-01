@@ -136,7 +136,7 @@ struct associated_allocator
  * @returns <tt>associated_allocator<T>::get(t)</tt>
  */
 template <typename T>
-ASIO_NODISCARD inline typename associated_allocator<T>::type
+[[nodiscard]] inline typename associated_allocator<T>::type
 get_associated_allocator(const T& t) noexcept
 {
   return associated_allocator<T>::get(t);
@@ -147,7 +147,7 @@ get_associated_allocator(const T& t) noexcept
  * @returns <tt>associated_allocator<T, Allocator>::get(t, a)</tt>
  */
 template <typename T, typename Allocator>
-ASIO_NODISCARD inline auto get_associated_allocator(
+[[nodiscard]] inline auto get_associated_allocator(
     const T& t, const Allocator& a) noexcept
   -> decltype(associated_allocator<T, Allocator>::get(t, a))
 {

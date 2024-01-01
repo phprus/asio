@@ -80,7 +80,7 @@ constexpr cancellation_state_t cancellation_state;
  * @note The cancellation state is shared by all coroutines in the same "thread
  * of execution" that was created using asio::co_spawn.
  */
-ASIO_NODISCARD constexpr unspecified
+[[nodiscard]] constexpr unspecified
 reset_cancellation_state();
 
 /// Returns an awaitable object that may be used to reset the cancellation state
@@ -105,7 +105,7 @@ reset_cancellation_state();
  * of execution" that was created using asio::co_spawn.
  */
 template <typename Filter>
-ASIO_NODISCARD constexpr unspecified
+[[nodiscard]] constexpr unspecified
 reset_cancellation_state(Filter&& filter);
 
 /// Returns an awaitable object that may be used to reset the cancellation state
@@ -132,7 +132,7 @@ reset_cancellation_state(Filter&& filter);
  * of execution" that was created using asio::co_spawn.
  */
 template <typename InFilter, typename OutFilter>
-ASIO_NODISCARD constexpr unspecified
+[[nodiscard]] constexpr unspecified
 reset_cancellation_state(
     InFilter&& in_filter,
     OutFilter&& out_filter);
@@ -149,7 +149,7 @@ reset_cancellation_state(
  *   // ...
  * } @endcode
  */
-ASIO_NODISCARD constexpr unspecified
+[[nodiscard]] constexpr unspecified
 throw_if_cancelled();
 
 /// Returns an awaitable object that may be used to specify whether the
@@ -163,7 +163,7 @@ throw_if_cancelled();
  *   // ...
  * } @endcode
  */
-ASIO_NODISCARD constexpr unspecified
+[[nodiscard]] constexpr unspecified
 throw_if_cancelled(bool value);
 
 #else // defined(GENERATING_DOCUMENTATION)
@@ -175,7 +175,7 @@ struct reset_cancellation_state_0_t
   }
 };
 
-ASIO_NODISCARD inline constexpr reset_cancellation_state_0_t
+[[nodiscard]] inline constexpr reset_cancellation_state_0_t
 reset_cancellation_state()
 {
   return reset_cancellation_state_0_t();
@@ -195,7 +195,7 @@ struct reset_cancellation_state_1_t
 };
 
 template <typename Filter>
-ASIO_NODISCARD inline constexpr reset_cancellation_state_1_t<
+[[nodiscard]] inline constexpr reset_cancellation_state_1_t<
     decay_t<Filter>>
 reset_cancellation_state(Filter&& filter)
 {
@@ -219,7 +219,7 @@ struct reset_cancellation_state_2_t
 };
 
 template <typename InFilter, typename OutFilter>
-ASIO_NODISCARD inline constexpr
+[[nodiscard]] inline constexpr
 reset_cancellation_state_2_t<decay_t<InFilter>, decay_t<OutFilter>>
 reset_cancellation_state(InFilter&& in_filter, OutFilter&& out_filter)
 {
@@ -235,7 +235,7 @@ struct throw_if_cancelled_0_t
   }
 };
 
-ASIO_NODISCARD inline constexpr throw_if_cancelled_0_t
+[[nodiscard]] inline constexpr throw_if_cancelled_0_t
 throw_if_cancelled()
 {
   return throw_if_cancelled_0_t();
@@ -251,7 +251,7 @@ struct throw_if_cancelled_1_t
   bool value;
 };
 
-ASIO_NODISCARD inline constexpr throw_if_cancelled_1_t
+[[nodiscard]] inline constexpr throw_if_cancelled_1_t
 throw_if_cancelled(bool value)
 {
   return throw_if_cancelled_1_t(value);
