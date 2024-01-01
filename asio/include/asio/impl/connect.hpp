@@ -122,26 +122,6 @@ typename Protocol::endpoint connect(basic_socket<Protocol, Executor>& s,
         detail::default_connect_condition(), ec), ec);
 }
 
-#if !defined(ASIO_NO_DEPRECATED)
-template <typename Protocol, typename Executor, typename Iterator>
-Iterator connect(basic_socket<Protocol, Executor>& s, Iterator begin,
-    constraint_t<!is_endpoint_sequence<Iterator>::value>)
-{
-  std::error_code ec;
-  Iterator result = connect(s, begin, ec);
-  asio::detail::throw_error(ec, "connect");
-  return result;
-}
-
-template <typename Protocol, typename Executor, typename Iterator>
-inline Iterator connect(basic_socket<Protocol, Executor>& s,
-    Iterator begin, std::error_code& ec,
-    constraint_t<!is_endpoint_sequence<Iterator>::value>)
-{
-  return connect(s, begin, Iterator(), detail::default_connect_condition(), ec);
-}
-#endif // !defined(ASIO_NO_DEPRECATED)
-
 template <typename Protocol, typename Executor, typename Iterator>
 Iterator connect(basic_socket<Protocol, Executor>& s,
     Iterator begin, Iterator end)
@@ -183,30 +163,6 @@ typename Protocol::endpoint connect(basic_socket<Protocol, Executor>& s,
       connect(s, endpoints.begin(), endpoints.end(),
         connect_condition, ec), ec);
 }
-
-#if !defined(ASIO_NO_DEPRECATED)
-template <typename Protocol, typename Executor,
-    typename Iterator, typename ConnectCondition>
-Iterator connect(basic_socket<Protocol, Executor>& s,
-    Iterator begin, ConnectCondition connect_condition,
-    constraint_t<!is_endpoint_sequence<Iterator>::value>)
-{
-  std::error_code ec;
-  Iterator result = connect(s, begin, connect_condition, ec);
-  asio::detail::throw_error(ec, "connect");
-  return result;
-}
-
-template <typename Protocol, typename Executor,
-    typename Iterator, typename ConnectCondition>
-inline Iterator connect(basic_socket<Protocol, Executor>& s,
-    Iterator begin, ConnectCondition connect_condition,
-    std::error_code& ec,
-    constraint_t<!is_endpoint_sequence<Iterator>::value>)
-{
-  return connect(s, begin, Iterator(), connect_condition, ec);
-}
-#endif // !defined(ASIO_NO_DEPRECATED)
 
 template <typename Protocol, typename Executor,
     typename Iterator, typename ConnectCondition>
@@ -705,26 +661,6 @@ inline auto async_connect(basic_socket<Protocol, Executor>& s,
       token, endpoints, detail::default_connect_condition());
 }
 
-#if !defined(ASIO_NO_DEPRECATED)
-template <typename Protocol, typename Executor, typename Iterator,
-    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
-      Iterator)) IteratorConnectToken>
-inline auto async_connect(basic_socket<Protocol, Executor>& s,
-    Iterator begin, IteratorConnectToken&& token,
-    constraint_t<!is_endpoint_sequence<Iterator>::value>)
-  -> decltype(
-    async_initiate<IteratorConnectToken,
-      void (std::error_code, Iterator)>(
-        declval<detail::initiate_async_iterator_connect<Protocol, Executor>>(),
-        token, begin, Iterator(), declval<detail::default_connect_condition>()))
-{
-  return async_initiate<IteratorConnectToken,
-    void (std::error_code, Iterator)>(
-      detail::initiate_async_iterator_connect<Protocol, Executor>(s),
-      token, begin, Iterator(), detail::default_connect_condition());
-}
-#endif // !defined(ASIO_NO_DEPRECATED)
-
 template <typename Protocol, typename Executor, typename Iterator,
     ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       Iterator)) IteratorConnectToken>
@@ -761,27 +697,6 @@ inline auto async_connect(basic_socket<Protocol, Executor>& s,
       detail::initiate_async_range_connect<Protocol, Executor>(s),
       token, endpoints, connect_condition);
 }
-
-#if !defined(ASIO_NO_DEPRECATED)
-template <typename Protocol, typename Executor,
-    typename Iterator, typename ConnectCondition,
-    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
-      Iterator)) IteratorConnectToken>
-inline auto async_connect(basic_socket<Protocol, Executor>& s, Iterator begin,
-    ConnectCondition connect_condition, IteratorConnectToken&& token,
-    constraint_t<!is_endpoint_sequence<Iterator>::value>)
-  -> decltype(
-    async_initiate<IteratorConnectToken,
-      void (std::error_code, Iterator)>(
-        declval<detail::initiate_async_iterator_connect<Protocol, Executor>>(),
-        token, begin, Iterator(), connect_condition))
-{
-  return async_initiate<IteratorConnectToken,
-    void (std::error_code, Iterator)>(
-      detail::initiate_async_iterator_connect<Protocol, Executor>(s),
-      token, begin, Iterator(), connect_condition);
-}
-#endif // !defined(ASIO_NO_DEPRECATED)
 
 template <typename Protocol, typename Executor,
     typename Iterator, typename ConnectCondition,
