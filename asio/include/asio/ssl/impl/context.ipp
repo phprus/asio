@@ -443,7 +443,7 @@ void context::clear_options(context::options o)
   asio::detail::throw_error(ec, "clear_options");
 }
 
-ASIO_SYNC_OP_VOID context::clear_options(
+void context::clear_options(
     context::options o, std::error_code& ec)
 {
 #if (OPENSSL_VERSION_NUMBER >= 0x009080DFL) \
@@ -467,7 +467,7 @@ ASIO_SYNC_OP_VOID context::clear_options(
   ec = asio::error::operation_not_supported;
 #endif // (OPENSSL_VERSION_NUMBER >= 0x009080DFL)
        //   && (OPENSSL_VERSION_NUMBER != 0x00909000L)
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::set_options(context::options o)
@@ -477,7 +477,7 @@ void context::set_options(context::options o)
   asio::detail::throw_error(ec, "set_options");
 }
 
-ASIO_SYNC_OP_VOID context::set_options(
+void context::set_options(
     context::options o, std::error_code& ec)
 {
 #if !defined(SSL_OP_NO_COMPRESSION)
@@ -494,7 +494,7 @@ ASIO_SYNC_OP_VOID context::set_options(
   ::SSL_CTX_set_options(handle_, o);
 
   ec = std::error_code();
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::set_verify_mode(verify_mode v)
@@ -504,13 +504,13 @@ void context::set_verify_mode(verify_mode v)
   asio::detail::throw_error(ec, "set_verify_mode");
 }
 
-ASIO_SYNC_OP_VOID context::set_verify_mode(
+void context::set_verify_mode(
     verify_mode v, std::error_code& ec)
 {
   ::SSL_CTX_set_verify(handle_, v, ::SSL_CTX_get_verify_callback(handle_));
 
   ec = std::error_code();
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::set_verify_depth(int depth)
@@ -520,13 +520,13 @@ void context::set_verify_depth(int depth)
   asio::detail::throw_error(ec, "set_verify_depth");
 }
 
-ASIO_SYNC_OP_VOID context::set_verify_depth(
+void context::set_verify_depth(
     int depth, std::error_code& ec)
 {
   ::SSL_CTX_set_verify_depth(handle_, depth);
 
   ec = std::error_code();
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::load_verify_file(const std::string& filename)
@@ -536,7 +536,7 @@ void context::load_verify_file(const std::string& filename)
   asio::detail::throw_error(ec, "load_verify_file");
 }
 
-ASIO_SYNC_OP_VOID context::load_verify_file(
+void context::load_verify_file(
     const std::string& filename, std::error_code& ec)
 {
   ::ERR_clear_error();
@@ -544,11 +544,11 @@ ASIO_SYNC_OP_VOID context::load_verify_file(
   if (::SSL_CTX_load_verify_locations(handle_, filename.c_str(), 0) != 1)
   {
     ec = translate_error(::ERR_get_error());
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   ec = std::error_code();
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::add_certificate_authority(const const_buffer& ca)
@@ -558,7 +558,7 @@ void context::add_certificate_authority(const const_buffer& ca)
   asio::detail::throw_error(ec, "add_certificate_authority");
 }
 
-ASIO_SYNC_OP_VOID context::add_certificate_authority(
+void context::add_certificate_authority(
     const const_buffer& ca, std::error_code& ec)
 {
   ::ERR_clear_error();
@@ -579,20 +579,20 @@ ASIO_SYNC_OP_VOID context::add_certificate_authority(
             break;
 
           ec = translate_error(err);
-          ASIO_SYNC_OP_VOID_RETURN(ec);
+          return;
         }
 
         if (::X509_STORE_add_cert(store, cert.p) != 1)
         {
           ec = translate_error(::ERR_get_error());
-          ASIO_SYNC_OP_VOID_RETURN(ec);
+          return;
         }
       }
     }
   }
 
   ec = std::error_code();
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::set_default_verify_paths()
@@ -602,7 +602,7 @@ void context::set_default_verify_paths()
   asio::detail::throw_error(ec, "set_default_verify_paths");
 }
 
-ASIO_SYNC_OP_VOID context::set_default_verify_paths(
+void context::set_default_verify_paths(
     std::error_code& ec)
 {
   ::ERR_clear_error();
@@ -610,11 +610,11 @@ ASIO_SYNC_OP_VOID context::set_default_verify_paths(
   if (::SSL_CTX_set_default_verify_paths(handle_) != 1)
   {
     ec = translate_error(::ERR_get_error());
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   ec = std::error_code();
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::add_verify_path(const std::string& path)
@@ -624,7 +624,7 @@ void context::add_verify_path(const std::string& path)
   asio::detail::throw_error(ec, "add_verify_path");
 }
 
-ASIO_SYNC_OP_VOID context::add_verify_path(
+void context::add_verify_path(
     const std::string& path, std::error_code& ec)
 {
   ::ERR_clear_error();
@@ -632,11 +632,11 @@ ASIO_SYNC_OP_VOID context::add_verify_path(
   if (::SSL_CTX_load_verify_locations(handle_, 0, path.c_str()) != 1)
   {
     ec = translate_error(::ERR_get_error());
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   ec = std::error_code();
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::use_certificate(
@@ -647,7 +647,7 @@ void context::use_certificate(
   asio::detail::throw_error(ec, "use_certificate");
 }
 
-ASIO_SYNC_OP_VOID context::use_certificate(
+void context::use_certificate(
     const const_buffer& certificate, file_format format,
     std::error_code& ec)
 {
@@ -660,7 +660,7 @@ ASIO_SYNC_OP_VOID context::use_certificate(
           static_cast<const unsigned char*>(certificate.data())) == 1)
     {
       ec = std::error_code();
-      ASIO_SYNC_OP_VOID_RETURN(ec);
+      return;
     }
   }
   else if (format == context_base::pem)
@@ -674,7 +674,7 @@ ASIO_SYNC_OP_VOID context::use_certificate(
         if (::SSL_CTX_use_certificate(handle_, cert.p) == 1)
         {
           ec = std::error_code();
-          ASIO_SYNC_OP_VOID_RETURN(ec);
+          return;
         }
       }
     }
@@ -682,11 +682,11 @@ ASIO_SYNC_OP_VOID context::use_certificate(
   else
   {
     ec = asio::error::invalid_argument;
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   ec = translate_error(::ERR_get_error());
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::use_certificate_file(
@@ -697,7 +697,7 @@ void context::use_certificate_file(
   asio::detail::throw_error(ec, "use_certificate_file");
 }
 
-ASIO_SYNC_OP_VOID context::use_certificate_file(
+void context::use_certificate_file(
     const std::string& filename, file_format format,
     std::error_code& ec)
 {
@@ -713,7 +713,7 @@ ASIO_SYNC_OP_VOID context::use_certificate_file(
   default:
     {
       ec = asio::error::invalid_argument;
-      ASIO_SYNC_OP_VOID_RETURN(ec);
+      return;
     }
   }
 
@@ -722,11 +722,11 @@ ASIO_SYNC_OP_VOID context::use_certificate_file(
   if (::SSL_CTX_use_certificate_file(handle_, filename.c_str(), file_type) != 1)
   {
     ec = translate_error(::ERR_get_error());
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   ec = std::error_code();
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::use_certificate_chain(const const_buffer& chain)
@@ -736,7 +736,7 @@ void context::use_certificate_chain(const const_buffer& chain)
   asio::detail::throw_error(ec, "use_certificate_chain");
 }
 
-ASIO_SYNC_OP_VOID context::use_certificate_chain(
+void context::use_certificate_chain(
     const const_buffer& chain, std::error_code& ec)
 {
   ::ERR_clear_error();
@@ -761,14 +761,14 @@ ASIO_SYNC_OP_VOID context::use_certificate_chain(
     if (!cert.p)
     {
       ec = translate_error(ERR_R_PEM_LIB);
-      ASIO_SYNC_OP_VOID_RETURN(ec);
+      return;
     }
 
     int result = ::SSL_CTX_use_certificate(handle_, cert.p);
     if (result == 0 || ::ERR_peek_error() != 0)
     {
       ec = translate_error(::ERR_get_error());
-      ASIO_SYNC_OP_VOID_RETURN(ec);
+      return;
     }
 
 #if ((OPENSSL_VERSION_NUMBER >= 0x10002000L) \
@@ -791,7 +791,7 @@ ASIO_SYNC_OP_VOID context::use_certificate_chain(
       if (!::SSL_CTX_add_extra_chain_cert(handle_, cacert))
       {
         ec = translate_error(::ERR_get_error());
-        ASIO_SYNC_OP_VOID_RETURN(ec);
+        return;
       }
     }
   
@@ -801,12 +801,12 @@ ASIO_SYNC_OP_VOID context::use_certificate_chain(
     {
       ::ERR_clear_error();
       ec = std::error_code();
-      ASIO_SYNC_OP_VOID_RETURN(ec);
+      return;
     }
   }
 
   ec = translate_error(::ERR_get_error());
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::use_certificate_chain_file(const std::string& filename)
@@ -816,7 +816,7 @@ void context::use_certificate_chain_file(const std::string& filename)
   asio::detail::throw_error(ec, "use_certificate_chain_file");
 }
 
-ASIO_SYNC_OP_VOID context::use_certificate_chain_file(
+void context::use_certificate_chain_file(
     const std::string& filename, std::error_code& ec)
 {
   ::ERR_clear_error();
@@ -824,11 +824,11 @@ ASIO_SYNC_OP_VOID context::use_certificate_chain_file(
   if (::SSL_CTX_use_certificate_chain_file(handle_, filename.c_str()) != 1)
   {
     ec = translate_error(::ERR_get_error());
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   ec = std::error_code();
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::use_private_key(
@@ -839,7 +839,7 @@ void context::use_private_key(
   asio::detail::throw_error(ec, "use_private_key");
 }
 
-ASIO_SYNC_OP_VOID context::use_private_key(
+void context::use_private_key(
     const const_buffer& private_key, context::file_format format,
     std::error_code& ec)
 {
@@ -873,7 +873,7 @@ ASIO_SYNC_OP_VOID context::use_private_key(
     default:
       {
         ec = asio::error::invalid_argument;
-        ASIO_SYNC_OP_VOID_RETURN(ec);
+        return;
       }
     }
 
@@ -882,13 +882,13 @@ ASIO_SYNC_OP_VOID context::use_private_key(
       if (::SSL_CTX_use_PrivateKey(handle_, evp_private_key.p) == 1)
       {
         ec = std::error_code();
-        ASIO_SYNC_OP_VOID_RETURN(ec);
+        return;
       }
     }
   }
 
   ec = translate_error(::ERR_get_error());
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::use_private_key_file(
@@ -907,7 +907,7 @@ void context::use_rsa_private_key(
   asio::detail::throw_error(ec, "use_rsa_private_key");
 }
 
-ASIO_SYNC_OP_VOID context::use_rsa_private_key(
+void context::use_rsa_private_key(
     const const_buffer& private_key, context::file_format format,
     std::error_code& ec)
 {
@@ -942,7 +942,7 @@ ASIO_SYNC_OP_VOID context::use_rsa_private_key(
     default:
       {
         ec = asio::error::invalid_argument;
-        ASIO_SYNC_OP_VOID_RETURN(ec);
+        return;
       }
     }
 
@@ -952,13 +952,13 @@ ASIO_SYNC_OP_VOID context::use_rsa_private_key(
       {
         ec = translate_error(
             ERR_PACK(ERR_LIB_EVP, 0, EVP_R_EXPECTING_AN_RSA_KEY));
-        ASIO_SYNC_OP_VOID_RETURN(ec);
+        return;
       }
 
       if (::SSL_CTX_use_PrivateKey(handle_, evp_private_key.p) == 1)
       {
         ec = std::error_code();
-        ASIO_SYNC_OP_VOID_RETURN(ec);
+        return;
       }
     }
 #else // (OPENSSL_VERSION_NUMBER >= 0x30000000L)
@@ -976,7 +976,7 @@ ASIO_SYNC_OP_VOID context::use_rsa_private_key(
     default:
       {
         ec = asio::error::invalid_argument;
-        ASIO_SYNC_OP_VOID_RETURN(ec);
+        return;
       }
     }
 
@@ -985,17 +985,17 @@ ASIO_SYNC_OP_VOID context::use_rsa_private_key(
       if (::SSL_CTX_use_RSAPrivateKey(handle_, rsa_private_key.p) == 1)
       {
         ec = std::error_code();
-        ASIO_SYNC_OP_VOID_RETURN(ec);
+        return;
       }
     }
 #endif // (OPENSSL_VERSION_NUMBER >= 0x30000000L)
   }
 
   ec = translate_error(::ERR_get_error());
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
-ASIO_SYNC_OP_VOID context::use_private_key_file(
+void context::use_private_key_file(
     const std::string& filename, context::file_format format,
     std::error_code& ec)
 {
@@ -1011,7 +1011,7 @@ ASIO_SYNC_OP_VOID context::use_private_key_file(
   default:
     {
       ec = asio::error::invalid_argument;
-      ASIO_SYNC_OP_VOID_RETURN(ec);
+      return;
     }
   }
 
@@ -1020,11 +1020,11 @@ ASIO_SYNC_OP_VOID context::use_private_key_file(
   if (::SSL_CTX_use_PrivateKey_file(handle_, filename.c_str(), file_type) != 1)
   {
     ec = translate_error(::ERR_get_error());
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   ec = std::error_code();
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::use_rsa_private_key_file(
@@ -1035,7 +1035,7 @@ void context::use_rsa_private_key_file(
   asio::detail::throw_error(ec, "use_rsa_private_key_file");
 }
 
-ASIO_SYNC_OP_VOID context::use_rsa_private_key_file(
+void context::use_rsa_private_key_file(
     const std::string& filename, context::file_format format,
     std::error_code& ec)
 {
@@ -1062,7 +1062,7 @@ ASIO_SYNC_OP_VOID context::use_rsa_private_key_file(
     default:
       {
         ec = asio::error::invalid_argument;
-        ASIO_SYNC_OP_VOID_RETURN(ec);
+        return;
       }
     }
 
@@ -1072,19 +1072,19 @@ ASIO_SYNC_OP_VOID context::use_rsa_private_key_file(
       {
         ec = translate_error(
             ERR_PACK(ERR_LIB_EVP, 0, EVP_R_EXPECTING_AN_RSA_KEY));
-        ASIO_SYNC_OP_VOID_RETURN(ec);
+        return;
       }
 
       if (::SSL_CTX_use_PrivateKey(handle_, evp_private_key.p) == 1)
       {
         ec = std::error_code();
-        ASIO_SYNC_OP_VOID_RETURN(ec);
+        return;
       }
     }
   }
 
   ec = translate_error(::ERR_get_error());
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 #else // (OPENSSL_VERSION_NUMBER >= 0x30000000L)
   int file_type;
   switch (format)
@@ -1098,7 +1098,7 @@ ASIO_SYNC_OP_VOID context::use_rsa_private_key_file(
   default:
     {
       ec = asio::error::invalid_argument;
-      ASIO_SYNC_OP_VOID_RETURN(ec);
+      return;
     }
   }
 
@@ -1108,11 +1108,11 @@ ASIO_SYNC_OP_VOID context::use_rsa_private_key_file(
         handle_, filename.c_str(), file_type) != 1)
   {
     ec = translate_error(::ERR_get_error());
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   ec = std::error_code();
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 #endif // (OPENSSL_VERSION_NUMBER >= 0x30000000L)
 }
 
@@ -1123,7 +1123,7 @@ void context::use_tmp_dh(const const_buffer& dh)
   asio::detail::throw_error(ec, "use_tmp_dh");
 }
 
-ASIO_SYNC_OP_VOID context::use_tmp_dh(
+void context::use_tmp_dh(
     const const_buffer& dh, std::error_code& ec)
 {
   ::ERR_clear_error();
@@ -1135,7 +1135,7 @@ ASIO_SYNC_OP_VOID context::use_tmp_dh(
   }
 
   ec = translate_error(::ERR_get_error());
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 void context::use_tmp_dh_file(const std::string& filename)
@@ -1145,7 +1145,7 @@ void context::use_tmp_dh_file(const std::string& filename)
   asio::detail::throw_error(ec, "use_tmp_dh_file");
 }
 
-ASIO_SYNC_OP_VOID context::use_tmp_dh_file(
+void context::use_tmp_dh_file(
     const std::string& filename, std::error_code& ec)
 {
   ::ERR_clear_error();
@@ -1157,10 +1157,10 @@ ASIO_SYNC_OP_VOID context::use_tmp_dh_file(
   }
 
   ec = translate_error(::ERR_get_error());
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
-ASIO_SYNC_OP_VOID context::do_use_tmp_dh(
+void context::do_use_tmp_dh(
     BIO* bio, std::error_code& ec)
 {
   ::ERR_clear_error();
@@ -1172,7 +1172,7 @@ ASIO_SYNC_OP_VOID context::do_use_tmp_dh(
     if (::SSL_CTX_set0_tmp_dh_pkey(handle_, p) == 1)
     {
       ec = std::error_code();
-      ASIO_SYNC_OP_VOID_RETURN(ec);
+      return;
     }
     else
       ::EVP_PKEY_free(p);
@@ -1184,16 +1184,16 @@ ASIO_SYNC_OP_VOID context::do_use_tmp_dh(
     if (::SSL_CTX_set_tmp_dh(handle_, dh.p) == 1)
     {
       ec = std::error_code();
-      ASIO_SYNC_OP_VOID_RETURN(ec);
+      return;
     }
   }
 #endif // (OPENSSL_VERSION_NUMBER >= 0x30000000L)
 
   ec = translate_error(::ERR_get_error());
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
-ASIO_SYNC_OP_VOID context::do_set_verify_callback(
+void context::do_set_verify_callback(
     detail::verify_callback_base* callback, std::error_code& ec)
 {
   if (SSL_CTX_get_app_data(handle_))
@@ -1209,7 +1209,7 @@ ASIO_SYNC_OP_VOID context::do_set_verify_callback(
       &context::verify_callback_function);
 
   ec = std::error_code();
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 int context::verify_callback_function(int preverified, X509_STORE_CTX* ctx)
@@ -1238,7 +1238,7 @@ int context::verify_callback_function(int preverified, X509_STORE_CTX* ctx)
   return 0;
 }
 
-ASIO_SYNC_OP_VOID context::do_set_password_callback(
+void context::do_set_password_callback(
     detail::password_callback_base* callback, std::error_code& ec)
 {
 #if ((OPENSSL_VERSION_NUMBER >= 0x10100000L) \
@@ -1259,7 +1259,7 @@ ASIO_SYNC_OP_VOID context::do_set_password_callback(
   SSL_CTX_set_default_passwd_cb(handle_, &context::password_callback_function);
 
   ec = std::error_code();
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 int context::password_callback_function(

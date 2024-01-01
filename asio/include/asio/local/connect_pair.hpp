@@ -38,7 +38,7 @@ void connect_pair(basic_socket<Protocol, Executor1>& socket1,
 
 /// Create a pair of connected sockets.
 template <typename Protocol, typename Executor1, typename Executor2>
-ASIO_SYNC_OP_VOID connect_pair(basic_socket<Protocol, Executor1>& socket1,
+void connect_pair(basic_socket<Protocol, Executor1>& socket1,
     basic_socket<Protocol, Executor2>& socket2, std::error_code& ec);
 
 template <typename Protocol, typename Executor1, typename Executor2>
@@ -51,7 +51,7 @@ inline void connect_pair(basic_socket<Protocol, Executor1>& socket1,
 }
 
 template <typename Protocol, typename Executor1, typename Executor2>
-inline ASIO_SYNC_OP_VOID connect_pair(
+inline void connect_pair(
     basic_socket<Protocol, Executor1>& socket1,
     basic_socket<Protocol, Executor2>& socket2, std::error_code& ec)
 {
@@ -65,7 +65,7 @@ inline ASIO_SYNC_OP_VOID connect_pair(
   if (asio::detail::socket_ops::socketpair(protocol.family(),
         protocol.type(), protocol.protocol(), sv, ec)
       == asio::detail::socket_error_retval)
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
 
   socket1.assign(protocol, sv[0], ec);
   if (ec)
@@ -74,7 +74,7 @@ inline ASIO_SYNC_OP_VOID connect_pair(
     asio::detail::socket_ops::state_type state[2] = { 0, 0 };
     asio::detail::socket_ops::close(sv[0], state[0], true, temp_ec);
     asio::detail::socket_ops::close(sv[1], state[1], true, temp_ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   socket2.assign(protocol, sv[1], ec);
@@ -84,10 +84,10 @@ inline ASIO_SYNC_OP_VOID connect_pair(
     socket1.close(temp_ec);
     asio::detail::socket_ops::state_type state = 0;
     asio::detail::socket_ops::close(sv[1], state, true, temp_ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
-  ASIO_SYNC_OP_VOID_RETURN(ec);
+  return;
 }
 
 } // namespace local

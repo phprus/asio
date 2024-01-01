@@ -721,10 +721,6 @@
         //   || (defined(__MACH__) && defined(__APPLE__))
 #endif // !defined(ASIO_DISABLE_SSIZE_T)
 
-// Helper macros to manage transition away from std::error_code return values.
-#define ASIO_SYNC_OP_VOID void
-#define ASIO_SYNC_OP_VOID_RETURN(e) return
-
 // Newer gcc, clang need special treatment to suppress unused typedef warnings.
 #if defined(__clang__)
 # if defined(__apple_build_version__)

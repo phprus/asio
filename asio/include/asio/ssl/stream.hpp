@@ -288,11 +288,11 @@ public:
    *
    * @note Calls @c SSL_set_verify.
    */
-  ASIO_SYNC_OP_VOID set_verify_mode(
+  void set_verify_mode(
       verify_mode v, std::error_code& ec)
   {
     core_.engine_.set_verify_mode(v, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Set the peer verification depth.
@@ -326,11 +326,11 @@ public:
    *
    * @note Calls @c SSL_set_verify_depth.
    */
-  ASIO_SYNC_OP_VOID set_verify_depth(
+  void set_verify_depth(
       int depth, std::error_code& ec)
   {
     core_.engine_.set_verify_depth(depth, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Set the callback used to verify peer certificates.
@@ -378,12 +378,12 @@ public:
    * @note Calls @c SSL_set_verify.
    */
   template <typename VerifyCallback>
-  ASIO_SYNC_OP_VOID set_verify_callback(VerifyCallback callback,
+  void set_verify_callback(VerifyCallback callback,
       std::error_code& ec)
   {
     core_.engine_.set_verify_callback(
         new detail::verify_callback<VerifyCallback>(callback), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Perform SSL handshaking.
@@ -413,11 +413,11 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID handshake(handshake_type type,
+  void handshake(handshake_type type,
       std::error_code& ec)
   {
     detail::io(next_layer_, core_, detail::handshake_op(type), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Perform SSL handshaking.
@@ -453,12 +453,12 @@ public:
    * @param ec Set to indicate what error occurred, if any.
    */
   template <typename ConstBufferSequence>
-  ASIO_SYNC_OP_VOID handshake(handshake_type type,
+  void handshake(handshake_type type,
       const ConstBufferSequence& buffers, std::error_code& ec)
   {
     detail::io(next_layer_, core_,
         detail::buffered_handshake_op<ConstBufferSequence>(type, buffers), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Start an asynchronous SSL handshake.
@@ -595,10 +595,10 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID shutdown(std::error_code& ec)
+  void shutdown(std::error_code& ec)
   {
     detail::io(next_layer_, core_, detail::shutdown_op(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Asynchronously shut down SSL on the stream.

@@ -496,11 +496,11 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID open(const protocol_type& protocol,
+  void open(const protocol_type& protocol,
       std::error_code& ec)
   {
     impl_.get_service().open(impl_.get_implementation(), protocol, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Assigns an existing native acceptor to the acceptor.
@@ -532,12 +532,12 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID assign(const protocol_type& protocol,
+  void assign(const protocol_type& protocol,
       const native_handle_type& native_acceptor, std::error_code& ec)
   {
     impl_.get_service().assign(impl_.get_implementation(),
         protocol, native_acceptor, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Determine whether the acceptor is open.
@@ -594,11 +594,11 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID bind(const endpoint_type& endpoint,
+  void bind(const endpoint_type& endpoint,
       std::error_code& ec)
   {
     impl_.get_service().bind(impl_.get_implementation(), endpoint, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Place the acceptor into the state where it will listen for new
@@ -640,10 +640,10 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID listen(int backlog, std::error_code& ec)
+  void listen(int backlog, std::error_code& ec)
   {
     impl_.get_service().listen(impl_.get_implementation(), backlog, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Close the acceptor.
@@ -685,10 +685,10 @@ public:
    * }
    * @endcode
    */
-  ASIO_SYNC_OP_VOID close(std::error_code& ec)
+  void close(std::error_code& ec)
   {
     impl_.get_service().close(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Release ownership of the underlying native acceptor.
@@ -777,10 +777,10 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  ASIO_SYNC_OP_VOID cancel(std::error_code& ec)
+  void cancel(std::error_code& ec)
   {
     impl_.get_service().cancel(impl_.get_implementation(), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Set an option on the acceptor.
@@ -839,11 +839,11 @@ public:
    * @endcode
    */
   template <typename SettableSocketOption>
-  ASIO_SYNC_OP_VOID set_option(const SettableSocketOption& option,
+  void set_option(const SettableSocketOption& option,
       std::error_code& ec)
   {
     impl_.get_service().set_option(impl_.get_implementation(), option, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Get an option from the acceptor.
@@ -904,11 +904,11 @@ public:
    * @endcode
    */
   template <typename GettableSocketOption>
-  ASIO_SYNC_OP_VOID get_option(GettableSocketOption& option,
+  void get_option(GettableSocketOption& option,
       std::error_code& ec) const
   {
     impl_.get_service().get_option(impl_.get_implementation(), option, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Perform an IO control command on the acceptor.
@@ -965,11 +965,11 @@ public:
    * @endcode
    */
   template <typename IoControlCommand>
-  ASIO_SYNC_OP_VOID io_control(IoControlCommand& command,
+  void io_control(IoControlCommand& command,
       std::error_code& ec)
   {
     impl_.get_service().io_control(impl_.get_implementation(), command, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Gets the non-blocking mode of the acceptor.
@@ -1021,11 +1021,11 @@ public:
    * operations. Asynchronous operations will never fail with the error
    * asio::error::would_block.
    */
-  ASIO_SYNC_OP_VOID non_blocking(
+  void non_blocking(
       bool mode, std::error_code& ec)
   {
     impl_.get_service().non_blocking(impl_.get_implementation(), mode, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Gets the non-blocking mode of the native acceptor implementation.
@@ -1085,12 +1085,12 @@ public:
    * function fails with asio::error::invalid_argument, as the
    * combination does not make sense.
    */
-  ASIO_SYNC_OP_VOID native_non_blocking(
+  void native_non_blocking(
       bool mode, std::error_code& ec)
   {
     impl_.get_service().native_non_blocking(
         impl_.get_implementation(), mode, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Get the local endpoint of the acceptor.
@@ -1186,10 +1186,10 @@ public:
    * acceptor.wait(asio::ip::tcp::acceptor::wait_read, ec);
    * @endcode
    */
-  ASIO_SYNC_OP_VOID wait(wait_type w, std::error_code& ec)
+  void wait(wait_type w, std::error_code& ec)
   {
     impl_.get_service().wait(impl_.get_implementation(), w, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Asynchronously wait for the acceptor to become ready to read, ready to
@@ -1315,7 +1315,7 @@ public:
    * @endcode
    */
   template <typename Protocol1, typename Executor1>
-  ASIO_SYNC_OP_VOID accept(
+  void accept(
       basic_socket<Protocol1, Executor1>& peer, std::error_code& ec,
       constraint_t<
         is_convertible<Protocol, Protocol1>::value
@@ -1323,7 +1323,7 @@ public:
   {
     impl_.get_service().accept(impl_.get_implementation(),
         peer, static_cast<endpoint_type*>(0), ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Start an asynchronous accept.
@@ -1461,12 +1461,12 @@ public:
    * @endcode
    */
   template <typename Executor1>
-  ASIO_SYNC_OP_VOID accept(basic_socket<protocol_type, Executor1>& peer,
+  void accept(basic_socket<protocol_type, Executor1>& peer,
       endpoint_type& peer_endpoint, std::error_code& ec)
   {
     impl_.get_service().accept(
         impl_.get_implementation(), peer, &peer_endpoint, ec);
-    ASIO_SYNC_OP_VOID_RETURN(ec);
+    return;
   }
 
   /// Start an asynchronous accept.
