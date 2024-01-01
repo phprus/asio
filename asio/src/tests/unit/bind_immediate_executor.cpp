@@ -133,10 +133,6 @@ template <>
 class async_result<incrementer_token_v2, void()>
 {
 public:
-#if !defined(ASIO_HAS_RETURN_TYPE_DEDUCTION)
-  typedef void return_type;
-#endif // !defined(ASIO_HAS_RETURN_TYPE_DEDUCTION)
-
   template <typename Initiation, typename... Args>
   static void initiate(Initiation initiation,
       incrementer_token_v2 token, Args&&... args)
