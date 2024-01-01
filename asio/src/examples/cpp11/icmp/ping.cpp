@@ -18,7 +18,7 @@
 
 using asio::ip::icmp;
 using asio::steady_timer;
-namespace chrono = asio::chrono;
+namespace chrono = std::chrono;
 
 class pinger
 {
@@ -57,7 +57,7 @@ private:
 
     // Wait up to five seconds for a reply.
     num_replies_ = 0;
-    timer_.expires_at(time_sent_ + chrono::seconds(5));
+    timer_.expires_at(time_sent_ + std::chrono::seconds(5));
     timer_.async_wait(std::bind(&pinger::handle_timeout, this));
   }
 
@@ -67,7 +67,7 @@ private:
       std::cout << "Request timed out" << std::endl;
 
     // Requests must be sent no less than one second apart.
-    timer_.expires_at(time_sent_ + chrono::seconds(1));
+    timer_.expires_at(time_sent_ + std::chrono::seconds(1));
     timer_.async_wait(std::bind(&pinger::start_send, this));
   }
 
@@ -105,14 +105,14 @@ private:
         timer_.cancel();
 
       // Print out some information about the reply packet.
-      chrono::steady_clock::time_point now = chrono::steady_clock::now();
-      chrono::steady_clock::duration elapsed = now - time_sent_;
+      std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+      std::chrono::steady_clock::duration elapsed = now - time_sent_;
       std::cout << length - ipv4_hdr.header_length()
         << " bytes from " << ipv4_hdr.source_address()
         << ": icmp_seq=" << icmp_hdr.sequence_number()
         << ", ttl=" << ipv4_hdr.time_to_live()
         << ", time="
-        << chrono::duration_cast<chrono::milliseconds>(elapsed).count()
+        << std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count()
         << std::endl;
     }
 
@@ -133,7 +133,7 @@ private:
   icmp::socket socket_;
   steady_timer timer_;
   unsigned short sequence_number_;
-  chrono::steady_clock::time_point time_sent_;
+  std::chrono::steady_clock::time_point time_sent_;
   asio::streambuf reply_buffer_;
   std::size_t num_replies_;
 };
