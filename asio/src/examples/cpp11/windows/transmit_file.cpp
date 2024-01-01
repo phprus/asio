@@ -47,7 +47,7 @@ void transmit_file(tcp_socket& socket,
     // to be posted. When complete() is called, ownership of the OVERLAPPED-
     // derived object passes to the io_context.
     std::error_code ec(last_error,
-        asio::error::get_system_category());
+        std::system_category());
     overlapped.complete(ec, 0);
   }
   else

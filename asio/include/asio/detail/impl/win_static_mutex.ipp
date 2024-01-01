@@ -33,7 +33,7 @@ void win_static_mutex::init()
 {
   int error = do_init();
   std::error_code ec(error,
-      asio::error::get_system_category());
+      std::system_category());
   asio::detail::throw_error(ec, "static_mutex");
 }
 

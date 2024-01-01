@@ -24,7 +24,7 @@
 #include "asio/detail/concurrency_hint.hpp"
 #include "asio/detail/cstdint.hpp"
 #include "asio/detail/wrapped_handler.hpp"
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/execution.hpp"
 #include "asio/execution_context.hpp"
 

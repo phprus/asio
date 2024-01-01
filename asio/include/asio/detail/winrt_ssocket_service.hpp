@@ -126,7 +126,7 @@ public:
     catch (Platform::Exception^ e)
     {
       ec = std::error_code(e->HResult,
-            asio::system_category());
+            std::system_category());
     }
 
     return ec;

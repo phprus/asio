@@ -267,7 +267,7 @@ std::error_code win_iocp_socket_service_base::cancel(
       else
       {
         ec = std::error_code(last_error,
-            asio::error::get_system_category());
+            std::system_category());
       }
     }
     else
@@ -291,7 +291,7 @@ std::error_code win_iocp_socket_service_base::cancel(
     {
       DWORD last_error = ::GetLastError();
       ec = std::error_code(last_error,
-          asio::error::get_system_category());
+          std::system_category());
     }
     else
     {

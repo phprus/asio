@@ -23,7 +23,7 @@
 #include "asio/detail/socket_types.hpp"
 #include "asio/detail/string_view.hpp"
 #include "asio/detail/winsock_init.hpp"
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/ip/address_v4.hpp"
 
 #if !defined(ASIO_NO_IOSTREAM)

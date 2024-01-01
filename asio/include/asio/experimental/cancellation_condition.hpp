@@ -18,7 +18,7 @@
 #include "asio/detail/config.hpp"
 #include <exception>
 #include "asio/cancellation_type.hpp"
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/detail/type_traits.hpp"
 
 #include "asio/detail/push_options.hpp"

@@ -16,7 +16,6 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include "asio/detail/config.hpp"
-#include "asio/error_code.hpp"
 #include <system_error>
 #if defined(ASIO_WINDOWS) \
   || defined(__CYGWIN__) \
@@ -258,11 +257,6 @@ inline void clear(std::error_code& ec)
   ec.assign(0, ec.category());
 }
 
-inline const std::error_category& get_system_category()
-{
-  return asio::system_category();
-}
-
 #if !defined(ASIO_WINDOWS) && !defined(__CYGWIN__)
 
 extern ASIO_DECL
@@ -275,12 +269,12 @@ const std::error_category& get_addrinfo_category();
 
 inline const std::error_category& get_netdb_category()
 {
-  return get_system_category();
+  return std::system_category();
 }
 
 inline const std::error_category& get_addrinfo_category()
 {
-  return get_system_category();
+  return std::system_category();
 }
 
 #endif // !defined(ASIO_WINDOWS) && !defined(__CYGWIN__)
@@ -288,9 +282,6 @@ inline const std::error_category& get_addrinfo_category()
 extern ASIO_DECL
 const std::error_category& get_misc_category();
 
-static const std::error_category&
-  system_category ASIO_UNUSED_VARIABLE
-  = asio::error::get_system_category();
 static const std::error_category&
   netdb_category ASIO_UNUSED_VARIABLE
   = asio::error::get_netdb_category();
@@ -334,7 +325,7 @@ namespace error {
 inline std::error_code make_error_code(basic_errors e)
 {
   return std::error_code(
-      static_cast<int>(e), get_system_category());
+      static_cast<int>(e), std::system_category());
 }
 
 inline std::error_code make_error_code(netdb_errors e)
