@@ -31,11 +31,7 @@ using std::chrono::seconds;
 using std::chrono::minutes;
 using std::chrono::hours;
 using std::chrono::time_point_cast;
-#if defined(ASIO_HAS_STD_CHRONO_MONOTONIC_CLOCK)
-typedef std::chrono::monotonic_clock steady_clock;
-#else // defined(ASIO_HAS_STD_CHRONO_MONOTONIC_CLOCK)
 using std::chrono::steady_clock;
-#endif // defined(ASIO_HAS_STD_CHRONO_MONOTONIC_CLOCK)
 using std::chrono::system_clock;
 using std::chrono::high_resolution_clock;
 

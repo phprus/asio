@@ -21,11 +21,7 @@
 #include "asio/io_context.hpp"
 #include "unit_test.hpp"
 
-#if defined(ASIO_HAS_BOOST_DATE_TIME)
-# include "asio/deadline_timer.hpp"
-#else // defined(ASIO_HAS_BOOST_DATE_TIME)
-# include "asio/steady_timer.hpp"
-#endif // defined(ASIO_HAS_BOOST_DATE_TIME)
+#include "asio/steady_timer.hpp"
 
 using namespace asio;
 namespace bindns = std;

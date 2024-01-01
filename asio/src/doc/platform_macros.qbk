@@ -24,25 +24,11 @@ needs.
 [table
   [[Macro][Description][Macro to disable feature]]
   [
-    [`ASIO_HAS_BOOST_CHRONO`]
-    [
-      Boost support for chrono.
-    ]
-    [`ASIO_DISABLE_BOOST_CHRONO`]
-  ]
-  [
     [`ASIO_HAS_BOOST_CONFIG`]
     [
       Boost.Config library is available.
     ]
     []
-  ]
-  [
-    [`ASIO_HAS_BOOST_DATE_TIME`]
-    [
-      Boost support for the DateTime library.
-    ]
-    [`ASIO_DISABLE_BOOST_DATE_TIME`]
   ]
   [
     [`ASIO_HAS_BOOST_REGEX`]
