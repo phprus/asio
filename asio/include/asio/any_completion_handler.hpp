@@ -644,7 +644,7 @@ public:
 
   /// Construct an @c any_completion_handler in an empty state, without a target
   /// object.
-  constexpr any_completion_handler(nullptr_t)
+  constexpr any_completion_handler(std::nullptr_t)
     : fn_table_(nullptr),
       impl_(nullptr)
   {
@@ -689,7 +689,7 @@ public:
   }
 
   /// Assignment operator that sets the polymorphic wrapper to the empty state.
-  any_completion_handler& operator=(nullptr_t) noexcept
+  any_completion_handler& operator=(std::nullptr_t) noexcept
   {
     any_completion_handler().swap(*this);
     return *this;
@@ -757,28 +757,28 @@ public:
 
   /// Equality operator.
   friend constexpr bool operator==(
-      const any_completion_handler& a, nullptr_t) noexcept
+      const any_completion_handler& a, std::nullptr_t) noexcept
   {
     return a.impl_ == nullptr;
   }
 
   /// Equality operator.
   friend constexpr bool operator==(
-      nullptr_t, const any_completion_handler& b) noexcept
+      std::nullptr_t, const any_completion_handler& b) noexcept
   {
     return nullptr == b.impl_;
   }
 
   /// Inequality operator.
   friend constexpr bool operator!=(
-      const any_completion_handler& a, nullptr_t) noexcept
+      const any_completion_handler& a, std::nullptr_t) noexcept
   {
     return a.impl_ != nullptr;
   }
 
   /// Inequality operator.
   friend constexpr bool operator!=(
-      nullptr_t, const any_completion_handler& b) noexcept
+      std::nullptr_t, const any_completion_handler& b) noexcept
   {
     return nullptr != b.impl_;
   }
