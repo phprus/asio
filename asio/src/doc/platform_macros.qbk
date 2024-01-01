@@ -299,13 +299,6 @@ needs.
     [`ASIO_DISABLE_VARIABLE_TEMPLATES`]
   ]
   [
-    [`ASIO_HAS_VARIADIC_LAMBDA_CAPTURES`]
-    [
-      Support for capturing parameter packs in lambdas.
-    ]
-    [`ASIO_DISABLE_VARIADIC_LAMBDA_CAPTURES`]
-  ]
-  [
     [`ASIO_HAS_WINDOWS_OBJECT_HANDLE`]
     [
       Windows: object handles.
