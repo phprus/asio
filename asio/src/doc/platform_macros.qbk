@@ -150,13 +150,6 @@ needs.
     []
   ]
   [
-    [`ASIO_HAS_NOEXCEPT_FUNCTION_TYPE`]
-    [
-      Support noexcept on function types on compilers known to allow it.
-    ]
-    [`ASIO_DISABLE_NOEXCEPT_FUNCTION_TYPE`]
-  ]
-  [
     [`ASIO_HAS_PIPE`]
     [
       Pipes.
