@@ -26,7 +26,7 @@
 #include <cstdarg>
 #include <cstdio>
 #include "asio/detail/handler_tracking.hpp"
-#include "asio/detail/chrono.hpp"
+#include <chrono>
 #include "asio/detail/chrono_time_traits.hpp"
 #include "asio/wait_traits.hpp"
 
@@ -48,10 +48,10 @@ struct handler_tracking_timestamp
 
   handler_tracking_timestamp()
   {
-    typedef chrono_time_traits<chrono::system_clock,
-        asio::wait_traits<chrono::system_clock>> traits_helper;
+    typedef chrono_time_traits<std::chrono::system_clock,
+        asio::wait_traits<std::chrono::system_clock>> traits_helper;
     traits_helper::posix_time_duration now(
-        chrono::system_clock::now().time_since_epoch());
+        std::chrono::system_clock::now().time_since_epoch());
     seconds = static_cast<uint64_t>(now.total_seconds());
     microseconds = static_cast<uint64_t>(now.total_microseconds() % 1000000);
   }

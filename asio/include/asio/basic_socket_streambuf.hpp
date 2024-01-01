@@ -73,7 +73,7 @@ protected:
 
 // Forward declaration with defaulted arguments.
 template <typename Protocol,
-    typename Clock = chrono::steady_clock,
+    typename Clock = std::chrono::steady_clock,
     typename WaitTraits = wait_traits<Clock>>
 class basic_socket_streambuf;
 
@@ -82,7 +82,7 @@ class basic_socket_streambuf;
 /// Iostream streambuf for a socket.
 #if defined(GENERATING_DOCUMENTATION)
 template <typename Protocol,
-    typename Clock = chrono::steady_clock,
+    typename Clock = std::chrono::steady_clock,
     typename WaitTraits = wait_traits<Clock>>
 #else // defined(GENERATING_DOCUMENTATION)
 template <typename Protocol, typename Clock, typename WaitTraits>

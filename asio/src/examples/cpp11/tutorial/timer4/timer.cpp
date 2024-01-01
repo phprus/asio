@@ -16,7 +16,7 @@ class printer
 {
 public:
   printer(asio::io_context& io)
-    : timer_(io, asio::chrono::seconds(1)),
+    : timer_(io, std::chrono::seconds(1)),
       count_(0)
   {
     timer_.async_wait(std::bind(&printer::print, this));
@@ -34,7 +34,7 @@ public:
       std::cout << count_ << std::endl;
       ++count_;
 
-      timer_.expires_at(timer_.expiry() + asio::chrono::seconds(1));
+      timer_.expires_at(timer_.expiry() + std::chrono::seconds(1));
       timer_.async_wait(std::bind(&printer::print, this));
     }
   }

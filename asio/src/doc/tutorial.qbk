@@ -93,7 +93,7 @@ Next we declare an object of type asio::steady\_timer. The core asio classes tha
 
 
 
-  ``''''''``  asio::steady_timer t(io, asio::chrono::seconds(5));
+  ``''''''``  asio::steady_timer t(io, std::chrono::seconds(5));
 
 In this simple example we perform a blocking wait on the timer. That is, the call to asio::steady\_timer::wait() will not return until the timer has expired, 5 seconds after it was created (i.e. not from when the wait starts).
 
@@ -139,7 +139,7 @@ Next: [link asio.tutorial.tuttimer2 Timer.2 - Using a timer asynchronously]
   ``''''''``{
   ``''''''``  asio::io_context io;
 
-  ``''''''``  asio::steady_timer t(io, asio::chrono::seconds(5));
+  ``''''''``  asio::steady_timer t(io, std::chrono::seconds(5));
   ``''''''``  t.wait();
 
   ``''''''``  std::cout << "Hello, world!" << std::endl;
@@ -174,7 +174,7 @@ Using asio's asynchronous functionality means supplying a [link asio.overview.mo
   ``''''''``{
   ``''''''``  asio::io_context io;
 
-  ``''''''``  asio::steady_timer t(io, asio::chrono::seconds(5));
+  ``''''''``  asio::steady_timer t(io, std::chrono::seconds(5));
 
 Next, instead of doing a blocking wait as in tutorial Timer.1, we call the asio::steady\_timer::async\_wait() function to perform an asynchronous wait. When calling this function we pass the `print` function that was defined above.
 
@@ -230,7 +230,7 @@ Next: [link asio.tutorial.tuttimer3 Timer.3 - Binding arguments to a completion 
   ``''''''``{
   ``''''''``  asio::io_context io;
 
-  ``''''''``  asio::steady_timer t(io, asio::chrono::seconds(5));
+  ``''''''``  asio::steady_timer t(io, std::chrono::seconds(5));
   ``''''''``  t.async_wait(&print);
 
   ``''''''``  io.run();
@@ -282,7 +282,7 @@ Next we move the expiry time for the timer along by one second from the previous
 
 
 
-  ``''''''``    t->expires_at(t->expiry() + asio::chrono::seconds(1));
+  ``''''''``    t->expires_at(t->expiry() + std::chrono::seconds(1));
 
 Then we start a new asynchronous wait on the timer. As you can see, the std::bind function is used to associate the extra parameters with your completion handler. The asio::steady\_timer::async\_wait() function expects a handler function (or function object) with the signature `void(const asio::error_code&)`. Binding the additional parameters converts your `print` function into a function object that matches the signature correctly.
 
@@ -303,7 +303,7 @@ A new `count` variable is added so that we can stop the program when the timer f
 
 
   ``''''''``  int count = 0;
-  ``''''''``  asio::steady_timer t(io, asio::chrono::seconds(1));
+  ``''''''``  asio::steady_timer t(io, std::chrono::seconds(1));
 
 As in Step 4, when making the call to asio::steady\_timer::async\_wait() from `main` we bind the additional parameters needed for the `print` function.
 
@@ -357,7 +357,7 @@ Next: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a compl
   ``''''''``    std::cout << *count << std::endl;
   ``''''''``    ++(*count);
 
-  ``''''''``    t->expires_at(t->expiry() + asio::chrono::seconds(1));
+  ``''''''``    t->expires_at(t->expiry() + std::chrono::seconds(1));
   ``''''''``    t->async_wait(std::bind(print,
   ``''''''``          asio::placeholders::error, t, count));
   ``''''''``  }
@@ -368,7 +368,7 @@ Next: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a compl
   ``''''''``  asio::io_context io;
 
   ``''''''``  int count = 0;
-  ``''''''``  asio::steady_timer t(io, asio::chrono::seconds(1));
+  ``''''''``  asio::steady_timer t(io, std::chrono::seconds(1));
   ``''''''``  t.async_wait(std::bind(print,
   ``''''''``        asio::placeholders::error, &t, &count));
 
@@ -406,7 +406,7 @@ The constructor of this class will take a reference to the io\_context object an
 
 
   ``''''''``  printer(asio::io_context& io)
-  ``''''''``    : timer_(io, asio::chrono::seconds(1)),
+  ``''''''``    : timer_(io, std::chrono::seconds(1)),
   ``''''''``      count_(0)
   ``''''''``  {
 
@@ -439,7 +439,7 @@ The `print` member function is very similar to the `print` function from tutoria
   ``''''''``      std::cout << count_ << std::endl;
   ``''''''``      ++count_;
 
-  ``''''''``      timer_.expires_at(timer_.expiry() + asio::chrono::seconds(1));
+  ``''''''``      timer_.expires_at(timer_.expiry() + std::chrono::seconds(1));
   ``''''''``      timer_.async_wait(std::bind(&printer::print, this));
   ``''''''``    }
   ``''''''``  }
@@ -495,7 +495,7 @@ Next: [link asio.tutorial.tuttimer5 Timer.5 - Synchronising completion handlers 
   ``''''''``{
   ``''''''``public:
   ``''''''``  printer(asio::io_context& io)
-  ``''''''``    : timer_(io, asio::chrono::seconds(1)),
+  ``''''''``    : timer_(io, std::chrono::seconds(1)),
   ``''''''``      count_(0)
   ``''''''``  {
   ``''''''``    timer_.async_wait(std::bind(&printer::print, this));
@@ -513,7 +513,7 @@ Next: [link asio.tutorial.tuttimer5 Timer.5 - Synchronising completion handlers 
   ``''''''``      std::cout << count_ << std::endl;
   ``''''''``      ++count_;
 
-  ``''''''``      timer_.expires_at(timer_.expiry() + asio::chrono::seconds(1));
+  ``''''''``      timer_.expires_at(timer_.expiry() + std::chrono::seconds(1));
   ``''''''``      timer_.async_wait(std::bind(&printer::print, this));
   ``''''''``    }
   ``''''''``  }
@@ -580,8 +580,8 @@ The
 
   ``''''''``  printer(asio::io_context& io)
   ``''''''``    : strand_(asio::make_strand(io)),
-  ``''''''``      timer1_(io, asio::chrono::seconds(1)),
-  ``''''''``      timer2_(io, asio::chrono::seconds(1)),
+  ``''''''``      timer1_(io, std::chrono::seconds(1)),
+  ``''''''``      timer2_(io, std::chrono::seconds(1)),
   ``''''''``      count_(0)
   ``''''''``  {
 
@@ -613,7 +613,7 @@ In a multithreaded program, the handlers for asynchronous operations should be s
   ``''''''``      std::cout << "Timer 1: " << count_ << std::endl;
   ``''''''``      ++count_;
 
-  ``''''''``      timer1_.expires_at(timer1_.expiry() + asio::chrono::seconds(1));
+  ``''''''``      timer1_.expires_at(timer1_.expiry() + std::chrono::seconds(1));
 
   ``''''''``      timer1_.async_wait(asio::bind_executor(strand_,
   ``''''''``            std::bind(&printer::print1, this)));
@@ -627,7 +627,7 @@ In a multithreaded program, the handlers for asynchronous operations should be s
   ``''''''``      std::cout << "Timer 2: " << count_ << std::endl;
   ``''''''``      ++count_;
 
-  ``''''''``      timer2_.expires_at(timer2_.expiry() + asio::chrono::seconds(1));
+  ``''''''``      timer2_.expires_at(timer2_.expiry() + std::chrono::seconds(1));
 
   ``''''''``      timer2_.async_wait(asio::bind_executor(strand_,
   ``''''''``            std::bind(&printer::print2, this)));
@@ -691,8 +691,8 @@ Previous: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a c
   ``''''''``public:
   ``''''''``  printer(asio::io_context& io)
   ``''''''``    : strand_(asio::make_strand(io)),
-  ``''''''``      timer1_(io, asio::chrono::seconds(1)),
-  ``''''''``      timer2_(io, asio::chrono::seconds(1)),
+  ``''''''``      timer1_(io, std::chrono::seconds(1)),
+  ``''''''``      timer2_(io, std::chrono::seconds(1)),
   ``''''''``      count_(0)
   ``''''''``  {
   ``''''''``    timer1_.async_wait(asio::bind_executor(strand_,
@@ -714,7 +714,7 @@ Previous: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a c
   ``''''''``      std::cout << "Timer 1: " << count_ << std::endl;
   ``''''''``      ++count_;
 
-  ``''''''``      timer1_.expires_at(timer1_.expiry() + asio::chrono::seconds(1));
+  ``''''''``      timer1_.expires_at(timer1_.expiry() + std::chrono::seconds(1));
 
   ``''''''``      timer1_.async_wait(asio::bind_executor(strand_,
   ``''''''``            std::bind(&printer::print1, this)));
@@ -728,7 +728,7 @@ Previous: [link asio.tutorial.tuttimer4 Timer.4 - Using a member function as a c
   ``''''''``      std::cout << "Timer 2: " << count_ << std::endl;
   ``''''''``      ++count_;
 
-  ``''''''``      timer2_.expires_at(timer2_.expiry() + asio::chrono::seconds(1));
+  ``''''''``      timer2_.expires_at(timer2_.expiry() + std::chrono::seconds(1));
 
   ``''''''``      timer2_.async_wait(asio::bind_executor(strand_,
   ``''''''``            std::bind(&printer::print2, this)));

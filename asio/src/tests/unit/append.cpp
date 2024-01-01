@@ -29,7 +29,7 @@ void append_test()
   asio::system_timer timer1(io1);
   int count = 0;
 
-  timer1.expires_after(asio::chrono::seconds(0));
+  timer1.expires_after(std::chrono::seconds(0));
   timer1.async_wait(
       asio::append(
         asio::bind_executor(io2.get_executor(),

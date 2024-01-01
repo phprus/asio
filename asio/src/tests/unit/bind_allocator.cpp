@@ -27,7 +27,7 @@ using namespace asio;
 namespace bindns = std;
 
 typedef steady_timer timer;
-namespace chronons = asio::chrono;
+namespace chronons = std::chrono;
 
 template <typename T>
 class test_allocator
