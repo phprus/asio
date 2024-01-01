@@ -201,7 +201,6 @@ check_PROGRAMS += \
 if HAVE_COROUTINES
 check_PROGRAMS += \
 	unit/experimental/awaitable_operators \
-	unit/experimental/co_composed \
 	unit/experimental/coro/allocator \
 	unit/experimental/coro/cancel \
 	unit/experimental/coro/co_spawn \
@@ -219,7 +218,6 @@ check_PROGRAMS += \
 	unit/ssl/context \
 	unit/ssl/error \
 	unit/ssl/host_name_verification \
-	unit/ssl/rfc2818_verification \
 	unit/ssl/stream_base \
 	unit/ssl/stream
 endif
@@ -400,7 +398,6 @@ TESTS += \
 if HAVE_COROUTINES
 TESTS += \
 	unit/experimental/awaitable_operators \
-	unit/experimental/co_composed \
 	unit/experimental/coro/allocator \
 	unit/experimental/coro/cancel \
 	unit/experimental/coro/co_spawn \
@@ -418,7 +415,6 @@ TESTS += \
 	unit/ssl/context \
 	unit/ssl/error \
 	unit/ssl/host_name_verification \
-	unit/ssl/rfc2818_verification \
 	unit/ssl/stream_base \
 	unit/ssl/stream
 endif
@@ -614,7 +610,6 @@ unit_experimental_promise_SOURCES = unit/experimental/promise.cpp
 
 if HAVE_COROUTINES
 unit_experimental_awaitable_operators_SOURCES = unit/experimental/awaitable_operators.cpp
-unit_experimental_co_composed_SOURCES = unit/experimental/co_composed.cpp
 unit_experimental_coro_allocator_SOURCES = unit/experimental/coro/allocator.cpp
 unit_experimental_coro_cancel_SOURCES = unit/experimental/coro/cancel.cpp
 unit_experimental_coro_co_spawn_SOURCES = unit/experimental/coro/co_spawn.cpp
@@ -632,7 +627,6 @@ unit_ssl_context_SOURCES = unit/ssl/context.cpp
 unit_ssl_error_SOURCES = unit/ssl/error.cpp
 unit_ssl_stream_base_SOURCES = unit/ssl/stream_base.cpp
 unit_ssl_host_name_verification_SOURCES = unit/ssl/host_name_verification.cpp
-unit_ssl_rfc2818_verification_SOURCES = unit/ssl/rfc2818_verification.cpp
 unit_ssl_stream_SOURCES = unit/ssl/stream.cpp
 endif
 
