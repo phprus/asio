@@ -66,7 +66,7 @@ struct execute_member<executor, F>
   typedef void result_type;
 };
 
-#endif // !defined(ASIO_HAS_DEDUCED_SET_ERROR_MEMBER_TRAIT)
+#endif // !defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
 #if !defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
 
 template <>
