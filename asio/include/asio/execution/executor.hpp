@@ -21,12 +21,6 @@
 #include "asio/traits/equality_comparable.hpp"
 #include "asio/traits/execute_member.hpp"
 
-#if defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT) \
-  && defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-# define ASIO_HAS_DEDUCED_EXECUTION_IS_EXECUTOR_TRAIT 1
-#endif // defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-       //   && defined(ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT)
-
 #include "asio/detail/push_options.hpp"
 
 namespace asio {

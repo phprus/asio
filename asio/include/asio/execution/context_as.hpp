@@ -80,7 +80,6 @@ struct context_as_t
   {
   }
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename E>
   static constexpr
   typename context_t::query_static_constexpr_member<E>::result_type
@@ -93,7 +92,6 @@ struct context_as_t
   template <typename E, typename U = decltype(context_as_t::static_query<E>())>
   static constexpr const U static_query_v
     = context_as_t::static_query<E>();
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
   template <typename Executor, typename U>
   friend constexpr U query(
@@ -116,48 +114,13 @@ struct context_as_t
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <typename T> template <typename E, typename U>
 const U context_as_t<T>::static_query_v;
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 template <typename T>
 constexpr context_as_t<T> context_as{};
 
 } // namespace execution
-
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-
-template <typename T, typename U>
-struct static_query<T, execution::context_as_t<U>,
-  enable_if_t<
-    static_query<T, execution::context_t>::is_valid
-  >> : static_query<T, execution::context_t>
-{
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
-
-template <typename T, typename U>
-struct query_free<T, execution::context_as_t<U>,
-  enable_if_t<
-    can_query<const T&, const execution::context_t&>::value
-  >>
-{
-  static constexpr bool is_valid = true;
-  static constexpr bool is_noexcept =
-    is_nothrow_query<const T&, const execution::context_t&>::value;
-
-  typedef U result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
-
-} // namespace traits
 
 #endif // defined(GENERATING_DOCUMENTATION)
 

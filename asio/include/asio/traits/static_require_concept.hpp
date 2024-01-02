@@ -19,8 +19,6 @@
 #include "asio/detail/type_traits.hpp"
 #include "asio/traits/static_query.hpp"
 
-#define ASIO_HAS_DEDUCED_STATIC_REQUIRE_CONCEPT_TRAIT 1
-
 #include "asio/detail/push_options.hpp"
 
 namespace asio {
