@@ -815,13 +815,4 @@
 # endif // defined(_POSIX_VERSION)
 #endif // !defined(ASIO_HAS_MSG_NOSIGNAL)
 
-// Standard library support for snprintf.
-#if !defined(ASIO_HAS_SNPRINTF)
-# if !defined(ASIO_DISABLE_SNPRINTF)
-#  if defined(__APPLE__)
-#   define ASIO_HAS_SNPRINTF 1
-#  endif // defined(__APPLE__)
-# endif // !defined(ASIO_DISABLE_SNPRINTF)
-#endif // !defined(ASIO_HAS_SNPRINTF)
-
 #endif // ASIO_DETAIL_CONFIG_HPP

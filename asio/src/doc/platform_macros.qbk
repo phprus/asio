@@ -198,12 +198,6 @@ needs.
     ]
     [`ASIO_DISABLE_SIGNAL`]
   ]
-  [
-    [`ASIO_HAS_SNPRINTF`]
-    [
-      Standard library support for snprintf.
-    ]
-    [`ASIO_DISABLE_SNPRINTF`]
   ]
   [
     [`ASIO_HAS_SOURCE_LOCATION`]
