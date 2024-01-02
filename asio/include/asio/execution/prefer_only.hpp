@@ -142,7 +142,6 @@ struct prefer_only :
   {
   }
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
   template <typename T>
   static constexpr
   typename traits::static_query<T, InnerProperty>::result_type
@@ -155,7 +154,6 @@ struct prefer_only :
   template <typename E, typename T = decltype(prefer_only::static_query<E>())>
   static constexpr const T static_query_v
     = prefer_only::static_query<E>();
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
   template <typename Executor, typename Property>
   friend constexpr
@@ -196,10 +194,8 @@ struct prefer_only :
   }
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 template <typename InnerProperty> template <typename E, typename T>
 const T prefer_only<InnerProperty>::static_query_v;
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 } // namespace execution
 
@@ -208,56 +204,6 @@ struct is_applicable_property<T, execution::prefer_only<InnerProperty>>
   : is_applicable_property<T, InnerProperty>
 {
 };
-
-namespace traits {
-
-#if !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-
-template <typename T, typename InnerProperty>
-struct static_query<T, execution::prefer_only<InnerProperty>> :
-  static_query<T, const InnerProperty&>
-{
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_PREFER_FREE_TRAIT)
-
-template <typename T, typename InnerProperty>
-struct prefer_free_default<T, execution::prefer_only<InnerProperty>,
-    enable_if_t<
-      can_prefer<const T&, const InnerProperty&>::value
-    >
-  >
-{
-  static constexpr bool is_valid = true;
-  static constexpr bool is_noexcept =
-    is_nothrow_prefer<const T&, const InnerProperty&>::value;
-
-  typedef prefer_result_t<const T&, const InnerProperty&> result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_PREFER_FREE_TRAIT)
-
-#if !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
-
-template <typename T, typename InnerProperty>
-struct query_free<T, execution::prefer_only<InnerProperty>,
-    enable_if_t<
-      can_query<const T&, const InnerProperty&>::value
-    >
-  >
-{
-  static constexpr bool is_valid = true;
-  static constexpr bool is_noexcept =
-    is_nothrow_query<const T&, const InnerProperty&>::value;
-
-  typedef query_result_t<const T&, const InnerProperty&> result_type;
-};
-
-#endif // !defined(ASIO_HAS_DEDUCED_QUERY_FREE_TRAIT)
-
-} // namespace traits
 
 #endif // defined(GENERATING_DOCUMENTATION)
 

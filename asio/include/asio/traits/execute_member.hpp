@@ -18,8 +18,6 @@
 #include "asio/detail/config.hpp"
 #include "asio/detail/type_traits.hpp"
 
-#define ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT 1
-
 #include "asio/detail/push_options.hpp"
 
 namespace asio {
@@ -40,8 +38,6 @@ struct no_execute_member
   static constexpr bool is_noexcept = false;
 };
 
-#if defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
 template <typename T, typename F, typename = void>
 struct execute_member_trait : no_execute_member
 {
@@ -61,23 +57,6 @@ struct execute_member_trait<T, F,
   static constexpr bool is_noexcept =
     noexcept(declval<T>().execute(declval<F>()));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
-
-template <typename T, typename F, typename = void>
-struct execute_member_trait :
-  conditional_t<
-    is_same<T, decay_t<T>>::value
-      && is_same<F, decay_t<F>>::value,
-    no_execute_member,
-    traits::execute_member<
-      decay_t<T>,
-      decay_t<F>>
-  >
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT)
 
 } // namespace detail
 namespace traits {

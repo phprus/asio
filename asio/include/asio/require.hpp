@@ -281,7 +281,6 @@ struct impl
   template <typename T>
   struct proxy
   {
-#if defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
     struct type
     {
       template <typename P>
@@ -295,9 +294,6 @@ struct impl
           declval<conditional_t<true, T, P>>().require(static_cast<P&&>(p))
         );
     };
-#else // defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
-    typedef T type;
-#endif // defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
   };
 
   template <typename T, typename Property>

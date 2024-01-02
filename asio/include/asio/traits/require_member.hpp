@@ -18,8 +18,6 @@
 #include "asio/detail/config.hpp"
 #include "asio/detail/type_traits.hpp"
 
-#define ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT 1
-
 #include "asio/detail/push_options.hpp"
 
 namespace asio {
@@ -40,8 +38,6 @@ struct no_require_member
   static constexpr bool is_noexcept = false;
 };
 
-#if defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
-
 template <typename T, typename Property, typename = void>
 struct require_member_trait : no_require_member
 {
@@ -61,23 +57,6 @@ struct require_member_trait<T, Property,
   static constexpr bool is_noexcept =
     noexcept(declval<T>().require(declval<Property>()));
 };
-
-#else // defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
-
-template <typename T, typename Property, typename = void>
-struct require_member_trait :
-  conditional_t<
-    is_same<T, decay_t<T>>::value
-      && is_same<Property, decay_t<Property>>::value,
-    no_require_member,
-    traits::require_member<
-      decay_t<T>,
-      decay_t<Property>>
-  >
-{
-};
-
-#endif // defined(ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT)
 
 } // namespace detail
 namespace traits {
