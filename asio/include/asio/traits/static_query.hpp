@@ -18,8 +18,6 @@
 #include "asio/detail/config.hpp"
 #include "asio/detail/type_traits.hpp"
 
-#define ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT 1
-
 #include "asio/detail/push_options.hpp"
 
 namespace asio {
@@ -53,8 +51,6 @@ struct static_query_trait :
 {
 };
 
-#if defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
-
 template <typename T, typename Property>
 struct static_query_trait<T, Property,
   void_t<
@@ -74,8 +70,6 @@ struct static_query_trait<T, Property,
     return decay_t<Property>::template static_query_v<T>;
   }
 };
-
-#endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
 
 } // namespace detail
 namespace traits {
