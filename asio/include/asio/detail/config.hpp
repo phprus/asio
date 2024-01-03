@@ -467,9 +467,6 @@
 // Whether standard iostreams are disabled.
 //#define ASIO_NO_IOSTREAM 1
 
-// Whether exception handling is disabled.
-//#define ASIO_NO_EXCEPTIONS 1
-
 // Whether the typeid operator is supported.
 //#define ASIO_NO_TYPEID 1
 
