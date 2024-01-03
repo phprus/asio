@@ -16,8 +16,6 @@
 # pragma once
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
-#if !defined(ASIO_NO_IOSTREAM)
-
 #include "asio/detail/throw_error.hpp"
 
 #include "asio/detail/push_options.hpp"
@@ -48,7 +46,5 @@ std::basic_ostream<Elem, Traits>& operator<<(
 } // namespace asio
 
 #include "asio/detail/pop_options.hpp"
-
-#endif // !defined(ASIO_NO_IOSTREAM)
 
 #endif // ASIO_IP_IMPL_NETWORK_V4_HPP

@@ -26,9 +26,7 @@
 #include "asio/ip/address_v6.hpp"
 #include "asio/ip/bad_address_cast.hpp"
 
-#if !defined(ASIO_NO_IOSTREAM)
-# include <iosfwd>
-#endif // !defined(ASIO_NO_IOSTREAM)
+#include <iosfwd>
 
 #include "asio/detail/push_options.hpp"
 
@@ -200,8 +198,6 @@ ASIO_DECL address make_address(std::string_view str);
 ASIO_DECL address make_address(std::string_view str,
     std::error_code& ec) noexcept;
 
-#if !defined(ASIO_NO_IOSTREAM)
-
 /// Output an address as a string.
 /**
  * Used to output a human-readable string for a specified address.
@@ -217,8 +213,6 @@ ASIO_DECL address make_address(std::string_view str,
 template <typename Elem, typename Traits>
 std::basic_ostream<Elem, Traits>& operator<<(
     std::basic_ostream<Elem, Traits>& os, const address& addr);
-
-#endif // !defined(ASIO_NO_IOSTREAM)
 
 } // namespace ip
 } // namespace asio

@@ -32,9 +32,7 @@ namespace asio {
 namespace detail {
 
 template <typename> class initiate_async_write_at;
-#if !defined(ASIO_NO_IOSTREAM)
 template <typename> class initiate_async_write_at_streambuf;
-#endif // !defined(ASIO_NO_IOSTREAM)
 
 } // namespace detail
 
@@ -244,7 +242,6 @@ std::size_t write_at(SyncRandomAccessWriteDevice& d,
     > = 0);
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 /// Write all of the supplied data at the specified offset before returning.
 /**
@@ -407,7 +404,6 @@ std::size_t write_at(SyncRandomAccessWriteDevice& d,
       is_completion_condition<CompletionCondition>::value
     > = 0);
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 
 /*@}*/
@@ -634,7 +630,6 @@ inline auto async_write_at(AsyncRandomAccessWriteDevice& d,
 }
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 /// Start an asynchronous operation to write all of the supplied data at the
 /// specified offset.
@@ -827,7 +822,6 @@ inline auto async_write_at(AsyncRandomAccessWriteDevice& d, uint64_t offset,
       static_cast<CompletionCondition&&>(completion_condition));
 }
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 
 /*@}*/

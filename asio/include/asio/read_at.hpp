@@ -32,9 +32,7 @@ namespace asio {
 namespace detail {
 
 template <typename> class initiate_async_read_at;
-#if !defined(ASIO_NO_IOSTREAM)
 template <typename> class initiate_async_read_at_streambuf;
-#endif // !defined(ASIO_NO_IOSTREAM)
 
 } // namespace detail
 
@@ -248,7 +246,6 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
     > = 0);
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 /// Attempt to read a certain amount of data at the specified offset before
 /// returning.
@@ -408,7 +405,6 @@ std::size_t read_at(SyncRandomAccessReadDevice& d,
       is_completion_condition<CompletionCondition>::value
     > = 0);
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 
 /*@}*/
@@ -629,7 +625,6 @@ inline auto async_read_at(AsyncRandomAccessReadDevice& d,
 }
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 /// Start an asynchronous operation to read a certain amount of data at the
 /// specified offset.
@@ -814,7 +809,6 @@ inline auto async_read_at(AsyncRandomAccessReadDevice& d, uint64_t offset,
       static_cast<CompletionCondition&&>(completion_condition));
 }
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 
 /*@}*/

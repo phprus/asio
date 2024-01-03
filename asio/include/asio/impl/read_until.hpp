@@ -319,8 +319,6 @@ std::size_t read_until(SyncReadStream& s,
   }
 }
 
-#if !defined(ASIO_NO_IOSTREAM)
-
 template <typename SyncReadStream, typename Allocator>
 inline std::size_t read_until(SyncReadStream& s,
     asio::basic_streambuf<Allocator>& b, char delim)
@@ -369,7 +367,6 @@ inline std::size_t read_until(SyncReadStream& s,
   return read_until(s, basic_streambuf_ref<Allocator>(b), match_condition, ec);
 }
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 #endif // !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
 
