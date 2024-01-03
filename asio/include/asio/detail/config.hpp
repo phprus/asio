@@ -11,11 +11,6 @@
 #ifndef ASIO_DETAIL_CONFIG_HPP
 #define ASIO_DETAIL_CONFIG_HPP
 
-// Standalone ASIO
-#if !defined(ASIO_STANDALONE)
-# define ASIO_STANDALONE 1
-#endif // !defined(ASIO_STANDALONE)
-
 // Make standard library feature macros available.
 #include <version>
 
