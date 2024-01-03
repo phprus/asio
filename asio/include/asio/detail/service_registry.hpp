@@ -80,24 +80,20 @@ private:
   template <typename Service>
   static void init_key(execution_context::service::key& key, ...);
 
-#if !defined(ASIO_NO_TYPEID)
   // Initalise a service's key when the key_type typedef is available.
   template <typename Service>
   static void init_key(execution_context::service::key& key,
       enable_if_t<is_base_of<typename Service::key_type, Service>::value>*);
-#endif // !defined(ASIO_NO_TYPEID)
 
   // Initialise a service's key based on its id.
   ASIO_DECL static void init_key_from_id(
       execution_context::service::key& key,
       const execution_context::id& id);
 
-#if !defined(ASIO_NO_TYPEID)
   // Initialise a service's key based on its id.
   template <typename Service>
   static void init_key_from_id(execution_context::service::key& key,
       const service_id<Service>& /*id*/);
-#endif // !defined(ASIO_NO_TYPEID)
 
   // Check if a service matches the given id.
   ASIO_DECL static bool keys_match(
