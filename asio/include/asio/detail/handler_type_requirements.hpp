@@ -17,46 +17,13 @@
 
 #include "asio/detail/config.hpp"
 
-// Older versions of gcc have difficulty compiling the sizeof expressions where
-// we test the handler type requirements. We'll disable checking of handler type
-// requirements for those compilers, but otherwise enable it by default.
-#if !defined(ASIO_DISABLE_HANDLER_TYPE_REQUIREMENTS)
-# if !defined(__GNUC__) || (__GNUC__ >= 4)
-#  define ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS 1
-# endif // !defined(__GNUC__) || (__GNUC__ >= 4)
-#endif // !defined(ASIO_DISABLE_HANDLER_TYPE_REQUIREMENTS)
+// With C++11 we can use a combination of enhanced SFINAE and static_assert to
+// generate better template error messages.
 
-// With C++0x we can use a combination of enhanced SFINAE and static_assert to
-// generate better template error messages. As this technique is not yet widely
-// portable, we'll only enable it for tested compilers.
-#if !defined(ASIO_DISABLE_HANDLER_TYPE_REQUIREMENTS_ASSERT)
-# if defined(__GNUC__)
-#  if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
-#   if defined(__GXX_EXPERIMENTAL_CXX0X__)
-#    define ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS_ASSERT 1
-#   endif // defined(__GXX_EXPERIMENTAL_CXX0X__)
-#  endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
-# endif // defined(__GNUC__)
-# if defined(ASIO_MSVC)
-#  define ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS_ASSERT 1
-# endif // defined(ASIO_MSVC)
-# if defined(__clang__)
-#  if __has_feature(__cxx_static_assert__)
-#   define ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS_ASSERT 1
-#  endif // __has_feature(cxx_static_assert)
-# endif // defined(__clang__)
-#endif // !defined(ASIO_DISABLE_HANDLER_TYPE_REQUIREMENTS)
-
-#if defined(ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS)
-# include "asio/async_result.hpp"
-#endif // defined(ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS)
+#include "asio/async_result.hpp"
 
 namespace asio {
 namespace detail {
-
-#if defined(ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS)
-
-# if defined(ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS_ASSERT)
 
 template <typename Handler>
 auto zero_arg_copyable_handler_test(Handler h, void*)
@@ -99,14 +66,8 @@ auto two_arg_move_handler_test(Handler h, Arg1* a1, Arg2* a2)
 template <typename Handler>
 char (&two_arg_move_handler_test(Handler, ...))[2];
 
-#  define ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT(expr, msg) \
+#define ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT(expr, msg) \
      static_assert(expr, msg);
-
-# else // defined(ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS_ASSERT)
-
-#  define ASIO_HANDLER_TYPE_REQUIREMENTS_ASSERT(expr, msg)
-
-# endif // defined(ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS_ASSERT)
 
 template <typename T> T& lvref();
 template <typename T> T& lvref(T);
@@ -484,66 +445,6 @@ struct handler_type_requirements
           asio_true_handler_type>()( \
             asio::detail::lvref<const std::error_code>()), \
         char(0))>
-
-#else // !defined(ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS)
-
-#define ASIO_LEGACY_COMPLETION_HANDLER_CHECK( \
-    handler_type, handler) \
-  [[maybe_unused]] typedef int
-
-#define ASIO_READ_HANDLER_CHECK( \
-    handler_type, handler) \
-  [[maybe_unused]] typedef int
-
-#define ASIO_WRITE_HANDLER_CHECK( \
-    handler_type, handler) \
-  [[maybe_unused]] typedef int
-
-#define ASIO_ACCEPT_HANDLER_CHECK( \
-    handler_type, handler) \
-  [[maybe_unused]] typedef int
-
-#define ASIO_MOVE_ACCEPT_HANDLER_CHECK( \
-    handler_type, handler, socket_type) \
-  [[maybe_unused]] typedef int
-
-#define ASIO_CONNECT_HANDLER_CHECK( \
-    handler_type, handler) \
-  [[maybe_unused]] typedef int
-
-#define ASIO_RANGE_CONNECT_HANDLER_CHECK( \
-    handler_type, handler, iter_type) \
-  [[maybe_unused]] typedef int
-
-#define ASIO_ITERATOR_CONNECT_HANDLER_CHECK( \
-    handler_type, handler, iter_type) \
-  [[maybe_unused]] typedef int
-
-#define ASIO_RESOLVE_HANDLER_CHECK( \
-    handler_type, handler, iter_type) \
-  [[maybe_unused]] typedef int
-
-#define ASIO_WAIT_HANDLER_CHECK( \
-    handler_type, handler) \
-  [[maybe_unused]] typedef int
-
-#define ASIO_SIGNAL_HANDLER_CHECK( \
-    handler_type, handler) \
-  [[maybe_unused]] typedef int
-
-#define ASIO_HANDSHAKE_HANDLER_CHECK( \
-    handler_type, handler) \
-  [[maybe_unused]] typedef int
-
-#define ASIO_BUFFERED_HANDSHAKE_HANDLER_CHECK( \
-    handler_type, handler) \
-  [[maybe_unused]] typedef int
-
-#define ASIO_SHUTDOWN_HANDLER_CHECK( \
-    handler_type, handler) \
-  [[maybe_unused]] typedef int
-
-#endif // !defined(ASIO_ENABLE_HANDLER_TYPE_REQUIREMENTS)
 
 } // namespace detail
 } // namespace asio
