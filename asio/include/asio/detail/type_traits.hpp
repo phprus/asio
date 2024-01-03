@@ -72,8 +72,6 @@ using std::is_nothrow_copy_constructible;
 
 using std::is_nothrow_destructible;
 
-using std::is_pointer;
-
 using std::is_reference;
 
 using std::is_same;

@@ -85,18 +85,8 @@ struct is_executor :
 template <typename T>
 constexpr const bool is_executor_v = is_executor<T>::value;
 
-#if defined(ASIO_HAS_CONCEPTS)
-
 template <typename T>
-ASIO_CONCEPT executor = is_executor<T>::value;
-
-#define ASIO_EXECUTION_EXECUTOR ::asio::execution::executor
-
-#else // defined(ASIO_HAS_CONCEPTS)
-
-#define ASIO_EXECUTION_EXECUTOR typename
-
-#endif // defined(ASIO_HAS_CONCEPTS)
+concept executor = is_executor<T>::value;
 
 } // namespace execution
 } // namespace asio

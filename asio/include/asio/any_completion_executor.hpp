@@ -146,10 +146,10 @@ public:
 
   /// Construct a polymorphic wrapper for the specified executor.
 #if defined(GENERATING_DOCUMENTATION)
-  template <ASIO_EXECUTION_EXECUTOR Executor>
+  template <::asio::execution::executor Executor>
   any_completion_executor(Executor e);
 #else // defined(GENERATING_DOCUMENTATION)
-  template <ASIO_EXECUTION_EXECUTOR Executor>
+  template <::asio::execution::executor Executor>
   any_completion_executor(Executor e,
       constraint_t<
         conditional<
@@ -168,10 +168,10 @@ public:
 
   /// Construct a polymorphic wrapper for the specified executor.
 #if defined(GENERATING_DOCUMENTATION)
-  template <ASIO_EXECUTION_EXECUTOR Executor>
+  template <::asio::execution::executor Executor>
   any_completion_executor(std::nothrow_t, Executor e);
 #else // defined(GENERATING_DOCUMENTATION)
-  template <ASIO_EXECUTION_EXECUTOR Executor>
+  template <::asio::execution::executor Executor>
   any_completion_executor(std::nothrow_t, Executor e,
       constraint_t<
         conditional<

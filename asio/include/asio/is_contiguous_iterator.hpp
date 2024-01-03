@@ -27,14 +27,7 @@ namespace asio {
 /// determine whether a type is a contiguous iterator.
 template <typename T>
 struct is_contiguous_iterator :
-#if defined(ASIO_HAS_STD_CONCEPTS) \
-  || defined(GENERATING_DOCUMENTATION)
   integral_constant<bool, std::contiguous_iterator<T>>
-#else // defined(ASIO_HAS_STD_CONCEPTS)
-      //   || defined(GENERATING_DOCUMENTATION)
-  is_pointer<T>
-#endif // defined(ASIO_HAS_STD_CONCEPTS)
-       //   || defined(GENERATING_DOCUMENTATION)
 {
 };
 

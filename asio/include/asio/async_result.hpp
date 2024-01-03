@@ -22,8 +22,6 @@
 
 namespace asio {
 
-#if defined(ASIO_HAS_CONCEPTS)
-
 namespace detail {
 
 template <typename T>
@@ -81,7 +79,7 @@ struct are_completion_signatures<T0, TN...>
 };
 
 template <typename T, typename... Args>
-ASIO_CONCEPT callable_with = requires(T&& t, Args&&... args)
+concept callable_with = requires(T&& t, Args&&... args)
 {
   static_cast<T&&>(t)(static_cast<Args&&>(args)...);
 };
@@ -138,14 +136,14 @@ struct is_completion_handler_for<T, Signature0, SignatureN...>
 } // namespace detail
 
 template <typename T>
-ASIO_CONCEPT completion_signature =
+concept completion_signature =
   detail::is_completion_signature<T>::value;
 
 #define ASIO_COMPLETION_SIGNATURE \
   ::asio::completion_signature
 
 template <typename T, typename... Signatures>
-ASIO_CONCEPT completion_handler_for =
+concept completion_handler_for =
   detail::are_completion_signatures<Signatures...>::value
     && detail::is_completion_handler_for<T, Signatures...>::value;
 
@@ -155,15 +153,6 @@ ASIO_CONCEPT completion_handler_for =
   ::asio::completion_handler_for<sig0, sig1>
 #define ASIO_COMPLETION_HANDLER_FOR3(sig0, sig1, sig2) \
   ::asio::completion_handler_for<sig0, sig1, sig2>
-
-#else // defined(ASIO_HAS_CONCEPTS)
-
-#define ASIO_COMPLETION_SIGNATURE typename
-#define ASIO_COMPLETION_HANDLER_FOR(sig) typename
-#define ASIO_COMPLETION_HANDLER_FOR2(sig0, sig1) typename
-#define ASIO_COMPLETION_HANDLER_FOR3(sig0, sig1, sig2) typename
-
-#endif // defined(ASIO_HAS_CONCEPTS)
 
 namespace detail {
 
@@ -550,8 +539,6 @@ async_initiate(Initiation&& initiation,
 
 #endif // defined(GENERATING_DOCUMENTATION)
 
-#if defined(ASIO_HAS_CONCEPTS)
-
 namespace detail {
 
 template <typename... Signatures>
@@ -566,7 +553,7 @@ struct initiation_archetype
 } // namespace detail
 
 template <typename T, typename... Signatures>
-ASIO_CONCEPT completion_token_for =
+concept completion_token_for =
   detail::are_completion_signatures<Signatures...>::value
   &&
   requires(T&& t)
@@ -581,14 +568,6 @@ ASIO_CONCEPT completion_token_for =
   ::asio::completion_token_for<sig0, sig1>
 #define ASIO_COMPLETION_TOKEN_FOR3(sig0, sig1, sig2) \
   ::asio::completion_token_for<sig0, sig1, sig2>
-
-#else // defined(ASIO_HAS_CONCEPTS)
-
-#define ASIO_COMPLETION_TOKEN_FOR(sig) typename
-#define ASIO_COMPLETION_TOKEN_FOR2(sig0, sig1) typename
-#define ASIO_COMPLETION_TOKEN_FOR3(sig0, sig1, sig2) typename
-
-#endif // defined(ASIO_HAS_CONCEPTS)
 
 namespace detail {
 
@@ -660,10 +639,8 @@ struct is_async_operation :
 
 #endif // defined(GENERATING_DOCUMENTATION)
 
-#if defined(ASIO_HAS_CONCEPTS)
-
 template <typename T, typename... Args>
-ASIO_CONCEPT async_operation = is_async_operation<T, Args...>::value;
+concept async_operation = is_async_operation<T, Args...>::value;
 
 #define ASIO_ASYNC_OPERATION(t) \
   ::asio::async_operation<t>
@@ -673,15 +650,6 @@ ASIO_CONCEPT async_operation = is_async_operation<T, Args...>::value;
   ::asio::async_operation<t, a0, a1>
 #define ASIO_ASYNC_OPERATION3(t, a0, a1, a2) \
   ::asio::async_operation<t, a0, a1, a2>
-
-#else // defined(ASIO_HAS_CONCEPTS)
-
-#define ASIO_ASYNC_OPERATION(t) typename
-#define ASIO_ASYNC_OPERATION1(t, a0) typename
-#define ASIO_ASYNC_OPERATION2(t, a0, a1) typename
-#define ASIO_ASYNC_OPERATION3(t, a0, a1, a2) typename
-
-#endif // defined(ASIO_HAS_CONCEPTS)
 
 namespace detail {
 

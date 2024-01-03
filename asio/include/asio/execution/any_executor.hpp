@@ -492,7 +492,7 @@ public:
   {
   }
 
-  template <ASIO_EXECUTION_EXECUTOR Executor>
+  template <::asio::execution::executor Executor>
   any_executor_base(Executor ex, false_type)
     : target_fns_(target_fns_table<Executor>(
           any_executor_base::query_blocking(ex,
@@ -512,7 +512,7 @@ public:
     }
   }
 
-  template <ASIO_EXECUTION_EXECUTOR Executor>
+  template <::asio::execution::executor Executor>
   any_executor_base(std::nothrow_t, Executor ex, false_type) noexcept
     : target_fns_(target_fns_table<Executor>(
           any_executor_base::query_blocking(ex,
@@ -532,7 +532,7 @@ public:
     }
   }
 
-  template <ASIO_EXECUTION_EXECUTOR Executor>
+  template <::asio::execution::executor Executor>
   any_executor_base(Executor other, true_type)
     : object_fns_(object_fns_table<shared_target_executor>()),
       target_fns_(other.target_fns_)
@@ -549,7 +549,7 @@ public:
     }
   }
 
-  template <ASIO_EXECUTION_EXECUTOR Executor>
+  template <::asio::execution::executor Executor>
   any_executor_base(std::nothrow_t,
       Executor other, true_type) noexcept
     : object_fns_(object_fns_table<shared_target_executor>()),
