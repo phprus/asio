@@ -194,7 +194,6 @@ check_PROGRAMS += \
 check_PROGRAMS += \
 	unit/experimental/promise
 
-if HAVE_COROUTINES
 check_PROGRAMS += \
 	unit/experimental/awaitable_operators \
 	unit/experimental/co_composed \
@@ -207,7 +206,6 @@ check_PROGRAMS += \
 	unit/experimental/coro/simple_test \
 	unit/experimental/coro/stack_test \
 	unit/experimental/coro/use_coro
-endif
 
 if HAVE_OPENSSL
 check_PROGRAMS += \
@@ -386,7 +384,6 @@ TESTS += \
 TESTS += \
 	unit/experimental/promise
 
-if HAVE_COROUTINES
 TESTS += \
 	unit/experimental/awaitable_operators \
 	unit/experimental/co_composed \
@@ -399,7 +396,6 @@ TESTS += \
 	unit/experimental/coro/simple_test \
 	unit/experimental/coro/stack_test \
 	unit/experimental/coro/use_coro
-endif
 
 if HAVE_OPENSSL
 TESTS += \
@@ -596,7 +592,6 @@ unit_experimental_concurrent_channel_SOURCES = unit/experimental/concurrent_chan
 # C++20
 unit_experimental_promise_SOURCES = unit/experimental/promise.cpp
 
-if HAVE_COROUTINES
 unit_experimental_awaitable_operators_SOURCES = unit/experimental/awaitable_operators.cpp
 unit_experimental_co_composed_SOURCES = unit/experimental/co_composed.cpp
 unit_experimental_coro_allocator_SOURCES = unit/experimental/coro/allocator.cpp
@@ -608,7 +603,6 @@ unit_experimental_coro_partial_SOURCES = unit/experimental/coro/partial.cpp
 unit_experimental_coro_simple_test_SOURCES = unit/experimental/coro/simple_test.cpp
 unit_experimental_coro_stack_test_SOURCES = unit/experimental/coro/stack_test.cpp
 unit_experimental_coro_use_coro_SOURCES = unit/experimental/coro/use_coro.cpp
-endif
 
 if HAVE_OPENSSL
 unit_ssl_context_base_SOURCES = unit/ssl/context_base.cpp

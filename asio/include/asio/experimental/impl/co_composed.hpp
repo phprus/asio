@@ -29,11 +29,7 @@
 #include "asio/detail/type_traits.hpp"
 #include "asio/error.hpp"
 
-#if defined(ASIO_HAS_STD_COROUTINE)
-# include <coroutine>
-#else // defined(ASIO_HAS_STD_COROUTINE)
-# include <experimental/coroutine>
-#endif // defined(ASIO_HAS_STD_COROUTINE)
+#include <coroutine>
 
 #if defined(ASIO_ENABLE_HANDLER_TRACKING)
 # if defined(ASIO_HAS_SOURCE_LOCATION)
@@ -47,15 +43,9 @@ namespace asio {
 namespace experimental {
 namespace detail {
 
-#if defined(ASIO_HAS_STD_COROUTINE)
 using std::coroutine_handle;
 using std::suspend_always;
 using std::suspend_never;
-#else // defined(ASIO_HAS_STD_COROUTINE)
-using std::experimental::coroutine_handle;
-using std::experimental::suspend_always;
-using std::experimental::suspend_never;
-#endif // defined(ASIO_HAS_STD_COROUTINE)
 
 using asio::detail::composed_io_executors;
 using asio::detail::composed_work;
@@ -1120,11 +1110,7 @@ struct associator<Associator,
 } // namespace asio
 
 #if !defined(GENERATING_DOCUMENTATION)
-# if defined(ASIO_HAS_STD_COROUTINE)
 namespace std {
-# else // defined(ASIO_HAS_STD_COROUTINE)
-namespace std { namespace experimental {
-# endif // defined(ASIO_HAS_STD_COROUTINE)
 
 template <typename C, typename Executors,
     typename Handler, typename Return, typename... Args>
@@ -1162,11 +1148,7 @@ struct coroutine_traits<void,
       Executors, Handler, Return>;
 };
 
-# if defined(ASIO_HAS_STD_COROUTINE)
 } // namespace std
-# else // defined(ASIO_HAS_STD_COROUTINE)
-}} // namespace std::experimental
-# endif // defined(ASIO_HAS_STD_COROUTINE)
 #endif // !defined(GENERATING_DOCUMENTATION)
 
 #include "asio/detail/pop_options.hpp"
