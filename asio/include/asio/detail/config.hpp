@@ -25,15 +25,7 @@
 #endif // !defined(ASIO_STANDALONE)
 
 // Make standard library feature macros available.
-#if defined(__has_include)
-# if __has_include(<version>)
-#  include <version>
-# else // __has_include(<version>)
-#  include <cstddef>
-# endif // __has_include(<version>)
-#else // defined(__has_include)
-# include <cstddef>
-#endif // defined(__has_include)
+#include <version>
 
 // boostify: non-boost code ends here
 #if defined(ASIO_STANDALONE)
