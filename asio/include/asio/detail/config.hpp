@@ -78,15 +78,7 @@
 
 // Support for static constexpr with default initialisation.
 #if !defined(ASIO_STATIC_CONSTEXPR_DEFAULT_INIT)
-# if defined(__GNUC__)
-#  if (__GNUC__ >= 8)
-#   define ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(type, name) \
-     static constexpr const type name{}
-#  else // (__GNUC__ >= 8)
-#   define ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(type, name) \
-     static const type name
-#  endif // (__GNUC__ >= 8)
-# elif defined(ASIO_MSVC)
+# if defined(ASIO_MSVC)
 #  define ASIO_STATIC_CONSTEXPR_DEFAULT_INIT(type, name) \
     static const type name
 # else // defined(ASIO_MSVC)
