@@ -17,9 +17,7 @@
 
 #include "asio/detail/config.hpp"
 #include <cstring>
-#if !defined(ASIO_NO_IOSTREAM)
-# include <sstream>
-#endif // !defined(ASIO_NO_IOSTREAM)
+#include <sstream>
 #include "asio/detail/socket_ops.hpp"
 #include "asio/detail/throw_error.hpp"
 #include "asio/error.hpp"
@@ -171,7 +169,6 @@ bool operator<(const endpoint& e1, const endpoint& e2) noexcept
   return e1.port() < e2.port();
 }
 
-#if !defined(ASIO_NO_IOSTREAM)
 std::string endpoint::to_string() const
 {
   std::ostringstream tmp_os;
@@ -184,7 +181,6 @@ std::string endpoint::to_string() const
 
   return tmp_os.str();
 }
-#endif // !defined(ASIO_NO_IOSTREAM)
 
 } // namespace detail
 } // namespace ip

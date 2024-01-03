@@ -17,8 +17,6 @@
 
 #include "asio/detail/config.hpp"
 
-#if !defined(ASIO_NO_IOSTREAM)
-
 #include "asio/basic_streambuf.hpp"
 
 namespace asio {
@@ -27,7 +25,5 @@ namespace asio {
 typedef basic_streambuf<> streambuf;
 
 } // namespace asio
-
-#endif // !defined(ASIO_NO_IOSTREAM)
 
 #endif // ASIO_STREAMBUF_HPP
