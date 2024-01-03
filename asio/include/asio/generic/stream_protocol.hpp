@@ -109,10 +109,8 @@ public:
   /// The generic socket type.
   typedef basic_stream_socket<stream_protocol> socket;
 
-#if !defined(ASIO_NO_IOSTREAM)
   /// The generic socket iostream type.
   typedef basic_socket_iostream<stream_protocol> iostream;
-#endif // !defined(ASIO_NO_IOSTREAM)
 
 private:
   int family_;

@@ -408,7 +408,6 @@ std::size_t write(SyncWriteStream& s,
     > = 0);
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 /// Write all of the supplied data to a stream before returning.
 /**
@@ -550,7 +549,6 @@ template <typename SyncWriteStream, typename Allocator,
 std::size_t write(SyncWriteStream& s, basic_streambuf<Allocator>& b,
     CompletionCondition completion_condition, std::error_code& ec);
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 #endif // !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
 
@@ -1077,7 +1075,6 @@ auto async_write(AsyncWriteStream& s, DynamicBuffer_v1&& buffers,
         static_cast<CompletionCondition&&>(completion_condition)));
 
 #if !defined(ASIO_NO_EXTENSIONS)
-#if !defined(ASIO_NO_IOSTREAM)
 
 /// Start an asynchronous operation to write all of the supplied data to a
 /// stream.
@@ -1233,7 +1230,6 @@ auto async_write(AsyncWriteStream& s, basic_streambuf<Allocator>& b,
         token, basic_streambuf_ref<Allocator>(b),
         static_cast<CompletionCondition&&>(completion_condition)));
 
-#endif // !defined(ASIO_NO_IOSTREAM)
 #endif // !defined(ASIO_NO_EXTENSIONS)
 #endif // !defined(ASIO_NO_DYNAMIC_BUFFER_V1)
 
