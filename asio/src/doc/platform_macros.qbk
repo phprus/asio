@@ -31,13 +31,6 @@ needs.
     []
   ]
   [
-    [`ASIO_HAS_BOOST_REGEX`]
-    [
-      Boost regex library.
-    ]
-    [`ASIO_DISABLE_BOOST_REGEX`]
-  ]
-  [
     [`ASIO_HAS_CLANG_LIBCXX`]
     [
       Clang / libc++ detection.
