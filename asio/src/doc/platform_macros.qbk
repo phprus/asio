@@ -38,13 +38,6 @@ needs.
     [`ASIO_DISABLE_BOOST_REGEX`]
   ]
   [
-    [`ASIO_HAS_BOOST_SOURCE_LOCATION`]
-    [
-      Boost support for source_location and system errors.
-    ]
-    [`ASIO_DISABLE_BOOST_SOURCE_LOCATION`]
-  ]
-  [
     [`ASIO_HAS_BOOST_THROW_EXCEPTION`]
     [
       Boost throw_exception function.
@@ -198,13 +191,6 @@ needs.
       Support for POSIX ssize_t typedef.
     ]
     [`ASIO_DISABLE_SSIZE_T`]
-  ]
-  [
-    [`ASIO_HAS_STD_EXPERIMENTAL_SOURCE_LOCATION`]
-    [
-      Standard library support for std::experimental::source_location.
-    ]
-    [`ASIO_DISABLE_STD_EXPERIMENTAL_SOURCE_LOCATION`]
   ]
   [
     [`ASIO_HAS_THREADS`]

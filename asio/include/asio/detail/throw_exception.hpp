@@ -21,6 +21,10 @@
 # include <boost/throw_exception.hpp>
 #endif // defined(ASIO_BOOST_THROW_EXCEPTION)
 
+#if defined(ASIO_HAS_SOURCE_LOCATION) && defined(ASIO_HAS_STD_SOURCE_LOCATION)
+# include <source_location>
+#endif // defined(ASIO_HAS_SOURCE_LOCATION) && defined(ASIO_HAS_STD_SOURCE_LOCATION)
+
 namespace asio {
 namespace detail {
 
