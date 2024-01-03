@@ -327,13 +327,6 @@ functionality, and behaviour of Asio.
     ]
   ]
   [
-    [`ASIO_NO_TYPEID`]
-    [
-      Disables uses of the `typeid` operator in asio. Defined automatically if
-      `BOOST_NO_TYPEID` is defined.
-    ]
-  ]
-  [
     [`ASIO_HASH_MAP_BUCKETS`]
     [
       Determines the number of buckets in asio's internal `hash_map` objects.
