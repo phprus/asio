@@ -102,21 +102,17 @@ void thread_pool::basic_executor_type<Allocator,
     // Make a local, non-const copy of the function.
     function_type tmp(static_cast<Function&&>(f));
 
-#if !defined(ASIO_NO_EXCEPTIONS)
     try
     {
-#endif // !defined(ASIO_NO_EXCEPTIONS)
       detail::fenced_block b(detail::fenced_block::full);
       static_cast<function_type&&>(tmp)();
       return;
-#if !defined(ASIO_NO_EXCEPTIONS)
     }
     catch (...)
     {
       pool_->scheduler_.capture_current_exception();
       return;
     }
-#endif // !defined(ASIO_NO_EXCEPTIONS)
   }
 
   // Allocate and construct an operation to wrap the function.
@@ -152,20 +148,16 @@ void thread_pool::basic_executor_type<Allocator,
   // Invoke immediately if we are already inside the thread pool.
   if (pool_->scheduler_.can_dispatch())
   {
-#if !defined(ASIO_NO_EXCEPTIONS)
     try
     {
-#endif // !defined(ASIO_NO_EXCEPTIONS)
       detail::fenced_block b(detail::fenced_block::full);
       static_cast<decay_t<Function>&&>(f2.value)();
       return;
-#if !defined(ASIO_NO_EXCEPTIONS)
     }
     catch (...)
     {
       std::terminate();
     }
-#endif // !defined(ASIO_NO_EXCEPTIONS)
   }
 
   // Construct an operation to wrap the function.

@@ -96,17 +96,6 @@ inline void compile_test(const char* name)
   ASIO_TEST_IOSTREAM << name << " passed" << std::endl;
 }
 
-#if defined(ASIO_NO_EXCEPTIONS)
-
-template <typename T>
-void throw_exception(const T& t)
-{
-  ASIO_TEST_IOSTREAM << "Exception: " << t.what() << std::endl;
-  std::abort();
-}
-
-#endif // defined(ASIO_NO_EXCEPTIONS)
-
 } // namespace detail
 } // namespace asio
 

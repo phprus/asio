@@ -28,20 +28,10 @@ namespace detail {
 template <typename Exception>
 void throw_exception(
     const Exception& e
-    ASIO_SOURCE_LOCATION_DEFAULTED_PARAM);
-
-// Only define the throw_exception function when exceptions are enabled.
-// Otherwise, it is up to the application to provide a definition of this
-// function.
-#if !defined(ASIO_NO_EXCEPTIONS)
-template <typename Exception>
-void throw_exception(
-    const Exception& e
-    ASIO_SOURCE_LOCATION_PARAM)
+    ASIO_SOURCE_LOCATION_DEFAULTED_PARAM)
 {
   throw e;
 }
-#endif // !defined(ASIO_NO_EXCEPTIONS)
 
 } // namespace detail
 } // namespace asio
