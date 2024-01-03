@@ -53,11 +53,7 @@ void test()
 
     win::random_access_handle handle1(ioc);
     HANDLE native_handle1 = INVALID_HANDLE_VALUE;
-#if defined(ASIO_MSVC) && (_MSC_VER < 1910)
-    // Skip this on older MSVC due to mysterious ambiguous overload errors.
-#else
     win::random_access_handle handle2(ioc, native_handle1);
-#endif
 
     win::random_access_handle handle3(ioc_ex);
     HANDLE native_handle2 = INVALID_HANDLE_VALUE;

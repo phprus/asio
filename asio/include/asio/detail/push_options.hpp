@@ -184,10 +184,6 @@
 # pragma warning (disable:4512)
 # pragma warning (disable:4610)
 # pragma warning (disable:4675)
-# if (_MSC_VER < 1600)
-// Visual Studio 2008 generates spurious warnings about unused parameters.
-#  pragma warning (disable:4100)
-# endif // (_MSC_VER < 1600)
 # if defined(_M_IX86) && defined(_Wp64)
 // The /Wp64 option is broken. If you want to check 64 bit portability, use a
 // 64 bit compiler!
@@ -195,14 +191,6 @@
 #  pragma warning (disable:4312)
 # endif // defined(_M_IX86) && defined(_Wp64)
 # pragma pack (push, 8)
-// Note that if the /Og optimisation flag is enabled with MSVC6, the compiler
-// has a tendency to incorrectly optimise away some calls to member template
-// functions, even though those functions contain code that should not be
-// optimised away! Therefore we will always disable this optimisation option
-// for the MSVC6 compiler.
-# if (_MSC_VER < 1300)
-#  pragma optimize ("g", off)
-# endif
 # if !defined(_MT)
 #  error Multithreaded RTL must be selected.
 # endif // !defined(_MT)
