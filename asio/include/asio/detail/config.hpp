@@ -467,9 +467,6 @@
 // Whether standard iostreams are disabled.
 //#define ASIO_NO_IOSTREAM 1
 
-// Whether the typeid operator is supported.
-//#define ASIO_NO_TYPEID 1
-
 // Threads.
 #if !defined(ASIO_HAS_THREADS)
 # if !defined(ASIO_DISABLE_THREADS)

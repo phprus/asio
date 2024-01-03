@@ -209,13 +209,9 @@ class handler_work_base<Executor, void, IoContext, Executor>
 {
 public:
   explicit handler_work_base(int, int, const Executor& ex) noexcept
-#if !defined(ASIO_NO_TYPEID)
     : executor_(
         ex.target_type() == typeid(typename IoContext::executor_type)
           ? Executor() : ex)
-#else // !defined(ASIO_NO_TYPEID)
-    : executor_(ex)
-#endif // !defined(ASIO_NO_TYPEID)
   {
     if (executor_)
       executor_.on_work_started();
@@ -280,14 +276,10 @@ public:
   typedef execution::any_executor<SupportableProperties...> executor_type;
 
   explicit handler_work_base(int, int, const executor_type& ex) noexcept
-#if !defined(ASIO_NO_TYPEID)
     : executor_(
         ex.target_type() == typeid(typename IoContext::executor_type)
           ? executor_type()
           : asio::prefer(ex, execution::outstanding_work.tracked))
-#else // !defined(ASIO_NO_TYPEID)
-    : executor_(asio::prefer(ex, execution::outstanding_work.tracked))
-#endif // !defined(ASIO_NO_TYPEID)
   {
   }
 
@@ -350,14 +342,10 @@ public:
 
   explicit handler_work_base(int, int,
       const executor_type& ex) noexcept
-#if !defined(ASIO_NO_TYPEID)
     : executor_(
         ex.target_type() == typeid(typename IoContext::executor_type)
           ? executor_type()
           : asio::prefer(ex, execution::outstanding_work.tracked))
-#else // !defined(ASIO_NO_TYPEID)
-    : executor_(asio::prefer(ex, execution::outstanding_work.tracked))
-#endif // !defined(ASIO_NO_TYPEID)
   {
   }
 
