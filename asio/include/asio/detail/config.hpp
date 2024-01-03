@@ -29,7 +29,6 @@
 
 // boostify: non-boost code ends here
 #if defined(ASIO_STANDALONE)
-# define ASIO_DISABLE_BOOST_REGEX 1
 # define ASIO_DISABLE_BOOST_STATIC_CONSTANT 1
 #else // defined(ASIO_STANDALONE)
 // Boost.Config library is available.
@@ -572,13 +571,6 @@
     static const type assignment
 # endif // !defined(ASIO_DISABLE_BOOST_STATIC_CONSTANT)
 #endif // !defined(ASIO_STATIC_CONSTANT)
-
-// Boost regex library.
-#if !defined(ASIO_HAS_BOOST_REGEX)
-# if !defined(ASIO_DISABLE_BOOST_REGEX)
-#  define ASIO_HAS_BOOST_REGEX 1
-# endif // !defined(ASIO_DISABLE_BOOST_REGEX)
-#endif // !defined(ASIO_HAS_BOOST_REGEX)
 
 // Microsoft Visual C++'s secure C runtime library.
 #if !defined(ASIO_HAS_SECURE_RTL)

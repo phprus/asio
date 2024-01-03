@@ -227,7 +227,6 @@ nobase_include_HEADERS = \
 	asio/detail/reactor_op.hpp \
 	asio/detail/reactor_op_queue.hpp \
 	asio/detail/recycling_allocator.hpp \
-	asio/detail/regex_fwd.hpp \
 	asio/detail/resolve_endpoint_op.hpp \
 	asio/detail/resolve_op.hpp \
 	asio/detail/resolve_query_op.hpp \
