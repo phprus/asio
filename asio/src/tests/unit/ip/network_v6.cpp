@@ -91,10 +91,8 @@ void test()
     std::ostringstream os;
     os << net1;
 
-#if !defined(BOOST_NO_STD_WSTREAMBUF)
     std::wostringstream wos;
     wos << net1;
-#endif // !defined(BOOST_NO_STD_WSTREAMBUF)
   }
   catch (std::exception&)
   {

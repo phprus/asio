@@ -128,10 +128,8 @@ void test()
     std::ostringstream os;
     os << addr1;
 
-#if !defined(BOOST_NO_STD_WSTREAMBUF)
     std::wostringstream wos;
     wos << addr1;
-#endif // !defined(BOOST_NO_STD_WSTREAMBUF)
 
     std::size_t hash1 = std::hash<ip::address_v6>()(addr1);
     (void)hash1;
