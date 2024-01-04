@@ -769,6 +769,8 @@ signed_size_type recv(socket_type s, buf* bufs, size_t count,
     ec = asio::error::connection_reset;
   else if (ec.value() == ERROR_PORT_UNREACHABLE)
     ec = asio::error::connection_refused;
+  else if (ec.value() == ERROR_CONNECTION_ABORTED)
+    ec = asio::error::connection_aborted;
   else if (ec.value() == WSAEMSGSIZE || ec.value() == ERROR_MORE_DATA)
     result = 0;
   if (result != 0)
@@ -802,6 +804,8 @@ signed_size_type recv1(socket_type s, void* data, size_t size,
     ec = asio::error::connection_reset;
   else if (ec.value() == ERROR_PORT_UNREACHABLE)
     ec = asio::error::connection_refused;
+  else if (ec.value() == ERROR_CONNECTION_ABORTED)
+    ec = asio::error::connection_aborted;
   else if (ec.value() == WSAEMSGSIZE || ec.value() == ERROR_MORE_DATA)
     result = 0;
   if (result != 0)
@@ -923,6 +927,10 @@ void complete_iocp_recv(state_type state,
   {
     ec = asio::error::connection_refused;
   }
+  else if (ec.value() == ERROR_CONNECTION_ABORTED)
+  {
+    ec = asio::error::connection_aborted;
+  }
   else if (ec.value() == WSAEMSGSIZE || ec.value() == ERROR_MORE_DATA)
   {
     asio::error::clear(ec);
@@ -1034,6 +1042,8 @@ signed_size_type recvfrom(socket_type s, buf* bufs, size_t count,
     ec = asio::error::connection_reset;
   else if (ec.value() == ERROR_PORT_UNREACHABLE)
     ec = asio::error::connection_refused;
+  else if (ec.value() == ERROR_CONNECTION_ABORTED)
+    ec = asio::error::connection_aborted;
   else if (ec.value() == WSAEMSGSIZE || ec.value() == ERROR_MORE_DATA)
     result = 0;
   if (result != 0)
@@ -1084,6 +1094,8 @@ signed_size_type recvfrom1(socket_type s, void* data, size_t size,
     ec = asio::error::connection_reset;
   else if (ec.value() == ERROR_PORT_UNREACHABLE)
     ec = asio::error::connection_refused;
+  else if (ec.value() == ERROR_CONNECTION_ABORTED)
+    ec = asio::error::connection_aborted;
   else if (ec.value() == WSAEMSGSIZE || ec.value() == ERROR_MORE_DATA)
     result = 0;
   if (result != 0)
@@ -1179,6 +1191,10 @@ void complete_iocp_recvfrom(
   else if (ec.value() == ERROR_PORT_UNREACHABLE)
   {
     ec = asio::error::connection_refused;
+  }
+  else if (ec.value() == ERROR_CONNECTION_ABORTED)
+  {
+    ec = asio::error::connection_aborted;
   }
   else if (ec.value() == WSAEMSGSIZE || ec.value() == ERROR_MORE_DATA)
   {
@@ -1325,6 +1341,10 @@ void complete_iocp_recvmsg(
   {
     ec = asio::error::connection_refused;
   }
+  else if (ec.value() == ERROR_CONNECTION_ABORTED)
+  {
+    ec = asio::error::connection_aborted;
+  }
   else if (ec.value() == WSAEMSGSIZE || ec.value() == ERROR_MORE_DATA)
   {
     asio::error::clear(ec);
@@ -1382,6 +1402,8 @@ signed_size_type send(socket_type s, const buf* bufs, size_t count,
     ec = asio::error::connection_reset;
   else if (ec.value() == ERROR_PORT_UNREACHABLE)
     ec = asio::error::connection_refused;
+  else if (ec.value() == ERROR_CONNECTION_ABORTED)
+    ec = asio::error::connection_aborted;
   if (result != 0)
     return socket_error_retval;
   asio::error::clear(ec);
@@ -1416,6 +1438,8 @@ signed_size_type send1(socket_type s, const void* data, size_t size,
     ec = asio::error::connection_reset;
   else if (ec.value() == ERROR_PORT_UNREACHABLE)
     ec = asio::error::connection_refused;
+  else if (ec.value() == ERROR_CONNECTION_ABORTED)
+    ec = asio::error::connection_aborted;
   if (result != 0)
     return socket_error_retval;
   asio::error::clear(ec);
@@ -1525,6 +1549,10 @@ void complete_iocp_send(
   {
     ec = asio::error::connection_refused;
   }
+  else if (ec.value() == ERROR_CONNECTION_ABORTED)
+  {
+    ec = asio::error::connection_aborted;
+  }
 }
 
 #else // defined(ASIO_HAS_IOCP)
@@ -1610,6 +1638,8 @@ signed_size_type sendto(socket_type s, const buf* bufs,
     ec = asio::error::connection_reset;
   else if (ec.value() == ERROR_PORT_UNREACHABLE)
     ec = asio::error::connection_refused;
+  else if (ec.value() == ERROR_CONNECTION_ABORTED)
+    ec = asio::error::connection_aborted;
   if (result != 0)
     return socket_error_retval;
   asio::error::clear(ec);
@@ -1656,6 +1686,8 @@ signed_size_type sendto1(socket_type s, const void* data,
     ec = asio::error::connection_reset;
   else if (ec.value() == ERROR_PORT_UNREACHABLE)
     ec = asio::error::connection_refused;
+  else if (ec.value() == ERROR_CONNECTION_ABORTED)
+    ec = asio::error::connection_aborted;
   if (result != 0)
     return socket_error_retval;
   asio::error::clear(ec);
