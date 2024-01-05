@@ -11,7 +11,6 @@
 #include "asio.hpp"
 #include <algorithm>
 #include <functional>
-#include <boost/mem_fn.hpp>
 #include <iostream>
 #include <list>
 #include <string>
@@ -223,7 +222,7 @@ public:
   void handle_timeout()
   {
     std::for_each(sessions_.begin(), sessions_.end(),
-        boost::mem_fn(&session::stop));
+        std::mem_fn(&session::stop));
   }
 
 private:

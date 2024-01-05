@@ -10,11 +10,11 @@
 
 #include <asio/io_context.hpp>
 #include <asio/ip/udp.hpp>
-#include <boost/shared_ptr.hpp>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <vector>
+#include <memory>
 #include "allocator.hpp"
 
 using asio::ip::udp;
@@ -108,12 +108,12 @@ int main(int argc, char* argv[])
   bool spin = (std::strcmp(argv[4], "spin") == 0);
 
   asio::io_context io_context(1);
-  std::vector<boost::shared_ptr<udp_server> > servers;
+  std::vector<std::shared_ptr<udp_server> > servers;
 
   for (unsigned short i = 0; i < num_ports; ++i)
   {
     unsigned short port = first_port + i;
-    boost::shared_ptr<udp_server> s(new udp_server(io_context, port, buf_size));
+    std::shared_ptr<udp_server> s(new udp_server(io_context, port, buf_size));
     servers.push_back(s);
     (*s)(std::error_code());
   }

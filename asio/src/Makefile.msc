@@ -322,17 +322,11 @@ asio.lib: asio.cpp
 	lib -name:asio.lib asio.obj
 !endif
 
-!ifdef STANDALONE
-all: \
-	$(CPP11_EXAMPLE_EXES) \
-	$(UNIT_TEST_EXES)
-!else
 all: \
 	$(LATENCY_TEST_EXES) \
 	$(PERFORMANCE_TEST_EXES) \
 	$(CPP11_EXAMPLE_EXES) \
 	$(UNIT_TEST_EXES)
-!endif
 
 ssl: \
 	$(SSL_UNIT_TEST_EXES) \

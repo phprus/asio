@@ -9,17 +9,16 @@
 //
 
 #include <asio/ip/udp.hpp>
-#include <boost/date_time/posix_time/posix_time_types.hpp>
+#include <chrono>
 #include <algorithm>
 #include <cstdio>
 #include <cstdlib>
+#include <cstdint>
 #include <cstring>
 #include <vector>
 #include "high_res_clock.hpp"
 
 using asio::ip::udp;
-using boost::posix_time::ptime;
-using boost::posix_time::microsec_clock;
 
 const int num_samples = 100000;
 
@@ -53,13 +52,13 @@ int main(int argc, char* argv[])
   std::vector<unsigned char> write_buf(buf_size);
   std::vector<unsigned char> read_buf(buf_size);
 
-  ptime start = microsec_clock::universal_time();
-  boost::uint64_t start_hr = high_res_clock();
+  auto start = std::chrono::high_resolution_clock::now();
+  std::uint64_t start_hr = high_res_clock();
 
-  boost::uint64_t samples[num_samples];
+  std::uint64_t samples[num_samples];
   for (int i = 0; i < num_samples; ++i)
   {
-    boost::uint64_t t = high_res_clock();
+    std::uint64_t t = high_res_clock();
 
     std::error_code ec;
     socket.send_to(asio::buffer(write_buf), target, 0, ec);
@@ -75,10 +74,10 @@ int main(int argc, char* argv[])
       target.port(target.port() + 1);
   }
 
-  ptime stop = microsec_clock::universal_time();
-  boost::uint64_t stop_hr = high_res_clock();
-  boost::uint64_t elapsed_usec = (stop - start).total_microseconds();
-  boost::uint64_t elapsed_hr = stop_hr - start_hr;
+  auto stop = std::chrono::high_resolution_clock::now();
+  std::uint64_t stop_hr = high_res_clock();
+  std::uint64_t elapsed_usec = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+  std::uint64_t elapsed_hr = stop_hr - start_hr;
   double scale = 1.0 * elapsed_usec / elapsed_hr;
 
   std::sort(samples, samples + num_samples);
