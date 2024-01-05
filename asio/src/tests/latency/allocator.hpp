@@ -11,7 +11,8 @@
 #ifndef ALLOCATOR_HPP
 #define ALLOCATOR_HPP
 
-#include <boost/aligned_storage.hpp>
+#include "asio.hpp"
+#include <cstddef>
 
 // Represents a single connection from a client.
 class allocator
@@ -24,7 +25,7 @@ public:
 
   void* allocate(std::size_t n)
   {
-    if (in_use_ || n >= 1024)
+    if (in_use_ || n > storage_size_)
       return ::operator new(n);
     in_use_ = true;
     return static_cast<void*>(&space_);
@@ -46,7 +47,8 @@ private:
   bool in_use_;
 
   // The reusable memory space made available by the allocator.
-  boost::aligned_storage<1024>::type space_;
+  static constexpr std::size_t storage_size_ = 1024;
+  asio::aligned_storage_t<storage_size_, alignof(std::max_align_t)> space_;
 };
 
 #endif // ALLOCATOR_HPP

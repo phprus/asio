@@ -11,7 +11,6 @@
 #include "asio.hpp"
 #include <algorithm>
 #include <functional>
-#include <boost/mem_fn.hpp>
 #include <iostream>
 #include <list>
 #include <string>
@@ -223,7 +222,7 @@ public:
   void handle_timeout()
   {
     std::for_each(sessions_.begin(), sessions_.end(),
-        boost::mem_fn(&session::stop));
+        std::mem_fn(&session::stop));
   }
 
 private:
@@ -263,8 +262,7 @@ int main(int argc, char* argv[])
     std::list<asio::thread*> threads;
     while (--thread_count > 0)
     {
-      asio::thread* new_thread = new asio::thread(
-          std::bind(&asio::io_context::run, &ioc));
+      asio::thread* new_thread = new asio::thread([&]{ ioc.run(); });
       threads.push_back(new_thread);
     }
 

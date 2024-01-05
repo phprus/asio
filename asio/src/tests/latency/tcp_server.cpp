@@ -12,11 +12,11 @@
 #include <asio/ip/tcp.hpp>
 #include <asio/read.hpp>
 #include <asio/write.hpp>
-#include <boost/shared_ptr.hpp>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <vector>
+#include <memory>
 
 using asio::ip::tcp;
 
@@ -98,11 +98,11 @@ int main(int argc, char* argv[])
 
   asio::io_context io_context(1);
   tcp::acceptor acceptor(io_context, tcp::endpoint(tcp::v4(), port));
-  std::vector<boost::shared_ptr<tcp_server> > servers;
+  std::vector<std::shared_ptr<tcp_server> > servers;
 
   for (int i = 0; i < max_connections; ++i)
   {
-    boost::shared_ptr<tcp_server> s(new tcp_server(acceptor, buf_size));
+    std::shared_ptr<tcp_server> s(new tcp_server(acceptor, buf_size));
     servers.push_back(s);
     (*s)(asio::error_code());
   }

@@ -11,12 +11,13 @@
 #ifndef HIGH_RES_CLOCK_HPP
 #define HIGH_RES_CLOCK_HPP
 
-#include <boost/config.hpp>
-#include <boost/cstdint.hpp>
+#include <asio.hpp>
+#include <cstdint>
+#include <chrono>
 
 #if defined(ASIO_WINDOWS)
 
-inline boost::uint64_t high_res_clock()
+inline std::uint64_t high_res_clock()
 {
   LARGE_INTEGER i;
   QueryPerformanceCounter(&i);
@@ -25,27 +26,20 @@ inline boost::uint64_t high_res_clock()
 
 #elif defined(__GNUC__) && defined(__x86_64__)
 
-inline boost::uint64_t high_res_clock()
+inline std::uint64_t high_res_clock()
 {
   unsigned long low, high;
   __asm__ __volatile__("rdtsc" : "=a" (low), "=d" (high));
-  return (((boost::uint64_t)high) << 32) | low;
+  return (((std::uint64_t)high) << 32) | low;
 }
 
 #else
 
-#include <boost/date_time/posix_time/posix_time_types.hpp>
-
-inline boost::uint64_t high_res_clock()
+inline std::uint64_t high_res_clock()
 {
-  boost::posix_time::ptime now =
-    boost::posix_time::microsec_clock::universal_time();
-
-  boost::posix_time::ptime epoch(
-      boost::gregorian::date(1970, 1, 1),
-      boost::posix_time::seconds(0));
-
-  return (now - epoch).total_microseconds();
+  auto now = std::chrono::high_resolution_clock::now();
+  return std::chrono::duration_cast<std::chrono::microseconds>(
+      now.time_since_epoch()).count();
 }
 
 #endif
