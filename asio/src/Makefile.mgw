@@ -213,20 +213,12 @@ OTHER_CPP11_EXAMPLE_EXES = \
 	examples/cpp11/http/server4/http_server.exe \
 	examples/cpp11/services/daytime_client.exe
 
-ifdef STANDALONE
-all: \
-	$(SEPARATE_COMPILATION_LIB) \
-	$(CPP11_EXAMPLE_EXES) \
-	$(OTHER_CPP11_EXAMPLE_EXES) \
-	$(UNIT_TEST_EXES)
-else
 all: \
 	$(SEPARATE_COMPILATION_LIB) \
 	$(PERFORMANCE_TEST_EXES) \
 	$(CPP11_EXAMPLE_EXES) \
 	$(OTHER_CPP11_EXAMPLE_EXES) \
 	$(UNIT_TEST_EXES)
-endif
 
 ifdef SEPARATE_COMPILATION
 libasio.a: asio.o

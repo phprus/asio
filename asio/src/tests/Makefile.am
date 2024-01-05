@@ -176,7 +176,6 @@ check_PROGRAMS = \
 	unit/write \
 	unit/write_at
 
-if !STANDALONE
 noinst_PROGRAMS = \
 	latency/tcp_client \
 	latency/tcp_server \
@@ -184,7 +183,6 @@ noinst_PROGRAMS = \
 	latency/udp_server \
 	performance/client \
 	performance/server
-endif
 
 check_PROGRAMS += \
 	unit/experimental/basic_channel \
@@ -435,14 +433,12 @@ noinst_HEADERS = \
 
 AM_CXXFLAGS = -I$(srcdir)/../../include
 
-if !STANDALONE
 latency_tcp_client_SOURCES = latency/tcp_client.cpp
 latency_tcp_server_SOURCES = latency/tcp_server.cpp
 latency_udp_client_SOURCES = latency/udp_client.cpp
 latency_udp_server_SOURCES = latency/udp_server.cpp
 performance_client_SOURCES = performance/client.cpp
 performance_server_SOURCES = performance/server.cpp
-endif
 
 unit_any_completion_executor_SOURCES = unit/any_completion_executor.cpp
 unit_any_completion_handler_SOURCES = unit/any_completion_handler.cpp

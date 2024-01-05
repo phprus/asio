@@ -11,17 +11,16 @@
 #include <asio/ip/tcp.hpp>
 #include <asio/read.hpp>
 #include <asio/write.hpp>
-#include <boost/date_time/posix_time/posix_time_types.hpp>
-#include <boost/shared_ptr.hpp>
+#include <chrono>
 #include <cstdio>
 #include <cstdlib>
+#include <cstdint>
 #include <cstring>
 #include <vector>
+#include <memory>
 #include "high_res_clock.hpp"
 
 using asio::ip::tcp;
-using boost::posix_time::ptime;
-using boost::posix_time::microsec_clock;
 
 const int num_samples = 100000;
 
@@ -51,11 +50,11 @@ int main(int argc, char* argv[])
   bool spin = (std::strcmp(argv[5], "spin") == 0);
 
   asio::io_context io_context;
-  std::vector<boost::shared_ptr<tcp::socket> > sockets;
+  std::vector<std::shared_ptr<tcp::socket> > sockets;
 
   for (int i = 0; i < num_connections; ++i)
   {
-    boost::shared_ptr<tcp::socket> s(new tcp::socket(io_context));
+    std::shared_ptr<tcp::socket> s(new tcp::socket(io_context));
 
     tcp::endpoint target(asio::ip::make_address(ip), port);
     s->connect(target);
@@ -73,15 +72,15 @@ int main(int argc, char* argv[])
   std::vector<unsigned char> write_buf(buf_size);
   std::vector<unsigned char> read_buf(buf_size);
 
-  ptime start = microsec_clock::universal_time();
-  boost::uint64_t start_hr = high_res_clock();
+  auto start = std::chrono::high_resolution_clock::now();
+  std::uint64_t start_hr = high_res_clock();
 
-  boost::uint64_t samples[num_samples];
+  std::uint64_t samples[num_samples];
   for (int i = 0; i < num_samples; ++i)
   {
     tcp::socket& socket = *sockets[i % num_connections];
 
-    boost::uint64_t t = high_res_clock();
+    std::uint64_t t = high_res_clock();
 
     asio::error_code ec;
     asio::write(socket,
@@ -95,10 +94,10 @@ int main(int argc, char* argv[])
     samples[i] = high_res_clock() - t;
   }
 
-  ptime stop = microsec_clock::universal_time();
-  boost::uint64_t stop_hr = high_res_clock();
-  boost::uint64_t elapsed_usec = (stop - start).total_microseconds();
-  boost::uint64_t elapsed_hr = stop_hr - start_hr;
+  auto stop = std::chrono::high_resolution_clock::now();
+  std::uint64_t stop_hr = high_res_clock();
+  std::uint64_t elapsed_usec = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+  std::uint64_t elapsed_hr = stop_hr - start_hr;
   double scale = 1.0 * elapsed_usec / elapsed_hr;
 
   std::sort(samples, samples + num_samples);
