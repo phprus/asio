@@ -1,0 +1,138 @@
+name: macos
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  xcode:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-13, macos-14]
+        cxx-std: ['c++20']
+        separate-compilation: ['']
+        #separate-compilation: ['', '--enable-separate-compilation']
+        optim-level: ['-O0', '-O3']
+        select-reactor: ['']
+        handler-tracking: ['']
+        include:
+          #
+          # macos-13 / -O0 / handler tracking
+          #
+          - os: macos-13
+            cxx-std: c++20
+            optim-level: -O0
+            handler-tracking: -DASIO_ENABLE_HANDLER_TRACKING
+          #
+          # macos-13 / -O0 / without kqueue
+          #
+          - os: macos-13
+            cxx-std: c++20
+            optim-level: -O0
+            select-reactor: -DASIO_DISABLE_KQUEUE
+          #
+          # macos-14 / -O0 / handler tracking
+          #
+          - os: macos-14
+            cxx-std: c++20
+            optim-level: -O0
+            handler-tracking: -DASIO_ENABLE_HANDLER_TRACKING
+          #
+          # macos-14 / -O0 / without kqueue
+          #
+          - os: macos-14
+            cxx-std: c++20
+            optim-level: -O0
+            select-reactor: -DASIO_DISABLE_KQUEUE
+
+    runs-on: ${{ matrix.os }}
+    env:
+      CXX: clang++
+      CXXFLAGS: -std=${{ matrix.cxx-std }} ${{ matrix.optim-level }} -Wall -Wextra ${{ matrix.select-reactor }} ${{ matrix.handler-tracking }}
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Select Xcode 15.2
+      run: sudo xcode-select -s "/Applications/Xcode_15.2.app"
+      if: ${{ matrix.os == 'macos-13' }}
+
+    - name: Select Xcode 15.4
+      run: sudo xcode-select -s "/Applications/Xcode_15.4.app"
+      if: ${{ matrix.os == 'macos-14' }}
+
+    - name: Install autotools
+      run: brew install automake
+    - name: Configure
+      working-directory: asio
+      run: |
+        ./autogen.sh
+        ./configure ${{ matrix.separate-compilation }}
+    - name: Build And Test
+      working-directory: asio
+      run: make && make check || (cat ./src/tests/test-suite.log; false)
+
+  llvm-16:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-13, macos-14]
+        cxx-std: ['c++20']
+        separate-compilation: ['']
+        #separate-compilation: ['', '--enable-separate-compilation']
+        optim-level: ['-O0', '-O3']
+        select-reactor: ['']
+        handler-tracking: ['']
+        include:
+          #
+          # macos-13 / -O0 / handler tracking
+          #
+          - os: macos-13
+            cxx-std: c++20
+            optim-level: -O0
+            handler-tracking: -DASIO_ENABLE_HANDLER_TRACKING
+          #
+          # macos-13 / -O0 / without kqueue
+          #
+          - os: macos-13
+            cxx-std: c++20
+            optim-level: -O0
+            select-reactor: -DASIO_DISABLE_KQUEUE
+          #
+          # macos-14 / -O0 / handler tracking
+          #
+          - os: macos-14
+            cxx-std: c++20
+            optim-level: -O0
+            handler-tracking: -DASIO_ENABLE_HANDLER_TRACKING
+          #
+          # macos-14 / -O0 / without kqueue
+          #
+          - os: macos-14
+            cxx-std: c++20
+            optim-level: -O0
+            select-reactor: -DASIO_DISABLE_KQUEUE
+
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Select Xcode 15.0.1
+      run: sudo xcode-select -s "/Applications/Xcode_15.0.1.app"
+
+    - name: Install autotools And LLVM-16
+      run: brew install automake llvm@16
+    - name: Set env
+      run: |
+        echo "CXX=$(brew --prefix llvm@16)/bin/clang++" >> $GITHUB_ENV
+        echo "CXXFLAGS=-std=${{ matrix.cxx-std }} ${{ matrix.optim-level }} -Wall -Wextra ${{ matrix.select-reactor }} ${{ matrix.handler-tracking }}" >> $GITHUB_ENV
+        echo "LDFLAGS=-L$(brew --prefix llvm@16)/lib -L$(brew --prefix llvm@16)/c++ -Wl,-rpath,$(brew --prefix llvm@16)/c++"
+    - name: Configure
+      working-directory: asio
+      run: |
+        ./autogen.sh
+        ./configure ${{ matrix.separate-compilation }}
+    - name: Build And Test
+      working-directory: asio
+      run: make && make check || (cat ./src/tests/test-suite.log; false)
