@@ -136,7 +136,7 @@ struct blocking_adaptation_t
 };
 
 /// A special value used for accessing the blocking_adaptation_t property.
-ASIO_INLINE_CONSTEXPR blocking_adaptation_t blocking_adaptation;
+constexpr inline blocking_adaptation_t blocking_adaptation;
 
 } // namespace execution
 
@@ -718,7 +718,7 @@ void blocking_execute(
 
 typedef detail::blocking_adaptation_t<> blocking_adaptation_t;
 
-ASIO_INLINE_CONSTEXPR blocking_adaptation_t blocking_adaptation;
+constexpr inline blocking_adaptation_t blocking_adaptation;
 
 } // namespace execution
 

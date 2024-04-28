@@ -99,7 +99,7 @@ private:
   Allocator allocator_;
 };
 
-ASIO_INLINE_CONSTEXPR use_promise_t<> use_promise;
+constexpr inline use_promise_t<> use_promise;
 
 } // namespace experimental
 } // namespace asio

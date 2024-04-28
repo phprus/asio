@@ -131,7 +131,7 @@ struct relationship_t
 };
 
 /// A special value used for accessing the relationship_t property.
-ASIO_INLINE_CONSTEXPR relationship_t relationship;
+constexpr inline relationship_t relationship;
 
 } // namespace execution
 
@@ -542,7 +542,7 @@ const T continuation_t<I>::static_query_v;
 
 typedef detail::relationship_t<> relationship_t;
 
-ASIO_INLINE_CONSTEXPR relationship_t relationship;
+constexpr inline relationship_t relationship;
 
 } // namespace execution
 

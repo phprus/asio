@@ -704,7 +704,7 @@ inline auto operator|(Head head, Tail&& tail)
 /**
  * See the documentation for asio::deferred_t for a usage example.
  */
-ASIO_INLINE_CONSTEXPR deferred_t deferred;
+constexpr inline deferred_t deferred;
 
 } // namespace asio
 

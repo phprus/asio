@@ -173,9 +173,9 @@ private:
  * See the documentation for asio::use_coro_t for a usage example.
  */
 #if defined(GENERATING_DOCUMENTATION)
-ASIO_INLINE_CONSTEXPR use_coro_t<> use_coro;
+constexpr inline use_coro_t<> use_coro;
 #else
-ASIO_INLINE_CONSTEXPR use_coro_t<> use_coro(0, 0, 0);
+constexpr inline use_coro_t<> use_coro(0, 0, 0);
 #endif
 
 } // namespace experimental

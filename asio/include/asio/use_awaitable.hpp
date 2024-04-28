@@ -145,9 +145,9 @@ struct use_awaitable_t
  * See the documentation for asio::use_awaitable_t for a usage example.
  */
 #if defined(GENERATING_DOCUMENTATION)
-ASIO_INLINE_CONSTEXPR use_awaitable_t<> use_awaitable;
+constexpr inline use_awaitable_t<> use_awaitable;
 #else
-ASIO_INLINE_CONSTEXPR use_awaitable_t<> use_awaitable(0, 0, 0);
+constexpr inline use_awaitable_t<> use_awaitable(0, 0, 0);
 #endif
 
 } // namespace asio

@@ -94,7 +94,7 @@ public:
 /**
  * See the documentation for asio::detached_t for a usage example.
  */
-ASIO_INLINE_CONSTEXPR detached_t detached;
+constexpr inline detached_t detached;
 
 } // namespace asio
 
