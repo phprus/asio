@@ -226,6 +226,19 @@ if test "$GXX" = yes; then
   fi
 fi
 
+AC_ARG_ENABLE(experimental-coroutines,
+[  --disable-experimental-coroutines  disable experimental coroutines tests],
+[
+  case "${enableval}" in
+    yes) HAVE_EXPERIMENTAL_COROUTINES=yes ;;
+    no)  HAVE_EXPERIMENTAL_COROUTINES=no ;;
+    *) AC_MSG_ERROR([bad value ${enableval} for --enable-experimental-coroutines]) ;;
+  esac
+],
+[
+  HAVE_EXPERIMENTAL_COROUTINES=yes
+])
+
 AM_CONDITIONAL(STANDALONE,test x$STANDALONE = xyes)
 
 AM_CONDITIONAL(SEPARATE_COMPILATION,test x$SEPARATE_COMPILATION = xyes)
@@ -243,6 +256,8 @@ AM_CONDITIONAL(HAVE_CXX17,test x$HAVE_CXX17 = xyes)
 AM_CONDITIONAL(HAVE_CXX20,test x$HAVE_CXX20 = xyes)
 
 AM_CONDITIONAL(HAVE_COROUTINES,test x$HAVE_COROUTINES = xyes)
+
+AM_CONDITIONAL(HAVE_EXPERIMENTAL_COROUTINES,test x$HAVE_COROUTINES = xyes -a x$HAVE_EXPERIMENTAL_COROUTINES != xno)
 
 AC_CONFIG_FILES([asio.pc])
 
