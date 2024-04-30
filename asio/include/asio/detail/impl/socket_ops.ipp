@@ -88,10 +88,10 @@ inline void get_last_error(
   {
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
     ec = std::error_code(WSAGetLastError(),
-        asio::error::get_system_category());
+        std::system_category());
 #else
     ec = std::error_code(errno,
-        asio::error::get_system_category());
+        std::system_category());
 #endif
   }
 }
@@ -584,7 +584,7 @@ void sync_connect(socket_type s, const void* addr,
 
   // Return the result of the connect operation.
   ec = std::error_code(connect_error,
-      asio::error::get_system_category());
+      std::system_category());
 }
 
 #if defined(ASIO_HAS_IOCP)
@@ -666,7 +666,7 @@ bool non_blocking_connect(socket_type s, std::error_code& ec)
     if (connect_error)
     {
       ec = std::error_code(connect_error,
-          asio::error::get_system_category());
+          std::system_category());
     }
     else
       asio::error::clear(ec);
@@ -2881,7 +2881,7 @@ int gethostname(char* name, int namelen, std::error_code& ec)
   catch (Platform::Exception^ e)
   {
     ec = std::error_code(e->HResult,
-        asio::system_category());
+        std::system_category());
     return -1;
   }
 #else // defined(ASIO_WINDOWS_RUNTIME)
@@ -3774,10 +3774,10 @@ inline std::error_code translate_addrinfo_error(int error)
   default: // Possibly the non-portable EAI_SYSTEM.
 #if defined(ASIO_WINDOWS) || defined(__CYGWIN__)
     return std::error_code(
-        WSAGetLastError(), asio::error::get_system_category());
+        WSAGetLastError(), std::system_category());
 #else
     return std::error_code(
-        errno, asio::error::get_system_category());
+        errno, std::system_category());
 #endif
   }
 }

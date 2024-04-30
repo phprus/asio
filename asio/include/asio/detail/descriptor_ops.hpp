@@ -23,7 +23,7 @@
 
 #include <cstddef>
 #include "asio/error.hpp"
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/detail/cstdint.hpp"
 #include "asio/detail/socket_types.hpp"
 
@@ -61,7 +61,7 @@ inline void get_last_error(
   else
   {
     ec = std::error_code(errno,
-        asio::error::get_system_category());
+        std::system_category());
   }
 }
 

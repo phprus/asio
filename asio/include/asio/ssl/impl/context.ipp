@@ -1306,7 +1306,7 @@ std::error_code context::translate_error(long error)
   {
     return std::error_code(
         static_cast<int>(ERR_GET_REASON(error)),
-        asio::error::get_system_category());
+        std::system_category());
   }
 #endif // (OPENSSL_VERSION_NUMBER >= 0x30000000L)
 
