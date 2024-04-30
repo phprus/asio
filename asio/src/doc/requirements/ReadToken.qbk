@@ -8,14 +8,14 @@
 [section:ReadToken Read token requirements]
 
 A read token is a [link asio.overview.model.completion_tokens completion token]
-for completion signature `void(error_code, size_t)`.
+for completion signature `void(std::error_code, size_t)`.
 
 [heading Examples]
 
 A free function as a read token:
 
   void read_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       std::size_t bytes_transferred)
   {
     ...
@@ -27,7 +27,7 @@ A read token function object:
   {
     ...
     void operator()(
-        const asio::error_code& ec,
+        const std::error_code& ec,
         std::size_t bytes_transferred)
     {
       ...
@@ -38,7 +38,7 @@ A read token function object:
 A lambda as a read token:
 
   socket.async_read_some(...,
-      [](const asio::error_code& ec,
+      [](const std::error_code& ec,
         std::size_t bytes_transferred)
       {
         ...
@@ -48,7 +48,7 @@ A non-static class member function adapted to a read token using
 `std::bind()`:
 
   void my_class::read_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       std::size_t bytes_transferred)
   {
     ...
@@ -63,7 +63,7 @@ A non-static class member function adapted to a read token using
 `std::bind()`:
 
   void my_class::read_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       std::size_t bytes_transferred)
   {
     ...
@@ -84,7 +84,7 @@ Using [link asio.reference.use_future use_future] as a read token:
     std::size_t n = f.get();
     ...
   }
-  catch (const system_error& e)
+  catch (const std::system_error& e)
   {
     ...
   }
@@ -101,7 +101,7 @@ Using [link asio.reference.use_awaitable use_awaitable] as a read token:
             ..., asio::use_awaitable);
       ...
     }
-    catch (const system_error& e)
+    catch (const std::system_error& e)
     {
       ...
     }

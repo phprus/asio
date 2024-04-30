@@ -94,12 +94,12 @@ public:
   }
 
   // Destroy a socket implementation.
-  ASIO_DECL asio::error_code close(
-      base_implementation_type& impl, asio::error_code& ec);
+  ASIO_DECL std::error_code close(
+      base_implementation_type& impl, std::error_code& ec);
 
   // Release ownership of the socket.
   ASIO_DECL native_handle_type release(
-      base_implementation_type& impl, asio::error_code& ec);
+      base_implementation_type& impl, std::error_code& ec);
 
   // Get the native socket representation.
   native_handle_type native_handle(base_implementation_type& impl)
@@ -108,8 +108,8 @@ public:
   }
 
   // Cancel all operations associated with the socket.
-  asio::error_code cancel(base_implementation_type&,
-      asio::error_code& ec)
+  std::error_code cancel(base_implementation_type&,
+      std::error_code& ec)
   {
     ec = asio::error::operation_not_supported;
     return ec;
@@ -117,7 +117,7 @@ public:
 
   // Determine whether the socket is at the out-of-band data mark.
   bool at_mark(const base_implementation_type&,
-      asio::error_code& ec) const
+      std::error_code& ec) const
   {
     ec = asio::error::operation_not_supported;
     return false;
@@ -125,7 +125,7 @@ public:
 
   // Determine the number of bytes available for reading.
   std::size_t available(const base_implementation_type&,
-      asio::error_code& ec) const
+      std::error_code& ec) const
   {
     ec = asio::error::operation_not_supported;
     return 0;
@@ -133,8 +133,8 @@ public:
 
   // Perform an IO control command on the socket.
   template <typename IO_Control_Command>
-  asio::error_code io_control(base_implementation_type&,
-      IO_Control_Command&, asio::error_code& ec)
+  std::error_code io_control(base_implementation_type&,
+      IO_Control_Command&, std::error_code& ec)
   {
     ec = asio::error::operation_not_supported;
     return ec;
@@ -147,8 +147,8 @@ public:
   }
 
   // Sets the non-blocking mode of the socket.
-  asio::error_code non_blocking(base_implementation_type&,
-      bool, asio::error_code& ec)
+  std::error_code non_blocking(base_implementation_type&,
+      bool, std::error_code& ec)
   {
     ec = asio::error::operation_not_supported;
     return ec;
@@ -161,8 +161,8 @@ public:
   }
 
   // Sets the non-blocking mode of the native socket implementation.
-  asio::error_code native_non_blocking(base_implementation_type&,
-      bool, asio::error_code& ec)
+  std::error_code native_non_blocking(base_implementation_type&,
+      bool, std::error_code& ec)
   {
     ec = asio::error::operation_not_supported;
     return ec;
@@ -172,7 +172,7 @@ public:
   template <typename ConstBufferSequence>
   std::size_t send(base_implementation_type& impl,
       const ConstBufferSequence& buffers,
-      socket_base::message_flags flags, asio::error_code& ec)
+      socket_base::message_flags flags, std::error_code& ec)
   {
     return do_send(impl,
         buffer_sequence_adapter<asio::const_buffer,
@@ -181,7 +181,7 @@ public:
 
   // Wait until data can be sent without blocking.
   std::size_t send(base_implementation_type&, const null_buffers&,
-      socket_base::message_flags, asio::error_code& ec)
+      socket_base::message_flags, std::error_code& ec)
   {
     ec = asio::error::operation_not_supported;
     return 0;
@@ -218,7 +218,7 @@ public:
   void async_send(base_implementation_type&, const null_buffers&,
       socket_base::message_flags, Handler& handler, const IoExecutor& io_ex)
   {
-    asio::error_code ec = asio::error::operation_not_supported;
+    std::error_code ec = asio::error::operation_not_supported;
     const std::size_t bytes_transferred = 0;
     asio::post(io_ex,
         detail::bind_handler(handler, ec, bytes_transferred));
@@ -228,7 +228,7 @@ public:
   template <typename MutableBufferSequence>
   std::size_t receive(base_implementation_type& impl,
       const MutableBufferSequence& buffers,
-      socket_base::message_flags flags, asio::error_code& ec)
+      socket_base::message_flags flags, std::error_code& ec)
   {
     return do_receive(impl,
         buffer_sequence_adapter<asio::mutable_buffer,
@@ -237,7 +237,7 @@ public:
 
   // Wait until data can be received without blocking.
   std::size_t receive(base_implementation_type&, const null_buffers&,
-      socket_base::message_flags, asio::error_code& ec)
+      socket_base::message_flags, std::error_code& ec)
   {
     ec = asio::error::operation_not_supported;
     return 0;
@@ -275,7 +275,7 @@ public:
   void async_receive(base_implementation_type&, const null_buffers&,
       socket_base::message_flags, Handler& handler, const IoExecutor& io_ex)
   {
-    asio::error_code ec = asio::error::operation_not_supported;
+    std::error_code ec = asio::error::operation_not_supported;
     const std::size_t bytes_transferred = 0;
     asio::post(io_ex,
         detail::bind_handler(handler, ec, bytes_transferred));
@@ -285,24 +285,24 @@ protected:
   // Helper function to obtain endpoints associated with the connection.
   ASIO_DECL std::size_t do_get_endpoint(
       const base_implementation_type& impl, bool local,
-      void* addr, std::size_t addr_len, asio::error_code& ec) const;
+      void* addr, std::size_t addr_len, std::error_code& ec) const;
 
   // Helper function to set a socket option.
-  ASIO_DECL asio::error_code do_set_option(
+  ASIO_DECL std::error_code do_set_option(
       base_implementation_type& impl,
       int level, int optname, const void* optval,
-      std::size_t optlen, asio::error_code& ec);
+      std::size_t optlen, std::error_code& ec);
 
   // Helper function to get a socket option.
   ASIO_DECL void do_get_option(
       const base_implementation_type& impl,
       int level, int optname, void* optval,
-      std::size_t* optlen, asio::error_code& ec) const;
+      std::size_t* optlen, std::error_code& ec) const;
 
   // Helper function to perform a synchronous connect.
-  ASIO_DECL asio::error_code do_connect(
+  ASIO_DECL std::error_code do_connect(
       base_implementation_type& impl,
-      const void* addr, asio::error_code& ec);
+      const void* addr, std::error_code& ec);
 
   // Helper function to start an asynchronous connect.
   ASIO_DECL void start_connect_op(
@@ -312,7 +312,7 @@ protected:
   // Helper function to perform a synchronous send.
   ASIO_DECL std::size_t do_send(
       base_implementation_type& impl, const asio::const_buffer& data,
-      socket_base::message_flags flags, asio::error_code& ec);
+      socket_base::message_flags flags, std::error_code& ec);
 
   // Helper function to start an asynchronous send.
   ASIO_DECL void start_send_op(base_implementation_type& impl,
@@ -322,7 +322,7 @@ protected:
   // Helper function to perform a synchronous receive.
   ASIO_DECL std::size_t do_receive(
       base_implementation_type& impl, const asio::mutable_buffer& data,
-      socket_base::message_flags flags, asio::error_code& ec);
+      socket_base::message_flags flags, std::error_code& ec);
 
   // Helper function to start an asynchronous receive.
   ASIO_DECL void start_receive_op(base_implementation_type& impl,

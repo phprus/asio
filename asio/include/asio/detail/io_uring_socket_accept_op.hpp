@@ -37,7 +37,7 @@ template <typename Socket, typename Protocol>
 class io_uring_socket_accept_op_base : public io_uring_operation
 {
 public:
-  io_uring_socket_accept_op_base(const asio::error_code& success_ec,
+  io_uring_socket_accept_op_base(const std::error_code& success_ec,
       socket_type socket, socket_ops::state_type state, Socket& peer,
       const Protocol& protocol, typename Protocol::endpoint* peer_endpoint,
       func_type complete_func)
@@ -131,7 +131,7 @@ class io_uring_socket_accept_op :
 public:
   ASIO_DEFINE_HANDLER_PTR(io_uring_socket_accept_op);
 
-  io_uring_socket_accept_op(const asio::error_code& success_ec,
+  io_uring_socket_accept_op(const std::error_code& success_ec,
       socket_type socket, socket_ops::state_type state, Socket& peer,
       const Protocol& protocol, typename Protocol::endpoint* peer_endpoint,
       Handler& handler, const IoExecutor& io_ex)
@@ -144,7 +144,7 @@ public:
   }
 
   static void do_complete(void* owner, operation* base,
-      const asio::error_code& /*ec*/,
+      const std::error_code& /*ec*/,
       std::size_t /*bytes_transferred*/)
   {
     // Take ownership of the handler object.
@@ -171,7 +171,7 @@ public:
     // with the handler. Consequently, a local copy of the handler is required
     // to ensure that any owning sub-object remains valid until after we have
     // deallocated the memory here.
-    detail::binder1<Handler, asio::error_code>
+    detail::binder1<Handler, std::error_code>
       handler(o->handler_, o->ec_);
     p.h = asio::detail::addressof(handler.handler_);
     p.reset();
@@ -202,7 +202,7 @@ class io_uring_socket_move_accept_op :
 public:
   ASIO_DEFINE_HANDLER_PTR(io_uring_socket_move_accept_op);
 
-  io_uring_socket_move_accept_op(const asio::error_code& success_ec,
+  io_uring_socket_move_accept_op(const std::error_code& success_ec,
       const PeerIoExecutor& peer_io_ex, socket_type socket,
       socket_ops::state_type state, const Protocol& protocol,
       typename Protocol::endpoint* peer_endpoint, Handler& handler,
@@ -217,7 +217,7 @@ public:
   }
 
   static void do_complete(void* owner, operation* base,
-      const asio::error_code& /*ec*/,
+      const std::error_code& /*ec*/,
       std::size_t /*bytes_transferred*/)
   {
     // Take ownership of the handler object.
@@ -246,7 +246,7 @@ public:
     // to ensure that any owning sub-object remains valid until after we have
     // deallocated the memory here.
     detail::move_binder2<Handler,
-      asio::error_code, peer_socket_type>
+      std::error_code, peer_socket_type>
         handler(0, static_cast<Handler&&>(o->handler_), o->ec_,
           static_cast<peer_socket_type&&>(*o));
     p.h = asio::detail::addressof(handler.handler_);

@@ -40,9 +40,9 @@ namespace detail
   std::size_t write_at_buffer_sequence(SyncRandomAccessWriteDevice& d,
       uint64_t offset, const ConstBufferSequence& buffers,
       const ConstBufferIterator&, CompletionCondition completion_condition,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
-    ec = asio::error_code();
+    ec = std::error_code();
     asio::detail::consuming_buffers<const_buffer,
         ConstBufferSequence, ConstBufferIterator> tmp(buffers);
     while (!tmp.empty())
@@ -64,7 +64,7 @@ template <typename SyncRandomAccessWriteDevice, typename ConstBufferSequence,
     typename CompletionCondition>
 std::size_t write_at(SyncRandomAccessWriteDevice& d,
     uint64_t offset, const ConstBufferSequence& buffers,
-    CompletionCondition completion_condition, asio::error_code& ec)
+    CompletionCondition completion_condition, std::error_code& ec)
 {
   return detail::write_at_buffer_sequence(d, offset, buffers,
       asio::buffer_sequence_begin(buffers),
@@ -75,7 +75,7 @@ template <typename SyncRandomAccessWriteDevice, typename ConstBufferSequence>
 inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
     uint64_t offset, const ConstBufferSequence& buffers)
 {
-  asio::error_code ec;
+  std::error_code ec;
   std::size_t bytes_transferred = write_at(
       d, offset, buffers, transfer_all(), ec);
   asio::detail::throw_error(ec, "write_at");
@@ -85,7 +85,7 @@ inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
 template <typename SyncRandomAccessWriteDevice, typename ConstBufferSequence>
 inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
     uint64_t offset, const ConstBufferSequence& buffers,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   return write_at(d, offset, buffers, transfer_all(), ec);
 }
@@ -96,7 +96,7 @@ inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
     uint64_t offset, const ConstBufferSequence& buffers,
     CompletionCondition completion_condition)
 {
-  asio::error_code ec;
+  std::error_code ec;
   std::size_t bytes_transferred = write_at(d, offset, buffers,
       static_cast<CompletionCondition&&>(completion_condition), ec);
   asio::detail::throw_error(ec, "write_at");
@@ -110,7 +110,7 @@ template <typename SyncRandomAccessWriteDevice, typename Allocator,
     typename CompletionCondition>
 std::size_t write_at(SyncRandomAccessWriteDevice& d,
     uint64_t offset, asio::basic_streambuf<Allocator>& b,
-    CompletionCondition completion_condition, asio::error_code& ec)
+    CompletionCondition completion_condition, std::error_code& ec)
 {
   std::size_t bytes_transferred = write_at(d, offset, b.data(),
       static_cast<CompletionCondition&&>(completion_condition), ec);
@@ -122,7 +122,7 @@ template <typename SyncRandomAccessWriteDevice, typename Allocator>
 inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
     uint64_t offset, asio::basic_streambuf<Allocator>& b)
 {
-  asio::error_code ec;
+  std::error_code ec;
   std::size_t bytes_transferred = write_at(d, offset, b, transfer_all(), ec);
   asio::detail::throw_error(ec, "write_at");
   return bytes_transferred;
@@ -131,7 +131,7 @@ inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
 template <typename SyncRandomAccessWriteDevice, typename Allocator>
 inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
     uint64_t offset, asio::basic_streambuf<Allocator>& b,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   return write_at(d, offset, b, transfer_all(), ec);
 }
@@ -142,7 +142,7 @@ inline std::size_t write_at(SyncRandomAccessWriteDevice& d,
     uint64_t offset, asio::basic_streambuf<Allocator>& b,
     CompletionCondition completion_condition)
 {
-  asio::error_code ec;
+  std::error_code ec;
   std::size_t bytes_transferred = write_at(d, offset, b,
       static_cast<CompletionCondition&&>(completion_condition), ec);
   asio::detail::throw_error(ec, "write_at");
@@ -200,7 +200,7 @@ namespace detail
     {
     }
 
-    void operator()(asio::error_code ec,
+    void operator()(std::error_code ec,
         std::size_t bytes_transferred, int start = 0)
     {
       std::size_t max_size;
@@ -231,7 +231,7 @@ namespace detail
         }
 
         static_cast<WriteHandler&&>(handler_)(
-            static_cast<const asio::error_code&>(ec),
+            static_cast<const std::error_code&>(ec),
             static_cast<const std::size_t&>(buffers_.total_consumed()));
       }
     }
@@ -270,7 +270,7 @@ namespace detail
     detail::write_at_op<AsyncRandomAccessWriteDevice, ConstBufferSequence,
       ConstBufferIterator, CompletionCondition, WriteHandler>(
         d, offset, buffers, completion_condition, handler)(
-          asio::error_code(), 0, 1);
+          std::error_code(), 0, 1);
   }
 
   template <typename AsyncRandomAccessWriteDevice>
@@ -346,40 +346,40 @@ struct associator<Associator,
 
 template <typename AsyncRandomAccessWriteDevice,
     typename ConstBufferSequence, typename CompletionCondition,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) WriteToken>
 inline auto async_write_at(AsyncRandomAccessWriteDevice& d,
     uint64_t offset, const ConstBufferSequence& buffers,
     CompletionCondition completion_condition, WriteToken&& token)
   -> decltype(
     async_initiate<WriteToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_write_at<
           AsyncRandomAccessWriteDevice>>(),
         token, offset, buffers,
         static_cast<CompletionCondition&&>(completion_condition)))
 {
   return async_initiate<WriteToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_write_at<AsyncRandomAccessWriteDevice>(d),
       token, offset, buffers,
       static_cast<CompletionCondition&&>(completion_condition));
 }
 
 template <typename AsyncRandomAccessWriteDevice, typename ConstBufferSequence,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) WriteToken>
 inline auto async_write_at(AsyncRandomAccessWriteDevice& d,
     uint64_t offset, const ConstBufferSequence& buffers, WriteToken&& token)
   -> decltype(
     async_initiate<WriteToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_write_at<
           AsyncRandomAccessWriteDevice>>(),
         token, offset, buffers, transfer_all()))
 {
   return async_initiate<WriteToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_write_at<AsyncRandomAccessWriteDevice>(d),
       token, offset, buffers, transfer_all());
 }
@@ -413,7 +413,7 @@ namespace detail
     {
     }
 
-    void operator()(const asio::error_code& ec,
+    void operator()(const std::error_code& ec,
         const std::size_t bytes_transferred)
     {
       streambuf_.consume(bytes_transferred);
@@ -500,21 +500,21 @@ struct associator<Associator,
 
 template <typename AsyncRandomAccessWriteDevice,
     typename Allocator, typename CompletionCondition,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) WriteToken>
 inline auto async_write_at(AsyncRandomAccessWriteDevice& d,
     uint64_t offset, asio::basic_streambuf<Allocator>& b,
     CompletionCondition completion_condition, WriteToken&& token)
   -> decltype(
     async_initiate<WriteToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_write_at_streambuf<
           AsyncRandomAccessWriteDevice>>(),
         token, offset, &b,
         static_cast<CompletionCondition&&>(completion_condition)))
 {
   return async_initiate<WriteToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_write_at_streambuf<
         AsyncRandomAccessWriteDevice>(d),
       token, offset, &b,
@@ -522,20 +522,20 @@ inline auto async_write_at(AsyncRandomAccessWriteDevice& d,
 }
 
 template <typename AsyncRandomAccessWriteDevice, typename Allocator,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) WriteToken>
 inline auto async_write_at(AsyncRandomAccessWriteDevice& d,
     uint64_t offset, asio::basic_streambuf<Allocator>& b,
     WriteToken&& token)
   -> decltype(
     async_initiate<WriteToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_write_at_streambuf<
           AsyncRandomAccessWriteDevice>>(),
         token, offset, &b, transfer_all()))
 {
   return async_initiate<WriteToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_write_at_streambuf<
         AsyncRandomAccessWriteDevice>(d),
       token, offset, &b, transfer_all());

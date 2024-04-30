@@ -98,14 +98,14 @@ private:
 #else // defined(ASIO_HAS_STD_VARIANT)
 
 template <typename R1, typename R2>
-class channel_payload<R1(), R2(asio::error_code)>
+class channel_payload<R1(), R2(std::error_code)>
 {
 public:
   typedef channel_message<R1()> void_message_type;
-  typedef channel_message<R2(asio::error_code)> error_message_type;
+  typedef channel_message<R2(std::error_code)> error_message_type;
 
   channel_payload(void_message_type&&)
-    : message_(0, asio::error_code()),
+    : message_(0, std::error_code()),
       empty_(true)
   {
   }

@@ -35,7 +35,7 @@ void test()
 
   try
   {
-    asio::error_code ec;
+    std::error_code ec;
 
     // address_v6 constructors.
 

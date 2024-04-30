@@ -36,7 +36,7 @@ typedef int native_pipe_handle;
 #endif // defined(ASIO_HAS_IOCP)
 
 ASIO_DECL void create_pipe(native_pipe_handle p[2],
-    asio::error_code& ec);
+    std::error_code& ec);
 
 ASIO_DECL void close_pipe(native_pipe_handle p);
 
@@ -48,7 +48,7 @@ ASIO_DECL void close_pipe(native_pipe_handle p);
  *
  * @param write_end The write end of the pipe.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  */
 template <typename Executor1, typename Executor2>
 void connect_pipe(basic_readable_pipe<Executor1>& read_end,
@@ -60,13 +60,13 @@ void connect_pipe(basic_readable_pipe<Executor1>& read_end,
  *
  * @param write_end The write end of the pipe.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @param ec Set to indicate what error occurred, if any.
  */
 template <typename Executor1, typename Executor2>
 ASIO_SYNC_OP_VOID connect_pipe(basic_readable_pipe<Executor1>& read_end,
-    basic_writable_pipe<Executor2>& write_end, asio::error_code& ec);
+    basic_writable_pipe<Executor2>& write_end, std::error_code& ec);
 
 } // namespace asio
 

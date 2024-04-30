@@ -45,14 +45,14 @@ async_op_0(CompletionToken&& token)
 
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
-  void(asio::error_code)>::return_type
+  void(std::error_code)>::return_type
 async_op_ec_0(bool ok, CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
-    void(asio::error_code)>::completion_handler_type handler_type;
+    void(std::error_code)>::completion_handler_type handler_type;
 
   asio::async_completion<CompletionToken,
-    void(asio::error_code)> completion(token);
+    void(std::error_code)> completion(token);
 
   typename asio::associated_allocator<handler_type>::type a
     = asio::get_associated_allocator(completion.completion_handler);
@@ -65,14 +65,14 @@ async_op_ec_0(bool ok, CompletionToken&& token)
     ex.post(
         bindns::bind(
           static_cast<handler_type&&>(completion.completion_handler),
-          asio::error_code()), a);
+          std::error_code()), a);
   }
   else
   {
     ex.post(
         bindns::bind(
           static_cast<handler_type&&>(completion.completion_handler),
-          asio::error_code(asio::error::operation_aborted)), a);
+          std::error_code(asio::error::operation_aborted)), a);
   }
 
   return completion.result.get();
@@ -140,15 +140,15 @@ async_op_1(CompletionToken&& token)
 
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
-  void(asio::error_code, int)>::return_type
+  void(std::error_code, int)>::return_type
 async_op_ec_1(bool ok, CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
-    void(asio::error_code, int)>::completion_handler_type
+    void(std::error_code, int)>::completion_handler_type
       handler_type;
 
   asio::async_completion<CompletionToken,
-    void(asio::error_code, int)> completion(token);
+    void(std::error_code, int)> completion(token);
 
   typename asio::associated_allocator<handler_type>::type a
     = asio::get_associated_allocator(completion.completion_handler);
@@ -161,14 +161,14 @@ async_op_ec_1(bool ok, CompletionToken&& token)
     ex.post(
         bindns::bind(
           static_cast<handler_type&&>(completion.completion_handler),
-          asio::error_code(), 42), a);
+          std::error_code(), 42), a);
   }
   else
   {
     ex.post(
         bindns::bind(
           static_cast<handler_type&&>(completion.completion_handler),
-          asio::error_code(asio::error::operation_aborted),
+          std::error_code(asio::error::operation_aborted),
           0), a);
   }
 
@@ -238,15 +238,15 @@ async_op_2(CompletionToken&& token)
 
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
-  void(asio::error_code, int, double)>::return_type
+  void(std::error_code, int, double)>::return_type
 async_op_ec_2(bool ok, CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
-    void(asio::error_code, int, double)>::completion_handler_type
+    void(std::error_code, int, double)>::completion_handler_type
       handler_type;
 
   asio::async_completion<CompletionToken,
-    void(asio::error_code, int, double)> completion(token);
+    void(std::error_code, int, double)> completion(token);
 
   typename asio::associated_allocator<handler_type>::type a
     = asio::get_associated_allocator(completion.completion_handler);
@@ -259,14 +259,14 @@ async_op_ec_2(bool ok, CompletionToken&& token)
     ex.post(
         bindns::bind(
           static_cast<handler_type&&>(completion.completion_handler),
-          asio::error_code(), 42, 2.0), a);
+          std::error_code(), 42, 2.0), a);
   }
   else
   {
     ex.post(
         bindns::bind(
           static_cast<handler_type&&>(completion.completion_handler),
-          asio::error_code(asio::error::operation_aborted),
+          std::error_code(asio::error::operation_aborted),
           0, 0.0), a);
   }
 
@@ -336,15 +336,15 @@ async_op_3(CompletionToken&& token)
 
 template <typename CompletionToken>
 typename asio::async_result<asio::decay_t<CompletionToken>,
-  void(asio::error_code, int, double, char)>::return_type
+  void(std::error_code, int, double, char)>::return_type
 async_op_ec_3(bool ok, CompletionToken&& token)
 {
   typedef typename asio::async_result<asio::decay_t<CompletionToken>,
-    void(asio::error_code, int, double, char)>::completion_handler_type
+    void(std::error_code, int, double, char)>::completion_handler_type
       handler_type;
 
   asio::async_completion<CompletionToken,
-    void(asio::error_code, int, double, char)> completion(token);
+    void(std::error_code, int, double, char)> completion(token);
 
   typename asio::associated_allocator<handler_type>::type a
     = asio::get_associated_allocator(completion.completion_handler);
@@ -357,14 +357,14 @@ async_op_ec_3(bool ok, CompletionToken&& token)
     ex.post(
         bindns::bind(
           static_cast<handler_type&&>(completion.completion_handler),
-          asio::error_code(), 42, 2.0, 'a'), a);
+          std::error_code(), 42, 2.0, 'a'), a);
   }
   else
   {
     ex.post(
         bindns::bind(
           static_cast<handler_type&&>(completion.completion_handler),
-          asio::error_code(asio::error::operation_aborted),
+          std::error_code(asio::error::operation_aborted),
           0, 0.0, 'z'), a);
   }
 

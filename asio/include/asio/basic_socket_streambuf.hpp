@@ -160,7 +160,7 @@ public:
     put_buffer_.swap(other.put_buffer_);
     setg(other.eback(), other.gptr(), other.egptr());
     setp(other.pptr(), other.epptr());
-    other.ec_ = asio::error_code();
+    other.ec_ = std::error_code();
     other.expiry_time_ = max_expiry_time();
     other.init_buffers();
   }
@@ -177,7 +177,7 @@ public:
     put_buffer_.swap(other.put_buffer_);
     setg(other.eback(), other.gptr(), other.egptr());
     setp(other.pptr(), other.epptr());
-    other.ec_ = asio::error_code();
+    other.ec_ = std::error_code();
     other.expiry_time_ = max_expiry_time();
     other.put_buffer_.resize(buffer_size);
     other.init_buffers();
@@ -201,7 +201,7 @@ public:
   basic_socket_streambuf* connect(const endpoint_type& endpoint)
   {
     init_buffers();
-    ec_ = asio::error_code();
+    ec_ = std::error_code();
     this->connect_to_endpoints(&endpoint, &endpoint + 1);
     return !ec_ ? this : 0;
   }
@@ -247,10 +247,10 @@ public:
 
   /// Get the last error associated with the stream buffer.
   /**
-   * @return An \c error_code corresponding to the last error from the stream
+   * @return An \c std::error_code corresponding to the last error from the stream
    * buffer.
    */
-  const asio::error_code& error() const
+  const std::error_code& error() const
   {
     return ec_;
   }
@@ -259,10 +259,10 @@ public:
   /// (Deprecated: Use error().) Get the last error associated with the stream
   /// buffer.
   /**
-   * @return An \c error_code corresponding to the last error from the stream
+   * @return An \c std::error_code corresponding to the last error from the stream
    * buffer.
    */
-  const asio::error_code& puberror() const
+  const std::error_code& puberror() const
   {
     return error();
   }
@@ -582,7 +582,7 @@ private:
         return;
 
       // Check the result of the connect operation.
-      ec_ = asio::error_code(connect_error,
+      ec_ = std::error_code(connect_error,
           asio::error::get_system_category());
       if (!ec_)
         return;
@@ -597,7 +597,7 @@ private:
   }
 
   enum { putback_max = 8 };
-  asio::error_code ec_;
+  std::error_code ec_;
   time_point expiry_time_;
 };
 

@@ -9,7 +9,7 @@
 
 A resolve handler must meet the requirements for a [link asio.reference.Handler
 handler]. A value `h` of a resolve handler class should work correctly in the
-expression `h(ec, r)`, where `ec` is an lvalue of type `const error_code` and
+expression `h(ec, r)`, where `ec` is an lvalue of type `const std::error_code` and
 `r` is an lvalue of type `const ip::basic_resolver_results<InternetProtocol>`.
 `InternetProtocol` is the template parameter of the [link
 asio.reference.ip__basic_resolver `ip::basic_resolver<>`] which is used to

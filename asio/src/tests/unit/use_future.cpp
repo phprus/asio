@@ -56,7 +56,7 @@ void use_future_0_test()
     f.get();
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::operation_aborted);
   }
@@ -127,7 +127,7 @@ void use_future_1_test()
     ASIO_CHECK(false);
     (void)i;
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::operation_aborted);
   }
@@ -206,7 +206,7 @@ void use_future_2_test()
     ASIO_CHECK(false);
     (void)t;
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::operation_aborted);
   }
@@ -292,7 +292,7 @@ void use_future_3_test()
     ASIO_CHECK(false);
     (void)t;
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::operation_aborted);
   }
@@ -339,7 +339,7 @@ int package_0()
   return 42;
 }
 
-int package_ec_0(asio::error_code ec)
+int package_ec_0(std::error_code ec)
 {
   return ec ? 0 : 42;
 }
@@ -417,7 +417,7 @@ int package_1(int i)
   return i;
 }
 
-int package_ec_1(asio::error_code ec, int i)
+int package_ec_1(std::error_code ec, int i)
 {
   return ec ? 0 : i;
 }
@@ -495,7 +495,7 @@ int package_2(int i, double)
   return i;
 }
 
-int package_ec_2(asio::error_code ec, int i, double)
+int package_ec_2(std::error_code ec, int i, double)
 {
   return ec ? 0 : i;
 }
@@ -573,7 +573,7 @@ int package_3(int i, double, char)
   return i;
 }
 
-int package_ec_3(asio::error_code ec, int i, double, char)
+int package_ec_3(std::error_code ec, int i, double, char)
 {
   return ec ? 0 : i;
 }

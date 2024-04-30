@@ -27,7 +27,7 @@ namespace this_coro = asio::this_coro;
 using namespace asio::experimental::awaitable_operators;
 using namespace std::literals::chrono_literals;
 
-using token_channel = channel<void(asio::error_code, std::size_t)>;
+using token_channel = channel<void(std::error_code, std::size_t)>;
 
 awaitable<void> produce_tokens(std::size_t bytes_per_token,
     steady_timer::duration token_interval, token_channel& tokens)
@@ -36,7 +36,7 @@ awaitable<void> produce_tokens(std::size_t bytes_per_token,
   for (;;)
   {
     co_await tokens.async_send(
-        asio::error_code{}, bytes_per_token,
+        std::error_code{}, bytes_per_token,
         use_awaitable);
 
     timer.expires_after(token_interval);

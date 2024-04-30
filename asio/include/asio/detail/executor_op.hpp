@@ -41,7 +41,7 @@ public:
   }
 
   static void do_complete(void* owner, Operation* base,
-      const asio::error_code& /*ec*/,
+      const std::error_code& /*ec*/,
       std::size_t /*bytes_transferred*/)
   {
     // Take ownership of the handler object.

@@ -208,7 +208,7 @@ public:
 
   /// Get the last error associated with the stream.
   /**
-   * @return An \c error_code corresponding to the last error from the stream.
+   * @return An \c std::error_code corresponding to the last error from the stream.
    *
    * @par Example
    * To print the error associated with a failure to establish a connection:
@@ -218,7 +218,7 @@ public:
    *   std::cout << "Error: " << s.error().message() << std::endl;
    * } @endcode
    */
-  const asio::error_code& error() const
+  const std::error_code& error() const
   {
     return rdbuf()->error();
   }

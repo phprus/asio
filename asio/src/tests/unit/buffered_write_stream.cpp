@@ -22,7 +22,7 @@
 #include "asio/buffer.hpp"
 #include "asio/io_context.hpp"
 #include "asio/ip/tcp.hpp"
-#include "asio/system_error.hpp"
+#include <system_error>
 #include "unit_test.hpp"
 
 #include <array>
@@ -30,15 +30,15 @@
 typedef asio::buffered_write_stream<
     asio::ip::tcp::socket> stream_type;
 
-void write_some_handler(const asio::error_code&, std::size_t)
+void write_some_handler(const std::error_code&, std::size_t)
 {
 }
 
-void flush_handler(const asio::error_code&, std::size_t)
+void flush_handler(const std::error_code&, std::size_t)
 {
 }
 
-void read_some_handler(const asio::error_code&, std::size_t)
+void read_some_handler(const std::error_code&, std::size_t)
 {
 }
 
@@ -59,7 +59,7 @@ void test_compile()
         asio::buffer(const_char_buffer, 10),
         asio::buffer(const_char_buffer + 10, 10) }};
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
 
     stream_type stream1(ioc);
     stream_type stream2(ioc, 1024);
@@ -189,7 +189,7 @@ void test_sync_operations()
   ASIO_CHECK(memcmp(write_data, read_data, sizeof(write_data)) == 0);
 
   server_socket.close();
-  asio::error_code error;
+  std::error_code error;
   bytes_read = client_socket.read_some(
       asio::buffer(read_buf), error);
 
@@ -199,37 +199,37 @@ void test_sync_operations()
   client_socket.close(error);
 }
 
-void handle_accept(const asio::error_code& e)
+void handle_accept(const std::error_code& e)
 {
   ASIO_CHECK(!e);
 }
 
-void handle_write(const asio::error_code& e,
+void handle_write(const std::error_code& e,
     std::size_t bytes_transferred,
     std::size_t* total_bytes_written)
 {
   ASIO_CHECK(!e);
   if (e)
-    throw asio::system_error(e); // Terminate test.
+    throw std::system_error(e); // Terminate test.
   *total_bytes_written += bytes_transferred;
 }
 
-void handle_flush(const asio::error_code& e)
+void handle_flush(const std::error_code& e)
 {
   ASIO_CHECK(!e);
 }
 
-void handle_read(const asio::error_code& e,
+void handle_read(const std::error_code& e,
     std::size_t bytes_transferred,
     std::size_t* total_bytes_read)
 {
   ASIO_CHECK(!e);
   if (e)
-    throw asio::system_error(e); // Terminate test.
+    throw std::system_error(e); // Terminate test.
   *total_bytes_read += bytes_transferred;
 }
 
-void handle_read_eof(const asio::error_code& e,
+void handle_read_eof(const std::error_code& e,
     std::size_t bytes_transferred)
 {
   ASIO_CHECK(e == asio::error::eof);

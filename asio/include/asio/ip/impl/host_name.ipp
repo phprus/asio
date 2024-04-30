@@ -29,7 +29,7 @@ namespace ip {
 std::string host_name()
 {
   char name[1024];
-  asio::error_code ec;
+  std::error_code ec;
   if (asio::detail::socket_ops::gethostname(name, sizeof(name), ec) != 0)
   {
     asio::detail::throw_error(ec);
@@ -38,7 +38,7 @@ std::string host_name()
   return std::string(name);
 }
 
-std::string host_name(asio::error_code& ec)
+std::string host_name(std::error_code& ec)
 {
   char name[1024];
   if (asio::detail::socket_ops::gethostname(name, sizeof(name), ec) != 0)

@@ -83,13 +83,13 @@ public:
   }
 
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code))
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code))
         CompletionToken ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(Executor)>
   auto async_send(Args... args,
       CompletionToken&& token
         ASIO_DEFAULT_COMPLETION_TOKEN(Executor))
     -> decltype(
-        async_initiate<CompletionToken, void (asio::error_code)>(
+        async_initiate<CompletionToken, void (std::error_code)>(
           declval<typename conditional_t<false, CompletionToken,
             Derived>::initiate_async_send>(), token,
           declval<typename conditional_t<false, CompletionToken,
@@ -98,7 +98,7 @@ public:
     typedef typename Derived::payload_type payload_type;
     typedef typename detail::channel_message<R(Args...)> message_type;
     Derived* self = static_cast<Derived*>(this);
-    return async_initiate<CompletionToken, void (asio::error_code)>(
+    return async_initiate<CompletionToken, void (std::error_code)>(
         typename Derived::initiate_async_send(self), token,
         payload_type(message_type(0, static_cast<Args&&>(args)...)));
   }
@@ -162,13 +162,13 @@ public:
   }
 
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code))
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code))
         CompletionToken ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(Executor)>
   auto async_send(Args... args,
       CompletionToken&& token
         ASIO_DEFAULT_COMPLETION_TOKEN(Executor))
     -> decltype(
-        async_initiate<CompletionToken, void (asio::error_code)>(
+        async_initiate<CompletionToken, void (std::error_code)>(
           declval<typename conditional_t<false, CompletionToken,
             Derived>::initiate_async_send>(), token,
           declval<typename conditional_t<false, CompletionToken,
@@ -177,7 +177,7 @@ public:
     typedef typename Derived::payload_type payload_type;
     typedef typename detail::channel_message<R(Args...)> message_type;
     Derived* self = static_cast<Derived*>(this);
-    return async_initiate<CompletionToken, void (asio::error_code)>(
+    return async_initiate<CompletionToken, void (std::error_code)>(
         typename Derived::initiate_async_send(self), token,
         payload_type(message_type(0, static_cast<Args&&>(args)...)));
   }

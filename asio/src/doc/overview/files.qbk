@@ -20,7 +20,7 @@ For example, to write to a newly created stream-oriented file:
         | asio::stream_file::truncate);
 
   file.async_write_some(my_buffer,
-      [](error_code e, size_t n)
+      [](std::error_code e, size_t n)
       {
         // ...
       });
@@ -32,7 +32,7 @@ or to read from a random-access file:
       asio::random_access_file::read_only);
 
   file.async_read_some_at(1234, my_buffer,
-      [](error_code e, size_t n)
+      [](std::error_code e, size_t n)
       {
         // ...
       });

@@ -209,7 +209,7 @@ void test()
   ip::udp::socket udp_sock(ioc, ip::udp::v4());
   ip::tcp::socket tcp_sock(ioc, ip::tcp::v4());
   ip::tcp::acceptor tcp_acceptor(ioc, ip::tcp::v4());
-  asio::error_code ec;
+  std::error_code ec;
 
   // broadcast class.
 

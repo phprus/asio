@@ -93,16 +93,16 @@ void reactive_descriptor_service::destroy(
     reactor_.deregister_descriptor(impl.descriptor_, impl.reactor_data_,
         (impl.state_ & descriptor_ops::possible_dup) == 0);
 
-    asio::error_code ignored_ec;
+    std::error_code ignored_ec;
     descriptor_ops::close(impl.descriptor_, impl.state_, ignored_ec);
 
     reactor_.cleanup_descriptor_data(impl.reactor_data_);
   }
 }
 
-asio::error_code reactive_descriptor_service::assign(
+std::error_code reactive_descriptor_service::assign(
     reactive_descriptor_service::implementation_type& impl,
-    const native_handle_type& native_descriptor, asio::error_code& ec)
+    const native_handle_type& native_descriptor, std::error_code& ec)
 {
   if (is_open(impl))
   {
@@ -114,7 +114,7 @@ asio::error_code reactive_descriptor_service::assign(
   if (int err = reactor_.register_descriptor(
         native_descriptor, impl.reactor_data_))
   {
-    ec = asio::error_code(err,
+    ec = std::error_code(err,
         asio::error::get_system_category());
     ASIO_ERROR_LOCATION(ec);
     return ec;
@@ -122,13 +122,13 @@ asio::error_code reactive_descriptor_service::assign(
 
   impl.descriptor_ = native_descriptor;
   impl.state_ = descriptor_ops::possible_dup;
-  ec = asio::error_code();
+  ec = std::error_code();
   return ec;
 }
 
-asio::error_code reactive_descriptor_service::close(
+std::error_code reactive_descriptor_service::close(
     reactive_descriptor_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (is_open(impl))
   {
@@ -144,7 +144,7 @@ asio::error_code reactive_descriptor_service::close(
   }
   else
   {
-    ec = asio::error_code();
+    ec = std::error_code();
   }
 
   // The descriptor is closed by the OS even if close() returns an error.
@@ -178,9 +178,9 @@ reactive_descriptor_service::release(
   return descriptor;
 }
 
-asio::error_code reactive_descriptor_service::cancel(
+std::error_code reactive_descriptor_service::cancel(
     reactive_descriptor_service::implementation_type& impl,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   if (!is_open(impl))
   {
@@ -193,7 +193,7 @@ asio::error_code reactive_descriptor_service::cancel(
         "descriptor", &impl, impl.descriptor_, "cancel"));
 
   reactor_.cancel_ops(impl.descriptor_, impl.reactor_data_);
-  ec = asio::error_code();
+  ec = std::error_code();
   return ec;
 }
 

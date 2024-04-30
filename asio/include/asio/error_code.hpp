@@ -1,5 +1,5 @@
 //
-// error_code.hpp
+// std::error_code.hpp
 // ~~~~~~~~~~~~~~
 //
 // Copyright (c) 2003-2024 Christopher M. Kohlhoff (chris at kohlhoff dot com)
@@ -22,11 +22,8 @@
 
 namespace asio {
 
-typedef std::error_category error_category;
-typedef std::error_code error_code;
-
 /// Returns the error category used for the system errors produced by asio.
-extern ASIO_DECL const error_category& system_category();
+extern ASIO_DECL const std::error_category& system_category();
 
 } // namespace asio
 

@@ -11,7 +11,7 @@ In this section, ['synchronous socket operations] are those member functions
 specified as two overloads, with and without an argument of type `error_code&`:
 
   ``[*['R f]]``(``['[*A1]]`` a1, ``['[*A2]]`` a2, ..., ``['[*AN]]`` aN);
-  ``[*['R f]]``(``['[*A1]]`` a1, ``['[*A2]]`` a2, ..., ``['[*AN]]`` aN, error_code& ec);
+  ``[*['R f]]``(``['[*A1]]`` a1, ``['[*A2]]`` a2, ..., ``['[*AN]]`` aN, std::error_code& ec);
 
 For an object `s`, the conditions under which its synchronous socket operations
 may block the calling thread (C++Std [defns.block]) are determined as follows.

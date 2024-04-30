@@ -141,28 +141,28 @@ public:
   ASIO_DECL void destroy(implementation_type& impl);
 
   // Add a signal to a signal_set.
-  asio::error_code add(implementation_type& impl,
-      int signal_number, asio::error_code& ec)
+  std::error_code add(implementation_type& impl,
+      int signal_number, std::error_code& ec)
   {
     return add(impl, signal_number, signal_set_base::flags::dont_care, ec);
   }
 
   // Add a signal to a signal_set with the specified flags.
-  ASIO_DECL asio::error_code add(implementation_type& impl,
+  ASIO_DECL std::error_code add(implementation_type& impl,
       int signal_number, signal_set_base::flags_t f,
-      asio::error_code& ec);
+      std::error_code& ec);
 
   // Remove a signal to a signal_set.
-  ASIO_DECL asio::error_code remove(implementation_type& impl,
-      int signal_number, asio::error_code& ec);
+  ASIO_DECL std::error_code remove(implementation_type& impl,
+      int signal_number, std::error_code& ec);
 
   // Remove all signals from a signal_set.
-  ASIO_DECL asio::error_code clear(implementation_type& impl,
-      asio::error_code& ec);
+  ASIO_DECL std::error_code clear(implementation_type& impl,
+      std::error_code& ec);
 
   // Cancel all operations associated with the signal set.
-  ASIO_DECL asio::error_code cancel(implementation_type& impl,
-      asio::error_code& ec);
+  ASIO_DECL std::error_code cancel(implementation_type& impl,
+      std::error_code& ec);
 
   // Cancel a specific operation associated with the signal set.
   ASIO_DECL void cancel_ops_by_key(implementation_type& impl,

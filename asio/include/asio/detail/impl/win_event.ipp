@@ -40,7 +40,7 @@ win_event::win_event()
   if (!events_[0])
   {
     DWORD last_error = ::GetLastError();
-    asio::error_code ec(last_error,
+    std::error_code ec(last_error,
         asio::error::get_system_category());
     asio::detail::throw_error(ec, "event");
   }
@@ -54,7 +54,7 @@ win_event::win_event()
   {
     DWORD last_error = ::GetLastError();
     ::CloseHandle(events_[0]);
-    asio::error_code ec(last_error,
+    std::error_code ec(last_error,
         asio::error::get_system_category());
     asio::detail::throw_error(ec, "event");
   }

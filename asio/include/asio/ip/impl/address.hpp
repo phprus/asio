@@ -32,7 +32,7 @@ inline address address::from_string(const char* str)
 }
 
 inline address address::from_string(
-    const char* str, asio::error_code& ec)
+    const char* str, std::error_code& ec)
 {
   return asio::ip::make_address(str, ec);
 }
@@ -43,7 +43,7 @@ inline address address::from_string(const std::string& str)
 }
 
 inline address address::from_string(
-    const std::string& str, asio::error_code& ec)
+    const std::string& str, std::error_code& ec)
 {
   return asio::ip::make_address(str, ec);
 }

@@ -30,7 +30,7 @@ namespace readable_pipe_compile {
 struct write_some_handler
 {
   write_some_handler() {}
-  void operator()(const asio::error_code&, std::size_t) {}
+  void operator()(const std::error_code&, std::size_t) {}
   write_some_handler(write_some_handler&&) {}
 private:
   write_some_handler(const write_some_handler&);
@@ -39,7 +39,7 @@ private:
 struct read_some_handler
 {
   read_some_handler() {}
-  void operator()(const asio::error_code&, std::size_t) {}
+  void operator()(const std::error_code&, std::size_t) {}
   read_some_handler(read_some_handler&&) {}
 private:
   read_some_handler(const read_some_handler&);
@@ -56,7 +56,7 @@ void test()
     const io_context::executor_type ioc_ex = ioc.get_executor();
     char mutable_char_buffer[128] = "";
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
     const std::string path;
 
     // basic_readable_pipe constructors.

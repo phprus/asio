@@ -40,7 +40,7 @@ public:
   }
 
   /// Handle completion of a connect operation.
-  void handle_connect(const asio::error_code& e)
+  void handle_connect(const std::error_code& e)
   {
     if (!e)
     {
@@ -61,7 +61,7 @@ public:
   }
 
   /// Handle completion of a read operation.
-  void handle_read(const asio::error_code& e)
+  void handle_read(const std::error_code& e)
   {
     if (!e)
     {

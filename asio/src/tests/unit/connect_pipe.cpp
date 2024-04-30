@@ -42,7 +42,7 @@ void test()
   try
   {
     asio::io_context io_context;
-    asio::error_code ec1;
+    std::error_code ec1;
 
     readable_pipe p1(io_context);
     writable_pipe p2(io_context);
@@ -71,7 +71,7 @@ namespace connect_pipe_runtime {
 static const char write_data[]
   = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-void handle_read(const asio::error_code& err,
+void handle_read(const std::error_code& err,
     size_t bytes_transferred, bool* called)
 {
   *called = true;
@@ -79,7 +79,7 @@ void handle_read(const asio::error_code& err,
   ASIO_CHECK(bytes_transferred == sizeof(write_data));
 }
 
-void handle_write(const asio::error_code& err,
+void handle_write(const std::error_code& err,
     size_t bytes_transferred, bool* called)
 {
   *called = true;
@@ -100,8 +100,8 @@ void test()
   try
   {
     asio::io_context io_context;
-    asio::error_code ec1;
-    asio::error_code ec2;
+    std::error_code ec1;
+    std::error_code ec2;
 
     readable_pipe p1(io_context);
     writable_pipe p2(io_context);

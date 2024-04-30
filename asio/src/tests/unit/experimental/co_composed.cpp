@@ -294,9 +294,9 @@ template <typename CompletionToken>
 auto complete_on_cancel(asio::io_context& ctx, CompletionToken&& token)
 {
   return asio::async_initiate<
-    CompletionToken, void(asio::error_code, int)>(
+    CompletionToken, void(std::error_code, int)>(
       asio::experimental::co_composed<
-        void(asio::error_code, int)>(
+        void(std::error_code, int)>(
           [](auto state, asio::io_context& ctx) -> void
           {
             state.on_cancellation_complete_with(
@@ -312,11 +312,11 @@ void test_complete_on_cancel()
 {
   asio::io_context ctx(1);
   int count = 0;
-  asio::error_code ec;
+  std::error_code ec;
   asio::cancellation_signal cancel;
 
   complete_on_cancel(ctx,
-      [&](asio::error_code e, int i)
+      [&](std::error_code e, int i)
       {
         ec = e;
         count = i;
@@ -329,7 +329,7 @@ void test_complete_on_cancel()
 
   complete_on_cancel(ctx,
       asio::bind_cancellation_slot(cancel.slot(),
-        [&](asio::error_code e, int i)
+        [&](std::error_code e, int i)
         {
           ec = e;
           count = i;
@@ -345,7 +345,7 @@ void test_complete_on_cancel()
 
   complete_on_cancel(ctx,
       asio::bind_cancellation_slot(cancel.slot(),
-        [&](asio::error_code e, int i)
+        [&](std::error_code e, int i)
         {
           ec = e;
           count = i;
@@ -363,9 +363,9 @@ auto complete_with_default_on_cancel(
     asio::io_context& ctx, CompletionToken&& token)
 {
   return asio::async_initiate<
-    CompletionToken, void(asio::error_code, int)>(
+    CompletionToken, void(std::error_code, int)>(
       asio::experimental::co_composed<
-        void(asio::error_code, int)>(
+        void(std::error_code, int)>(
           [](auto, asio::io_context& ctx) -> void
           {
             int i = 0;
@@ -379,11 +379,11 @@ void test_complete_with_default_on_cancel()
 {
   asio::io_context ctx(1);
   int count = 0;
-  asio::error_code ec;
+  std::error_code ec;
   asio::cancellation_signal cancel;
 
   complete_with_default_on_cancel(ctx,
-      [&](asio::error_code e, int i)
+      [&](std::error_code e, int i)
       {
         ec = e;
         count = i;
@@ -396,7 +396,7 @@ void test_complete_with_default_on_cancel()
 
   complete_with_default_on_cancel(ctx,
       asio::bind_cancellation_slot(cancel.slot(),
-        [&](asio::error_code e, int i)
+        [&](std::error_code e, int i)
         {
           ec = e;
           count = i;
@@ -412,7 +412,7 @@ void test_complete_with_default_on_cancel()
 
   complete_with_default_on_cancel(ctx,
       asio::bind_cancellation_slot(cancel.slot(),
-        [&](asio::error_code e, int i)
+        [&](std::error_code e, int i)
         {
           ec = e;
           count = i;
@@ -429,9 +429,9 @@ template <typename CompletionToken>
 auto throw_on_cancel(asio::io_context& ctx, CompletionToken&& token)
 {
   return asio::async_initiate<
-    CompletionToken, void(asio::error_code, int)>(
+    CompletionToken, void(std::error_code, int)>(
       asio::experimental::co_composed<
-        void(asio::error_code, int)>(
+        void(std::error_code, int)>(
           [](auto state, asio::io_context& ctx) -> void
           {
             try
@@ -453,11 +453,11 @@ void test_throw_on_cancel()
 {
   asio::io_context ctx(1);
   int count = 0;
-  asio::error_code ec;
+  std::error_code ec;
   asio::cancellation_signal cancel;
 
   throw_on_cancel(ctx,
-      [&](asio::error_code e, int i)
+      [&](std::error_code e, int i)
       {
         ec = e;
         count = i;
@@ -470,7 +470,7 @@ void test_throw_on_cancel()
 
   throw_on_cancel(ctx,
       asio::bind_cancellation_slot(cancel.slot(),
-        [&](asio::error_code e, int i)
+        [&](std::error_code e, int i)
         {
           ec = e;
           count = i;
@@ -486,7 +486,7 @@ void test_throw_on_cancel()
 
   throw_on_cancel(ctx,
       asio::bind_cancellation_slot(cancel.slot(),
-        [&](asio::error_code e, int i)
+        [&](std::error_code e, int i)
         {
           ec = e;
           count = i;

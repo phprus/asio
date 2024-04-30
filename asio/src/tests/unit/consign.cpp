@@ -33,7 +33,7 @@ void consign_test()
   timer1.async_wait(
       asio::consign(
         asio::bind_executor(io2.get_executor(),
-          [&count](asio::error_code)
+          [&count](std::error_code)
           {
             ++count;
           }), 123, 321));

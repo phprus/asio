@@ -27,7 +27,7 @@ const int num_samples = 100000;
 struct transfer_all
 {
   typedef std::size_t result_type;
-  std::size_t operator()(const asio::error_code& ec, std::size_t)
+  std::size_t operator()(const std::error_code& ec, std::size_t)
   {
     return (ec && ec != asio::error::would_block) ? 0 : ~0;
   }
@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 
     std::uint64_t t = high_res_clock();
 
-    asio::error_code ec;
+    std::error_code ec;
     asio::write(socket,
         asio::buffer(write_buf),
         transfer_all(), ec);

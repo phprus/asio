@@ -32,8 +32,8 @@
 [section:system_error System Errors and Error Codes]
 
 When available, Asio can use the `std::error_code` and `std::system_error`
-classes for reporting errors. In this case, the names `asio::error_code` and
-`asio::system_error` will be typedefs for these standard classes.
+classes for reporting errors. In this case, the names `std::error_code` and
+`std::system_error` will be typedefs for these standard classes.
 
 System error support is automatically enabled.
 
@@ -75,7 +75,7 @@ or:
   private:
     tcp::acceptor acceptor_;
     ...
-    void handle_accept(error_code ec, tcp::socket socket)
+    void handle_accept(std::error_code ec, tcp::socket socket)
     {
       if (!ec)
         std::make_shared<connection>(std::move(socket))->go();
@@ -126,7 +126,7 @@ arguments to `async_XYZ()` are members of the handler. For example:
     unique_ptr<tcp::socket> socket;
     unique_ptr<vector<char>> buffer;
     ...
-    void operator(error_code ec, size_t length)
+    void operator(std::error_code ec, size_t length)
     {
       ...
       socket->async_read_some(asio::buffer(*buffer), std::move(*this));
