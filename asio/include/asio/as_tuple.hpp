@@ -109,7 +109,7 @@ public:
 /// Adapt a @ref completion_token to specify that the completion handler
 /// arguments should be combined into a single tuple argument.
 template <typename CompletionToken>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 constexpr as_tuple_t<decay_t<CompletionToken>>
 as_tuple(CompletionToken&& completion_token)
 {

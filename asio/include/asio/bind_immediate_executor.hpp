@@ -368,7 +368,7 @@ private:
 /// Associate an object of type @c T with a immediate executor of type
 /// @c Executor.
 template <typename Executor, typename T>
-ASIO_NODISCARD inline immediate_executor_binder<decay_t<T>, Executor>
+[[nodiscard]] inline immediate_executor_binder<decay_t<T>, Executor>
 bind_immediate_executor(const Executor& e, T&& t)
 {
   return immediate_executor_binder<

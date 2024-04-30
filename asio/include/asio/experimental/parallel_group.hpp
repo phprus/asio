@@ -241,7 +241,7 @@ public:
  * @endcode
  */
 template <typename... Ops>
-ASIO_NODISCARD inline parallel_group<Ops...>
+[[nodiscard]] inline parallel_group<Ops...>
 make_parallel_group(Ops... ops)
 {
   return parallel_group<Ops...>(std::move(ops)...);
@@ -374,7 +374,7 @@ public:
  * @endcode
  */
 template <typename Range>
-ASIO_NODISCARD inline ranged_parallel_group<decay_t<Range>>
+[[nodiscard]] inline ranged_parallel_group<decay_t<Range>>
 make_parallel_group(Range&& range,
     constraint_t<
       is_async_operation_range<decay_t<Range>>::value
@@ -437,7 +437,7 @@ make_parallel_group(Range&& range,
  * @endcode
  */
 template <typename Allocator, typename Range>
-ASIO_NODISCARD inline ranged_parallel_group<decay_t<Range>, Allocator>
+[[nodiscard]] inline ranged_parallel_group<decay_t<Range>, Allocator>
 make_parallel_group(allocator_arg_t, const Allocator& allocator, Range&& range,
     constraint_t<
       is_async_operation_range<decay_t<Range>>::value

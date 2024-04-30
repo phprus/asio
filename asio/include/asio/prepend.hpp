@@ -47,7 +47,7 @@ public:
 /// arguments should be passed additional values before the results of the
 /// operation.
 template <typename CompletionToken, typename... Values>
-ASIO_NODISCARD inline constexpr
+[[nodiscard]] inline constexpr
 prepend_t<decay_t<CompletionToken>, decay_t<Values>...>
 prepend(CompletionToken&& completion_token,
     Values&&... values)
