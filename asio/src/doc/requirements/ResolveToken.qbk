@@ -8,7 +8,7 @@
 [section:ResolveToken Resolve token requirements]
 
 A resolve token is a [link asio.overview.model.completion_tokens completion
-token] for completion signature `void(error_code,
+token] for completion signature `void(std::error_code,
 ip::basic_resolver_results<InternetProtocol>)`, for a specified
 `InternetProtocol`.
 
@@ -17,7 +17,7 @@ ip::basic_resolver_results<InternetProtocol>)`, for a specified
 A free function as a resolve token:
 
   void resolve_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       asio::ip::tcp::resolver::results_type results)
   {
     ...
@@ -29,7 +29,7 @@ A resolve token function object:
   {
     ...
     void operator()(
-        const asio::error_code& ec,
+        const std::error_code& ec,
         asio::ip::tcp::resolver::results_type results)
     {
       ...
@@ -40,7 +40,7 @@ A resolve token function object:
 A lambda as a resolve token:
 
   resolver.async_resolve(...,
-      [](const asio::error_code& ec,
+      [](const std::error_code& ec,
         asio::ip::tcp::resolver::results_type results)
       {
         ...
@@ -50,7 +50,7 @@ A non-static class member function adapted to a resolve token using
 `std::bind()`:
 
   void my_class::resolve_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       asio::ip::tcp::resolver::results_type results)
   {
     ...
@@ -65,7 +65,7 @@ A non-static class member function adapted to a resolve token using
 `std::bind()`:
 
   void my_class::resolve_handler(
-      const asio::error_code& ec,
+      const std::error_code& ec,
       asio::ip::tcp::resolver::results_type results)
   {
     ...
@@ -86,7 +86,7 @@ Using [link asio.reference.use_future use_future] as a resolve token:
     asio::ip::tcp::resolver::results_type r = f.get();
     ...
   }
-  catch (const system_error& e)
+  catch (const std::system_error& e)
   {
     ...
   }
@@ -103,7 +103,7 @@ Using [link asio.reference.use_awaitable use_awaitable] as a resolve token:
             ..., asio::use_awaitable);
       ...
     }
-    catch (const system_error& e)
+    catch (const std::system_error& e)
     {
       ...
     }

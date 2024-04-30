@@ -10,6 +10,6 @@
 A wait handler must meet the requirements for a [link
 asio.reference.Handler handler]. A value `h` of a wait handler class
 should work correctly in the expression `h(ec)`, where `ec` is an lvalue of
-type `const error_code`.
+type `const std::error_code`.
 
 [endsect]

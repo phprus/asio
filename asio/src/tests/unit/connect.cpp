@@ -70,7 +70,7 @@ private:
   asio::detail::thread thread_;
 };
 
-bool true_cond_1(const asio::error_code& /*ec*/,
+bool true_cond_1(const std::error_code& /*ec*/,
     const asio::ip::tcp::endpoint& /*endpoint*/)
 {
   return true;
@@ -79,7 +79,7 @@ bool true_cond_1(const asio::error_code& /*ec*/,
 struct true_cond_2
 {
   template <typename Endpoint>
-  bool operator()(const asio::error_code& /*ec*/,
+  bool operator()(const std::error_code& /*ec*/,
       const Endpoint& /*endpoint*/)
   {
     return true;
@@ -87,7 +87,7 @@ struct true_cond_2
 };
 
 std::vector<asio::ip::tcp::endpoint>::const_iterator legacy_true_cond_1(
-    const asio::error_code& /*ec*/,
+    const std::error_code& /*ec*/,
     std::vector<asio::ip::tcp::endpoint>::const_iterator next)
 {
   return next;
@@ -96,30 +96,30 @@ std::vector<asio::ip::tcp::endpoint>::const_iterator legacy_true_cond_1(
 struct legacy_true_cond_2
 {
   template <typename Iterator>
-  Iterator operator()(const asio::error_code& /*ec*/, Iterator next)
+  Iterator operator()(const std::error_code& /*ec*/, Iterator next)
   {
     return next;
   }
 };
 
-bool false_cond(const asio::error_code& /*ec*/,
+bool false_cond(const std::error_code& /*ec*/,
     const asio::ip::tcp::endpoint& /*endpoint*/)
 {
   return false;
 }
 
-void range_handler(const asio::error_code& ec,
+void range_handler(const std::error_code& ec,
     const asio::ip::tcp::endpoint& endpoint,
-    asio::error_code* out_ec,
+    std::error_code* out_ec,
     asio::ip::tcp::endpoint* out_endpoint)
 {
   *out_ec = ec;
   *out_endpoint = endpoint;
 }
 
-void iter_handler(const asio::error_code& ec,
+void iter_handler(const std::error_code& ec,
     std::vector<asio::ip::tcp::endpoint>::const_iterator iter,
-    asio::error_code* out_ec,
+    std::error_code* out_ec,
     std::vector<asio::ip::tcp::endpoint>::const_iterator* out_iter)
 {
   *out_ec = ec;
@@ -139,7 +139,7 @@ void test_connect_range()
     result = asio::connect(socket, endpoints);
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -167,7 +167,7 @@ void test_connect_range_ec()
   asio::ip::tcp::socket socket(io_context);
   std::vector<asio::ip::tcp::endpoint> endpoints;
   asio::ip::tcp::endpoint result;
-  asio::error_code ec;
+  std::error_code ec;
 
   result = asio::connect(socket, endpoints, ec);
   ASIO_CHECK(result == asio::ip::tcp::endpoint());
@@ -205,7 +205,7 @@ void test_connect_range_cond()
     result = asio::connect(socket, endpoints, true_cond_1);
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -215,7 +215,7 @@ void test_connect_range_cond()
     result = asio::connect(socket, endpoints, true_cond_2());
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -225,7 +225,7 @@ void test_connect_range_cond()
     result = asio::connect(socket, endpoints, legacy_true_cond_1);
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -235,7 +235,7 @@ void test_connect_range_cond()
     result = asio::connect(socket, endpoints, legacy_true_cond_2());
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -245,31 +245,7 @@ void test_connect_range_cond()
     result = asio::connect(socket, endpoints, false_cond);
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
-  {
-    ASIO_CHECK(e.code() == asio::error::not_found);
-  }
-
-  endpoints.push_back(sink.target_endpoint());
-
-  result = asio::connect(socket, endpoints, true_cond_1);
-  ASIO_CHECK(result == endpoints[0]);
-
-  result = asio::connect(socket, endpoints, true_cond_2());
-  ASIO_CHECK(result == endpoints[0]);
-
-  result = asio::connect(socket, endpoints, legacy_true_cond_1);
-  ASIO_CHECK(result == endpoints[0]);
-
-  result = asio::connect(socket, endpoints, legacy_true_cond_2());
-  ASIO_CHECK(result == endpoints[0]);
-
-  try
-  {
-    result = asio::connect(socket, endpoints, false_cond);
-    ASIO_CHECK(false);
-  }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -293,7 +269,31 @@ void test_connect_range_cond()
     result = asio::connect(socket, endpoints, false_cond);
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
+  {
+    ASIO_CHECK(e.code() == asio::error::not_found);
+  }
+
+  endpoints.push_back(sink.target_endpoint());
+
+  result = asio::connect(socket, endpoints, true_cond_1);
+  ASIO_CHECK(result == endpoints[0]);
+
+  result = asio::connect(socket, endpoints, true_cond_2());
+  ASIO_CHECK(result == endpoints[0]);
+
+  result = asio::connect(socket, endpoints, legacy_true_cond_1);
+  ASIO_CHECK(result == endpoints[0]);
+
+  result = asio::connect(socket, endpoints, legacy_true_cond_2());
+  ASIO_CHECK(result == endpoints[0]);
+
+  try
+  {
+    result = asio::connect(socket, endpoints, false_cond);
+    ASIO_CHECK(false);
+  }
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -317,7 +317,7 @@ void test_connect_range_cond()
     result = asio::connect(socket, endpoints, false_cond);
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -330,7 +330,7 @@ void test_connect_range_cond_ec()
   asio::ip::tcp::socket socket(io_context);
   std::vector<asio::ip::tcp::endpoint> endpoints;
   asio::ip::tcp::endpoint result;
-  asio::error_code ec;
+  std::error_code ec;
 
   result = asio::connect(socket, endpoints, true_cond_1, ec);
   ASIO_CHECK(result == asio::ip::tcp::endpoint());
@@ -433,7 +433,7 @@ void test_connect_iter()
     result = asio::connect(socket, cendpoints.begin(), cendpoints.end());
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -462,7 +462,7 @@ void test_connect_iter_ec()
   std::vector<asio::ip::tcp::endpoint> endpoints;
   const std::vector<asio::ip::tcp::endpoint>& cendpoints = endpoints;
   std::vector<asio::ip::tcp::endpoint>::const_iterator result;
-  asio::error_code ec;
+  std::error_code ec;
 
   result = asio::connect(socket,
       cendpoints.begin(), cendpoints.end(), ec);
@@ -506,7 +506,7 @@ void test_connect_iter_cond()
         cendpoints.end(), true_cond_1);
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -517,7 +517,7 @@ void test_connect_iter_cond()
         cendpoints.end(), true_cond_2());
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -528,7 +528,7 @@ void test_connect_iter_cond()
         cendpoints.end(), legacy_true_cond_1);
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -539,7 +539,7 @@ void test_connect_iter_cond()
         cendpoints.end(), legacy_true_cond_2());
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -550,36 +550,7 @@ void test_connect_iter_cond()
         cendpoints.end(), false_cond);
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
-  {
-    ASIO_CHECK(e.code() == asio::error::not_found);
-  }
-
-  endpoints.push_back(sink.target_endpoint());
-
-  result = asio::connect(socket, cendpoints.begin(),
-      cendpoints.end(), true_cond_1);
-  ASIO_CHECK(result == cendpoints.begin());
-
-  result = asio::connect(socket, cendpoints.begin(),
-      cendpoints.end(), true_cond_2());
-  ASIO_CHECK(result == cendpoints.begin());
-
-  result = asio::connect(socket, cendpoints.begin(),
-      cendpoints.end(), legacy_true_cond_1);
-  ASIO_CHECK(result == cendpoints.begin());
-
-  result = asio::connect(socket, cendpoints.begin(),
-      cendpoints.end(), legacy_true_cond_2());
-  ASIO_CHECK(result == cendpoints.begin());
-
-  try
-  {
-    result = asio::connect(socket, cendpoints.begin(),
-        cendpoints.end(), false_cond);
-    ASIO_CHECK(false);
-  }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -608,7 +579,36 @@ void test_connect_iter_cond()
         cendpoints.end(), false_cond);
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
+  {
+    ASIO_CHECK(e.code() == asio::error::not_found);
+  }
+
+  endpoints.push_back(sink.target_endpoint());
+
+  result = asio::connect(socket, cendpoints.begin(),
+      cendpoints.end(), true_cond_1);
+  ASIO_CHECK(result == cendpoints.begin());
+
+  result = asio::connect(socket, cendpoints.begin(),
+      cendpoints.end(), true_cond_2());
+  ASIO_CHECK(result == cendpoints.begin());
+
+  result = asio::connect(socket, cendpoints.begin(),
+      cendpoints.end(), legacy_true_cond_1);
+  ASIO_CHECK(result == cendpoints.begin());
+
+  result = asio::connect(socket, cendpoints.begin(),
+      cendpoints.end(), legacy_true_cond_2());
+  ASIO_CHECK(result == cendpoints.begin());
+
+  try
+  {
+    result = asio::connect(socket, cendpoints.begin(),
+        cendpoints.end(), false_cond);
+    ASIO_CHECK(false);
+  }
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -637,7 +637,7 @@ void test_connect_iter_cond()
         cendpoints.end(), false_cond);
     ASIO_CHECK(false);
   }
-  catch (asio::system_error& e)
+  catch (std::system_error& e)
   {
     ASIO_CHECK(e.code() == asio::error::not_found);
   }
@@ -651,7 +651,7 @@ void test_connect_iter_cond_ec()
   std::vector<asio::ip::tcp::endpoint> endpoints;
   const std::vector<asio::ip::tcp::endpoint>& cendpoints = endpoints;
   std::vector<asio::ip::tcp::endpoint>::const_iterator result;
-  asio::error_code ec;
+  std::error_code ec;
 
   result = asio::connect(socket, cendpoints.begin(),
       cendpoints.end(), true_cond_1, ec);
@@ -767,7 +767,7 @@ void test_async_connect_range()
   asio::ip::tcp::socket socket(io_context);
   std::vector<asio::ip::tcp::endpoint> endpoints;
   asio::ip::tcp::endpoint result;
-  asio::error_code ec;
+  std::error_code ec;
 
   asio::async_connect(socket, endpoints,
       bindns::bind(range_handler, _1, _2, &ec, &result));
@@ -818,7 +818,7 @@ void test_async_connect_range_cond()
   asio::ip::tcp::socket socket(io_context);
   std::vector<asio::ip::tcp::endpoint> endpoints;
   asio::ip::tcp::endpoint result;
-  asio::error_code ec;
+  std::error_code ec;
 
   asio::async_connect(socket, endpoints, true_cond_1,
       bindns::bind(range_handler, _1, _2, &ec, &result));
@@ -982,7 +982,7 @@ void test_async_connect_iter()
   std::vector<asio::ip::tcp::endpoint> endpoints;
   const std::vector<asio::ip::tcp::endpoint>& cendpoints = endpoints;
   std::vector<asio::ip::tcp::endpoint>::const_iterator result;
-  asio::error_code ec;
+  std::error_code ec;
 
   asio::async_connect(socket, cendpoints.begin(), cendpoints.end(),
       bindns::bind(iter_handler, _1, _2, &ec, &result));
@@ -1034,7 +1034,7 @@ void test_async_connect_iter_cond()
   std::vector<asio::ip::tcp::endpoint> endpoints;
   const std::vector<asio::ip::tcp::endpoint>& cendpoints = endpoints;
   std::vector<asio::ip::tcp::endpoint>::const_iterator result;
-  asio::error_code ec;
+  std::error_code ec;
 
   asio::async_connect(socket, cendpoints.begin(), cendpoints.end(),
       true_cond_1, bindns::bind(iter_handler, _1, _2, &ec, &result));

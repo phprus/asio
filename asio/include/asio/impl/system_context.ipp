@@ -32,7 +32,7 @@ struct system_context::thread_function
     try
     {
 #endif// !defined(ASIO_NO_EXCEPTIONS)
-      asio::error_code ec;
+      std::error_code ec;
       scheduler_->run(ec);
 #if !defined(ASIO_NO_EXCEPTIONS)
     }

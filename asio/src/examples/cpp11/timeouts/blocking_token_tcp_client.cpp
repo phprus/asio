@@ -13,7 +13,7 @@
 #include "asio/ip/tcp.hpp"
 #include "asio/read_until.hpp"
 #include "asio/streambuf.hpp"
-#include "asio/system_error.hpp"
+#include <system_error>
 #include "asio/write.hpp"
 #include <cstdlib>
 #include <iostream>
@@ -52,7 +52,7 @@ namespace asio {
 
 // The async_result template is specialised to allow the close_after token to
 // be used with asynchronous operations that have a completion signature of
-// void(error_code, T). Generalising this for all completion signature forms is
+// void(std::error_code, T). Generalising this for all completion signature forms is
 // left as an exercise for the reader.
 template <typename T>
 class async_result<close_after, void(std::error_code, T)>

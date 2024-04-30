@@ -24,9 +24,9 @@
 namespace asio {
 
 /// A @ref completion_token adapter used to specify that an error produced by an
-/// asynchronous operation is captured to an error_code variable.
+/// asynchronous operation is captured to an std::error_code variable.
 /**
- * The redirect_error_t class is used to indicate that any error_code produced
+ * The redirect_error_t class is used to indicate that any std::error_code produced
  * by an asynchronous operation is captured to a specified variable.
  */
 template <typename CompletionToken>
@@ -35,7 +35,7 @@ class redirect_error_t
 public:
   /// Constructor.
   template <typename T>
-  redirect_error_t(T&& completion_token, asio::error_code& ec)
+  redirect_error_t(T&& completion_token, std::error_code& ec)
     : token_(static_cast<T&&>(completion_token)),
       ec_(ec)
   {
@@ -43,7 +43,7 @@ public:
 
 //private:
   CompletionToken token_;
-  asio::error_code& ec_;
+  std::error_code& ec_;
 };
 
 /// A function object type that adapts a @ref completion_token to capture
@@ -57,7 +57,7 @@ class partial_redirect_error
 {
 public:
   /// Constructor that specifies the variable used to capture error_code values.
-  explicit partial_redirect_error(asio::error_code& ec)
+  explicit partial_redirect_error(std::error_code& ec)
     : ec_(ec)
   {
   }
@@ -74,13 +74,13 @@ public:
   }
 
 //private:
-  asio::error_code& ec_;
+  std::error_code& ec_;
 };
 
 /// Create a partial completion token adapter that captures error_code values
 /// to a variable.
 ASIO_NODISCARD inline partial_redirect_error
-redirect_error(asio::error_code& ec)
+redirect_error(std::error_code& ec)
 {
   return partial_redirect_error(ec);
 }
@@ -89,7 +89,7 @@ redirect_error(asio::error_code& ec)
 template <typename CompletionToken>
 ASIO_NODISCARD inline redirect_error_t<decay_t<CompletionToken>>
 redirect_error(CompletionToken&& completion_token,
-    asio::error_code& ec)
+    std::error_code& ec)
 {
   return redirect_error_t<decay_t<CompletionToken>>(
       static_cast<CompletionToken&&>(completion_token), ec);

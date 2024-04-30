@@ -102,7 +102,7 @@ public:
   }
 
   /// Close the stream.
-  ASIO_SYNC_OP_VOID close(asio::error_code& ec)
+  ASIO_SYNC_OP_VOID close(std::error_code& ec)
   {
     stream_impl_.close(ec);
     ASIO_SYNC_OP_VOID_RETURN(ec);
@@ -119,7 +119,7 @@ public:
   /// Flush all data from the buffer to the next layer. Returns the number of
   /// bytes written to the next layer on the last write operation, or 0 if an
   /// error occurred.
-  std::size_t flush(asio::error_code& ec)
+  std::size_t flush(std::error_code& ec)
   {
     return stream_impl_.next_layer().flush(ec);
   }
@@ -127,10 +127,10 @@ public:
   /// Start an asynchronous flush.
   /**
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) WriteHandler = default_completion_token_t<executor_type>>
   auto async_flush(
       WriteHandler&& handler = default_completion_token_t<executor_type>())
@@ -154,7 +154,7 @@ public:
   /// or 0 if an error occurred.
   template <typename ConstBufferSequence>
   std::size_t write_some(const ConstBufferSequence& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return stream_impl_.write_some(buffers, ec);
   }
@@ -163,10 +163,10 @@ public:
   /// lifetime of the asynchronous operation.
   /**
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    */
   template <typename ConstBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) WriteHandler = default_completion_token_t<executor_type>>
   auto async_write_some(const ConstBufferSequence& buffers,
       WriteHandler&& handler = default_completion_token_t<executor_type>())
@@ -187,7 +187,7 @@ public:
 
   /// Fill the buffer with some data. Returns the number of bytes placed in the
   /// buffer as a result of the operation, or 0 if an error occurred.
-  std::size_t fill(asio::error_code& ec)
+  std::size_t fill(std::error_code& ec)
   {
     return stream_impl_.fill(ec);
   }
@@ -195,10 +195,10 @@ public:
   /// Start an asynchronous fill.
   /**
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) ReadHandler = default_completion_token_t<executor_type>>
   auto async_fill(
       ReadHandler&& handler = default_completion_token_t<executor_type>())
@@ -222,7 +222,7 @@ public:
   /// an error occurred.
   template <typename MutableBufferSequence>
   std::size_t read_some(const MutableBufferSequence& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return stream_impl_.read_some(buffers, ec);
   }
@@ -231,10 +231,10 @@ public:
   /// must be valid for the lifetime of the asynchronous operation.
   /**
    * @par Completion Signature
-   * @code void(asio::error_code, std::size_t) @endcode
+   * @code void(std::error_code, std::size_t) @endcode
    */
   template <typename MutableBufferSequence,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
         std::size_t)) ReadHandler = default_completion_token_t<executor_type>>
   auto async_read_some(const MutableBufferSequence& buffers,
       ReadHandler&& handler = default_completion_token_t<executor_type>())
@@ -258,7 +258,7 @@ public:
   /// or 0 if an error occurred.
   template <typename MutableBufferSequence>
   std::size_t peek(const MutableBufferSequence& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return stream_impl_.peek(buffers, ec);
   }
@@ -270,7 +270,7 @@ public:
   }
 
   /// Determine the amount of data that may be read without blocking.
-  std::size_t in_avail(asio::error_code& ec)
+  std::size_t in_avail(std::error_code& ec)
   {
     return stream_impl_.in_avail(ec);
   }

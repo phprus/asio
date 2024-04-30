@@ -127,14 +127,14 @@ struct incrementer_token_v1
 struct incrementer_handler_v1
 {
   explicit incrementer_handler_v1(incrementer_token_v1 t) : count(t.count) {}
-  void operator()(asio::error_code){ increment(count); }
+  void operator()(std::error_code){ increment(count); }
   int* count;
 };
 
 namespace asio {
 
 template <>
-class async_result<incrementer_token_v1, void(asio::error_code)>
+class async_result<incrementer_token_v1, void(std::error_code)>
 {
 public:
   typedef incrementer_handler_v1 completion_handler_type;
@@ -176,7 +176,7 @@ struct incrementer_token_v2
 namespace asio {
 
 template <>
-class async_result<incrementer_token_v2, void(asio::error_code)>
+class async_result<incrementer_token_v2, void(std::error_code)>
 {
 public:
 #if !defined(ASIO_HAS_RETURN_TYPE_DEDUCTION)

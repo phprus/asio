@@ -30,9 +30,9 @@ enum ssl_errors
 };
 
 extern ASIO_DECL
-const asio::error_category& get_ssl_category();
+const std::error_category& get_ssl_category();
 
-static const asio::error_category&
+static const std::error_category&
   ssl_category ASIO_UNUSED_VARIABLE
   = asio::error::get_ssl_category();
 
@@ -67,9 +67,9 @@ enum stream_errors
 };
 
 extern ASIO_DECL
-const asio::error_category& get_stream_category();
+const std::error_category& get_stream_category();
 
-static const asio::error_category&
+static const std::error_category&
   stream_category ASIO_UNUSED_VARIABLE
   = asio::ssl::error::get_stream_category();
 
@@ -94,9 +94,9 @@ template<> struct is_error_code_enum<asio::ssl::error::stream_errors>
 namespace asio {
 namespace error {
 
-inline asio::error_code make_error_code(ssl_errors e)
+inline std::error_code make_error_code(ssl_errors e)
 {
-  return asio::error_code(
+  return std::error_code(
       static_cast<int>(e), get_ssl_category());
 }
 
@@ -104,9 +104,9 @@ inline asio::error_code make_error_code(ssl_errors e)
 namespace ssl {
 namespace error {
 
-inline asio::error_code make_error_code(stream_errors e)
+inline std::error_code make_error_code(stream_errors e)
 {
-  return asio::error_code(
+  return std::error_code(
       static_cast<int>(e), get_stream_category());
 }
 

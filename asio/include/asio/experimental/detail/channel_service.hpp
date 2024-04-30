@@ -487,46 +487,46 @@ private:
   std::size_t buffer_;
 };
 
-// The implementation for an error_code signature.
+// The implementation for an std::error_code signature.
 template <typename Mutex>
 template <typename Traits, typename R>
 struct channel_service<Mutex>::implementation_type<
-    Traits, R(asio::error_code)>
+    Traits, R(std::error_code)>
   : channel_service::base_implementation_type
 {
   // The traits type associated with the channel.
-  typedef typename Traits::template rebind<R(asio::error_code)>::other
+  typedef typename Traits::template rebind<R(std::error_code)>::other
     traits_type;
 
   // Type of an element stored in the buffer.
   typedef conditional_t<
       has_signature<
         typename traits_type::receive_cancelled_signature,
-        R(asio::error_code)
+        R(std::error_code)
       >::value,
       conditional_t<
         has_signature<
           typename traits_type::receive_closed_signature,
-          R(asio::error_code)
+          R(std::error_code)
         >::value,
-        asio::detail::completion_payload<R(asio::error_code)>,
+        asio::detail::completion_payload<R(std::error_code)>,
         asio::detail::completion_payload<
-          R(asio::error_code),
+          R(std::error_code),
           typename traits_type::receive_closed_signature
         >
       >,
       conditional_t<
         has_signature<
           typename traits_type::receive_closed_signature,
-          R(asio::error_code),
+          R(std::error_code),
           typename traits_type::receive_cancelled_signature
         >::value,
         asio::detail::completion_payload<
-          R(asio::error_code),
+          R(std::error_code),
           typename traits_type::receive_cancelled_signature
         >,
         asio::detail::completion_payload<
-          R(asio::error_code),
+          R(std::error_code),
           typename traits_type::receive_cancelled_signature,
           typename traits_type::receive_closed_signature
         >
@@ -571,7 +571,7 @@ struct channel_service<Mutex>::implementation_type<
     }
     else
     {
-      asio::error_code value{last.value_};
+      std::error_code value{last.value_};
       value_handler handler{value};
       payload.receive(handler);
       if (last.value_ == value)
@@ -597,7 +597,7 @@ struct channel_service<Mutex>::implementation_type<
       }
       else
       {
-        asio::error_code value{last.value_};
+        std::error_code value{last.value_};
         payload.receive(value_handler{value});
         if (last.value_ == value)
           last.count_ += count;
@@ -637,16 +637,16 @@ struct channel_service<Mutex>::implementation_type<
 private:
   struct buffered_value
   {
-    asio::error_code value_;
+    std::error_code value_;
     std::size_t count_;
   };
 
   struct value_handler
   {
-    asio::error_code& target_;
+    std::error_code& target_;
 
     template <typename... Args>
-    void operator()(const asio::error_code& value, Args&&...)
+    void operator()(const std::error_code& value, Args&&...)
     {
       target_ = value;
     }

@@ -295,7 +295,7 @@ public:
     return cancellation_slot_type();
   }
 
-  void operator()(const asio::error_code&)
+  void operator()(const std::error_code&)
   {
     Op* op = op_;
     op_ = nullptr;

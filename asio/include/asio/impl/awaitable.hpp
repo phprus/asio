@@ -27,7 +27,7 @@
 #include "asio/detail/type_traits.hpp"
 #include "asio/error.hpp"
 #include "asio/post.hpp"
-#include "asio/system_error.hpp"
+#include <system_error>
 #include "asio/this_coro.hpp"
 
 #if defined(ASIO_ENABLE_HANDLER_TRACKING)
@@ -140,9 +140,9 @@ public:
     pending_exception_ = e;
   }
 
-  void set_error(const asio::error_code& ec)
+  void set_error(const std::error_code& ec)
   {
-    this->set_except(std::make_exception_ptr(asio::system_error(ec)));
+    this->set_except(std::make_exception_ptr(std::system_error(ec)));
   }
 
   void unhandled_exception()
@@ -809,11 +809,11 @@ public:
 };
 
 template <typename R, typename Executor>
-class awaitable_async_op_handler<R(asio::error_code), Executor>
+class awaitable_async_op_handler<R(std::error_code), Executor>
   : public awaitable_thread<Executor>
 {
 public:
-  typedef asio::error_code* result_type;
+  typedef std::error_code* result_type;
 
   awaitable_async_op_handler(
       awaitable_thread<Executor>* h, result_type& result)
@@ -822,7 +822,7 @@ public:
   {
   }
 
-  void operator()(asio::error_code ec)
+  void operator()(std::error_code ec)
   {
     result_ = &ec;
     this->entry_point()->top_of_stack_->attach_thread(this);
@@ -906,13 +906,13 @@ private:
 };
 
 template <typename R, typename T, typename Executor>
-class awaitable_async_op_handler<R(asio::error_code, T), Executor>
+class awaitable_async_op_handler<R(std::error_code, T), Executor>
   : public awaitable_thread<Executor>
 {
 public:
   struct result_type
   {
-    asio::error_code* ec_;
+    std::error_code* ec_;
     T* value_;
   };
 
@@ -923,7 +923,7 @@ public:
   {
   }
 
-  void operator()(asio::error_code ec, T value)
+  void operator()(std::error_code ec, T value)
   {
     result_.ec_ = &ec;
     result_.value_ = &value;
@@ -1017,13 +1017,13 @@ private:
 };
 
 template <typename R, typename... Ts, typename Executor>
-class awaitable_async_op_handler<R(asio::error_code, Ts...), Executor>
+class awaitable_async_op_handler<R(std::error_code, Ts...), Executor>
   : public awaitable_thread<Executor>
 {
 public:
   struct result_type
   {
-    asio::error_code* ec_;
+    std::error_code* ec_;
     std::tuple<Ts...>* value_;
   };
 
@@ -1035,7 +1035,7 @@ public:
   }
 
   template <typename... Args>
-  void operator()(asio::error_code ec, Args&&... args)
+  void operator()(std::error_code ec, Args&&... args)
   {
     result_.ec_ = &ec;
     std::tuple<Ts...> value(std::forward<Args>(args)...);

@@ -79,7 +79,7 @@ public:
 
   template <typename E, typename... Args>
   constexpr constraint_t<
-    !is_same<decay_t<E>, asio::error_code>::value
+    !is_same<decay_t<E>, std::error_code>::value
       && !is_same<decay_t<E>, std::exception_ptr>::value,
     cancellation_type_t
   > operator()(const E&, Args&&...) const noexcept
@@ -89,7 +89,7 @@ public:
 
   template <typename E, typename... Args>
   constexpr constraint_t<
-      is_same<decay_t<E>, asio::error_code>::value
+      is_same<decay_t<E>, std::error_code>::value
         || is_same<decay_t<E>, std::exception_ptr>::value,
       cancellation_type_t
   > operator()(const E& e, Args&&...) const noexcept
@@ -122,7 +122,7 @@ public:
 
   template <typename E, typename... Args>
   constexpr constraint_t<
-    !is_same<decay_t<E>, asio::error_code>::value
+    !is_same<decay_t<E>, std::error_code>::value
       && !is_same<decay_t<E>, std::exception_ptr>::value,
     cancellation_type_t
   > operator()(const E&, Args&&...) const noexcept
@@ -132,7 +132,7 @@ public:
 
   template <typename E, typename... Args>
   constexpr constraint_t<
-      is_same<decay_t<E>, asio::error_code>::value
+      is_same<decay_t<E>, std::error_code>::value
         || is_same<decay_t<E>, std::exception_ptr>::value,
       cancellation_type_t
   > operator()(const E& e, Args&&...) const noexcept

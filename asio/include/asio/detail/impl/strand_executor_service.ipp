@@ -142,7 +142,7 @@ void strand_executor_service::run_ready_handlers(implementation_type& impl)
 
   // Run all ready handlers. No lock is required since the ready queue is
   // accessed only within the strand.
-  asio::error_code ec;
+  std::error_code ec;
   while (scheduler_operation* o = impl->ready_queue_.front())
   {
     impl->ready_queue_.pop();

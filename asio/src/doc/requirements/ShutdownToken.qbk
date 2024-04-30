@@ -8,14 +8,14 @@
 [section:ShutdownToken SSL shutdown token requirements]
 
 A shutdown token is a [link asio.overview.model.completion_tokens completion
-token] for completion signature `void(error_code)`.
+token] for completion signature `void(std::error_code)`.
 
 [heading Examples]
 
 A free function as a shutdown token:
 
   void shutdown_handler(
-      const asio::error_code& ec)
+      const std::error_code& ec)
   {
     ...
   }
@@ -26,7 +26,7 @@ A shutdown token function object:
   {
     ...
     void operator()(
-        const asio::error_code& ec)
+        const std::error_code& ec)
     {
       ...
     }
@@ -36,7 +36,7 @@ A shutdown token function object:
 A lambda as a shutdown token:
 
   ssl_stream.async_shutdown(...,
-      [](const asio::error_code& ec)
+      [](const std::error_code& ec)
       {
         ...
       });
@@ -45,7 +45,7 @@ A non-static class member function adapted to a shutdown token using
 `std::bind()`:
 
   void my_class::shutdown_handler(
-      const asio::error_code& ec)
+      const std::error_code& ec)
   {
     ...
   }
@@ -58,7 +58,7 @@ A non-static class member function adapted to a shutdown token using
 `std::bind()`:
 
   void my_class::shutdown_handler(
-      const asio::error_code& ec)
+      const std::error_code& ec)
   {
     ...
   }
@@ -75,7 +75,7 @@ Using [link asio.reference.use_future use_future] as a shutdown token:
   {
     f.get();
   }
-  catch (const system_error& e)
+  catch (const std::system_error& e)
   {
     ...
   }
@@ -90,7 +90,7 @@ Using [link asio.reference.use_awaitable use_awaitable] as a shutdown token:
       co_await ssl_stream.async_shutdown(..., asio::use_awaitable);
       ...
     }
-    catch (const system_error& e)
+    catch (const std::system_error& e)
     {
       ...
     }

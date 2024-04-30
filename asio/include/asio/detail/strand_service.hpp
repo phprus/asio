@@ -104,7 +104,7 @@ private:
       operation* op, bool is_continuation);
 
   ASIO_DECL static void do_complete(void* owner,
-      operation* base, const asio::error_code& ec,
+      operation* base, const std::error_code& ec,
       std::size_t bytes_transferred);
 
   // The io_context used to obtain an I/O executor.

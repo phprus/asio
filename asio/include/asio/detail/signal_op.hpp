@@ -28,7 +28,7 @@ class signal_op
 {
 public:
   // The error code to be passed to the completion handler.
-  asio::error_code ec_;
+  std::error_code ec_;
 
   // The operation key used for targeted cancellation.
   void* cancellation_key_;

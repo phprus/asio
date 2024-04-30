@@ -444,7 +444,7 @@
   my_socket.async_read_some(my_buffer,
       bind_immediate_executor(
         system_executor(),
-        [](error_code e, size_t n)
+        [](std::error_code e, size_t n)
         {
           // ...
         }
@@ -578,7 +578,7 @@
   timer1->expires_after(std::chrono::seconds(1));
   timer1->async_wait(
       asio::consign(
-        [](asio::error_code ec)
+        [](std::error_code ec)
         {
           // ...
         },
@@ -594,7 +594,7 @@
   // Header file:
 
   void async_sleep_impl(
-      asio::any_completion_handler<void(asio::error_code)> handler,
+      asio::any_completion_handler<void(std::error_code)> handler,
       asio::any_io_executor ex, std::chrono::nanoseconds duration);
 
   template <typename CompletionToken>
@@ -602,14 +602,14 @@
       std::chrono::nanoseconds duration, CompletionToken&& token)
   {
     return asio::async_initiate<
-      CompletionToken, void(asio::error_code)>(
+      CompletionToken, void(std::error_code)>(
         async_sleep_impl, token, std::move(ex), duration);
   }
 
   // Separately compiled source file:
 
   void async_sleep_impl(
-      asio::any_completion_handler<void(asio::error_code)> handler,
+      asio::any_completion_handler<void(std::error_code)> handler,
       asio::any_io_executor ex, std::chrono::nanoseconds duration)
   {
     auto timer = std::make_shared<asio::steady_timer>(ex, duration);
@@ -627,9 +627,9 @@
       CompletionToken&& token)
   {
     return asio::async_initiate<
-      CompletionToken, void(asio::error_code)>(
+      CompletionToken, void(std::error_code)>(
         asio::experimental::co_composed<
-          void(asio::error_code)>(
+          void(std::error_code)>(
             [](auto state, tcp::socket& socket) -> void
             {
               try
@@ -648,7 +648,7 @@
                       asio::buffer(data, n), asio::deferred);
                 }
               }
-              catch (const asio::system_error& e)
+              catch (const std::system_error& e)
               {
                 co_return {e.code()};
               }
@@ -686,7 +686,7 @@
       asio::experimental::wait_for_all(),
       [](
           std::vector<std::size_t> completion_order,
-          std::vector<asio::error_code> e,
+          std::vector<std::error_code> e,
           std::vector<std::size_t> n
         )
       {
@@ -742,7 +742,7 @@
 
 * Fixed an ambiguity in `experimental::channel_traits` specialisations.
 
-* Added a specialised channel implementation for the  for `R(error_code)`
+* Added a specialised channel implementation for the  for `R(std::error_code)`
   signature.
 
 * Made `cancelled()` public on the `async_compose` 'self' object.
@@ -895,7 +895,7 @@
   ``
   auto d = my_timer.async_wait(asio::deferred);
   using sig = asio::completion_signature_of<decltype(d)>::type;
-  // sig is void(error_code)
+  // sig is void(std::error_code)
   ``[br]
   or with a handcrafted asynchronous operation:[br]
   ``
@@ -914,7 +914,7 @@
   using sig =
     asio::completion_signature_of<
       my_async_op, asio::const_buffer>::type;
-  // sig is void(error_code, size_t)
+  // sig is void(std::error_code, size_t)
   ``[br]
 
 * Added converting move construction/assignment to posix descriptors, serial
@@ -1178,7 +1178,7 @@
         | asio::stream_file::truncate);
 
   file.async_write_some(my_buffer,
-      [](error_code e, size_t n)
+      [](std::error_code e, size_t n)
       {
         // ...
       });
@@ -1190,7 +1190,7 @@
       asio::random_access_file::read_only);
 
   file.async_read_some_at(1234, my_buffer,
-      [](error_code e, size_t n)
+      [](std::error_code e, size_t n)
       {
         // ...
       });
@@ -1207,13 +1207,13 @@
   asio::connect_pipe(read_end, write_end);
 
   write_end.async_write_some(my_write_buffer,
-      [](error_code e, size_t n)
+      [](std::error_code e, size_t n)
       {
         // ...
       });
 
   read_end.async_read_some(my_read_buffer,
-      [](error_code e, size_t n)
+      [](std::error_code e, size_t n)
       {
         // ...
       });
@@ -1247,7 +1247,7 @@
   The registered buffers may then be passed directly to operations:[br]
   ``
   asio::async_read(my_socket, my_buffer,
-      [](error_code ec, size_t n)
+      [](std::error_code ec, size_t n)
       {
         // ...
       });
@@ -1263,7 +1263,7 @@
   Channels may be used to send completions as messages. For example:[br]
   ``
   // Create a channel with no buffer space.
-  channel<void(error_code, size_t)> ch(ctx);
+  channel<void(std::error_code, size_t)> ch(ctx);
 
   // The call to try_send fails as there is no buffer
   // space and no waiting receive operations.
@@ -1273,7 +1273,7 @@
   // The async_send operation is outstanding until
   // a receive operation consumes the message.
   ch.async_send(asio::error::eof, 123,
-      [](error_code ec)
+      [](std::error_code ec)
       {
         // ...
       });
@@ -1282,7 +1282,7 @@
   // async_send and async_receive operations complete
   // immediately.
   ch.async_receive(
-      [](error_code ec, size_t n)
+      [](std::error_code ec, size_t n)
       {
         // ...
       });
@@ -1669,7 +1669,7 @@
   ... do other stuff while the read is going on ...
 
   promise.async_wait( // completion the operation
-      [](error_code ec, std::size_t bytes_read)
+      [](std::error_code ec, std::size_t bytes_read)
       {
         ...
       });
@@ -1692,7 +1692,7 @@
       timeout_promise, read_promise);
 
   promise.async_wait(
-      [](std::variant<error_code, std::tuple<error_code, std::size_t>> v)
+      [](std::variant<std::error_code, std::tuple<std::error_code, std::size_t>> v)
       {
         if (v.index() == 0) {} //timed out
         else if (v.index() == 1) // completed in time
@@ -1713,8 +1713,8 @@
       write_promise, read_promise);
 
   promise.async_wait(
-      [](std::tuple<error_code, std::size_t> write_result,
-        std::tuple<error_code, std::size_t> read_result)
+      [](std::tuple<std::error_code, std::size_t> write_result,
+        std::tuple<std::error_code, std::size_t> read_result)
       {
       });
   ``[br]
@@ -3906,7 +3906,7 @@
 [heading Asio 1.4.0]
 
 * Enhanced CompletionCondition concept with the signature
-  `size_t CompletionCondition(error_code ec, size_t total)`, where the return
+  `size_t CompletionCondition(std::error_code ec, size_t total)`, where the return
   value indicates the maximum number of bytes to be transferred on the next
   read or write operation. (The old CompletionCondition signature is still
   supported for backwards compatibility).

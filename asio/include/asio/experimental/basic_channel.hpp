@@ -43,18 +43,18 @@ namespace detail {
  * Unless customising the traits, applications will typically use the @c
  * experimental::channel alias template. For example:
  * @code void send_loop(int i, steady_timer& timer,
- *     channel<void(error_code, int)>& ch)
+ *     channel<void(std::error_code, int)>& ch)
  * {
  *   if (i < 10)
  *   {
  *     timer.expires_after(std::chrono::seconds(1));
  *     timer.async_wait(
- *         [i, &timer, &ch](error_code error)
+ *         [i, &timer, &ch](std::error_code error)
  *         {
  *           if (!error)
  *           {
- *             ch.async_send(error_code(), i,
- *                 [i, &timer, &ch](error_code error)
+ *             ch.async_send(std::error_code(), i,
+ *                 [i, &timer, &ch](std::error_code error)
  *                 {
  *                   if (!error)
  *                   {
@@ -70,10 +70,10 @@ namespace detail {
  *   }
  * }
  *
- * void receive_loop(channel<void(error_code, int)>& ch)
+ * void receive_loop(channel<void(std::error_code, int)>& ch)
  * {
  *   ch.async_receive(
- *       [&ch](error_code error, int i)
+ *       [&ch](std::error_code error, int i)
  *       {
  *         if (!error)
  *         {
@@ -372,10 +372,10 @@ public:
   /// Asynchronously send a message.
   /**
    * @par Completion Signature
-   * @code void(asio::error_code) @endcode
+   * @code void(std::error_code) @endcode
    */
   template <typename... Args,
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code))
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code))
         CompletionToken ASIO_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
   auto async_send(Args&&... args,
       CompletionToken&& token);

@@ -78,7 +78,7 @@ class basic_waitable_timer;
  * @par
  * Performing an asynchronous wait (C++11):
  * @code
- * void handler(const asio::error_code& error)
+ * void handler(const std::error_code& error)
  * {
  *   if (!error)
  *   {
@@ -117,7 +117,7 @@ class basic_waitable_timer;
  *   }
  * }
  *
- * void on_timeout(const asio::error_code& e)
+ * void on_timeout(const std::error_code& e)
  * {
  *   if (e != asio::error::operation_aborted)
  *   {
@@ -132,7 +132,7 @@ class basic_waitable_timer;
  * late and the wait handler has already been executed, or will soon be
  * executed. If it returns 1 then the wait handler was successfully cancelled.
  *
- * @li If a wait handler is cancelled, the asio::error_code passed to
+ * @li If a wait handler is cancelled, the std::error_code passed to
  * it contains the value asio::error::operation_aborted.
  */
 template <typename Clock, typename WaitTraits, typename Executor>
@@ -211,7 +211,7 @@ public:
   basic_waitable_timer(const executor_type& ex, const time_point& expiry_time)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().expires_at(impl_.get_implementation(), expiry_time, ec);
     asio::detail::throw_error(ec, "expires_at");
   }
@@ -235,7 +235,7 @@ public:
       > = 0)
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().expires_at(impl_.get_implementation(), expiry_time, ec);
     asio::detail::throw_error(ec, "expires_at");
   }
@@ -253,7 +253,7 @@ public:
   basic_waitable_timer(const executor_type& ex, const duration& expiry_time)
     : impl_(0, ex)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().expires_after(
         impl_.get_implementation(), expiry_time, ec);
     asio::detail::throw_error(ec, "expires_after");
@@ -278,7 +278,7 @@ public:
       > = 0)
     : impl_(0, 0, context)
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().expires_after(
         impl_.get_implementation(), expiry_time, ec);
     asio::detail::throw_error(ec, "expires_after");
@@ -391,7 +391,7 @@ public:
    *
    * @return The number of asynchronous operations that were cancelled.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note If the timer has already expired when cancel() is called, then the
    * handlers for asynchronous wait operations will:
@@ -405,7 +405,7 @@ public:
    */
   std::size_t cancel()
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = impl_.get_service().cancel(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "cancel");
     return s;
@@ -435,7 +435,7 @@ public:
    * These handlers can no longer be cancelled, and therefore are passed an
    * error code that indicates the successful completion of the wait operation.
    */
-  std::size_t cancel(asio::error_code& ec)
+  std::size_t cancel(std::error_code& ec)
   {
     return impl_.get_service().cancel(impl_.get_implementation(), ec);
   }
@@ -453,7 +453,7 @@ public:
    * @return The number of asynchronous operations that were cancelled. That is,
    * either 0 or 1.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note If the timer has already expired when cancel_one() is called, then
    * the handlers for asynchronous wait operations will:
@@ -467,7 +467,7 @@ public:
    */
   std::size_t cancel_one()
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = impl_.get_service().cancel_one(
         impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "cancel_one");
@@ -500,7 +500,7 @@ public:
    * These handlers can no longer be cancelled, and therefore are passed an
    * error code that indicates the successful completion of the wait operation.
    */
-  std::size_t cancel_one(asio::error_code& ec)
+  std::size_t cancel_one(std::error_code& ec)
   {
     return impl_.get_service().cancel_one(impl_.get_implementation(), ec);
   }
@@ -537,7 +537,7 @@ public:
    *
    * @return The number of asynchronous operations that were cancelled.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note If the timer has already expired when expires_at() is called, then
    * the handlers for asynchronous wait operations will:
@@ -551,7 +551,7 @@ public:
    */
   std::size_t expires_at(const time_point& expiry_time)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = impl_.get_service().expires_at(
         impl_.get_implementation(), expiry_time, ec);
     asio::detail::throw_error(ec, "expires_at");
@@ -583,7 +583,7 @@ public:
    * error code that indicates the successful completion of the wait operation.
    */
   std::size_t expires_at(const time_point& expiry_time,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return impl_.get_service().expires_at(
         impl_.get_implementation(), expiry_time, ec);
@@ -600,7 +600,7 @@ public:
    *
    * @return The number of asynchronous operations that were cancelled.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note If the timer has already expired when expires_after() is called,
    * then the handlers for asynchronous wait operations will:
@@ -614,7 +614,7 @@ public:
    */
   std::size_t expires_after(const duration& expiry_time)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = impl_.get_service().expires_after(
         impl_.get_implementation(), expiry_time, ec);
     asio::detail::throw_error(ec, "expires_after");
@@ -643,7 +643,7 @@ public:
    *
    * @return The number of asynchronous operations that were cancelled.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    *
    * @note If the timer has already expired when expires_from_now() is called,
    * then the handlers for asynchronous wait operations will:
@@ -657,7 +657,7 @@ public:
    */
   std::size_t expires_from_now(const duration& expiry_time)
   {
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t s = impl_.get_service().expires_from_now(
         impl_.get_implementation(), expiry_time, ec);
     asio::detail::throw_error(ec, "expires_from_now");
@@ -688,7 +688,7 @@ public:
    * error code that indicates the successful completion of the wait operation.
    */
   std::size_t expires_from_now(const duration& expiry_time,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
     return impl_.get_service().expires_from_now(
         impl_.get_implementation(), expiry_time, ec);
@@ -700,11 +700,11 @@ public:
    * This function is used to wait for the timer to expire. This function
    * blocks and does not return until the timer has expired.
    *
-   * @throws asio::system_error Thrown on failure.
+   * @throws std::system_error Thrown on failure.
    */
   void wait()
   {
-    asio::error_code ec;
+    std::error_code ec;
     impl_.get_service().wait(impl_.get_implementation(), ec);
     asio::detail::throw_error(ec, "wait");
   }
@@ -716,7 +716,7 @@ public:
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  void wait(asio::error_code& ec)
+  void wait(std::error_code& ec)
   {
     impl_.get_service().wait(impl_.get_implementation(), ec);
   }
@@ -741,7 +741,7 @@ public:
    * yield_context, or a function object with the correct completion signature.
    * The function signature of the completion handler must be:
    * @code void handler(
-   *   const asio::error_code& error // Result of operation.
+   *   const std::error_code& error // Result of operation.
    * ); @endcode
    * Regardless of whether the asynchronous operation completes immediately or
    * not, the completion handler will not be invoked from within this function.
@@ -749,7 +749,7 @@ public:
    * manner equivalent to using asio::async_immediate().
    *
    * @par Completion Signature
-   * @code void(asio::error_code) @endcode
+   * @code void(std::error_code) @endcode
    *
    * @par Per-Operation Cancellation
    * This asynchronous operation supports cancellation for the following
@@ -762,15 +762,15 @@ public:
    * @li @c cancellation_type::total
    */
   template <
-      ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code))
+      ASIO_COMPLETION_TOKEN_FOR(void (std::error_code))
         WaitToken = default_completion_token_t<executor_type>>
   auto async_wait(
       WaitToken&& token = default_completion_token_t<executor_type>())
     -> decltype(
-      async_initiate<WaitToken, void (asio::error_code)>(
+      async_initiate<WaitToken, void (std::error_code)>(
         declval<initiate_async_wait>(), token))
   {
-    return async_initiate<WaitToken, void (asio::error_code)>(
+    return async_initiate<WaitToken, void (std::error_code)>(
         initiate_async_wait(this), token);
   }
 

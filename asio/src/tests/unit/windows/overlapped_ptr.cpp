@@ -31,13 +31,13 @@
 
 namespace windows_overlapped_ptr_compile {
 
-void overlapped_handler_1(const asio::error_code&, std::size_t)
+void overlapped_handler_1(const std::error_code&, std::size_t)
 {
 }
 
 struct overlapped_handler_2
 {
-  void operator()(const asio::error_code&, std::size_t)
+  void operator()(const std::error_code&, std::size_t)
   {
   }
 };
@@ -98,7 +98,7 @@ void test()
     OVERLAPPED* ov3 = ptr1.release();
     (void)ov3;
 
-    asio::error_code ec;
+    std::error_code ec;
     std::size_t bytes_transferred = 0;
     ptr1.complete(ec, bytes_transferred);
   }

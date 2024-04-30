@@ -25,7 +25,7 @@ using namespace asio;
 namespace bindns = std;
 namespace chronons = std::chrono;
 
-void increment_on_cancel(int* count, const asio::error_code& error)
+void increment_on_cancel(int* count, const std::error_code& error)
 {
   if (error == asio::error::operation_aborted)
     ++(*count);
@@ -179,7 +179,7 @@ struct incrementer_handler_v1
 {
   explicit incrementer_handler_v1(incrementer_token_v1 t) : count(t.count) {}
 
-  void operator()(asio::error_code error)
+  void operator()(std::error_code error)
   {
     increment_on_cancel(count, error);
   }
@@ -190,7 +190,7 @@ struct incrementer_handler_v1
 namespace asio {
 
 template <>
-class async_result<incrementer_token_v1, void(asio::error_code)>
+class async_result<incrementer_token_v1, void(std::error_code)>
 {
 public:
   typedef incrementer_handler_v1 completion_handler_type;
@@ -340,7 +340,7 @@ struct incrementer_token_v2
 namespace asio {
 
 template <>
-class async_result<incrementer_token_v2, void(asio::error_code)>
+class async_result<incrementer_token_v2, void(std::error_code)>
 {
 public:
   template <typename Initiation, typename... Args>

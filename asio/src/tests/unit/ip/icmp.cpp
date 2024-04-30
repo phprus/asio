@@ -37,7 +37,7 @@ namespace ip_icmp_socket_compile {
 struct connect_handler
 {
   connect_handler() {}
-  void operator()(const asio::error_code&) {}
+  void operator()(const std::error_code&) {}
   connect_handler(connect_handler&&) {}
 private:
   connect_handler(const connect_handler&);
@@ -46,7 +46,7 @@ private:
 struct send_handler
 {
   send_handler() {}
-  void operator()(const asio::error_code&, std::size_t) {}
+  void operator()(const std::error_code&, std::size_t) {}
   send_handler(send_handler&&) {}
 private:
   send_handler(const send_handler&);
@@ -55,7 +55,7 @@ private:
 struct receive_handler
 {
   receive_handler() {}
-  void operator()(const asio::error_code&, std::size_t) {}
+  void operator()(const std::error_code&, std::size_t) {}
   receive_handler(receive_handler&&) {}
 private:
   receive_handler(const receive_handler&);
@@ -82,7 +82,7 @@ void test()
     archetypes::io_control_command io_control_command;
     archetypes::immediate_handler immediate;
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
 
     // basic_datagram_socket constructors.
 
@@ -472,7 +472,7 @@ namespace ip_icmp_resolver_compile {
 struct resolve_handler
 {
   resolve_handler() {}
-  void operator()(const asio::error_code&,
+  void operator()(const std::error_code&,
       asio::ip::icmp::resolver::results_type) {}
   resolve_handler(resolve_handler&&) {}
 private:
@@ -489,7 +489,7 @@ void test()
     io_context ioc;
     const io_context::executor_type ioc_ex = ioc.get_executor();
     archetypes::lazy_handler lazy;
-    asio::error_code ec;
+    std::error_code ec;
 #if !defined(ASIO_NO_DEPRECATED)
     ip::icmp::resolver::query q(ip::icmp::v4(), "localhost", "0");
 #endif // !defined(ASIO_NO_DEPRECATED)

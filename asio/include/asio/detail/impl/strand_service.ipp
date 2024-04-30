@@ -127,7 +127,7 @@ void strand_service::do_dispatch(implementation_type& impl, operation* op)
     on_dispatch_exit on_exit = { &io_context_impl_, impl };
     (void)on_exit;
 
-    op->complete(&io_context_impl_, asio::error_code(), 0);
+    op->complete(&io_context_impl_, std::error_code(), 0);
     return;
   }
 
@@ -170,7 +170,7 @@ void strand_service::do_post(implementation_type& impl,
 }
 
 void strand_service::do_complete(void* owner, operation* base,
-    const asio::error_code& ec, std::size_t /*bytes_transferred*/)
+    const std::error_code& ec, std::size_t /*bytes_transferred*/)
 {
   if (owner)
   {

@@ -37,7 +37,7 @@ template <typename MutableBufferSequence>
 class descriptor_read_op_base : public reactor_op
 {
 public:
-  descriptor_read_op_base(const asio::error_code& success_ec,
+  descriptor_read_op_base(const std::error_code& success_ec,
       int descriptor, const MutableBufferSequence& buffers,
       func_type complete_func)
     : reactor_op(success_ec,
@@ -92,7 +92,7 @@ public:
 
   ASIO_DEFINE_HANDLER_PTR(descriptor_read_op);
 
-  descriptor_read_op(const asio::error_code& success_ec,
+  descriptor_read_op(const std::error_code& success_ec,
       int descriptor, const MutableBufferSequence& buffers,
       Handler& handler, const IoExecutor& io_ex)
     : descriptor_read_op_base<MutableBufferSequence>(success_ec,
@@ -103,7 +103,7 @@ public:
   }
 
   static void do_complete(void* owner, operation* base,
-      const asio::error_code& /*ec*/,
+      const std::error_code& /*ec*/,
       std::size_t /*bytes_transferred*/)
   {
     // Take ownership of the handler object.
@@ -126,7 +126,7 @@ public:
     // with the handler. Consequently, a local copy of the handler is required
     // to ensure that any owning sub-object remains valid until after we have
     // deallocated the memory here.
-    detail::binder2<Handler, asio::error_code, std::size_t>
+    detail::binder2<Handler, std::error_code, std::size_t>
       handler(o->handler_, o->ec_, o->bytes_transferred_);
     p.h = asio::detail::addressof(handler.handler_);
     p.reset();
@@ -163,7 +163,7 @@ public:
     // with the handler. Consequently, a local copy of the handler is required
     // to ensure that any owning sub-object remains valid until after we have
     // deallocated the memory here.
-    detail::binder2<Handler, asio::error_code, std::size_t>
+    detail::binder2<Handler, std::error_code, std::size_t>
       handler(o->handler_, o->ec_, o->bytes_transferred_);
     p.h = asio::detail::addressof(handler.handler_);
     p.reset();

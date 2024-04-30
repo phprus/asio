@@ -28,7 +28,7 @@ template <typename Elem, typename Traits>
 std::basic_ostream<Elem, Traits>& operator<<(
     std::basic_ostream<Elem, Traits>& os, const network_v6& addr)
 {
-  asio::error_code ec;
+  std::error_code ec;
   std::string s = addr.to_string(ec);
   if (ec)
   {

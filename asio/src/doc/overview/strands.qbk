@@ -96,7 +96,7 @@ completion handler we would simply write:
 
   my_socket.async_read_some(my_buffer,
       asio::bind_executor(my_strand,
-        [](error_code ec, size_t length)
+        [](std::error_code ec, size_t length)
         {
           // ...
         }));

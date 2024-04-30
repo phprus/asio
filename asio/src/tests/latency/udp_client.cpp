@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
   {
     std::uint64_t t = high_res_clock();
 
-    asio::error_code ec;
+    std::error_code ec;
     socket.send_to(asio::buffer(write_buf), target, 0, ec);
 
     do socket.receive(asio::buffer(read_buf), 0, ec);

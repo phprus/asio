@@ -23,7 +23,7 @@ synchronous operations.
 For example:
 
   // Create a channel with no buffer space.
-  channel<void(error_code, size_t)> ch(ctx);
+  channel<void(std::error_code, size_t)> ch(ctx);
 
   // The call to try_send fails as there is no buffer
   // space and no waiting receive operations.
@@ -33,7 +33,7 @@ For example:
   // The async_send operation is outstanding until
   // a receive operation consumes the message.
   ch.async_send(asio::error::eof, 123,
-      [](error_code ec)
+      [](std::error_code ec)
       {
         // ...
       });
@@ -42,7 +42,7 @@ For example:
   // async_send and async_receive operations complete
   // immediately.
   ch.async_receive(
-      [](error_code ec, size_t n)
+      [](std::error_code ec, size_t n)
       {
         // ...
       });

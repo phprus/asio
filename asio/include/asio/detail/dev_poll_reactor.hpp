@@ -199,7 +199,7 @@ private:
   // function of the handler objects will be invoked. This function does not
   // acquire the dev_poll_reactor's mutex.
   ASIO_DECL void cancel_ops_unlocked(socket_type descriptor,
-      const asio::error_code& ec);
+      const std::error_code& ec);
 
   // Add a pending event entry for the given descriptor.
   ASIO_DECL ::pollfd& add_pending_event_change(int descriptor);

@@ -118,7 +118,7 @@ struct is_match_condition
  * @returns The number of bytes in the dynamic buffer sequence's get area up to
  * and including the delimiter.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @note After a successful read_until operation, the dynamic buffer sequence
  * may contain additional data beyond the delimiter. An application will
@@ -191,7 +191,7 @@ std::size_t read_until(SyncReadStream& s,
 template <typename SyncReadStream, typename DynamicBuffer_v1>
 std::size_t read_until(SyncReadStream& s,
     DynamicBuffer_v1&& buffers,
-    char delim, asio::error_code& ec,
+    char delim, std::error_code& ec,
     constraint_t<
       is_dynamic_buffer_v1<decay_t<DynamicBuffer_v1>>::value
     > = 0,
@@ -299,7 +299,7 @@ template <typename SyncReadStream, typename DynamicBuffer_v1>
 std::size_t read_until(SyncReadStream& s,
     DynamicBuffer_v1&& buffers,
     ASIO_STRING_VIEW_PARAM delim,
-    asio::error_code& ec,
+    std::error_code& ec,
     constraint_t<
       is_dynamic_buffer_v1<decay_t<DynamicBuffer_v1>>::value
     > = 0,
@@ -339,7 +339,7 @@ std::size_t read_until(SyncReadStream& s,
  * @returns The number of bytes in the dynamic buffer sequence's get area up to
  * and including the substring that matches the regular expression.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @note After a successful read_until operation, the dynamic buffer sequence
  * may contain additional data beyond that which matched the regular
@@ -413,7 +413,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v1&& buffers,
  */
 template <typename SyncReadStream, typename DynamicBuffer_v1, typename Traits>
 std::size_t read_until(SyncReadStream& s, DynamicBuffer_v1&& buffers,
-    const boost::basic_regex<char, Traits>& expr, asio::error_code& ec,
+    const boost::basic_regex<char, Traits>& expr, std::error_code& ec,
     constraint_t<
       is_dynamic_buffer_v1<decay_t<DynamicBuffer_v1>>::value
     > = 0,
@@ -465,7 +465,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v1&& buffers,
  * @returns The number of bytes in the dynamic_buffer's get area that
  * have been fully consumed by the match function.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @note After a successful read_until operation, the dynamic buffer sequence
  * may contain additional data beyond that which matched the function object.
@@ -598,7 +598,7 @@ template <typename SyncReadStream,
     typename DynamicBuffer_v1, typename MatchCondition>
 std::size_t read_until(SyncReadStream& s,
     DynamicBuffer_v1&& buffers,
-    MatchCondition match_condition, asio::error_code& ec,
+    MatchCondition match_condition, std::error_code& ec,
     constraint_t<
       is_match_condition<MatchCondition>::value
     > = 0,
@@ -635,7 +635,7 @@ std::size_t read_until(SyncReadStream& s,
  * @returns The number of bytes in the streambuf's get area up to and including
  * the delimiter.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @note After a successful read_until operation, the streambuf may contain
  * additional data beyond the delimiter. An application will typically leave
@@ -696,7 +696,7 @@ std::size_t read_until(SyncReadStream& s,
 template <typename SyncReadStream, typename Allocator>
 std::size_t read_until(SyncReadStream& s,
     asio::basic_streambuf<Allocator>& b, char delim,
-    asio::error_code& ec);
+    std::error_code& ec);
 
 /// Read data into a streambuf until it contains a specified delimiter.
 /**
@@ -722,7 +722,7 @@ std::size_t read_until(SyncReadStream& s,
  * @returns The number of bytes in the streambuf's get area up to and including
  * the delimiter.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @note After a successful read_until operation, the streambuf may contain
  * additional data beyond the delimiter. An application will typically leave
@@ -784,7 +784,7 @@ std::size_t read_until(SyncReadStream& s,
 template <typename SyncReadStream, typename Allocator>
 std::size_t read_until(SyncReadStream& s,
     asio::basic_streambuf<Allocator>& b,
-    ASIO_STRING_VIEW_PARAM delim, asio::error_code& ec);
+    ASIO_STRING_VIEW_PARAM delim, std::error_code& ec);
 
 #if defined(ASIO_HAS_BOOST_REGEX) \
   || defined(GENERATING_DOCUMENTATION)
@@ -814,7 +814,7 @@ std::size_t read_until(SyncReadStream& s,
  * @returns The number of bytes in the streambuf's get area up to and including
  * the substring that matches the regular expression.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @note After a successful read_until operation, the streambuf may contain
  * additional data beyond that which matched the regular expression. An
@@ -881,7 +881,7 @@ template <typename SyncReadStream, typename Allocator, typename Traits>
 std::size_t read_until(SyncReadStream& s,
     asio::basic_streambuf<Allocator>& b,
     const boost::basic_regex<char, Traits>& expr,
-    asio::error_code& ec);
+    std::error_code& ec);
 
 #endif // defined(ASIO_HAS_BOOST_REGEX)
        // || defined(GENERATING_DOCUMENTATION)
@@ -925,7 +925,7 @@ std::size_t read_until(SyncReadStream& s,
  * @returns The number of bytes in the streambuf's get area that have been fully
  * consumed by the match function.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @note After a successful read_until operation, the streambuf may contain
  * additional data beyond that which matched the function object. An application
@@ -1045,7 +1045,7 @@ std::size_t read_until(SyncReadStream& s,
 template <typename SyncReadStream, typename Allocator, typename MatchCondition>
 std::size_t read_until(SyncReadStream& s,
     asio::basic_streambuf<Allocator>& b,
-    MatchCondition match_condition, asio::error_code& ec,
+    MatchCondition match_condition, std::error_code& ec,
     constraint_t<is_match_condition<MatchCondition>::value> = 0);
 
 #endif // !defined(ASIO_NO_IOSTREAM)
@@ -1079,7 +1079,7 @@ std::size_t read_until(SyncReadStream& s,
  * @returns The number of bytes in the dynamic buffer sequence's get area up to
  * and including the delimiter.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @note After a successful read_until operation, the dynamic buffer sequence
  * may contain additional data beyond the delimiter. An application will
@@ -1147,7 +1147,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers, char delim,
  */
 template <typename SyncReadStream, typename DynamicBuffer_v2>
 std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
-    char delim, asio::error_code& ec,
+    char delim, std::error_code& ec,
     constraint_t<
       is_dynamic_buffer_v2<DynamicBuffer_v2>::value
     > = 0);
@@ -1246,7 +1246,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
  */
 template <typename SyncReadStream, typename DynamicBuffer_v2>
 std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
-    ASIO_STRING_VIEW_PARAM delim, asio::error_code& ec,
+    ASIO_STRING_VIEW_PARAM delim, std::error_code& ec,
     constraint_t<
       is_dynamic_buffer_v2<DynamicBuffer_v2>::value
     > = 0);
@@ -1283,7 +1283,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
  * @returns The number of bytes in the dynamic buffer sequence's get area up to
  * and including the substring that matches the regular expression.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @note After a successful read_until operation, the dynamic buffer sequence
  * may contain additional data beyond that which matched the regular
@@ -1354,7 +1354,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
  */
 template <typename SyncReadStream, typename DynamicBuffer_v2, typename Traits>
 std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
-    const boost::basic_regex<char, Traits>& expr, asio::error_code& ec,
+    const boost::basic_regex<char, Traits>& expr, std::error_code& ec,
     constraint_t<
         is_dynamic_buffer_v2<DynamicBuffer_v2>::value
     > = 0);
@@ -1403,7 +1403,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
  * @returns The number of bytes in the dynamic_buffer's get area that
  * have been fully consumed by the match function.
  *
- * @throws asio::system_error Thrown on failure.
+ * @throws std::system_error Thrown on failure.
  *
  * @note After a successful read_until operation, the dynamic buffer sequence
  * may contain additional data beyond that which matched the function object.
@@ -1531,7 +1531,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
 template <typename SyncReadStream,
     typename DynamicBuffer_v2, typename MatchCondition>
 std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
-    MatchCondition match_condition, asio::error_code& ec,
+    MatchCondition match_condition, std::error_code& ec,
     constraint_t<
       is_match_condition<MatchCondition>::value
     > = 0,
@@ -1593,7 +1593,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // The number of bytes in the dynamic buffer sequence's
  *   // get area up to and including the delimiter.
@@ -1605,7 +1605,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
  * manner equivalent to using asio::async_immediate().
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @note After a successful async_read_until operation, the dynamic buffer
  * sequence may contain additional data beyond the delimiter. An application
@@ -1617,7 +1617,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
  * encountered:
  * @code std::string data;
  * ...
- * void handler(const asio::error_code& e, std::size_t size)
+ * void handler(const std::error_code& e, std::size_t size)
  * {
  *   if (!e)
  *   {
@@ -1652,7 +1652,7 @@ std::size_t read_until(SyncReadStream& s, DynamicBuffer_v2 buffers,
  * @c async_read_some operation.
  */
 template <typename AsyncReadStream, typename DynamicBuffer_v1,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken = default_completion_token_t<
         typename AsyncReadStream::executor_type>>
 inline auto async_read_until(AsyncReadStream& s,
@@ -1667,12 +1667,12 @@ inline auto async_read_until(AsyncReadStream& s,
     > = 0)
   -> decltype(
     async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_read_until_delim_v1<AsyncReadStream>>(),
         token, static_cast<DynamicBuffer_v1&&>(buffers), delim))
 {
   return async_initiate<ReadToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_read_until_delim_v1<AsyncReadStream>(s),
       token, static_cast<DynamicBuffer_v1&&>(buffers), delim);
 }
@@ -1716,7 +1716,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // The number of bytes in the dynamic buffer sequence's
  *   // get area up to and including the delimiter.
@@ -1728,7 +1728,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * manner equivalent to using asio::async_immediate().
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @note After a successful async_read_until operation, the dynamic buffer
  * sequence may contain additional data beyond the delimiter. An application
@@ -1740,7 +1740,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * encountered:
  * @code std::string data;
  * ...
- * void handler(const asio::error_code& e, std::size_t size)
+ * void handler(const std::error_code& e, std::size_t size)
  * {
  *   if (!e)
  *   {
@@ -1775,7 +1775,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * @c async_read_some operation.
  */
 template <typename AsyncReadStream, typename DynamicBuffer_v1,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken = default_completion_token_t<
         typename AsyncReadStream::executor_type>>
 inline auto async_read_until(AsyncReadStream& s,
@@ -1791,14 +1791,14 @@ inline auto async_read_until(AsyncReadStream& s,
     > = 0)
   -> decltype(
     async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_read_until_delim_string_v1<
           AsyncReadStream>>(),
         token, static_cast<DynamicBuffer_v1&&>(buffers),
         static_cast<std::string>(delim)))
 {
   return async_initiate<ReadToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_read_until_delim_string_v1<AsyncReadStream>(s),
       token, static_cast<DynamicBuffer_v1&&>(buffers),
       static_cast<std::string>(delim));
@@ -1849,7 +1849,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // The number of bytes in the dynamic buffer
  *   // sequence's get area up to and including the
@@ -1863,7 +1863,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * manner equivalent to using asio::async_immediate().
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @note After a successful async_read_until operation, the dynamic buffer
  * sequence may contain additional data beyond that which matched the regular
@@ -1875,7 +1875,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * encountered:
  * @code std::string data;
  * ...
- * void handler(const asio::error_code& e, std::size_t size)
+ * void handler(const std::error_code& e, std::size_t size)
  * {
  *   if (!e)
  *   {
@@ -1911,7 +1911,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * @c async_read_some operation.
  */
 template <typename AsyncReadStream, typename DynamicBuffer_v1, typename Traits,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken = default_completion_token_t<
         typename AsyncReadStream::executor_type>>
 inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v1&& buffers,
@@ -1926,12 +1926,12 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v1&& buffers,
     > = 0)
   -> decltype(
     async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_read_until_expr_v1<AsyncReadStream>>(),
         token, static_cast<DynamicBuffer_v1&&>(buffers), expr))
 {
   return async_initiate<ReadToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_read_until_expr_v1<AsyncReadStream>(s),
       token, static_cast<DynamicBuffer_v1&&>(buffers), expr);
 }
@@ -1992,7 +1992,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v1&& buffers,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // The number of bytes in the dynamic buffer sequence's
  *   // get area that have been fully consumed by the match
@@ -2010,7 +2010,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v1&& buffers,
  * sequence for a subsequent async_read_until operation to examine.
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @note The default implementation of the @c is_match_condition type trait
  * evaluates to true for function pointers and function objects with a
@@ -2033,7 +2033,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v1&& buffers,
  *   return std::make_pair(i, false);
  * }
  * ...
- * void handler(const asio::error_code& e, std::size_t size);
+ * void handler(const std::error_code& e, std::size_t size);
  * ...
  * std::string data;
  * asio::async_read_until(s, data, match_whitespace, handler);
@@ -2066,7 +2066,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v1&& buffers,
  *     : public std::true_type {};
  * } // namespace asio
  * ...
- * void handler(const asio::error_code& e, std::size_t size);
+ * void handler(const std::error_code& e, std::size_t size);
  * ...
  * std::string data;
  * asio::async_read_until(s, data, match_char('a'), handler);
@@ -2085,7 +2085,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v1&& buffers,
  */
 template <typename AsyncReadStream,
     typename DynamicBuffer_v1, typename MatchCondition,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken = default_completion_token_t<
         typename AsyncReadStream::executor_type>>
 inline auto async_read_until(AsyncReadStream& s,
@@ -2103,13 +2103,13 @@ inline auto async_read_until(AsyncReadStream& s,
     > = 0)
   -> decltype(
     async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_read_until_match_v1<AsyncReadStream>>(),
         token, static_cast<DynamicBuffer_v1&&>(buffers),
         match_condition))
 {
   return async_initiate<ReadToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_read_until_match_v1<AsyncReadStream>(s),
       token, static_cast<DynamicBuffer_v1&&>(buffers),
       match_condition);
@@ -2154,7 +2154,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // The number of bytes in the streambuf's get
  *   // area up to and including the delimiter.
@@ -2167,7 +2167,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * manner equivalent to using asio::async_immediate().
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @note After a successful async_read_until operation, the streambuf may
  * contain additional data beyond the delimiter. An application will typically
@@ -2178,7 +2178,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * To asynchronously read data into a streambuf until a newline is encountered:
  * @code asio::streambuf b;
  * ...
- * void handler(const asio::error_code& e, std::size_t size)
+ * void handler(const std::error_code& e, std::size_t size)
  * {
  *   if (!e)
  *   {
@@ -2213,7 +2213,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * @c async_read_some operation.
  */
 template <typename AsyncReadStream, typename Allocator,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken = default_completion_token_t<
         typename AsyncReadStream::executor_type>>
 inline auto async_read_until(AsyncReadStream& s,
@@ -2222,12 +2222,12 @@ inline auto async_read_until(AsyncReadStream& s,
       typename AsyncReadStream::executor_type>())
   -> decltype(
     async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_read_until_delim_v1<AsyncReadStream>>(),
         token, basic_streambuf_ref<Allocator>(b), delim))
 {
   return async_initiate<ReadToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_read_until_delim_v1<AsyncReadStream>(s),
       token, basic_streambuf_ref<Allocator>(b), delim);
 }
@@ -2269,7 +2269,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // The number of bytes in the streambuf's get
  *   // area up to and including the delimiter.
@@ -2282,7 +2282,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * manner equivalent to using asio::async_immediate().
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @note After a successful async_read_until operation, the streambuf may
  * contain additional data beyond the delimiter. An application will typically
@@ -2293,7 +2293,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * To asynchronously read data into a streambuf until a newline is encountered:
  * @code asio::streambuf b;
  * ...
- * void handler(const asio::error_code& e, std::size_t size)
+ * void handler(const std::error_code& e, std::size_t size)
  * {
  *   if (!e)
  *   {
@@ -2328,7 +2328,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * @c async_read_some operation.
  */
 template <typename AsyncReadStream, typename Allocator,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken = default_completion_token_t<
         typename AsyncReadStream::executor_type>>
 inline auto async_read_until(AsyncReadStream& s,
@@ -2338,14 +2338,14 @@ inline auto async_read_until(AsyncReadStream& s,
       typename AsyncReadStream::executor_type>())
   -> decltype(
     async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_read_until_delim_string_v1<
           AsyncReadStream>>(),
         token, basic_streambuf_ref<Allocator>(b),
         static_cast<std::string>(delim)))
 {
   return async_initiate<ReadToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_read_until_delim_string_v1<AsyncReadStream>(s),
       token, basic_streambuf_ref<Allocator>(b),
       static_cast<std::string>(delim));
@@ -2392,7 +2392,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // The number of bytes in the streambuf's get
  *   // area up to and including the substring
@@ -2406,7 +2406,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * manner equivalent to using asio::async_immediate().
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @note After a successful async_read_until operation, the streambuf may
  * contain additional data beyond that which matched the regular expression. An
@@ -2418,7 +2418,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * encountered:
  * @code asio::streambuf b;
  * ...
- * void handler(const asio::error_code& e, std::size_t size)
+ * void handler(const std::error_code& e, std::size_t size)
  * {
  *   if (!e)
  *   {
@@ -2453,7 +2453,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * @c async_read_some operation.
  */
 template <typename AsyncReadStream, typename Allocator, typename Traits,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken = default_completion_token_t<
         typename AsyncReadStream::executor_type>>
 inline auto async_read_until(AsyncReadStream& s,
@@ -2463,12 +2463,12 @@ inline auto async_read_until(AsyncReadStream& s,
       typename AsyncReadStream::executor_type>())
   -> decltype(
     async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_read_until_expr_v1<AsyncReadStream>>(),
         token, basic_streambuf_ref<Allocator>(b), expr))
 {
   return async_initiate<ReadToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_read_until_expr_v1<AsyncReadStream>(s),
       token, basic_streambuf_ref<Allocator>(b), expr);
 }
@@ -2526,7 +2526,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // The number of bytes in the streambuf's get
  *   // area that have been fully consumed by the
@@ -2544,7 +2544,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * async_read_until operation to examine.
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @note The default implementation of the @c is_match_condition type trait
  * evaluates to true for function pointers and function objects with a
@@ -2566,7 +2566,7 @@ inline auto async_read_until(AsyncReadStream& s,
  *   return std::make_pair(i, false);
  * }
  * ...
- * void handler(const asio::error_code& e, std::size_t size);
+ * void handler(const std::error_code& e, std::size_t size);
  * ...
  * asio::streambuf b;
  * asio::async_read_until(s, b, match_whitespace, handler);
@@ -2599,7 +2599,7 @@ inline auto async_read_until(AsyncReadStream& s,
  *     : public std::true_type {};
  * } // namespace asio
  * ...
- * void handler(const asio::error_code& e, std::size_t size);
+ * void handler(const std::error_code& e, std::size_t size);
  * ...
  * asio::streambuf b;
  * asio::async_read_until(s, b, match_char('a'), handler);
@@ -2617,7 +2617,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * @c async_read_some operation.
  */
 template <typename AsyncReadStream, typename Allocator, typename MatchCondition,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken = default_completion_token_t<
         typename AsyncReadStream::executor_type>>
 inline auto async_read_until(AsyncReadStream& s,
@@ -2627,12 +2627,12 @@ inline auto async_read_until(AsyncReadStream& s,
     constraint_t<is_match_condition<MatchCondition>::value> = 0)
   -> decltype(
     async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_read_until_match_v1<AsyncReadStream>>(),
         token, basic_streambuf_ref<Allocator>(b), match_condition))
 {
   return async_initiate<ReadToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_read_until_match_v1<AsyncReadStream>(s),
       token, basic_streambuf_ref<Allocator>(b), match_condition);
 }
@@ -2680,7 +2680,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // The number of bytes in the dynamic buffer sequence's
  *   // get area up to and including the delimiter.
@@ -2693,7 +2693,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * manner equivalent to using asio::async_immediate().
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @note After a successful async_read_until operation, the dynamic buffer
  * sequence may contain additional data beyond the delimiter. An application
@@ -2705,7 +2705,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * encountered:
  * @code std::string data;
  * ...
- * void handler(const asio::error_code& e, std::size_t size)
+ * void handler(const std::error_code& e, std::size_t size)
  * {
  *   if (!e)
  *   {
@@ -2740,7 +2740,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * @c async_read_some operation.
  */
 template <typename AsyncReadStream, typename DynamicBuffer_v2,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken = default_completion_token_t<
         typename AsyncReadStream::executor_type>>
 inline auto async_read_until(AsyncReadStream& s,
@@ -2752,12 +2752,12 @@ inline auto async_read_until(AsyncReadStream& s,
     > = 0)
   -> decltype(
     async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_read_until_delim_v2<AsyncReadStream>>(),
         token, static_cast<DynamicBuffer_v2&&>(buffers), delim))
 {
   return async_initiate<ReadToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_read_until_delim_v2<AsyncReadStream>(s),
       token, static_cast<DynamicBuffer_v2&&>(buffers), delim);
 }
@@ -2801,7 +2801,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // The number of bytes in the dynamic buffer sequence's
  *   // get area up to and including the delimiter.
@@ -2813,7 +2813,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * manner equivalent to using asio::async_immediate().
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @note After a successful async_read_until operation, the dynamic buffer
  * sequence may contain additional data beyond the delimiter. An application
@@ -2825,7 +2825,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * encountered:
  * @code std::string data;
  * ...
- * void handler(const asio::error_code& e, std::size_t size)
+ * void handler(const std::error_code& e, std::size_t size)
  * {
  *   if (!e)
  *   {
@@ -2860,7 +2860,7 @@ inline auto async_read_until(AsyncReadStream& s,
  * @c async_read_some operation.
  */
 template <typename AsyncReadStream, typename DynamicBuffer_v2,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken = default_completion_token_t<
         typename AsyncReadStream::executor_type>>
 inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
@@ -2872,14 +2872,14 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
     > = 0)
   -> decltype(
     async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_read_until_delim_string_v2<
           AsyncReadStream>>(),
         token, static_cast<DynamicBuffer_v2&&>(buffers),
         static_cast<std::string>(delim)))
 {
   return async_initiate<ReadToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_read_until_delim_string_v2<AsyncReadStream>(s),
       token, static_cast<DynamicBuffer_v2&&>(buffers),
       static_cast<std::string>(delim));
@@ -2930,7 +2930,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // The number of bytes in the dynamic buffer
  *   // sequence's get area up to and including the
@@ -2944,7 +2944,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
  * manner equivalent to using asio::async_immediate().
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @note After a successful async_read_until operation, the dynamic buffer
  * sequence may contain additional data beyond that which matched the regular
@@ -2956,7 +2956,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
  * encountered:
  * @code std::string data;
  * ...
- * void handler(const asio::error_code& e, std::size_t size)
+ * void handler(const std::error_code& e, std::size_t size)
  * {
  *   if (!e)
  *   {
@@ -2992,7 +2992,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
  * @c async_read_some operation.
  */
 template <typename AsyncReadStream, typename DynamicBuffer_v2, typename Traits,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken = default_completion_token_t<
         typename AsyncReadStream::executor_type>>
 inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
@@ -3004,12 +3004,12 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
     > = 0)
   -> decltype(
     async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_read_until_expr_v2<AsyncReadStream>>(),
         token, static_cast<DynamicBuffer_v2&&>(buffers), expr))
 {
   return async_initiate<ReadToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_read_until_expr_v2<AsyncReadStream>(s),
       token, static_cast<DynamicBuffer_v2&&>(buffers), expr);
 }
@@ -3070,7 +3070,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
  * signature. The function signature of the completion handler must be:
  * @code void handler(
  *   // Result of operation.
- *   const asio::error_code& error,
+ *   const std::error_code& error,
  *
  *   // The number of bytes in the dynamic buffer sequence's
  *   // get area that have been fully consumed by the match
@@ -3088,7 +3088,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
  * sequence for a subsequent async_read_until operation to examine.
  *
  * @par Completion Signature
- * @code void(asio::error_code, std::size_t) @endcode
+ * @code void(std::error_code, std::size_t) @endcode
  *
  * @note The default implementation of the @c is_match_condition type trait
  * evaluates to true for function pointers and function objects with a
@@ -3111,7 +3111,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
  *   return std::make_pair(i, false);
  * }
  * ...
- * void handler(const asio::error_code& e, std::size_t size);
+ * void handler(const std::error_code& e, std::size_t size);
  * ...
  * std::string data;
  * asio::async_read_until(s, data, match_whitespace, handler);
@@ -3144,7 +3144,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
  *     : public std::true_type {};
  * } // namespace asio
  * ...
- * void handler(const asio::error_code& e, std::size_t size);
+ * void handler(const std::error_code& e, std::size_t size);
  * ...
  * std::string data;
  * asio::async_read_until(s, data, match_char('a'), handler);
@@ -3163,7 +3163,7 @@ inline auto async_read_until(AsyncReadStream& s, DynamicBuffer_v2 buffers,
  */
 template <typename AsyncReadStream,
     typename DynamicBuffer_v2, typename MatchCondition,
-    ASIO_COMPLETION_TOKEN_FOR(void (asio::error_code,
+    ASIO_COMPLETION_TOKEN_FOR(void (std::error_code,
       std::size_t)) ReadToken = default_completion_token_t<
         typename AsyncReadStream::executor_type>>
 inline auto async_read_until(AsyncReadStream& s,
@@ -3178,12 +3178,12 @@ inline auto async_read_until(AsyncReadStream& s,
     > = 0)
   -> decltype(
     async_initiate<ReadToken,
-      void (asio::error_code, std::size_t)>(
+      void (std::error_code, std::size_t)>(
         declval<detail::initiate_async_read_until_match_v2<AsyncReadStream>>(),
         token, static_cast<DynamicBuffer_v2&&>(buffers), match_condition))
 {
   return async_initiate<ReadToken,
-    void (asio::error_code, std::size_t)>(
+    void (std::error_code, std::size_t)>(
       detail::initiate_async_read_until_match_v2<AsyncReadStream>(s),
       token, static_cast<DynamicBuffer_v2&&>(buffers),
       match_condition);

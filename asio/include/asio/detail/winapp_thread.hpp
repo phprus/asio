@@ -47,7 +47,7 @@ public:
     if (!thread_)
     {
       DWORD last_error = ::GetLastError();
-      asio::error_code ec(last_error,
+      std::error_code ec(last_error,
           asio::error::get_system_category());
       asio::detail::throw_error(ec, "thread");
     }

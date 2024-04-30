@@ -336,7 +336,7 @@ struct associator<Associator,
  *
  *   template <typename Self>
  *   void operator()(Self& self,
- *       asio::error_code error,
+ *       std::error_code error,
  *       std::size_t n)
  *   {
  *     switch (state_)
@@ -372,18 +372,18 @@ struct associator<Associator,
  *     CompletionToken&& token)
  *   -> decltype(
  *     asio::async_initiate<CompletionToken,
- *       void(asio::error_code, std::size_t)>(
+ *       void(std::error_code, std::size_t)>(
  *         asio::composed(
  *           async_echo_implementation{socket, buffer,
  *             async_echo_implementation::starting}, socket),
  *         token))
  * {
  *   return asio::async_initiate<CompletionToken,
- *     void(asio::error_code, std::size_t)>(
+ *     void(std::error_code, std::size_t)>(
  *       asio::composed(
  *         async_echo_implementation{socket, buffer,
  *           async_echo_implementation::starting}, socket),
- *       token, asio::error_code{}, 0);
+ *       token, std::error_code{}, 0);
  * } @endcode
  */
 template <ASIO_COMPLETION_SIGNATURE... Signatures,

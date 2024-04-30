@@ -71,9 +71,9 @@ public:
 
   template <typename Mutable_Buffers>
   size_t read_some(const Mutable_Buffers& buffers,
-      asio::error_code& ec)
+      std::error_code& ec)
   {
-    ec = asio::error_code();
+    ec = std::error_code();
     return read_some(buffers);
   }
 
@@ -84,7 +84,7 @@ public:
     asio::post(get_executor(),
         asio::detail::bind_handler(
           static_cast<Handler&&>(handler),
-          asio::error_code(), bytes_transferred));
+          std::error_code(), bytes_transferred));
   }
 
 private:
@@ -108,7 +108,7 @@ void test_dynamic_string_read_until_char()
     std::string::allocator_type> sb1 = asio::dynamic_buffer(data1);
   asio::dynamic_string_buffer<char, std::string::traits_type,
     std::string::allocator_type> sb2 = asio::dynamic_buffer(data2, 25);
-  asio::error_code ec;
+  std::error_code ec;
 
   s.reset(read_data, sizeof(read_data));
   sb1.consume(sb1.size());
@@ -195,7 +195,7 @@ void test_streambuf_read_until_char()
   test_stream s(ioc);
   asio::streambuf sb1;
   asio::streambuf sb2(25);
-  asio::error_code ec;
+  std::error_code ec;
 
   s.reset(read_data, sizeof(read_data));
   sb1.consume(sb1.size());
@@ -285,7 +285,7 @@ void test_dynamic_string_read_until_string()
     std::string::allocator_type> sb1 = asio::dynamic_buffer(data1);
   asio::dynamic_string_buffer<char, std::string::traits_type,
     std::string::allocator_type> sb2 = asio::dynamic_buffer(data2, 25);
-  asio::error_code ec;
+  std::error_code ec;
 
   s.reset(read_data, sizeof(read_data));
   sb1.consume(sb1.size());
@@ -372,7 +372,7 @@ void test_streambuf_read_until_string()
   test_stream s(ioc);
   asio::streambuf sb1;
   asio::streambuf sb2(25);
-  asio::error_code ec;
+  std::error_code ec;
 
   s.reset(read_data, sizeof(read_data));
   sb1.consume(sb1.size());
@@ -489,7 +489,7 @@ void test_dynamic_string_read_until_match_condition()
     std::string::allocator_type> sb1 = asio::dynamic_buffer(data1);
   asio::dynamic_string_buffer<char, std::string::traits_type,
     std::string::allocator_type> sb2 = asio::dynamic_buffer(data2, 25);
-  asio::error_code ec;
+  std::error_code ec;
 
   s.reset(read_data, sizeof(read_data));
   sb1.consume(sb1.size());
@@ -576,7 +576,7 @@ void test_streambuf_read_until_match_condition()
   test_stream s(ioc);
   asio::streambuf sb1;
   asio::streambuf sb2(25);
-  asio::error_code ec;
+  std::error_code ec;
 
   s.reset(read_data, sizeof(read_data));
   sb1.consume(sb1.size());
@@ -658,7 +658,7 @@ void test_streambuf_read_until_match_condition()
 }
 
 void async_read_handler(
-    const asio::error_code& err, asio::error_code* err_out,
+    const std::error_code& err, std::error_code* err_out,
     std::size_t bytes_transferred, std::size_t* bytes_out, bool* called)
 {
   *err_out = err;
@@ -679,12 +679,12 @@ void test_dynamic_string_async_read_until_char()
     std::string::allocator_type> sb1 = asio::dynamic_buffer(data1);
   asio::dynamic_string_buffer<char, std::string::traits_type,
     std::string::allocator_type> sb2 = asio::dynamic_buffer(data2, 25);
-  asio::error_code ec;
+  std::error_code ec;
   std::size_t length;
   bool called;
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -699,7 +699,7 @@ void test_dynamic_string_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -714,7 +714,7 @@ void test_dynamic_string_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -728,7 +728,7 @@ void test_dynamic_string_async_read_until_char()
   ASIO_CHECK(length == 26);
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -743,7 +743,7 @@ void test_dynamic_string_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -758,7 +758,7 @@ void test_dynamic_string_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -772,7 +772,7 @@ void test_dynamic_string_async_read_until_char()
   ASIO_CHECK(length == 0);
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -787,7 +787,7 @@ void test_dynamic_string_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -802,7 +802,7 @@ void test_dynamic_string_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -825,7 +825,7 @@ void test_dynamic_string_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -850,12 +850,12 @@ void test_streambuf_async_read_until_char()
   test_stream s(ioc);
   asio::streambuf sb1;
   asio::streambuf sb2(25);
-  asio::error_code ec;
+  std::error_code ec;
   std::size_t length;
   bool called;
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -870,7 +870,7 @@ void test_streambuf_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -885,7 +885,7 @@ void test_streambuf_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -899,7 +899,7 @@ void test_streambuf_async_read_until_char()
   ASIO_CHECK(length == 26);
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -914,7 +914,7 @@ void test_streambuf_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -929,7 +929,7 @@ void test_streambuf_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -943,7 +943,7 @@ void test_streambuf_async_read_until_char()
   ASIO_CHECK(length == 0);
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -958,7 +958,7 @@ void test_streambuf_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -973,7 +973,7 @@ void test_streambuf_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -996,7 +996,7 @@ void test_streambuf_async_read_until_char()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1024,12 +1024,12 @@ void test_dynamic_string_async_read_until_string()
     std::string::allocator_type> sb1 = asio::dynamic_buffer(data1);
   asio::dynamic_string_buffer<char, std::string::traits_type,
     std::string::allocator_type> sb2 = asio::dynamic_buffer(data2, 25);
-  asio::error_code ec;
+  std::error_code ec;
   std::size_t length;
   bool called;
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -1044,7 +1044,7 @@ void test_dynamic_string_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -1059,7 +1059,7 @@ void test_dynamic_string_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -1073,7 +1073,7 @@ void test_dynamic_string_async_read_until_string()
   ASIO_CHECK(length == 26);
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1088,7 +1088,7 @@ void test_dynamic_string_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1103,7 +1103,7 @@ void test_dynamic_string_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1117,7 +1117,7 @@ void test_dynamic_string_async_read_until_string()
   ASIO_CHECK(length == 0);
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1132,7 +1132,7 @@ void test_dynamic_string_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1147,7 +1147,7 @@ void test_dynamic_string_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1170,7 +1170,7 @@ void test_dynamic_string_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1195,12 +1195,12 @@ void test_streambuf_async_read_until_string()
   test_stream s(ioc);
   asio::streambuf sb1;
   asio::streambuf sb2(25);
-  asio::error_code ec;
+  std::error_code ec;
   std::size_t length;
   bool called;
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -1215,7 +1215,7 @@ void test_streambuf_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -1230,7 +1230,7 @@ void test_streambuf_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -1244,7 +1244,7 @@ void test_streambuf_async_read_until_string()
   ASIO_CHECK(length == 26);
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1259,7 +1259,7 @@ void test_streambuf_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1274,7 +1274,7 @@ void test_streambuf_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1288,7 +1288,7 @@ void test_streambuf_async_read_until_string()
   ASIO_CHECK(length == 0);
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1303,7 +1303,7 @@ void test_streambuf_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1318,7 +1318,7 @@ void test_streambuf_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1341,7 +1341,7 @@ void test_streambuf_async_read_until_string()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1369,12 +1369,12 @@ void test_dynamic_string_async_read_until_match_condition()
     std::string::allocator_type> sb1 = asio::dynamic_buffer(data1);
   asio::dynamic_string_buffer<char, std::string::traits_type,
     std::string::allocator_type> sb2 = asio::dynamic_buffer(data2, 25);
-  asio::error_code ec;
+  std::error_code ec;
   std::size_t length;
   bool called;
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -1389,7 +1389,7 @@ void test_dynamic_string_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -1404,7 +1404,7 @@ void test_dynamic_string_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -1418,7 +1418,7 @@ void test_dynamic_string_async_read_until_match_condition()
   ASIO_CHECK(length == 26);
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1433,7 +1433,7 @@ void test_dynamic_string_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1448,7 +1448,7 @@ void test_dynamic_string_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1462,7 +1462,7 @@ void test_dynamic_string_async_read_until_match_condition()
   ASIO_CHECK(length == 0);
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1477,7 +1477,7 @@ void test_dynamic_string_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1492,7 +1492,7 @@ void test_dynamic_string_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1515,7 +1515,7 @@ void test_dynamic_string_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1540,12 +1540,12 @@ void test_streambuf_async_read_until_match_condition()
   test_stream s(ioc);
   asio::streambuf sb1;
   asio::streambuf sb2(25);
-  asio::error_code ec;
+  std::error_code ec;
   std::size_t length;
   bool called;
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -1560,7 +1560,7 @@ void test_streambuf_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -1575,7 +1575,7 @@ void test_streambuf_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb1.consume(sb1.size());
@@ -1589,7 +1589,7 @@ void test_streambuf_async_read_until_match_condition()
   ASIO_CHECK(length == 26);
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1604,7 +1604,7 @@ void test_streambuf_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1619,7 +1619,7 @@ void test_streambuf_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1633,7 +1633,7 @@ void test_streambuf_async_read_until_match_condition()
   ASIO_CHECK(length == 0);
 
   s.reset(read_data, sizeof(read_data));
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1648,7 +1648,7 @@ void test_streambuf_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(1);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1663,7 +1663,7 @@ void test_streambuf_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());
@@ -1686,7 +1686,7 @@ void test_streambuf_async_read_until_match_condition()
 
   s.reset(read_data, sizeof(read_data));
   s.next_read_length(10);
-  ec = asio::error_code();
+  ec = std::error_code();
   length = 0;
   called = false;
   sb2.consume(sb2.size());

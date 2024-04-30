@@ -92,12 +92,12 @@ public:
   }
 
   // Destroy a socket implementation.
-  ASIO_DECL asio::error_code close(
-      base_implementation_type& impl, asio::error_code& ec);
+  ASIO_DECL std::error_code close(
+      base_implementation_type& impl, std::error_code& ec);
 
   // Release ownership of the socket.
   ASIO_DECL socket_type release(
-      base_implementation_type& impl, asio::error_code& ec);
+      base_implementation_type& impl, std::error_code& ec);
 
   // Get the native socket representation.
   native_handle_type native_handle(base_implementation_type& impl)
@@ -106,26 +106,26 @@ public:
   }
 
   // Cancel all operations associated with the socket.
-  ASIO_DECL asio::error_code cancel(
-      base_implementation_type& impl, asio::error_code& ec);
+  ASIO_DECL std::error_code cancel(
+      base_implementation_type& impl, std::error_code& ec);
 
   // Determine whether the socket is at the out-of-band data mark.
   bool at_mark(const base_implementation_type& impl,
-      asio::error_code& ec) const
+      std::error_code& ec) const
   {
     return socket_ops::sockatmark(impl.socket_, ec);
   }
 
   // Determine the number of bytes available for reading.
   std::size_t available(const base_implementation_type& impl,
-      asio::error_code& ec) const
+      std::error_code& ec) const
   {
     return socket_ops::available(impl.socket_, ec);
   }
 
   // Place the socket into the state where it will listen for new connections.
-  asio::error_code listen(base_implementation_type& impl,
-      int backlog, asio::error_code& ec)
+  std::error_code listen(base_implementation_type& impl,
+      int backlog, std::error_code& ec)
   {
     socket_ops::listen(impl.socket_, backlog, ec);
     return ec;
@@ -133,8 +133,8 @@ public:
 
   // Perform an IO control command on the socket.
   template <typename IO_Control_Command>
-  asio::error_code io_control(base_implementation_type& impl,
-      IO_Control_Command& command, asio::error_code& ec)
+  std::error_code io_control(base_implementation_type& impl,
+      IO_Control_Command& command, std::error_code& ec)
   {
     socket_ops::ioctl(impl.socket_, impl.state_, command.name(),
         static_cast<ioctl_arg_type*>(command.data()), ec);
@@ -148,8 +148,8 @@ public:
   }
 
   // Sets the non-blocking mode of the socket.
-  asio::error_code non_blocking(base_implementation_type& impl,
-      bool mode, asio::error_code& ec)
+  std::error_code non_blocking(base_implementation_type& impl,
+      bool mode, std::error_code& ec)
   {
     socket_ops::set_user_non_blocking(impl.socket_, impl.state_, mode, ec);
     return ec;
@@ -162,8 +162,8 @@ public:
   }
 
   // Sets the non-blocking mode of the native socket implementation.
-  asio::error_code native_non_blocking(base_implementation_type& impl,
-      bool mode, asio::error_code& ec)
+  std::error_code native_non_blocking(base_implementation_type& impl,
+      bool mode, std::error_code& ec)
   {
     socket_ops::set_internal_non_blocking(impl.socket_, impl.state_, mode, ec);
     return ec;
@@ -171,8 +171,8 @@ public:
 
   // Wait for the socket to become ready to read, ready to write, or to have
   // pending error conditions.
-  asio::error_code wait(base_implementation_type& impl,
-      socket_base::wait_type w, asio::error_code& ec)
+  std::error_code wait(base_implementation_type& impl,
+      socket_base::wait_type w, std::error_code& ec)
   {
     switch (w)
     {
@@ -251,7 +251,7 @@ public:
   template <typename ConstBufferSequence>
   size_t send(base_implementation_type& impl,
       const ConstBufferSequence& buffers,
-      socket_base::message_flags flags, asio::error_code& ec)
+      socket_base::message_flags flags, std::error_code& ec)
   {
     typedef buffer_sequence_adapter<asio::const_buffer,
         ConstBufferSequence> bufs_type;
@@ -272,7 +272,7 @@ public:
 
   // Wait until data can be sent without blocking.
   size_t send(base_implementation_type& impl, const null_buffers&,
-      socket_base::message_flags, asio::error_code& ec)
+      socket_base::message_flags, std::error_code& ec)
   {
     // Wait for socket to become ready.
     socket_ops::poll_write(impl.socket_, impl.state_, -1, ec);
@@ -356,7 +356,7 @@ public:
   template <typename MutableBufferSequence>
   size_t receive(base_implementation_type& impl,
       const MutableBufferSequence& buffers,
-      socket_base::message_flags flags, asio::error_code& ec)
+      socket_base::message_flags flags, std::error_code& ec)
   {
     typedef buffer_sequence_adapter<asio::mutable_buffer,
         MutableBufferSequence> bufs_type;
@@ -377,7 +377,7 @@ public:
 
   // Wait until data can be received without blocking.
   size_t receive(base_implementation_type& impl, const null_buffers&,
-      socket_base::message_flags, asio::error_code& ec)
+      socket_base::message_flags, std::error_code& ec)
   {
     // Wait for socket to become ready.
     socket_ops::poll_read(impl.socket_, impl.state_, -1, ec);
@@ -471,7 +471,7 @@ public:
   size_t receive_with_flags(base_implementation_type& impl,
       const MutableBufferSequence& buffers,
       socket_base::message_flags in_flags,
-      socket_base::message_flags& out_flags, asio::error_code& ec)
+      socket_base::message_flags& out_flags, std::error_code& ec)
   {
     buffer_sequence_adapter<asio::mutable_buffer,
         MutableBufferSequence> bufs(buffers);
@@ -483,7 +483,7 @@ public:
   // Wait until data can be received without blocking.
   size_t receive_with_flags(base_implementation_type& impl,
       const null_buffers&, socket_base::message_flags,
-      socket_base::message_flags& out_flags, asio::error_code& ec)
+      socket_base::message_flags& out_flags, std::error_code& ec)
   {
     // Wait for socket to become ready.
     socket_ops::poll_read(impl.socket_, impl.state_, -1, ec);
@@ -581,14 +581,14 @@ public:
 
 protected:
   // Open a new socket implementation.
-  ASIO_DECL asio::error_code do_open(
+  ASIO_DECL std::error_code do_open(
       base_implementation_type& impl, int af,
-      int type, int protocol, asio::error_code& ec);
+      int type, int protocol, std::error_code& ec);
 
   // Assign a native socket to a socket implementation.
-  ASIO_DECL asio::error_code do_assign(
+  ASIO_DECL std::error_code do_assign(
       base_implementation_type& impl, int type,
-      const native_handle_type& native_socket, asio::error_code& ec);
+      const native_handle_type& native_socket, std::error_code& ec);
 
   // Start the asynchronous read or write operation.
   ASIO_DECL void do_start_op(base_implementation_type& impl,
@@ -736,7 +736,7 @@ protected:
   reactor& reactor_;
 
   // Cached success value to avoid accessing category singleton.
-  const asio::error_code success_ec_;
+  const std::error_code success_ec_;
 };
 
 } // namespace detail

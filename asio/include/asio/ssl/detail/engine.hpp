@@ -74,32 +74,32 @@ public:
   ASIO_DECL SSL* native_handle();
 
   // Set the peer verification mode.
-  ASIO_DECL asio::error_code set_verify_mode(
-      verify_mode v, asio::error_code& ec);
+  ASIO_DECL std::error_code set_verify_mode(
+      verify_mode v, std::error_code& ec);
 
   // Set the peer verification depth.
-  ASIO_DECL asio::error_code set_verify_depth(
-      int depth, asio::error_code& ec);
+  ASIO_DECL std::error_code set_verify_depth(
+      int depth, std::error_code& ec);
 
   // Set a peer certificate verification callback.
-  ASIO_DECL asio::error_code set_verify_callback(
-      verify_callback_base* callback, asio::error_code& ec);
+  ASIO_DECL std::error_code set_verify_callback(
+      verify_callback_base* callback, std::error_code& ec);
 
   // Perform an SSL handshake using either SSL_connect (client-side) or
   // SSL_accept (server-side).
   ASIO_DECL want handshake(
-      stream_base::handshake_type type, asio::error_code& ec);
+      stream_base::handshake_type type, std::error_code& ec);
 
   // Perform a graceful shutdown of the SSL session.
-  ASIO_DECL want shutdown(asio::error_code& ec);
+  ASIO_DECL want shutdown(std::error_code& ec);
 
   // Write bytes to the SSL session.
   ASIO_DECL want write(const asio::const_buffer& data,
-      asio::error_code& ec, std::size_t& bytes_transferred);
+      std::error_code& ec, std::size_t& bytes_transferred);
 
   // Read bytes from the SSL session.
   ASIO_DECL want read(const asio::mutable_buffer& data,
-      asio::error_code& ec, std::size_t& bytes_transferred);
+      std::error_code& ec, std::size_t& bytes_transferred);
 
   // Get output data to be written to the transport.
   ASIO_DECL asio::mutable_buffer get_output(
@@ -112,8 +112,8 @@ public:
   // Map an error::eof code returned by the underlying transport according to
   // the type and state of the SSL session. Returns a const reference to the
   // error code object, suitable for passing to a completion handler.
-  ASIO_DECL const asio::error_code& map_error_code(
-      asio::error_code& ec) const;
+  ASIO_DECL const std::error_code& map_error_code(
+      std::error_code& ec) const;
 
 private:
   // Disallow copying and assignment.
@@ -134,7 +134,7 @@ private:
   // operation needs more input, or want_write if it needs to write some output
   // before the operation can complete.
   ASIO_DECL want perform(int (engine::* op)(void*, std::size_t),
-      void* data, std::size_t length, asio::error_code& ec,
+      void* data, std::size_t length, std::error_code& ec,
       std::size_t* bytes_transferred);
 
   // Adapt the SSL_accept function to the signature needed for perform().

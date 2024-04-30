@@ -55,16 +55,16 @@ public:
   }
 
   template <typename Const_Buffers>
-  size_t write(const Const_Buffers&, asio::error_code& ec)
+  size_t write(const Const_Buffers&, std::error_code& ec)
   {
-    ec = asio::error_code();
+    ec = std::error_code();
     return 0;
   }
 
   template <typename Const_Buffers, typename Handler>
   void async_write(const Const_Buffers&, Handler handler)
   {
-    asio::error_code error;
+    std::error_code error;
     asio::post(io_context_,
         asio::detail::bind_handler(handler, error, 0));
   }
@@ -76,16 +76,16 @@ public:
   }
 
   template <typename Mutable_Buffers>
-  size_t read(const Mutable_Buffers&, asio::error_code& ec)
+  size_t read(const Mutable_Buffers&, std::error_code& ec)
   {
-    ec = asio::error_code();
+    ec = std::error_code();
     return 0;
   }
 
   template <typename Mutable_Buffers, typename Handler>
   void async_read(const Mutable_Buffers&, Handler handler)
   {
-    asio::error_code error;
+    std::error_code error;
     asio::post(io_context_,
         asio::detail::bind_handler(handler, error, 0));
   }
