@@ -17,33 +17,17 @@
 #include "asio/awaitable.hpp"
 #include "asio/experimental/coro_traits.hpp"
 
-#if defined(ASIO_HAS_STD_COROUTINE)
-# include <coroutine>
-#else // defined(ASIO_HAS_STD_COROUTINE)
-# include <experimental/coroutine>
-#endif // defined(ASIO_HAS_STD_COROUTINE)
+#include <coroutine>
 
 namespace asio {
 namespace experimental {
 namespace detail {
-
-#if defined(ASIO_HAS_STD_COROUTINE)
 
 using std::coroutine_handle;
 using std::coroutine_traits;
 using std::suspend_never;
 using std::suspend_always;
 using std::noop_coroutine;
-
-#else // defined(ASIO_HAS_STD_COROUTINE)
-
-using std::experimental::coroutine_handle;
-using std::experimental::coroutine_traits;
-using std::experimental::suspend_never;
-using std::experimental::suspend_always;
-using std::experimental::noop_coroutine;
-
-#endif // defined(ASIO_HAS_STD_COROUTINE)
 
 struct partial_coro
 {
@@ -116,8 +100,6 @@ struct partial_promise : partial_promise_base<Allocator>
 } // namespace experimental
 } // namespace asio
 
-#if defined(ASIO_HAS_STD_COROUTINE)
-
 namespace std {
 
 template <typename Executor, typename Completion, typename... Args>
@@ -131,24 +113,6 @@ struct coroutine_traits<
 };
 
 } // namespace std
-
-#else // defined(ASIO_HAS_STD_COROUTINE)
-
-namespace std { namespace experimental {
-
-template <typename Executor, typename Completion, typename... Args>
-struct coroutine_traits<
-    asio::experimental::detail::partial_coro,
-    Executor, Completion, Args...>
-{
-  using promise_type =
-    asio::experimental::detail::partial_promise<
-      asio::associated_allocator_t<Completion>>;
-};
-
-}} // namespace std::experimental
-
-#endif // defined(ASIO_HAS_STD_COROUTINE)
 
 namespace asio {
 namespace experimental {

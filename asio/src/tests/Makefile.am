@@ -193,11 +193,9 @@ check_PROGRAMS += \
 check_PROGRAMS += \
 	unit/experimental/promise
 
-if HAVE_COROUTINES
 check_PROGRAMS += \
 	unit/experimental/awaitable_operators \
 	unit/experimental/co_composed
-endif
 
 if HAVE_EXPERIMENTAL_COROUTINES
 check_PROGRAMS += \
@@ -390,11 +388,9 @@ TESTS += \
 TESTS += \
 	unit/experimental/promise
 
-if HAVE_COROUTINES
 TESTS += \
 	unit/experimental/awaitable_operators \
 	unit/experimental/co_composed
-endif
 
 if HAVE_EXPERIMENTAL_COROUTINES
 TESTS += \
@@ -603,10 +599,8 @@ unit_experimental_parallel_group_SOURCES = unit/experimental/parallel_group.cpp
 # C++20
 unit_experimental_promise_SOURCES = unit/experimental/promise.cpp
 
-if HAVE_COROUTINES
 unit_experimental_awaitable_operators_SOURCES = unit/experimental/awaitable_operators.cpp
 unit_experimental_co_composed_SOURCES = unit/experimental/co_composed.cpp
-endif
 
 if HAVE_EXPERIMENTAL_COROUTINES
 unit_experimental_coro_allocator_SOURCES = unit/experimental/coro/allocator.cpp
