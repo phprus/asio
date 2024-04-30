@@ -86,7 +86,7 @@ void eventfd_select_interrupter::open_descriptors()
     else
     {
       std::error_code ec(errno,
-          asio::error::get_system_category());
+          std::system_category());
       asio::detail::throw_error(ec, "eventfd_select_interrupter");
     }
   }

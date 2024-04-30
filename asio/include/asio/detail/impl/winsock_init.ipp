@@ -67,7 +67,7 @@ void winsock_init_base::throw_on_error(data& d)
   if (result != 0)
   {
     std::error_code ec(result,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "winsock");
   }
 }

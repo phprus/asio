@@ -27,7 +27,7 @@
 #include <windows.storage.streams.h>
 #include <wrl/implements.h>
 #include "asio/buffer.hpp"
-#include "asio/error_code.hpp"
+#include <system_error>
 #include "asio/detail/memory.hpp"
 #include "asio/detail/socket_ops.hpp"
 

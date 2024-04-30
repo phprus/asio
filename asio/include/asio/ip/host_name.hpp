@@ -17,7 +17,7 @@
 
 #include "asio/detail/config.hpp"
 #include <string>
-#include "asio/error_code.hpp"
+#include <system_error>
 
 #include "asio/detail/push_options.hpp"
 

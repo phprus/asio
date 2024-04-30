@@ -283,7 +283,7 @@ void dev_poll_reactor::run(long usec, op_queue<operation>& ops)
     if (result != static_cast<int>(events_size))
     {
       std::error_code ec = std::error_code(
-          errno, asio::error::get_system_category());
+          errno, std::system_category());
       for (std::size_t i = 0; i < pending_event_changes_.size(); ++i)
       {
         int descriptor = pending_event_changes_[i].fd;
@@ -378,7 +378,7 @@ void dev_poll_reactor::run(long usec, op_queue<operation>& ops)
         if (result != sizeof(ev))
         {
           std::error_code ec(errno,
-              asio::error::get_system_category());
+              std::system_category());
           for (int j = 0; j < max_ops; ++j)
             op_queue_[j].cancel_operations(descriptor, ops, ec);
         }
@@ -399,7 +399,7 @@ int dev_poll_reactor::do_dev_poll_create()
   if (fd == -1)
   {
     std::error_code ec(errno,
-        asio::error::get_system_category());
+        std::system_category());
     asio::detail::throw_error(ec, "/dev/poll");
   }
   return fd;

@@ -132,7 +132,7 @@ public:
     catch (Platform::Exception^ e)
     {
       ec = std::error_code(e->HResult,
-          asio::system_category());
+          std::system_category());
       return results_type();
     }
   }
@@ -166,7 +166,7 @@ public:
     catch (Platform::Exception^ e)
     {
       p.p->ec_ = std::error_code(
-          e->HResult, asio::system_category());
+          e->HResult, std::system_category());
       scheduler_.post_immediate_completion(p.p, is_continuation);
       p.v = p.p = 0;
     }

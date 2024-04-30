@@ -72,7 +72,7 @@ void create_pipe(native_pipe_handle p[2], std::error_code& ec)
   if (p[0] == INVALID_HANDLE_VALUE)
   {
     DWORD last_error = ::GetLastError();
-    ec.assign(last_error, asio::error::get_system_category());
+    ec.assign(last_error, std::system_category());
     return;
   }
 
@@ -83,7 +83,7 @@ void create_pipe(native_pipe_handle p[2], std::error_code& ec)
   {
     DWORD last_error = ::GetLastError();
     ::CloseHandle(p[0]);
-    ec.assign(last_error, asio::error::get_system_category());
+    ec.assign(last_error, std::system_category());
     return;
   }
 
