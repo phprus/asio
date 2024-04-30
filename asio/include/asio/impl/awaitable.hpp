@@ -1164,7 +1164,6 @@ private:
 } // namespace asio
 
 #if !defined(GENERATING_DOCUMENTATION)
-# if defined(ASIO_HAS_STD_COROUTINE)
 
 namespace std {
 
@@ -1176,19 +1175,6 @@ struct coroutine_traits<asio::awaitable<T, Executor>, Args...>
 
 } // namespace std
 
-# else // defined(ASIO_HAS_STD_COROUTINE)
-
-namespace std { namespace experimental {
-
-template <typename T, typename Executor, typename... Args>
-struct coroutine_traits<asio::awaitable<T, Executor>, Args...>
-{
-  typedef asio::detail::awaitable_frame<T, Executor> promise_type;
-};
-
-}} // namespace std::experimental
-
-# endif // defined(ASIO_HAS_STD_COROUTINE)
 #endif // !defined(GENERATING_DOCUMENTATION)
 
 #include "asio/detail/pop_options.hpp"

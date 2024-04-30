@@ -18,8 +18,6 @@
 
 #include "unit_test.hpp"
 
-#if defined(ASIO_HAS_CO_AWAIT)
-
 #include <stdexcept>
 #include "asio/any_completion_handler.hpp"
 #include "asio/bind_cancellation_slot.hpp"
@@ -121,13 +119,3 @@ ASIO_TEST_SUITE
   ASIO_TEST_CASE(test_co_spawn_with_any_completion_handler)
   ASIO_TEST_CASE(test_co_spawn_immediate_cancel)
 )
-
-#else // defined(ASIO_HAS_CO_AWAIT)
-
-ASIO_TEST_SUITE
-(
-  "co_spawn",
-  ASIO_TEST_CASE(null_test)
-)
-
-#endif // defined(ASIO_HAS_CO_AWAIT)

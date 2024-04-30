@@ -23,7 +23,6 @@ noinst_PROGRAMS = \
 	operations/composed_7 \
 	operations/composed_8
 
-if HAVE_COROUTINES
 noinst_PROGRAMS += \
 	channels/mutual_exclusion_1 \
 	channels/mutual_exclusion_2 \
@@ -38,7 +37,6 @@ noinst_PROGRAMS += \
 	coroutines/refactored_echo_server \
 	coroutines/timeout \
 	type_erasure/type_erasure
-endif
 
 AM_CXXFLAGS = -I$(srcdir)/../../../include
 
@@ -54,7 +52,6 @@ operations_composed_6_SOURCES = operations/composed_6.cpp
 operations_composed_7_SOURCES = operations/composed_7.cpp
 operations_composed_8_SOURCES = operations/composed_8.cpp
 
-if HAVE_COROUTINES
 channels_mutual_exclusion_1_SOURCES = channels/mutual_exclusion_1.cpp
 channels_mutual_exclusion_2_SOURCES = channels/mutual_exclusion_2.cpp
 channels_throttling_proxy_SOURCES = channels/throttling_proxy.cpp
@@ -68,7 +65,6 @@ coroutines_echo_server_with_as_tuple_default_SOURCES = coroutines/echo_server_wi
 coroutines_refactored_echo_server_SOURCES = coroutines/refactored_echo_server.cpp
 coroutines_timeout_SOURCES = coroutines/timeout.cpp
 type_erasure_type_erasure_SOURCES = type_erasure/main.cpp type_erasure/stdin_line_reader.cpp type_erasure/sleep.cpp
-endif
 
 EXTRA_DIST = \
 	type_erasure/line_reader.hpp \

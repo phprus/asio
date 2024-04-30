@@ -23,8 +23,6 @@
 
 #include "unit_test.hpp"
 
-#if defined(ASIO_HAS_CO_AWAIT)
-
 #include "asio/bind_cancellation_slot.hpp"
 #include "asio/deferred.hpp"
 #include "asio/detached.hpp"
@@ -553,13 +551,3 @@ ASIO_TEST_SUITE
   ASIO_TEST_CASE(test_throw_on_cancel)
   ASIO_TEST_CASE(test_no_signatures_detached)
 )
-
-#else // defined(ASIO_HAS_CO_AWAIT)
-
-ASIO_TEST_SUITE
-(
-  "co_composed",
-  ASIO_TEST_CASE(null_test)
-)
-
-#endif // defined(ASIO_HAS_CO_AWAIT)
