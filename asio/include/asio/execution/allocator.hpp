@@ -225,7 +225,7 @@ const T allocator_t<void>::static_query_v;
 #endif // defined(ASIO_HAS_DEDUCED_STATIC_QUERY_TRAIT)
        //   && defined(ASIO_HAS_SFINAE_VARIABLE_TEMPLATES)
 
-ASIO_INLINE_VARIABLE constexpr allocator_t<void> allocator;
+inline constexpr allocator_t<void> allocator;
 
 } // namespace execution
 

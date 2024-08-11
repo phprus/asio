@@ -138,7 +138,7 @@ const T context_t<I>::static_query_v;
 
 typedef detail::context_t<> context_t;
 
-ASIO_INLINE_VARIABLE constexpr context_t context;
+inline constexpr context_t context;
 
 } // namespace execution
 

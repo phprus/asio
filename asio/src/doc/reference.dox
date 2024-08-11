@@ -312,7 +312,6 @@ PREDEFINED             = GENERATING_DOCUMENTATION \
                          "ASIO_OS_ERROR(e1,e2)=implementation_defined" \
                          ASIO_DECL= \
                          ASIO_NODISCARD= \
-                         ASIO_INLINE_VARIABLE= \
                          ASIO_COMPLETION_SIGNATURE=typename \
                          ASIO_COMPLETION_HANDLER_FOR(s)=typename \
                          ASIO_COMPLETION_TOKEN_FOR(s)=typename \

@@ -542,7 +542,7 @@ const T continuation_t<I>::static_query_v;
 
 typedef detail::relationship_t<> relationship_t;
 
-ASIO_INLINE_VARIABLE constexpr relationship_t relationship;
+inline constexpr relationship_t relationship;
 
 } // namespace execution
 
