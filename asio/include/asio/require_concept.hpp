@@ -238,7 +238,7 @@ struct impl
   };
 
   template <typename T, typename Property>
-  ASIO_NODISCARD constexpr enable_if_t<
+  [[nodiscard]] constexpr enable_if_t<
     call_traits<impl, T, void(Property)>::overload == identity,
     typename call_traits<impl, T, void(Property)>::result_type
   >
@@ -249,7 +249,7 @@ struct impl
   }
 
   template <typename T, typename Property>
-  ASIO_NODISCARD constexpr enable_if_t<
+  [[nodiscard]] constexpr enable_if_t<
     call_traits<impl, T, void(Property)>::overload == call_member,
     typename call_traits<impl, T, void(Property)>::result_type
   >
@@ -260,7 +260,7 @@ struct impl
   }
 
   template <typename T, typename Property>
-  ASIO_NODISCARD constexpr enable_if_t<
+  [[nodiscard]] constexpr enable_if_t<
     call_traits<impl, T, void(Property)>::overload == call_free,
     typename call_traits<impl, T, void(Property)>::result_type
   >

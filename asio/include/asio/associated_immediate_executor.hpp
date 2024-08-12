@@ -200,7 +200,7 @@ struct associated_immediate_executor
  * @returns <tt>associated_immediate_executor<T, Executor>::get(t, ex)</tt>
  */
 template <typename T, typename Executor>
-ASIO_NODISCARD inline auto get_associated_immediate_executor(
+[[nodiscard]] inline auto get_associated_immediate_executor(
     const T& t, const Executor& ex,
     constraint_t<
       is_executor<Executor>::value || execution::is_executor<Executor>::value
@@ -216,7 +216,7 @@ ASIO_NODISCARD inline auto get_associated_immediate_executor(
  * ExecutionContext::executor_type>::get(t, ctx.get_executor())</tt>
  */
 template <typename T, typename ExecutionContext>
-ASIO_NODISCARD inline typename associated_immediate_executor<T,
+[[nodiscard]] inline typename associated_immediate_executor<T,
     typename ExecutionContext::executor_type>::type
 get_associated_immediate_executor(const T& t, ExecutionContext& ctx,
     constraint_t<

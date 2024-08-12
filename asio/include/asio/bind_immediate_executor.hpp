@@ -387,7 +387,7 @@ struct partial_immediate_executor_binder
   /// Adapt a @ref completion_token to specify that the completion handler
   /// should have the executor as its associated immediate executor.
   template <typename CompletionToken>
-  ASIO_NODISCARD inline
+  [[nodiscard]] inline
   constexpr immediate_executor_binder<decay_t<CompletionToken>, Executor>
   operator()(CompletionToken&& completion_token) const
   {
@@ -401,7 +401,7 @@ struct partial_immediate_executor_binder
 
 /// Create a partial completion token that associates an executor.
 template <typename Executor>
-ASIO_NODISCARD inline partial_immediate_executor_binder<Executor>
+[[nodiscard]] inline partial_immediate_executor_binder<Executor>
 bind_immediate_executor(const Executor& ex)
 {
   return partial_immediate_executor_binder<Executor>(ex);
@@ -410,7 +410,7 @@ bind_immediate_executor(const Executor& ex)
 /// Associate an object of type @c T with a immediate executor of type
 /// @c Executor.
 template <typename Executor, typename T>
-ASIO_NODISCARD inline immediate_executor_binder<decay_t<T>, Executor>
+[[nodiscard]] inline immediate_executor_binder<decay_t<T>, Executor>
 bind_immediate_executor(const Executor& e, T&& t)
 {
   return immediate_executor_binder<

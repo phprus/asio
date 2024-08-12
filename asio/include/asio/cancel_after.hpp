@@ -107,7 +107,7 @@ public:
   /// Adapt a @ref completion_token to specify that the completion handler
   /// arguments should be combined into a single tuple argument.
   template <typename CompletionToken>
-  ASIO_NODISCARD inline
+  [[nodiscard]] inline
   cancel_after_t<decay_t<CompletionToken>, Clock, WaitTraits>
   operator()(CompletionToken&& completion_token) const
   {
@@ -147,7 +147,7 @@ public:
   /// Adapt a @ref completion_token to specify that the completion handler
   /// arguments should be combined into a single tuple argument.
   template <typename CompletionToken>
-  ASIO_NODISCARD inline
+  [[nodiscard]] inline
   cancel_after_timer<decay_t<CompletionToken>, Clock, WaitTraits, Executor>
   operator()(CompletionToken&& completion_token) const
   {
@@ -174,7 +174,7 @@ public:
  * asynchronous operation is performed within an implicit or explicit strand.
  */
 template <typename Rep, typename Period>
-ASIO_NODISCARD inline partial_cancel_after<std::chrono::steady_clock>
+[[nodiscard]] inline partial_cancel_after<std::chrono::steady_clock>
 cancel_after(const std::chrono::duration<Rep, Period>& timeout,
     cancellation_type_t cancel_type = cancellation_type::terminal)
 {
@@ -193,7 +193,7 @@ cancel_after(const std::chrono::duration<Rep, Period>& timeout,
  */
 template <typename Clock, typename WaitTraits,
     typename Executor, typename Rep, typename Period>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 partial_cancel_after_timer<Clock, WaitTraits, Executor>
 cancel_after(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
     const std::chrono::duration<Rep, Period>& timeout,
@@ -214,7 +214,7 @@ cancel_after(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
  * asynchronous operation is performed within an implicit or explicit strand.
  */
 template <typename Rep, typename Period, typename CompletionToken>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 cancel_after_t<decay_t<CompletionToken>, std::chrono::steady_clock>
 cancel_after(const std::chrono::duration<Rep, Period>& timeout,
     CompletionToken&& completion_token)
@@ -235,7 +235,7 @@ cancel_after(const std::chrono::duration<Rep, Period>& timeout,
  * asynchronous operation is performed within an implicit or explicit strand.
  */
 template <typename Rep, typename Period, typename CompletionToken>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 cancel_after_t<decay_t<CompletionToken>, std::chrono::steady_clock>
 cancel_after(const std::chrono::duration<Rep, Period>& timeout,
     cancellation_type_t cancel_type, CompletionToken&& completion_token)
@@ -256,7 +256,7 @@ cancel_after(const std::chrono::duration<Rep, Period>& timeout,
  */
 template <typename Clock, typename WaitTraits, typename Executor,
     typename Rep, typename Period, typename CompletionToken>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 cancel_after_timer<decay_t<CompletionToken>, Clock, WaitTraits, Executor>
 cancel_after(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
     const std::chrono::duration<Rep, Period>& timeout,
@@ -280,7 +280,7 @@ cancel_after(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
  */
 template <typename Clock, typename WaitTraits, typename Executor,
     typename Rep, typename Period, typename CompletionToken>
-ASIO_NODISCARD inline
+[[nodiscard]] inline
 cancel_after_timer<decay_t<CompletionToken>, std::chrono::steady_clock>
 cancel_after(basic_waitable_timer<Clock, WaitTraits, Executor>& timer,
     const std::chrono::duration<Rep, Period>& timeout,

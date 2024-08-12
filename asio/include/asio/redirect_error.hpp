@@ -65,7 +65,7 @@ public:
   /// Adapt a @ref completion_token to specify that the completion handler
   /// should capture error_code values to a variable.
   template <typename CompletionToken>
-  ASIO_NODISCARD inline
+  [[nodiscard]] inline
   constexpr redirect_error_t<decay_t<CompletionToken>>
   operator()(CompletionToken&& completion_token) const
   {
@@ -79,7 +79,7 @@ public:
 
 /// Create a partial completion token adapter that captures error_code values
 /// to a variable.
-ASIO_NODISCARD inline partial_redirect_error
+[[nodiscard]] inline partial_redirect_error
 redirect_error(std::error_code& ec)
 {
   return partial_redirect_error(ec);
@@ -87,7 +87,7 @@ redirect_error(std::error_code& ec)
 
 /// Adapt a @ref completion_token to capture error_code values to a variable.
 template <typename CompletionToken>
-ASIO_NODISCARD inline redirect_error_t<decay_t<CompletionToken>>
+[[nodiscard]] inline redirect_error_t<decay_t<CompletionToken>>
 redirect_error(CompletionToken&& completion_token,
     std::error_code& ec)
 {

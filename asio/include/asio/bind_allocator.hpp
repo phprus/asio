@@ -382,7 +382,7 @@ struct partial_allocator_binder
   /// Adapt a @ref completion_token to specify that the completion handler
   /// should have the allocator as its associated allocator.
   template <typename CompletionToken>
-  ASIO_NODISCARD inline
+  [[nodiscard]] inline
   constexpr allocator_binder<decay_t<CompletionToken>, Allocator>
   operator()(CompletionToken&& completion_token) const
   {
@@ -396,7 +396,7 @@ struct partial_allocator_binder
 
 /// Create a partial completion token that associates an allocator.
 template <typename Allocator>
-ASIO_NODISCARD inline partial_allocator_binder<Allocator>
+[[nodiscard]] inline partial_allocator_binder<Allocator>
 bind_allocator(const Allocator& ex)
 {
   return partial_allocator_binder<Allocator>(ex);
@@ -405,7 +405,7 @@ bind_allocator(const Allocator& ex)
 /// Associate an object of type @c T with an allocator of type
 /// @c Allocator.
 template <typename Allocator, typename T>
-ASIO_NODISCARD inline allocator_binder<decay_t<T>, Allocator>
+[[nodiscard]] inline allocator_binder<decay_t<T>, Allocator>
 bind_allocator(const Allocator& s, T&& t)
 {
   return allocator_binder<decay_t<T>, Allocator>(s, static_cast<T&&>(t));
