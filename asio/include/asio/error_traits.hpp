@@ -20,6 +20,8 @@
 #include "asio/detail/throw_error.hpp"
 #include "asio/error.hpp"
 
+#include <exception>
+#include <system_error>
 #include <type_traits>
 
 #include "asio/detail/push_options.hpp"
@@ -37,15 +39,30 @@ struct error_traits<std::error_code>
 
   [[noreturn]]
   static void throw_error(
-      const std::error_code& err
+      const std::error_code& ec
       ASIO_SOURCE_LOCATION_DEFAULTED_PARAM)
   {
-    detail::do_throw_error(err ASIO_SOURCE_LOCATION_ARG);
+    detail::do_throw_error(ec ASIO_SOURCE_LOCATION_ARG);
+  }
+
+  [[nodiscard]]
+  static std::exception_ptr make_exception_ptr(
+      const std::error_code &ec) noexcept
+  {
+    return std::make_exception_ptr(std::system_error(ec));
+    //try
+    //{
+    //  throw_error(ec);
+    //}
+    //catch(...)
+    //{
+    //  return std::current_exception();
+    //}
   }
 
   [[nodiscard]]
   static bool is_failure(
-      const std::error_code  &ec) noexcept
+      const std::error_code &ec) noexcept
   {
      return !!ec;
   }
@@ -62,6 +79,13 @@ struct error_traits<std::exception_ptr>
       std::exception_ptr e)
   {
     std::rethrow_exception(e);
+  }
+
+  [[nodiscard]]
+  static std::exception_ptr make_exception_ptr(
+      std::exception_ptr e) noexcept
+  {
+    return e;
   }
 
   [[nodiscard]]

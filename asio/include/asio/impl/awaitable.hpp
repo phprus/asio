@@ -19,6 +19,7 @@
 #include <exception>
 #include <new>
 #include <tuple>
+#include <utility>
 #include "asio/cancellation_signal.hpp"
 #include "asio/cancellation_state.hpp"
 #include "asio/detail/thread_context.hpp"
@@ -145,15 +146,7 @@ public:
   auto set_error(const Error& e) noexcept
       -> decltype(error_traits<Error>::throw_error(std::declval<const Error &>()))
   {
-    try
-    {
-      error_traits<Error>::throw_error(e);
-    }
-    catch(...)
-    {
-      this->set_except(std::current_exception());
-    }
-
+    this->set_except(error_traits<Error>::make_exception_ptr(e));
   }
 
   void unhandled_exception()
@@ -844,7 +837,10 @@ public:
   static void resume(result_type& result)
   {
     if (error_traits<Error>::is_failure(*result))
-      error_traits<Error>::throw_error(*result);
+    {
+      auto e = std::exchange(*result, {});
+      error_traits<Error>::throw_error(e);
+    }
   }
 
 private:
@@ -912,7 +908,10 @@ public:
   static T resume(result_type& result)
   {
     if (error_traits<Error>::is_failure(*result.ec_))
-      error_traits<Error>::throw_error(*result.ec_);
+    {
+      auto e = std::exchange(*result.ec_, {});
+      error_traits<Error>::throw_error(e);
+    }
     return std::move(*result.value_);
   }
 
@@ -986,7 +985,10 @@ public:
   static std::tuple<Ts...> resume(result_type& result)
   {
     if (error_traits<Error>::is_failure(*result.ec_))
-      error_traits<Error>::throw_error(*result.ec_);
+    {
+      auto e = std::exchange(*result.ec_, {});
+      error_traits<Error>::throw_error(e);
+    }
     return std::move(*result.value_);
   }
 

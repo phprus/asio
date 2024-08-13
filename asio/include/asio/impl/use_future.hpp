@@ -226,14 +226,9 @@ class promise_handler_error_0
   void operator()(const Error& ec)
   {
     if (error_traits<Error>::is_failure(ec))
-      try
-      {
-        error_traits<Error>::throw_error(ec);
-      }
-      catch(...)
-      {
-        this->p_->set_exception(std::current_exception());
-      }
+    {
+      this->p_->set_exception(error_traits<Error>::make_exception_ptr(ec));
+    }
     else
     {
       this->p_->set_value();
@@ -264,14 +259,9 @@ class promise_handler_error_1
   void operator()(const Error& ec, Arg && arg)
   {
     if (error_traits<Error>::is_failure(ec))
-      try
-      {
-        error_traits<Error>::throw_error(ec);
-      }
-      catch(...)
-      {
-        this->p_->set_exception(std::current_exception());
-      }
+    {
+      this->p_->set_exception(error_traits<Error>::make_exception_ptr(ec));
+    }
     else
     {
       this->p_->set_value(static_cast<Arg&&>(arg));
@@ -305,13 +295,8 @@ class promise_handler_error_n
   void operator()(const Error& ec, Args&&... args)
   {
     if (error_traits<Error>::is_failure(ec))
-    try
     {
-      error_traits<Error>::throw_error(ec);
-    }
-    catch(...)
-    {
-      this->p_->set_exception(std::current_exception());
+      this->p_->set_exception(error_traits<Error>::make_exception_ptr(ec));
     }
     else
     {
