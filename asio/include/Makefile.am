@@ -332,6 +332,7 @@ nobase_include_HEADERS = \
 	asio/detail/wrapped_handler.hpp \
 	asio/dispatch.hpp \
 	asio/error.hpp \
+	asio/error_traits.hpp \
 	asio/execution.hpp \
 	asio/execution_context.hpp \
 	asio/execution/allocator.hpp \

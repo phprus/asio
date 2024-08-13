@@ -16,7 +16,11 @@
 # pragma once
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
+#include "asio/detail/config.hpp"
+#include "asio/detail/throw_error.hpp"
 #include "asio/error.hpp"
+
+#include <type_traits>
 
 #include "asio/detail/push_options.hpp"
 
@@ -34,7 +38,7 @@ struct error_traits<std::error_code>
   [[noreturn]]
   static void throw_error(
       const std::error_code& err
-      ASIO_SOURCE_LOCATION_PARAM)
+      ASIO_SOURCE_LOCATION_DEFAULTED_PARAM)
   {
     detail::do_throw_error(err ASIO_SOURCE_LOCATION_ARG);
   }

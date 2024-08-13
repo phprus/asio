@@ -18,6 +18,7 @@
 #include "asio/detail/config.hpp"
 #include "asio/async_result.hpp"
 #include "asio/cancellation_signal.hpp"
+#include "asio/error_traits.hpp"
 
 #include "asio/detail/push_options.hpp"
 
