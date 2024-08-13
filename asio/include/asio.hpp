@@ -78,6 +78,7 @@
 #include "asio/detached.hpp"
 #include "asio/dispatch.hpp"
 #include "asio/error.hpp"
+#include "asio/error_traits.hpp"
 #include "asio/execution.hpp"
 #include "asio/execution/allocator.hpp"
 #include "asio/execution/any_executor.hpp"
