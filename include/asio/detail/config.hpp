@@ -1390,6 +1390,20 @@
 # define ASIO_NODISCARD
 #endif // !defined(ASIO_NODISCARD)
 
+// Compiler support for the the [[deprecated(msg)]] attribute.
+#if !defined(ASIO_DEPRECATED_MSG)
+# if !defined(ASIO_DISABLE_DEPRECATED_MSG)
+#  if defined(__has_cpp_attribute)
+#   if __has_cpp_attribute(deprecated)
+#    define ASIO_DEPRECATED_MSG(msg) [[deprecated(msg)]]
+#   endif // __has_cpp_attribute(deprecated)
+#  endif // defined(__has_cpp_attribute)
+# endif // !defined(ASIO_DISABLE_DEPRECATED_MSG)
+#endif // !defined(ASIO_DEPRECATED_MSG)
+#if !defined(ASIO_DEPRECATED_MSG)
+# define ASIO_DEPRECATED_MSG(msg)
+#endif // !defined(ASIO_DEPRECATED_MSG)
+
 // Kernel support for MSG_NOSIGNAL.
 #if !defined(ASIO_HAS_MSG_NOSIGNAL)
 # if defined(__linux__)
