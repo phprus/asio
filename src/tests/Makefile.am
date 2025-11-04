@@ -463,7 +463,7 @@ noinst_HEADERS = \
 	latency/high_res_clock.hpp \
 	unit/unit_test.hpp
 
-AM_CXXFLAGS = -I$(srcdir)/../../include
+AM_CXXFLAGS = -I$(srcdir)/../../include -DASIO_DISABLE_DEPRECATED_MSG
 
 performance_client_SOURCES = performance/client.cpp
 performance_server_SOURCES = performance/server.cpp
